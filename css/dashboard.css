@@ -1244,7 +1244,7 @@ fill: rgba(191, 191, 191, 1);
   padding-bottom: 0 !important;
 }
 #list_multi_title h1 {
-  background-color: rgba(112, 130, 169, 1);
+  background-color: tma_primary_color;
 }
 #list_multi_title h1 span:last-child {
   border: none;
