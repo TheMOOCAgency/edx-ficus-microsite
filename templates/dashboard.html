@@ -217,10 +217,10 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_finished < 2:
-      <h3>${course_finished} cours<br>terminé</h3>
+    % if course_end < 2:
+      <h3>${course_end} cours<br>terminé</h3>
     % else:
-      <h3>${course_finished} cours<br>terminés</h3>
+      <h3>${course_end} cours<br>terminés</h3>
     % endif
     % for n in course_name:
         <div class="course_name_profile_list">
