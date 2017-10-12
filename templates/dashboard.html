@@ -14,7 +14,7 @@ from openedx.core.djangolib.markup import HTML, Text
 from courseware.courses import get_course_info_section, get_course_date_blocks
 from courseware.courses import get_course_by_id
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
-from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
@@ -131,15 +131,6 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     course_mono_id = enrollment.course_id
     course_module = modulestore().get_course(enrollment.course_id, depth=0)
     course_details = course_module._field_data_cache['grading_policy']['GRADER']
-  elif len(course_enrollments) > 1:
-    get_persisted = CourseGradeFactory().get_persisted(request.user, course)
-    if get_persisted is None:
-      get_persisted = CourseGradeFactory().create(request.user, course)
-    if get_persisted.passed:
-      course_finished = course_finished + 1
-      course_name.append(enrollment.course_overview.display_name_with_default)
-    endif
-  endif
 endfor
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
