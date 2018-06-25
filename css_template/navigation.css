@@ -2,10 +2,12 @@
  width: auto !important;
  height:56px;
 }
+/*
 .header-global.slim .wrapper-header .logo img {
   margin-top: 4px;
   height: 30px;
 }
+*/
 #tma_background_font {
  position: fixed;
  display: block;
