@@ -166,7 +166,7 @@ endfor
         % elif cours_ouv:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % endif
       </div>
       <!-- border middle -->
@@ -201,7 +201,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          poids: ${int(n.get('weight') * 100)}%
+          ${_('Weight')}: ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
