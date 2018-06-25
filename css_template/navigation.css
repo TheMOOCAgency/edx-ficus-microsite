@@ -8,6 +8,15 @@
   height: 30px;
 }
 */
+
+.header-global.slim h1.logo:before {
+  display: none !important;
+}
+
+.header-global.slim h1.logo:after {
+  display: none !important;
+}
+
 #tma_background_font {
  position: fixed;
  display: block;
