@@ -110,7 +110,7 @@ import datetime
 
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
+      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
@@ -366,8 +366,8 @@ $('#first_name,#last_name').change(function(){
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
-  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
 % else:
-  <a id="login_link" href="/login"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
 </div>
