@@ -56,7 +56,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
-  <a href="/courses/${enrollment.course_id}/courseware/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Bookmarks')}</span></a>
+  <!--<a href="/courses/${enrollment.course_id}/courseware/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Bookmarks')}</span></a>-->
   % endif
   % if multi_course_platform:
     <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
