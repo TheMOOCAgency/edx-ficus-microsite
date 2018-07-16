@@ -523,3 +523,12 @@ a, a:visited{
 .header-global .nav-global li a,.header-global .nav-global li a:hover{
  color: rgba(0,0,0,1) !important;
 }
+
+/* SSO connect on register */
+.register .form-actions.form-third-party-auth button[type="submit"]{
+  color: tma_primary_color !important;
+}
+.register .form-actions.form-third-party-auth button[type="submit"]:hover{
+  color: white!important;
+  background-color: tma_primary_color !important; 
+}
