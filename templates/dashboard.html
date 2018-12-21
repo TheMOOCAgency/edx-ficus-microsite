@@ -236,7 +236,16 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
   j=j+1;
  }
 }
-$("#score_tma").html(grade_summary['percent']*100+" %");
+
+/*Score rounded */
+score_user=grade_summary['percent']*100
+if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
+  $("#score_tma").html(Math.round(score_user,1)+" %");
+}
+else{
+  $("#score_tma").html(score_user+" %");
+}
+  
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
