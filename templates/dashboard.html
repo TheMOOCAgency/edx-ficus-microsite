@@ -77,6 +77,8 @@ endfor
 #ASSOCIATED COURSES
 from tma_apps.associated_courses.helper import AssociatedCourses
 
+primary_color=configuration_helpers.get_value("primary_color") or "#1d5280"
+secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 
 
 %>
@@ -245,7 +247,7 @@ from tma_apps.associated_courses.helper import AssociatedCourses
     }
     #trial_name{
      font-size:1rem;
-     color: #1d5280;
+     color: ${primary_color};
      margin-bottom:20px;
     }
     button, button:hover{
@@ -254,8 +256,8 @@ from tma_apps.associated_courses.helper import AssociatedCourses
       text-shadow:none;
     }
     .dashboard-btn{
-      background-color:#1d5280 !important;
-      border-color:#1d5280 !important;
+      background-color:${primary_color} !important;
+      border-color:${primary_color} !important;
       font-size: 20px;
       padding: 15px 35px;
       border-radius: 6px;
@@ -317,7 +319,7 @@ from tma_apps.associated_courses.helper import AssociatedCourses
       cursor: pointer;
     }
     .blue-btn{
-      background-color: #1d5280!important;
+      background-color: ${primary_color}!important;
     }
     .blue-btn:hover{
       background-color: rgb(46, 133, 209)!important;
@@ -354,7 +356,8 @@ from tma_apps.associated_courses.helper import AssociatedCourses
     </div>
   </div>
   <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language"/>
+  <%include file="/tma_apps/loader.html" args="language=course.language, primary_color=primary_color"/>
+
   <script>
     //Mark course as started
     $('#course_start').on('click', function(){
@@ -766,3 +769,17 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+
+<script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+<script>
+  swal.fire({
+type: 'info',
+title: 'Charte de confidentialité',
+text: 'Vous pouvez consulter la charte de confidentialité du Baromètre Digital.',
+confirmButtonText: 'Consulter',
+confirmButtonColor:'rgb(29, 82, 128)',
+showCancelButton: true,
+cancelButtonText:"Fermer",
+cancelButtonColor: 'rgb(89, 89, 89)'}
+);
+</script>
