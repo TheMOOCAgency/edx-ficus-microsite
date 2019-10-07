@@ -14,6 +14,7 @@ def url_class(is_active):
   return ""
 %>
 % for tab in tab_list:
+ %if "discussion/forum" not in tab.link_func(course, reverse):
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
@@ -37,4 +38,5 @@ def url_class(is_active):
   %endif
   </a>
   </li>
+ %endif
 % endfor

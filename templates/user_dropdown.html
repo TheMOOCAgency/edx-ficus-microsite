@@ -1,4 +1,12 @@
 ## mako
+<%
+import csv
+user_file = open("/edx/var/edxapp/secret/microsite/psa-netexplo/invited.csv", "rb")
+psa_users = csv.DictReader(user_file, delimiter=';')
+psa_users_list=[]
+for psa_user in psa_users:
+    psa_users_list.append(psa_user['Uid'].lower())
+%>
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
 
@@ -23,7 +31,7 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
             profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
             %>
             <img class="menu-image" src="${profile_image_url}" alt="">
-            ${username}
+            ${user.username}
         </a>
         <div role="group" aria-label="User menu" class="user-menu">
             <button type="button" class="menu-button button-more has-dropdown js-dropdown-button" aria-expanded="false" aria-controls="${_("Usermenu")}">
@@ -32,9 +40,9 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
             </button>
             <ul class="dropdown-menu list-divided is-hidden" id="${_("Usermenu")}" tabindex="-1">
                 <%block name="navigation_dropdown_menu_links" >
-                    <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
+<!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
                     <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
-<!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
+                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
                 </%block>
                 <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
             </ul>
@@ -49,7 +57,7 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
                 username = self.real_user.username
                 profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
                 %>
-                <img class="user-image-frame" src="${profile_image_url}" alt="">
+                <!--<img class="user-image-frame" src="${profile_image_url}" alt="">-->
                 <div class="label-username">${self.real_user.profile.name}</div>
             </a>
         </li>
@@ -58,8 +66,17 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
                 <button class="dropdown" aria-expanded="false"><span class="sr">${_("More options dropdown")}</span><span class="fa fa-sort-desc" aria-hidden="true"></span></button>
                 <ul class="dropdown-menu" aria-label="More Options" role="menu">
                     ${navigation_dropdown_menu_links()}
-                    <li class="item"><a href="${reverse('logout')}" role="menuitem" class="dropdown-menuitem">${_("Sign Out")}</a></li>
-                </ul>
+                    <li class="item">
+                        % if request.user.username.lower() in psa_users_list:
+                        <a href="${reverse('logout')}" role="menuitem" class="dropdown-menuitem">
+                            ${_("Sign Out")}
+                        </a>
+                        %else:
+                        <a href="${reverse('logout')}?next=/login?external=True" role="menuitem" class="dropdown-menuitem">
+                            ${_("Sign Out")}
+                        </a>
+                        %endif
+                    </li>
             </div>
         </li>
     </ol>

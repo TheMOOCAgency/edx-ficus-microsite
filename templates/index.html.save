@@ -1,0 +1,250 @@
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
+from openedx.core.djangolib.markup import HTML, Text
+%>
+<style>
+#global-navigation {
+  display: none;
+}
+.wrapper-footer {
+  display: none;
+}
+
+#logs {
+    position: fixed;
+    top: 65vh;
+    left: calc(50vw - 150px);
+}
+#logs a {
+  display: inline-block;
+  width: 182px;
+  height: 55px;
+}
+/*#logs a:first-of-type {
+    background-image: url('/media/microsite/axabanque/auto/images/button-register.png') !important;
+}
+#logs a:last-of-type {
+    background-image: url('/media/microsite/axabanque/auto/images/button-connection.png') !important;
+}
+#logs a:first-of-type:hover,#logs a:first-of-type:focus,#logs a:first-of-type:visited {
+    background-image: url('/media/microsite/axabanque/auto/images/button-register-hover.png') !important;
+}
+#logs a:last-of-type:hover,#logs a:last-of-type:focus,#logs a:last-of-type:visited {
+    background-image: url('/media/microsite/axabanque/auto/images/button-connection-hover.png') !important;
+}
+*/
+@media(max-width: 768px) {
+    #logs {
+        position: fixed;
+        top: calc(65vh - 30px);
+        left: calc(50vw - 150px);
+    }
+}
+@media(max-width: 455px) {
+    #logs {
+        position: fixed;
+        left: calc(50vw - 75px);
+    }
+}
+#tma_background_font {
+    background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+    background-size: cover !important;
+}
+
+/*
+#logs {
+  position: fixed;
+  width: 300px;
+  height: 60px;
+  top: 65vh;
+  left: 60vw;
+}
+
+#logs a {
+  display: inline-block;
+  width: 117px;
+  height: 40px;
+  border: none;
+  color: #fff;
+  background-image: none;
+  background-color: rgba(98,181,207,1);
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  text-align: center;
+  line-height: 40px;
+  vertical-align: middle;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+#logs a:hover,#logs a:focus,#logs a:visited {
+  color: #fff !important;
+  background-color: rgba(98,181,207,0.8);
+}
+
+@media(max-width: 768px) {
+  #logs {
+    position: fixed;
+    width: 300px;
+    height: 60px;
+    top: calc(65vh - 30px);
+    left: calc(50vw - 150px);
+  }
+}
+
+#tma_background_font {
+ background-image:url("/media/microsite/axabanque/images/home.png") !important;
+ background-size: cover!important;
+}
+*/
+
+/*nice button*/
+a {
+  top: calc(50vh - 350px);
+  position: relative;
+  display: inline-block;
+  padding: 1.2em 2em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: white;
+}
+a:visited { text-decoration: none; color:red; }
+a:hover { text-decoration: none; color:blue; }
+a:focus { text-decoration: none; color:yellow; }
+a:hover, a:active { text-decoration: none; color:black }a:visited { text-decoration: none; color:red; }
+a:hover { text-decoration: none; color:blue; }
+a:focus { text-decoration: none; color:yellow; }
+a:hover, a:active { text-decoration: none; color:black }
+a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(135deg, #6e8efb, rgb(29, 82, 128));
+  border-radius: 4px;
+  transition: box-shadow .5s ease, -webkit-transform .2s ease;
+  transition: box-shadow .5s ease, transform .2s ease;
+  transition: box-shadow .5s ease, transform .2s ease, -webkit-transform .2s ease;
+  will-change: transform;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px));
+          transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px));
+}
+a:hover::before {
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+a::after {
+  position: relative;
+  display: inline-block;
+  content: attr(data-title);
+  transition: -webkit-transform .2s ease;
+  transition: transform .2s ease;
+  transition: transform .2s ease, -webkit-transform .2s ease;
+  letter-spacing: .01em;
+    font-size: larger;
+  will-change: transform;
+  -webkit-transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+          transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: perspective(800px);
+          transform: perspective(800px);
+}
+</style>
+<script>
+var docStyle = document.documentElement.style;
+var aElem = document.querySelector('a');
+var boundingClientRect = aElem.getBoundingClientRect();
+
+aElem.onmousemove = function (e) {
+
+    var x = e.clientX - boundingClientRect.left;
+    var y = e.clientY - boundingClientRect.top;
+
+    var xc = boundingClientRect.width / 2;
+    var yc = boundingClientRect.height / 2;
+
+    var dx = x - xc;
+    var dy = y - yc;
+
+    docStyle.setProperty('--rx', dy / -1 + 'deg');
+    docStyle.setProperty('--ry', dx / 10 + 'deg');
+
+};
+
+aElem.onmouseleave = function (e) {
+
+    docStyle.setProperty('--ty', '0');
+    docStyle.setProperty('--rx', '0');
+    docStyle.setProperty('--ry', '0');
+
+};
+
+aElem.onmousedown = function (e) {
+
+    docStyle.setProperty('--tz', '-25px');
+
+};
+
+document.body.onmouseup = function (e) {
+
+    docStyle.setProperty('--tz', '-12px');
+
+};
+</script>
+<main id="main" aria-label="Content" tabindex="-1">
+<h1 style="padding-top: 200px;color:whitesmoke">Bienvenue dans votre BAROM&Egrave;TRE DIGITAL</h1>
+<!--<center>
+<h2 style="padding-top: 20px;color:whitesmoke">Certains ajustements étant en cours sur Internet Explorer, nous vous recommandons, pour votre confort, de réaliser votre questionnaire Baromètre Digital sur Chrome ou Mozilla.</h2>
+</center>-->
+<center>
+<a href="/auth/login/tpa-saml/?auth_entry=register&next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Apsa-netexplo%252BBM01%252BSP%26enrollment_action%3Denroll%26next%3D%252Fdashboard&idp=psanetxploSAML" data-title="Démarrer"></a>
+</center>
+</main>
+
+<%block name="js_extra">
+   <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+              $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
+
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
+<style>
+footer.global{
+  display:none !important;
+}
+</style>

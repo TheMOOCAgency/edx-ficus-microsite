@@ -13,6 +13,8 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+import json
+from tma_apps.tma_support_functions import tma_verify_access
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -39,6 +41,7 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+
 <%
 try:
     course_id = course.id
@@ -69,7 +72,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img style="height:40px !important" class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
@@ -88,6 +91,12 @@ site_status_msg = get_site_status_msg(course_id)
 }
 </style>
 -->
+<style>
+/*Specific style for menu*/
+div.course-material{
+   display:none;
+}
+</style>
         </%block>
       </a>
     </h1>
@@ -108,13 +117,88 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
-          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+        <%
+           #22 mai 19
+           #authorized_stats_bo = ["U546194","U522982","U520470","U519785","U507604","U499313","U496711","U479667","U473515","U469739","U467337","U466920","U426659","U417266","U395089","U388096","U367657","U346829","U304756","U280412","U274223","U268279","U257645","U244555","U228479","U188964","U181385","U174418","U149576","U148704","U106945","U083151","U068015","U026086","U020734","U008014","U007614","U006767","P964807","P939841","P933655","P927653","P927574","P927567","P927190","P927064","P927015","P767906","P723542","P526834","P525009","P523748","P523601","P523411","P523121","P522831","P248814","P085821","P084402","P064688","P053293","P053197","P052702","P052342","P052059","P052012","P051820","P051704","OPZDJD6","JV00238","J622658","J614273","J609512","J597169","J594358","J590726","J586691","J567423","J564574","J563187","J561673","J539805","J536777","J534553","J533054","J532101","J501392","J501012","J495831","J493196","J493062","J488788","J431023","J424310","J400131","J400060","J140191","J137592","J135796","J128712","J118658","J110213","J108776","J102363","C098804","C087292","C074031","C062498","C053754","C052660","C040214","C038932","C038599"]
+           authorized_stats_bo = ["Aurelien_C_Staff"]
+
+           #23 ma 19 (dont 22 mai)
+           #authorized_stats_bo += ["U522982","U520470","U519785","U507604","U499313","U496711","U479667","U473515","U469739","U467337","U466920","U443673","U426659","U417266","U395089","U388096","U379860","U367657","U346829","U304756","U280412","U274223","U268279","U264521","U257645","U244555","U228479","U188964","U181385","U174418","U166063","U149576","U148704","U139293","U106945","U083151","U068015","U026086","U020734","U008014","U007614","U006767","P964807","P939841","P933655","P927653","P927574","P927567","P927190","P927064","P927015","P767906","P723542","P526834","P525009","P523748","P523601","P523411","P523121","P522831","P248814","P085821","P084402","P064688","P053293","P053197","P052702","P052342","P052059","P052012","P051820","P051704","OPZDJD6","ODZKFJD","JV00238","J622658","J614273","J609512","J597169","J594358","J590726","J586691","J567572","J567423","J564574","J563187","J561673","J539805","J536777","J534553","J533054","J532101","J501392","J501012","J495831","J493196","J493062","J488788","J431023","J424310","J400131","J400060","J140191","J137592","J135796","J128712","J118658","J110213","J108776","J102363","C098804","C087292","C074031","C062498","C053754","C052660","C040214","C038932","C038599"]
+
+           #29mai dont precedents
+           authorized_stats_bo += ["U546194","U522982","U520470","U519785","U507604","U499313","U496711","U479667","U473515","U469739","U467337","U466920","U443673","U426659","U417266","U395089","U388096","U379860","U367657","U346829","U304756","U280412","U274223","U268279","U264521","U257645","U244555","U228479","U188964","U181385","U174418","U166063","U149576","U148704","U139293","U106945","U083151","U068015","U026086","U020734","U008014","U007614","U006767","P964807","P939841","P933655","P927653","P927574","P927567","P927190","P927064","P927015","P767906","P723542","P526834","P525009","P523748","P523601","P523411","P523121","P522831","P248814","P085821","P084402","P064688","P053293","P053197","P052702","P052342","P052174","P052059","P052012","P051820","P051704","OPZDJD6","ODZKFJD","JV00238","J622658","J614273","J609512","J597169","J594358","J590726","J586691","J567572","J567423","J564574","J563187","J561673","J539805","J536777","J534553","J533054","J532101","J501392","J501012","J495831","J493196","J493062","J488788","J431023","J424310","J400131","J400060","J140191","J137592","J135796","J128712","J118658","J110213","J108776","J102363","C098804","C087292","C074031","C065872","C062498","C053754","C052660","C040214","C038932","C038599"]
+           authorized_stats_bo += ["TomD_Staff",'doucetom','psa-test-dtl','psa-test-dtl-fs','psa-test-dtl-ter']
+           
+           #COMPTES DE TEST
+           authorized_stats_bo+=['ManagerAllemandTest','withoutgradesalltma']
+
+           with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_bo_access_rights.json') as json_file:
+               data = json.load(json_file)
+           authorized_stats_bo.extend(data['allowed_usernames'])
+
+           authorized_users_usernames_nav = []
+           with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_access_rights.json') as json_file:
+               data = json.load(json_file)
+
+           authorized_users_usernames_nav.extend(data['allowed_usernames'])
+
+
+        %>
+          % if ( user.username in authorized_stats_bo and user.username in authorized_users_usernames_nav ) or ("@themoocagency.com" in user.email) or ("@netexplo.org" in user.email):
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              <a href="/tma_apps/platform_stats">
+                % if request.LANGUAGE_CODE=="fr":
+                  Accès Statistiques
+                %else :
+                  Statistics
+                %endif
+              </a>
             </li>
           % endif
+          % if user.username in ['Aurelien_C_Staff','fsegalen','P052342','J545654','TomD_Staff']:
+            <li class="item nav-global-02">
+              <a href="/tma_apps/microsite_dashboard/dtl_manager">
+                % if request.LANGUAGE_CODE=="fr":
+                  Droits d'accès
+                %else :
+                  Access rights
+                %endif
+              </a>
+            </li>
+          % endif
+<!--
+          %if not tma_verify_access(request.user).is_tma_team():
+          <style>
+            #maintenance{
+              left: 0;
+              position: fixed;
+              height: 100vh;
+              width: 100vw;
+              background: white;
+              top: 0;
+              right: 0;
+              z-index: 1000;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            #maintenance p{
+              text-align: center;
+              font-size: 18px;
+            }
+          </style>
+          <div id="maintenance">
+            <p style="font-size:18px">Le site psa-netexplo est actuellement en maintenance.</p>
+          </div>
+          %endif
+-->
+          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+<!--            <li class="item nav-global-01">
+              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+            </li>-->
+          % endif
           % if show_program_listing:
-            <li class="tab-nav-item">
+<!--            <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
                 ${_("Courses")}
               </a>
@@ -123,7 +207,7 @@ site_status_msg = get_site_status_msg(course_id)
               <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
                 ${_("Programs")}
               </a>
-            </li>
+            </li>-->
           % endif
           %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
             <li class="item">
@@ -170,20 +254,20 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+<!--              <li class="item nav-global-05">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
+              </li>-->
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
+<!--              <li class="item nav-global-04">
                 <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
+              </li>-->
             % else:
-              <li class="item nav-global-04">
+<!--              <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register">${_("Register")}</a>-->
                 % endif
               </li>
             % endif
@@ -253,7 +337,6 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
-<script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
@@ -320,3 +403,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<script>
+  if(window.location.href==="https://psa-netexplo.the-mooc-agency.com/login"){
+    window.location.replace("https://psa-netexplo.the-mooc-agency.com")
+  }
+</script>

@@ -9,7 +9,48 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+
+from tma_apps.tma_support_functions import tma_randomization
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+primary_color = configuration_helpers.get_value('primary_color')
+from django.core.urlresolvers import reverse
+
+translation={
+  "fr":{
+    "pause":"Interrompre"
+  },
+  "en":{
+    "pause":"Pause",
+  },
+  "de":{
+    "pause":"Untebrechen"
+  },
+}
 %>
+
+<style>
+.blue-btn{
+  background-color: #1d5280!important;
+}
+.blue-btn:hover{
+  background-color: rgb(46, 133, 209)!important;
+}
+</style>
+<%
+org_static = static.get_value('domain_prefix')
+%>
+
+
+<!-- TMA RANDOMIZATION SINGLE QUIZ MODE ------------------------------------------------------------------------------------------------->
+<%
+tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mode()
+%>
+%if tma_randomization_mode!="random":
+  <%include file="/tma_apps/tma_skill_randomization_quiz.html" />
+%endif
+
+<!-- END TMA RANDOMIZATION SINGLE QUIZ MODE ------------------------------------------------------------------------------------------------->
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
@@ -61,6 +102,11 @@ ${static.get_page_title_breadcrumbs(course_name())}
 <%static:css group='style-student-notes'/>
 % endif
 
+
+
+
+
+
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
 
@@ -97,32 +143,15 @@ ${static.get_page_title_breadcrumbs(course_name())}
     var $$course_id = "${course.id | n, js_escaped_string}";
   </script>
 
-  <script type="text/javascript">
-    var url_tma = new URL(window.location.href);
-    var display_favorites = url_tma.searchParams.get("tma_display_favorites");
-    if(display_favorites=="yes"){
-      $(function() {$("#course-content").css("visibility","hidden")});
-      setTimeout(function(){
-        $(function() {$("button.bookmarks-list-button").first().click();});
-        $(function() {$("#course-content").css("visibility","visible")});
-      },1000);
-    }
-  </script>
-
 ${HTML(fragment.foot_html())}
 
 </%block>
-<%
-org_static = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
-%>
-<link rel="stylesheet" type="text/css" href="${css}" />
 <div class="message-banner" aria-live="polite"></div>
 
 % if default_tab:
   <%include file="/courseware/course_navigation.html" />
 % else:
-  <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
+  <%include file="/courseware/course_navigation.html" args="active_page='courseware'"/>
 % endif
 
 <div class="container">
@@ -145,7 +174,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                 <label for="course-search-input" class="sr">${_('Course Search')}</label>
                 <div class="search-field-wrapper">
                   <input id="course-search-input" type="text" class="search-field" placeholder="Recherche"/>
-                  <button type="submit" class="search-button"><img src="${static.url('images/recherche_couleur.svg')}" class="svg" /></button>
+                  <button type="submit" class="search-button"><img src="${static.url(org_static+'/images/recherche_couleur.svg')}" class="svg" /></button>
                   <button type="button" class="cancel-button" title="${_('Clear search')}">
                     <span class="icon fa fa-remove" aria-hidden="true"></span>
                   </button>
@@ -169,6 +198,27 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
     </div>
 % endif
     <section class="course-content" id="course-content">
+        <!-- TMA RANDOMIZATION SINGLE QUIZ ------------------------------------------------------------------------------------------------------>
+        %if tma_randomization_mode!="random":
+        <div id="tma_randomization_progress_bar" class="text-center">
+          <div class="row" id="progress_bar_row">
+            <div class="col-md-2" id="previous_question_wrapper">
+              <button id="stop" class="blue-btn">${translation[course.language]["pause"]}</button>
+              <button class="previous_question">${_('Previous')}</button>
+            </div>
+            <div class="col-md-8" style="width:60%;display:inline;">
+              <div id="tma_progress_bar"></div>
+            </div>
+            <div class="col-md-2" id="next_question_wrapper" style="width:20%;display:inline;">
+              <button class="next_question">${_('Next')}</button>
+            </div>
+          </div>
+          <div class="">
+            <h3 id="tma_progression_score" class="text-center"></h3>
+          </div>
+        </div>
+        %endif
+
         <div class="path"></div>
         <main id="main" aria-label="Content" tabindex="-1">
         % if getattr(course, 'entrance_exam_enabled') and \
@@ -203,6 +253,15 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 
           ${HTML(fragment.body_html())}
         </main>
+        <!-- TMA RANDOMIZATION SINGLE QUIZ ------------------------------------------------------------------------------------------------------>
+        %if tma_randomization!="random":
+        <section>
+          <div id="tma_nav_buttons_bottom" class="text-center">
+            <button class="previous_question">${_('Previous')}</button>
+            <button class="next_question">${_('Next')}</button>
+          </div>
+        </section>
+        %endif
     </section>
 
     <section class="courseware-results-wrapper">
@@ -212,6 +271,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
     </section>
 
   </div>
+
 </div>
 <div class="container-footer">
   % if settings.FEATURES.get("LICENSING", False):
@@ -239,6 +299,8 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 </nav>
 
 <%include file="../modal/accessible_confirm.html" />
+
+
 
 <script>
 /*!
@@ -345,10 +407,6 @@ $('.tab').find('a').initialize(function(){
   }
 })
 */
-$(".bookmarks-empty-header").initialize(function(){
- $(this).html($(this).html().replace("You have not bookmarked any courseware pages yet","Vous n'avez pas encore mis de pages de cours en favori"));
-})
-$(".bookmarks-empty-detail-title").initialize(function(){
- $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
-})
 </script>
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />

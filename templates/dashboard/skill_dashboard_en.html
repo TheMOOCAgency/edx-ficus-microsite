@@ -1,0 +1,160 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+%>
+<style>
+#main{
+  height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+    background-size: cover !important;
+    position: fixed;
+    left:0;
+    top:0;
+    color: white;
+}
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25">
+      <!-- ${HTML(about_course_video)}-->
+      <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+      %if user.username in authorized_users_usernames or user.email in authorized_admins:
+      <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      %endif
+        <p>${HTML(about_course_description)}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25 mb-20">
+        <h2 class="text-center" id="course_title">
+          ${course_overview.display_name}
+        </h2>
+        <p class="text-center" id="trial_name">
+          Assessment ${associated_courses.get('step_number',1)}
+        </p>
+        %if associated_courses.get('delayed'):
+          <p class="text-center">Next quiz will be available in ${associated_courses.get('delayed')} days.</p>
+        %endif
+        <div class="text-center">
+         %if user.username not in authorized_users_usernames and user.email not in authorized_admins:
+          <div id="main">
+            <h3>Sorry, you do not currently have access <br> to the Digital Survey.</h3>
+          </div>
+             <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
+        </div>
+     </div>
+         %else:
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              See my results
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn start-course"  id="course_continue">
+              <i class="fa fa-play-circle"></i>
+              Resume
+            </button>
+          </a>
+          %else:
+          <button class="dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            Start
+            %if associated_courses.get('step_number')>1:
+            Quiz ${associated_courses.get('step_number')}
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-6 text-center">
+            %if course_state!="finished" :
+            <button class="sub-btn" disabled>
+              <i class="fa fa-book"></i>
+              Review my answers
+            </button>
+            %else :
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn"  id="see_answers">
+                <i class="fa fa-book"></i>
+                Review my answers
+              </button>
+            </a>
+            %endif
+          </div>
+          <div class="col-md-6 text-center">
+            %if course_state=="finished" and associated_courses.get('step_number',1)>=2:
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}/#/compare">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Scores Progress
+              </button>
+            </a>
+            %elif course_state!="finished" and associated_courses.get('step_number',1)>1:
+            <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Consult my previous score
+              </button>
+            </a>
+            %else :
+            <button class="sub-btn deactivated" disabled>
+              <i class="fa fa-search"></i>
+              Scores Progress
+            </button>
+            %endif
+          </div>
+        </div>
+      </div>
+      %endif
+      <div class="gray-bg rounded pad-25 mb-20">
+        <p>
+          <strong>Useful information</strong>
+          <br/>Your assessment:
+          <ul>
+            <li>Consists of 35 randomly-selected questions</li>
+            <li>Is based on questions common to all business activities</li>
+            <li>Focuses on five main areas of knowledge</li>
+            <li>Takes about 45 minutes</li>
+            <li>Can be paused at any time by closing the active window and then resumed from the same place</li>
+            <li>Tells you the right answer(s) after each question, along with detailed explanations, so you can be sure that you have understood.</li>
+          </ul>
+        </p>
+      </div>
+      <div id="conseils" class="gray-bg rounded pad-25 mb-20 overflow-hidden">
+        <p>
+          <strong>A few tips before you start!</strong>
+          <br><br>
+          <strong>Choose an appropriate place/time so that you will not be disturbed.</strong>
+          <br><br>
+          <strong>Allocate enough time in your schedule.</strong>
+          <br>
+          Around 45 minutes to answer the questions, and another 15 minutes if you want to read the explanations of the right answers as you go along.
+          <br/>Once you have completed your assessment, you will have the opportunity to review all the answers and explanations.
+          <br><br>
+          <strong>Carefully read the wording of the questions, the different proposals, and the instructions. </strong>
+          <br>
+          If you don’t immediately know the answer, just apply common sense. There are no trick questions.
+          <br><br>
+          <strong>Keep your results in perspective</strong>
+          <br>
+          Some areas of knowledge will no doubt be less familiar than others, particularly if they are not very relevant to your activity. The types of knowledge are so varied, and evolving, that it takes time to acquire a good general level of digital culture.
+          <br>Be aware that you can do the survey every six months, thereby measuring your progress on a regular basis.
+        </p>
+      </div>
+      <div class="text-center" id="conseils-btn-wrapper">
+        <i id="conseils-btn" class="fa fa-plus-circle"></i>
+      </div>
+    </div>

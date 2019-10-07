@@ -17,23 +17,20 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
   <div class="footer-container">
     <ul class="links">
       <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+        <a href="/faq" style="font-size: 1.25em;">FAQ</a>
       </li>
       <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
+        <a href="/honor" style="font-size: 1.25em;">${_("Privacy Policy")}</a>
       </li>
     </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
-    </div>
   </div>
 </footer>
+<!-- TMA PAGE LOAD -->
+<script type="text/javascript">
+     $(document).ready(function() {
+         console.log("Time until DOMready: ", Date.now()-timerStart);
+     });
+     $(window).load(function() {
+         console.log("Time until everything loaded: ", Date.now()-timerStart);
+     });
+</script>

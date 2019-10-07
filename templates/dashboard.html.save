@@ -20,13 +20,11 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
-from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 
 from courseware.courses import get_course_about_section
 from tma_apps.tma_support_functions import tma_randomization
 
 from django.core.urlresolvers import reverse
-import json
 %>
 
 <%
@@ -74,13 +72,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   """
 endfor
 
-#ASSOCIATED COURSES
-from tma_apps.associated_courses.helper import AssociatedCourses
-
-
-
 %>
-
 
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
@@ -158,69 +150,13 @@ from tma_apps.associated_courses.helper import AssociatedCourses
 <div id="voile"></div>
 <div class="content_tma">
   <!-- DASHBOARD MONO QUIZ ORIENTED --------------------------------------------------------------------------------------------------------------------------->
-  <%
-    authorized_users =['gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com']
-    authorized_users+=['aurelien.croq@themoocagency.com','lucie.ory@themoocagency.com','nicola.bonaccorso@themoocagency.com']
-    authorized_users+=['vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
-    authorized_users+=['alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com']
-    authorized_users+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
-    authorized_users+=['tom.douce@themoocagency.com']
-    authorized_users+=['psa_choix_langue_1@yopmail.com','psa_choix_langue_2@yopmail.com','psa_choix_langue_3@yopmail.com','psa_choix_langue_4@yopmail.com']
-    
-    #Filtrage par username
-    authorized_users_usernames = ["MZPCUD03","P052702","J110213","J489942","U188717","U291755","J628437","C022945","J534906","C028462","P063018","J488571","J628083","J589703","P052708","J519947","P927190","U022328","J535054","J612901","J494798","J488740","U083151","U203567","C087292","U023936","U356506","J516127","U164220","U235410","J534553","U228669","U210690","U391017","U328679","U318506","U526640","U505657","U397198","P066764","J509328","J111201","U182112","J563187","J589943","C059882","P927690","J544921","U220268","P964969","J530412","U424768","U335310","C011895","U220398","U164275","J504676","U410849","U228361","J509308","U207926","J431023","J488641","P065826","J128712","U385476","U467971","P052012","CA01890","U180991","P051704","U488191","J564574","U411194","ODZKFJD","U244555","U535037","U182539","U174418","U258226","U216494","J597169","J506129","J539438","U384534","C090286","U509859","U297167","J486072","U352746","U173754","J520730","U372745","U304756","U054908","U062391","U385717","C002453","J123649","P745229","U214023","P065721","J512052","J518675","U125615","J369133","C032214","P052342","J400131","J545654","P927574","U561814","U175546","P756321","U027805","U542310","J612468","U539001","U238915","J527011","J400060","J142204","U421262","U555831","U397922","U551454","U504192","U161516","U084676","J629234","J589571","U238454","U560794","U236127","U248066","U524320","U413686","U150889","U113954","U473562","U542013","P051985","P053654","U517046","U439010","U389693","U104623","U532677","U557148","C068722","J502650","J563179","U538705","U536315","J537618","U099458","J539805","J552237","J103215","C081055","U204981","J510898","U391002","J118658","P722834","U551440","P052789","U396497","U557341","U499313","J507622","C032321","P927653","C036746","C039891","CV15281","U220024","U507604","U205829","J526076","U151579","U390648","C040214","P086082","P525507","P523469","P522831","J626055","P964963","J485763","U209983","J540428","P964807","P052059","P723542","J491121","J561231","U504726","U007279","U560733","J587665","U064663","J504058","U530137","U531215","U403686","U254149","J488582","U552333","J517430","P965002","J549472","U231721","J589688","J601209","J495800","J385995","J567423","U068015","U056945","U467872","J560959","P064840","U217020","U311042"]
-    authorized_users_usernames += ["J137592","P761321","C015083","P084402","C013320"]
-    authorized_users_usernames += ["U412455","P067306","J510006","J130806","J604320","U304756","J555906","U388506","P723648","P743577","J595447","J611022"]
-
-    #Autorisation d'accès au 22 mai
-    #authorized_users_usernames += ["P052708","U467971","J519947","P927190","P063018","U220024","C032321","C039891","CV15281","J507622","P927653","C036746","P052789","U551440","U204981","C081055","J552237","J537618","U536315","U532677","U517046","P051985","U542013","U236127","U084676","U551454","U542310","U509859","J534906","J128712","U372745","U469739","U467337","U535037","U466920","U164275","U417266","U291755","J495800","U367657","U411194","U384534","U388506","J555906","C013320","C074031","U188717","U328679","U257645","P066764","U410849","U244555","CA01890","P722834","J103215","U538705","C068722","U439010","U113954","J629234","U555831","U421262","J527011","J612468","P756321","J400060","J539805","J509328","J518675","U182112","U203567","J567423","U391017","J504676","J564574","U397922","P523469","C090286","C032214","P933655","U297167","U151579","C087292","U205829","C040214","J526076","U235410","J612901","C028462","U507604","J535054","P052059","P767906","J400131","J110213","P052702","J118658","P052059","J544921","U210690","J589703","U488191","P927574","J509308","U335310","J111201","P065826","U220398","J595447","P743577","P723648","C015083","U173754","U385476","U068015","J628437","U062391","J520730","J604320","J130806","P761321","J545654","J626055","P964807","P052012","P723542","J485763","J431023","P964963","U209983","J491121","J540428","P522831","U258226","C059882","P051820","U424768","P964969","J530412","U352746","J486072","U318506","U207926","U083151","U228361","U216494","J369133","U125615","U214023","C002453","U022328","P086082","J385995","U311042","U217020","P064840","J560959","U467872","U056945","U505657","J589943","J512052","U389693","U150889","U248066","U238454","U161516","J494798","P525507","J488571","C011895","J123649","U385717","U180991","U175546","P051704","P065721","J488641","U397198","J611022","P084402","J137592","U304756","P052342","U396497","U099458","J563179","J502650","U104623","U413686","J589571","U238915","U539001","P745229","J510006","P067306","U412455","J539438","J601209","J589688","U231721","J549472","P965002","J517430","J488582","U254149","U403686","U531215","U530137","J504058","U064663","J587665","U007279","U504726","J561231","J489942","U391002","J510898","P053654","U504192","J142204","U027805","U182539","U499313","U174418","U054908","C038932","P927690","U220268","U228669","J534553","U164220","J516127","U356506","U023936","J488740","ODZKFJD","J563187","C053754","C022945","U390648","J628083","J506129","J597169"]
-
-    #Ajout Autorisation d'accès au 23 mai
-    #authorized_users_usernames += ["J094844","J143699","J567572","U105589","U164044","U178072","U217932","U264521","U020746","P256425","U007248","U330625","C016685","J525289","U106922","U317579","J108861","U219435","J513897","U160501","P065769","U115269","P726352","J497245","U415962","J400022","P053250","U379860","U246413","U139293","J550244","J588557","U162047","P750230","P052311","U443673"]
-
-    #Autorisations au 29 dont 23 et 22
-    authorized_users_usernames += ["P052708","U467971","J519947","P927190","P063018","U220024","C032321","C039891","CV15281","J507622","P927653","C036746","P052789","U551440","U204981","C081055","J552237","J537618","U536315","U532677","U517046","P051985","U542013","U236127","U084676","U551454","U542310","U509859","J534906","J128712","U372745","J516452","P052174","C065872","C052660","P053197","U469739","U469739","U467337","U535037","U466920","U443673","U164275","U417266","U291755","P067549","J495800","P052311","U162047","J550244","U246413","P053250","U115269","U160501","J513897","U020746","U178072","U105589","U367657","U411194","U384534","U388506","J555906","C013320","C074031","U188717","U328679","J588557","P726352","J108861","U317579","U106922","U330625","J094844","U257645","P066764","U410849","U244555","CA01890","P722834","J103215","U538705","C068722","U439010","U113954","J629234","U555831","U421262","J527011","J612468","P756321","J400060","J539805","P750230","U219435","J525289","C016685","J509328","J518675","U139293","U182112","U203567","J567423","U391017","J504676","J564574","U397922","P523469","C090286","C032214","P933655","U297167","U151579","C087292","U205829","C040214","J526076","U235410","J612901","C028462","U507604","J535054","P052059","P767906","J400131","J110213","P052702","J118658","P052059","J544921","U210690","J589703","U488191","P927574","J509308","U335310","J111201","P065826","U220398","J595447","P743577","P723648","C015083","U173754","U385476","U068015","J609940","P087258","J628437","J601716","J628437","U062391","J520730","J604320","J130806","P761321","J545654","P085364","U062289","U198643","U137000","U035310","U174739","J524379","J626055","P964807","P052012","P723542","J485763","J431023","P964963","U209983","J491121","J540428","P522831","U258226","C059882","P051820","U424768","P964969","J530412","U352746","J486072","U379860","P065769","U007248","U164044","J567572","U318506","U207926","U083151","U228361","U216494","J369133","U125615","U214023","C002453","U022328","P086082","J400022","U415962","J497245","P256425","U264521","U217932","J143699","J385995","U311042","U217020","P064840","J560959","U467872","U056945","U505657","J589943","J512052","U389693","U150889","U248066","U238454","U161516","J494798","P525507","J488571","C011895","J123649","U385717","U180991","U175546","P051704","P065721","J488641","U397198","J611022","P084402","J137592","U304756","P052342","U396497","U099458","J563179","J502650","U104623","U413686","J589571","U238915","U539001","P745229","J510006","P067306","U412455","J539438","J601209","J589688","U231721","J549472","P965002","J517430","J488582","U254149","U403686","U531215","U530137","J504058","U064663","J587665","U007279","U504726","J561231","J489942","U391002","J510898","P053654","U504192","J142204","U027805","U182539","U499313","U174418","U054908","C038932","P927690","U220268","U228669","J534553","U164220","J516127","U356506","U023936","J488740","ODZKFJD","P063420","P744998","P063419","U153336","U424036","U248950","J551167","P964606","P066838","J563187","C053754","U164445","P964780","U331354","C022945","J624004","C022945","U390648","J628083","J506129","J597169"]
-
-    authorized_users_usernames +=['psa_choix_langue_1','psa_choix_langue_2','psa_choix_langue_3','psa_choix_langue_4', 'psa_de_review4', 'digimapper_7F7jH','digimapper_9NZ9y','digimapper_anTNR','digimapper_hZmbb','digimapper_s9ho3','digimapper_YRWGa','psa_test1']
-    with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_access_rights.json') as json_file:  
-        data = json.load(json_file)
-
-    authorized_users_usernames.extend(data['allowed_usernames'])
-
-    authorized_admins=['nathalie.heuze@mpsa.com','laetitia.albenque@peugeot.com','valerie.roch@mpsa.com','cedric.clement@ext.mpsa.com','gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com','vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
-    authorized_admins+=['aurelien.croq@themoocagency.com','lucie.ory@themoocagency.com','nicola.bonaccorso@themoocagency.com','alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com','tom.douce@themoocagency.com']
-    authorized_admins+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
-    authorized_admins+=['fr_review1@yopmail.com','fr_review2@yopmail.com','fr_review3@yopmail.com']
-    authorized_admins+=['psareview_fr1@yopmail.com']
-    authorized_admins+=['psa_db_review_de1@yopmail.com']
-    authorized_admins+=['psa_de_review3@yopmail.com']
-    authorized_admins+=['psa_en_review3@yopmail.com', ]
-
-    #PPROD1 - TEST ACCOUNTS
-    authorized_users_usernames.extend(["psaDE","psaEN","psaFR","psa-multiatt-FR","psa-multiatt-DE","psa-multiatt-EN"])
-    #APP1 - TEST ACCOUNTS
-    authorized_users_usernames.extend(["psa_multiattempts_de","psa_multiattempts_fr","psa_multiattempts_en","psa_eval1","psa_eval2", "compte_test_multiatt"])
-    #MULTIATTEMPTS TEST ACCOUNTS
-    authorized_users_usernames.extend(["GA_eval1","GA_eval2","CH_eval1","CH_eval2","FS_eval1","FS_eval2","psa-test-dtl","psa-test-dtl-fs","psa-test-dtl-ter","131_en"])
-  %>
-
 
   % if len(course_enrollments) == 1 and tma_randomization(course_enrollments[0].course_id).get_randomization_mode()!='random':
   <%
   course_overview=enrollment.course_overview
   about_course_video=get_course_about_section(request, course, "video")
   about_course_description=get_course_about_section(request, course, "overview")
-
-
-
-  
-  associated_courses= AssociatedCourses(request.user, str(course.id)).associated_courses_details() or {}
-  associated_courses_previous= AssociatedCourses(request.user, str(course.id)).get_previous_course() or {}
-
-  
-
   %>
-
   <script>
     $('#course_continue, #course_start, #see_answers, #course_results, #last_score').live('click', function(){
       $('#overlay').removeClass('hide-loader');
@@ -253,23 +189,21 @@ from tma_apps.associated_courses.helper import AssociatedCourses
       box-shadow:none!important;
       text-shadow:none;
     }
-    .dashboard-btn{
+    .purple-btn{
       background-color:#1d5280 !important;
       border-color:#1d5280 !important;
       font-size: 20px;
       padding: 15px 35px;
       border-radius: 6px;
-      text-transform: uppercase;
     }
     #course_start{
       min-width:220px;
-      width: auto;
     }
-    .dashboard-btn:hover{
+    .purple-btn:hover{
       background-color: #2e85d1 !important;
       border-color: #2e85d1 !important;
     }
-    .dashboard-btn > i{
+    .purple-btn > i{
       font-size: 25px !important
     }
     .mt-20{
@@ -293,21 +227,21 @@ from tma_apps.associated_courses.helper import AssociatedCourses
     }
 
     /* Replis partie conseils */
-    .overflow-hidden{
+    .over-hidden{
       overflow: hidden;
     }
     @media(min-width:1200px) {
-      .overflow-hidden {
+      .over-hidden {
         max-height: 245px!important;
       }
     }
     @media(min-width: 975px) and (max-width: 1199px)  {
-      .overflow-hidden {
+      .over-hidden {
         max-height: 262px!important;
       }
     }
     @media(max-width:974px) {
-      .overflow-hidden {
+      .over-hidden {
         max-height: 355px!important;
       }
     }
@@ -316,22 +250,11 @@ from tma_apps.associated_courses.helper import AssociatedCourses
       font-size: 2.333333em!important;
       cursor: pointer;
     }
-    .blue-btn{
-      background-color: #1d5280!important;
-    }
-    .blue-btn:hover{
-      background-color: rgb(46, 133, 209)!important;
-    }
   </style>
   <script>
     $('#conseils-btn').live('click', function(){
-      $('#conseils').toggleClass('overflow-hidden');
-      if($('#conseils').hasClass('overflow-hidden')){
-        $('#conseils-btn-wrapper').html('<i id="conseils-btn" class="fa fa-plus-circle"></i>');
-      }
-      else{
-        $('#conseils-btn-wrapper').html('<i id="conseils-btn" class="fa fa-minus-circle"></i>')
-      }
+      $('#conseils').toggleClass('over-hidden');
+      $('#conseils-btn').hide();
     })
   </script>
   <div id="dashboard_course_info">
@@ -343,18 +266,140 @@ from tma_apps.associated_courses.helper import AssociatedCourses
     </div>
     <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
   </div>
-    %if course.language=="de":
-      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
-    %elif course.language=="fr":
-      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
-    %else:
-      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames, authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
-    %endif
 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="gray-bg rounded pad-25">
+         <!-- ${HTML(about_course_video)}-->
+          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          <p>${HTML(about_course_description)}</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="gray-bg rounded pad-25 mb-20">
+          <h2 class="text-center" id="course_title">${course_overview.display_name}</h2>
+          <p class="text-center" id="trial_name">Évaluation 1</p>
+          <div class="text-center">
+<%
+authorized_users=['claudine.borel@mpsa.com','françois.marmousez@mpsa.com','frederic.legrand@mpsa.com','marina.lima1@mpsa.com','dandan.zhao@mpsa.com','julien.herr@mpsa.com','gael.lemoine@mpsa.com','carlos.mesquita@mpsa.com','sandrinevinciane.bouvier@peugeot.com','jean-charles.gaury@mpsa.com','mona.abdossamadi@mpsa.com ','michel.roesch@mpsa.com','serge.ripailles@mpsa.com','angel.abello@dsautomobiles.com ','stephane.chesnel@mpsa.com','fabio.mazzeo@mpsa.com','pascal.pavaut@mpsa.com','spandana.chopra@mpsa.com','daniele.cohen@mpsa.com','bertrand.leprovost@mpsa.com','jean.leflour@mpsa.com','cedric.pourcherduchene@mpsa.com','christophe.rauturier@mpsa.com','benoit.sponton@mpsa.com','olivier.urcel@mpsa.com','carole.viaud@mpsa.com','camille.serremays@citroen.com','dominique.duboc@mpsa.com','hjalti.palsson@mpsa.com','guillaume.calfati@mpsa.com','sophie.hannachi@mpsa.com','emmanuel.peschard@mpsa.com','philippe.serna@mpsa.com','olivier.soulie@mpsa.com','vincent.tual@mpsa.com','viviane.ducray@mpsa.com','guillaume.gruel@mpsa.com','jeannoel.boulard@mpsa.com','cecile.mossot@mpsa.com','jeanluc.sicard@mpsa.com','melanie.bulourde@mpsa.com','olivier.guezet@mpsa.com','dominique.cavazzi@mpsa.com','guillaume.debienassis@peugeot.com','laurent.gracias@mpsa.com','gilles.sexton@mpsa.com','christophe.belgrano@mpsa.com','natacha.laurent@mpsa.com','constance.fivel@citroen.com','audrey.grunwald@dsautomobiles.com','stephane.guichard1@mpsa.com','aline.allain@mpsa.com','javier.delacortemartin@mpsa.com','marine.domergue@mpsa.com','nicky.joshi@mpsa.com','stephane.baraud@mpsa.com','nichola-jayne.thomas@mpsa.com','emmanuel.monzies@mpsa.com','alexandra.rachedi@mpsa.com','anne-marie.albert@mpsa.com','benoit.rouault@mpsa.com','bernard.forestier@mpsa.com','bertrand.cheve@mpsa.com','bertrand.leconte@mpsa.com','clemence.sirech@mpsa.com','cyril.bourgeois@mpsa.com','delphine.wallaert@mpsa.com','florence.legrand@mpsa.com','isabelle.lepennec@mpsa.com','karine.puel@mpsa.com','pauline.vallantin@mpsa.com','stephane.malle@mpsa.com','veronique.badouet@mpsa.com','gerald.almeras@mpsa.com','anne.fenninger@dsautomobiles.com','celine.hoinard@mpsa.com','francois.garnier@mpsa.com','addi.nadjet@ext.mpsa.com','yongmei.kimmel@mpsa.com','pierreyves.couineau@mpsa.com','diane.delboca@mpsa.com','sandrine.delouche@mpsa.com','argan.delannoy@mpsa.com','benoist.mulsant@mpsa.com','guillaume.laubry@mpsa.com','marina.lima1@mpsa.com','charlesedmond.rosaz@mpsa.com','annick.audette@mpsa.com','christophe.riva@mpsa.com','laurence.colin@mpsa.com','celine.girard@mpsa.com','laurence.bussac@mpsa.com','emmanuel.muhl@mpsa.com','elodie.maurin@mpsa.com','antoine.cochois@mpsa.com','jean.sevagen@mpsa.com','christian.chehab@mpsa.com','jeanmarc.zeghbib@mpsa.com','patrick.houdebine@mpsa.com','sylvie.goujon@mpsa.com','didier.mille@mpsa.com','dominique.nivaggioni@mpsa.com','olivier.genix@mpsa.com','anthony.parrege@mpsa.com','maria.difrancesco@mpsa.com','michelle.boulanger@mpsa.com','olivier.soulie@mpsa.com','romain.dufour@mpsa.com','marieanne.taffin@mpsa.com','jeanluc.larequie@mpsa.com','veronique.lefevre@mpsa.com','erwan.valin@mpsa.com','jeanmarc.bavoux@mpsa.com','nicolas.martineau@mpsa.com','gregory.traumat@mpsa.com','julien.niger@mpsa.com','olivier.davodet@mpsa.com','alipio.dossantos@mpsa.com','olivier.lochegnies@mpsa.com','nicolas.goursot@mpsa.com','damien.narat@mpsa.com','fabien.debarle@mpsa.com','laurent.divalentin@mpsa.com','francois.launay@mpsa.com','nelly.frankenberg@mpsa.com','damien.simonet@mpsa.com','manuel.alaejos@mpsa.com','david.routier@mpsa.com','sebastien.gagnepain@mpsa.com','olivier.mora@mpsa.com','emmanuel.gagneux@mpsa.com','aurelie.brachet@mpsa.com','emmanuelle.vallee@mpsa.com','benoit.guillaume@mpsa.com','louismarie.nyee@mpsa.com','sandrine.erny@mpsa.com','guillaume.braem@mpsa.com','david.defianas@mpsa.com','vitaly.titov@peugeot.com','galina.zherlitsina@mpsa.com','alexey.kozlov@mpsa.com','julia.britanova2@mpsa.com','augustin.evrard@mpsa.com','audrey.grunwald@dsautomobiles.com','melanie.cherniacoski1@dsautomobiles.com','guillaume.bergamini@ext.mpsa.com','jeremie.deak@mpsa.com','nicolas.caillault@peugeot.com','robert.thai1@mpsa.com','stephanie.ousset@mpsa.com','cecile.damide@mpsa.com','cecile.danglehant@mpsa.com','david.pouthe1@mpsa.com','fei.han@mpsa.com','segolene.lecomte@mpsa.com','christophe.soularue@mpsa.com','anais.regent@mpsa.com','sebastien.tanguy@mpsa.com','stephanie.dauthuille@mpsa.com','elisabeth.candussi@mpsa.com','olivier.knoepfli@mpsa.com','jacques.proust@mpsa.com','lise.chambard1@mpsa.com','pascal.pradier@mpsa.com','maxime.breart@mpsa.com','alain.jacquez@mpsa.com','yannick.adeikalam@mpsa.com','yves.lebailly@mpsa.com','frederic.chambolle@mpsa.com','cyril.millat@mpsa.com','pierre.chansard@mpsa.com','christophe.virth@mpsa.com','benoit.delage@mpsa.com','magali.alliod@mpsa.com','jeanetienne.leny@mpsa.com','marlene.albaladejoauffray@mpsa.com','laure.jouffrai@mpsa.com','nicolas.gruel@mpsa.com','nabil.sekhri@mpsa.com','catherine.fontanet@mpsa.com','pierre.boch@mpsa.com','frederic.monin@mpsa.com','david.alvezdacruz@mpsa.com','laurent.couturier@mpsa.com','nuria.perezarzoz@mpsa.com','rodolphe.griere@mpsa.com','arnaud.pennent@mpsa.com','cyril.dabrinville@mpsa.com','sylvain.alleaume@mpsa.com','nicolas.guegan@mpsa.com','rodolphe.frontczak@mpsa.com','muriel.seltz@mpsa.com','olivier.pinczondusel@mpsa.com','christophe.montrocher@mpsa.com','thierry.deslandes@mpsa.com']
+authorized_users+=['nathalie.heuze@mpsa.com','laetitia.albenque@peugeot.com','valerie.roch@mpsa.com']
+authorized_users=[]
+authorized_users+=['aurelien.croq@themoocagency.com','lucie.ory@themoocagency.com']
+authorized_users+=['vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
+authorized_users+=['alexandre.berteau@themoocagency.com']
+authorized_users+=['gerald.almeras@mpsa.com']
+%>
+
+   %if user.email not in authorized_users:
+               <h2> Vous n'avez pas accès à ce contenu</h2>
+               <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
+<p>Le pilote est terminé</p>
+          </div>
+       </div>
+   %else:
+            %if user_course_state=="finished":
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+              <button class="purple-btn"  id="course_results">
+                <i class="fa fa-play-circle"></i>
+                ${_('VOIR MES RÉSULTATS')}
+              </button>
+            </a>
+            %elif user_course_state=="ongoing":
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="purple-btn start-course"  id="course_continue">
+                <i class="fa fa-play-circle"></i>
+                ${_('REPRENDRE')}
+              </button>
+            </a>
+            %else:
+            <button class="purple-btn" id="course_start">
+              <i class="fa fa-play-circle"></i>
+              ${_('DÉMARRER')}
+            </button>
+            %endif
+          </div>
+          <div class="row mt-20">
+            <div class="col-md-6 text-center">
+              %if user_course_state!="finished" :
+              <button class="sub-btn" disabled>
+                <i class="fa fa-book"></i>
+                ${_('Revoir mes réponses')}
+              </button>
+              %else :
+              <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+                <button class="sub-btn"  id="see_answers">
+                  <i class="fa fa-book"></i>
+                  ${_('Revoir mes réponses')}
+                </button>
+              </a>
+              %endif
+            </div>
+            <div class="col-md-6 text-center">
+              %if user_course_state=="finished" :
+              <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+                <button class="sub-btn deactivated" id="last_score">
+                  <i class="fa fa-search"></i>
+                  ${_('Consulter mon score précédent')}
+                </button>
+              </a>
+              %else :
+              <button class="sub-btn deactivated" disabled>
+                <i class="fa fa-search"></i>
+                ${_('Consulter mon score précédent')}
+              </button>
+              %endif
+            </div>
+          </div>
+        </div>
+  %endif
+        <div class="gray-bg rounded pad-25 mb-20">
+          <p>
+            <strong>Informations pratiques</strong>
+            <br/>Votre évaluation:
+            <ul>
+              <li> Est composée de 35 questions tirées aléatoirement</li>
+              <li> S’appuie sur une base de questions commune à tous les Métiers</li>
+              <li> Porte sur 5 grands domaines de connaissance</li>
+              <li> Nécessite autour de 45 minutes</li>
+              <li> Peut être interrompue à tout moment en fermant la fenêtre active puis reprise là où elle avait été arrêtée</li>
+              <li> Vous délivre après chaque question, la ou les bonnes réponses ainsi que des explications détaillées nécessaires à leur bonne
+              compréhension.</li>
+            </ul>
+          </p>
+        </div>
+        <div id="conseils" class="gray-bg rounded pad-25 mb-20 over-hidden">
+          <p>
+            <strong>Quelques conseils avant de commencer !</strong>
+            <br><br>
+            <strong>Isolez-vous de manière à ne pas être dérangé(e).</strong>
+            <br><br>
+            <strong>Réservez un créneau suffisant dans votre agenda.</strong>
+            <br>
+            Autour de 45 minutes pour la passation des questions auxquelles vous ajouterez 15
+            minutes si vous souhaitez consulter les bonnes réponses au fur et à mesure.
+            <br/>Sachez qu’une fois votre évaluation terminée, vous aurez la possibilité de revoir toutes les réponses et explications
+            et explications.
+            <br><br>
+            <strong>Lisez avec attention le libellé des questions, les différentes propositions, les consignes.</strong>
+            <br>
+            Si vous ne savez pas spontanément, faites preuve de bon sens. Il n’y a pas de questions pièges.
+            <br><br>
+            <strong>Prenez du recul sur vos résultats.</strong>
+            <br>
+            Certains domaines de connaissance vous sont sans doute moins familiers car éloignés de votre
+            métier. Un bon niveau de culture générale digitale s’acquiert sur la durée tant les connaissances sont variées
+            et évolutives.
+            <br>Sachez que vous pourrez vous réévaluer tous les 6 mois et ainsi mesurer régulièrement vos progrès.
+          </p>
+        </div>
+        <div class="text-center">
+          <i id="conseils-btn" class="fa fa-plus-circle"></i>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language"/>
+
   <script>
     //Mark course as started
     $('#course_start').on('click', function(){
@@ -556,7 +601,6 @@ from tma_apps.associated_courses.helper import AssociatedCourses
   <span id="list_multi_title">
   <h1><span id="span_1">Mes formations</span></h1>
   </span>
-  
   <ul id="list_multi">
     % for dashboard_index, enrollment in enumerate(course_enrollments):
       <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />

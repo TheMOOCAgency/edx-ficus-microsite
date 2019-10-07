@@ -1,0 +1,166 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+%>
+<style>
+#main{
+  height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+    background-size: cover !important;
+    position: fixed;
+    left:0;
+    top:0;
+    color: white;
+}
+.text-center{
+  text-align: center
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25">
+      <!-- ${HTML(about_course_video)}-->
+      <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+      %if user.username in authorized_users_usernames or user.email in authorized_admins:
+      <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      %endif
+        <p>${HTML(about_course_description)}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25 mb-20">
+        <h2 class="text-center" id="course_title">
+          ${course_overview.display_name}
+        </h2>
+        <p class="text-center" id="trial_name">
+          Auswertung ${associated_courses.get('step_number',1)}
+        </p>
+        %if associated_courses.get('delayed'):
+          <p class="text-center">
+            Das nächste Quiz ist in ${associated_courses.get('delayed')} Tagen verfügbar.
+          </p>
+        %endif
+        <div class="text-center">
+           %if user.username not in authorized_users_usernames and user.email not in authorized_admins:
+           <div id="main">
+             <h3>Es tut uns leid, Sie haben z. Zt. <br>keinen Zugang zum Digitalen Barometer.</h3>
+           </div>
+
+        </div>
+     </div>
+         %else:
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              Meine Ergebnisse ansehen
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn start-course"  id="course_continue">
+              <i class="fa fa-play-circle"></i>
+              Erneut beginnen
+            </button>
+          </a>
+          %else:
+          <button class="dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            Starten 
+            %if associated_courses.get('step_number')>1:
+            Auswertung ${associated_courses.get('step_number')}
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-6 text-center">
+            %if course_state!="finished" :
+            <button class="sub-btn" disabled>
+              <i class="fa fa-book"></i>
+              Meine Antworten überprüfen
+            </button>
+            %else :
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn"  id="see_answers">
+                <i class="fa fa-book"></i>
+                Meine Antworten überprüfen
+              </button>
+            </a>
+            %endif
+          </div>
+          <div class="col-md-6 text-center">
+            %if course_state=="finished" and associated_courses.get('step_number',1)>=2:
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}/#/compare">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Scores vergleichen
+              </button>
+            </a>
+            %elif course_state!="finished" and associated_courses.get('step_number',1)>1:
+            <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
+                <button class="sub-btn blue-btn deactivated" id="last_score">
+                  <i class="fa fa-search"></i>
+                  Meinen vorherigen Score einsehen
+                </button>
+              </a>
+            %else :
+            <button class="sub-btn deactivated" disabled>
+              <i class="fa fa-search"></i>
+              Meinen vorherigen Score einsehen
+            </button>
+            %endif
+          </div>
+        </div>
+      </div>
+      %endif
+      <div class="gray-bg rounded pad-25 mb-20">
+        <p>
+          <strong>Praktische Informationen </strong>
+          <br/>Ihre Beurteilung:
+          <ul>
+            <li>Setzt sich aus 35 zufällig ausgewählten Fragen zusammen</li>
+            <li>Stützt sich auf eine für alle Berufe gemeinsame Fragen-Datenbank</li>
+            <li>Bezieht sich auf 5 große Kenntnisbereiche</li>
+            <li>Erfordert ungefähr 45 Minuten</li>
+            <li>Kann jederzeit durch Schließen des aktiven Fensters unterbrochen und dann dort neu begonnen werden, wo Sie aufgehört haben</li>
+            <li>Gibt Ihnen nach jeder Frage die richtige(n) Antwort(en) sowie die für ihr Verständnis notwendigen detaillierten Erläuterungen an.</li>
+          </ul>
+        </p>
+      </div>
+      <div id="conseils" class="gray-bg rounded pad-25 mb-20 overflow-hidden">
+        <p>
+          <strong>Ein paar Tipps, bevor Sie anfangen!</strong>
+          <br><br>
+          <strong>Sorgen Sie dafür, dass Sie allein sind, damit Sie nicht gestört werden.</strong>
+          <br><br>
+          <strong>Halten Sie ein ausreichendes Zeitfenster in Ihrem Terminplan frei.</strong>
+          <br>
+          Rund 45 Minuten für die Beantwortung der Fragen, zu denen noch 15 Minuten hinzukommen, wenn Sie die richtigen Antworten nach und nach einsehen möchten.
+          <br/>Nach Abschluss der Beurteilung haben Sie die Möglichkeit, alle Antworten und Erläuterungen noch einmal anzusehen.
+          <br><br>
+          <strong>Lesen Sie den Text der Fragen, die verschiedenen Vorschläge, die Anweisungen aufmerksam durch.</strong>
+          <br>
+          Wenn Sie die Antwort nicht spontan wissen, greifen Sie auf Ihren gesunden Menschenverstand zurück. Es gibt keine Fangfragen.
+          <br><br>
+          <strong>Gewinnen Sie Abstand von Ihren Ergebnissen.</strong>
+          <br>
+          In manchen Kenntnisbereichen sind Sie vielleicht weniger firm, da sie mit Ihrem Beruf weniger zu tun haben. Ein gutes Niveau einer digitalen Allgemeinbildung erwirbt man im Laufe der Zeit, da diese Kenntnisse sehr vielfältig und veränderlich sind.
+          <br>Sie können sich selbst alle 6 Monate neu beurteilen und damit Ihre Fortschritte regelmäßig messen.
+        </p>
+      </div>
+      <div class="text-center" id="conseils-btn-wrapper">
+        <i id="conseils-btn" class="fa fa-plus-circle"></i>
+      </div>
+    </div>
