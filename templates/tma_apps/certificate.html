@@ -17,7 +17,12 @@ import json
 
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
-
+<%
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
 <style>
 /* General */
 #global-navigation,.wrapper-footer,#tma_background_font {
@@ -35,32 +40,45 @@ body{
   border: 1px solid lightgray;
 }
 #main {
-  background-image:url('${bg}');
+  background-image:url('/media/microsite/inveest/fond_inveest.png');
   background-size:cover;
   background-position:center;
 }
 .main-color{
-  background-color:#C1CF33;
+  background-color: rgba(102, 218, 26, 0.75);
 }
 .second-color{
-  background-color: #4d4d4d;
+  background-color: rgba(102, 218, 26, 0.75);
 }
 .texte-gras{
   font-weight: 600;
 }
+p+p, ul+p, ol+p {
+    margin-top: 10px;
+}
 
 /* Premier bandeau */
+.bandeau-top-top{
+  background-color: white;
+  width: 100%;
+  height: 60px;
+}
+
+/* Deuxième bandeau */
 .bandeau-top{
   padding: 10px;
+  margin: auto;
+  margin-top: 50px;
+  width: 50%;
 }
 .bandeau-top p{
-  font-weight: 600;
+  font-weight: 700;
   color: white;
-  margin-top: 15px;
+  font-size: 25px;
+  margin: 15px;
 }
 .title-attestation{
-  width: 80%;
-  float: left;
+  float: center;
 }
 .logo-attestation{
   width: 20%;
@@ -68,24 +86,40 @@ body{
   text-align: right;
 }
 .logo-attestation img{
-  max-height: 40px;
+  max-height: 80px;
+  top: -10px;
+  position: relative;
 }
 
-/* Deuxième bandeau */
+
+/* Troisième bandeau */
 .bandeau-middle{
   color: white;
-  margin-top: 100px;
-  padding: 30px 10px;
+  padding: 30px 50px;
+  margin: auto;
+  margin-top: 40px;
+  width: 60%;
+  text-align: left;
 }
 #course-title{
-  font-size: 20px;
+  margin-top: 30px;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-style: oblique;
 }
 #nom-user{
-  font-size: 30px;
-  margin-bottom: 30px;
+  font-size: 20px;
+  text-transform: capitalize;
+  font-weight: 700;
 }
 #score, #course-title{
-  margin-top: 10px;
+  margin-top: 30px;
+}
+#medal{
+  position: absolute;
+  left: 700px;
+  top: 285px;
+  height: 200px;
 }
 
 /* Footer */
@@ -100,49 +134,55 @@ body{
   width: 20%;
 }
 .footer-left{
-  width: 80%;
+  width: 100%;
 }
 .footer{
-  padding: 10px;
-  margin-top: 44px;
 }
 .footer p{
-  margin-top: 74px;
-  font-size: 12px;
-  text-align: left;
+  margin-top: 55px;
+  font-size: 14px;
   background-color: white;
+  vertical-align: middle;
+  padding: 10px;
+  text-align: center;
 }
 
 
 </style>
-% if grades.get('passed'):
+% if grades.get('passed') or is_tma_team:
 <div class="container" id="main">
-  <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
+  <div class="bandeau-top-top">
     <div class="logo-attestation">
       <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
+    </div>
+  </div>
+  <div class="bandeau-top main-color">
+    <div class="title-attestation">
+       <p>ATTESTATION DE R&Eacute;USSITE</p>
     </div>
     <div style="clear:both;"></div>
   </div>
 
   <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
+    <p>Inveest atteste que</p>
+    <p id="nom-user">${first_name} ${last_name}</p>
+    <p>a réussi avec succès le cours :</p>
     <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
   </div>
+  <img id="medal" src="/media/microsite/inveest/medal.png"/>
 
   <div class="footer">
-      <div class="footer-left">
+    <div class="footer-left">
+      <p><a id="subscribe" target="_blank" href="/about">M'inscrire au présentiel</a></p>
+    </div>
+      <!-- <div class="footer-left">
           <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
       </div>
       <div class="footer-right">
           <img src="${signature}"/>
       </div>
       <div style="clear:both;"></div>
-  </div>
+  </div> -->
 </div>
 
 <script type="text/javascript">

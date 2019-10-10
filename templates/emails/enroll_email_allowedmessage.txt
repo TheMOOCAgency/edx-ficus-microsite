@@ -1,6 +1,6 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear student,")}
+${_("Hi,")}
 
 ${_("You have been invited to join {course_name} at {site_name} by a "
 	"member of the course staff.").format(

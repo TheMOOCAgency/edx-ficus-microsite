@@ -19,6 +19,8 @@ from branding import api as branding_api
 # app that handles site status messages
 from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
+
+from tma_apps.associated_courses.helper import SelectiveRegisterManager
 %>
 
 ## Provide a hook for themes to inject branding on top.
@@ -56,7 +58,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+  <header id="global-navigation" class="header-global ${"slim" if course else ""}" style="height:90px !important;border-bottom:none !important;box-shadow: 0px 0px 24px -7px rgba(0,0,0,0.38);">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -69,28 +71,11 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
+            <img class="${logo_size}" src="${logo_url}" style="height:57px !important;width:114px !important;"alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
         </%block>
       </a>
     </h1>
+    <!-- <span id="subscribe_nav" style="position: relative; top: 15px;"><a class="btn-neutral" style="color:black!important;border:none;background:none;font-size:14px" href="/about">Voir le calendrier des sessions présentielles</a></span> -->
 
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
@@ -107,10 +92,15 @@ site_status_msg = get_site_status_msg(course_id)
 
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
-        <%block name="navigation_global_links_authenticated">
+          % if not SelectiveRegisterManager(request).has_registered_to_session():
+          <li class="item nav-global-01">
+            <a class="btn-neutral" style="color:black!important;border:none;background:none;font-size:14px" href="/about">Voir le calendrier des sessions présentielles</a>
+          </li>  
+          %endif
+            <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              ## <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
           % if show_program_listing:
@@ -183,7 +173,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <!-- <a class="btn-neutral" style="color:black!important;border:none;background:none;font-size:14px" href="/about">Voir le calendrier des sessions présentielles</a> -->
                 % endif
               </li>
             % endif
@@ -320,3 +310,4 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+

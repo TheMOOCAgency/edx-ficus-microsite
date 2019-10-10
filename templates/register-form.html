@@ -7,11 +7,35 @@ from django_countries import countries
 from student.models import UserProfile
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from django_countries import countries
-extra_form = configuration_helpers.get_value('FORM_EXTRA')
-if extra_form is None:
-    extra_form = []
+extra_form = configuration_helpers.get_value('FORM_EXTRA', [])
 import datetime
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
 %>
+
+<%
+#Additional parameters
+
+
+def getCourseIdValue(parameterValue, parameterName):
+  if parameterValue and parameterName:
+    for register_field in extra_form:
+      if register_field.get("name").lower()==parameterName.lower():
+        for option in register_field.get("options"):
+          if option.get('value')==parameterValue:
+            return option.get('course')
+
+ville = request.GET.get('ville')
+of = getCourseIdValue(request.GET.get('of'), 'of')
+dates_formation = request.GET.get('dates_formation')
+%>
+
+
+
+<%def name="myfunc()">
+    $url = url($path, ['params' => ['tag' => 'myTag']]);
+	$ville  = param('ville');
+</%def>
+
 
 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 
@@ -217,7 +241,7 @@ import datetime
 </ol>
 </div>
 <!-- end extraform generation -->
-<div class="group group-form group-form-secondary group-form-personalinformation">
+<div class="group group-form group-form-secondary group-form-personalinformation" style="padding-bottom:0px">
   <h2 class="sr">${_("Additional Personal Information")}</h2>
 
   <ol class="list-input">
@@ -283,14 +307,23 @@ import datetime
 
 </div>
 
-<div class="group group-form group-form-personalinformation2">
+<div class="group group-form group-form-personalinformation2" style="padding-bottom:0px">
   <ol class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['mailing_address']} text" id="field-address-mailing">
       <label for="address-mailing">${_("Mailing Address")}</label>
       <textarea id="address-mailing" name="mailing_address" value="" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] == 'required' else ''}></textarea>
     </li>
+
     % endif
+
+	<p style="font-size: 12px;">
+  GreenFlex est responsable des traitements de vos données réalisés dans le cadre des actions de formation. Les informations recueillies à partir de ce formulaire sont nécessaires pour le traitement de votre inscription aux formations proposées par GreenFlex (pour plus d’information, consultez la page suivante : <a href="https://inveest.org/formation-financement-efficacite-energetique" target="_blank">formation-financement-efficacite-energetique</a>).
+
+
+  Vos données font l'objet d'un traitement informatique destiné à assurer la gestion administrative et pédagogique des apprenants et la validation des acquis. Les informations vous concernant sont conservées par GreenFlex pendant la durée nécessaire à la finalité du traitement, c'est-à-dire pour la durée des formations, avec une conservation en archivage intermédiaire pour une durée conforme aux règles de prescription applicable. Conformément à la réglementation applicable, vous êtes informés de l'existence du droit de demander au responsable de traitement, par l'intermédiaire de son délégué à la protection des données (DPO) dont les coordonnées sont ci-dessous, l'accès à vos données personnelles, la rectification ou l'effacement de celles-ci, ou une limitation du traitement, ou du droit de vous opposer au traitement et du droit à la portabilité de vos données dans les conditions prévues par le règlement UE 2016/679 du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement de données à caractère personnel. Vous êtes également informés de votre droit d'introduire une réclamation auprès de la CNIL. Vous pouvez adresser vos demandes à notre DPO ou par e-mail à l'adresse dpo@greenflex.com ou par la poste : GREENFLEX, DPO, 7 – 11 boulevard Haussmann 75009 Paris, France. <a href="https://inveest.org/politique-de-confidentialite/" target="_blank">Cliquez ici pour plus d’information</a>
+  
+  </p>
 
     % if settings.REGISTRATION_EXTRA_FIELDS['goals'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['goals']} text" id="field-goals">
@@ -311,7 +344,7 @@ import datetime
       <div class="field required checkbox" id="field-tos">
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
+          link_start='<a href="https://inveest.the-mooc-agency.com/tos" target="_blank" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
           link_end='</a>')}</label>
       </div>
       % endif
@@ -363,6 +396,57 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+</script>
+
+
+<script>
+/* TMA SELECTIVE FIELDS */
+
+
+var controlledFields=[
+  {
+    name:"of",
+    value:${dump_js_escaped_json(of) | n, decode.utf8}
+  },
+  {
+    name: "dates_formation",
+    value:${dump_js_escaped_json(dates_formation) | n, decode.utf8},
+  },
+  {
+    name:  "ville",
+    value:${dump_js_escaped_json(ville) | n, decode.utf8}
+  }
+]
+console.log(controlledFields)
+
+
+function bindMyParamatersInput(){
+    for(var i=0;i<controlledFields.length;i++){
+      console.log(controlledFields[i])
+        if (controlledFields[i]['value']) {
+            var fieldValue = decodeURIComponent(controlledFields[i]['value'])
+            var fieldElement = $('#'+controlledFields[i]['name'])
+            if(controlledFields[i]['name']==="of"){
+              paramBind(fieldElement,"${request.GET.get('of')}") 
+            }
+            else{
+              paramBind(fieldElement,fieldValue) 
+            }
+        }
+        else{
+          var fieldElement = $('#field-'+controlledFields[i]['name'])  
+          $(fieldElement).hide();
+        }
+    }
+}
+
+function paramBind(target,value){
+    target.val(value).prop("readonly", true).css("background","#e8e8e8")
+}
+
+bindMyParamatersInput()
+
+
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:

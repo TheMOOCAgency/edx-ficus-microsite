@@ -1,0 +1,353 @@
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%def name="online_help_token()"><% return "learnerdashboard" %></%def>
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from django.template import RequestContext
+import third_party_auth
+from third_party_auth import pipeline
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+#GEOFFREY
+from courseware.courses import get_course_info_section, get_course_date_blocks
+from courseware.courses import get_course_by_id
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+from cms.djangoapps.models.settings.course_grading import CourseGradingModel
+from xmodule.modulestore.django import modulestore
+from course_api.blocks.api import get_blocks
+#from discussion_tma.views import get_section_list
+import time
+%>
+
+<%
+  cert_name_short = settings.CERT_NAME_SHORT
+  cert_name_long = settings.CERT_NAME_LONG
+%>
+
+<%
+org_static = static.get_value('domain_prefix')
+css = '/media/microsite/{}/auto/css/dashboard.css'.format(org_static)
+css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
+%>
+
+<%block name="pagetitle">${_("Dashboard")}</%block>
+<%block name="bodyclass">view-dashboard is-authenticated</%block>
+
+<%block name="header_extras">
+% for template_name in ["donation"]:
+<script type="text/template" id="${template_name}-tpl">
+  <%static:include path="dashboard/${template_name}.underscore" />
+</script>
+% endfor
+
+% for template_name in ["dashboard_search_item", "dashboard_search_results", "search_loading", "search_error"]:
+<script type="text/template" id="${template_name}-tpl">
+    <%static:include path="search/${template_name}.underscore" />
+</script>
+% endfor
+</%block>
+
+<%block name="js_extra">
+  <script src="${static.url('js/commerce/credit.js')}"></script>
+  <%static:js group='dashboard'/>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      edx.dashboard.legacy.init({
+        dashboard: "${reverse('dashboard') | n, js_escaped_string}",
+        signInUser: "${reverse('signin_user') | n, js_escaped_string}",
+        changeEmailSettings: "${reverse('change_email_settings') | n, js_escaped_string}"
+      });
+    });
+  </script>
+  % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
+    <%static:require_module module_name="js/search/dashboard/dashboard_search_factory" class_name="DashboardSearchFactory">
+        DashboardSearchFactory();
+    </%static:require_module>
+  % endif
+  % if redirect_message:
+    <%static:require_module module_name="js/views/message_banner" class_name="MessageBannerView">
+        var banner = new MessageBannerView({urgency: 'low', type: 'warning'});
+        $('#content').prepend(banner.$el);
+        banner.showMessage(${redirect_message | n, dump_js_escaped_json})
+    </%static:require_module>
+  % endif
+</%block>
+<link rel="stylesheet" type="text/css" href="${css_bis}" />
+<div class="dashboard-notifications" tabindex="-1">
+    %if message:
+        <div class="dashboard-banner">
+            ${message | n, decode.utf8}
+        </div>
+    %endif
+
+    %if enrollment_message:
+        <div class="dashboard-banner">
+            ${enrollment_message | n,  decode.utf8}
+        </div>
+    %endif
+</div>
+<!-- CSS DEV -->
+<!-- CSS DEV -->
+<!--
+<link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
+-->
+<link rel="stylesheet" type="text/css" href="${css}" />
+
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+
+<div id="voile"></div>
+<div class="content_tma">
+  <!-- profil -->
+  <div id="dashboard_profile">
+  <div id="profile_button">p r o f i l </div>
+    <!-- image profil -->
+
+<%
+profile_image_url = get_profile_image_urls_for_user(user)['large']
+get_persisted = ''
+is_passed = False
+course = ''
+score = ''
+course_module = ''
+course_details = ''
+blocks = ''
+root = ''
+children = ''
+course_mono_id = ''
+forum_tma = ''
+course_finished = 0
+course_name = []
+for dashboard_index, enrollment in enumerate(course_enrollments):
+  course = get_course_by_id(enrollment.course_id)
+  if len(course_enrollments) == 1:
+    course_tma = str(enrollment.course_id)
+    user_tma = user.id
+    #forum_tma = get_section_list(request,course_tma,user_tma)
+    forum_tma= false
+    course_mono_id = enrollment.course_id
+    course_module = modulestore().get_course(enrollment.course_id, depth=0)
+    course_details = course_module._field_data_cache['grading_policy']['GRADER']
+  """
+  elif len(course_enrollments) > 1:
+    get_persisted = CourseGradeFactory().get_persisted(request.user, course)
+    if get_persisted is None:
+      get_persisted = CourseGradeFactory().create(request.user, course)
+    if get_persisted.passed:
+      course_finished = course_finished + 1
+      course_name.append(enrollment.course_overview.display_name_with_default)
+    endif
+  endif
+  """
+endfor
+%>
+    <div class="dashboard_profile" id="dashboard_profile_up">
+      <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
+      <h3>${user.profile.name}</h3>
+      <h4>${user.email}</h4>
+    </div>
+
+  </div>
+  <div id="dashboard_course_content">
+
+<div class="empty-dashboard-message" style="line-height: 25px !important;">
+<p>Votre compte est créé !
+<br><br>
+Pour finaliser votre inscription à une session présentielle, merci de remplir et de renvoyer <u style="cursor:pointer" onclick="window.open('/media/microsite/inveest/formulaire.docx')">ce document</u> à l'adresse XXXX.
+<br><br>
+Nos sessions commencent en septembre.
+<br><br>
+A très vite !</p>
+</div>
+
+
+
+</div>
+<span style="display:block;clear:left;"></span>
+<script>
+// SVG ACTION
+jQuery('img.svg').each(function(){
+    var $img = jQuery(this);
+    var imgID = $img.attr('id');
+    var imgClass = $img.attr('class');
+    var imgURL = $img.attr('src');
+    jQuery.get(imgURL, function(data) {
+        // Get the SVG tag, ignore the rest
+        var $svg = jQuery(data).find('svg');
+        // Add replaced image's ID to the new SVG
+        if(typeof imgID !== 'undefined') {
+            $svg = $svg.attr('id', imgID);
+        }
+        // Add replaced image's classes to the new SVG
+        if(typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('class', imgClass+' replaced-svg');
+        }
+        // Remove any invalid XML tags as per http://validator.w3.org
+        $svg = $svg.removeAttr('xmlns:a');
+        // Replace image with new SVG
+        $img.replaceWith($svg);
+    }, 'xml');
+});
+$('img.svg').show();
+// NEW ACTION
+$('.updates-article').each(function(){
+  var This = $(this);
+  var div = '<button class="check_more">${_('View more')}</button>';
+  This.append(div);
+})
+$('#dashboard_profile_middle_up').find('path').initialize(function(){
+  $(this).attr('style','');
+})
+$('.course_name_profile_list').find('path').initialize(function(){
+  $(this).attr('style','');
+})
+function lineHeight(){
+  $('.course_name_profile_list').find('span').each(function(){
+    $(this).css('line-height','41px');
+    var height = $(this).height();
+    var lineHeight = parseInt(height) / 41;
+    lineHeight = 41 / lineHeight;
+    $(this).css('line-height',lineHeight+'px');
+    console.log(lineHeight);
+  })
+}
+$('#profile_button').click(function(){
+  var num_cours = parseInt('${len(course_enrollments)}');
+  var h = $('#dashboard_profile').height();
+  var left = $('#dashboard_profile').css('height');
+  left = parseInt(left);
+  if(left == 30) {
+    if(num_cours == 1) {
+      var num_l = 40 * $('.dashboard_profile_bottom_middle').length;
+      var height = 485+num_l;
+      $('#dashboard_profile').animate({"height": height},1300);
+    }else{
+      $('#dashboard_profile').animate({"height": '400'},1300);
+    }
+  }else{
+    $('#dashboard_profile').animate({"height": '30'},1300);
+  }
+})
+$('.course_cell').click(function(){
+  var url = $(this).find('a').attr('href');
+  window.open(url,'_self');
+})
+function title_border_multi() {
+  var height = parseInt($('#span_1').width()) * 0.9;
+  $('#span_2').css('width',height+'px');
+  $('#list_multi').find('.course-title').each(function(){
+    var height = parseInt($(this).height()) / 2;
+    $(this).attr('style','');
+    $(this).css('margin-top','-'+height+'px');
+  })
+  $('#border_tma_date').attr('style','');
+  var tma_date_h = parseInt($('#tma_date').height());
+  if(tma_date_h > 20) {
+    $('#border_tma_date').hide();
+  }
+
+}
+function alignH2(){
+  var width = $(document).width();
+  if(width > 732) {
+    $('.multi_course_title').find('h2').each(function(){
+      $(this).attr('style','');
+      var height = $(this).height();
+      height = height / 2;
+      $(this).css('margin-top','-'+height+'px');
+    })
+  }else{
+      $(this).find('h2').attr('style','');
+  }
+}
+/* unenroll */
+
+function multi_unenroll() {
+  $('.unenroll_multi').click(function(e){
+    e.preventDefault();
+    var This = $(this);
+    var course_id = This.data('course-id');
+    $('#unenroll_course_id').attr('value',course_id);
+  })
+}
+$(document).ready(function(){
+  lineHeight();
+  title_border_multi();
+  alignH2();
+  multi_unenroll();
+  //puceParam();
+})
+$(window).initialize(function(){
+  lineHeight();
+  title_border_multi();
+  alignH2();
+})
+
+</script>
+<div id="email-settings-modal" class="modal" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
+    <button class="close-modal">
+      <span class="icon fa fa-remove" aria-hidden="true"></span>
+      <span class="sr">
+        ## Translators: this is a control to allow users to exit out of this modal interface (a menu or piece of UI that takes the full focus of the screen)
+        ${_("Close")}
+      </span>
+    </button>
+
+    <header>
+      <h2 id="email-settings-title">
+        ${Text(_("Email Settings for {course_number}")).format(course_number=HTML('<span id="email_settings_course_number"></span>'))}
+        <span class="sr">,
+          ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
+          ${_("window open")}
+        </span>
+      </h2>
+      <hr/>
+    </header>
+
+    <form id="email_settings_form" method="post">
+      <input name="course_id" id="email_settings_course_id" type="hidden" />
+      <label>${_("Receive course emails")} <input type="checkbox" id="receive_emails" name="receive_emails" /></label>
+      <div class="submit">
+        <input type="submit" id="submit" value="${_("Save Settings")}" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="unenroll-modal" class="modal unenroll-modal" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="unenrollment-modal-title">
+    <button class="close-modal">
+      <span class="icon fa fa-remove" aria-hidden="true"></span>
+      <span class="sr">
+        ## Translators: this is a control to allow users to exit out of this modal interface (a menu or piece of UI that takes the full focus of the screen)
+        ${_("Close")}
+      </span>
+    </button>
+
+    <header>
+      <h2 id="unenrollment-modal-title">
+        <span id='track-info'></span>
+        <span id='refund-info'></span>
+        <span class="sr">,
+          ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
+          ${_("window open")}
+        </span>
+      </h2>
+      <hr/>
+    </header>
+    <div id="unenroll_error" class="modal-form-error"></div>
+    <form id="unenroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+      <input name="course_id" id="unenroll_course_id" type="hidden" />
+      <input name="enrollment_action" type="hidden" value="unenroll" />
+      <div class="submit">
+        <input name="submit" type="submit" value="${_("Unenroll")}" />
+      </div>
+    </form>
+  </div>
+</div>

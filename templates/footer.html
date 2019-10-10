@@ -1,39 +1,68 @@
 ## mako
 <%page expression_filter="h"/>
-<%!
-  from django.core.urlresolvers import reverse
-  from django.utils.translation import ugettext as _
-  from branding.api import get_footer
-%>
+   <%!
+      from django.core.urlresolvers import reverse
+      from django.utils.translation import ugettext as _
+      from branding.api import get_footer
+      %>
 <% footer = get_footer(is_secure=is_secure) %>
 <%namespace name='static' file='static_content.html'/>
-<%
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/footer.css'.format(org)
-%>
-
+   <%
+      org = static.get_value('domain_prefix')
+      css = '/media/microsite/{}/auto/css/footer.css'.format(org)
+      %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<div id="cookie-notice" role="banner" class="cn-bottom bootstrap" style="color: rgb(255, 255, 255); background-color: rgb(0, 77, 183); visibility: visible;">
+	<div class="cookie-notice-container">
+		<span id="cn-notice-text">Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</span><a id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie cn-button bootstrap">Ok</a>
+		<a href="https://inveest.org/politique-de-confidentialite/" target="_blank" id="cn-more-info" class="cn-more-info cn-button bootstrap">Politique de confidentialité</a>
+	</div>			
+</div>
+
+<script>
+
+function HideCookieBar(){
+$("#cookie-notice").hide()
+}
+
+function ShowCookieBar(){
+$("#cookie-notice").show()
+}
+var cookieInveest = localStorage.getItem("cookieInvest")
+
+if (cookieInveest){HideCookieBar()}
+else{ShowCookieBar()}
+
+$("#cn-accept-cookie").click(function(){localStorage.setItem("cookieInvest",true);HideCookieBar()})
+
+</script>
 <footer class="global">
-  <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
-    </div>
-  </div>
+   <div class="footer-container">
+      <ul class="links">
+         <li>
+            <a href="https://inveest.org/politique-de-confidentialite/" target="_blank">Politique de confidentialité</a>
+         </li>
+         <li>
+            <a href="https://inveest.org/mentions-legales/" target="_blank">Mentions légales</a>
+         </li>
+         <li>
+            <a href="https://inveest.the-mooc-agency.com/tos" target="_blank">Conditions d&apos;utilisation du Service</a>
+         </li>
+         <!-- <li>
+            <a href="${marketing_link('FAQ')}">FAQ</a>
+            </li>
+            <li>
+            <a href="/about">Cr&eacute;dits</a>
+            </li>-->
+      </ul>
+      <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+      <div class="by-ionisx">
+         <!--modif on text and image-->
+         <!--
+            <a href="/">
+              <img src="" alt="">
+            </a>
+            -->
+      </div>
+   </div>
 </footer>

@@ -1,5 +1,5 @@
 <%! from django.utils.translation import ugettext as _ %>
-
+ENROLL EMAIL ENROLLED MESSAGe
 ${_("Dear {full_name}").format(full_name=full_name)}
 
 ${_("You have been enrolled in {course_name} at {site_name} by a member "

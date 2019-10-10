@@ -1,0 +1,96 @@
+
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+from tma_apps.associated_courses.helper import SelectiveRegisterManager
+%>
+
+<% 
+if request.user.is_authenticated() :
+  is_user_registered = SelectiveRegisterManager(request).has_registered_to_session()
+else:
+  is_user_registered = False
+%>
+
+
+    <!-- BOOTSTRAP-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- DATE PICKER -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" href="/media/microsite/inveest/ssm/css/style.css" />
+
+    <!-- MOMENT JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/fr.js"></script>
+
+    <p class="titleSearch mainColor">Toutes les prochaines sessions en région</p>
+    <center>
+    <div id="banner">
+      <div id="searchWrapper" class="container">
+        <div id="searchCourses">
+            <p class="filterIntro mainColor">Filtrer par</p>
+          <div class="row">
+
+            <div class="col-md-3 inputWrapper hide" id="datePickerWrap">
+              <div class="input-group flex-nowrap"><input type="text" id="datepicker" class="form-control mb-3" placeholder="Date" aria-label="organisme"></div>
+            </div>
+          </div>
+          <div class="searchButton">
+            <button id="search" class="secondColorBg mainColor textBold">Rechercher</button>
+            <p id="reinitializer">Réinitialiser les filtres</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </center>
+    <div id="mapWrapper">
+      <div id="map"></div>
+    </div>
+    <div id="resultsWrapper" class="hide">
+      <div>
+        <h4 class="mainColor textBold">Résultats de recherche</h4><span id ="results"></span>
+      </div>
+    </div>
+
+    <!-- BOOTSTRAP-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <!-- DATE PICKER-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $(document).ready(function() {
+        $( "#datepicker" ).daterangepicker(
+          {
+            autoUpdateInput: true,
+          }
+        );
+        document.getElementById('datepicker').value = '';
+        $('#reinitializer')[0].style.display = 'none';
+      } );
+    </script>
+
+    <!-- GOOGLE MAPS-->
+    <script>
+      var user_authenticated = "${user.is_authenticated()}".toLowerCase()
+      var is_user_registered = "${is_user_registered}"
+    </script>
+    <script src="/media/microsite/inveest/ssm/js/main.js">
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZPfRQkb-RFe5AUzHHmW_Q2ojvmIG8-AU&callback=startAPI">
+    </script>
+    
+    <!--IE11 warning-->
+    <script>
+    if(!!window.MSInputMethodContext && !!document.documentMode){
+       alert("Support IE11 en cours, merci d'utiliser Chrome");
+    }
+    </script>
