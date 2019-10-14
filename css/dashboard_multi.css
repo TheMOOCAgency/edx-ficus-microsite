@@ -1,0 +1,14 @@
+ input[type="submit"], input[type="button"]{
+  background-color: rgba(194,48,131,1) !important;
+  background-image: none;
+  text-shadow: none;
+  box-shadow: none;
+  border: none;
+
+}
+.content_tma {
+  min-height: calc(100vh - 137px) !important;
+}
+.empty-dashboard-message a {
+  color: #fff !important;
+}

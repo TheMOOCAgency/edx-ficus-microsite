@@ -1,0 +1,11 @@
+.course-info{
+  background-color: transparent !important;
+  background-size: cover;
+  background-position: center;
+}
+#content{
+  background-image:none !important;
+}
+.course-info .course-sidebar .important-dates {
+ padding-top: 20px !important;
+}

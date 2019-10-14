@@ -1,0 +1,70 @@
+## mako
+<%page expression_filter="h"/>
+<%!
+  from django.core.urlresolvers import reverse
+  from django.utils.translation import ugettext as _
+  from branding.api import get_footer
+%>
+<% footer = get_footer(is_secure=is_secure) %>
+<%namespace name='static' file='static_content.html'/>
+<%
+org = static.get_value('domain_prefix')
+css = org+'/css/footer.css'
+%>
+
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<footer class="global">
+  <div class="footer-container">
+    <ul class="links">
+      <li>
+        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+      </li>
+      <li>
+        <a href="${marketing_link('FAQ')}">FAQ</a>
+      </li>
+	  <li>
+        <a href="/about">Cr&eacute;dits</a>
+      </li>
+    </ul>
+    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+    <div class="by-ionisx">
+	<!--modif on text and image-->
+      <!--
+      <a href="/">
+        <img src="/media/microsite/afpa/images/logotma.png" alt="Bonshommes AFPA">
+      </a>
+      -->
+    </div>
+    <style>
+     #social_footer {
+       float: right;
+       min-height: 25px;
+       height: auto;
+       max-width:160px;
+       width: auto;
+       margin-top: -15px;
+     }
+     #social_footer a {
+       display: inline-block;
+       width: 25px;
+       height: 25px;
+       margin-left: 5px;
+       margin-right: 5px;
+     }
+     #social_footer a img {
+       width: 25px;
+       height: 25px;
+     }
+     body footer.global ul.links li a, body footer.global ul.links li a:hover {
+       color: #fff !important;
+     }
+    </style>
+    <div id="social_footer">
+      <a href="https://www.linkedin.com/company/5276731/?trk=tyah&trkInfo=tarId%3A1406293748078%2Ctas%3Afraissinet%20%2Cidx%3A2-1-6"><img src="/media/microsite/campus-fraissinet/images/linkedin.png" /></a>
+      <a href="https://twitter.com/fraissinet_rh"><img src="/media/microsite/campus-fraissinet/images/twitter.png" /></a>
+      <a href="http://fr.viadeo.com/fr/company/fraissinet-et-associes"><img src="/media/microsite/campus-fraissinet/images/viadeo-logo.png" /></a>
+      <a href="https://plus.google.com/115405144749832814732"><img src="/media/microsite/campus-fraissinet/images/google-plus.png" /></a>
+    </div>
+    <span style="clear=right;display:block;"></span>
+  </div>
+</footer>

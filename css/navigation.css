@@ -1,0 +1,68 @@
+.header-global h1.logo img.ec-logo-size {
+ width: auto !important;
+ height:56px;
+}
+.header-global.slim .wrapper-header .logo img {
+  margin-top: 4px;
+  height: 30px;
+}
+#tma_background_font {
+ position: fixed;
+ display: block;
+ width: 100vw;
+ height: 100vh;
+ background-image: url('/static/campus-fraissinet/images/fond.png');
+ background-size: cover;
+ background-position: center;
+ z-index: -1;
+}
+body {
+ background: transparent !important;
+}
+#content {
+ background: transparent !important;
+ min-height: calc(100vh - 277px) !important;
+ height: auto !important;
+}
+.content-wrapper {
+ background: transparent !important;
+}
+.course-info .container {
+ background-color: transparent !important;
+}
+.window-wrap {
+ background-color: transparent !important; 
+}
+
+.discussion-module .btn, .wmd-prompt-dialog .btn,.btn  {
+ color: rgba(194,48,131,1) !important;
+ border: 1px solid rgba(194,48,131,1) !important;
+}
+.discussion-module .btn:hover, .wmd-prompt-dialog .btn:hover,.discussion-module .btn:focus, .wmd-prompt-dialog .btn:focus,.btn:hover, .is-hovered.btn, .btn:focus, .is-focused.btn {
+ border-color: rgba(194,48,131,0.8) !important;
+ background-color: rgba(194,48,131,0.8) !important;
+ color: #fff !important;
+}
+.forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label {
+ background-color: rgba(194,48,131,1) !important;
+}
+.btn-brand:hover, .modal .inner-wrapper form .submit input[type="submit"]:hover, .leanModal_box .inner-wrapper form .submit input[type="submit"]:hover, .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"]:hover, .is-hovered.btn-brand, .modal .inner-wrapper form .submit input.is-hovered[type="submit"], .leanModal_box .inner-wrapper form .submit input.is-hovered[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input.is-hovered[type="submit"], .btn-brand:focus, .modal .inner-wrapper form .submit input[type="submit"]:focus, .leanModal_box .inner-wrapper form .submit input[type="submit"]:focus, .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"]:focus, .is-focused.btn-brand, .modal .inner-wrapper form .submit input.is-focused[type="submit"], .leanModal_box .inner-wrapper form .submit input.is-focused[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input.is-focused[type="submit"] {
+ border-color: rgba(194,48,131,1) !important;
+ background-color: rgba(194,48,131,1) !important; 
+}
+.has-breadcrumbs .breadcrumbs .all-topics {
+ color: rgba(194,48,131,1) !important; 
+}
+.discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand,.forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label {
+ background-color: rgba(194,48,131,1) !important;
+}
+.discussion-module .btn, .wmd-prompt-dialog .btn { 
+ color: rgba(194,48,131,1) !important; 
+ border: 1px solid rgba(194,48,131,1) !important;
+}
+body.view-in-course .wrapper-course-material .course-material .course-tabs {
+  width: 100% !important;
+}
+#content {
+ min-height: calc(100vh - 137px) !important;
+}

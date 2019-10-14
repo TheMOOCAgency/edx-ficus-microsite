@@ -1,0 +1,344 @@
+## mako
+<%page expression_filter="h" args="online_help_token"/>
+<%namespace name='static' file='static_content.html'/>
+<%namespace file='main.html' import="login_query"/>
+<%!
+import requests
+import json
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+from context_processors import doc_url
+from lms.djangoapps.ccx.overrides import get_current_ccx
+from openedx.core.djangolib.markup import HTML, Text
+
+#maj TMA
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from student.views import get_course_enrollments
+
+
+# App that handles subdomain specific branding
+from branding import api as branding_api
+# app that handles site status messages
+from status.status import get_site_status_msg
+#from util.enterprise_helpers import get_enterprise_customer_logo_url
+%>
+
+## Provide a hook for themes to inject branding on top.
+<%block name="navigation_top" />
+
+## Add UI Toolkit components if using the Pattern Library
+% if uses_pattern_library:
+    <%block name="js_extra">
+    <%static:require_module module_name="js/header_factory" class_name="HeaderFactory">
+    HeaderFactory();
+    </%static:require_module>
+    </%block>
+% endif
+<%
+org_static = static.get_value('domain_prefix')
+css = org_static+'/css/navigation.css'
+%>
+<%block>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<%
+try:
+    course_id = course.id
+except:
+    # can't figure out a better way to get at a possibly-defined course var
+    course_id = None
+site_status_msg = get_site_status_msg(course_id)
+%>
+% if site_status_msg:
+<div class="site-status">
+  <div class="inner-wrapper">
+    <span class="white-error-icon"></span>
+    <p>${site_status_msg}</p>
+  </div>
+</div>
+% endif
+</%block>
+  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+    <nav class="wrapper-header" aria-label="${_('Global')}">
+    <h1 class="logo">
+      <a href="${marketing_link('ROOT')}">
+        <%block name="navigation_logo">
+        <%
+        #logo_url = get_enterprise_customer_logo_url(request)
+        logo_size = 'ec-logo-size'
+	logo_url = static.get_value('logo_image_url')
+        if logo_url is None:
+            logo_url = branding_api.get_logo_url(is_secure)
+            logo_size = ''
+        %>
+            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+<!--
+      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
+<style>
+#nav_title{
+    width: auto;
+    height: 60px;
+    line-height: 16px;
+    vertical-align: middle;
+    margin-top: 16px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    float: left;
+    text-transform: uppercase;
+    color: #7F7F7F;
+    font-size: 16px;
+}
+</style>
+-->
+        </%block>
+      </a>
+    </h1>
+
+    % if course:
+      <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
+        <span class="course-number">${course.display_number_with_default}</span>
+        <%
+        display_name = course.display_name_with_default
+        if settings.FEATURES.get('CUSTOM_COURSES_EDX', False):
+          ccx = get_current_ccx(course.id)
+          if ccx:
+            display_name = ccx.display_name
+        %>
+        <span class="course-name">${display_name}</span></h2>
+      % endif
+
+      % if user.is_authenticated():
+        <ol class="left nav-global list-inline authenticated">
+        <%block name="navigation_global_links_authenticated">
+          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+            <li class="item nav-global-01">
+<!--              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>-->
+            </li>
+          % endif
+          % if show_program_listing:
+            <li class="tab-nav-item">
+              <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
+                ${_("Courses")}
+              </a>
+            </li>
+            <li class="tab-nav-item">
+              <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
+                ${_("Programs")}
+              </a>
+            </li>
+          % endif
+          %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
+            <li class="item">
+              ## Translators: This is short for "System administration".
+              <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
+            </li>
+          %endif
+        </%block>
+      </ol>
+
+      <%include file="user_dropdown.html"/>
+
+      <a href="${get_online_help_info(online_help_token)['doc_url']}"
+         target="_blank"
+         class="doc-link" style="display:none">${_("Help")}</a>
+
+      % if should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()): # see shoppingcart.context_processor.user_has_cart_context_processor
+        <ol class="user">
+          <li class="primary">
+            <a class="shopping-cart" href="${reverse('shoppingcart.views.show_cart')}">
+              <span class="icon fa fa-shopping-cart" aria-hidden="true"></span> ${_("Shopping Cart")}
+            </a>
+          </li>
+        </ol>
+      % endif
+    % else:
+      <ol class="left list-inline nav-global">
+        <%block name="navigation_global_links">
+          % if static.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
+            <li class="item nav-global-01">
+              <a href="${marketing_link('HOW_IT_WORKS')}">${_("How it Works")}</a>
+            </li>
+            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+              <li class="item nav-global-02">
+                <a href="${marketing_link('COURSES')}">${_("Courses")}</a>
+              </li>
+            % endif
+            <li class="item nav-global-03">
+              <a href="${marketing_link('SCHOOLS')}">${_("Schools")}</a>
+            </li>
+          % endif
+        </%block>
+
+        <%block name="navigation_other_global_links">
+          % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
+            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+              <li class="item nav-global-05">
+<!--                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>-->
+              </li>
+            %endif
+<!--
+            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+              <li class="item nav-global-04">
+                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+              </li>
+            % else:
+              <li class="item nav-global-04">
+                <a class="btn-neutral" href="/register${login_query()}">${_("Register")}</a>
+              </li>
+            % endif
+-->
+          % endif
+        </%block>
+      </ol>
+
+      <ol class="right nav-courseware list-inline">
+        <%block name="navigation_sign_in">
+          <li class="item nav-courseware-01">
+            % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
+              % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
+              % else:
+                <a class="btn btn-login" href="/login${login_query()}">${_("Sign in")}</a>
+              % endif
+            % endif
+          </li>
+        </%block>
+      </ol>
+    % endif
+    % if static.show_language_selector():
+     <% languages = static.get_released_languages() %>
+      % if len(languages) > 1:
+      <ol class="user">
+        <li class="primary">
+          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+            % if user.is_authenticated():
+            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+            % else:
+            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+            % endif
+            <label><span class="sr">${_("Choose Language")}</span>
+                <select class="input select language-selector" id="settings-language-value" name="language">
+                  % for language in languages:
+                    % if language[0] == LANGUAGE_CODE:
+                      <option value="${language[0]}" selected="selected">${language[1]}</option>
+                    % else:
+                      <option value="${language[0]}" >${language[1]}</option>
+                    % endif
+                  % endfor
+                </select>
+            </label>
+          </form>
+        </li>
+      </ol>
+      % endif
+      % endif
+    </nav>
+</header>
+
+% if course:
+<!--[if lte IE 9]>
+<div class="ie-banner" aria-hidden="true">${Text(_('{begin_strong}Warning:{end_strong} Your browser is not fully supported. We strongly recommend using {chrome_link} or {ff_link}.')).format(
+    begin_strong=HTML('<strong>'),
+    end_strong=HTML('</strong>'),
+    chrome_link=HTML('<a href="https://www.google.com/chrome" target="_blank">Chrome</a>'),
+    ff_link=HTML('<a href="http://www.mozilla.org/firefox" target="_blank">Firefox</a>'),
+)}</div>
+<![endif]-->
+% endif
+<%
+org_static = static.get_value('domain_prefix')
+css = org_static+'/css/course_navigation.css'
+js = org_static+'/js/translate.js'
+%>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<script src="${static.url(js)}"></script>
+<!-- superglobale js username and course_enrollment -->
+% if user.is_authenticated():
+  <%
+  course_org_filter = configuration_helpers.get_value('course_org_filter')
+  org_filter_out_set = configuration_helpers.get_all_orgs()
+  current_path = request.path
+  course_id = ''
+  course_length = ''
+  if '/courses/course-v1' in current_path:
+    if course_org_filter:
+        org_filter_out_set.remove(course_org_filter)
+    course_length = len(list(get_course_enrollments(request.user, course_org_filter, org_filter_out_set)))
+    course_id = current_path.split('/')[2]
+  %>
+  <script>
+    var username_pid = "${user.username}";
+    var userid_tma = "${user.id}";
+    var course_id_nav = '${course_id}';
+    var course_length_nav = '${course_length}';
+
+    function course_navigation_change(course_id,num_courses) {
+      if(course_id != '') {
+          if(num_courses > 1) {
+            $('.tab').eq(0).find('a').attr('href','/dashboard/'+course_id+'/');
+          }
+      }
+    }
+
+    $(document).ready(function(){
+      course_navigation_change(course_id_nav,course_length_nav);
+    })
+  </script>
+% endif
+<%include file="help_modal.html"/>
+<!-- PIWIK -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push([function() {
+var self = this;
+function getOriginalVisitorCookieTimeout() {
+var now = new Date(),
+nowTs = Math.round(now.getTime() / 1000),
+visitorInfo = self.getVisitorInfo();
+var createTs = parseInt(visitorInfo[2]);
+var cookieTimeout = 33696000; // 13 mois en secondes
+var originalTimeout = createTs + cookieTimeout - nowTs;
+return originalTimeout;
+}
+this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
+}]);
+% if user.is_authenticated():
+_paq.push(['setUserId', '${user.id}']);
+% endif
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.themoocagency.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 47]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=47" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+
+% if user.is_authenticated():
+<%
+
+try:
+  c_pid = json.loads(request.user.profile.custom_field).get('c_pid')
+except:
+  c_pid = ""
+%>
+<script type="text/javascript">
+var get_current_username = "${user.username}";
+var course_id_pid = "${c_pid}"
+course_id_pid = course_id_pid.replace('+','');
+course_id_pid = course_id_pid.replace('+','');
+course_id_pid = course_id_pid.replace(':','');
+course_id_pid = course_id_pid.replace('-','');
+course_id_pid = course_id_pid.toLowerCase();
+console.log(course_id_pid);
+</script>
+% endif

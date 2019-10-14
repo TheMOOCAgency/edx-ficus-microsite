@@ -1,0 +1,25 @@
+.home>header {
+    background: transparent none repeat scroll 0 center;
+    background-image: url('/static/campus-fraissinet/images/fond.png');
+    background-position: center;
+    height: 361px;
+}
+.courses-container .courses .course {
+    border-bottom: 3px solid rgba(194,48,131,1) !important;
+}
+.courses-container .courses .course .course-image .cover-image .learn-more {
+    border-color: rgba(194,48,131,1) !important;
+    background: rgba(194,48,131,1) !important;
+}
+.btn-login ,.btn-login:hover,.btn-login:focus,.btn-login:visited{
+  color: #fff !important;
+}
+.home {
+  background-color: #fff;
+}
+#tma_background_font {
+  background-image: none;
+}
+.home>header .outer-wrapper {
+  display: none !important;
+}

@@ -1,0 +1,362 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import ugettext as _ %>
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Honor Code")}</%block>
+<style>
+main {
+ background-color: #fff;
+}
+</style>
+<main id="main" aria-label="Content" tabindex="-1">
+<!--
+    <section class="container about">
+        <h1>${_("Honor Code")}</h1>
+        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+    </section>
+-->
+<section class="static-container honor">
+<h1>Conditions générales</h1>
+<p>
+    <strong>1. Editeur, hébergeur, directeur de la publication</strong>
+</p>
+<p>
+    Le site web <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> est :
+    <br/>
+    • édité par l’Afpa, dont le siège social est situé 13 place du Général de Gaulle, 93100 Montreuil, Tél : 01 48 70 50 00 ;
+    <br/>
+    • hébergé par OVH dont le siège est situé 2 rue Kellermann - 59100 Roubaix - France
+    <br/>
+    <br/>
+    Directeur de la publication : Monsieur Yves Barou, Président.
+</p>
+<p>
+    <strong>2. Mentions informatique et libertés</strong>
+</p>
+<p>
+    Ce site a fait l’objet d’une déclaration à la CNIL sous le n°1905143.
+</p>
+<p>
+    Afpa est le responsable du traitement automatisé de données à caractère personnel sur ce site.
+</p>
+<p>
+    <strong>2-1. Finalité</strong>
+</p>
+<p>
+    Le site internet <a href="http://mooc.afpa.fr">mooc.afpa.fr</a>, également accessible depuis le site internet <a href="www.afpa.fr">www.afpa.fr</a>, est un service de communication en ligne permettant
+    aux internautes à la recherche d’une formation, de suivre des cours en ligne gratuits et massifs ayant notamment pour objet de confirmer leur projet
+    professionnel, se professionnaliser, d’effectuer des exercices et d’échanger des observations avec les autres internautes participant aux cours.
+    <br/>
+    L'ambition de l’Afpa est de fournir un accès aux meilleures formations sur les techniques professionnelles et ce quelle que soit votre localisation
+    géographique.
+</p>
+<p>
+    <strong>2-2. Informations obligatoires</strong>
+</p>
+<p>
+    Les données collectées de manière obligatoire lors de la création d’un compte sont signalées par un astérisque(*). Si ces informations ne sont pas
+    fournies, l’utilisation du service est impossible.
+    <br/>
+    La création d’un compte permet aux internautes de recevoir des messages relatifs à la mise en ligne de nouveaux cours en ligne par l’Afpa ainsi que des
+    attestations.
+    <br/>
+    Dans le cas où l’internaute est un stagiaire Afpa, l’attestation de fin de formation n’est en aucun cas communiquée à son formateur et ne donne donc lieu à
+    aucun traçage dans son dossier.
+</p>
+<p>
+    <strong> </strong>
+</p>
+<p>
+    <strong>2-3. Les destinataires des données</strong>
+</p>
+<p>
+    Les destinataires des données à caractère personnel enregistrées sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> sont l’Afpa, responsable du traitement, et les entités
+    statutairement et contractuellement à l’Afpa, notamment The MOOC Agency.
+</p>
+<p>
+    <strong>2-4. Droit d’accès, de rectification et suppression des données à caractère personnel</strong>
+</p>
+<p>
+    Conformément aux articles 39 et suivants de la loi n° 78-17 du 6 janvier 1978 modifiée relative à l’informatique, aux fichiers et aux libertés, toute
+    personne peut obtenir communication et, le cas échéant, rectification ou suppression des informations la concernant, en s’adressant à l’Afpa, 13 place du
+    Général de Gaulle, 93100 Montreuil.
+</p>
+<p>
+    <strong>3. Cookies</strong>
+</p>
+<p>
+    Le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> utilise des cookies incluant des informations relatives à la navigation des internautes dans un but d’analyses statistiques. En
+    aucun cas, Afpa ne peut identifier un utilisateur par un cookie ; ce dernier enregistre uniquement des informations relatives à la navigation de
+    l’utilisateur sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>.
+    <br/>
+    Ces cookies sont émis par la société VARIABLE.
+    <br/>
+    La durée de conservation des informations relatives à la navigation est de 2 ans. Les informations de session sont supprimées dès la déconnexion.
+    <br/>
+    Vous pouvez vous opposer à l'enregistrement de cookies sur votre ordinateur :
+    <br/>
+    • en optant de naviguer en statut OPT-OUT sur la page http://www.atinternet.com/politique-du-respect-de-la-vie-privee/ ;
+    <br/>
+    • en configurant votre poste informatique de la manière suivante :
+    <br/>
+    Pour Microsoft Internet Explorer 6.0 et + :
+    <br/>
+    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options Internet" (ou «Internet Options")
+    <br/>
+    2. Cliquez sur l'onglet "Confidentialité" (ou "Confidentiality")
+    <br/>
+    3. Sélectionnez le niveau souhaité à l'aide du curseur ou cliquez sur le bouton "Avancé" pour personnaliser votre gestion des cookies.
+    <br/>
+    <br/>
+    Pour Firefox 3.5 et + :
+    <br/>
+    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options "
+    <br/>
+    2. Cliquez sur l'onglet "Vie privée"
+    <br/>
+    3. Dans « Règles de conservation », sélectionnez « Utiliser les paramètres personnalisés pour l’historique » et décochez le bouton "Accepter les cookies".
+    <br/>
+    <br/>
+    Pour Chrome :
+    <br/>
+    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options "
+    <br/>
+    2. Cliquez sur l'onglet "Options avancées"
+    <br/>
+    3. Dans « Paramètres de contenu », cochez le bouton « Interdire à tous les sites de stocker les données ».
+    <br/>
+    <br/>
+    Pour Netscape 6.X et 7.X :
+    <br/>
+    1. Choisissez le menu "Edition"&gt;"Préférences"
+    <br/>
+    2. Confidentialité et Sécurité
+    <br/>
+    3. Cookies
+    <br/>
+    <br/>
+    Pour Opéra 6.0 et au-delà :
+    <br/>
+    1. Choisissez le menu "Fichier"&gt;"Préférences"
+    <br/>
+    2. Vie Privée
+    <br/>
+    <br/>
+    A défaut, vous acceptez les cookies en poursuivant votre navigation.
+</p>
+<p>
+    <strong>4. Conditions d’utilisation du site</strong>
+</p>
+<p>
+    <strong>4-1 Acceptation des conditions d’utilisation</strong>
+</p>
+<p>
+    L’utilisateur du site reconnait avoir pris connaissance des présentes conditions d’utilisation avant toute utilisation du site et s’engage à les respecter.
+    <br/>
+    Lors de la création de son compte, l’internaute doit impérativement cocher la case par laquelle il reconnaît être parfaitement informé et accepter les
+    conditions du présent document. A défaut, le compte n’est pas créé.
+    <br/>
+    Afpa conserve pendant une durée de un an, à compter de la date de création du compte, l’information relative à l’acceptation des présentes conditions
+    d’utilisation par l’utilisateur et de la charte utilisateur.
+    <br/>
+    Afpa peut modifier les présentes conditions d’utilisation à tout moment. Ces modifications sont opposables à l’utilisateur dès leur mise en ligne sur le
+    site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>.
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-2 Création d’un compte, identifiant, mot de passe, adresse de courrier électronique</strong>
+</p>
+<p>
+    Lors de la création du compte, l’utilisateur s’engage à fournir des informations réelles correspondant à sa seule situation et à les mettre à jour
+    régulièrement.
+    <br/>
+    L’utilisateur s'engage également à ne pas créer une fausse identité.
+    <br/>
+    L’utilisateur est responsable du maintien de la confidentialité de ses identifiant et mot de passe qui lui permettent d'accéder aux cours mis en ligne au
+    fur et à mesure par Afpa.
+    <br/>
+    L’utilisateur est également responsable de l’utilisation du compte de messagerie électronique personnel (adresse courriel) qu’il a indiqué lors de la
+    création de compte sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>. L’utilisateur veille également à ce que des tiers n’utilisent pas cette adresse de courrier
+    électronique pour communiquer avec Afpa.
+    <br/>
+    En cas de perte ou de vol de son identifiant et/ou de son mot de passe, ou dans l’éventualité où l’utilisateur penserait qu’un tiers a accédé à son compte,
+    l’utilisateur s’engage à informer Afpa en renseignant le formulaire correspondant accessible dans la rubrique « Contact ».
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-3 Contenu des cours en ligne</strong>
+</p>
+<p>
+    L’inscription aux cours en ligne nécessite que l’utilisateur créé préalablement un compte.
+    <br/>
+    Chaque cours en ligne comprend :
+    <br/>
+    <br/>
+    1/ des vidéos :
+</p>
+<p>
+    - de l’équipe des ingénieurs et formateurs qui présentent le contenu pédagogique proposé,
+</p>
+<p>
+    - de démonstration des gestes techniques à acquérir,
+</p>
+<p>
+    - de professionnels exerçant le métier de cuisinier, de formateurs et de stagiaires en cours de formation à l’Afpa.
+</p>
+<p>
+    <br/>
+    2/ des exercices
+    <br/>
+    - des QUIZZS afin que l’internaute puisse vérifier de sa compréhension des savoirs communiqués au travers des cours en ligne.
+</p>
+<p>
+    3/ un espace au sein duquel les internautes ont accès à une communauté
+    <br/>
+    <br/>
+    Chaque cours en ligne présente :
+    <br/>
+    • les dates de début et de fin du cours
+    <br/>
+    • la présentation du contenu du cours
+    <br/>
+    • le plan du cours comprenant, le cas échéant, les différentes séquences
+    <br/>
+    • à titre d’information, les pré-requis attendus pour participer au cours, étant précisé que tout utilisateur accède librement au cours auquel il souhaite
+    participer
+    <br/>
+    • la présentation du formateur
+    <br/>
+    • la durée prévisionnelle du cours
+    <br/>
+    • l’effort estimé en termes d’heures hebdomadaires
+    <br/>
+    <br/>
+    Lorsque le cours en ligne est terminé l’utilisateur peut consulter les vidéos contenues dans le cours.
+</p>
+<p>
+    <br/>
+    Pour bénéficier à nouveau de l’intégralité du cours en ligne, l’utilisateur doit s’inscrire à la prochaine session.
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-4 Usages autorisés / Usages non autorisés</strong>
+</p>
+<p>
+    Le site <a href="https://www.mooc.afpa.fr">mooc.afpa.fr</a> doit être utilisé dans le respect des finalités mentionnées au point 2-1 ci-dessus.
+    <br/>
+    En tant qu’utilisateur, vous devez :
+    <br/>
+    - utiliser les services du site <a href="http://www.mooc.afpa.fr">mooc.afpa.fr</a> uniquement dans les buts pour lesquels ils sont mis à votre disposition;
+    <br/>
+    - assurer la confidentialité de vos identifiant et mot de passe et ne pas les communiquer à un tiers, quel que soit votre lien avec ce tiers;
+    <br/>
+    - saisir uniquement des informations exactes;
+    <br/>
+    - mettre à jour régulièrement les informations vous concernant;
+    <br/>
+    - respecter la réglementation en vigueur.
+    <br/>
+    <br/>
+    En tant qu’utilisateur, vous ne devez pas :
+    <br/>
+    - constituer une base de données à des fins publicitaires (envoi de promotion sur des offres, produits ou services par appels, fax, courriers, courriels ou
+    newsletters non sollicités) ou autres;
+    <br/>
+    - mettre en ligne des contenus illégaux ou inappropriés (opinions politiques ou religieuses, atteintes aux bonnes mœurs, etc).
+    <br/>
+    - le cas échéant, capter et/ou diffuser, par quelque moyen que ce soit, tout ou partie du contenu des cours en ligne auxquels vous participez, sous peine
+    de sanction pénale.
+    <br/>
+    - ne pas publier ou rendre accessibles les réponses aux exercices sur quelque support que ce soit.
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-5 Contenus illégaux</strong>
+</p>
+<p>
+    L’utilisateur est pénalement responsable des informations qu’il met en ligne sur le site <a href="http://www.mooc.afpa.fr">mooc.afpa.fr</a> , notamment les
+    contenus qui constituent une provocation ou une apologie de crimes, de délits ou d’acte de terrorisme, une incitation à la haine ou à la discrimination, ou
+    qui ont pour effet de porter atteinte à la réputation ou à la tranquillité des personnes sont punis par des peines pouvant aller jusqu’à 100 000 € d’amende
+    et 7 ans d’emprisonnement (articles 23 à 41-1 de la loi du 29 juillet 1881 sur la liberté de la presse et article 421-2-5 du code pénal).
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-6 Signalement de contenus illégaux mis en ligne</strong>
+</p>
+<p>
+    Afpa met en place une procédure de signalement des contenus illégaux mis en ligne.
+    <br/>
+    <br/>
+    Ce dispositif est accessible à partir du forum : cliquer sur le bouton « Plus… » puis le bouton « Dénoncer ».
+    <br/>
+Les internautes ont également la faculté d’émettre un signalement à l’adresse courriel suivante :    <a href="mailto:contact@mooc.afpa.fr">contact@mooc.afpa.fr</a>
+    <br/>
+    Afpa conserve l’ensemble de données ayant donné lieu à un signalement pendant un délai de UN an à compter de la date du signalement.
+    <br/>
+    <br/>
+</p>
+<p>
+    <strong>4-7 Modération</strong>
+</p>
+<p>
+    Les FAQ mises en lignes à l’ouverture de chaque sont modérées à priori : les questions posées par les internautes sont lues avant leur publication. Un
+    délai de quelques jours peut donc s’écouler avant que la question et sa réponse ne soient visibles sur le site.
+    <br/>
+    Les forums relatifs à chaque cours en ligne sont modérés à postériori ; la modération peut donner lieu à la suppression du compte d’un utilisateur, sans
+    préjudice d’éventuelles suites judiciaires, dans le cas où Pôle emploi constaterait la mise en ligne d’un contenu illégal.
+</p>
+<p>
+    <strong>5. Responsabilité</strong>
+</p>
+<p>
+    Afpa ne saurait être tenu pour responsable des dommages de toute nature, directs ou indirects, résultant de l’utilisation du site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>, ni
+    de l’impossibilité pour l’utilisateur d’accéder au site <u>mooc.afpa.fr</u>.
+</p>
+<p>
+    <strong>6 – Notifications – Attestation de fin de formation</strong>
+</p>
+<p>
+    Toute notification doit être adressée via le formulaire en ligne dans la rubrique « Contact ».
+    <br/>
+    Toute notification qui est destinée aux apprenants est envoyée par courriel à l'adresse que les internautes ont communiquée lors de la création de leur
+    compte. On entend par notification l’attestation de suivi de cours en ligne que les internautes peuvent obtenir sous réserve qu’ils aient suivi la totalité
+    du cours. Ce document ne vaut ni certification ni diplôme quelconque.
+</p>
+<p>
+    <strong>7. Propriété intellectuelle</strong>
+</p>
+<p>
+    Le site internet <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> est protégé au titre des dispositions relatives au droit d’auteur défini à l’article L.111-1 du code de la propriété
+    intellectuelle et au titre des dispositions relatives aux bases de données définies aux articles L.341-1 et suivants du même code. Afpa est titulaire de
+    l’ensemble des droits de propriété intellectuelle sur les éléments composant le site.
+    <br/>
+    A l’exception des dispositions prévues à l’article L.122-5 du code de la propriété intellectuelle, toute représentation, reproduction ou diffusion,
+    intégrale ou partielle du site, sur quelque support que ce soit, sans l'autorisation expresse et préalable de Afpa constitue un acte de contrefaçon,
+    sanctionné au titre des articles L.335-2 et L.335.3 du même code.
+    <br/>
+    Par ailleurs, toute représentation, reproduction ou diffusion, intégrale ou partielle de la marque Afpa, sur quelque support que ce soit, sans
+    l'autorisation expresse et préalable de l’Afpa constitue un acte de contrefaçon, sanctionné au titre des articles L.521-10 du même code.
+    <br/>
+    <br/>
+    <br/>
+    Mis à jour le 2 novembre 2015
+</p>
+<p>
+    Les MOOCs de l’AFPA, © 2015 Afpa et, tous droits réservés.
+    <br/>
+    Plateforme basée sur OpenEdx. Thème initial développé par <a href="https://ionisx.com/">ionisx</a>.
+    <br/>
+    Une réalisation <a href="http://themoocagency.com/">TheMOOCAgency</a>.
+</p>
+<p>
+    <a href="http://themoocagency.com/"> </a>
+</p>
+
+</section>
+
+</main>

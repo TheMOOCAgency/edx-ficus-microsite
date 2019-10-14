@@ -1,0 +1,658 @@
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%def name="online_help_token()"><% return "learnerdashboard" %></%def>
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from django.template import RequestContext
+import third_party_auth
+from third_party_auth import pipeline
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+#GEOFFREY
+from courseware.courses import get_course_info_section, get_course_date_blocks
+from courseware.courses import get_course_by_id
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+from cms.djangoapps.models.settings.course_grading import CourseGradingModel
+from xmodule.modulestore.django import modulestore
+from course_api.blocks.api import get_blocks
+#from discussion_tma.views import get_section_list
+import time
+import json
+from courseware.models import StudentModule
+%>
+
+<%
+  cert_name_short = settings.CERT_NAME_SHORT
+  cert_name_long = settings.CERT_NAME_LONG
+%>
+
+<%
+org_static = static.get_value('domain_prefix')
+css = org_static+'/css/dashboard.css'
+css_bis = org_static+'/css/dashboard_multi.css'
+%>
+
+<%block name="pagetitle">${_("Dashboard")}</%block>
+<%block name="bodyclass">view-dashboard is-authenticated</%block>
+
+<%block name="header_extras">
+% for template_name in ["donation"]:
+<script type="text/template" id="${template_name}-tpl">
+  <%static:include path="dashboard/${template_name}.underscore" />
+</script>
+% endfor
+
+% for template_name in ["dashboard_search_item", "dashboard_search_results", "search_loading", "search_error"]:
+<script type="text/template" id="${template_name}-tpl">
+    <%static:include path="search/${template_name}.underscore" />
+</script>
+% endfor
+</%block>
+<%block name="js_extra">
+
+  <script src="${static.url('js/commerce/credit.js')}"></script>
+  <%static:js group='dashboard'/>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      edx.dashboard.legacy.init({
+        dashboard: "${reverse('dashboard') | n, js_escaped_string}",
+        signInUser: "${reverse('signin_user') | n, js_escaped_string}",
+        changeEmailSettings: "${reverse('change_email_settings') | n, js_escaped_string}"
+      });
+    });
+  </script>
+  % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
+    <%static:require_module module_name="js/search/dashboard/dashboard_search_factory" class_name="DashboardSearchFactory">
+        DashboardSearchFactory();
+    </%static:require_module>
+  % endif
+  % if redirect_message:
+    <%static:require_module module_name="js/views/message_banner" class_name="MessageBannerView">
+        var banner = new MessageBannerView({urgency: 'low', type: 'warning'});
+        $('#content').prepend(banner.$el);
+        banner.showMessage(${redirect_message | n, dump_js_escaped_json})
+    </%static:require_module>
+  % endif
+</%block>
+<link rel="stylesheet" type="text/css" href="${static.url(css_bis)}" />
+<div class="dashboard-notifications" tabindex="-1">
+    %if message:
+        <div class="dashboard-banner">
+            ${message | n, decode.utf8}
+        </div>
+    %endif
+
+    %if enrollment_message:
+        <div class="dashboard-banner">
+            ${enrollment_message | n,  decode.utf8}
+        </div>
+    %endif
+</div>
+<!-- CSS DEV -->
+<!-- CSS DEV -->
+<!--
+<link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
+-->
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+<!-- DASHBOARD MONO -->
+
+<div id="voile"></div>
+<div class="content_tma">
+  <!-- profil -->
+  <div id="dashboard_profile">
+  <div id="profile_button">p r o f i l </div>
+    <!-- image profil -->
+
+<%
+profile_image_url = get_profile_image_urls_for_user(user)['large']
+get_persisted = ''
+is_passed = False
+course = ''
+score = ''
+course_module = ''
+course_details = ''
+blocks = ''
+root = ''
+children = ''
+course_mono_id = ''
+forum_tma = ''
+course_finished = 0
+course_name = []
+for dashboard_index, enrollment in enumerate(course_enrollments):
+  course = get_course_by_id(enrollment.course_id)
+  if len(course_enrollments) == 1:
+    course_tma = str(enrollment.course_id)
+    user_tma = user.id
+    #forum_tma = get_section_list(request,course_tma,user_tma)
+    forum_tma= false
+    course_mono_id = enrollment.course_id
+    course_module = modulestore().get_course(enrollment.course_id, depth=0)
+    course_details = course_module._field_data_cache['grading_policy']['GRADER']
+  """
+  elif len(course_enrollments) > 1:
+    get_persisted = CourseGradeFactory().get_persisted(request.user, course)
+    if get_persisted is None:
+      get_persisted = CourseGradeFactory().create(request.user, course)
+    if get_persisted.passed:
+      course_finished = course_finished + 1
+      course_name.append(enrollment.course_overview.display_name_with_default)
+    endif
+  endif
+  """
+endfor
+%>
+    <div class="dashboard_profile" id="dashboard_profile_up">
+      <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
+      <h3>${user.profile.name}</h3>
+      <h4>${user.email}</h4>
+    </div>
+% if len(course_enrollments) == 1:
+    <%
+    for enrollment in course_enrollments:
+        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+    %>
+    <style>
+    #dashboard_profile_middle {
+      display: none !important;
+    }
+    </style>
+    <!-- block milieu profil -->
+    <div class="dashboard_profile" id="dashboard_profile_middle">
+      <!-- formation validé -->
+    <!--
+      <div id="dashboard_profile_middle_up">
+        % if False:
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">{_("Training not validated")}</span>
+        % elif cours_ouv:
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+        % else:
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+        % endif
+      </div>
+    -->
+      <!-- border middle -->
+      <div id="dashboard_profile_middle_middle">
+      </div>
+      <!-- actif forum -->
+        % if str(course_mono_id) != 'course-v1:campus-fraissinet+sbo2018+sbo2018':
+        <div id="dashboard_profile_middle_bottom">
+          % if forum_tma:
+            <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
+          % elif cours_ouv:
+            <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          % else:
+            <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+          % endif
+        </div>
+        % else:
+        <style>
+        #dashboard_profile_middle {
+          height: 62px;
+        }
+          % if json.loads(user.profile.custom_field).get('fraissinet_role') == 'utilisateur':
+        #dashboard_profile_bottom {
+          visibility:visible !important;
+        }
+          % endif
+        #dashboard_profile_bottom_up span {
+          display: none;
+        }
+        </style>
+        % endif
+    </div>
+    <!-- block bottom profil -->
+    <div class="dashboard_profile" id="dashboard_profile_bottom">
+      <!-- note totale -->
+      <div id="dashboard_profile_bottom_up">
+        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+      </div>
+  <%
+  course_details_len = len(course_details)
+  mark = 0
+  %>
+  % if str(course_mono_id) == 'course-v1:campus-fraissinet+sbo2018+sbo2018':
+  <style>
+    .dashboard_profile_bottom_middle p {
+      text-align: left !important;
+      position: relative;
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    .dashboard_profile_bottom_middle p img {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      height: 20px;
+      width: 20px;
+      margin-top: -10px;
+    }
+  </style>
+  <div class="dashboard_profile_bottom_middle">
+    <%
+
+    metier = None
+    travail = None
+    quiz = None
+    pro = None
+    personalite = None
+
+    profile = user.profile
+
+    try:
+      if str(course_enrollments[0].course_id) == 'course-v1:campus-fraissinet+sbo2018+sbo2018':
+
+        module = list(StudentModule.objects.filter(student_id=request.user.id,course_id=course_enrollments[0].course_id).filter(max_grade__isnull=False))
+
+        module_travail = "block-v1:campus-fraissinet+sbo2018+sbo2018+type@problem+block@52a0ab944e7741a7acf21a5f727d5f55"
+        #cree de facon erronee par Thomas G, le module 2 est actif depuis mi nov 2018 et remplace pour les nouveaux le module précédent
+        module_travail2 = "block-v1:campus-fraissinet+sbo2018+sbo2018+type@problem+block@b9e9b6164cf34fb99849f1511a861606"
+        module_metier = "block-v1:campus-fraissinet+sbo2018+sbo2018+type@problem+block@fadd043a45d54b89a1940971b446a6e9"
+
+        module_metier = "block-v1:campus-fraissinet+sbo2018+sbo2018+type@problem+block@fadd043a45d54b89a1940971b446a6e9"
+
+        for _row in module:
+            if str(_row.module_state_key) == module_travail or str(_row.module_state_key) == module_travail2:
+                travail = True
+            if str(_row.module_state_key) == module_metier:
+                metier = True
+
+        custom_field = json.loads(profile.custom_field)
+        personalite = custom_field.get('R13')
+        pro = custom_field.get('R164')
+
+
+    except:
+      pass
+    %>
+    <p>Quiz marché du travail
+      % if travail is not None:
+      <img src="/media/microsite/campus-fraissinet/images/complet.png" />
+      %else:
+      <img src="/media/microsite/campus-fraissinet/images/incomplet.png" />
+      % endif
+    </p>
+  </div>
+  <div class="dashboard_profile_bottom_middle">
+    <p>Test de personnalité
+      % if personalite is not None:
+      <img src="/media/microsite/campus-fraissinet/images/complet.png" />
+      %else:
+      <img src="/media/microsite/campus-fraissinet/images/incomplet.png" />
+      % endif
+    </p>
+  </div>
+  <div class="dashboard_profile_bottom_middle">
+    <p>Test d’intérêts professionnels
+      % if pro is not None:
+      <img src="/media/microsite/campus-fraissinet/images/complet.png" />
+      %else:
+      <img src="/media/microsite/campus-fraissinet/images/incomplet.png" />
+      % endif
+    </p>
+  </div>
+  <div class="dashboard_profile_bottom_middle">
+    <p>Enquête métier
+      % if metier is not None:
+      <img src="/media/microsite/campus-fraissinet/images/complet.png" />
+      %else:
+      <img src="/media/microsite/campus-fraissinet/images/incomplet.png" />
+      % endif
+    </p>
+  </div>
+  % endif
+  % for n in course_details:
+    <% mark = mark + 1 %>
+    <!-- assignement type -->
+    <div class="dashboard_profile_bottom_middle">
+      <img class="svg" src="${static.url(org_static+'/images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
+       %if n.get('weight')==0:
+          optionnel
+       %else:
+          poids: ${int(n.get('weight') * 100)}%
+       %endif
+      )</span></span><span id="assignment_grade_${mark}">0%</span>
+    </div>
+    % if mark < course_details_len:
+    <!-- border middle -->
+    <div class="dashboard_profile_bottom_middle_border">
+    </div>
+    % endif
+  % endfor
+  </div>
+
+%if course.no_grade:
+ <style>
+  #dashboard_profile_bottom{
+    visibility:hidden;
+  }
+ </style>
+%endif
+
+
+<script type="text/javascript">
+grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
+j=1;
+for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
+ if(grade_summary['section_breakdown'][i].prominent){
+  grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
+  $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
+  //TODO : Improve to get the 70 from the back
+  if(grade_to_show>=70){
+    $("#badge_"+j.toString()).attr("src","${static.url(org_static+'/images/badge_couleur.svg')}");
+  }
+  j=j+1;
+ }
+}
+$("#score_tma").html(grade_summary['percent']*100+" %");
+</script>
+% elif len(course_enrollments) > 1:
+  <div class="dashboard_profile" id="profile_bottom_multi">
+    % if course_end < 2:
+      <h3>${course_end} cours<br>terminé</h3>
+    % else:
+      <h3>${course_end} cours<br>terminés</h3>
+    % endif
+    % for n in course_name:
+        <div class="course_name_profile_list">
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
+        </div>
+    % endfor
+  </div>
+% endif
+  </div>
+  <div id="dashboard_course_content">
+% if len(course_enrollments) == 1:
+  % for dashboard_index, enrollment in enumerate(course_enrollments):
+    <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
+    <% cert_status = cert_statuses.get(enrollment.course_id) %>
+    <% can_unenroll = (not cert_status) or cert_status.get('can_unenroll') %>
+    <% credit_status = credit_statuses.get(enrollment.course_id) %>
+    <% show_email_settings = (enrollment.course_id in show_email_settings_for) %>
+    <% course_mode_info = all_course_modes.get(enrollment.course_id) %>
+    <% show_refund_option = (enrollment.course_id in show_refund_option_for) %>
+    <% is_paid_course = (enrollment.course_id in enrolled_courses_either_paid) %>
+    <% is_course_blocked = (enrollment.course_id in block_courses) %>
+    <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
+    <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
+    <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
+    <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, social_url=social_url,dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard' />
+  % endfor
+  </div>
+  <div id="dashboard_course_info">
+    <div id="dashboard_course_info_header">
+      <h2>${_('News')}</h2>
+    </div>
+    <div>
+  ${HTML(get_course_info_section(request, request.user, course, 'updates'))}
+    </div>
+    <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
+  </div>
+  <!-- FIN DASHBOARD MONO -->
+  <!-- FIN DASHBOARD MONO -->
+  <!-- FIN DASHBOARD MONO -->
+  <!-- FIN DASHBOARD MONO -->
+  <!-- DASHBOARD MULTI -->
+  <!-- DASHBOARD MULTI -->
+  <!-- DASHBOARD MULTI -->
+  <!-- DASHBOARD MULTI -->
+% elif len(course_enrollments) > 1:
+<style>
+#dashboard_course_content {
+  width: calc(100% - 470px);
+  margin-left: 53px;
+  margin-right: 53px;
+}
+</style>
+<span id="list_multi_title">
+<h1><span id="span_1">Mes formations</span></h1>
+</span>
+<ul id="list_multi">
+% for dashboard_index, enrollment in enumerate(course_enrollments):
+  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+% endfor
+</ul>
+<!-- multi site css -->
+<style>
+.dashboard_profile {
+  margin-bottom: 20px;
+}
+@media(max-width:1024px) {
+  #dashboard_course_content {
+    width: calc(100% - 76px);
+    margin-left: 23px;
+  }
+}
+@media(max-width:673px) {
+  .course_show_tma {
+    left: calc(100% - 120px);
+    bottom: -48px;
+    transform: none;
+  }
+  .tma_bottom_course_listing_multi {
+    position: relative;
+    bottom: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 0px;
+  }
+}
+@media(max-width:445px) {
+  #dashboard_course_content {
+    width: calc(100% - 14px);
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+}
+</style>
+% else:
+<style>
+.empty-dashboard-message a:hover{
+  color: #fff !important;
+}
+</style>
+  <div class="empty-dashboard-message">
+    <p>${_("You are not enrolled in any courses yet.")}</p>
+
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+      <a href="${marketing_link('COURSES')}">
+        ${_("Explore courses")}
+      </a>
+
+    %endif
+</div>
+% endif
+<!-- FIN DASHBOARD MULTI -->
+<!-- FIN DASHBOARD MULTI -->
+<!-- FIN DASHBOARD MULTI -->
+<!-- FIN DASHBOARD MULTI -->
+</div>
+<span style="display:block;clear:left;"></span>
+<script>
+// SVG ACTION
+jQuery('img.svg').each(function(){
+    var $img = jQuery(this);
+    var imgID = $img.attr('id');
+    var imgClass = $img.attr('class');
+    var imgURL = $img.attr('src');
+    jQuery.get(imgURL, function(data) {
+        // Get the SVG tag, ignore the rest
+        var $svg = jQuery(data).find('svg');
+        // Add replaced image's ID to the new SVG
+        if(typeof imgID !== 'undefined') {
+            $svg = $svg.attr('id', imgID);
+        }
+        // Add replaced image's classes to the new SVG
+        if(typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('class', imgClass+' replaced-svg');
+        }
+        // Remove any invalid XML tags as per http://validator.w3.org
+        $svg = $svg.removeAttr('xmlns:a');
+        // Replace image with new SVG
+        $img.replaceWith($svg);
+    }, 'xml');
+});
+$('img.svg').show();
+// NEW ACTION
+$('.updates-article').each(function(){
+  var This = $(this);
+  var div = '<button class="check_more">${_('View more')}</button>';
+  This.append(div);
+})
+$('#dashboard_profile_middle_up').find('path').initialize(function(){
+  $(this).attr('style','');
+})
+$('.course_name_profile_list').find('path').initialize(function(){
+  $(this).attr('style','');
+})
+function lineHeight(){
+  $('.course_name_profile_list').find('span').each(function(){
+    $(this).css('line-height','41px');
+    var height = $(this).height();
+    var lineHeight = parseInt(height) / 41;
+    lineHeight = 41 / lineHeight;
+    $(this).css('line-height',lineHeight+'px');
+    console.log(lineHeight);
+  })
+}
+$('#profile_button').click(function(){
+  var num_cours = parseInt('${len(course_enrollments)}');
+  var h = $('#dashboard_profile').height();
+  var left = $('#dashboard_profile').css('height');
+  left = parseInt(left);
+  if(left == 30) {
+    if(num_cours == 1) {
+      var num_l = 40 * $('.dashboard_profile_bottom_middle').length;
+      var height = 485+num_l;
+      $('#dashboard_profile').animate({"height": height},1300);
+    }else{
+      $('#dashboard_profile').animate({"height": '400'},1300);
+    }
+  }else{
+    $('#dashboard_profile').animate({"height": '30'},1300);
+  }
+})
+$('.course_cell').click(function(){
+  var url = $(this).find('a').attr('href');
+  window.open(url,'_self');
+})
+function title_border_multi() {
+  var height = parseInt($('#span_1').width()) * 0.9;
+  $('#span_2').css('width',height+'px');
+  $('#list_multi').find('.course-title').each(function(){
+    var height = parseInt($(this).height()) / 2;
+    $(this).attr('style','');
+    $(this).css('margin-top','-'+height+'px');
+  })
+  $('#border_tma_date').attr('style','');
+  var tma_date_h = parseInt($('#tma_date').height());
+  if(tma_date_h > 20) {
+    $('#border_tma_date').hide();
+  }
+
+}
+function alignH2(){
+  var width = $(document).width();
+  if(width > 732) {
+    $('.multi_course_title').find('h2').each(function(){
+      $(this).attr('style','');
+      var height = $(this).height();
+      height = height / 2;
+      $(this).css('margin-top','-'+height+'px');
+    })
+  }else{
+      $(this).find('h2').attr('style','');
+  }
+}
+/* unenroll */
+
+function multi_unenroll() {
+  $('.unenroll_multi').click(function(e){
+    e.preventDefault();
+    var This = $(this);
+    var course_id = This.data('course-id');
+    $('#unenroll_course_id').attr('value',course_id);
+  })
+}
+$(document).ready(function(){
+  lineHeight();
+  title_border_multi();
+  alignH2();
+  multi_unenroll();
+  //puceParam();
+})
+$(window).initialize(function(){
+  lineHeight();
+  title_border_multi();
+  alignH2();
+})
+
+</script>
+<div id="email-settings-modal" class="modal" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
+    <button class="close-modal">
+      <span class="icon fa fa-remove" aria-hidden="true"></span>
+      <span class="sr">
+        ## Translators: this is a control to allow users to exit out of this modal interface (a menu or piece of UI that takes the full focus of the screen)
+        ${_("Close")}
+      </span>
+    </button>
+
+    <header>
+      <h2 id="email-settings-title">
+        ${Text(_("Email Settings for {course_number}")).format(course_number=HTML('<span id="email_settings_course_number"></span>'))}
+        <span class="sr">,
+          ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
+          ${_("window open")}
+        </span>
+      </h2>
+      <hr/>
+    </header>
+
+    <form id="email_settings_form" method="post">
+      <input name="course_id" id="email_settings_course_id" type="hidden" />
+      <label>${_("Receive course emails")} <input type="checkbox" id="receive_emails" name="receive_emails" /></label>
+      <div class="submit">
+        <input type="submit" id="submit" value="${_("Save Settings")}" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="unenroll-modal" class="modal unenroll-modal" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="unenrollment-modal-title">
+    <button class="close-modal">
+      <span class="icon fa fa-remove" aria-hidden="true"></span>
+      <span class="sr">
+        ## Translators: this is a control to allow users to exit out of this modal interface (a menu or piece of UI that takes the full focus of the screen)
+        ${_("Close")}
+      </span>
+    </button>
+
+    <header>
+      <h2 id="unenrollment-modal-title">
+        <span id='track-info'></span>
+        <span id='refund-info'></span>
+        <span class="sr">,
+          ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
+          ${_("window open")}
+        </span>
+      </h2>
+      <hr/>
+    </header>
+    <div id="unenroll_error" class="modal-form-error"></div>
+    <form id="unenroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+      <input name="course_id" id="unenroll_course_id" type="hidden" />
+      <input name="enrollment_action" type="hidden" value="unenroll" />
+      <div class="submit">
+        <input name="submit" type="submit" value="${_("Unenroll")}" />
+      </div>
+    </form>
+  </div>
+</div>

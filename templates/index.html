@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<title>Campus FRAISSINET</title>
+	<meta name="description" content="Visia. Responsive One Page Portfolio.">
+	<meta name="keywords" content="visia, responsive, one page, portfolio, parallax, template, html5">
+	<meta name="author" content="Aether Themes">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="shortcut icon" href="/media/microsite/campus-fraissinet/hp/images/favicon.png">
+	<link rel="apple-touch-icon" href="/media/microsite/campus-fraissinet/hp/images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/media/microsite/campus-fraissinet/hp/images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/media/microsite/campus-fraissinet/hp/images/apple-touch-icon-114x114.png">
+
+	<!--[if lt IE 9]>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+	function redimensionnement(){
+		if($(window).width() <= 1920)
+			{
+				$('.font_up').css('width', $(window).width()+'px');
+			}
+
+			if($(window).height() <= 1080)
+			{
+				$('.font_up').css('height', $(window).height()+'px');
+			}
+	};
+$(document).ready(function(){
+
+    // Au chargement initial
+    redimensionnement();
+
+    // En cas de redimensionnement de la fenêtre
+    $(window).resize(function(){
+        redimensionnement();
+    });
+
+	/* apparition_menu */
+	$('#menu').click(function(){
+		$('.menu_lien').toggle('slow');
+	});
+	/* modification up_head_scroll */
+	$(document).scroll(function(){
+		if( $(window).width() > 465)
+		{
+			if ($(this).scrollTop() > $(window).height()){
+				$('.up_head').css('background-color', 'rgba(0,0 ,0 , 0.3)');
+				$('.menu_lien').css('top', '81px');
+				$('.menu_lien').css('margin-top', '5px');
+			}else{
+				$('.up_head').css('background-color', 'rgba(0,0 ,0 , 0.0)');
+				$('.menu_lien').css('top', '70px');
+			}
+		}else{
+			if ($(this).scrollTop() > $(window).height()){
+				$('#menu').css('background-color', 'rgba(0,0 ,0 , 0.5)');
+				$('#menu').css('padding', '10px');
+				$('#menu').css('border-radius', '3px');
+			}else{
+				$('#menu').css('background-color', 'rgba(0,0 ,0 , 0.0)');
+			}
+		}
+	});
+
+});
+	</script>
+	<!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/loader.css">
+
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/reset.css"> -->
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/grid.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/colors/ruby-red.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/aqua-blue.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/mint-green.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/rose-pink.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/sunflower-yellow.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/jeans.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/grape.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/grass.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/lavander.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="stylesheets/colors/gray.css"> -->
+
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/animations.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/campus-fraissinet/hp/stylesheets/animations.css">
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="stylesheets/ie.css" />
+	<![endif]-->
+<style>
+#player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 101;
+  margin-left: -350px;
+  margin-top: -210px;
+  display: none;
+  padding: 30px;
+}
+#close {
+  position: absolute;
+  z-index: 102;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.4);
+}
+#voile {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+#bg-mobile{
+	display: none;
+}
+@media(max-width:1020px){
+	#bg-mobile{
+		display: block;
+		margin-top: 81px;
+	}
+	.font_up{
+		background:none;
+		height: auto!important;
+	}
+	.up_head{
+		background-color:#263238!important;
+	}
+	.prochainement{
+		display: none;
+	}
+}
+
+</style>
+</head>
+
+<body class="royal_loader">
+	<div id="player"><span id="close">X</span><iframe id="iframe_teaser" src="" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+	<div id="voile"></div>
+	<!-- Begin Hero -->
+		<div class="up_head">
+			<div class="logo">
+				<span id="logo_hi"><a href="/"><img src="/media/microsite/campus-fraissinet/hp/images/Logosgauche.png"></a></span>
+				<span id="logo_lo"><a href="/"><img src="/media/microsite/campus-fraissinet/hp/images/logo2.png"></a></span>
+			</div>
+			<div class="head_liens">
+				<div class="information"><a href="#section_cours"></a></div>
+			</div>
+				<div class="menu"><button id="menu">MENU</button></div>
+			<div>
+				<div class="connexion"><a href="https://campus-fraissinet.the-mooc-agency.com/login"></a></div>
+			</div>
+		</div>
+		<div class="menu_lien">
+			<a href="https://campus-fraissinet.the-mooc-agency.com/login"><div class="connexion1"></div></a>
+			<a href="#section_cours"><div class="information1"></div></a>
+		</div>
+		<div class="font_up">
+		<img id="bg-mobile" src="/media/microsite/campus-fraissinet/hp/images/font.png" />
+		</div>
+		<div class="color6">
+			<section id="section3" class="5semaines">
+				<div class="prochainement">
+					<a href="#scroll2"><img src="/media/microsite/campus-fraissinet/hp/images/Scrollez.png"/></a>
+				</div>
+			</section>
+		</div>
+		<section id="section1" class="container">
+			<a href="/login">
+				<img src="/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/bouton_defense.png" style="display: block; margin-left: auto;margin-right: auto;width:625px;height:auto;"/>
+			</a>
+			<div class="bord_jaune">
+				<img src="/media/microsite/campus-fraissinet/hp/images/traitjaune.png" id="scroll2">
+			</div>
+			<div class="part3_1">
+				<p>NOUS AVONS CREE CETTE PLATEFORME POUR VOUS PROPOSER UNE NOUVELLE FORME<span class="font_color_1"> D'APPRENTISSAGE</span> ET VOUS OFFRIR UN <span class="font_color_1">ESPACE DE REFLEXION</span> ET DE <span class="font_color_1">TRAVAIL DIFFERENTS.</span> </p>
+			</div>
+			<div class="picto1">
+				<img src="/media/microsite/campus-fraissinet/hp/images/Original.png" />
+			</div>
+			<div class="picto2">
+				<img src="/media/microsite/campus-fraissinet/hp/images/Ludique.png" />
+			</div>
+			<div class="picto3">
+				<img src="/media/microsite/campus-fraissinet/hp/images/Adapté.png" />
+			</div>
+			</div>
+		</section>
+		<section id="section2" class="baniere1">
+		<div class="question_mooc">
+			 <div class="modal" id="popup">
+						<div class="popup-content">
+							<div>
+									<p><b>MOOC : cours en ligne ouverts à tous</b></p>
+									<p><b>SPOC : cours en ligne en cercle restreint avec un nombre d’accès volontairement limité</b></p>
+									<p><b>PID : phase d’interactivité dirigée</b></p>
+									<p><b>WEBINAR : séminaire multimédia et interactif</b></p>
+									<p><b>SERIOUS GAMES : jeu utilisant des mécanismes ludiques pour répondre à des enjeux pédagogiques</b></p>
+
+
+								<div class="close">X</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<span><button class="popup-button" data-modal="popup"><img src="/media/microsite/campus-fraissinet/hp/images/que.png" /></button></span>>
+		</section>
+		<section id="section3" class="content container">
+			<div class="part3_1">
+				<h2>REAL LEARNING ?</h2>
+				<p>Nos formations exclusives <span class="font_color_1">"Real Learning"</span> vous permettront d'apprendre à votre rythme, de manière <span class="font_color_1">interactive</span> en privilégiant des méthodes de pointe. Dans notre univers, vous rencontrerez et utiliserez des <span class="font_color_1">MOOC, SPOC, PID, WEBINAR, SERIOUS GAMES</span> et autres outils innovants.</p>
+			</div>
+			<div class="bord_jaune">
+				<img src="/media/microsite/campus-fraissinet/hp/images/traitjaune.png">
+			</div>
+			<div class="part3_4">
+				<p>Si ces termes étranges et barbares n'évoquent rien pour vous, alors vous êtes les bienvenus.</p>
+				<p>Et si vous faites partie des privilégiés qui les connaissent déjà, alors venez découvrir leur réalité et ...</p>
+			</div>
+			<div>
+				<h2>WELCOME ON BOARD !</h2>
+			</div>
+
+		</section>
+		<style>
+			#section_cours {
+				width: 100%;
+				height: auto;
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/fond.png');
+				background-size: cover;
+				background-position: center;
+				position: relative;
+			}
+			#content_cours {
+				background-color: transparent;
+				width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				padding-top: 75px;
+				padding-bottom: 75px;
+			}
+			.cells {
+				display: inline-block;
+				width: 319px;
+				height: auto;
+				margin-left: 10px;
+				margin-right: 10px;
+				position: relative;
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+			.cells button,#fleche,#ticket {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/voir_le_teaser.png');
+				background-size: cover !important;
+				background-position: center !important;
+				width: 153px !important;
+				height: 25px !important;
+				background-color: transparent !important;
+				border: none !important;
+				border-radius: 0px !important;
+				position: absolute !important;
+				bottom: 15px !important;
+				left: 50% !important;
+				margin-left: -71.5px !important;
+			}
+			.img_up {
+				width: 319px;
+				height:300px;
+				border: none !important;
+				outline: none;
+				background-color: transparent;
+				border-image-width: 0px !important;
+				border: 0px solid transparent !important;
+				display: block;
+			}
+			.img_down {
+				background-size: cover;
+				background-position: center;
+				width: 319px;
+				height:238px;
+			}
+			/* img up */
+			#img_up_1 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/1_illustration_renforcer_ses_competences_manageriales.png');
+			}
+			#img_up_2 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/2_illustration_passmanager.png');
+			}
+			#img_up_3 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/3_illustration_manager_dans_la_diversite.png');
+			}
+			#img_up_4 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/4_illustration_prevenir_les_situations_de_tension.png');
+			}
+			#img_up_5 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/5_illustration_pack_diversite_prevention.png');
+			}
+			/* img down */
+			#img_down_1 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/1_bloc_renforcer_ses_compВtences_manageriales.png');
+			}
+			#img_down_2 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/2_bloc_passmanager.png');
+			}
+			#img_down_3 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/3_bloc_manager_dans_la_diversite.png');
+			}
+			#img_down_4 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/4_bloc_prevenir_les_situations_de_tension.png');
+			}
+			#img_down_5 {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/5_bloc_pack_diversite_prevention.png');
+			}
+			/* img down hover*/
+
+			#img_down_1:hover {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/1_bloc_renforcer_ses_compВtences_manageriales_hover.png');
+			}
+			#img_down_2:hover {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/2_bloc_passmanager_hover.png');
+			}
+			#img_down_3:hover {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/3_bloc_manager_dans_la_diversite_hover.png');
+			}
+			#img_down_4:hover {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/4_bloc_prevenir_les_situations_de_tension_hover.png');
+			}
+			#img_down_5:hover {
+				background-image:url('/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/5_bloc_pack_diversite_prevention_hover.png');
+			}
+			/* titre */
+			#title,#trait_violet {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+			.cours-presa{
+				border: 1px solid white;
+				padding: 20px;
+			}
+			.cours-presa h3{
+				font-size: 2em;
+				color: white;
+				font-weight: 700;
+				line-height: 1;
+			}
+			.cours-presa p{
+				font-size: 18px;
+				color: white;
+			}
+		</style>
+		<section id="section_cours">
+			<div id="content_cours">
+				<img src="/media/microsite/campus-fraissinet/hp/images/lescours.png" id="title" />
+				<img src="/media/microsite/campus-fraissinet/hp/fraissinet_2018_elements_separes/traits_rose.png" id="trait_violet" />
+				<div class="cells">
+					<div class="img_up" id="img_up_1"></div>
+					<div class="img_down" id="img_down_1"></div>
+					<button class="teaser_play" id="ticket" data-video="https://player.vimeo.com/external/206595439.hd.mp4?s=16da0ffec98168b023398c8ce1986ee711d8a2a7&profile_id=119" target="_blank"></button>
+				</div>
+				<div class="cells">
+					<div class="img_up" id="img_up_2"></div>
+					<div class="img_down" id="img_down_2"></div>
+					<button class="teaser_play"  id="fleche" data-video="https://player.vimeo.com/external/206576536.hd.mp4?s=be170e9ece607fd6486853595bd9e4d69a5adeeb&profile_id=174" target="_blank"></button>
+				</div>
+				<div class="cells">
+					<div class="img_up" id="img_up_3"></div>
+					<div class="img_down" id="img_down_3"></div>
+				</div>
+				<div class="cells">
+					<div class="img_up" id="img_up_4"></div>
+					<div class="img_down" id="img_down_4"></div>
+				</div>
+				<div class="cells">
+					<div class="img_up" id="img_up_5"></div>
+					<div class="img_down" id="img_down_5"></div>
+				</div>
+			</div>
+		</section>
+		<section id="section5" class="content container">
+		<!--
+			<div class="teaser" />
+				<a href="https://themoocagency.libcast.com/fraissinet-associes/teaser-6" target="_blank"><img src="/media/microsite/campus-fraissinet/hp/images/teaser.png"></a>
+			</div>
+		-->
+			<div class="part3_12>">
+				<p>Toutes nos formations mixent <span class="font_color_1">FOAD</span> (Formation Ouverte A Distance) et animation en présentiel, par un <span class="font_color_1">Consultant&nbsp;Senior</span>. Vous pourrez ainsi partager votre expérience et vos idées avec d'autres managers. Ces étapes en présentiel se dérouleront partout en France.</p>
+			</div>
+			<div class="part3_5">
+				<h2>LES GRANDES THEMATIQUES :</h2>
+			</div>
+			<div class="picto5">
+			<div class="picto4" id="picto1_bas">
+				<img src="/media/microsite/campus-fraissinet/hp/images/picto1.png" >
+			</div>
+			<div class="picto4">
+				<img src="/media/microsite/campus-fraissinet/hp/images/picto3.png" id="picto3_bas">
+			</div>
+			<div class="picto4">
+				<img src="/media/microsite/campus-fraissinet/hp/images/picto2.png" id="picto2_bas">
+			</div>
+			</div>
+			<div class="part3_1">
+				<p>Nous pouvons également créer des modules sur mesure, pour toute société et organisation, désireuses de revisiter ses méthodes d'apprentissage et explorer des pratiques novatrices.</p>
+			</div>
+			<div class="bord_jaune">
+				<img src="/media/microsite/campus-fraissinet/hp/images/traitjaune.png">
+			</div>
+			<div class="part3_4">
+				<p>Pour toutes vos demandes vous pouvez nous joindre via</p>
+				<p><a href="mailto:campus@fraissinetetassocies.fr">campus@fraissinetetassocies.fr</a></p>
+				<p>ou par tél : 04.96.10.04.10 / 04.37.48.08.83</p>
+			</div>
+		</section>
+		<section id="10" class="content container">
+			<div class="partenaire">
+				<div class="borduretop">
+					<img src="/media/microsite/campus-fraissinet/hp/images/partenaires.png">
+				</div>
+				<div class="logo_partenaire">
+					<img src="/media/microsite/campus-fraissinet/hp/images/logoUnif.png" />
+				</div>
+			</div>
+		</section>
+			<footer>
+				<div class="sociaux">
+					<a href="https://plus.google.com/115405144749832814732/about" target="_blank"><img src="/media/microsite/campus-fraissinet/hp/images/googleplus.png"></a>
+					<a href="https://www.linkedin.com/company/5276731?trk=tyah&trkInfo=tarId%3A1406293748078%2Ctas%3Afraissinet%20%2Cidx%3A2-1-6" target="_blank"><img src="/media/microsite/campus-fraissinet/hp/images/linkedin.png"></a>
+					<a href="https://twitter.com/fraissinet_rh" target="_blank"><img src="/media/microsite/campus-fraissinet/hp/images/twitter.png"></a>
+					<a href="https://www.viadeo.com/fr/company/fraissinet-et-associes" target="_blank"><img src="/media/microsite/campus-fraissinet/hp/images/viadeo.png"></a>
+				</div>
+				<div class="down_footer">
+					<a href="/honor">mentions légales</a> | <a href="/tos">C.G.U</a> | adresse: Siège : 54 allée Turcat Méry – 13008 Marseille / Agence de Lyon : 3 place Danton – 69003 Lyon | tél : 04.96.10.04.10 / 04.37.48.08.83 | email : <a href="mailto:campus@fraissinetetassocies.fr">campus@fraissinetetassocies.fr</a>
+				</div>
+			</footer>
+	</div>
+	<!-- End Team -->
+	<!-- Begin Footer -->
+
+	<!-- End Footer -->
+
+	<!-- Javascript -->
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/royal-preloader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<!--<script src="/media/microsite/campus-fraissinet/hp/src/videoLightning.js"></script>-->
+	<script type="text/javascript">
+
+		//Replace with your own image's paths
+	   var images = {
+	        'parallax1':    'https://www.aetherthemes.com/demo/visia/images/hero.jpg',
+	        'parallax2':    'https://www.aetherthemes.com/demo/visia/images/services-red.jpg',
+	        'parallax3':    'https://www.aetherthemes.com/demo/visia/images/clients.jpg',
+	        'About Us': 	'https://www.aetherthemes.com/demo/visia/images/about.jpg',
+	        'Team':     	'https://www.aetherthemes.com/demo/visia/images/team.jpg',
+	        'Thumb1':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project1.jpg',
+	        'Thumb2':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project2.jpg',
+	        'Thumb3':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project3.jpg',
+	        'Thumb4':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project4.jpg',
+	        'Thumb5':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project5.jpg',
+	        'Thumb6':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project6.jpg',
+	        'Thumb7':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project7.jpg',
+	        'Thumb8':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project8.jpg'
+	    };
+
+	    // config
+	    Royal_Preloader.config({
+	        mode:       'number',
+	        images:     images,
+	        timeout:    10,
+	        showInfo:   false,
+	        background: ['#ffffff']
+	    });
+/*
+  videoLightning({
+    elements: [
+      {
+        ".video-link": {
+          autoplay: 1,
+          easeOut: 1000,
+          bdColor: "#ddd",
+          bdOpacity: 0.6,
+          glow: 20,
+          glowColor: "#000"
+        }
+      },
+      {
+        ".video-link2": {
+          autoplay: 1,
+          bdColor: "#7FFF00",
+          bdOpacity: 0.7,
+          glow: 150,
+          glowColor: "#fff",
+          xColor: "#7FFF00",
+          color: "#fff"
+        }
+      },
+      {
+        "#bare-iframe-link": {
+          id: 'f-images/JqueryVideoLightningIconPurple144.png',
+          frameColor: '#555',
+          frameBorder: '3px solid #3A0372',
+          bdOpacity: 0.9,
+          glow: 0,
+          xBgColor: '#3A0372',
+          xColor: '#f5f5f5',
+          xBorder: '3px solid #555'
+        }
+      }
+    ]
+  });
+  $(function () {
+      $(".video-link3").jqueryVideoLightning({
+          id: "y-z-D1PJ1cMXs",
+          autoplay: 1,
+          controls: 0,
+          bdColor: "#fff",
+          bdOpacity: 1,
+          xBgColor: 'transparent',
+          xColor: 'transparent',
+          glow: 0,
+          width: 640,
+          height: 360,
+          showinfo: 0,
+          fadeIn: 3000,
+          frameColor: '#fff'
+      });
+  });
+  $(function () {
+      $(".video-link4").jqueryVideoLightning({
+          id: 'y-26mMPKS83c4',
+          autoplay: 1,
+          fadeIn: 0,
+          bdColor: '#f5f5f5',
+          bdOpacity: 1,
+          glow: 20,
+          glowColor: '#000',
+          controls: 0,
+          showinfo: 0,
+          color: "white"
+      });
+  });
+  $(function () {
+      $(".video-link5").jqueryVideoLightning({
+          autoplay: 1,
+          playlist: "WkgWvaFrJv8,NCsihs3A_hM",
+          bdColor: "#3A0372",
+          bdOpacity: 0.8,
+          glow: 50,
+          glowColor: "#F1D6F5",
+          color: "#fff",
+          cover: 1
+      });
+  });
+  $(function () {
+      $(".video-link6").jqueryVideoLightning({
+          autoplay: 1,
+          controls: 0,
+          width: "480px",
+          height: "320px",
+          popover: 1,
+          peek: 1
+      });
+  });
+ */
+ 		$(function() {
+				$('a[href*=#]:not([href=#])').click(function() {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+							scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
+		});
+
+
+		var popup = (function()
+		{
+
+			function init() {
+
+				var overlay = $('.overlay');
+
+				$('.popup-button').each(function(i, el)
+				{
+					var modal = $('#' + $(el).attr('data-modal'));
+					var close = $('.close');
+
+					// fonction qui enleve la class .show de la popup et la fait disparaitre
+					function removeModal() {
+						modal.removeClass('show');
+					}
+
+					// evenement qui appelle la fonction removeModal()
+					function removeModalHandler() {
+						removeModal();
+					}
+
+					// au clic sur le bouton on ajoute la class .show a la div de la popup qui permet au CSS3 de prendre le relai
+					$(el).click(function()
+					{
+						modal.addClass('show');
+						overlay.unbind("click");
+						// on ajoute sur l'overlay la fonction qui permet de fermer la popup
+						overlay.bind("click", removeModalHandler);
+					});
+
+					// en cliquant sur le bouton close on ferme tout et on arrête les fonctions
+					close.click(function(event)
+					{
+						event.stopPropagation();
+						removeModalHandler();
+					});
+
+				});
+			}
+
+			init();
+
+		})();
+		function teaser_play() {
+		  $('.teaser_play').click(function(){
+		    var video = $(this).data('video');
+		    $('#iframe_teaser').attr('src',video);
+		    $('#voile').show();
+		    $('#player').show();
+		  })
+		  $('#voile').click(function(){
+		    $('#voile').hide();
+		    $('#player').hide();
+		    $('#iframe_teaser').attr('src','');
+		  })
+		  $('#close').click(function(){
+		    $('#voile').hide();
+		    $('#player').hide();
+		    $('#iframe_teaser').attr('src','');
+		  })
+		}
+		$(document).ready(function(){
+			teaser_play();
+		})
+	</script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/retina.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/smoothscroll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/waypoints.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/parallax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/navigation.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.mixitup.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.easing.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.fittext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.localscroll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.scrollto.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.appear.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.waitforimages.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.bxslider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/jquery.fitvids.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/main.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/campus-fraissinet/hp/javascript/shortcodes.js" type="text/javascript" charset="utf-8"></script>
+
+
+</div>
+</body>
+
+</html>
+
+
+					<!--	<div class="video-link" data-video-id="3xJWxPE8G2c">
+								<span>VOIR LE TEASER</span>
+						</div>  -->

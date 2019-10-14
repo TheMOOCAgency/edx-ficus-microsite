@@ -1,0 +1,125 @@
+<%page args="show_courseware_link,is_course_blocked,course_overview,org_static, enrollment,show_email_settings, dashboard_index" />
+
+<%!
+import urllib
+import time
+import datetime
+from django.utils.translation import ugettext as _
+from django.utils.translation import ungettext
+from django.core.urlresolvers import reverse
+from course_modes.models import CourseMode
+from course_modes.helpers import enrollment_mode_display
+from openedx.core.djangolib.js_utils import dump_js_escaped_json
+from openedx.core.djangolib.markup import HTML, Text
+from student.helpers import (
+  VERIFY_STATUS_NEED_TO_VERIFY,
+  VERIFY_STATUS_SUBMITTED,
+  VERIFY_STATUS_RESUBMITTED,
+  VERIFY_STATUS_APPROVED,
+  VERIFY_STATUS_MISSED_DEADLINE,
+  VERIFY_STATUS_NEED_TO_REVERIFY,
+  DISABLE_UNENROLL_CERT_STATES,
+)
+
+%>
+
+
+
+<%namespace name='static' file='../static_content.html'/>
+<%
+
+
+_current = time.time()
+insc_ouv = ''
+cours_ouv = ''
+
+if course_overview.enrollment_start is None:
+  insc_ouv = False
+else:
+  if (course_overview.enrollment_end is None and int(course_overview.enrollment_start.strftime("%s")) < _current) or (int(course_overview.enrollment_start.strftime("%s")) < _current and (_current < int(course_overview.enrollment_end.strftime("%s")) or course_overview.enrollment_end is None)):
+    insc_ouv = True
+  else:
+    insc_ouv = False
+
+
+cours_ouv = show_courseware_link and not is_course_blocked
+
+%>
+<li class="course_cell_multi">
+  <div class="up_cell">
+    <div class="options">
+      <span class="list_params">
+
+% if show_email_settings:
+      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}"><img src="${static.url(org_static+'/images/close-envelope.png')}" title="Ne plus recevoir de mail"/></a>
+% endif
+        <a href="#unenroll-modal" class="unenroll_multi" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-course-name="${course_overview.display_name_with_default}" data-dashboard-index="${dashboard_index}"
+           data-track-info="${_("Are you sure you want to unenroll from the purchased course %(course_name)s (%(course_number)s)?")}"
+           data-refund-info="${_("You will be refunded the amount you paid.")}">
+          <img src="${static.url(org_static+'/images/cancel-button.png')}" title="Se désinscrire"/>
+        </a>
+      <span>
+    </div>
+    <div class="multi_course_image">
+% if cours_ouv:
+      <a href="/dashboard/${enrollment.course_id}/"><img src="${course_overview.image_urls['small']}" /></a>
+%else:
+<img src="${course_overview.image_urls['small']}" />
+% endif
+    </div>
+    <div class="multi_course_title">
+% if cours_ouv:
+      <h2><a href="/dashboard/${enrollment.course_id}/">${course_overview.display_name_with_default}</a></h2>
+% else:
+<h2>${course_overview.display_name_with_default}</h2>
+% endif
+    </div>
+    <span style="display:block;clear:left"></span>
+  </div>
+  <div class="down_cell">
+    <div class="all_dates">
+      <div class="info_date">
+        <div class="info_date_info">
+<span></span>
+% if insc_ouv:
+  <span>${_("Enrollments are open")} </span>
+% else:
+  <span>${_("Enrollments are close")} </span>
+% endif
+<span>${_('and')}</span>
+% if cours_ouv:
+  <span> ${_("Course is open")}</span>
+% else:
+  <span> ${_("Course is close")}</span>
+% endif
+<span></span>
+      </div>
+    </div>
+    <div class="dates">
+<!--
+% if course_overview.start is not None:
+  ${_("start")} ${course_overview.start.strftime("%d/%b/%Y")}
+% endif
+-->
+% if course_overview.start is not None:
+  % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
+    Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
+  % else:
+    ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
+  % endif
+% endif
+
+% if course_overview.end is not None:
+  <span></span>
+  ${_("end")}  ${course_overview.end.strftime("%d/%b/%Y")}
+% endif
+      </div>
+    </div>
+    <div class="dashboard_button">
+% if cours_ouv:
+      <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+% endif
+    </div>
+    <span style="display:block;clear:left"></span>
+  </div>
+</li>
