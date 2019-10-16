@@ -159,18 +159,24 @@ course_state = user_course_state[str(enrollment.course_id)]
       </div>
     </div>
 
+    <script src="https://unpkg.com/promise-polyfill"></script>
     <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+
+    <a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf">Read now</a>
+
 %if is_ov:
     <script>
       swal.fire({
     type: 'info',
     title: 'Privacy Statement',
     text: 'You can read the Privacy Statement for the Digital Barometer',
-    confirmButtonText: '<a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf">Read now</a>',
+    confirmButtonText: '<span style="color:white!important;text-decoration:none!important">Read now</span>',
     confirmButtonColor:'rgb(29, 82, 128)',
     showCancelButton: true,
     cancelButtonText:"Close",
     cancelButtonColor: 'rgb(89, 89, 89)'}
-    );
+    ).then(function() {
+    window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf");
+    });
     </script>
 %endif

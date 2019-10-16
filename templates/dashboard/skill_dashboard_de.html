@@ -164,7 +164,7 @@ course_state = user_course_state[str(enrollment.course_id)]
         <i id="conseils-btn" class="fa fa-plus-circle"></i>
       </div>
     </div>
-
+    <script src="https://unpkg.com/promise-polyfill"></script>
     <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
 %if is_ov:
     <script>
@@ -172,11 +172,13 @@ course_state = user_course_state[str(enrollment.course_id)]
     type: 'info',
     title: 'Datenschutzhinweis',
     text: 'Möchten Sie den Datenschutzhinweis des Digitalen Barometers lesen?',
-    confirmButtonText: '<a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_de.pdf">Jetzt lesen</a>',
+    confirmButtonText: '<span style="color:white!important;text-decoration:none!important">Jetzt lesen</span>',
     confirmButtonColor:'rgb(29, 82, 128)',
     showCancelButton: true,
     cancelButtonText:"Schließen",
     cancelButtonColor: 'rgb(89, 89, 89)'}
-    );
+    ).then(function() {
+    window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_de.pdf");
+    });
     </script>
 %endif
