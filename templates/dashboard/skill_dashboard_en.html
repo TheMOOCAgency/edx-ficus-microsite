@@ -2,7 +2,7 @@
 from openedx.core.djangolib.markup import HTML, Text
 from django.core.urlresolvers import reverse
 %>
-<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous" expression_filter="h"/>
+<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous, is_ov" expression_filter="h"/>
 <% 
 course_state = user_course_state[str(enrollment.course_id)] 
 %>
@@ -160,15 +160,17 @@ course_state = user_course_state[str(enrollment.course_id)]
     </div>
 
     <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
-<script>
-  swal.fire({
-type: 'info',
-title: 'Privacy Statement',
-text: 'You can read the Privacy Statement for the Digital Barometer',
-confirmButtonText: '<a style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.docx">Read now</a>',
-confirmButtonColor:'rgb(29, 82, 128)',
-showCancelButton: true,
-cancelButtonText:"Close",
-cancelButtonColor: 'rgb(89, 89, 89)'}
-);
-</script>
+%if is_ov:
+    <script>
+      swal.fire({
+    type: 'info',
+    title: 'Privacy Statement',
+    text: 'You can read the Privacy Statement for the Digital Barometer',
+    confirmButtonText: '<a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf">Read now</a>',
+    confirmButtonColor:'rgb(29, 82, 128)',
+    showCancelButton: true,
+    cancelButtonText:"Close",
+    cancelButtonColor: 'rgb(89, 89, 89)'}
+    );
+    </script>
+%endif

@@ -27,8 +27,8 @@ from tma_apps.tma_support_functions import tma_randomization
 
 from django.core.urlresolvers import reverse
 import json
+import csv
 %>
-
 <%
 cert_name_short = settings.CERT_NAME_SHORT
 cert_name_long = settings.CERT_NAME_LONG
@@ -77,12 +77,28 @@ endfor
 #ASSOCIATED COURSES
 from tma_apps.associated_courses.helper import AssociatedCourses
 
+
 primary_color=configuration_helpers.get_value("primary_color") or "#1d5280"
 secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 
+user_file = open("/edx/var/edxapp/secret/microsite/psa-netexplo/culture_digitale_export.csv", "rb")
+psa_users = csv.DictReader(user_file, delimiter=";")
+is_ov = False
+for psa_user in psa_users:
+  if psa_user["Uid"].lower() == request.user.username.lower() and  psa_user["struct_org1"].lower() == "ov":
+      is_ov = True
+      break
+if request.user.username == "P052342":
+  is_ov = True
 
+if is_ov:
+  from datetime import datetime, timedelta
+  from pprint import pformat
+  import pytz
+  from django.utils import timezone
+  if request.user.last_login < timezone.now() - timedelta(seconds=10):
+    is_ov = False
 %>
-
 
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
@@ -346,12 +362,13 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     </div>
     <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
   </div>
+
     %if course.language=="de":
-      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
+      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %elif course.language=="fr":
-      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
+      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %else:
-      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames, authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
+      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames, authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %endif
 
     </div>
