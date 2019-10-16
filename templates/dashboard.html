@@ -98,6 +98,10 @@ if is_ov:
   from django.utils import timezone
   if request.user.last_login < timezone.now() - timedelta(seconds=10):
     is_ov = False
+
+test_users=["lucie.ory@themoocagency.com"]
+if request.user.email in test_users:
+  is_ov=True
 %>
 
 <%block name="pagetitle">${_("Dashboard")}</%block>

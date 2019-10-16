@@ -175,8 +175,10 @@ course_state = user_course_state[str(enrollment.course_id)]
     showCancelButton: true,
     cancelButtonText:"Close",
     cancelButtonColor: 'rgb(89, 89, 89)'}
-    ).then(function() {
-    window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf");
+    ).then(function(result) {
+    if(result.value){
+      window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf");
+    }
     });
     </script>
 %endif
