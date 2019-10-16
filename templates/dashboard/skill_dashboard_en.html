@@ -158,3 +158,17 @@ course_state = user_course_state[str(enrollment.course_id)]
         <i id="conseils-btn" class="fa fa-plus-circle"></i>
       </div>
     </div>
+
+    <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+<script>
+  swal.fire({
+type: 'info',
+title: 'Privacy Statement',
+text: 'You can read the Privacy Statement for the Digital Barometer',
+confirmButtonText: '<a style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.docx">Read now</a>',
+confirmButtonColor:'rgb(29, 82, 128)',
+showCancelButton: true,
+cancelButtonText:"Close",
+cancelButtonColor: 'rgb(89, 89, 89)'}
+);
+</script>
