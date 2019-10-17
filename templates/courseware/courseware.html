@@ -18,8 +18,7 @@ from opaque_keys.edx.keys import CourseKey
 import requests
 import json
 from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
-from tma_apps.fraissinet.lib_fraissinet_2018.links import manage_ct_links
-
+from tma_apps.fraissinet.lib_fraissinet_2018.links import ManageCtLinks
 %>
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
@@ -39,6 +38,9 @@ ${static.get_page_title_breadcrumbs(course_name())}
 </title></%block>
 
 <%block name="header_extras">
+
+
+
 
 % for template_name in ["image-modal"]:
 <script type="text/template" id="${template_name}-tpl">
@@ -386,19 +388,12 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 </script>
 
 % if str(course.id)=="course-v1:campus-fraissinet+sbo2018+sbo2018":
-<% test_links=manage_ct_links(request)  %>
 <script>
 $(document).ready(function(){
   var usermail="${user.email}";
-  var usermail="${user.email}";
-  var results=${dump_js_escaped_json(user.profile.custom_field) | n, decode.utf8};
-  var results2=JSON.parse(results)
-  var fullname= results2['first_name']+" "+results2['last_name'];
-  console.log(fullname);
-  var test_links=${dump_js_escaped_json(test_links) | n, decode.utf8};
-  var empty_links=jQuery.isEmptyObject(test_links);
-  console.log(test_links);
-  if(empty_links){
+  var results=JSON.parse(${dump_js_escaped_json(user.profile.custom_field) | n, decode.utf8});
+  var test_links=${dump_js_escaped_json(ManageCtLinks(request).getTestLinks()) | n, decode.utf8};
+  if(jQuery.isEmptyObject(test_links)){
     jQuery('#tests-available').append('<i> Vous avez déjà passé tous les tests Central Test disponibles.</i> <br>');
   }
   else{
@@ -411,6 +406,7 @@ $(document).ready(function(){
       }
     }
   }
+  var fullname= results['first_name']+" "+results['last_name'];
   setInterval(function(){ jQuery("#student_name").html(fullname);}, 500);
 
 })

@@ -266,7 +266,7 @@ endfor
 
         custom_field = json.loads(profile.custom_field)
         personalite = custom_field.get('R13')
-        pro = custom_field.get('R164')
+        pro = custom_field.get('R164') or custom_field.get('R315')
 
 
     except:
