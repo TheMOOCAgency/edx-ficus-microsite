@@ -35,7 +35,7 @@ body{
   border: 1px solid lightgray;
 }
 #main {
-  background-image:url('${bg}');
+  background-image:url('/media/microsite/lfb/img/certificate.png');
   background-size:cover;
   background-position:center;
 }
@@ -73,14 +73,14 @@ body{
 
 /* Deuxième bandeau */
 .bandeau-middle{
-  color: white;
-  margin-top: 100px;
+  color: #706f6f;
+  margin-top: 55px;
   padding: 30px 10px;
 }
 #course-title{
   font-size: 20px;
 }
-#nom-user{
+.nom-user{
   font-size: 30px;
   margin-bottom: 30px;
 }
@@ -103,35 +103,45 @@ body{
   width: 80%;
 }
 .footer{
-  padding: 10px;
-  margin-top: 44px;
-}
-.footer p{
-  margin-top: 74px;
-  font-size: 12px;
-  text-align: left;
-  background-color: white;
+  margin-top: 22px;
+  margin-left: 20px;
+  background-color: transparent;
 }
 
+.footer p{
+  margin-top: 95px;
+  font-size: 12px;
+  text-align: left;
+}
+.congrats{
+  font-size: 32px;
+  font-weight: 600;
+  margin : 50px 0px;
+}
+.successfully{
+  margin-top: 10px;
+}
+#pdfDownload{
+  background-color: #d8d8d8;
+  color : #706f6f;
+  margin-top: 50px;
+  margin-left : -50vw;
+  background-image: none!important;
+  box-shadow: none!important;
+  font-size: 16px;
+  text-shadow: none;
+  font-weight: 500;
+}
 
 </style>
 % if grades.get('passed'):
 <div class="container" id="main">
-  <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
-    <div class="logo-attestation">
-      <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
-    </div>
-    <div style="clear:both;"></div>
-  </div>
-
-  <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
-    <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
+  <div class="bandeau-middle">
+    <p class="congrats">Congratulations!</p>
+    <p class="nom-user"><span>${last_name}</span> <span> ${first_name}</span></p>
+    <p class="successfully">successfully completed the MOOC </p>
+    <p class="successfully">Severe Bleeding and Coagulation disorders in <span class="texte-gras" id="course-title">${course_name}</span></p>
+    <p id="score"><i>With a score of ${grades.get('grade')*100}%</i></p>
   </div>
 
   <div class="footer">
@@ -139,15 +149,14 @@ body{
           <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
       </div>
       <div class="footer-right">
-          <img src="${signature}"/>
+
       </div>
       <div style="clear:both;"></div>
   </div>
 </div>
-
+<button data-html2canvas-ignore="true" id="pdfDownload">Télécharger le pdf</button>
 <script type="text/javascript">
 </script>
-  %if pdf:
   <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -166,8 +175,7 @@ body{
     })
   }
   document.addEventListener('DOMContentLoaded', function() {
-     printpage();
+     document.getElementById('pdfDownload').addEventListener('click',function(){printpage()})
   });
   </script>
-  %endif
-% endif
+%endif

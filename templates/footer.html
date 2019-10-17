@@ -11,29 +11,24 @@
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
-
+<style>
+  .global>.footer-container>.copyright{
+    display: block!important;
+    text-align: center!important;
+    color : white;
+  }
+  .global>.footer-container>.copyright>a{
+    color : white!important;
+  }
+  body footer.global{
+    background-color: rgb(105, 106, 108)!important;
+  }
+</style>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
   <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+    <p class="copyright">Site r&eacute;alis&eacute; par <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
     </div>
   </div>
 </footer>

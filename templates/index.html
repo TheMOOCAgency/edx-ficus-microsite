@@ -11,60 +11,469 @@ from openedx.core.djangolib.markup import HTML, Text
 register_course_id = static.get_value('course_id')
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
+img = '/media/microsite/{}/img'.format(org)
+fonts = '/media/microsite/{}/fonts'.format(org)
 %>
+
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<!-- Custom style LFB -->
+<style>
+@font-face {
+    font-family: 'Futura';
+    src: url('${static.url(fonts)}/Futura-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Futura';
+    src: url('${static.url(fonts)}/Futura-Light.woff') format('woff');
+    font-weight: lighter;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Futura';
+    src: url('${static.url(fonts)}/Futura-medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+  *, div, span, section, h1, h2, h3, h4, h5, h6, p, header{
+    font-family: "Futura"!important;
+   }
+  .home>header{
+    height : calc(100vh - 80px);
+    background-image: url("${static.url(img)}/backgroundlfb.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home>header>div>h1{
+    padding: 35px 70px;
+    background-color: rgba(86, 159, 211, 0.64);
+    color: white;
+    font-weight: bold;
+    border: 1px solid #ffffffa8;
+    border-radius: 17px;
+    font-size: 43px;
+  }
+  #userButton{
+    display: flex;
+    justify-content: center;
+  }
+  #userButton>button{
+    background-color: transparent;
+    border: 2px solid #3d8ec1 !important;
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    margin: 0px 20px;
+    padding: 10px 60px;
+    font-size: 32px;
+    font-weight: 600;
+    transition: color 0.25s ease-in-out,background 0.25s ease-in-out,box-shadow 0.25s ease-in-out;
+    border-radius: 5px;
+  }
+  #userButton>button>a{
+    color :white;
+    text-decoration: none;
+  }
+  #userButton>button:hover{
+    background-color: rgba(86,159,211,0.8) !important;
+    background-image: none !important;
+  }
+  #userButton>button+button{
+    background-color: #3d8ec1 !important;
+  }
+  #wrapperSigninMooc{
+    padding: 80px;
+    background-color: #e8e9ea;
+    display: flex;
+    justify-content: center;
+  }
+
+  #wrapperSigninMooc>.wrapperMooc{
+    margin: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+  }
+  #wrapperSigninMooc>.wrapperMooc>img{
+    width: 90%;
+    border: 15px solid #fff;
+    -webkit-box-shadow: 11px 11px 21px -4px rgba(0,0,0,0.23);
+    -moz-box-shadow: 11px 11px 21px -4px rgba(0,0,0,0.23);
+    box-shadow: 11px 11px 21px -4px rgba(0,0,0,0.23);
+  }
+  #wrapperSigninMooc>.wrapperMooc>h2{
+    font-size: 38px;
+    font-weight: 600;
+    color: #3d8ec1;
+    margin-top: 60px;
+  }
+  #wrapperSigninMooc>.wrapperMooc>p{
+    color: #6f6f6f;
+    line-height: 20px;
+    word-spacing: 10px;
+    font-size: 18px;
+    flex-grow: 1;
+  }
+  #wrapperSigninMooc>.wrapperMooc>.wrapperButtonMooc{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 40px;
+  }
+  .wrapperMooc>.wrapperButtonMooc>.signinMooc{
+    background-color: #569fd3 !important;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 15px 60px;
+    font-weight: 600;
+    transition: color 0.25s ease-in-out,background 0.25s ease-in-out,box-shadow 0.25s ease-in-out;
+    border-radius: 5px;
+    background-image: none;
+    border: none;
+    font-size: 32px;
+    margin: 10px 0px;
+  }
+  .wrapperMooc>.wrapperButtonMooc>.signinMooc>a{
+    color: white;
+    text-decoration: none;
+  }
+  .wrapperMooc>.wrapperButtonMooc>.learnMore{
+    background-color: #ccc !important;
+  }
+  .wrapperMooc>.wrapperButtonMooc>.learnMore>a{
+    color : white;
+    text-decoration: none;
+  }
+  .headlineLFB{
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .headlineLFB>h2{
+    color: #569fd3;
+    font-size: 52px;
+    font-weight: 600;
+    padding: 40px;
+  }
+  #expertsLFB{
+    display: flex;
+    justify-content: center;
+    background-color: #e8e9ea;
+    padding: 30px 0px;
+  }
+  #expertsLFBWrapper{
+    display: flex;
+    margin: 20px auto;
+    width: 80%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .expertPicture{
+    width: 280px;
+    margin: 5px 30px;
+    text-align: center;
+  }
+  .expertCountry{
+    width: 20%;
+    position: relative;
+    top: 35px;
+    left: 75px;
+  }
+  .expertProfil{
+    border-radius: 250px;
+    border: 1px solid #569fd3;
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+    padding: 0px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .expertProfil>div{
+    border-radius: 250px;
+    border: 5px solid #cacaca;
+    height: 220px;
+    width: 220px;
+    overflow: hidden;
+    background-color: #cacaca
+  }
+  .expertProfil>div>img{
+    width : 180%;
+    margin-left: -90px;
+    background-color: grey;
+  }
+  .expertName{
+    font-size: 28px;
+    text-align: center;
+    color: #569fd3;
+    font-weight: 600;
+    padding: 10px 0px;
+  }
+  .expertDescription{
+    color: #6f6f6f;
+    line-height: 17px;
+    word-spacing: 10px;
+    font-size: 15px;
+    text-align: left;
+    margin-top: 10px;
+  }
+  #whatIsAMoocSectionWrapper{
+    background-color: #e8e9ea;
+    display: flex;
+    justify-content: center;
+  }
+  .whatIsAMoocSection{
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0px;
+  }
+  .whatIsAMoocSection>img{
+    width: 50%;
+  }
+  .whatIsAMoocSection>h4{
+    text-align: center;
+    color : #569fd3;
+    font-weight: 800;
+    font-size: 24px;
+    margin: 20px 0px;
+  }
+  .whatIsAMoocSection>p{
+    color: #6f6f6f;
+    font-size: 18px;
+    text-align: center;
+    line-height: 20px;
+  }
+  #partenariatWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0px;
+  }
+  #partenariatWrapper>p{
+    color: #6f6f6f;
+    font-size: 28px;
+    margin: 0px 30px;
+  }
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
+        <div>
+          <h1>A TRILOGY OF MOOC ON HERMORRHAGE MANAGEMENT</h1>
+          <div id="userButton">
+            <button class='btn btn-login btn-neutral'> <a href="/register?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Register</a> </button>
+            <button class='btn btn-register btn-login'><a href="/login?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Sign in </a> </button>
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
         </div>
-
       </header>
-      <%include file="${courses_list}" />
+      <div id="mainContentLFB">
+          <div id="wrapperSigninMooc">
+            <div class="wrapperMooc" id="postPartum" >
+              <img src="${static.url(img)}/themes/PostPartum.jpg" alt="postPartum" />
+              <h2>POST-PARTUM</h2>
+              <p>Worldwide, 1 woman is dying during every 4 minutes in
+                  labour mostly due to uncontrolled bleeding in both developed
+                  and less developed countries.<br/>
+                  Let’s see together the different risks factors of post-partum
+                  haemorrhage and how to monitor easily the bleeding.<br/>
+                  Also, depending on the resources available, let’s see how
+                  to be ready to take in charge these difficult situations.
+              </p>
+              <div class="wrapperButtonMooc">
+                  <button class="signinMooc btn-login"><a href="/login?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll">SIGN IN</a></button>
+                  <button class="signinMooc learnMore"><a href="/courses/course-v1:lfb+MOOCPPH+T1/about">LEARN MORE</a></button>
+              </div>
+            </div>
 
+
+            <div class="wrapperMooc" id="traumatology" >
+              <img src="${static.url(img)}/themes/Traumatology.jpg" alt="Traumatology" />
+              <h2>TRAUMATOLOGY</h2>
+              <p>Up to 40% of deaths after trauma are attributable to uncon
+                  trolled bleeding and its consequences.<br/>
+                  This makes bleeding the most common potentially preventable
+                  cause of death following injury.<br/>
+                  Let’s see how to manage trauma to prevent as much as
+                  possible uncontrolled bleeding.
+              </p>
+              <div class="wrapperButtonMooc">
+                  <button class="signinMooc btn-login"><a href="/login?course_id=course-v1:lfb+MOOCTRAUMA+T1&enrollment_action=enroll">SIGN IN</a></button>
+                  <button class="signinMooc learnMore"><a href="/courses/course-v1:lfb+MOOCTRAUMA+T1/about">LEARN MORE</a></button>
+              </div>
+            </div>
+
+
+            <div class="wrapperMooc" id="cardiacSurgery" >
+              <img src="${static.url(img)}/themes/CardiacSurgery.jpg" alt="Cardiac Surgery" />
+              <h2>CARDIAC SURGERY</h2>
+              <p>Up to 10% of cardiac surgery patients experience
+                  major bleeding either during their surgery or in
+                  the immediate post-operative period, putting these
+                  patients in danger.<br/>
+                  Prevention, detection and management of these
+                  patients is therefore crucial, let’s see how to care
+                  for these patients.
+              </p>
+              <div class="wrapperButtonMooc">
+                  <button class="signinMooc btn-login"><a href="/login?course_id=course-v1:lfb+MOOCCS+T1&enrollment_action=enroll">SIGN IN</a></button>
+                  <button class="signinMooc learnMore"><a href="/courses/course-v1:lfb+MOOCCS+T1/about">LEARN MORE</a></button>
+              </div>
+            </div>
+          </div>
+          <div id="realizeByWrapper">
+              <div class="headlineLFB"><h2>REALIZED BY INTERNATIONAL EXPERTS</h2></div>
+              <div id="expertsLFB">
+                <div id="expertsLFBWrapper">
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/Angleterre.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/DrNicolaCurry.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">DR NICOLA </br> CURRRY</h3>
+                      <p class="expertDescription"> Dr Nicola Curry, Oxford, England,
+                            is a consultant hematologist working
+                            mainly with patients with hemophilia
+                            mostly and inherited bleeding disorders
+                            and also patients with thrombosis. Her
+                            research interest is coagulopathy
+                            associated with acquired bleeding
+                            especially trauma associated bleeding.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/Mexique.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/DrAbrahamMajlufCruz.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">DR ABRAHAM </br> MAJLUF CRUZ</h3>
+                      <p class="expertDescription"> Dr Abraham Majluf Cruz, Mexico City,
+                        is a hematologist devoted to the field of
+                        thrombotic and bleeding disorders. He
+                        carried out post-doctoral studies in
+                        thrombosis, hemostasis and
+                        atherogenesis.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/France.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/PrAlexandreMignon.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">PR ALEXANDRE </br> MIGNON</h3>
+                      <p class="expertDescription">Pr Alexandre Mignon, Paris, France,
+                        is an anesthesiologist & intensivist
+                        Involved into the management of
+                        anesthesia at risk patients and at
+                        patients developing post-partum
+                        hemorrhage.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/Allemagne.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/PrMarcMaegele.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">PR MARC </br> MAEGELE</h3>
+                      <p class="expertDescription"> Pr Marc Maegele, Cologne, Germany, is
+                        a trauma surgeon who worked for more
+                        than 15 years with traumatized bleeding
+                        patients. His clinical research includes
+                        epidemiology of trauma induced
+                        coagulopathy, risk stratification for
+                        massive bleeding and transfusion
+                        practice.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/Espagne.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/DrJuanLlau.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">PR JUAN </br> LLAU</h3>
+                      <p class="expertDescription">Pr Juan Llau, Valencia, Spain, is a
+                        specialist in anesthesiology and
+                        physiology professor associate at the
+                        University of Valencia.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/France.png" />
+                      <div class="expertProfil"><div>
+                        <img src="${static.url(img)}/experts/PrDanLongrois.PNG" /></div>
+                      </div>
+                      <h3 class="expertName">PR DAN </br> LONGROIS</h3>
+                      <p class="expertDescription">Pr Dan Longrois, Paris, France, is an
+                        anesthesiologist & intensivist and
+                        president of the NASC (National
+                        Anaesthesiologists Societies
+                        Committee) and member of European
+                        Society of Anesthesia.
+                      </p>
+                  </div>
+                  <div class='expertPicture'>
+                      <img class="expertCountry" src="${static.url(img)}/drapeaux/Suede.png" />
+                      <div class="expertProfil"><div>
+                        <img src="" /></div>
+                      </div>
+                      <h3 class="expertName">PR ANDERS </br> JEPPSSON</h3>
+                      <p class="expertDescription"> Pr Anders Jeppsson, Professor/ chief
+                        physician, Cardiac surgeon, Goteborg
+                        department of Molecular and clinical
+                        Medicine, he is mainly involved platelet
+                        function and supplementation on clot
+                        formation.
+                      </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="whatIsAMooc">
+            <div class="headlineLFB"><h2>WHAT IS A MOOC ?</h2></div>
+            <div id="whatIsAMoocSectionWrapper">
+                <div class="whatIsAMoocSection">
+                    <img src="${static.url(img)}/icons/Icone1.png" />
+                    <h4>MASSIVE</h4>
+                    <p> Courses available to all your collaborators on one unique plateform</p>
+                </div>
+                <div class="whatIsAMoocSection">
+                    <img src="${static.url(img)}/icons/Icone2.png" />
+                    <h4>OPEN</h4>
+                    <p>Free access to all resources</p>
+                </div>
+                <div class="whatIsAMoocSection">
+                    <img src="${static.url(img)}/icons/Icone3.png" />
+                    <h4>ONLINE</h4>
+                    <p>Login at any time wherever you are</p>
+                </div>
+                <div class="whatIsAMoocSection">
+                    <img src="${static.url(img)}/icons/Icone4.png" />
+                    <h4>COURSE</h4>
+                    <p>Attend a real pedagogical formation to get all the information you need</p>
+                </div>
+            </div>
+          </div>
+          <div id="partenariat">
+            <div id="partenariatWrapper">
+              <p>With the institutional support of</p>
+              <img src="${static.url(img)}/icons/Logo_LFB.png" />
+            </div>
+          </div>
+      </div>
     </section>
 </main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
 
 <%block name="js_extra">
    <script type="text/javascript">
