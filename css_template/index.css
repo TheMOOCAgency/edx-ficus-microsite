@@ -23,3 +23,78 @@
 .home>header .outer-wrapper {
   display: none !important;
 }
+
+@font-face {
+    font-family: 'anisette';
+    src: url('./media/assets/fonts/AnisetteBlackRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'anisettebold';
+    src: url('./media/assets/fonts/anisette-bold-webfont.woff2') format('woff2'),
+         url('./media/assets/fonts/anisette-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'anisettelight';
+    src: url('./media/assets/fonts/anisette-light-webfont.woff2') format('woff2'),
+         url('./media/assets/fonts/anisette-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+*{padding:0;margin:0;}
+
+.yellowText{
+color : #ffcd3c;
+}
+
+header{
+  height : calc(100vh - 81px);
+  text-align:center;
+  color : #eee
+}
+#headWrapper{
+  background-image: url("fond.png");
+  background-size: cover;
+  /*height: calc(100% - 60px);*/
+  height: 100%;
+  background-position: center;
+}
+#titleCfeCGC{
+  padding-top: 8vh;
+  width: 740px;
+  height : 460px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#titleCfeCGC>h1{
+  font-family: 'anisettebold';
+  font-size : 50px;
+}
+#titleCfeCGC>p{
+  margin-top: 20px;
+  font-family: 'anisettelight';
+  font-size : 28px;
+}
+#scrollUser{
+  height : 60px;
+  background-color: #253b8b;
+}
+header button{
+  background-color: #5fb670;
+  font-weight: bold;
+  border-radius: 10px;
+  height: 50px;
+  color: white;
+  border: none;
+  font-size: 25px;
+  padding: 5px 30px;
+  font-family: 'anisettebold';
+}

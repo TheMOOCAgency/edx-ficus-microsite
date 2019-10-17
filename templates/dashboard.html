@@ -245,7 +245,7 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
@@ -306,6 +306,7 @@ else{
 }
 </style>
 <span id="list_multi_title">
+
 <h1><span id="span_1">Mes formations</span></h1>
 </span>
 <ul id="list_multi">
@@ -392,6 +393,7 @@ jQuery('img.svg').each(function(){
         $img.replaceWith($svg);
     }, 'xml');
 });
+$('.course_nav>span:contains(\'forum\')').parent().hide();
 $('img.svg').show();
 // NEW ACTION
 $('.updates-article').each(function(){

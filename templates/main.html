@@ -131,7 +131,7 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
-    
+
 % if static.get_value('google_font') is not None:
 <%
 font_string = static.get_value('google_font')
@@ -140,7 +140,7 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 ${font_string | n}
 <style>
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
-    font-family:"${font_name}" !important;
+    font-family:"${font_name}";
   }
 </style>
 % else:
@@ -153,7 +153,7 @@ ${font_string | n}
       url("/static/sncf/fonts/avenir.eot?#iefix") format("embedded-opentype");
   }
 </style>
-% endif    
+% endif
 <style>
   /*Font*/
   @font-face {
@@ -174,7 +174,7 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 .fa {
  font: normal normal normal 14px/1 FontAwesome !important;
 }
-</style>   
+</style>
 </head>
 
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">

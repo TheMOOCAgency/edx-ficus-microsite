@@ -8,90 +8,406 @@ from django.core.urlresolvers import reverse
 from openedx.core.djangolib.markup import HTML, Text
 %>
 <%
+
 register_course_id = static.get_value('course_id')
+
+course_id = "course-v1:CFE-CGC+MOOC1+S1"
+
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
+img = '/media/microsite/{}/images'.format(org)
+fonts = '/media/microsite/{}/fonts'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+
+@font-face {
+    font-family: 'work_sans';
+    src: url('${static.url(fonts)}/Work_Sans/worksans-bold-webfont.woff2') format('woff2'),
+         url('${static.url(fonts)}/Work_Sans/worksans-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'work_sans';
+    src: url('${static.url(fonts)}/Work_Sans/Work_Sans/worksans-light-webfont.woff2') format('woff2'),
+         url('${static.url(fonts)}/Work_Sans/Work_Sans/worksans-light-webfont.woff') format('woff');
+    font-weight: lighter;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'work_sans';
+    src: url('${static.url(fonts)}/Work_Sans/worksans-regular-webfont.woff2') format('woff2'),
+         url('${static.url(fonts)}/Work_Sans/worksans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+*{padding:0;margin:0;font-family: 'work_sans'!important}
+
+.yellowText{
+color : #e94190;
+}
+
+.home>header{
+  height : calc(100vh - 81px);
+  text-align:center;
+  color : #eee
+}
+#headWrapper{
+  background-image: url("${static.url(img)}/fond.png");
+  background-size: cover;
+  height: calc(100% - 60px);
+  background-position: center;
+}
+#titleCfeCGC{
+  padding-top: 8vh;
+  max-width: 640px;
+  height : 460px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+#titleCfeCGC a{
+  text-decoration: none!important;
+  font-family: 'work_sans'!important
+}
+.header-global h1.logo img.ec-logo-size{
+  height: 60px !important;
+  margin-top: -6px;
+}
+.header-global .nav-courseware li .btn{
+  background-color: #5fb670 !important;
+  border : none !important;
+  border-radius: 10px;
+  box-shadow: none !important;
+}
+.header-global .nav-courseware li .btn:hover{
+  background-color: #79c187 !important;
+  color : #eee !important;
+}
+.header-global .nav-courseware li{
+  margin : 0 15px !important;
+  text-transform: uppercase !important;
+}
+.header-global .nav-courseware li a:hover{
+  color :#4a62b7 !important
+}
+#titleCfeCGC>h1{
+  font-size: 70px;
+  color: #eee;
+  font-weight: bold;
+  line-height: 1em;
+}
+#titleCfeCGC>p{
+  margin-top: -30px;
+  font-size: 32px;
+  line-height: normal;
+}
+#scrollUser{
+  height: 60px;
+  background-color: #253b8b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+#scrollUser img{
+  width : 40px;
+}
+#scrollUser p{
+  margin : 0 10px;
+}
+header #registerButton:hover{
+  background-color: #79c187 !important;
+}
+header #registerButton{
+  transition: background 0.25s ease-in-out;
+  cursor: pointer;
+  background-color: #5fb670!important;
+  font-weight: bold;
+  border-radius: 10px;
+  height: 50px;
+  color: white;
+  border: none;
+  font-size: 25px;
+  padding: 5px 30px;
+  max-width: 230px;
+  line-height: 55px;
+  margin-bottom: 60px;
+}
+.catchPhrase{
+  min-height : 200px;
+  background-color: #e94190;
+  display: flex;
+  justify-content: space-between;
+}
+.catchPhrase>div>p{
+  font-size: 2.5em;
+  line-height: initial;
+}
+.catchPhrase>div>p+p{
+  margin-top : 0px;
+}
+.catchPhrase>.catchPhraseContent{
+  flex: 1;
+  text-align: center;
+  color :white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+}
+.catchPhrase>.catchPhraseContent p{
+  font-weight: bold;
+  color :#213a8f;
+}
+
+.catchPhrase>.catchPhraseContent span{
+  font-weight: lighter;
+  margin : 0px;
+  display:inline-block;
+  background-color: #253b8b;
+  border-radius: 8px;
+  padding: 5px 18px;
+  font-size: 30px;
+  color :#fff;
+  min-width: 50%;
+}
+.catchPhrase>#mfLeft{
+  background-image: url("${static.url(img)}/mf.png");
+  width: 250px;
+  background-size: cover;
+  background-position-x: -140px;
+  background-repeat: no-repeat;
+}
+.catchPhrase>#mfRight{
+  background-image: url("${static.url(img)}/mf.png");
+  width: 250px;
+  background-size: cover;
+  background-position-x: 53px;
+  background-repeat: no-repeat;
+}
+#thematicHeadline{
+  height : 250px;
+  background-color: #b0def1;
+}
+#thematicContentWrapper{
+  width: 75%;
+  border: 5px solid #b0def1;
+  margin: 50px auto 0px;
+  border-radius: 10px;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.thematicTullet{
+  height : 200px;
+  width : 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 80px;
+  justify-content: center;
+  text-align: center;
+}
+.thematicTullet>img{
+  width : 100%;
+}
+.thematicTullet>p{
+  margin-top : 15px;
+  color : #213a8f;
+  font-weight: 600;
+}
+#totalTime{
+  height: 50px;
+  color: #253b8b;
+  font-size: 26px;
+  width: 75%;
+  margin: 15px auto;
+  text-align: right;
+}
+#whatIsAMoocHeadline{
+  background-color: #ffcd1c;
+}
+#whatIsAMoocContent{
+  display : flex;
+  text-align: center;
+  justify-content: center;
+  padding: 75px 0px;
+}
+.whatIsAMoocTullet{
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin : 0px 20px;
+}
+.whatIsAMoocTullet>img{
+  width : 100%
+}
+.whatIsAMoocTullet>h3{
+  color: #213a8f;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 30px 0px 10px 0px;
+}
+.whatIsAMoocTullet>p{
+  font-size: 18px;
+  width: 80%;
+  margin: 0 auto;
+  line-height: 20px;
+}
+#introduction{
+  min-height : 200px;
+  display: flex;
+  justify-content: center;
+  max-width : 900px;
+  margin : 0 auto;
+}
+#introduction p {
+  font-size: 22px;
+  line-height: initial;
+  vertical-align: middle;
+  font-weight: lighter;
+  margin-top: 26px;
+  width: 50%;
+  margin : 30px !important;
+}
+#introduction p span{
+  color : #253b8b;
+  font-weight: bold;
+  text-align: right;
+}
+
+#joinUs{
+  height : 100px;
+  background-color: #253b8b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color : #eee;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/**Header**/
+#global-navigation li a{
+  font-family: 'work_sans'!important;
+}
+/**Footer**/
+body footer.global{
+background-color: #41c0f0 !important;
+}
+.copyrightFoot{
+  text-align: center;
+  font-size: 18px;
+}
+.copyrightFoot a{
+  text-decoration: none!important;
+  font-family: 'work_sans'!important;
+  color : #eee;
+}
+
+@media screen and (max-width: 920px) {
+  #mfLeft{
+    display : none;
+  }
+  #mfRight{
+    display : none;
+  }
+  #introduction{
+    flex-direction: column;
+  }
+  #introduction p {
+    width : calc(100% - 20px);
+    margin : 10px 10px !important;
+    text-align: center;
+  }
+}
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+  <section class="home">
+    <header>
+      <div id='headWrapper'>
+        <div id="titleCfeCGC">
+            <h1><span class="yellowText">MOOC</span> ÉGALITÉ PROFESSIONNELLE</h1>
+            <p>
+              TRAVAILLONS ENSEMBLE À AMÉLIORER L'ÉGALITÉ PROFESSIONELLE EN ENTREPRISE
+            </p>
+            <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">
+            <div id='registerButton'>
+              INSCRIPTION
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
             </a>
-          % endif
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div id="scrollUser">
+        <img src="${static.url(img)}/fleche.png" />  <p>SCROLLER</p> <img src="${static.url(img)}/fleche.png" />
+      </div>
+    </header>
+    <div class="sectionCfeCGC catchPhrase" >
+        <div id="mfLeft"></div>
+        <div class="catchPhraseContent">
+          <p>L'ÉGALITÉ PROFESSIONELLE AVANCE,</p>
+          <p>
+            <span>
+              MAIS NOUS NE SOMMES PAS AU BOUT DU SUJET !
+            </span>
+          </p>
+        </div>
+        <div id="mfRight"></div>
     </div>
+    <div class="sectionCfeCGC" id="introduction">
+      <p>Faire progresser l'égalité professionelle en entreprise et dans les services publics, demande des analyses et des outils</p>
+      <p>L'ambition de ce MOOC est de vous donner quelques éléments pour avancer sur le sujet.<br/><span>Bonne participation !</span></p>
+    </div>
+    <div class="catchPhrase" id='thematicHeadline'>
+      <div class="catchPhraseContent">
+        <p>VOTRE MOOC EST CONSTITUÉ DES THÉMATIQUES SUIVANTES,</p>
+        <p>
+          <span>
+            REGROUPÉES EN 3 CHAPITRES :
+          </span>
+        </p>
+      </div>
+    </div>
+    <div id='thematicContent'>
+        <div id="thematicContentWrapper">
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Egalite_Salariale.png" alt="temp"/><p>Egalité Salariale </p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Deroulement_Carriete.png" alt="temp"/><p>Déroulement de carrière</p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Mixite_Metiers.png" alt="temp"/><p>Mixité des métiers</p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Representation_Femmes.png" alt="temp"/><p>Représentation des femmes dans les instances dirigeantes</p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Equilibre_Vie.png" alt="temp"/><p>Equilibre des temps de vie</p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Lutte_Violence.png" alt="temp"/><p>Lutte contre les violences sexistes et sexuelles en entreprise</p></div>
+            <div class="thematicTullet"><img src="${static.url(img)}/Thematiques/Les_Outils.png" alt="temp"/><p>Les outils</p></div>
+        </div>
+        <p id="totalTime"> DURÉE TOTALE : 45 MIN/1H</p>
+    </div>
+    <div class="catchPhrase" id='whatIsAMoocHeadline'>
+      <div class="catchPhraseContent">
+        <p>QU’EST CE QU’UN MOOC ?</p>
+        <p>
+          <span>
+            UNE FORMATION EN LIGNE OUVERTE À TOUS
+          </span>
+        </p>
+      </div>
+    </div>
+    <div id="whatIsAMoocContent">
+      <div class="whatIsAMoocTullet"><img src="${static.url(img)}/Questcequnmooc/Massive.png" alt="temp"/><h3>MASSIVE</h3><p>Des cours disponibles pour tous vos collaborateurs sur une plateforme unique</p></div>
+      <div class="whatIsAMoocTullet"><img src="${static.url(img)}/Questcequnmooc/Open.png" alt="temp"/><h3>OPEN</h3><p>Accès libre à l’ensemble des ressources </p></div>
+      <div class="whatIsAMoocTullet"><img src="${static.url(img)}/Questcequnmooc/Online.png" alt="temp"/><h3>ONLINE</h3><p>Connectez-vous à tout moment où que vous soyez</p></div>
+      <div class="whatIsAMoocTullet"><img src="${static.url(img)}/Questcequnmooc/Course.png" alt="temp"/><h3>COURSE</h3><p>Suivez un vrai parcours pédagogique pour acquérir des connaissances</p></div>
+    </div>
+    <div class="sectionCfeCGC" id="joinUs">REJOIGNEZ-NOUS !</div>
   </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+</main>

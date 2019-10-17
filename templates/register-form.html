@@ -43,7 +43,7 @@ import datetime
       % else:
       <span class="icon" aria-hidden="true"><img class="icon-image" src="${enabled.icon_image.url}" alt="${enabled.name} icon" /></span>
       % endif
-      ${_('Sign up with {provider_name}').format(provider_name=enabled.name)}
+      Créer un compte
     </button>
   % endfor
 
@@ -119,6 +119,7 @@ import datetime
     <li class="is-disabled field optional password" id="field-password" hidden>
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
+      <span class="tip tip-input" style="display:initial"></span>
     </li>
 
     % else:
@@ -126,6 +127,7 @@ import datetime
     <li class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <span class="tip tip-input" style="position:initial"> Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.</span>
     </li>
 
     % endif
@@ -311,7 +313,7 @@ import datetime
       <div class="field required checkbox" id="field-tos">
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
+          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('PRIVACY')),
           link_end='</a>')}</label>
       </div>
       % endif
@@ -322,7 +324,7 @@ import datetime
       <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['honor_code']} checkbox" id="field-honorcode">
         <input id="honorcode-yes" type="checkbox" name="honor_code" value="true" />
         <%
-          honor_code_path = marketing_link('HONOR')
+          honor_code_path = marketing_link('PRIVACY')
         %>
         <label for="honorcode-yes">${_('I agree to the {link_start}Honor Code{link_end}').format(
           link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=honor_code_path),
@@ -336,8 +338,9 @@ import datetime
 </div>
 
 <div class="form-actions">
-  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
+  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"></button>
 </div>
+
 <style>
 #login_link_up {
  margin-top: 10px;

@@ -11,10 +11,12 @@ from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_j
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
 import json
-
 %>
-
-
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+img = '/media/microsite/{}/auto/images'.format(org)
+%>
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
@@ -27,20 +29,30 @@ body{
   text-align:center;
 }
 .container{
-  margin-top:80px;
   width:854px;
-  height:480px;
+  min-height:480px;
+  margin : 80px auto 0px;
   margin-left: 70px;
   padding: 0;
   border: 1px solid lightgray;
 }
 #main {
-  background-image:url('${bg}');
+  background-image:url('${static.url(img)}/fondCertif.png');
   background-size:cover;
   background-position:center;
 }
+#bouton-pdf{
+  background-color: #26378d;
+  color: white;
+  border-color: white;
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
 .main-color{
-  background-color:#C1CF33;
+  background-color:#e94190;
 }
 .second-color{
   background-color: #4d4d4d;
@@ -52,11 +64,15 @@ body{
 /* Premier bandeau */
 .bandeau-top{
   padding: 10px;
+  margin-top: 40px;
+  background-color: rgb(75, 89, 160);
 }
 .bandeau-top p{
   font-weight: 600;
   color: white;
   margin-top: 15px;
+  font-size: 1.5em;
+  margin-top: 26px;
 }
 .title-attestation{
   width: 80%;
@@ -68,20 +84,27 @@ body{
   text-align: right;
 }
 .logo-attestation img{
-  max-height: 40px;
+  max-height: 70px;
+  margin: 0 40px;
 }
 
 /* Deuxième bandeau */
 .bandeau-middle{
   color: white;
-  margin-top: 100px;
   padding: 30px 10px;
+  background-color: rgba(233, 65, 144, 0.86);
+  width: 60%;
+  margin: 80px auto 50px
+}
+#congrats{
+  font-size: 38px;
 }
 #course-title{
   font-size: 20px;
 }
 #nom-user{
   font-size: 30px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 #score, #course-title{
@@ -100,22 +123,27 @@ body{
   width: 20%;
 }
 .footer-left{
-  width: 80%;
+  width: 100%;
 }
 .footer{
   padding: 10px;
-  margin-top: 44px;
+}
+.footer p a{
+  color: #cd3f8f;
 }
 .footer p{
-  margin-top: 74px;
+  text-align: center;
+  margin-top: 45px;
   font-size: 12px;
-  text-align: left;
-  background-color: white;
+  color: white;
+}
+.footer #pdfDwl{
+  font-size: 10px;
+  background-color: rgba(233, 65, 144, 0.86) !important;
 }
 
 
 </style>
-% if grades.get('passed'):
 <div class="container" id="main">
   <div class="bandeau-top main-color">
     <div class="title-attestation">
@@ -128,18 +156,14 @@ body{
   </div>
 
   <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
-    <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
+    <p id="congrats">Félicitations</p>
+    <p id="nom-user">${last_name} ${first_name} !</p>
+    <p>Vous avez suivi avec succès le MOOC Egalité Professionnelle qui vous a été proposé par la CFE-CGC</p>
   </div>
 
   <div class="footer">
       <div class="footer-left">
           <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
-      </div>
-      <div class="footer-right">
-          <img src="${signature}"/>
       </div>
       <div style="clear:both;"></div>
   </div>
@@ -148,6 +172,14 @@ body{
 <script type="text/javascript">
 </script>
   %if pdf:
+  <div style='margin-top:200px;'>
+    <button id="bouton-pdf">VERSION PDF</button>
+  </div>
+
+  <script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  </script>
+
   <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -155,6 +187,7 @@ body{
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
   <script type="text/javascript">
+  //PDF VERSION
   function printpage(){
      html2canvas(document.body, {
       onrendered : function (canvas){
@@ -166,8 +199,10 @@ body{
     })
   }
   document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('bouton-pdf').addEventListener('click',function(){
      printpage();
+    })
   });
+
   </script>
   %endif
-% endif
