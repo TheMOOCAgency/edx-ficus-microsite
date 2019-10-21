@@ -1,97 +1,305 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La plateforme de MOOC de la Grande École du Numérique</title>
+    <link rel="icon" type="image/png" href="/media/microsite/gen/assets/img/logo_rond.png" />
+    <link rel="stylesheet" href="/media/microsite/gen/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/4-Columns-Info-Icons.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/PUSH---Bootstrap-Button-Pack1.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/PUSH---Bootstrap-Button-Pack3.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/PUSH---Bootstrap-Button-Pack2.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/user.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/dh-highlight-icon-heading.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Full-Page-Background.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Full-Page-Background1.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Full-Page-Background2.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/html5-video.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/PUSH---Bootstrap-Button-Pack.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Testimonials-1.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/Testimonials.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/thumbnails1-1.css">
+    <link rel="stylesheet" href="/media/microsite/gen/assets/css/thumbnails1.css">
 
-          </div>
+    <style>
+        @font-face {
+            font-family: 'Volte';
+            src: url('/media/microsite/gen/fonts/volte/VolteRounded-Regular.otf') format('opentype');
+        }
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+        @font-face {
+            font-family: 'Oxygen';
+            src: url('/media/microsite/gen/fonts/oxygen/Oxygen-Regular.ttf') format('truetype');
+        }
 
-      </header>
-      <%include file="${courses_list}" />
+        h1, h2, h3, h4, h5, h3 > span {
+            font-family: 'Volte', 'Open Sans', sans-serif !important;
+            font-weight: bold;
+            text-transform: unset;
+            color : #011547;
+        }
+        p, span, a {
+            font-family: 'Oxygen', 'Open Sans', sans-serif !important;
+        }
+        #register_link {color : #011547 !important;}
+        #register_link:hover {
+            color: white !important;
+        }
+        #nav_header {
+            background-color: #011547;
+        }
+        .btn-primary {
+            min-width: 200px;
+            background-color: #011447;
+            color: #ffffff;
+            padding:10px 20px 10px 20px !important;
+            border-radius:60px;
+            text-transform: capitalize !important;
+        }
+        .link_header:hover {
+            background-color: #011447 !important;
+            color:white !important;
+        }
+        .register-btn:hover {
+            background-color:#00F3A7 !important;
+            color:#011447;
+        }
+        .caption > h3 {
+            margin-top: 10px;
+        }
+        .caption .sequence {
+            margin-bottom: 0px;
+        }
+        .caption .week {
+            margin: auto;
+            padding: 5px 10px;
+            border-radius: 60px;
+            display: block;
+            width: 70%;
+            background-color: #00F3A7;
+            color: #011547;
+            font-weight: bold;
+        }
+        .thumbnail {
+            min-height: 600px;
+        }
+        .footer-separator {
+            display: table-cell;
+            vertical-align: middle;
+            height: 30px;
+        }
+        a[href="/tos"] {
+            color: #011447;
+        }
+        a[href="/tos"]:hover {
+            color: #00F3A7;
+            text-decoration: none;
+        }
+        h3 > span {
+            color:#00F3A7;
+            font-weight: bold;
+        }
+    </style>
 
-    </section>
-</main>
+<!-- Global site tag (gtag.js) - Google Analytics -->
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108400250-1"></script>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
 <script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108400250-1');
 </script>
-% endif
+
+</head>
+
+<body style="width: initial;">
+    <nav class="navbar navbar-default" id="nav_header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" style="/*position:absolute;*/padding-top:10px;"> <img src="/media/microsite/gen/assets/img/logo_blanc.png" height="60px" style="height:59px;"></a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation"><a href="/register" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li>
+                    <li role="presentation"><a href="/login" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" id="section1">
+        <video  autoplay="true" loop="loop" preload="metadata" muted="muted">
+  <source src="https://player.vimeo.com/external/360306431.hd.mp4?s=5c5e9dfa38edc08cb7e7d7cc6f42a0852d9973ce&profile_id=175" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+        <div class="col-md-5" style="color:white;float:none;margin-top:0;vertical-align:middle;width:70%;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+            <h1 style="font-size:3em;color:#ebeff1;width:100%;text-transform:unset">Bienvenue sur la plateforme de MOOC de La Grande Ecole du Numérique</h1>
+            <p style="font-size:24px;font-weight:normal;margin-bottom:10px;width:70%;margin: 0 auto;">destinée en priorité aux formateurs exerçant dans les formations labellisées GEN.</p><img src="/media/microsite/gen/assets/img/barre_blanc.png" width="30%">
+            <p style="font-size:24px;color:#bcd4f9;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
+            <div style="margin:0 auto;text-align:center;">
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/register" id="register_link">Inscription</a>
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/login" id="login_link">Connexion </a>
+            </div>
+        </div>
+    </div>
+    <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center" style="margin-bottom:10px;padding-top:60px;color:#011447;font-size:30px;">L'évaluation dans l'acquisition des compétences </h2>
+                    <h3 style="margin: 0px;font-weight:normal;">Un parcours en <span>4 séquences</span> étendu sur <span>4 semaines</span> et une évaluation finale.</h3>
+                    <img style="margin: 30px 0px 30px 0px;width:600px;" src="/media/microsite/gen/assets/img/logolille.png" alt="univ-lille">
+                </div>
+            </div>
+            <div class="row" style="min-width:1600px;background-color:rgba(255,255,255,0);">
+                <div class="col-md-2 col-md-offset-1" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq1.png" style="height:233px;">
+                        <div class="caption">
+                            <div style="min-height:180px;display:inline-grid;">
+                                <p class="sequence">Séquence 1</p>
+                                <h3 style="color:#011447;font-weight:bold;">Pédago ? Go !</h3>
+                                <span class="week">Semaine 1</span>
+                            </div>
+                            <img src="/media/microsite/gen/assets/img/barre_bleu.png" style="width:100%;">
+                            <p class="under_s2">Motivation, Mémorisation, Mesure<span> </span></p>
+                            <p class="under_s2">Courants pédagogiques<span> </span></p>
+                            <p class="under_s2">Conditions favorisant les apprentissages<span> </span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq2.png" style="height:233px;">
+                        <div class="caption">
+                            <div style="min-height:180px;display:inline-grid;">
+                                <p class="sequence">Séquence 2</p>
+                                <h3 style="color:#011447;font-weight:bold;">Parce qu'il faut bien évaluer </h3>
+                                <span class="week">Semaine 2</span>
+                            </div>
+                            <img src="/media/microsite/gen/assets/img/barre_bleu.png" style="width:100%;">
+                            <p class="under_s2">Biais d’évaluation<span> </span></p>
+                            <p class="under_s2">Différentes formes d’évaluation<span> </span></p>
+                            <p class="under_s2">Outiller l’évaluation<span> </span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq3.png" style="height:233px;">
+                        <div class="caption">
+                            <div style="min-height:180px;display:inline-grid;">
+                                <p class="sequence">Séquence 3</p>
+                                <h3 style="color:#011447;font-weight:bold;">ePortfolio et compétences</h3>
+                                <span class="week">Semaine 3</span>
+                            </div>
+                            <img src="/media/microsite/gen/assets/img/barre_bleu.png" style="width:100%;">
+                            <p class="under_s2">Construire son ePortfolio<span> </span></p>
+                            <p class="under_s2">Analyse réflexive<span> </span></p>
+                            <p class="under_s2">Vues publiques<span> </span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq4.png" style="height:233px;">
+                        <div class="caption">
+                            <div style="min-height:180px;display:inline-grid;">
+                                <p class="sequence">Séquence 4</p>
+                                <h3 style="color:#011447;font-weight:bold;">Badges, reconnaissance et exposition</h3>
+                                <span class="week">Semaine 4</span>
+                            </div>
+                            <img src="/media/microsite/gen/assets/img/barre_bleu.png" style="width:100%;">
+                            <p class="under_s2">Open badges et reconnaissance<span> </span></p>
+                            <p class="under_s2">Notion de compétence<span> </span></p>
+                            <p class="under_s2">Exemple de système d’open-badges<span> </span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq5.png" style="height:233px;">
+                        <div class="caption">
+                            <div style="min-height:180px;display:inline-grid;">
+                                <p class="sequence">Séquence 5</p>
+                                <h3 style="color:#011447;font-weight:bold;">C'est bien pratique une bonne théorie</h3>
+                                <span class="week">Semaine 5</span>
+                            </div>
+                            <img src="/media/microsite/gen/assets/img/barre_bleu.png" style="width:100%;">
+                            <p class="under_s2">Finaliser la vue publique de son ePortfolio<span> </span></p>
+                            <p class="under_s2">Evaluation par les pairs<span> </span></p>
+                            <p class="under_s2">Quiz final<span> </span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- CHANGE HERE-->
+    <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;padding: 0px 50px 0px 50px;">
+        <div class="container" style="background-color:white;margin-top:0px;">
+            <div class="intro" style="margin-top:80px;padding-top:0px;">
+                <h2 class="text-center" style="margin-bottom:30px;color:#011447;padding-top:0px;font-size: 30px;">Pourquoi un MOOC pour les formateurs du réseau GEN ?</h2>
+                <p class="text-center" style="font-size: 20px;">Bienvenue sur la plateforme de MOOC de La Grande Ecole du Numérique, destinée en priorité aux formateurs exerçant dans les formations labellisées GEN. Les formations du réseau GEN ont toujours été innovantes. L’excellente insertion professionnelle des apprenants GEN (85% de sorties positives en 2018*) témoigne de l’adéquation des approches pédagogiques et de la qualité de l’accompagnement socio-professionnel mises en œuvre par les formations.</p><br />
+                <p class="text-center" style="font-size: 20px;">Tout formateur, expert dans les technologies qu’il enseigne, peut être amené à s’intéresser à des méthodes d’enseignement complétant l’acquisition des compétences techniques :</p><br/>
+                <p class="text-center" style="font-size: 20px;">- Comment développer des compétences collaboratives, créatives ?
+                </p>
+                <p class="text-center" style="font-size: 20px;">- Comment maintenir une exigence de qualité ainsi que dans l’inclusion et la bienveillance ?
+                </p><br/>
+                <p class="text-center" style="font-size: 20px;">A travers cette plateforme, la GEN propose aux formateurs des outils et des idées pour les aider à mettre en place les approches pédagogiques les plus adaptées.
+                </p>
+                <p style="text-align:right;font-size:14px;margin-top:20px;">*Source : Chiffres-clés 2018</p>
+            </div>
+        </div>
+    </div>
+    <div class="dh-highlight-text" style="background-color:white;padding:0 0 50px 0;height:100%;position:relative;z-index:1;">
+        <div class="container">
+            <div style="margin-top: 50px;"><a class="btn btn-primary btn-lg register-btn" role="button" href="/register?course_id=course-v1:gen+2018+2019" data-toggle="modal" style="background-color:#011447;font-size:23px;border-radius:60px;border:0px solid;text-transform:unset!important">Je m'inscris !</a>
+                <div class="modal fade"
+                role="dialog" tabindex="-1" id="myModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Modal Title</h4></div>
+                            <div class="modal-body">
+                                <p class="text-center text-muted">Description </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1></h1></div>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12 col-sm-4" style="margin-top:20px;">
+                </div>
+                <div class="col-sm-4 social-icons col-xs-12 col-sm-4" style="height:40px;margin-top:20px;"></div>
+                <div class="col-md-4 col-xs-12 col-sm-4" style="border-left: 5px solid #00F3A7;">
+                    <p class="footer-separator">
+                        
+                        © Grande Ecole du numérique 2017-2019 <span style="padding:5px 5px;">|</span> <a href="/tos">Mentions légales</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/media/microsite/gen/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/gen/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/media/microsite/gen/assets/js/Full-Page-Background1.js"></script>
+    <script src="/media/microsite/gen/assets/js/Full-Page-Background2.js"></script>
+    <script src="/media/microsite/gen/assets/js/Full-Page-Background3.js"></script>
+    <script src="/media/microsite/gen/assets/js/Full-Page-Background.js"></script>
+</body>
+
+</html>

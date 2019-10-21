@@ -1,10 +1,12 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bienvenue sur la plateforme de Mooc de la Grande Ecole du Numérique,
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
-
+Vous devez à présent activer votre compte en cliquant sur le lien suivant :
 https://${ site }/activate/${ key }
 
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+Si vous n’avez pas créé de compte sur notre plateforme, veuillez ignorer ce mail, vous ne serez plus recontacté.
+
+A bientôt,
+L’équipe de La Grande Ecole du Numérique
