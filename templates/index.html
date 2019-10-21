@@ -1,97 +1,359 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+<meta name="google-site-verification" content="9IL2lk6t-VQeqq_1cYovoBA312Z5U6zpG40SPmr_zUo" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<title>MOOC AIRBUS</title>
+	<meta name="description" content="Visia. Responsive One Page Portfolio.">
+	<meta name="keywords" content="visia, responsive, one page, portfolio, parallax, template, html5">
+	<meta name="author" content="Aether Themes">
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-          </div>
+	<link rel="shortcut icon" href="/media/microsite/mooc-airbus/hp/images/favicon.png">
+	<link rel="apple-touch-icon" href="/media/microsite/mooc-airbus/hp/images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/media/microsite/mooc-airbus/hp/images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/media/microsite/mooc-airbus/hp/images/apple-touch-icon-114x114.png">
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+	<!--[if lt IE 9]>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-      </header>
-      <%include file="${courses_list}" />
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script type="text/javascript">
 
-    </section>
-</main>
+	</script>
+	<!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/loader.css">
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/reset.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/grid.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/ruby-red.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/style.css">
+  <!--  <link rel="stylesheet" href="/media/microsite/mooc-airbus/hp/stylesheets/jqvl-page.css">
+    <link rel="stylesheet" href="/media/microsite/mooc-airbus/hp/stylesheets/pygment_trac.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
 
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
 
-</script>
-% endif
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/aqua-blue.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/mint-green.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/rose-pink.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/sunflower-yellow.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/jeans.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/grape.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/grass.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/lavander.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/colors/gray.css"> -->
+
+	<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/animations.css">
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-airbus/hp/stylesheets/ie.css" />
+	<![endif]-->
+<style>
+</style>
+</head>
+
+<body class="royal_loader">
+	<!-- Begin Hero -->
+		<div class="up_head">
+			<div class="logo">
+				<a href="/"><img alt="Airbus logo" src="/media/microsite/mooc-airbus/hp/images/logo_airbus.png"></a>
+			</div>
+			<div class="head_liens">
+				<a href="/login">LOGIN</a>
+				<a href="/register">JOIN US</a>
+			</div>
+		</div>
+		<div class="baniere">
+			<img src="/media/microsite/mooc-airbus/hp/src/baniere.jpg" alt="banner">
+		</div>
+		<div class="menu">
+			<span class="menu_1"><p>MOOC AIRBUS</p></span>
+			<span class="menu_2"><p>Adaptive Learning Plateform</p></span>
+			<span class="menu_3"><p>Explore Courses</p></span>
+		</div>
+		<section id="section1" class="content container">
+			<div class="learn">
+				<h2>A new way to learn</h2>
+					<div class="grid-full learn1">
+						<div class="grid-shortcode grid-2 learn2">
+							<img alt="flying paper" src="/media/microsite/mooc-airbus/hp/picto/Mini_Vector_App_Icons_Bleu_GMF_avion.png">
+							<p>
+								Online Resources based on MOOCs to discover hundreds of topics
+							</p>
+						</div>
+						<div class="grid-shortcode grid-2 learn2">
+							<img alt="zoom" src="/media/microsite/mooc-airbus/hp/picto/Mini_Vector_App_Icons_Bleu_GMF_loupe.png">
+							<p>
+								Specific tracks to improve your skills and get certified
+							</p>
+						</div>
+						<div class="grid-shortcode grid-2 learn2">
+							<img alt="two persons" src="/media/microsite/mooc-airbus/hp/picto/Mini_Vector_App_Icons_Bleu_GMF_people.png">
+							<p>
+								A community of experts to share knowedge and best practices
+							</p>
+						</div>
+					</div>
+			</div>
+		</section>
+			<div class="explore">
+				<a href="/courses">EXPLORE COURSES</a>
+			</div>
+		<section id="section2" class="content container">
+			<div class="explore_course">
+				<div class="explore_course1">
+					<div class="explore_course_image">
+						<img src="/media/microsite/mooc-airbus/hp/src/studying.jpg" alt="studying">
+					</div>
+					<div class="explore_course_para">
+						<h3>What is a MOOC ?</h3>
+						<p>A Massive Open Online Course, or MOOC, is an interactive, collaborative web-based course format designed to encourage participation and achievement. </p>
+					</div>
+				</div>
+				<div class="explore_course2">
+					<div class="explore_course_para">
+						<h3>What is Adaptive Learning ?</h3>
+						<p>Adaptive learning is an online educational system in which the sequencing and content of the course depends on student performance. Regular feedback from the course platform allows for greater personalization of learning paths, higher levels of engagement, and more effective memorization.</p>
+					</div>
+					<div class="explore_course_image">
+						<img src="/media/microsite/mooc-airbus/hp/src/learning.jpg" alt="learning">
+					</div>
+				</div>
+			</div>
+		</section>
+			<footer>
+				<span></span>
+			</footer>
+	</div>
+	<!-- End Team -->
+	<!-- Begin Footer -->
+
+	<!-- End Footer -->
+
+	<!-- Javascript -->
+	<script src="/media/microsite/mooc-airbus/hp/javascript/royal-preloader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/media/microsite/mooc-airbus/hp/src/videoLightning.js"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascripts/scale.fix.js"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascripts/jquery.min.js"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascripts/videoLightning.js"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascripts/jqvl-page.js"></script>
+	<script type="text/javascript">
+
+		//Replace with your own image's paths
+
+	   var images = {   'parallax1':   ' '};
+	    /* = {   'parallax1':    'http://www.aetherthemes.com/demo/visia/images/hero.jpg',
+	        'parallax2':    'http://www.aetherthemes.com/demo/visia/images/services-red.jpg',
+	        'parallax3':    'http://www.aetherthemes.com/demo/visia/images/clients.jpg',
+	        'About Us': 	'http://www.aetherthemes.com/demo/visia/images/about.jpg',
+	        'Team':     	'http://www.aetherthemes.com/demo/visia/images/team.jpg',
+	        'Thumb1':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project1.jpg',
+	        'Thumb2':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project2.jpg',
+	        'Thumb3':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project3.jpg',
+	        'Thumb4':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project4.jpg',
+	        'Thumb5':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project5.jpg',
+	        'Thumb6':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project6.jpg',
+	        'Thumb7':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project7.jpg',
+	        'Thumb8':   	'http://www.aetherthemes.com/demo/visia/images/thumbnails/project8.jpg'
+	    };*/
+
+	    // config
+	    Royal_Preloader.config({
+	        mode:       'number',
+	        images:     images,
+	        timeout:    10,
+	        showInfo:   false,
+	        background: ['#ffffff']
+	    });
+	/*
+  videoLightning({
+    elements: [
+      {
+        ".video-link": {
+          autoplay: 1,
+          easeOut: 1000,
+          bdColor: "#ddd",
+          bdOpacity: 0.6,
+          glow: 20,
+          glowColor: "#000"
+        }
+      },
+      {
+        ".video-link2": {
+          autoplay: 1,
+          bdColor: "#7FFF00",
+          bdOpacity: 0.7,
+          glow: 150,
+          glowColor: "#fff",
+          xColor: "#7FFF00",
+          color: "#fff"
+        }
+      },
+      {
+        "#bare-iframe-link": {
+          id: 'f-images/JqueryVideoLightningIconPurple144.png',
+          frameColor: '#555',
+          frameBorder: '3px solid #3A0372',
+          bdOpacity: 0.9,
+          glow: 0,
+          xBgColor: '#3A0372',
+          xColor: '#f5f5f5',
+          xBorder: '3px solid #555'
+        }
+      }
+    ]
+  });
+  $(function () {
+      $(".video-link3").jqueryVideoLightning({
+          id: "y-z-D1PJ1cMXs",
+          autoplay: 1,
+          controls: 0,
+          bdColor: "#fff",
+          bdOpacity: 1,
+          xBgColor: 'transparent',
+          xColor: 'transparent',
+          glow: 0,
+          width: 640,
+          height: 360,
+          showinfo: 0,
+          fadeIn: 3000,
+          frameColor: '#fff'
+      });
+  });
+  $(function () {
+      $(".video-link4").jqueryVideoLightning({
+          id: 'y-26mMPKS83c4',
+          autoplay: 1,
+          fadeIn: 0,
+          bdColor: '#f5f5f5',
+          bdOpacity: 1,
+          glow: 20,
+          glowColor: '#000',
+          controls: 0,
+          showinfo: 0,
+          color: "white"
+      });
+  });
+  $(function () {
+      $(".video-link5").jqueryVideoLightning({
+          autoplay: 1,
+          playlist: "WkgWvaFrJv8,NCsihs3A_hM",
+          bdColor: "#3A0372",
+          bdOpacity: 0.8,
+          glow: 50,
+          glowColor: "#F1D6F5",
+          color: "#fff",
+          cover: 1
+      });
+  });
+  $(function () {
+      $(".video-link6").jqueryVideoLightning({
+          autoplay: 1,
+          controls: 0,
+          width: "480px",
+          height: "320px",
+          popover: 1,
+          peek: 1
+      });
+  });
+
+ 		$(function() {
+				$('a[href*=#]:not([href=#])').click(function() {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+							scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
+			});
+	*/
+
+		var popup = (function()
+		{
+
+			function init() {
+
+				var overlay = $('.overlay');
+
+				$('.popup-button').each(function(i, el)
+				{
+					var modal = $('#' + $(el).attr('data-modal'));
+					var close = $('.close');
+
+					// fonction qui enleve la class .show de la popup et la fait disparaitre
+					function removeModal() {
+						modal.removeClass('show');
+					}
+
+					// evenement qui appelle la fonction removeModal()
+					function removeModalHandler() {
+						removeModal();
+					}
+
+					// au clic sur le bouton on ajoute la class .show a la div de la popup qui permet au CSS3 de prendre le relai
+					$(el).click(function()
+					{
+						modal.addClass('show');
+						overlay.unbind("click");
+						// on ajoute sur l'overlay la fonction qui permet de fermer la popup
+						overlay.bind("click", removeModalHandler);
+					});
+
+					// en cliquant sur le bouton close on ferme tout et on arrĂªte les fonctions
+					close.click(function(event)
+					{
+						event.stopPropagation();
+						removeModalHandler();
+					});
+
+				});
+			}
+
+			init();
+
+		})();
+	</script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/retina.js" type="text/javascript" charset="utf-8"></script>
+	<!--
+	<script src="/media/microsite/mooc-airbus/hp/javascript/smoothscroll.js" type="text/javascript" charset="utf-8"></script>
+	-->
+	<script src="/media/microsite/mooc-airbus/hp/javascript/waypoints.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/parallax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/navigation.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.mixitup.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.easing.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.fittext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.localscroll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.scrollto.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.appear.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.waitforimages.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.bxslider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/mooc-airbus/hp/javascript/jquery.fitvids.js" type="text/javascript" charset="utf-8"></script>
+	<!--
+	<script src="/media/microsite/mooc-airbus/hp/javascript/main.js" type="text/javascript" charset="utf-8"></script>
+	-->
+	<script src="/media/microsite/mooc-airbus/hp/javascript/shortcodes.js" type="text/javascript" charset="utf-8"></script>
+
+</div>
+</body>
+
+</html>
+
