@@ -110,10 +110,11 @@ from openedx.core.lib.courses import course_image_url
 
 <%
 org_static = static.get_value('domain_prefix')
-css = org_static+'/css/course_about.css'
+css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 %>
 
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" type="text/css" href="${css}" />
+
 
 <section class="course-info">
   <header class="course-profile">

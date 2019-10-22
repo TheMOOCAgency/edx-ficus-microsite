@@ -13,8 +13,8 @@ from django.utils.http import urlquote_plus
 %>
 <%
 org_static = static.get_value('domain_prefix')
-css = org_static+'/css/course_navigation.css'
-css_bis = org_static+'/css/courseware.css'
+css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
+css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 %>
 <%block name="bodyclass">view-in-course view-progress</%block>
 

@@ -1,4 +1,5 @@
-<%page args="course_overview,org_static, enrollment,show_email_settings, dashboard_index" />
+
+<%page args="show_courseware_link,is_course_blocked,course_overview,org_static, enrollment,show_email_settings, dashboard_index" />
 
 <%!
 import urllib
@@ -36,20 +37,13 @@ cours_ouv = ''
 if course_overview.enrollment_start is None:
   insc_ouv = False
 else:
-  if int(course_overview.enrollment_start.strftime("%s")) < _current and (_current < int(course_overview.enrollment_end.strftime("%s")) or course_overview.enrollment_end is None):
+  if course_overview.enrollment_start and course_overview.enrollment_end and int(course_overview.enrollment_start.strftime("%s")) < _current and (_current < int(course_overview.enrollment_end.strftime("%s")) or course_overview.enrollment_end is None):
     insc_ouv = True
   else:
     insc_ouv = False
 
 
-if course_overview.start is None:
-  cours_ouv = False
-else:
-  if int(course_overview.start.strftime("%s")) < _current and (_current < int(course_overview.end.strftime("%s")) or course_overview.end is None):
-    cours_ouv = True
-  else:
-    cours_ouv = False
-
+cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
 <li class="course_cell_multi">

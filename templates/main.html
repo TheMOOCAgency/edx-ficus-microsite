@@ -124,8 +124,9 @@ from pipeline_mako import render_require_js_path_overrides
 <%
 org = static.get_value('domain_prefix')
 css = org+'/css/dashboard.css'
+css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(org+'/css/customizer.css')}">
+<link rel="stylesheet" type="text/css" href="${css}">
 <script type="text/javascript" src="${static.url(org+'/js/customize.js')}"></script>
 <script type="text/javascript" src="${static.url(org+'/js/initialize.js')}"></script>
 

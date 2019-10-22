@@ -39,11 +39,7 @@ org_static = static.get_value('domain_prefix')
 %>
 
 <%
-_current = time.time()
-if int(course_overview.start.strftime("%s")) < _current and (_current < int(course_overview.end.strftime("%s")) or course_overview.end is None):
-  cours_ouv = True
-else:
-  cours_ouv = False
+cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
 %>
 
 
@@ -57,7 +53,6 @@ else:
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url(org_static+'/images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/info_blanc.svg')}"/><span>${_('info')}</span></a>
-  <a href="https://www.facebook.com/groups/MoocCuisineAfpa/?fref=ts" class="course_nav" target="_blank"><img class="svg" src="/media/microsite/afpa/images/facebook.svg"/><span>Facebook</span></a>
   <a href="/dashboard" class="course_nav"><img class="svg" src="/media/microsite/afpa/images/left-arrow.svg"/><span>${_('Retour')}</span></a>
   <span style="clear:left;display:block;"></span>
 </div>
@@ -81,7 +76,7 @@ $.ajax({
 %else:
 
 <div id="title_dashboard_course">
-  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y").replace('Jan','janvier')}<br/>A très vite !</h1>
 </div>
 
 

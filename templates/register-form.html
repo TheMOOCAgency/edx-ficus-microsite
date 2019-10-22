@@ -85,6 +85,7 @@ import datetime
   % if has_extauth_info is UNDEFINED:
 
   <ol class="list-input">
+    <!--
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
       <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
@@ -93,9 +94,11 @@ import datetime
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
+    -->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+      <span class="tip tip-input" id="name-tip">Adresse individuelle professionnelle ou personnelle.</span>
     </li>
 
 
@@ -108,7 +111,8 @@ import datetime
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
       <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
-      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <span class="is-valid"></span>
+      <span class="tip tip-input" id="username-tip">Identifiant unique, sera visible dans toute discussion ou forum où vous participerez <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
@@ -123,6 +127,7 @@ import datetime
     <li class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <span class="is-valid"></span>
     </li>
 
     % endif
@@ -303,12 +308,11 @@ import datetime
 
   <ol class="list-input">
     <li class="field-group">
-
       % if has_extauth_info is UNDEFINED or ask_for_tos :
       <div class="field required checkbox" id="field-tos">
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
+          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('HONOR')),
           link_end='</a>')}</label>
       </div>
       % endif
@@ -316,6 +320,7 @@ import datetime
       % if settings.REGISTRATION_EXTRA_FIELDS['honor_code'] != 'hidden':
       ## check if we have an Honor Code link in our marketing map
       % if marketing_link('HONOR') and marketing_link('HONOR') != '#':
+    -->
       <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['honor_code']} checkbox" id="field-honorcode">
         <input id="honorcode-yes" type="checkbox" name="honor_code" value="true" />
         <%
@@ -336,31 +341,55 @@ import datetime
   <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
 </div>
 <style>
-#login_link_up {
- margin-top: 10px;
-}
-#login_link {
- width: 100%;
- height: 43px;
- margin-top: 10px;
- margin-bottom: 10px;
- color: rgba(98,181,207,1);
- font-weight: bold;
- border: none;
-}
-#login_link:hover,#login_link:focus,#login_link:visited {
- color: rgba(98,181,207,0.8);
- border: none;
-}
+  #login_link_up {
+  margin-top: 10px;
+  }
+  #login_link {
+  width: 100%;
+  height: 43px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgba(98,181,207,1);
+  font-weight: bold;
+  border: none;
+  }
+  #login_link:hover,#login_link:focus,#login_link:visited {
+  color: rgba(98,181,207,0.8);
+  border: none;
+  }
 </style>
 <script>
-$('#first_name,#last_name').change(function(){
-  var first_name = $('#first_name').attr('value');
-  var last_name = $('#last_name').attr('value');
-  var name = first_name+' '+last_name;
-  $('#name').attr('value',name);
-})
+  $('#first_name,#last_name').change(function(){
+    var first_name = $('#first_name').attr('value');
+    var last_name = $('#last_name').attr('value');
+    var name = first_name+' '+last_name;
+    $('#name').attr('value',name);
+  });
+
+  $('#username').on('input', function(){
+    let value = $(this).val();
+    let re = /^[a-zA-Z0-9_-]*$/g
+    if (re.test(value) && value !== '') {
+      $('#field-username .is-valid').show();
+      $('#field-username .is-valid').text('Votre nom d\'utilisateur est valide.').css('color', 'green');
+    } else {
+      value === '' ? $('#field-username .is-valid').hide() : $('#field-username .is-valid').text('Votre nom d\'utilisateur peut seulement contenir des lettres sans accents, des chiffres (0-9), des soulignements (_) et des tirets (-).').css('color', 'red');
+    }
+  });
+
+  $('#password').on('input', function(){
+    let value = $(this).val();
+    let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/g
+    if (re.test(value) && value !== '') {
+      $('#field-password .is-valid').show();
+      $('#field-password .is-valid').text('Votre mot de passe est valide.').css('color', 'green');
+    } else {
+      value === '' ? $('#field-password .is-valid').hide() : $('#field-password .is-valid').text('Votre mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule et un chiffre.').css('color', 'red');
+    }
+  });
+
+
 </script>
 <div class="form-actions" id="login_link_up">
-  <a id="login_link" href="/login?course_id=course-v1:AXABANQUE+COMPTEBANCAIREAXA+FEVRIER2017&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login?course_id=course-v1:mooc-agea+COURS3+2019_T3&enrollment_action=enroll">Déjà un compte ? Connectez-vous</a>
 </div>
