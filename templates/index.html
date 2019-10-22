@@ -1,97 +1,375 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+<!DOCTYPE html> 
+<html>
+   <html>
+      <head>
+     <meta charset='utf-8'>
+         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+         <title id='masterTitle'></title>
+		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+      </head>
+      <body style="display: none">
+         <nav id = "nav"class="navbar navbar-default">
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="" id="loginLink1">Connexion</a></li>
+                        <li><a href="" id="registerLink1">Inscription</a></li>
+                     </ul>
                   </button>
-                </form>
-              </div>
-            % endif
+                  <!-- <a class="navbar-brand" href="#">HOME</a>                 -->
+               </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                     <li><a class="navbar-brand "><img class="logoNav">                   
+                        </a>
+                     </li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+					 <li><a href="" id="registerLink2" class="rg">Inscription</a></li>
+                     <li><a href="" id="loginLink2" class="cx">Connexion</a></li>
+                    
+                  </ul>
+               </div>
+               <!--/.nav-collapse -->             
+            </div>
+            <!--/.container-fluid -->          
+         </nav>
+         <section id="se1" style="">
+            <div class="row vertical-center">
+               <div class="col-md-12 text-center">
+                  <div class="container-fluid" id="containerTitleBand">
+                     <div id="titleBand">
+                        <h1 id="mainTitle1"></h1>
+                        <h1 pre id="mainTitle2"></h1>
+                        <h1 id="mainTitle3" style="display: none"></h1>
+                        <!-- <p id="introConnect"></p> -->
+                     </div>
+                     <div class="col text-center">                  
+                        <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
+                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
+                                     
+                     </div>
+                  </div>
+               </div>
+               <!-- <div class="col-md-12 text-center scrollCn">                   				   
+                  <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                       
+               </div> -->
+            </div>
+         </section>
+         <section id="se2">
+            <div class="row row-eq-height">
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
+                  <h2 class="text-center sectionTitle"></h2>
+                  <h2 class="surligner">___________________</h2>
+                  <div class="embed-responsive embed-responsive-4by3">
+                     <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe> -->
+                     <img id="videoSr"></img>
+                  </div>
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
+                  <div class="tableChild">
+                     <!-- <h1 id="vvTitle"></h1> -->
+                     <p id="vvText1">This is some text.</p>
+                     <p id="vvText2">This is some text.</p>
+                     <p id="vvText3">This is some text.</p>
+                     <p id="vvText4">This is some text.</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="se3">
+         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+               <h2 class="text-center sectionTitle"></h2>
+               <h2 class="surligner">___________________</h2>
+               <div class="overMars">
+                  <div class="container">
+                     <div class="row" id ="markWeeks">
+                        <div class="col-md-12"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>          
+         </section id="se4">
+         <section>
+            <div class="team-boxed" >
+               <div class="container underSe4" >
+                  <div class="blocIntro">
+                     <p style = "color:#0c6296">Trois modules <span style = "font-weight:bold">d'environ 15 minutes</span></h3>
+                     <p style = "font-weight:bold">Pour chaque module</p>
+                     <p>- Un film court animé,</p>
+                     <p>- Les explications et les conseils d'expertes,</p>
+                     <p>- Un quiz de connaissances et des ressources complémentaires</p>
+                  </div>
+                  <div class="intro" style="padding-top:0px;">
+                     <!-- <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;"> -->                      
+                     <h2 class="text-center titleoffour" >QU'eST-CE QU'UN MOOC ?</h2>
+                  </div>
+                  <div class="row people" id = "markMoock"> 
+                  </div>
+               </div>
+            </div>
+         </section>
+         <footer id="footer">
+            <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+                  <h2 id ="footerTitle"class="text-center" ></h2>
+               </div>
+            </div>
+            <div class="row" style="display: block">
+               <div class="col text-center">
+                  <button class="btn btn-default butn" id="subscribeButn2">
+                  inscription</button> 
+               </div>
+            </div>
+            <div class="row footerBottom">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+                  <p class="text-center underW" >Site deployé par The MOOC Agency - 2019 </p>
+               </div>
+            </div>
+            </div>          
+         </footer>
+         <script>   
+       
+				 var envDefault = "developement"
+					 var organisation = "onco-occitanie"
+					 	var urlCompose
+					 var i 
+                     var iter
+                     var tbTitle
+                     var tbText
+                     var pathRegister = "/register"
+                     var pathLogin = "/login"
+                     var course_id = "/course-v1%placeholder"
+                     var enrollment_action = "enroll"
+                     var connectLink = "?course_id=" + course_id + "enrollment_action=" + enrollment_action
+                     var pathMedia = "media/microsite/"
+                     var micrositeName 
+                     var folderPb = "/pagebuilder"
+                     var imgSrc = "/assets/img/"
+                     var thumbnailStr = "thumbnailStr"
+                     var contentImg = "contentImg"
+                     var thumbnailObj
+                     var thumbnailObjObj
+                     var composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
+                     var composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
+                     var termPng = ".png"
+                     var termJpg = ".jpg"
+                     var vNone = 'none'
+                     var thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>"
+                     
+                     
+                     var thumbnailImgSrc
+                     var titleThumbnail
+                     var titleWeeks
+                     var iconoImgSrc
+                     
+                     var thumbnailChap =  "<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><img class='tbImg'src="+thumbnailImgSrc+"><div class='caption'> <h3 >"+titleThumbnail+"</h3><img class='tbIc' src="+iconoImgSrc+"> <p class='weekSp'>"+titleWeeks+"</p><p class='under_s2'></p></div> </div></div>"
+            
+                     var titleThumb
+                     var imgThumbSrcIcon
+                     var imgThumbSrc
+                     var pWeeksTitle
+                     var pWeeksContent
+            
+                     var thumbnailChapEsc =  "<div class='col-md-4 noflex'><div class='thumbnail'>  <img src="+imgThumbSrc+ "class='thumbMg'> <div class='caption'> <h3 class='h3Thumb'  " + titleThumb + "</h3><img src="+imgThumbSrcIcon+" class='thumbMg'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
+            
+                        var swapDisplay = function(elm){
+                              var elmt = elm
+                              elmt.style.display = 'none'
+                        }
+                     var getInfo= function(){
+					//  <!-- micrositeName  = objJson.page.micrositeOrg -->
+					//  <!-- envDefault  = objJson.env.mode  -->
+					 micrositeName  = organisation
+					 if (envDefault=='developement'){pathMedia =  "media/microsite/"}
+					 else{pathMedia =  "/media/microsite/"}
+					 composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
+                    composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
+					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
+                     }
+			
+					var scriptLinkGenerator =  function(){
+		
+						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
+						var script = document.createElement('script');
+						var script2 = document.createElement('script');
+						var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
+						script.id = 'Sid1';
+						script.src = mainPathB+scriptSrcArr[0];
+						script2.id = 'Sid2';
+						script2.src = mainPathB+scriptSrcArr[1];
+						document.head.appendChild(script);
+						document.head.appendChild(script2);
+				
+						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
+						var link1 = document.createElement('link');
+						link1.id = 'id1';
+						link1.rel = 'stylesheet';
+						link1.href = pathMedia+ micrositeName + lsSrcArr[0];
+						var link2 = document.createElement('link');
+						link2.id = 'id2';
+						link2.rel = 'stylesheet';
+						link2.href = pathMedia+ micrositeName + lsSrcArr[1];
+						var link3 = document.createElement('link');
+						link3.id = 'id3';
+						link3.rel = 'stylesheet';
+						link3.href = pathMedia+ micrositeName + lsSrcArr[2];
+						document.head.appendChild(link1);
+						document.head.appendChild(link2);
+                  document.head.appendChild(link3);
+                  
+                  $("#loginLink1").attr("href",pathLogin + connectLink)
+                  $("#registerLink1").attr("href",pathRegister + connectLink)
+                  $("#loginLink2").attr("href",pathLogin + connectLink)
+                  $("#registerLink2").attr("href",pathRegister + connectLink)
+                  $("#loginButn").click(function(){window.location.href = pathLogin + connectLink})
+                  $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
+                  $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
+		}
+			
+                     var bindindFunctionNav = function(){
+					 var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
+						$(".logoNav").attr("src",logoSrc)
+            	
+            	}
+                     
+                   
+					 
+					 var bindindFunctionA = function(){
+            	iter =  objJson.container.section3.nrbThumbnail
+            	for (i = 0; i < iter ; i++ ){
+            		thumbnailObj = objJson.container.section3.thumbnail[i]
+            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
+            		tbTitle = thumbnailObj.title
+            		tbText = thumbnailObj.text
+            		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
+            		$('#markMoock').append(thumbnailMOOC)
+            	
+            	}
+                     
+                     }
+            
+                     var bindindFunctionB = function(){
+            	iter =  objJson.container.section4.nbrThumbnail
+            	for (i = 0; i < iter ; i++ ){
+            		thumbnailObj = objJson.container.section4.thumbnail[i]
+            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
+            		titleThumb = objJson.container.section4.thumbnail[i].title
+            		pWeeksContent = objJson.container.section4.thumbnail[i].content
+            		imgThumbSrcIcon
+            		imgThumbSrc = composeurUrlSrc2+i+termJpg
+                  pWeeksTitle = "Semaine"+"&nbsp"+i
+                  
+                  thumbnailChapEsc =  "<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'>  <img src="+imgThumbSrc+ " class='thumbMg'> <div class='caption'> <h3 class='titleMiniThumb'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
+            
+            		$('#markWeeks').append(thumbnailChapEsc)
+            	
+            	}
+                     
+                     }
+                     
+                     var bindindFunctionFooter = function(){
+            	 var footerTitleContent = objJson.container.section4.footer
+            	 var footerTitleContentTitle = objJson.container.section4.footer.title
+            	 $('#footerTitle').text(footerTitleContentTitle)
+                     
+                     }
+                     
+                     var bindindFunctionMainSection= function(){
+            	  var mainTitleContent = objJson.container.section1.title
+            	  var mainTitleContentTitle = objJson.container.section1.title.title1
+                var mainTitleContentTitle2 = objJson.container.section1.title.title2
+                var mainTitleContentTitle3 = objJson.container.section1.title.title3
+            	  $('#mainTitle1').text(mainTitleContentTitle)
+                $('#mainTitle2').html(mainTitleContentTitle2)
+                //  $('#mainTitle3').text(mainTitleContentTitle3)
+                     
+                     }
+                     
+                     var bindindFunctionMainSectionVideo = function(){
+            	 var mainTitleContent = objJson.container.section2
+            	 var mainTitleContentTitle = objJson.container.section2.title
+                var mainTitleContentText1 = objJson.container.section2.textLeft1
+                var mainTitleContentText2 = objJson.container.section2.textLeft2
+                var mainTitleContentText3 = objJson.container.section2.textLeft3
+                var mainTitleContentText4 = objJson.container.section2.textLeft4
+               //  var srcV = objJson.container.section2.videoSrc
+                var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
+            	 $('#vvTitle').text(mainTitleContentTitle)
+            	 $('#videoSr').attr("src",srcV)
+                $('#vvText1').text(mainTitleContentText1)
+                $('#vvText2').text(mainTitleContentText2)
+                $('#vvText3').text(mainTitleContentText3)
+                $('#vvText4').text(mainTitleContentText4)
+                     }
+                         
+            var bindindFunctionMainSectionIntro= function(){
+            	 var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
+            	 $('#introConnect').text(mainTitleContent)
+                     
+                     }
+                     
+                     var bindindFunctionMainSectionVIdeoTitle= function(){
+            	 var mainTitleContent = objJson.container.section2.title
+            	 $('#se2').find(".sectionTitle").text(mainTitleContent)
+                     
+                     }
+                     
+            var bindindFunctionMainSectionContent= function(){
+            	 var mainTitleContent = objJson.container.section3.title
+            	 $('#se3').find(".sectionTitle").text(mainTitleContent)
+                     
+                     }
+            
+            var bindindFunctionMeta = function(){
+            	 var mainTitleContent = objJson.page.title
+            	 $("#masterTitle").text(mainTitleContent)
+                     
+                     }
+            
+            var masterBind= function(){
+				
+				scriptLinkGenerator();
+            	bindindFunctionA();
+            	bindindFunctionB();
+            	bindindFunctionNav();
+            	bindindFunctionFooter();
+            	bindindFunctionMainSection();
+            	bindindFunctionMainSectionVIdeoTitle();
+            	bindindFunctionMainSectionIntro();
+            	bindindFunctionMainSectionContent();
+            	bindindFunctionMainSectionVideo();
+               bindindFunctionMeta ();
+             }
+            
+            var objJson
+            
+            getInfo();
+            var a = new XMLHttpRequest();
 
-          </div>
+            a.open("GET",urlCompose,true);
+            a.onreadystatechange = function() {
+              if( this.readyState == 4) {
+            	if( this.status == 200) {
+            	  objJson= JSON.parse(this.response)
+            	  masterBind();
+            	}
+            	else alert("HTTP error "+this.status+" "+this.statusText);
+              }
+            }
+            a.send();
+            a.addEventListener('loadend', $("body").css({"display":"inherit"}));
+            
+            $(".scroll").click(function() {
+            	$('html, body').animate({
+            		scrollTop: $("#se2").offset().top
+            	}, 2000);
+            });
+			</script>       
+      </body>
+   </html>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
