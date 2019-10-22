@@ -1,61 +1,57 @@
 <%page expression_filter="h"/>
 <%inherit file="main.html" />
+<%def name="online_help_token()"><% return "learnerdashboard" %></%def>
+<%namespace name='static' file='static_content.html'/>
+<% online_help_token = self.online_help_token() if hasattr(self, 'online_help_token') else None
+
+from django.contrib.auth.models import User, AnonymousUser
+%>
 <%namespace name='static' file='static_content.html'/>
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
 from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import ugettext as _
+from django.template import RequestContext
+import third_party_auth
+from third_party_auth import pipeline
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+#GEOFFREY
+from courseware.courses import get_course_info_section, get_course_date_blocks
+from courseware.courses import get_course_by_id
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+from cms.djangoapps.models.settings.course_grading import CourseGradingModel
+from xmodule.modulestore.django import modulestore
+from course_api.blocks.api import get_blocks
+#from discussion_tma.views import get_section_list
+import time
 %>
 <%
+  cert_name_short = settings.CERT_NAME_SHORT
+  cert_name_long = settings.CERT_NAME_LONG
+%>
+
+<%
+org_static = static.get_value('domain_prefix')
 register_course_id = static.get_value('course_id')
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+.header-global {
+    height: 80px;
+    display: none;
+}
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+   <%include file="indexCont.html"/>
 
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
 </main>
 
 % if show_homepage_promo_video:
@@ -67,6 +63,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 % endif
 
 <%block name="js_extra">
+
+<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.7.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
    <script type="text/javascript">
       $(window).load(function() {
          if(getParameterByName('next')) {
@@ -74,6 +75,97 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
          }
       })
    </script>
+   <script>
+
+
+                        var url = "/tma_apps/mailSender/mailAjax/"
+                        var name = $("input[name=name").val();
+                        var firstName = $("input[name=firstName").val();
+                        var email = $("input[name=email").val();
+                        var message = $("textarea[name=message").val();
+                        var phone = $("input[name=phone").val();
+                        var company = $("input[name=company").val();
+                        var fonction = $("input[name=fonction").val();
+
+
+                        var sendMailDataPost =
+                        function(type, url, success, data) {
+                                $.ajax({
+                                                type: type,
+                                                dataType: 'json',
+                                                url: url,
+                                                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                                                success: success,
+                                                data: data
+                                                });
+                                                                        }
+
+
+                        function sendMail(){
+
+
+                        name = $("input[name=name").val();
+                        firstName = $("input[name=firstName").val();
+                        email = $("input[name=email").val();
+                        message = $("textarea[name=message").val();
+                        phone = $("input[name=phone").val();
+						company = $("input[name=company").val();
+						fonction = $("input[name=fonction").val();
+                                                }
+
+
+                        var objectData
+                        var objectDataTojson
+
+                        function ajxmE(){
+                        objectData = {name:name, firstName:firstName, email:email, message:message, phone:phone, company:company, fonction:fonction}
+                        objectDataTojson = JSON.stringify(objectData)
+                        }
+                        function succes(){
+                        console.log(objectDataTojson)
+                        }
+
+                        function clickTosend(){console.log("indexMain");
+						
+                        sendMail();
+						if(name.length>0 && firstName.length>0 && email.length>0  && phone.length>0 && company.length>0 && fonction.length>0 ){
+							ajxmE();sendMailDataPost("POST",url,succes,objectData);
+							hideMyFOrm();
+							$(".validate-input").hide();
+							}
+						else (alert("Attention, tous les champs marqués* sont obligatoires."))
+                        }
+
+                        function hideMyFOrm(){
+						localStorage.setItem("openLog2",true);
+                        alert('Votre message a été pris en compte. Merci de nous avoir contactés.');
+                        $('.validate-input').css('visibility','hidden')
+                        $('.contact1-form-btn').css('visibility','hidden')
+                        $('.contact1-form-title').html('Merci de nous avoir contacté !</br> </br> Nous avons envoyé un email d’accusé de réception à l’adresse : '+email+'</br></br>Si ce n’est pas le cas, nous vous invitons à vérifier la conformité de votre adresse email. </br></br>Pour toute information, veuillez contacter anem-dda@af2a.com ')
+						  setTimeout(function () { 
+						location.reload();
+						},3000);
+                        }
+
+                        function downXls(){
+ 
+                        }
+
+                        function resiZeHeight(){
+
+                        var ct1=$("#contact_form").height()
+                        ct1=$("#contact_form").height()
+                        //$("#miniContact_form2").css('height',ct1)
+                        $("#contact_form2").css('height',ct1)
+
+
+                        }
+
+                        resiZeHeight();
+                        window.onresize = resiZeHeight
+
+                        function downXs(){ window.open('/media/microsite/af2a/Formulaire_inscription_MOOC_DDA_ANEM.xlsx' , '_blank');}
+                        </script>
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
@@ -95,3 +187,4 @@ $(".btn-login").each(function(){
 
 </script>
 % endif
+

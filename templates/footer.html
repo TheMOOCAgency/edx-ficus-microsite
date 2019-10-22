@@ -17,13 +17,13 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
   <div class="footer-container">
     <ul class="links">
       <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+        <a href="/tos">Conditions générales</a>
       </li>
       <li>
         <a href="${marketing_link('FAQ')}">FAQ</a>
       </li>
 	  <li>
-        <a href="/about">Cr&eacute;dits</a>
+        <a href="/honor">Cr&eacute;dits</a>
       </li>
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
@@ -37,3 +37,25 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
     </div>
   </div>
 </footer>
+<script>
+  // HIDE COURSE ELEMENTS
+  $(document).ready(function(){
+    setInterval(function(){
+      if (window.location.href.indexOf('courses') > -1) {
+        $('button.save.problem-action-btn').hide();
+        $('.problem-progress').each(function() {
+          $(this).html($(this).html().replace('(noté)',''));
+          $(this).html($(this).html().replace('(non noté)',''));
+        });
+      };
+
+      if (window.location.href.indexOf('dashboard') > -1) {
+        $('.dashboard_profile_bottom_middle').hide();
+      };
+    },250);
+  });
+  // HIDE FOOTER EDX IF INDEX
+    if (window.location.pathname == '/') {
+        $('footer.global').hide();
+    }
+</script>

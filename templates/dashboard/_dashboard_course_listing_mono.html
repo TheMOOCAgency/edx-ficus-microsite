@@ -47,7 +47,14 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="title_dashboard_course">
   <h1>${course_overview.display_name_with_default}</h1>
 </div>
-
+<style>
+.course_cells_action{
+background-color: rgba(99,99,99,1) !important;
+}
+.course_cells_title{
+    background-color: rgba(255,255,255,1) !important;
+}
+</style>
 %if cours_ouv:
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
@@ -67,17 +74,20 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="courses_cells">
 </div>
 <script>
+var getChapter
 $.ajax({
-            type: "GET", //rest Type
-            dataType: 'json', //mispelled
-            url: "/courses/${enrollment.course_id}/courseware_api",
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (chapter_list) {
-                for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
-                }
-             }
+    type: "GET", //rest Type
+    dataType: 'json', //mispelled
+    url: "/courses/${enrollment.course_id}/courseware_api",
+    async: false,
+    contentType: "application/json; charset=utf-8",
+    success: function (chapter_list) {
+		getChapter = chapter_list
+        for (var i = 0; i < chapter_list.length; i++) {
+			var chapterFirstLession = getChapter[i].sections[0].url_name
+            $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"/"+chapterFirstLession+"'>${_("Start")}</a></div></div>");
+        }
+      }
 });
 </script>
 %else:

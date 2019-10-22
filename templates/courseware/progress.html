@@ -40,6 +40,15 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
     ## safe-lint: disable=mako-invalid-js-filter
     ${progress_graph.body(grade_summary, course.grade_cutoffs, "grade-detail-graph", not course.no_grade, not course.no_grade)}
 </script>
+
+<!-- MODIF DAIVIS -->
+<!-- MODIF DAIVIS -->
+<script>
+$('#grade-detail-graph').hide();
+</script>
+
+<!-- MODIF DAIVIS -->
+<!-- MODIF DAIVIS -->
 </%block>
 
 <%include file="/courseware/course_navigation.html" args="active_page='progress'" />

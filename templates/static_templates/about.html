@@ -17,7 +17,11 @@ _values = {
 }
 _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
-  _template = "<p>About</p>"
+  _template = "<style>pTitle{color:}<style><p>About</p>    <p class='pTitle'> AF2A <p class='pBlue'>Francis Teboul - Président</p> <p class='pBlue'>Thomas Papillon - Directeur Général Adjoint</p> <p class='pBlue'>Laurence Huchez - Directrice Pédagogique</p> <p class='pBlue'>Laurence Bartoli - Responsable E-Learning </p> <p class='pBlue'>Christophe Bartoli - Chef de projets E-Learning</p> <p class='pBlue'>Mélanie Bleuse - Infographiste</p> <p class='pBlue'>Christèle Bénard - Chef de projets E-learning</p> <p class='pBlue'>Nicolas Laurent - Chef de projets E-learning</p> <p class='pBlue'>Raphaëlle Fossard - Chef de projet</p> <p class='pBlue'>Sébastien Rodriguez - Responsable développement</p> <p class='pBlue'>Liliane Duarte - Responsable comptabilité </p> <p class='pBlue'>Charlotte Risbourg - Juriste en assurance </p> <p class='pBlue'>Camille Fouillit - Chargée de communication</p>   <p class='pTitle'>MY CLASSE VIRTUELLE</p> <p class='pBlue'>Alexandre Teboul - Directeur</p> <p class='pBlue'>Chiara Stella - Chef de projet</p> <p class='pTitle'>ANEM</p> <p class='pBlue'>Amandine Leviel - Responsable de l’OEMM et de la CPNEFP</p>   <p class='pTitle'>UNIFORMATION</p> <p class='pBlue'>Mélanie HERNANDO-COLLOMBAT - Conseillère Emploi Formation </p>   <p class='pTitle'>THE MOOC AGENCY</p> <p class='pBlue'>Paul Farnet - Directeur associé</p> <p class='pBlue'>Aurélien Croq - Directeur technique et associé</p> <p class='pBlue'>Alexandre Berteau - Chef de projet digital</p> <p class='pBlue'>Cécile Fourault - Chef de projet</p> <p class='pBlue'>Claire Vuaille - Ingénieure pédagogique</p> <p class='pBlue'>Daivis Hubbel - Développeur </p>"
+  
+  
+  
+  
 %>
 
 <%block name="pagetitle">${_("About")}</%block>
@@ -27,12 +31,22 @@ main {
 }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("About")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+
+    <section class="container about" >
+	
+		<center><p class='pTitle'>CREDITS</p></center>
+		
+	  <p class='pTitle' style="margin-top:100px"> </br></br></br></br></br></br></br></br></br></br></br></br>AF2A <p class='pBlue'>Francis Teboul - Président</p> <p class='pBlue'>Thomas Papillon - Directeur Général Adjoint</p> <p class='pBlue'>Laurence Huchez - Directrice Pédagogique</p> <p class='pBlue'>Laurence Bartoli - Responsable E-Learning </p> <p class='pBlue'>Christophe Bartoli - Chef de projets E-Learning</p> <p class='pBlue'>Mélanie Bleuse - Infographiste</p> <p class='pBlue'>Christèle Bénard - Chef de projets E-learning</p> <p class='pBlue'>Nicolas Laurent - Chef de projets E-learning</p> <p class='pBlue'>Raphaëlle Fossard - Chef de projet</p> <p class='pBlue'>Sébastien Rodriguez - Responsable développement</p> <p class='pBlue'>Liliane Duarte - Responsable comptabilité </p> <p class='pBlue'>Charlotte Risbourg - Juriste en assurance </p> <p class='pBlue'>Camille Fouillit - Chargée de communication</p></br></br></br><p class='pTitle'>MY CLASSE VIRTUELLE</p> <p class='pBlue'>Alexandre Teboul - Directeur</p> <p class='pBlue'>Chiara Stella - Chef de projet</p> </br></br></br><p class='pTitle'>ANEM</p> <p class='pBlue'>Amandine Leviel - Responsable de l’OEMM et de la CPNEFP</p>  </br></br></br> <p class='pTitle'>UNIFORMATION</p> <p class='pBlue'>Mélanie HERNANDO-COLLOMBAT - Conseillère Emploi Formation </p>  </br></br></br> <p class='pTitle'>THE MOOC AGENCY</p> <p class='pBlue'>Paul Farnet - Directeur associé</p> <p class='pBlue'>Aurélien Croq - Directeur technique et associé</p> <p class='pBlue'>Alexandre Berteau - Chef de projet digital</p> <p class='pBlue'>Cécile Fourault - Chef de projet</p> <p class='pBlue'>Claire Vuaille - Ingénieure pédagogique</p> <p class='pBlue'>Daivis Hubbel - Développeur </p>
     </section>
--->
+	
+	<script>console.log('Daivis SCRIPT')
+	$('.pTitle').css('color','#F18D18')
+	$('.pBlue').css('color','#003D71')
+	$('.pTitle').css('font-weight','bold')
+	$('.pTitle').css('line-height','0.2')
+	$('.pBlue').css('line-height','0.2')
+	</script>
+
 <section class="static-container about">
 ${_template | n}
 </section>

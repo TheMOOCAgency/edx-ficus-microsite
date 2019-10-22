@@ -9,165 +9,363 @@ from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import json
-
+from student.models import CourseEnrollment
+from opaque_keys.edx.keys import CourseKey
 %>
 
+<%
+#CORRESPONDANCES COURSE_ID TEMPS FORMATION
+course_times={
+  'course-v1:af2a+af2a_DDA1+2018':35,
+  'course-v1:af2a+AF2A_UDDAS3+Mars_2019':63,
+  'course-v1:af2a+UDDAS1+Mars_2019':63,
+  'course-v1:af2a+UDDAS2+Mars_2019':63,
+  'course-v1:af2a+UDDATC+Mars_2019':35,
+  'course-v1:af2a+UDDAS1+2019':35,
+  'course-v1:af2a+UDDAS2+2019':35,
+  'course-v1:af2a+UDDAS3+2019':35
+}
 
+
+course_id=request.get_full_path().split('/tma_apps/')[1].split('/certificate/')[0]
+try:
+  course_enrollment = CourseEnrollment.objects.get(user__email=request.user.email, course_id=CourseKey.from_string(course_id))
+  inscription_date=course_enrollment.created.strftime("%d/%m/%Y")
+  #end_date=(course_enrollment.created+timedelta(days=course_times[course_id])).strftime("%d/%m/%Y")
+  end_date=request.user.last_login.strftime('%d/%m/%Y')
+except:
+  inscription_date='non inscrit'
+  end_date='non inscrit'
+
+try :
+  custom_field=json.loads(request.user.profile.custom_field)
+  client_id=custom_field.get('id_client')
+except:
+  client_id="inconnu"
+%>
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
+<%
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
 
+<link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
 <style>
-/* General */
 #global-navigation,.wrapper-footer,#tma_background_font {
   display: none !important;
 }
 body{
   text-align:center;
 }
-.container{
-  margin-top:80px;
-  width:854px;
-  height:480px;
-  margin-left: 70px;
-  padding: 0;
-  border: 1px solid lightgray;
+/*CHANGE FONT*/
+h1{
+  font-size: 35px;
 }
-#main {
-  background-image:url('${bg}');
-  background-size:cover;
-  background-position:center;
+h1,h2,h3,p, li{
+  font-family: 'Open Sans', sans-serif;
 }
-.main-color{
-  background-color:#C1CF33;
+h2{
+  font-size: 1.3rem;
 }
-.second-color{
-  background-color: #4d4d4d;
+h3{
+  font-size: 1.4rem;
 }
-.texte-gras{
-  font-weight: 600;
+p, li{
+  font-size: 0.7rem;
 }
-
-/* Premier bandeau */
-.bandeau-top{
-  padding: 10px;
-}
-.bandeau-top p{
-  font-weight: 600;
-  color: white;
-  margin-top: 15px;
-}
-.title-attestation{
-  width: 80%;
-  float: left;
-}
-.logo-attestation{
-  width: 20%;
-  float: left;
-  text-align: right;
-}
-.logo-attestation img{
-  max-height: 40px;
-}
-
-/* Deuxième bandeau */
-.bandeau-middle{
-  color: white;
-  margin-top: 100px;
-  padding: 30px 10px;
-}
-#course-title{
-  font-size: 20px;
-}
-#nom-user{
-  font-size: 30px;
-  margin-bottom: 30px;
-}
-#score, #course-title{
-  margin-top: 10px;
-}
-
-/* Footer */
-.footer-right, .footer-left{
-  float: left;
-}
-.footer-right img{
-  max-height: 80px;
-}
-.footer-right{
-  text-align: right;
-  width: 20%;
-}
-.footer-left{
-  width: 80%;
-}
-.footer{
-  padding: 10px;
-  margin-top: 44px;
-}
-.footer p{
-  margin-top: 74px;
-  font-size: 12px;
+tr,td{
+  font-size: 9px;
   text-align: left;
+  font-family: 'Open Sans', sans-serif!important;
+}
+tr{
+  border-bottom: 1px solid gray;
+}
+
+/*CHANGE IMAGE */
+.page{
+  background-size:cover;
+  border: 1px solid lightgray;
+  padding: 0;
+  height:941.89px;
+  width:695.28px;
+  color:black!important;
+  margin:80px auto;
+}
+
+.container{
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none!important;
+  min-width: 0!important;
+  padding: 40px;
+}
+/*CHANGE COLOR */
+.transparency-color{
+  background-color: rgba(255,255,255,0.7);
+}
+.{
+  background-color: #9BBE50;
+}
+.bandeau-top{
+  box-sizing: border-box;
+  padding: 15px;
+}
+.reset-bandeaux{
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+}
+#logo-partenaire{
+  max-height: 60px;
+}
+.center-vertically{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#signature, #logo-secondaire{
+  max-height: 100px;
+}
+.m-0{
+  margin: 0;
+}
+.p-0{
+  padding: 0;
+}
+.container:after, section.outside-app:after{
+  content: none;
+}
+#bouton-pdf{
+background-color: darkgray;
+color: gray;
+border-color: gray;
+background-image: none;
+box-shadow: none;
+text-shadow: none;
+border-radius: 5px;
+font-weight: 600;
+}
+.bandeau-middle{
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.border-wrap{
+  padding: 15px;
+  border: 1px solid white;
+}
+.white_bg{
   background-color: white;
 }
-
-
+.p-20{
+  padding: 20px;
+}
+.main-color{
+  color:#41596A;
+}
+.white-text{
+  color: white;
+}
+.black-text{
+  color:black!important
+}
+.logo-dda{
+  max-width: 170%;
+    position: relative;
+    right: 35px;
+    bottom: 16px;
+}
+p{
+  margin-bottom: 0.8rem;
+}
+body{
+  overflow: visible;
+}
 </style>
-% if grades.get('passed'):
-<div class="container" id="main">
-  <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
-    <div class="logo-attestation">
-      <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
-    </div>
-    <div style="clear:both;"></div>
-  </div>
+<!-- IMPORT FONT -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-  <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
-    <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
-  </div>
 
-  <div class="footer">
-      <div class="footer-left">
-          <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
-      </div>
-      <div class="footer-right">
-          <img src="${signature}"/>
-      </div>
-      <div style="clear:both;"></div>
-  </div>
+
+% if grades.get('passed') or is_tma_team:
+<div id="pdf-wrapper" style='margin-top:20px;'>
+  <button id="bouton-pdf">VERSION PDF</button>
 </div>
+<div id="main">
+  <div class="page">
+    <div class="container" id="doc1">
+      <div class="row bandeau-top m-0">
+        <div class="col-3">
+          <img id="logo-partenaire" style="max-width:100%" src="/media/microsite/af2a-dda/auto/images/logo.png" alt="logofa">
+        </div>
+      </div>
+      <div>
+        <h2 class="black-text">Attestation d'assiduité FOAD</h2>
+      </div>
+      <div class="reset-bandeaux">
+        <div class="row">
+          <div class="col-3 text-left">
+            <p>Je, soussignée </p>
+          </div>
+          <div class="col-9 text-left">
+            <p>Laurence HUCHEZ Directrice pédagogique chez AF2A,<br>Organisme de formation enregistré à la Préfecture de Paris sous le numéro de déclaration d’activité : 11 75 37 77 77 5, <br>Sis au 64, rue de Miromesnil – 75008 PARIS,<br>Représenté par Francis TEBOUL, Président Directeur Général,</p>
+          </div>
+          <div class="col-3 text-left">
+            <p>atteste que</p>
+          </div>
+          <div class="col-9 text-left">
+            <p><strong>${first_name} ${last_name}</strong></p>
+          </div>
+          <div class="col-3 text-left">
+            <p>inscrit à la formation </p>
+          </div>
+          <div class="col-9 text-left">
+            <p><strong>${course_name}</strong></p>
+          </div>
+          <div class="col-3 text-left">
+            <p>par la société : </p>
+          </div>
+          <div class="col-9 text-left">
+            <p><strong>${client_id}</strong></p>
+          </div>
+          <div class="col-3 text-left">
+            <p>a suivi la formation du </p>
+          </div>
+          <div class="col-9 text-left">
+            <p><strong>du ${inscription_date} au ${end_date}</strong></p>
+          </div>
+        </div>
+        <div class="text-left">
+          <p>conformément au programme pédagogique préétabli et aux dispositions de l'article L 6353-1 du Code du Travail</p>
+          <ul>
+            <li>Objectifs de la formation : Valider l’obligation de formation obligatoire prévue par l’arrêté du 26/09 sur la DDA</li>
+            <li>Suivi de la réalisation des travaux exigés et des évaluations : (cf. tableau ci-dessous)</li>
+            <li>Taux de réalisation en % : ${grades.get('grade')*100}</li>
+          </ul>
+          <p>Je m’engage à conserver sur tout support approprié et pour une durée d’au moins 6 années à compter de la fin de la formation <strong>l’ensemble des pièces justificatives</strong> permettant de démontrer la réalité de l’action de FOAD et notamment les justificatifs afférents aux travaux réalisés par les stagiaires ainsi que les évaluations y afférentes.</p>
+          <p>Formation compatible DDA éligible en tout ou partie aux compétences fixées par l’arrêté du 26 septembre 2018, dans le cadre de l'article R 512-13-1 du Code des assurances.</p>
+          <p>Cette attestation peut vous permettre de renseigner votre passeport orientation-formation (art. L 6315-2 du Code du Travail).</p>
+        </div>
+      </div>
 
+
+      <div class="row reset-bandeaux p-0" style="height:80px;">
+        <div class=col-5>
+          <p>Fait, à Paris : le ${datetime.now().strftime('%d-%m-%Y')}</p>
+        </div>
+        <div class="col-7 text-left">
+          <p class="text-left"><strong>Laurence HUCHEZ,</strong><br> Directrice pédagogique, AF2A</p>
+          <img src="/media/microsite/af2a-dda/Signature.png" style="max-height: 100px;"alt="">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div><!-- end id main-->
+
+<script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 </script>
-  %if pdf:
-  <script
-    src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-  <script type="text/javascript">
-  function printpage(){
-     html2canvas(document.body, {
-      onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 20, 20);
-       doc.save("certificat.pdf");
-      }
-    })
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="/media/librairies/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+  tableau_details = course_details['${str(course_id)}'];
+  i=2;
+  for(detail in tableau_details){
+    $('#main').append('<div class="page" id="secondpage">  <div class="container" id="doc'+i+'"><table><tr><th>Modalités</th><th>Code Module</th><th>Thèmes</th><th>Durées</th></tr>'+tableau_details[detail]+'</table></div></div>');
+    i+=1;
   }
-  document.addEventListener('DOMContentLoaded', function() {
-     printpage();
-  });
-  </script>
-  %endif
+  //PDF VERSION
+  $('#bouton-pdf').on('click', function(){
+    if(tableau_details.length===1){
+      html2canvas(document.getElementById('doc1'), {
+      scale:2,
+       onrendered : function (canvas){
+        var img=canvas.toDataURL("image/png");
+        var doc = new jsPDF({orientation: 'portrait'});
+        doc.addImage(img, "PNG", 5, 5, 200,290);
+        doc.addPage()
+        html2canvas(document.getElementById('doc2'), {
+          scale:2,
+         onrendered : function (canvas){
+          var img=canvas.toDataURL("image/png");
+          doc.addImage(img, "PNG", 5, 5, 200,290);
+          doc.save("certificat.pdf");
+         }
+       })
+       }
+     });
+    }
+    else{
+      html2canvas(document.getElementById('doc1'), {
+      scale:2,
+       onrendered : function (canvas){
+        var img=canvas.toDataURL("image/png");
+        var doc = new jsPDF({orientation: 'portrait'});
+        doc.addImage(img, "PNG", 5, 5, 200,290);
+        doc.addPage()
+        html2canvas(document.getElementById('doc2'), {
+          scale:2,
+         onrendered : function (canvas){
+          var img=canvas.toDataURL("image/png");
+          doc.addImage(img, "PNG", 5, 5, 200,290);
+          doc.addPage();
+          html2canvas(document.getElementById('doc3'), {
+            scale:2,
+           onrendered : function (canvas){
+            var img=canvas.toDataURL("image/png");
+            doc.addImage(img, "PNG", 5, 5, 200,290);
+            doc.save("certificat.pdf");
+           }
+         })
+         }
+       })
+       }
+     });
+    }
+  })
+
+});
+
+
+// Course detail content
+const course_details={
+  'course-v1:af2a+af2a_DDA1+2018':["<tr><td>Vidéo learning-Introduction</td>	<td>DDA1V00_8h</td>	<td>Introduction du MOOC</td>	<td>0:03:00</td></tr><tr><td>Elearning</td>	<td>DDA1S01</td>	<td>Contexte de la DDA</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S01Q1</td>	<td>Contexte de la DDA</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DDA1S02</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S02Q1</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:07:00</td></tr><tr><td>Elearning</td>	<td>DDA1S03</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S03Q1</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S04</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S04Q1</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S05</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S05Q1</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S06</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S06Q1</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S07</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S07Q1</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S08</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S08Q1</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S09</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S09Q1</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:06:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V01</td>	<td>Devoir de conseil : évolution, contenu et conséquences en cas de manquement - partie 1/2 </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V02</td>	<td>Lutte contre la corruption : les incidences de la loi Sapin II</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V03</td>	<td>Protection des données personnelles : le cadre réglementaire, rôle et missions de la CNIL, impacts du RGPD</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V04</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel du contexte réglementaire </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V05</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel des obligations essentielles liées à la relation d'affaires</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V06</td>	<td>Règles de gouvernance issues de la réforme Solvabilité II</td>	<td>0:09:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V07</td>	<td>Le ontrôle interne</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V08</td>	<td>Lutte contre la fraude à l'assurance : panorama des cas de fraude, détection des dossiers suspects, exploitation des éléments recueillis</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V09</td>	<td>Lutte contre la fraude à l'assurance : outils de prévention et de dissuasion de la fraude à l’assurance - PARTIE 1/2</td>	<td>0:10:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les impacts de DDA dans la relation commerciale</td>	<td>1:00:00</td></tr><tr><td>Screencast</td>	<td>DDA1V10</td>	<td>Focus sur le document d'information standardisé pour les produits non-vie (IPID) : produits concernés, forme et mentions obligatoires</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V11</td>	<td>Zoom sur les systèmes de rémunération des distributeurs : une définition extensive de la rémunération, un principe général</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V12</td>	<td>Impacts des dernières évolutions dans le monde de l’assurance</td>	<td>0:10:00</td></tr><tr><td>QCM final</td>	<td>DDA1QF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Vidéo learning-Conclusion</td>	<td>DDA1VF</td>	<td>Conclusion du parcours de la formation : récapitulatif, explications téléchargement des supports et de l'attestation, invitation à répondre à une enquête de qualité sur le parcours</td>	<td>0:04:00</td></tr><tr><td>GLOBAL</td>	<td></td>	<td></td>	<td>08:00:00</td></tr>"],
+  'course-v1:af2a+AF2A_UDDAS3+Mars_2019':["<tr><td>Vidéo learning-Introduction</td>	<td>DDA1V00_8h</td>	<td>Introduction du MOOC</td>	<td>0:03:00</td></tr><tr><td>Elearning</td>	<td>DDA1S01</td>	<td>Contexte de la DDA</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S01Q1</td>	<td>Contexte de la DDA</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DDA1S02</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S02Q1</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:07:00</td></tr><tr><td>Elearning</td>	<td>DDA1S03</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S03Q1</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S04</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S04Q1</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S05</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S05Q1</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S06</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S06Q1</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S07</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S07Q1</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S08</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S08Q1</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S09</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S09Q1</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:06:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V01</td>	<td>Devoir de conseil : évolution, contenu et conséquences en cas de manquement - partie 1/2 </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V02</td>	<td>Lutte contre la corruption : les incidences de la loi Sapin II</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V03</td>	<td>Protection des données personnelles : le cadre réglementaire, rôle et missions de la CNIL, impacts du RGPD</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V04</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel du contexte réglementaire </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V05</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel des obligations essentielles liées à la relation d'affaires</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V06</td>	<td>Règles de gouvernance issues de la réforme Solvabilité II</td>	<td>0:09:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V07</td>	<td>Le ontrôle interne</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V08</td>	<td>Lutte contre la fraude à l'assurance : panorama des cas de fraude, détection des dossiers suspects, exploitation des éléments recueillis</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V09</td>	<td>Lutte contre la fraude à l'assurance : outils de prévention et de dissuasion de la fraude à l’assurance - PARTIE 1/2</td>	<td>0:10:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les impacts de DDA dans la relation commerciale</td>	<td>1:00:00</td></tr><tr><td>Screencast</td>	<td>DDA1V10</td>	<td>Focus sur le document d'information standardisé pour les produits non-vie (IPID) : produits concernés, forme et mentions obligatoires</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V11</td>	<td>Zoom sur les systèmes de rémunération des distributeurs : une définition extensive de la rémunération, un principe général</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V12</td>	<td>Impacts des dernières évolutions dans le monde de l’assurance</td>	<td>0:10:00</td></tr><tr><td>QCM final</td>	<td>DDA1QF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV02</td>	<td>Typologie des contrats</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV03</td>	<td>Gestion des primes / Gestion des prestations</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV04</td>	<td>Evaluation du risque</td>	<td>0:20:00</td>","</tr><tr><td>Elearning</td>	<td>DAPIV05</td>	<td>Règles financières de capitalisation</td>	<td>0:15:00</td></tr><tr><td>Elearning</td>	<td>DAPIV06</td>	<td>Intervenants au contrat</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV07</td>	<td>Obligations des parties</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DAPIV07Q1</td>	<td>Obligations des parties</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DAPIV08</td>	<td>Opérations sur les contrats d’assurance vie</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV09</td>	<td>Fiscalité en cas de vie</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DAPIV09Q1</td>	<td>Fiscalité en cas de vie</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DAPIV10</td>	<td>Fiscalité en cas de décès</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV11</td>	<td>Cadres fiscaux spécifiques</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA2V01A</td>	<td>Les marchés des produits d’épargne</td>	<td>0:20:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA2V02A</td>	<td>Les avantages et risques liés aux différentes options d’investissement</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>A définir</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DAPIVQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Vidéo learning-Conclusion</td>	<td>DDA1VF</td>	<td>Conclusion du parcours de la formation : récapitulatif, explications téléchargement des supports et de l'attestation, invitation à répondre à une enquête de qualité sur le parcours</td>	<td>0:09:00</td></tr><tr><td>GLOBAL</td>	<td></td>	<td></td>	<td>15:00:00</td></tr>"],
+  'course-v1:af2a+UDDAS1+Mars_2019':["<tr><td>Vidéo learning-Introduction</td>	<td>DDA1V00_8h</td>	<td>Introduction du MOOC</td>	<td>0:03:00</td></tr><tr><td>Elearning</td>	<td>DDA1S01</td>	<td>Contexte de la DDA</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S01Q1</td>	<td>Contexte de la DDA</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DDA1S02</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S02Q1</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:07:00</td></tr><tr><td>Elearning</td>	<td>DDA1S03</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S03Q1</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S04</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S04Q1</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S05</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S05Q1</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S06</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S06Q1</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S07</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S07Q1</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S08</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S08Q1</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S09</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S09Q1</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:06:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V01</td>	<td>Devoir de conseil : évolution, contenu et conséquences en cas de manquement - partie 1/2 </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V02</td>	<td>Lutte contre la corruption : les incidences de la loi Sapin II</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V03</td>	<td>Protection des données personnelles : le cadre réglementaire, rôle et missions de la CNIL, impacts du RGPD</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V04</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel du contexte réglementaire </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V05</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel des obligations essentielles liées à la relation d'affaires</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V06</td>	<td>Règles de gouvernance issues de la réforme Solvabilité II</td>	<td>0:09:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V07</td>	<td>Le ontrôle interne</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V08</td>	<td>Lutte contre la fraude à l'assurance : panorama des cas de fraude, détection des dossiers suspects, exploitation des éléments recueillis</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V09</td>	<td>Lutte contre la fraude à l'assurance : outils de prévention et de dissuasion de la fraude à l’assurance - PARTIE 1/2</td>	<td>0:10:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les impacts de DDA dans la relation commerciale</td>	<td>1:00:00</td></tr><tr><td>Screencast</td>	<td>DDA1V10</td>	<td>Focus sur le document d'information standardisé pour les produits non-vie (IPID) : produits concernés, forme et mentions obligatoires</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V11</td>	<td>Zoom sur les systèmes de rémunération des distributeurs : une définition extensive de la rémunération, un principe général</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V12</td>	<td>Impacts des dernières évolutions dans le monde de l’assurance</td>	<td>0:10:00</td></tr><tr><td>QCM final</td>	<td>DDA1QF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Vidéo learning-Conclusion</td>	<td>DDA1VF</td>	<td>Conclusion du parcours de la formation : récapitulatif, explications téléchargement des supports et de l'attestation, invitation à répondre à une enquête de qualité sur le parcours</td>	<td>0:04:00</td></tr>", "<tr><td>Elearning</td>	<td>DABCO02</td>	<td>Système de protection sociale français</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO03</td>	<td>Cadre juridique de l'assurance collective 1/2</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO04</td>	<td>Cadre juridique de l'assurance collective 2/2</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO05</td>	<td>Mise en place d’un contrat collectif</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO06</td>	<td>Garanties santé et prévoyance dans l'entreprise</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO07</td>	<td>Garanties Retraite Régime général</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO08</td>	<td>Garanties retraite du régime complémentaire obligatoire</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO09</td>	<td>Garanties Retraite par capitalisation</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO10</td>	<td>Epargne salariale</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO11</td>	<td>Régime fiscal et social des contrats collectifs</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V03A</td>	<td>La télémédecine</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V04A</td>	<td>Le reste à charge 0</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>A définir</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DABCOQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>TOTAL</td>	<td></td>	<td></td>	<td></td></tr><tr><td>GLOBAL</td>	<td></td>	<td></td>	<td>15:00:00</td></tr>"],
+  'course-v1:af2a+UDDAS2+Mars_2019':["<tr><td>Vidéo learning-Introduction</td>	<td>DDA1V00_8h</td>	<td>Introduction du MOOC</td>	<td>0:03:00</td></tr><tr><td>Elearning</td>	<td>DDA1S01</td>	<td>Contexte de la DDA</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S01Q1</td>	<td>Contexte de la DDA</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DDA1S02</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S02Q1</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:07:00</td></tr><tr><td>Elearning</td>	<td>DDA1S03</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S03Q1</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S04</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S04Q1</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S05</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S05Q1</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S06</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S06Q1</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S07</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S07Q1</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S08</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S08Q1</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S09</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S09Q1</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:06:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V01</td>	<td>Devoir de conseil : évolution, contenu et conséquences en cas de manquement - partie 1/2 </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V02</td>	<td>Lutte contre la corruption : les incidences de la loi Sapin II</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V03</td>	<td>Protection des données personnelles : le cadre réglementaire, rôle et missions de la CNIL, impacts du RGPD</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V04</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel du contexte réglementaire </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V05</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel des obligations essentielles liées à la relation d'affaires</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V06</td>	<td>Règles de gouvernance issues de la réforme Solvabilité II</td>	<td>0:09:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V07</td>	<td>Le ontrôle interne</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V08</td>	<td>Lutte contre la fraude à l'assurance : panorama des cas de fraude, détection des dossiers suspects, exploitation des éléments recueillis</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V09</td>	<td>Lutte contre la fraude à l'assurance : outils de prévention et de dissuasion de la fraude à l’assurance - PARTIE 1/2</td>	<td>0:10:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les impacts de DDA dans la relation commerciale</td>	<td>1:00:00</td></tr><tr><td>Screencast</td>	<td>DDA1V10</td>	<td>Focus sur le document d'information standardisé pour les produits non-vie (IPID) : produits concernés, forme et mentions obligatoires</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V11</td>	<td>Zoom sur les systèmes de rémunération des distributeurs : une définition extensive de la rémunération, un principe général</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V12</td>	<td>Impacts des dernières évolutions dans le monde de l’assurance</td>	<td>0:10:00</td></tr><tr><td>QCM final</td>	<td>DDA1QF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Vidéo learning-Conclusion</td>	<td>DDA1VF</td>	<td>Conclusion du parcours de la formation : récapitulatif, explications téléchargement des supports et de l'attestation, invitation à répondre à une enquête de qualité sur le parcours</td>	<td>0:04:00</td></tr>", "<tr><td>Elearning</td>	<td>DAEVSA01</td>	<td>Organisation du système de santé en France</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA02</td>	<td>Prestations du régime général</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA03</td>	<td>Conditions de remboursement du régime général</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA04</td>	<td>Du régime général à la complémentaire santé</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA05</td>	<td>Complémentaire santé : contrat responsable, souscription et tarification</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA06</td>	<td>Garanties et prestations de la complémentaire santé</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA07</td>	<td>Assurances de personnes et prévoyance</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA08</td>	<td>Garanties Retraite Régime général</td>	<td>0:10:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA09</td>	<td>Garanties Régime complémentaire obligatoire</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA10</td>	<td>Produits spécifiques PERP et loi Madelin</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V04B</td>	<td>Le reste à charge 0</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V03A</td>	<td>La télémédecine</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>A définir</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DAEVSAQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>TOTAL</td>	<td></td>	<td></td>	<td>15:00:00</td></tr>"],
+  'course-v1:af2a+UDDATC+Mars_2019':["<tr><td>Vidéo learning-Introduction</td>	<td>DDA1V00_8h</td>	<td>Introduction du MOOC</td>	<td>0:03:00</td></tr><tr><td>Elearning</td>	<td>DDA1S01</td>	<td>Contexte de la DDA</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S01Q1</td>	<td>Contexte de la DDA</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DDA1S02</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S02Q1</td>	<td>Distinction entre les différents acteurs de la distribution d’assurance et chiffres clés</td>	<td>0:07:00</td></tr><tr><td>Elearning</td>	<td>DDA1S03</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S03Q1</td>	<td>Point sur l'évolution des exigences professionnelles des distributeurs</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S04</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S04Q1</td>	<td>Mise en place d'une gouvernance et d'une surveillance des produits : les conséquences pratiques pour les différents acteurs concernés</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S05</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S05Q1</td>	<td>Renforcement de la protection de la clientèle : information et devoir de conseil</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S06</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:25:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S06Q1</td>	<td>Point sur les documentations d’information (DIC et IPID) à remettre au prospect avant la souscription du contrat</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S07</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S07Q1</td>	<td>Gestion des conflits d’intérêts et transparence sur les rémunérations</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S08</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:15:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S08Q1</td>	<td>Dispositions spéciales concernant la liberté d'établissement et la libre prestation de services</td>	<td>0:06:00</td></tr><tr><td>Elearning</td>	<td>DDA1S09</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DDA1S09Q1</td>	<td>Traitement des réclamations et dispositif de médiation</td>	<td>0:06:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V01</td>	<td>Devoir de conseil : évolution, contenu et conséquences en cas de manquement - partie 1/2 </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V02</td>	<td>Lutte contre la corruption : les incidences de la loi Sapin II</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V03</td>	<td>Protection des données personnelles : le cadre réglementaire, rôle et missions de la CNIL, impacts du RGPD</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V04</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel du contexte réglementaire </td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V05</td>	<td>Lutte contre le blanchiment de capitaux et le financement du terrorisme : rappel des obligations essentielles liées à la relation d'affaires</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V06</td>	<td>Règles de gouvernance issues de la réforme Solvabilité II</td>	<td>0:09:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V07</td>	<td>Le ontrôle interne</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V08</td>	<td>Lutte contre la fraude à l'assurance : panorama des cas de fraude, détection des dossiers suspects, exploitation des éléments recueillis</td>	<td>0:10:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA1V09</td>	<td>Lutte contre la fraude à l'assurance : outils de prévention et de dissuasion de la fraude à l’assurance - PARTIE 1/2</td>	<td>0:10:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les impacts de DDA dans la relation commerciale</td>	<td>1:00:00</td></tr><tr><td>Screencast</td>	<td>DDA1V10</td>	<td>Focus sur le document d'information standardisé pour les produits non-vie (IPID) : produits concernés, forme et mentions obligatoires</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V11</td>	<td>Zoom sur les systèmes de rémunération des distributeurs : une définition extensive de la rémunération, un principe général</td>	<td>0:10:00</td></tr><tr><td>Screencast</td>	<td>DDA1V12</td>	<td>Impacts des dernières évolutions dans le monde de l’assurance</td>	<td>0:10:00</td></tr><tr><td>QCM final</td>	<td>DDA1QF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions </td>	<td>0:30:00</td></tr><tr><td>Vidéo learning-Conclusion</td>	<td>DDA1VF</td>	<td>Conclusion du parcours de la formation : récapitulatif, explications téléchargement des supports et de l'attestation, invitation à répondre à une enquête de qualité sur le parcours</td>	<td>0:04:00</td></tr><tr><td>GLOBAL</td>	<td></td>	<td></td>	<td>08:00:00</td></tr>"],
+  "course-v1:af2a+UDDAS1+2019":["<tr><td>Elearning</td>	<td>DABCO02</td>	<td>Système de protection sociale français</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO03</td>	<td>Cadre juridique de l'assurance collective 1/2</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO04</td>	<td>Cadre juridique de l'assurance collective 2/2</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO05</td>	<td>Mise en place d’un contrat collectif</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO06</td>	<td>Garanties santé et prévoyance dans l'entreprise</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DABCO07</td>	<td>Garanties Retraite Régime général</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO08</td>	<td>Garanties retraite du régime complémentaire obligatoire</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO09</td>	<td>Garanties Retraite par capitalisation</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO10</td>	<td>Epargne salariale</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DABCO11</td>	<td>Régime fiscal et social des contrats collectifs</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V03A</td>	<td>La télémédecine</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V04A</td>	<td>Le reste à charge 0</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Du contrat responsable et solidaire au reste à charge zéro : les évolutions de la complémentaire santé</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DABCOQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions</td>	<td>0:30:00</td></tr><tr><td>GLOBAL</td>	<td></td>	<td></td>	<td>7h</td></tr>"],
+  "course-v1:af2a+UDDAS2+2019":["<tr><td>Elearning</td>	<td>DAEVSA01</td>	<td>Organisation du système de santé en France</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA02</td>	<td>Prestations du régime général</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA03</td>	<td>Conditions de remboursement du régime général</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA04</td>	<td>Du régime général à la complémentaire santé</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA05</td>	<td>Complémentaire santé : contrat responsable, souscription et tarification</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA06</td>	<td>Garanties et prestations de la complémentaire santé</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA07</td>	<td>Assurances de personnes et prévoyance</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA08</td>	<td>Garanties Retraite Régime général</td>	<td>0:10:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA09</td>	<td>Garanties Régime complémentaire obligatoire</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAEVSA10</td>	<td>Produits spécifiques PERP et loi Madelin</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V04B</td>	<td>Le reste à charge 0</td>	<td>0:20:00</td></tr><tr><td>Vidéo Learning</td>	<td>DDA2V03A</td>	<td>La télémédecine</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Du contrat responsable et solidaire au reste à charge zéro : les évolutions de la complémentaire santé</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DAEVSAQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions</td>	<td>0:30:00</td></tr><tr><td>TOTAL</td>	<td></td>	<td></td>	<td>7h</td></tr>"],
+  "course-v1:af2a+UDDAS3+2019":["<tr><td>Elearning</td>	<td>DAPIV02</td>	<td>Typologie des contrats</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV03</td>	<td>Gestion des primes / Gestion des prestations</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV04</td>	<td>Evaluation du risque</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV05</td>	<td>Règles financières de capitalisation</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV06</td>	<td>Intervenants au contrat</td>	<td>0:30:00</td></tr><tr><td>Elearning</td>	<td>DAPIV07</td>	<td>Obligations des parties</td>	<td>0:30:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DAPIV07Q1</td>	<td>Obligations des parties</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DAPIV08</td>	<td>Opérations sur les contrats d’assurance vie</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV09</td>	<td>Fiscalité en cas de vie</td>	<td>0:20:00</td></tr><tr><td>Micro learning et quiz</td>	<td>DAPIV09Q1</td>	<td>Fiscalité en cas de vie</td>	<td>0:05:00</td></tr><tr><td>Elearning</td>	<td>DAPIV10</td>	<td>Fiscalité en cas de décès</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DAPIV11</td>	<td>Cadres fiscaux spécifiques</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S01</td>	<td>Démarchage et vente à distance</td>	<td>0:20:00</td></tr><tr><td>Elearning</td>	<td>DDA2S02</td>	<td>Procédures de l’ACPR en matière de contrôle et de sanction</td>	<td>0:20:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA2V01A</td>	<td>Les marchés des produits d’épargne</td>	<td>0:20:00</td></tr><tr><td>Vidéo learning</td>	<td>DDA2V02A</td>	<td>Les avantages et risques liés aux différentes options d’investissement</td>	<td>0:20:00</td></tr><tr><td>Webinaire</td>	<td></td>	<td>Les composantes du patrimoine</td>	<td>1:00:00</td></tr><tr><td>QCM final</td>	<td>DAPIVQF</td>	<td>Questions portant sur l'ensemble des thèmes abordés tout au long du parcours de formation : compte à rebours (30 minutes) / ordre aléatoire des questions</td>	<td>0:30:00</td></tr><tr><td>TOTAL</td>	<td></td>	<td></td>	<td>7h</td></tr>"]
+}
+
+
+</script>
+
+<script>
+  //Hide PDF button on IE11
+  if(!!window.MSInputMethodContext && !!document.documentMode){
+    $('#pdf-wrapper').html("La version pdf de votre certificat n'est pas disponible sur Internet Explorer. <br>Pour l'obtenir, il vous suffira de retélécharger cette même page depuis un autre navigateur ( Chrome ou Mozilla Firefox ).")
+  }
+</script>
+
 % endif
