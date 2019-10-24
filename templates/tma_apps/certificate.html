@@ -79,13 +79,21 @@ background_url = configuration_helpers.get_value('bg_img')
   #certificate-title{
     text-transform: uppercase;
   }
+  #noCertificateMessage{
+    background: white;
+    height: calc(100vh - 133px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 </style>
 
 <!-- CUSTOM STYLE -->
 <style>
 
 </style>
-
+% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
@@ -106,6 +114,12 @@ background_url = configuration_helpers.get_value('bg_img')
       </div>
   </div>
 </div>
+%else:
+  <div id="noCertificateMessage">
+      <h3>Certificat Non Disponible</h3>
+      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+  </div>
+%endif
 
 <!-- PDF CREATOR-->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
