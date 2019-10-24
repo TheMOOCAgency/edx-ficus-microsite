@@ -1,0 +1,268 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%def name="online_help_token()"><% return "courseware" %></%def>
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from datetime import datetime, date
+import json
+from tma_apps.tma_support_functions import tma_verify_access
+
+primary_color = configuration_helpers.get_value('primary_color')
+from django.contrib.auth.models import User
+from student.models import UserProfile
+%>
+
+<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+
+<%
+if User.objects.filter(id=request.user.id) :
+  user_account = User.objects.filter(id=request.user.id)[0]
+
+if UserProfile.objects.filter(user=user_account) :
+  user_details = UserProfile.objects.filter(user=user_account)[0]
+  try:
+    custom_field = json.loads(user_details.custom_field)
+    statut = custom_field.get("statut")
+    agence = custom_field.get("compagnie-mandante")
+  except:
+    custom_field = {}
+    statut = None
+    agence = None
+  
+
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
+
+<!-- COMMON STYLE-->
+<style>
+  h1,h2,h3,h4,h5,p{
+    font-family: inherit
+  }
+
+h1{
+  margin: 30px 0 10px 0;
+  font-size: 1.7rem;
+}
+
+ h3{
+  font-size: 1rem;
+  letter-spacing: 0;
+  margin-top: 10px;
+}
+
+h4{
+  font-size: 0.7rem;
+}
+.blue-text{
+  color:#17245A;
+}
+
+.white-text {
+  color: white;
+}
+
+.pt-55 {
+  padding-top: 55px;
+}
+
+.middle-block{
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('/media/microsite/mooc-agea/auto/images/bandeau.png');
+  background-size: 100%;
+  background-repeat: no-repeat; 
+}
+
+.top-block{
+  width: 100%;
+  height: 28%;
+  position: relative;
+}
+
+.logo-agea {
+  position: absolute;
+  top: 20px;
+  left:20px;
+  height: 35%;
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  right:20px;
+  height: 60%;
+}
+
+.bottom-block{
+  width: 100%;
+  height: 27%;
+  position: relative;
+}
+
+.trainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  right:20px;
+  bottom: 40px;
+}
+
+.legal{
+  position: absolute;
+  left:130px;
+  bottom: 25px;
+  text-align: justify;
+  width: 450px;
+}
+
+.logo-dda {
+  position: absolute;
+  bottom: 0;
+  left:-50px;
+  height: 100%;
+}
+
+.bold {
+font-weight: 700;
+}
+#certificate-wrapper{
+  background: white;
+}
+.certificate-border{
+  border:2px solid ${primary_color};
+  border-radius:5px;
+}
+#custom-btn{
+  background: ${primary_color};
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+#internal-border{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
+  box-sizing: border-box;
+  background:  ${primary_color};
+}
+#certificate-wrapper{
+  min-height: calc(100vh - 133px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#certificate-container{
+  width:854px;
+  height:500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#pdf-btn-wrapper{
+  padding: 15px
+}
+#certificate-title{
+  text-transform: uppercase;
+}
+#noCertificateMessage{
+  background: white;
+  height: calc(100vh - 133px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+</style>
+
+<!-- CUSTOM STYLE -->
+<style>
+</style>
+% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+<div id="certificate-wrapper">
+  <div id="pdf-btn-wrapper">
+    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+  </div>
+  <div id="certificate-container" class="certificate-border">
+      <div id="internal-border" class="certificate-border">
+          <div class="top-block">
+            <img class="logo-agea" src="/media/microsite/mooc-agea/auto/images/logo-agea.png" alt="logo"/>
+            <img class="badge" src="/media/microsite/mooc-agea/auto/images/badge.png" alt="logo"/>
+            <h1 class="bold white-text">CERTIFICAT DE FORMATION</h1>
+            <h3 class="bold white-text">Session novembre / décembre 2019</h3>
+          </div>
+          <div class="middle-block">
+            %if statut=="agent" and agence: 
+              <h3 class="blue-text pt-55" style="text-transform:none"><span style="text-transform:uppercase" class="bold">${first_name} ${last_name},</span> Agent général d'assurance <span style="text-transform:uppercase" class="bold">${agence}</span>.</h3>
+            %elif statut=="agent": 
+              <h3 class="blue-text pt-55" style="text-transform:none"><span style="text-transform:uppercase" class="bold">${first_name} ${last_name},</span> Agent général d'assurance.</h3>
+            %elif statut=="collaborateur" and agence :
+              <h3 class="blue-text pt-55" style="text-transform:none"><span style="text-transform:uppercase" class="bold">${first_name} ${last_name},</span> Collaborateur d'agence <span style="text-transform:uppercase" class="bold">${agence}</span>.</h3>
+            %elif statut=="collaborateur":
+              <h3 class="blue-text pt-55" style="text-transform:none"><span style="text-transform:uppercase" class="bold">${first_name} ${last_name},</span> Collaborateur d'agence.</h3>
+            %elif statut=="autre":
+              <h3 class="blue-text bold pt-55" style="text-transform:uppercase">${first_name} ${last_name}</h3> 
+            %else:
+              <h3 class="blue-text bold pt-55" style="text-transform:uppercase">${first_name} ${last_name}</h3>               
+            %endif                    
+            <h3 class="blue-text" style="text-transform:none">a suivi et l'intégralité du parcours de quatre heure du MOOC</h3>
+            <h3 class="blue-text" style="text-transform:none">"${course_name}".</h3>
+          </div>
+          <div class="bottom-block">
+              <img class="logo-dda" src="/media/microsite/mooc-agea/auto/images/logo-dda.png" alt="logo"/>
+              <div class="trainer">
+                <h3 class="white-text bold">Grégoire DUPONT</h3>
+                <h3 class="white-text bold">agéa Formation</h3>
+              </div>
+              <h4 class="legal white-text bold">
+                Arrêté du 26 septembre 2018, relatif à la liste des compétences éligibles pour les actions de formation ou de développement professionel continus prévus à l'articleR.512-13-1 du code des assurances.</br>
+                1A : "Au titre des compétences professionnelles génerales: appréhender l'activité et l'environnement de la distribution d'assurances et ses évolutions au regard des fonctions exercées.:"
+              </h4>
+          </div>
+      </div>
+  </div>
+</div>
+%else:
+  <div id="noCertificateMessage">
+      <h3>Certificat Non Disponible</h3>
+      <h3>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</h3>
+  </div>
+%endif
+
+<!-- PDF CREATOR-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script>
+  function CertificateToPdf(){
+     html2canvas(document.getElementById("certificate-container"), {
+      onrendered : function (canvas){
+       var img=canvas.toDataURL("image/png");
+       var doc = new jsPDF({orientation: 'landscape'});
+       doc.addImage(img, "PNG", 30, 35);
+       doc.save("certificat.pdf");
+      }
+    })
+  }
+  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
+  $(document).ready(function(){
+    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+    }
+  })
+</script>
