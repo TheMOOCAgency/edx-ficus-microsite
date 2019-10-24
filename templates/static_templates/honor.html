@@ -22,10 +22,28 @@ if _template is None:
 <%block name="pagetitle">${_("Honor Code")}</%block>
 
 <style>
-main {
- background-color: #fff;
+/*Fonts*/
+@font-face {
+  font-family: CIVCTitle;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCTitle.ttf");
+}
+@font-face {
+  font-family: CIVCSansBold;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCSansBold.ttf");
+}
+@font-face {
+  font-family: CIVCSansLight;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCSansLight.ttf");
+}
+.static-container{
+  padding: 50px 35px!important;
+  width: auto!important;
+  background: white;
 }
 </style>
+<link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/media/librairies/font-awesome/font-awesome.min.css">
+<link rel="stylesheet" href="/media/microsite/champagne-mooc/home/about.css">
 <main id="main" aria-label="Content" tabindex="-1">
 <!--
     <section class="container about">
@@ -33,8 +51,22 @@ main {
         <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
     </section>
 -->
-  <section class="static-container honor">
+  <section class="static-container honor "style="background: #ffffffbd !important;">
   ${_template | n}
   </section>
 
 </main>
+<script>
+  $( document ).ready(function(){
+    if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $('.main-content-fr').hide();
+      $('.main-content-en').show();
+      window.document.title= "Credit"
+    } else{
+      $('.main-content-fr').show();
+      $('.main-content-en').hide();
+      window.document.title= "Crédit"
+    }
+  });
+</script>
+<script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
