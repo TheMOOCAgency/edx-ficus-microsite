@@ -1,12 +1,120 @@
 <%page expression_filter="h"/>
-<%! from django.utils.translation import ugettext as _ %>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from openedx.core.djangolib.markup import HTML
+%>
 <%inherit file="../main.html" />
+<%namespace name='static' file='../static_content.html'/>
+<%
+from cms.djangoapps.microsite_manager.mongo_model import staticFiles
+from cms.djangoapps.microsite_manager.models import Microsite
+_key = static.get_value('domain_prefix')
+_microsite_id = Microsite.objects.get(key=_key).id
+_collection = 'about'
+_values = {
+  "microsite_id":_microsite_id
+}
+_template = staticFiles().return_template(_values,_collection).get('template')
+if _template is None:
+  _template = "<p>About</p>"
+%>
 
 <%block name="pagetitle">${_("Contact")}</%block>
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-        <h1>${_("Contact")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
+<style>
+/*Fonts*/
+@font-face {
+  font-family: CIVCTitle;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCTitle.ttf");
+}
+@font-face {
+  font-family: CIVCSansBold;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCSansBold.ttf");
+}
+@font-face {
+  font-family: CIVCSansLight;
+  src: url("/media/microsite/champagne-mooc/fonts/CIVCSansLight.ttf");
+}
+</style>
+<link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/media/librairies/font-awesome/font-awesome.min.css">
+<link rel="stylesheet" href="/media/microsite/champagne-mooc/home/about.css">
+
+<main id="main" class="main-content-fr" aria-label="Content" tabindex="-1">
+   <section class="container about" style="background: #ffffffbd !important;">
+      <div class="row">
+         <div class="col-md-3">
+            <img id="logo" src="/media/microsite/champagne-mooc/auto/images/logo.png" alt="logo comité champagne">
+         </div>
+         <div class="col-md-9">
+            <h1 class="pressTitle">Qui sommes-nous ?</h1>
+            <p>Le <b>Comité interprofessionnel du vin de Champagne </b>, le <b>Comité Champagne</b>, est une organisation, créée en 1941, à mi-chemin entre le secteur public et le secteur privé. </p>
+            <p>Le Comité Champagne assure l’intérêt <b>commun des Vignerons et Maisons de Champagne</b> pour contribuer à la <b>compétitivité</b> et à <b>l’équilibre</b> de la filière. La création de valeur passe par une forte <b>exigence qualitative</b>, et par la nécessité de <b>défendre</b> et d’<b>illustrer</b> ce patrimoine de plusieurs siècles véhiculé par l’appellation Champagne. </p>
+            <p>La moitié des collaborateurs du Comité Champagne sont des <b>techniciens</b> et des <b>ingénieurs experts</b> en <b>viticulture</b>, <b>œnologie</b> et <b>développement durable</b>.</p>
+            <p>Le Comité Champagne dispose également de <b>Bureaux du Champagne</b> permanents dans <b>14 pays</b> : Allemagne, Australie,  Autriche, Belgique, Chine, Espagne, États-Unis, Italie, Japon, Luxembourg, Pays-Bas, Royaume-Uni, Russie, Suisse. </p>
+            <p>Pour en savoir plus : <a class="nav-link-p" target="_blank" href="https://www.champagne.fr/fr/">www.champagne.com </a></p>
+			<div class="icon-bar" style="display: flex; justify-content: center;margin-top: 40px;">
+               <a href="https://www.facebook.com/champagneofficialpage/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+               <a href="https://twitter.com/Champagne" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+               <a href="https://www.instagram.com/champagne_officiel/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
+               <a href="https://www.linkedin.com/company/civc-comite-interprofessionnel-du-vin-de-champagne/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+               <a href="https://www.youtube.com/champagne" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a>
+               <a href="https://www.champagne.fr/fr/comite-champagne/bureaux/bureaux/chine/pages/wechat" target="_blank" class="chat"><i class="fa fa-comment"></i></a>
+            </div>
+         </div>
+      </div>
+     <div class="row">
+	 <div class="col-md-3">
+	 </div>
+         <div class="col-md-9" style="text-align:center">
+		 <img src="/media/microsite/champagne-mooc/auto/images/champagneHouse.jpg" alt="logo comité champagne" style="width: 44%;">
+		     </div>
+         </div>
+   </section>
 </main>
+<main id="main" class="main-content-en" aria-label="Content" tabindex="-1">
+   <section class="container about" style="background: #ffffffbd !important;">
+      <div class="row">
+         <div class="col-md-3">
+            <img id="logo" src="/media/microsite/champagne-mooc/auto/images/logo.png" alt="logo comité champagne">
+         </div>
+         <div class="col-md-9">
+            <h1 class="pressTitle">Who are we ?</h1>
+            <p>The <b>Comité interprofessionnel du vin de Champagne </b>, the <b>Comité Champagne</b>, is a semi-autonomous public body established in 1941. </p>
+            <p>The Comité Champagne safeguards the <b>collective interests of Champagne Growers and Houses</b> to contribute to the <b>competitiveness</b> and <b>balance</b> within the Champagne business. Value creation is dependent on <b>stringent quality standards</b> and the need to <b>protect</b> and promote the age-old heritage vested in the Champagne AOC.</p>
+            <p>Half of the people who work with the Comité Champagne are technicians and <b>engineers specialized</b> in <b>viticulture</b>, <b>oenology</b> and <b>sustainable development</b>.</p>
+            <p>The Comité Champagne is based in Epernay, France, and also operates through Champagne bureaus in 14 other countries: Australia, Austria, Belgium, China, Germany, Italy, Japan, Luxembourg, Russia, Spain, Switzerland, the Netherlands, the United Kingdom and the USA.</p>
+            <p>To find out more visit : <a class="nav-link-p" target="_blank" href="https://www.champagne.fr/fr/">www.champagne.com </a></p>
+			<div class="icon-bar" style="display: flex; justify-content: center;margin-top: 40px;">
+               <a href="https://www.facebook.com/champagneofficialpage/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+               <a href="https://twitter.com/Champagne" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+               <a href="https://www.instagram.com/champagne_officiel/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
+               <a href="https://www.linkedin.com/company/civc-comite-interprofessionnel-du-vin-de-champagne/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+               <a href="https://www.youtube.com/champagne" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a>
+               <a href="https://www.champagne.fr/fr/comite-champagne/bureaux/bureaux/chine/pages/wechat" target="_blank" class="chat"><i class="fa fa-comment"></i></a>
+            </div>
+         </div>
+      </div>
+     <div class="row">
+	 <div class="col-md-3">
+	 </div>
+         <div class="col-md-9" style="text-align:center">
+		 <img src="/media/microsite/champagne-mooc/auto/images/champagneHouse.jpg" alt="logo comité champagne" style="width: 44%;">
+		     </div>
+         </div>
+   </section>
+</main>
+<script>
+  $( document ).ready(function(){
+    if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $('.main-content-fr').hide();
+      $('.main-content-en').show();
+    } else{
+      $('.main-content-fr').show();
+      $('.main-content-en').hide();
+    }
+  });
+</script>
+
+<script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>

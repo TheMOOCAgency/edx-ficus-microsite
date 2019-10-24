@@ -14,7 +14,7 @@
 }
 
 *,div,span,button,input,p,h1,h2,h3,h4,h5,h6,a,html,body {
- font-family: 'custom_font';
+font-family: "Open Sans" !important;
 }
 
 /*Header*/

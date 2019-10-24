@@ -12,7 +12,20 @@ if extra_form is None:
     extra_form = []
 import datetime
 %>
-
+<script>
+$( document ).ready(function(){
+  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+    $("#field-password > span").text('Your password must contain at least 8 characters, one uppercase, one lowercase and one digit.')
+    $("#field-username > label").text("Public alias name")
+    $("#last_name").attr('placeholder','exemple: Green')
+    $("#first_name").attr('placeholder','exemple: John')
+  } else{
+    $("#last_name").attr('placeholder','exemple: Dupont')
+    $("#first_name").attr('placeholder','exemple: Jean')
+    $("#field-password > span").text('Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.')
+  }
+});
+</script>
 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 
 <!-- status messages -->
@@ -27,6 +40,35 @@ import datetime
 <style>
 .header-global .nav-courseware li .btn, .header-global .nav-courseware div .btn, .login .form-actions button[type="submit"], .register .form-actions button[type="submit"], .passwordreset .form-actions button[type="submit"], #forgot-password-modal #password-reset .form-actions button[type="submit"], .view-survey .action-primary {
  color: #fff !important;
+}
+  /*Fonts*/
+  @font-face {
+    font-family: CIVCTitle;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCTitle.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansBold;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCSansBold.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansLight;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCSansLight.ttf");
+  }
+
+
+*, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
+
+    font-family: 'CIVCSansLight'!important;
+
+}
+
+#field-freeMedia{
+display:none;
+margin-left: 38px;
+}
+#field-freeDomain{
+display:none;
+margin-left: 38px;
 }
 </style>
 % if third_party_auth.is_enabled():
@@ -86,7 +128,7 @@ import datetime
   % if has_extauth_info is UNDEFINED:
 
   <ol class="list-input">
-    <!--
+
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
       <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
@@ -95,7 +137,7 @@ import datetime
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
-    -->
+
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
@@ -119,6 +161,7 @@ import datetime
     <li class="is-disabled field optional password" id="field-password" hidden>
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
+      <span class="tip tip-input" style="display:initial"></span>
     </li>
 
     % else:
@@ -126,6 +169,7 @@ import datetime
     <li class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <span class="tip tip-input" style="display:initial"></span>
     </li>
 
     % endif
@@ -363,6 +407,70 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+
+ ## form logic
+var organisme = $("#organisme")
+var role = $("#role")
+var media = $("#media")
+var fieldage = $("#field-age")
+var age = $("#age")
+var changeOrg = organisme.val();
+var target
+var targetF
+var confirmAge = function(){
+	if (window.confirm("Pour suivre cette formation, vous devez être en âge de consommer de l’alcool selon la législation en vigueur dans votre lieu de résidence. S’il n’existe pas de législation à cet égard, vous devez être âgé de 21 ans minimum. L’abus d’alcool est dangereux pour la santé, à consommer avec modération.")) {
+    window.location = "https://champagne-mooc.the-mooc-agency.com/"
+}
+}
+var OrgOther = $("#field-freeDomain")
+var showHideOther = function(target,role){
+	var composeTarget = "#"+target
+	targetF  = $(composeTarget)
+	console.log(targetF)
+	if (role == "show"){
+		targetF.show()
+	}
+	else{
+		targetF.hide()
+	}
+}
+
+organisme.change(function(){
+  changeOrg = organisme.val();
+  if (changeOrg=="autre")
+  {showHideOther("field-freeDomain","show")}
+	else
+  {showHideOther("field-freeDomain","hide")}
+});
+
+
+role.change(function(){
+  changeOrg = role.val();
+  if (changeOrg=="oui")
+  {showHideOther("field-entreprise","show");
+  alert("Nous vous rappelons que l’abus d’alcool est dangereux pour la santé, à consommer avec modération. ")
+  }
+	else
+  {showHideOther("field-entreprise","hide")}
+});
+
+
+media.change(function(){
+  changeOrg = media.val();
+  if (changeOrg=="autre")
+  {showHideOther("field-freeMedia","show")}
+	else
+  {showHideOther("field-freeMedia","hide")}
+});
+
+fieldage.change(function(){
+  changeOrg = age.val();
+  if (changeOrg=="non")
+  {confirmAge()}
+	else
+  {}
+});
+
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:

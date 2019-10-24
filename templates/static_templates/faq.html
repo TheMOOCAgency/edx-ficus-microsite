@@ -21,8 +21,11 @@ if _template is None:
 %>
 <%block name="pagetitle">${_("FAQ")}</%block>
 <style>
-main {
- background-color: #fff;
+
+.static-container{
+  padding: 50px 35px!important;
+  width: auto!important;
+  background: white;
 }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
@@ -32,7 +35,19 @@ main {
         <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
     </section>
 -->
-<section class="static-container faq">
-${_template | n}
+<section class="static-container faq champagne" style="background: #ffffffbd !important;">
+  ${_template | n}
+
 </section>
 </main>
+<script>
+  $( document ).ready(function(){
+    if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $('.main-content-fr').hide();
+      $('.main-content-en').show();
+    } else{
+      $('.main-content-fr').show();
+      $('.main-content-en').hide();
+    }
+  });
+</script>
