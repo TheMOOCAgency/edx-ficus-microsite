@@ -16,6 +16,7 @@ import datetime
 $( document ).ready(function(){
   if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
     $("#field-password > span").text('Your password must contain at least 8 characters, one uppercase, one lowercase and one digit.')
+    $("#username-custom-champagne").text('Your public alias name must contain no space')
     $("#field-username > label").text("Public alias name")
     $("#last_name").attr('placeholder','exemple: Green')
     $("#first_name").attr('placeholder','exemple: John')
@@ -23,6 +24,9 @@ $( document ).ready(function(){
     $("#last_name").attr('placeholder','exemple: Dupont')
     $("#first_name").attr('placeholder','exemple: Jean')
     $("#field-password > span").text('Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.')
+    $("#username-custom-champagne").text('Votre nom d’utilisateur ne doit pas contenir d’espace')
+    $("#username").attr("placeholder", "JeanDupont");
+
   }
 });
 </script>
@@ -151,7 +155,8 @@ margin-left: 38px;
     </li>
 
     <li class="field required text" id="field-username">
-      <label for="username">${_('Public Username')}</label>
+      <label for="username" style="display:inline">${_('Public Username')}</label>
+      <span id="username-custom-champagne" class="tip tip-input " style="display:inline"></span>
       <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>

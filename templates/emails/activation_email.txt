@@ -8,3 +8,11 @@ Vous devez maintenant activer votre compte, avec le lien suivant :
 https://${ site }/activate/${ key }
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+
+Welcome
+
+You must now activate your account, with the following link :
+
+https://${ site }/activate/${ key }
+
+If you didn’t ask for the creation of an account, you have nothing else to do, we won’t contact you anymore. 
