@@ -102,15 +102,17 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 <!-- DASHBOARD MONO -->
 
 <div id="voile"></div>
-  <div id="name-form">
+  <div style="display:none;width: 60%;background-color: white; margin: 0 auto; margin-top: 10px; padding: 25px;" id="name-form">
       <p>Veuillez entrer votre nom tel qu'il appara&icirc;tra sur le certificat (Attention, votre nom ne sera plus modifiable par la suite).</p>
       <form action="">
-          <label for="first_name">Votre pr&eacute;nom <input type="text" name="first_name" />
-          </label><label for="last_name">Votre nom <input type="text" name="last_name" /></label>
-          <input type="submit" value="Enregistrer" />
+        <label style="margin-top:10px; display:block" id="label_first_name" for="first_name">Votre pr&eacute;nom :</label>
+        <input style="margin:10px 0px; width : 100%" type="text" name="first_name" />
+        <label style="margin-top:10px; display:block" id="label_last_name" for="last_name">Votre nom :</label>
+        <input style="margin:10px 0px; width : 100%" type="text" name="last_name" />
+        <input style="margin:0 auto; display:block" type="submit" value="Enregistrer" />
       </form>
 </div>
-<div class="content_tma">
+<div style="display:none" class="content_tma">
   <div id="error-register">Une erreur est survenue pendant l'enregistrement de vos donn&eacute;es, veuillez r&eacute;essayer plus tard.</div>
   <!-- profil -->
   <div id="dashboard_profile">
@@ -600,4 +602,14 @@ $(window).initialize(function(){
             }
         })
     })
+</script>
+
+<script>
+$( document ).ready(function(){
+  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $("#name-form>p").text('Please enter your name as it will appear on the certificate (Attention, your name will not be modifiable thereafter).')
+      $("#label_first_name").text('Your first name :')
+      $("#label_last_name").text('Your last name :')
+  }
+});
 </script>
