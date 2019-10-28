@@ -17,7 +17,12 @@ import json
 
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
-
+<%
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
 <style>
 /* General */
 #global-navigation,.wrapper-footer,#tma_background_font {
@@ -25,6 +30,10 @@ import json
 }
 body{
   text-align:center;
+}
+img {
+  vertical-align: top;
+  margin-top: 10px;
 }
 .container{
   margin-top:80px;
@@ -39,11 +48,11 @@ body{
   background-size:cover;
   background-position:center;
 }
-.main-color{
+/* .main-color{
   background-color:#C1CF33;
-}
+} */
 .second-color{
-  background-color: #4d4d4d;
+  background-color: #96cce8
 }
 .texte-gras{
   font-weight: 600;
@@ -55,17 +64,22 @@ body{
 }
 .bandeau-top p{
   font-weight: 600;
-  color: white;
-  margin-top: 15px;
+  color: #0171a1;
+  margin-top: -64px;
+  font-size: 30px;
+  font-weight: 700;
 }
 .title-attestation{
-  width: 80%;
-  float: left;
+  display: inline-block;
+  width: auto;
 }
 .logo-attestation{
   width: 20%;
   float: left;
   text-align: right;
+  vertical-align: top;
+  margin-top: 10px;
+  font-weight: 700;
 }
 .logo-attestation img{
   max-height: 40px;
@@ -73,19 +87,31 @@ body{
 
 /* Deuxième bandeau */
 .bandeau-middle{
-  color: white;
-  margin-top: 100px;
-  padding: 30px 10px;
+  color: black;
+  margin-top: -25px;
+  padding: 20px 10px;
+}
+#logoPref{
+  display: inline-block;
+  height: 110px;
+  margin-left: 525px;
 }
 #course-title{
   font-size: 20px;
+  text-transform: uppercase;
 }
 #nom-user{
   font-size: 30px;
   margin-bottom: 30px;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 #score, #course-title{
   margin-top: 10px;
+}
+#dateDuCertificat{
+  font-size: 14px;
+  margin-top: 45px;
 }
 
 /* Footer */
@@ -100,53 +126,64 @@ body{
   width: 20%;
 }
 .footer-left{
-  width: 80%;
+  width: 100%;
 }
 .footer{
-  padding: 10px;
-  margin-top: 44px;
+  margin-top: 40px;
 }
 .footer p{
-  margin-top: 74px;
   font-size: 12px;
-  text-align: left;
+  text-align: center;
   background-color: white;
 }
 
 
 </style>
-% if grades.get('passed'):
+% if grades.get('passed') or is_tma_team:
 <div class="container" id="main">
   <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
     <div class="logo-attestation">
       <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
+    </div>
+    <img id="logoPref" src="/media/microsite/mooc-harcelementsexuel-psytel/certificates/logo_pref.jpg"/>
+    <div class="title-attestation">
+       <p>ATTESTATION DE SUIVI</p>
     </div>
     <div style="clear:both;"></div>
   </div>
 
   <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
+    <p id="nom-user">${first_name} ${last_name}</p>
+    <p>a suivi avec succès le MOOC</p>
     <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
+    <!-- <p id="score">avec un score de ${grades.get('grade')*100}%</p> -->
+    <p>proposé par Psytel</p>
+    <p id="dateDuCertificat"></p>
   </div>
 
   <div class="footer">
-      <div class="footer-left">
+      <!-- <div class="footer-left">
           <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
       </div>
+      PAS DE SIGNATURE SUR CE TEMPLATE
       <div class="footer-right">
           <img src="${signature}"/>
-      </div>
+      </div> -->
       <div style="clear:both;"></div>
   </div>
 </div>
 
 <script type="text/javascript">
-</script>
+  dateDuCertificat = document.getElementById('dateDuCertificat')
+  function formatted_date()
+  {
+    var result="";
+    var d = new Date();
+    result += d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()
+    return result;
+  }
+  dateDuCertificat.innerHTML = "Paris, le " + formatted_date(Date.now());
+  </script>
   %if pdf:
   <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
