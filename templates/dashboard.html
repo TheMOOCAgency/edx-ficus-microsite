@@ -244,11 +244,6 @@ if request.user.email in test_users:
 
   %>
 
-  <script>
-    $('#course_continue, #course_start, #see_answers, #course_results, #last_score').live('click', function(){
-      $('#overlay').removeClass('hide-loader');
-    })
-  </script>
   <style>
     .gray-bg{
       background-color: #E2E4E1;
@@ -377,8 +372,6 @@ if request.user.email in test_users:
 
     </div>
   </div>
-  <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language, primary_color=primary_color"/>
 
   <script>
     //Mark course as started
@@ -792,3 +785,12 @@ $(window).initialize(function(){
   </div>
 </div>
 
+  <!-- TMA IMPORT LOADER -->
+  <%include file="/tma_apps/loader.html" args="language=course.language if course else LANGUAGE_CODE, primary_color=primary_color"/>
+
+
+  <script>
+      $('#course_continue, #course_start, #see_answers, #course_results, #last_score, #skill-bo').live('click', function(){
+        $('#overlay').removeClass('hide-loader');
+      })
+    </script>

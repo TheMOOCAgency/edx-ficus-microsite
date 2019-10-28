@@ -146,7 +146,7 @@ div.course-material{
         %>
           % if ( user.username in authorized_stats_bo and user.username in authorized_users_usernames_nav ) or ("@themoocagency.com" in user.email) or ("@netexplo.org" in user.email):
             <li class="item nav-global-01">
-              <a href="/tma_apps/platform_stats">
+              <a id="skill-bo" href="/tma_apps/platform_stats">
                 % if request.LANGUAGE_CODE=="fr":
                   Accès Statistiques
                 %else :
