@@ -141,6 +141,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 </div>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/digimapper-data/css/digimap.css" />
 
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
 <!-- COMMON STYLE-->
@@ -158,256 +159,95 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 
 <div id="voile"></div>
 <div class="content_tma">
-  <!-- DASHBOARD MONO QUIZ ORIENTED --------------------------------------------------------------------------------------------------------------------------->
-  <%
-    authorized_users_usernames=["LucieO"]
-    authorized_admins=[]
-  %>
+  <!-- profil -->
+  <div id="dashboard_profile" style="display:none;">
+  <div id="profile_button">p r o f i l </div>
+    <!-- image profil -->
 
-
-  % if len(course_enrollments) == 1 and tma_randomization(course_enrollments[0].course_id).get_randomization_mode()!='random':
-  <%
-  course_overview=enrollment.course_overview
-  about_course_video=get_course_about_section(request, course, "video")
-  about_course_description=get_course_about_section(request, course, "overview")
-
-
-
-  
-  associated_courses= AssociatedCourses(request.user, str(course.id)).associated_courses_details() or {}
-
-  
-
-  %>
-
-  <script>
-    $('#course_continue, #course_start, #see_answers, #course_results, #last_score').live('click', function(){
-      $('#overlay').removeClass('hide-loader');
-    })
-  </script>
-  <style>
-    .gray-bg{
-      background-color: #E2E4E1;
-    }
-    .pad-25{
-      padding: 25px;
-    }
-    .mb-20{
-      margin-bottom: 20px;
-    }
-    iframe{
-      max-width: 100%;
-    }
-    #course_title{
-     font-weight:600;
-     margin-bottom:0px;
-    }
-    #trial_name{
-     font-size:1rem;
-     color: ${primary_color};
-     margin-bottom:20px;
-    }
-    button, button:hover{
-      background-image: none!important;
-      box-shadow:none!important;
-      text-shadow:none;
-    }
-    .dashboard-btn{
-      background-color:${primary_color} !important;
-      border-color:${primary_color} !important;
-      font-size: 20px;
-      padding: 15px 35px;
-      border-radius: 6px;
-      text-transform: uppercase;
-    }
-    #course_start{
-      min-width:220px;
-      width: auto;
-    }
-    .dashboard-btn:hover{
-      background-color: #2e85d1 !important;
-      border-color: #2e85d1 !important;
-    }
-    .dashboard-btn > i{
-      font-size: 25px !important
-    }
-    .mt-20{
-      margin-top: 20px;
-    }
-    .sub-btn{
-      min-height: 60px;
-      background-color:gray;
-      border-color: gray;
-      border-radius: 6px;
-    }
-    .sub-btn:hover{
-      background-color:rgba(0,0,0,0.7) !important;
-    }
-    .sub-btn.deactivated:hover{
-    background-color: lightgray !important;
-    border-color: lightgray;
-    }
-    .rounded{
-      border-radius: 5px;
-    }
-
-    /* Replis partie conseils */
-    .overflow-hidden{
-      overflow: hidden;
-    }
-    @media(min-width:1200px) {
-      .overflow-hidden {
-        max-height: 245px!important;
-      }
-    }
-    @media(min-width: 975px) and (max-width: 1199px)  {
-      .overflow-hidden {
-        max-height: 262px!important;
-      }
-    }
-    @media(max-width:974px) {
-      .overflow-hidden {
-        max-height: 355px!important;
-      }
-    }
-    #conseils-btn{
-      color: white;
-      font-size: 2.333333em!important;
-      cursor: pointer;
-    }
-    .blue-btn{
-      background-color: ${primary_color}!important;
-    }
-    .blue-btn:hover{
-      background-color: rgb(46, 133, 209)!important;
-    }
-  </style>
-  <script>
-    $('#conseils-btn').live('click', function(){
-      $('#conseils').toggleClass('overflow-hidden');
-      if($('#conseils').hasClass('overflow-hidden')){
-        $('#conseils-btn-wrapper').html('<i id="conseils-btn" class="fa fa-plus-circle"></i>');
-      }
-      else{
-        $('#conseils-btn-wrapper').html('<i id="conseils-btn" class="fa fa-minus-circle"></i>')
-      }
-    })
-  </script>
-  <div id="dashboard_course_info">
-    <div id="dashboard_course_info_header">
-      <h2>${_('News')}</h2>
-    </div>
-    <div>
-      ${HTML(get_course_info_section(request, request.user, course, 'updates'))}
-    </div>
-    <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
-  </div>
-    %if course.language=="de":
-      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
-    %elif course.language=="fr":
-      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
-    %else:
-      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
-    %endif
-
-    </div>
-  </div>
-  <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language, primary_color=primary_color"/>
-  <script>
-    //Mark course as started
-    $('#course_start').on('click', function(){
-      course_status_url="${reverse('update_user_course_state', args=[str(enrollment.course_id)])}";
-      $.ajax({
-      url:course_status_url,
-      type:'POST',
-      dataType:'json',
-      data:{
-        course_user_status:"started"
-      },
-      success:function(data){
-        window.location.replace("${reverse('courseware', args=[str(enrollment.course_id)])}")
-      }
-    });
-    })
-  </script>
-
-  <!-- FIN DASHBOARD MONO QUIZ ORIENTED ------------------------------------------------------------------------------------------------------------------->
-
-
-  <!-- DASHBOARD MONO CLASSIC ------------------------------------------------------------------------------------------------------------------->
-  % elif len(course_enrollments) == 1:
-    %if course.no_grade:
-       <style>
-        #dashboard_profile_bottom{
-          visibility:hidden;
-        }
-       </style>
-    %endif
+<%
+profile_image_url = get_profile_image_urls_for_user(user)['large']
+get_persisted = ''
+is_passed = False
+course = ''
+score = ''
+course_module = ''
+course_details = ''
+blocks = ''
+root = ''
+children = ''
+course_mono_id = ''
+forum_tma = ''
+course_finished = 0
+course_name = []
+for dashboard_index, enrollment in enumerate(course_enrollments):
+  course = get_course_by_id(enrollment.course_id)
+  if len(course_enrollments) == 1:
+    course_tma = str(enrollment.course_id)
+    user_tma = user.id
+    #forum_tma = get_section_list(request,course_tma,user_tma)
+    forum_tma= false
+    course_mono_id = enrollment.course_id
+    course_module = modulestore().get_course(enrollment.course_id, depth=0)
+    course_details = course_module._field_data_cache['grading_policy']['GRADER']
+  """
+  elif len(course_enrollments) > 1:
+    get_persisted = CourseGradeFactory().get_persisted(request.user, course)
+    if get_persisted is None:
+      get_persisted = CourseGradeFactory().create(request.user, course)
+    if get_persisted.passed:
+      course_finished = course_finished + 1
+      course_name.append(enrollment.course_overview.display_name_with_default)
+    endif
+  endif
+  """
+endfor
+%>
+    <!-- <div class="dashboard_profile" id="dashboard_profile_up">
+      <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
+      <h3>${user.profile.name}</h3>
+      <h4>${user.email}</h4>
+    </div> -->
+% if len(course_enrollments) == 1:
     <%
     for enrollment in course_enrollments:
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     course_details_len = len(course_details)
     mark = 0
     %>
-    <div id="dashboard_profile">
-      <div id="profile_button">p r o f i l </div>
-      <div class="dashboard_profile" id="dashboard_profile_up">
-        <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
-        <h3>${user.profile.name}</h3>
-        <h4>${user.email}</h4>
-      </div>
 
-      <!-- block milieu profil -->
-      <div class="dashboard_profile" id="dashboard_profile_middle">
-        <!-- formation validé -->
-        <div id="dashboard_profile_middle_up">
-          % if False:
-            <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-          % elif cours_ouv:
-            <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
-          % else:
-            <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-          % endif
-        </div>
-        <!-- border middle -->
-        <div id="dashboard_profile_middle_middle">
-        </div>
-        <!-- actif forum -->
-        <div id="dashboard_profile_middle_bottom">
-          % if forum_tma:
-            <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
-          % elif cours_ouv:
-            <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
-          % else:
-            <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
-          % endif
-        </div>
-      </div>
 
-      <!-- block bottom profil -->
-      <div class="dashboard_profile" id="dashboard_profile_bottom">
-        <!-- note totale -->
-        <div id="dashboard_profile_bottom_up">
-          <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
-        </div>
-        % for n in course_details:
-          <% mark = mark + 1 %>
-          <!-- assignement type -->
-          <div class="dashboard_profile_bottom_middle">
-            <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-            %if n.get('weight')==0:
-            optionnel
-            %else:
-            ${_('Weight')}: ${int(n.get('weight') * 100)}%
-            %endif
-            )</span></span><span id="assignment_grade_${mark}">0%</span>
-          </div>
-          % if mark < course_details_len:
-          <!-- border middle -->
-          <div class="dashboard_profile_bottom_middle_border"></div>
-          % endif
-        % endfor
+    <!-- block milieu profil -->
+    <!-- <div class="dashboard_profile" id="dashboard_profile_middle"> -->
+      <!-- formation validé -->
+      <!-- <div id="dashboard_profile_middle_up">
+        % if False:
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+        % elif cours_ouv:
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+        % else:
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+        % endif
+      </div> -->
+      <!-- border middle -->
+      <!-- <div id="dashboard_profile_middle_middle">
+      </div> -->
+      <!-- actif forum -->
+      <!-- <div id="dashboard_profile_middle_bottom">
+        % if forum_tma:
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
+        % elif cours_ouv:
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+        % else:
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+        % endif
+      </div>
+    </div> -->
+    <!-- block bottom profil -->
+    <div class="dashboard_profile" id="dashboard_profile_bottom">
+      <!-- note totale -->
+      <div id="dashboard_profile_bottom_up">
+        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+
       </div>
     </div>
 
@@ -529,19 +369,31 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
   .empty-dashboard-message a:hover{
     color: #fff !important;
   }
-  </style>
-    <div class="empty-dashboard-message">
-      <p>${_("You are not enrolled in any courses yet.")}</p>
 
-      % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-        <a href="${marketing_link('COURSES')}">
-          ${_("Explore courses")}
-        </a>
+}
+</style>
+% else:
+  <div class="empty-dashboard-message">
+    <!-- <p>${_("You are not enrolled in any courses yet.")}</p> -->
 
-      %endif
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+      <div id="logoData4Manager">
+        <img src="/media/microsite/digimapper-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+      </div>
+      <a href="${marketing_link('COURSES')}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+          <img src="/media/microsite/digimapper-data/images/macaron.png" width="215"/>
+        <!-- ${_("Explore courses")} -->
+      </a>
+
+    %endif
   </div>
   % endif
-  <!-- FIN DASHBOARD MULTI ---------------------------------------------------------------------------------------------------------------------->
+  <!-- FIN DASHBOARD MULTI -->
+  <!-- FIN DASHBOARD MULTI -->
+  <!-- FIN DASHBOARD MULTI -->
+  <!-- FIN DASHBOARD MULTI -->
+</div>
+
 <span style="display:block;clear:left;"></span>
 <script>
 // SVG ACTION
@@ -663,6 +515,11 @@ $(window).initialize(function(){
 })
 
 </script>
+<style>
+  header > nav > ol:first-of-type {
+    display:none;
+  }
+</style>
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
     <button class="close-modal">
