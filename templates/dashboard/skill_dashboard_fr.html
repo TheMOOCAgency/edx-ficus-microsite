@@ -1,0 +1,159 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+from tma_apps.tma_support_functions import tma_verify_access
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
+%>
+<style>
+#main{
+  height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+    background-size: cover !important;
+    position: fixed;
+    left:0;
+    top:0;
+    color: white;
+}
+.text-center{
+  text-align: center
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25">
+      <!-- ${HTML(about_course_video)}-->
+      <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+      %if has_access:
+      <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      %endif
+        <p>${HTML(about_course_description)}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25 mb-20">
+        <h2 class="text-center" id="course_title">${course_overview.display_name}</h2>
+        <p class="text-center" id="trial_name">Évaluation ${associated_courses.get('step_number',1)}</p>
+        %if associated_courses.get('delayed'):
+          <p class="text-center">Le prochain quiz sera disponible dans ${associated_courses.get('delayed')} jours.</p>
+        %endif
+        <div class="text-center">
+          %if not has_access:
+         <div id="main">
+             <h3>Désolé, vous n’avez pas accès pour le moment <br> au Baromètre Digital.</h3>
+        </div>
+             <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
+        </div>
+     </div>
+         %else:
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              VOIR MES RÉSULTATS
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn start-course"  id="course_continue">
+              <i class="fa fa-play-circle"></i>
+              REPRENDRE
+            </button>
+          </a>
+          %else:
+          <button class="dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            DÉMARRER
+            %if associated_courses.get('step_number')>1:
+            L'EVALUATION ${associated_courses.get('step_number')}
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-6 text-center">
+            %if user_course_state!="finished" :
+            <button class="sub-btn" disabled>
+              <i class="fa fa-book"></i>
+              Revoir mes réponses
+            </button>
+            %else :
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn"  id="see_answers">
+                <i class="fa fa-book"></i>
+                Revoir mes réponses
+              </button>
+            </a>
+            %endif
+          </div>
+          <div class="col-md-6 text-center">
+            %if user_course_state=="finished" :
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Consulter mon score précédent
+              </button>
+            </a>
+            %else :
+            <button class="sub-btn deactivated" disabled>
+              <i class="fa fa-search"></i>
+              Consulter mon score précédent
+            </button>
+            %endif
+          </div>
+        </div>
+      </div>
+      %endif
+      <div class="gray-bg rounded pad-25 mb-20">
+        <p>
+          <strong>Informations pratiques</strong>
+          <br/>Votre évaluation:
+          <ul>
+            <li> Est composée de 35 questions tirées aléatoirement</li>
+            <li> S’appuie sur une base de questions commune à tous les Métiers</li>
+            <li> Porte sur 5 grands domaines de connaissance</li>
+            <li> Nécessite autour de 45 minutes</li>
+            <li> Peut être interrompue à tout moment en fermant la fenêtre active puis reprise là où elle avait été arrêtée</li>
+            <li> Vous délivre après chaque question, la ou les bonnes réponses ainsi que des explications détaillées nécessaires à leur bonne
+            compréhension.</li>
+          </ul>
+        </p>
+      </div>
+      <div id="conseils" class="gray-bg rounded pad-25 mb-20 overflow-hidden">
+        <p>
+          <strong>Quelques conseils avant de commencer !</strong>
+          <br><br>
+          <strong>Isolez-vous de manière à ne pas être dérangé(e).</strong>
+          <br><br>
+          <strong>Réservez un créneau suffisant dans votre agenda.</strong>
+          <br>
+          Autour de 45 minutes pour la passation des questions auxquelles vous ajouterez 15
+          minutes si vous souhaitez consulter les bonnes réponses au fur et à mesure.
+          <br/>Sachez qu’une fois votre évaluation terminée, vous aurez la possibilité de revoir toutes les réponses et explications.
+          <br><br>
+          <strong>Lisez avec attention le libellé des questions, les différentes propositions, les consignes.</strong>
+          <br>
+          Si vous ne savez pas spontanément, faites preuve de bon sens. Il n’y a pas de questions pièges.
+          <br><br>
+          <strong>Prenez du recul sur vos résultats.</strong>
+          <br>
+          Certains domaines de connaissance vous sont sans doute moins familiers car éloignés de votre
+          métier. Un bon niveau de culture générale digitale s’acquiert sur la durée tant les connaissances sont variées
+          et évolutives.
+          <br>Sachez que vous pourrez vous réévaluer tous les 6 mois et ainsi mesurer régulièrement vos progrès.
+        </p>
+      </div>
+      <div class="text-center" id="conseils-btn-wrapper">
+        <i id="conseils-btn" class="fa fa-plus-circle"></i>
+      </div>
+    </div>

@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+import json
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -37,8 +38,10 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 
 %>
+
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+
 <%
 try:
     course_id = course.id
@@ -56,7 +59,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global" >
+  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -69,7 +72,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img style="height:40px !important" class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
@@ -88,6 +91,12 @@ site_status_msg = get_site_status_msg(course_id)
 }
 </style>
 -->
+<style>
+/*Specific style for menu*/
+div.course-material{
+   display:none;
+}
+</style>
         </%block>
       </a>
     </h1>
@@ -108,13 +117,34 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
-          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+        <%
+           authorized_stats_bo = ["LucieO"]
+           with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_bo_access_rights.json') as json_file:
+               data = json.load(json_file)
+           authorized_stats_bo.extend(data['allowed_usernames'])
+
+
+
+        %>
+          % if user.username in authorized_stats_bo:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              <a href="/tma_apps/platform_stats">
+                % if request.LANGUAGE_CODE=="fr":
+                  Accès Statistiques
+                %else :
+                  Statistics
+                %endif
+              </a>
             </li>
           % endif
+
+          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+<!--            <li class="item nav-global-01">
+              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+            </li>-->
+          % endif
           % if show_program_listing:
-            <li class="tab-nav-item">
+<!--            <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
                 ${_("Courses")}
               </a>
@@ -123,7 +153,7 @@ site_status_msg = get_site_status_msg(course_id)
               <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
                 ${_("Programs")}
               </a>
-            </li>
+            </li>-->
           % endif
           %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
             <li class="item">
@@ -170,20 +200,20 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+<!--              <li class="item nav-global-05">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
+              </li>-->
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
+<!--              <li class="item nav-global-04">
                 <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
+              </li>-->
             % else:
-              <li class="item nav-global-04">
+<!--              <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register">${_("Register")}</a>-->
                 % endif
               </li>
             % endif
@@ -253,7 +283,6 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
-<script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
@@ -320,3 +349,18 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<script>
+  if(window.location.href==="https://psa-netexplo.the-mooc-agency.com/login"){
+    window.location.replace("https://psa-netexplo.the-mooc-agency.com")
+  }
+</script>
+
+
+<script>
+  $(document).ready(function(){
+    if(window.location.href.indexOf('pprod1')>-1){
+    $('#page-prompt').append('<div style="background-color:#900C3E;padding:5px;text-align:center;"><h4 style="color:white!important;">PPROD1</h4></div>')
+  }
+  })
+</script>
