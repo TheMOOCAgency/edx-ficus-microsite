@@ -250,7 +250,6 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     .rounded{
       border-radius: 5px;
     }
-
     /* Replis partie conseils */
     .overflow-hidden{
       overflow: hidden;
@@ -302,9 +301,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     </div>
     <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
   </div>
-    %if course.language=="de":
-      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
-    %elif course.language=="fr":
+    %if course.language=="fr":
       <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
     %else:
       <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
@@ -412,6 +409,9 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     </div>
 
     <div id="dashboard_course_content">
+      <!-- <div id="logoData4Manager">
+        <img src="/media/microsite/digimapper-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+      </div> -->
       % for dashboard_index, enrollment in enumerate(course_enrollments):
         <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
         <% cert_status = cert_statuses.get(enrollment.course_id) %>
@@ -624,7 +624,6 @@ function title_border_multi() {
   if(tma_date_h > 20) {
     $('#border_tma_date').hide();
   }
-
 }
 function alignH2(){
   var width = $(document).width();
@@ -640,7 +639,6 @@ function alignH2(){
   }
 }
 /* unenroll */
-
 function multi_unenroll() {
   $('.unenroll_multi').click(function(e){
     e.preventDefault();
@@ -661,7 +659,6 @@ $(window).initialize(function(){
   title_border_multi();
   alignH2();
 })
-
 </script>
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
