@@ -289,11 +289,25 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     }
 
     #course_start{
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
       background-color:${primary_color} !important;
       border-color:${primary_color} !important;
       height: 60px !important;
       min-width:220px;
     }
+
+    @keyframes anim {
+  0% {
+  /* primary color */
+    background-color: ${primary_color} !important;
+  }
+  100% {
+    background-color: ${primary_color} !important;
+  }
+}
     .dashboard-btn:hover{
       background-color: #2e85d1 !important;
       border-color: #2e85d1 !important;
