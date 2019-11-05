@@ -282,13 +282,14 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
       width: 240px;
       background-color:${primary_color} !important;
       border-color:${primary_color} !important;
-      font-size: 30px;
+      font-size: 30px !important;
       padding: 15px 35px;
       border-radius: 10px;
       text-transform:none !important;
     }
 
     #course_start{
+      height: 60px !important;
       min-width:220px;
       width: auto;
     }
@@ -298,10 +299,10 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     }
 
     .text-align-center {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     .dashboard-btn > i{
