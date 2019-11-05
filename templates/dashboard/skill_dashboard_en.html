@@ -70,7 +70,7 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
     %endif 
     </div>
     <div class="bottom-buttons mt-20">
-      <div class="col-md-4 text-center">
+      <div class="text-center">
         %if course_state!="finished" :
         <button class="text-align-center white-btn mr-20" disabled>
           Review my answers
@@ -83,7 +83,7 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
         </a>
         %endif
       </div>
-      <div class="col-md-4 text-center">
+      <div class="text-center">
         %if user_course_state=="finished" :
         <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
           <button class="text-align-center white-btn deactivated" id="last_score">
