@@ -89,12 +89,13 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
         </div>
     %endif
 </div>
-<!-- CSS DEV -->
-<!-- CSS DEV -->
-<!--
-<link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
--->
+
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+#dashboard_profile_middle {
+    height: 66px;
+}
+</style>
 
 <!-- DASHBOARD MONO -->
 <!-- DASHBOARD MONO -->
@@ -170,10 +171,10 @@ endfor
         % endif
       </div>
       <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
-      </div>
+      <!--<div id="dashboard_profile_middle_middle">
+      </div>-->
       <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
+      <!--<div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
@@ -181,7 +182,7 @@ endfor
         % else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
-      </div>
+      </div>-->
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
