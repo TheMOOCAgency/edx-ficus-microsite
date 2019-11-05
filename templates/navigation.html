@@ -70,24 +70,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
+
         </%block>
       </a>
     </h1>
@@ -109,9 +92,9 @@ site_status_msg = get_site_status_msg(course_id)
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
+            <!--<li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
+            </li>-->
           % endif
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -170,9 +153,9 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+              <!--<li class="item nav-global-05">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
+              </li>-->
             %endif
 
           % endif

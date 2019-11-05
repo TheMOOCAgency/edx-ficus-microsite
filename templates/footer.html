@@ -1,4 +1,4 @@
-## mako
+ ## mako
 <%page expression_filter="h"/>
 <%!
   from django.core.urlresolvers import reverse
@@ -15,7 +15,12 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
   <div class="footer-container">
-    <span style="float: left;margin-left: -30px;"><a href="/privacy">CGU</a></span>
-    <p class="copyrightFoot">Site r&eacute;alis&eacute; par <a href="http://themoocagency.com">The MOOC Agency</a> - 2019</p>
+    <ul class="links" style="display:inline-block">
+      <li>
+        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+      </li>
+    </ul>
+    <span>| Une r&eacute;alisation <a href="http://themoocagency.com" target="_blank" style="color:white;">The MOOC Agency</a> - 2019 - </span>
+    <span><a href="https://www.cfecgc.org/" target="_blank" style="color:white;">CFE-CGC</a></span>
   </div>
 </footer>
