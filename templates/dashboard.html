@@ -164,8 +164,8 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     authorized_admins=[]
   %>
 
-
   % if len(course_enrollments) == 1 and tma_randomization(course_enrollments[0].course_id).get_randomization_mode()!='random':
+
   <%
   course_overview=enrollment.course_overview
   about_course_video=get_course_about_section(request, course, "video")
@@ -186,15 +186,68 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     })
   </script>
   <style>
+    .container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    a, a:hover, a:visited {
+      text-decoration: none;
+    }
+
+    .course-logo {
+      width: 280px;
+    }
+
+    .course-block {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .bottom-buttons {
+      display: flex;
+    }
+
+    .white-btn, .white-btn:hover {
+      background-color: #FEFFFF !important;
+      opacity: 1 !important;
+      border: none;
+      display: flex;
+      width: 360px;
+      min-height: 60px;
+      border-radius: 10px;
+      text-transform:none !important;
+      color:${primary_color} !important;
+    }
+
+
     .gray-bg{
       background-color: #E2E4E1;
+    }
+    .gray-opacity-bg {
+       background-color: rgba(226, 228, 225, 0.7);
     }
     .pad-25{
       padding: 25px;
     }
+
+    .pad-40{
+      padding: 40px;
+    }
+
     .mb-20{
       margin-bottom: 20px;
     }
+
+    .mr-20{
+      margin-right: 20px;
+    }
+
     iframe{
       max-width: 100%;
     }
@@ -207,19 +260,34 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
      color: ${primary_color};
      margin-bottom:20px;
     }
-    button, button:hover{
+
+    button {
       background-image: none!important;
-      box-shadow:none!important;
       text-shadow:none;
+      -webkit-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50,0.2);
+      -moz-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
+      box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
     }
+
+    button:hover {
+      background-image: none!important;
+      text-shadow:none;
+      -webkit-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50,0.7);
+      -moz-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.7);
+      box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.7);
+    }
+
     .dashboard-btn{
+      margin: 30px 0 10px 0;
+      width: 240px;
       background-color:${primary_color} !important;
       border-color:${primary_color} !important;
-      font-size: 20px;
+      font-size: 30px;
       padding: 15px 35px;
-      border-radius: 6px;
-      text-transform: uppercase;
+      border-radius: 10px;
+      text-transform:none !important;
     }
+
     #course_start{
       min-width:220px;
       width: auto;
@@ -228,27 +296,24 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
       background-color: #2e85d1 !important;
       border-color: #2e85d1 !important;
     }
+
+    .text-align-center {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
     .dashboard-btn > i{
-      font-size: 25px !important
+      font-size: 35px !important;
+      margin-right:10px;
     }
     .mt-20{
       margin-top: 20px;
     }
-    .sub-btn{
-      min-height: 60px;
-      background-color:gray;
-      border-color: gray;
-      border-radius: 6px;
-    }
-    .sub-btn:hover{
-      background-color:rgba(0,0,0,0.7) !important;
-    }
-    .sub-btn.deactivated:hover{
-    background-color: lightgray !important;
-    border-color: lightgray;
-    }
+
     .rounded{
-      border-radius: 5px;
+      border-radius: 10px;
     }
 
     /* Replis partie conseils */
@@ -270,6 +335,51 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
         max-height: 355px!important;
       }
     }
+
+    @media(max-width:974px) {
+      .overflow-hidden {
+        max-height: 355px!important;
+      }
+
+      .course-block {
+        border-radius: 0;
+        width: calc(100vw - 80px);
+      }
+
+      .bottom-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .white-btn {
+        margin: 0 0 20px 0;
+      }
+
+      .container {
+        max-width: 100vw !important;
+        min-width: 100vw !important;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    @media(max-width:550px) {
+      .overflow-hidden {
+        max-height: 355px!important;
+      }
+
+      .white-btn {
+        margin: 0 0 20px 0;
+        width: 240px;
+      }
+
+      .pad-40{
+      padding: 40px 0;
+    }
+
+    }
+
     #conseils-btn{
       color: white;
       font-size: 2.333333em!important;
@@ -302,9 +412,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     </div>
     <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
   </div>
-    %if course.language=="de":
-      <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
-    %elif course.language=="fr":
+    %if course.language=="fr":
       <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
     %else:
       <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
