@@ -25,7 +25,7 @@ def getCourseIdValue(parameterValue, parameterName):
             return option.get('course')
 
 ville = request.GET.get('ville')
-of = getCourseIdValue(request.GET.get('of'), 'of')
+of = getCourseIdValue(request.GET.get('organisme'), 'organisme')
 dates_formation = request.GET.get('dates_formation')
 %>
 
@@ -405,7 +405,7 @@ $('#first_name,#last_name').change(function(){
 
 var controlledFields=[
   {
-    name:"of",
+    name:"organisme",
     value:${dump_js_escaped_json(of) | n, decode.utf8}
   },
   {
@@ -426,8 +426,8 @@ function bindMyParamatersInput(){
         if (controlledFields[i]['value']) {
             var fieldValue = decodeURIComponent(controlledFields[i]['value'])
             var fieldElement = $('#'+controlledFields[i]['name'])
-            if(controlledFields[i]['name']==="of"){
-              paramBind(fieldElement,"${request.GET.get('of')}") 
+            if(controlledFields[i]['name']==="organisme"){
+              paramBindSelect("${request.GET.get('organisme')}") 
             }
             else{
               paramBind(fieldElement,fieldValue) 
@@ -444,8 +444,19 @@ function paramBind(target,value){
     target.val(value).prop("readonly", true).css("background","#e8e8e8")
 }
 
+
+function paramBindSelect(value){
+
+$("#organisme option:selected").removeAttr("selected");
+$('#organisme option[value=Greenflex]').attr('selected', 'selected');
+$("#organisme option[value='"+value +"']").attr('selected', 'selected');
+$("#organisme").val(value).prop('disabled', true).css("background","#e8e8e8")
+
+}
 bindMyParamatersInput()
 
+
+$("#myselect option[valueR = value]").attr('selected', 'selected');
 
 </script>
 <div class="form-actions" id="login_link_up">
