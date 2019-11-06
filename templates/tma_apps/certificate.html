@@ -43,6 +43,7 @@ body{
   background-image:url('/media/microsite/inveest/fond_inveest.png');
   background-size:cover;
   background-position:center;
+  border: none;
 }
 .main-color{
   background-color: rgba(102, 218, 26, 0.75);
@@ -62,6 +63,10 @@ p+p, ul+p, ol+p {
   background-color: white;
   width: 100%;
   height: 60px;
+  padding-top: 5px;
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 }
 
 /* Deuxième bandeau */
@@ -90,7 +95,12 @@ p+p, ul+p, ol+p {
   top: -10px;
   position: relative;
 }
-
+.cookie-notice-container {
+  display: none;
+}
+footer {
+  display: none;
+}
 
 /* Troisième bandeau */
 .bandeau-middle{
@@ -135,6 +145,11 @@ p+p, ul+p, ol+p {
 }
 .footer-left{
   width: 100%;
+}
+.footer-left > p{
+  border-bottom: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 }
 .footer{
 }
