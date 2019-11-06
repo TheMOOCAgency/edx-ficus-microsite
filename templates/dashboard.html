@@ -163,7 +163,6 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
     authorized_users_usernames=["LucieO"]
     authorized_admins=[]
   %>
-
   % if len(course_enrollments) == 1 and tma_randomization(course_enrollments[0].course_id).get_randomization_mode()!='random':
 
   <%
