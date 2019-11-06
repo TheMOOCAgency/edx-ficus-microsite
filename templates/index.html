@@ -39,20 +39,20 @@ fonts = '/media/microsite/{}/fonts'.format(org)
     font-style: normal;
 
 }
-  *, div, span, section, h1, h2, h3, h4, h5, h6, p, header{
+  a, div, span, section, h1, h2, h3, h4, h5, h6, p, header{
     font-family: "Futura"!important;
    }
   .home>header{
     height : calc(100vh - 80px);
-    background-image: url("${static.url(img)}/backgroundlfb.png");
+    background-image: url("${static.url(img)}/bg_img.jpg");
     background-size: cover;
-    display: flex;
     justify-content: center;
     align-items: center;
   }
-  .home>header>div>h1{
+  .home>header>h1{
     padding: 35px 70px;
-    background-color: rgba(86, 159, 211, 0.64);
+    margin-top: 300px;
+    background-color: rgba(86, 159, 211, 0.8);
     color: white;
     font-weight: bold;
     border: 1px solid #ffffffa8;
@@ -75,6 +75,9 @@ fonts = '/media/microsite/{}/fonts'.format(org)
     font-weight: 600;
     transition: color 0.25s ease-in-out,background 0.25s ease-in-out,box-shadow 0.25s ease-in-out;
     border-radius: 5px;
+  }
+  #userButton > button:first-of-type {
+    background-color: rgba(111, 111, 111, 0.5);
   }
   #userButton>button>a{
     color :white;
@@ -127,6 +130,9 @@ fonts = '/media/microsite/{}/fonts'.format(org)
     flex-direction: column;
     justify-content: space-around;
     margin-top: 40px;
+  }
+  .wrapperMooc > p {
+    text-align: justify;
   }
   .wrapperMooc>.wrapperButtonMooc>.signinMooc{
     background-color: #569fd3 !important;
@@ -224,7 +230,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
     line-height: 17px;
     word-spacing: 10px;
     font-size: 15px;
-    text-align: left;
+    text-align: justify;
     margin-top: 10px;
   }
   #whatIsAMoocSectionWrapper{
@@ -271,12 +277,14 @@ fonts = '/media/microsite/{}/fonts'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <div>
-          <h1>A TRILOGY OF MOOC ON HERMORRHAGE MANAGEMENT</h1>
-          <div id="userButton">
-            <button class='btn btn-login btn-neutral'> <a href="/register?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Register</a> </button>
-            <button class='btn btn-register btn-login'><a href="/login?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Sign in </a> </button>
-          </div>
+        <h1>A TRILOGY OF MOOC ON HERMORRHAGE MANAGEMENT</h1>
+        <div id="userButton">
+          <button class="btn btn-login btn-neutral"> <a href="/register?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Register</a> </button>
+          <button class="btn btn-register btn-login"><a href="/login?course_id=course-v1:lfb+MOOCPPH+T1&enrollment_action=enroll"> Sign in </a> </button>
+        </div>
+        <div style="text-align: center;justify-content: center;margin-top: 220px;">
+          <p style="color:white;">Scrollez pour découvrir le contenu de la formation</p>
+          <img id="srcoll_button" src="/media/microsite/lfb/img/icons/white_arrow.png">
         </div>
       </header>
       <div id="mainContentLFB">
@@ -343,14 +351,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                         <img src="${static.url(img)}/experts/DrNicolaCurry.PNG" /></div>
                       </div>
                       <h3 class="expertName">DR NICOLA </br> CURRRY</h3>
-                      <p class="expertDescription"> Dr Nicola Curry, Oxford, England,
-                            is a consultant hematologist working
-                            mainly with patients with hemophilia
-                            mostly and inherited bleeding disorders
-                            and also patients with thrombosis. Her
-                            research interest is coagulopathy
-                            associated with acquired bleeding
-                            especially trauma associated bleeding.
+                      <p class="expertDescription">Dr Nicola Curry, Oxford, England, is a hematologist managing patients with inherited bleeding disorders, mainly hemophilia, and also patients with thrombosis. Her research interest is coagulopathy associated with acquired bleeding, especially trauma associated bleeding.
                       </p>
                   </div>
                   <div class='expertPicture'>
@@ -373,12 +374,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                         <img src="${static.url(img)}/experts/PrAlexandreMignon.PNG" /></div>
                       </div>
                       <h3 class="expertName">PR ALEXANDRE </br> MIGNON</h3>
-                      <p class="expertDescription">Pr Alexandre Mignon, Paris, France,
-                        is an anesthesiologist & intensivist
-                        Involved into the management of
-                        anesthesia at risk patients and at
-                        patients developing post-partum
-                        hemorrhage.
+                      <p class="expertDescription">Pr Alexandre Mignon, Paris, France, is an anesthesiologist & intensivist involved in the management of anesthesia of patients at risk and of patients developing post-partum hemorrhage.
                       </p>
                   </div>
                   <div class='expertPicture'>
@@ -403,10 +399,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                         <img src="${static.url(img)}/experts/DrJuanLlau.PNG" /></div>
                       </div>
                       <h3 class="expertName">PR JUAN </br> LLAU</h3>
-                      <p class="expertDescription">Pr Juan Llau, Valencia, Spain, is a
-                        specialist in anesthesiology and
-                        physiology professor associate at the
-                        University of Valencia.
+                      <p class="expertDescription">Pr Juan Llau, Valencia, Spain, is a specialist in anesthesiology and a physiology professor associate at the University of Valencia.
                       </p>
                   </div>
                   <div class='expertPicture'>
@@ -415,12 +408,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                         <img src="${static.url(img)}/experts/PrDanLongrois.PNG" /></div>
                       </div>
                       <h3 class="expertName">PR DAN </br> LONGROIS</h3>
-                      <p class="expertDescription">Pr Dan Longrois, Paris, France, is an
-                        anesthesiologist & intensivist and
-                        president of the NASC (National
-                        Anaesthesiologists Societies
-                        Committee) and member of European
-                        Society of Anesthesia.
+                      <p class="expertDescription">Pr Dan Longrois, Paris, France, is an anesthesiologist & intensivist. He is also the president of the NASC (National Anaesthesiologists Societies Committee) and a member of the European Society of Anesthesia.
                       </p>
                   </div>
                   <div class='expertPicture'>
@@ -429,12 +417,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                         <img src="" /></div>
                       </div>
                       <h3 class="expertName">PR ANDERS </br> JEPPSSON</h3>
-                      <p class="expertDescription"> Pr Anders Jeppsson, Professor/ chief
-                        physician, Cardiac surgeon, Goteborg
-                        department of Molecular and clinical
-                        Medicine, he is mainly involved platelet
-                        function and supplementation on clot
-                        formation.
+                      <p class="expertDescription">Pr Anders Jeppsson, Goteborg , Sweden, is a Professor/chief physician and Cardiac surgeon. He is mainly involved in platelet function and supplementation for clot formation.
                       </p>
                   </div>
                 </div>
@@ -446,7 +429,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
                 <div class="whatIsAMoocSection">
                     <img src="${static.url(img)}/icons/Icone1.png" />
                     <h4>MASSIVE</h4>
-                    <p> Courses available to all your collaborators on one unique plateform</p>
+                    <p> Courses available to all physicians on one unique plateform</p>
                 </div>
                 <div class="whatIsAMoocSection">
                     <img src="${static.url(img)}/icons/Icone2.png" />
@@ -468,7 +451,7 @@ fonts = '/media/microsite/{}/fonts'.format(org)
           <div id="partenariat">
             <div id="partenariatWrapper">
               <p>With the institutional support of</p>
-              <img src="${static.url(img)}/icons/Logo_LFB.png" />
+              <img src="${static.url(img)}/icons/lfb_petit.jpg" />
             </div>
           </div>
       </div>
