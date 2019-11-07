@@ -105,6 +105,13 @@
             color:#00F3A7;
             font-weight: bold;
         }
+        #video-teaser {
+            width: 100% !important;
+            height: 400px;
+            display: flex;
+        justify-content: center;
+        align-items: center;
+        }
     </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -127,8 +134,8 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li role="presentation"><a href="/register" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li>
-                    <li role="presentation"><a href="/login" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
+                    <li role="presentation"><a href="/register?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li>
+                    <li role="presentation"><a href="/login?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
                 </ul>
             </div>
         </div>
@@ -143,8 +150,8 @@
             <p style="font-size:24px;font-weight:normal;margin-bottom:10px;width:70%;margin: 0 auto;">destinée en priorité aux formateurs exerçant dans les formations labellisées GEN.</p><img src="/media/microsite/gen/assets/img/barre_blanc.png" width="30%">
             <p style="font-size:24px;color:#bcd4f9;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
             <div style="margin:0 auto;text-align:center;">
-                <a class="btn btn-primary btn-lg link_header" role="button" href="/register" id="register_link">Inscription</a>
-                <a class="btn btn-primary btn-lg link_header" role="button" href="/login" id="login_link">Connexion </a>
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/register?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" id="register_link">Inscription</a>
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/login?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" id="login_link">Connexion </a>
             </div>
         </div>
     </div>
@@ -251,11 +258,12 @@
                 </p>
                 <p style="text-align:right;font-size:14px;margin-top:20px;">*Source : Chiffres-clés 2018</p>
             </div>
+            <div id="video-teaser" data-vimeo-url="https://vimeo.com/369296646" data-vimeo-height="400"></div>
         </div>
     </div>
     <div class="dh-highlight-text" style="background-color:white;padding:0 0 50px 0;height:100%;position:relative;z-index:1;">
         <div class="container">
-            <div style="margin-top: 50px;"><a class="btn btn-primary btn-lg register-btn" role="button" href="/register?course_id=course-v1:gen+2018+2019" data-toggle="modal" style="background-color:#011447;font-size:23px;border-radius:60px;border:0px solid;text-transform:unset!important">Je m'inscris !</a>
+            <div style="margin-top: 50px;"><a class="btn btn-primary btn-lg register-btn" role="button" href="/register?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" data-toggle="modal" style="background-color:#011447;font-size:23px;border-radius:60px;border:0px solid;text-transform:unset!important">Je m'inscris !</a>
                 <div class="modal fade"
                 role="dialog" tabindex="-1" id="myModal">
                     <div class="modal-dialog" role="document">
@@ -297,6 +305,7 @@
     <script src="/media/microsite/gen/assets/js/Full-Page-Background2.js"></script>
     <script src="/media/microsite/gen/assets/js/Full-Page-Background3.js"></script>
     <script src="/media/microsite/gen/assets/js/Full-Page-Background.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 
 </html>
