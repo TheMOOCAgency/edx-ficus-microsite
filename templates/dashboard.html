@@ -20,6 +20,7 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -89,8 +90,40 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
         </div>
     %endif
 </div>
-<!-- CSS DEV -->
-<!-- CSS DEV -->
+<style>
+  #tma_time_tracking_wrapper{
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid ${configuration_helpers.get_value('primary_color')};
+    margin-bottom: 24px;
+  }
+  .tma_time_display{
+    color : ${configuration_helpers.get_value('primary_color')};
+  }
+  .tma_time_display{
+    font-size: 17px;
+  }
+</style>
+<!-- CSS FIX AFFICHAGE TIMER -->
+<style>
+    @media (max-width: 1024px){
+      #dashboard_profile{
+        height: auto!important;
+      }
+      #dashboard_profile_up{
+        display:none
+      }
+      #dashboard_profile_middle{
+        display: none
+      }
+      #dashboard_profile_bottom{
+        box-sizing: border-box
+      }
+    }
+    
+    </style>
 <!--
 <link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
 -->
@@ -157,9 +190,28 @@ endfor
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     %>
 
+    <!-- TMA TIME TRACKING -->
+    <%
+    from tma_apps.models import TmaCourseEnrollment
+    studentHasStartedCourse=False
+    if TmaCourseEnrollment.objects.filter(course_enrollment_edx=enrollment).exists():
+      studentCourseEnrollement=TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment)
+      seconds=studentCourseEnrollement.global_time_tracking
+      studentHasStartedCourse=studentCourseEnrollement.has_started_course
+      hour = seconds // 3600
+      seconds %= 3600
+      minute = seconds // 60
+      time = str(hour)+"h"+str(minute)+"min"
+    else :
+      time="0h0min"
+    %>
+
+    <!-- END TMA TIME TRACKING -->
+
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <div class="dashboard_profile" id="dashboard_profile_middle" style="height:auto!important">
       <!-- formation validé -->
+        <!--
       <div id="dashboard_profile_middle_up">
         % if False:
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
@@ -168,7 +220,9 @@ endfor
         % else:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % endif
+
       </div>
+      -->
       <!-- border middle -->
       <div id="dashboard_profile_middle_middle">
       </div>
@@ -183,36 +237,59 @@ endfor
         % endif
       </div>
     </div>
-    <!-- block bottom profil -->
-    <div class="dashboard_profile" id="dashboard_profile_bottom">
-      <!-- note totale -->
-      <div id="dashboard_profile_bottom_up">
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
-      </div>
-  <%
-  course_details_len = len(course_details)
-  mark = 0
-  %>
-  % for n in course_details:
-    <% mark = mark + 1 %>
-    <!-- assignement type -->
-    <div class="dashboard_profile_bottom_middle">
-      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-       %if n.get('weight')==0:
-          optionnel
-       %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
-       %endif
-      )</span></span><span id="assignment_grade_${mark}">0%</span>
-    </div>
-    % if mark < course_details_len:
-    <!-- border middle -->
-    <div class="dashboard_profile_bottom_middle_border">
-    </div>
-    % endif
-  % endfor
-  </div>
 
+
+    <!-- block bottom profil -->
+    <div class="dashboard_profile" id="dashboard_profile_bottom" style="border: 2px solid rgb(0, 60, 114);">
+        <!-- note totale -->
+        <!-- <div id="dashboard_profile_bottom_up"> -->
+          <!-- <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span> -->
+        <!-- </div> -->
+         <div id="dashboard_profile_middle_up">
+              <span style="font-size: 19px;color: rgb(0, 60, 114);"> Votre temps de formation : ${time}</span>
+        <span id="valueMobli" style="display:none">${studentHasStartedCourse}</span>
+              <!-- <span style="font-size: 19px;color: rgb(0, 60, 114);"> ${studentHasStartedCourse}</span> -->
+              <!--
+        
+              % if False:
+                <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">{_("Training not validated")}</span>
+              % elif cours_ouv:
+                <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+              % else:
+                <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+              % endif
+            -->
+            </div>
+        <div class="box" style="display:none">
+       <a class="button" href="#popup1" id="popMe">Let me Pop up</a>
+        </div>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>accepter les termes des CGU</h2>
+            <a id="close" style="color:white"class="close" href="#">&times;</a>
+            <div class="content">
+              La validation des CGU est nécessaire avant d'avoir accès aux contenus du cours.</br></br></br>
+              <form>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+  <style> .form-check-label>a:hover{color:rgba(0,60,114,1) !important}</style>
+                    <label class="form-check-label" for="exampleCheck1"> J'ai lu et accepte <a href='https://anem-dda.com/tos'>les conditions générales d'utilisation</a></label>
+                  </div>
+  
+                    </br></br>
+                    <button type="submit" class="btn btn-primary hidden">Submit</button>
+                    <div class="validator" id="validatorM">
+                      <div class="validator901">Accepter les CGU
+                      </div>
+                    </div>
+  
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+  </div>
 %if course.no_grade:
  <style>
   #dashboard_profile_bottom{
@@ -245,7 +322,7 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
@@ -309,7 +386,7 @@ else{
 <h1><span id="span_1">Mes formations</span></h1>
 </span>
 <ul id="list_multi">
-% for dashboard_index, enrollment in enumerate(course_enrollments):
+% for dashboard_index, enrollment in reversed(list(enumerate(course_enrollments))):
   <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
 </ul>
@@ -368,6 +445,55 @@ else{
 <!-- FIN DASHBOARD MULTI -->
 </div>
 <span style="display:block;clear:left;"></span>
+<script>
+  function checkPopZIndex(){
+    var vdeo = window.location.href
+    if (window.location.href.indexOf("popup1") > -1) {
+      $("#course_start").hide();
+    } else {
+      $("#course_start").show();
+    }
+  }
+  checkPopZIndex()
+  
+  function hideMyStart(){
+    $("#course_start").hide()
+  }
+  var studentStart = $("#valueMobli").text()
+
+  function popMyRide(){
+    document.getElementById('popMe').click();
+    $("#course_start").hide()
+  }
+
+  var cguValidate = localStorage.getItem("cguValidate")
+  if ((studentStart==false || studentStart=="False" || studentStart=="false" || studentStart=="undefined")&& cguValidate !="ok") {
+    popMyRide()
+  }
+  
+  function testValidate(){
+    var testCheck = $('input[id=exampleCheck1]').attr('checked');
+    if (testCheck=="checked")
+      {
+      document.getElementById('close').click();
+      $("#course_start").show()
+      localStorage.setItem("cguValidate","ok")
+      }
+    else{
+      alert("Attention, vous devez valider les CGU.")
+    }
+  }
+
+  $("#validatorM").click(function(){testValidate()})
+  $("#close").click(function(){$("#course_start").show()})
+
+  console.log('m3e')
+  function changeColorPlay(){
+  $('#course_start').find('path').attr("style","fill: rgb(230, 220, 220);")}
+
+  setTimeout(function(){ checkPopZIndex();changeColorPlay(); }, 400);
+</script>
+
 <script>
 // SVG ACTION
 jQuery('img.svg').each(function(){

@@ -10,6 +10,24 @@ from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
 %>
+
+<%
+#TMA TIME TRACKING
+from django.conf import settings
+from student.models import CourseEnrollment
+from tma_apps.models import TmaCourseEnrollment
+from opaque_keys.edx.keys import CourseKey
+import time
+
+course_key=CourseKey.from_string(str(course.id))
+enrollment = CourseEnrollment.get_enrollment(user=request.user, course_key=course_key)
+if TmaCourseEnrollment.objects.filter(course_enrollment_edx=enrollment).exists():
+  time=TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).global_time_tracking
+else :
+  time=0
+%>
+
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
@@ -170,6 +188,37 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 % endif
     <section class="course-content" id="course-content">
         <div class="path"></div>
+        <!-- TMA TIME TRACKING -->
+        <style media="screen">
+            .recording-message-wrapper{
+              background-color: lightgray;
+              padding: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .recording-dot{
+              width: 20px;
+              height: 20px;
+              display: inline-block;
+              margin-right: 11px;
+              border-radius: 50%;
+            }
+            .recording-time{
+              background-color: green;
+            }
+            .not-recording-time{
+              background-color: red;
+            }
+        </style>
+        <div class="text-center">
+          <div class="recording-message-wrapper">
+            <div class="recording-dot recording-time"></div>
+            <span id="time-message">Votre temps de formation est décompté.</span>
+          </div>
+        </div>
+        <!-- END TMA TIME TRACKING -->
+
         <main id="main" aria-label="Content" tabindex="-1">
         % if getattr(course, 'entrance_exam_enabled') and \
            getattr(course, 'entrance_exam_minimum_score_pct') and \
@@ -352,8 +401,6 @@ $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
 </script>
-  
-  <!--TMA TIME TRACKING-->
-%if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
+
+<!--TMA TIME TRACKING-->
 <%include file="/tma_apps/tma_time_tracking.html" />
-%endif
