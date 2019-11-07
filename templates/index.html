@@ -95,13 +95,17 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.7);
 }
 
-.home-button:focus {
+.home-button:focus,.home-button:focus-within, .home-button:active  {
   outline:none;
   background-image: none!important;
   text-shadow:none;
   -webkit-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50,0.2);
   -moz-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
   box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
+}
+
+.home-button:disabled {
+  opacity: 1 !important;
 }
 
 </style>
