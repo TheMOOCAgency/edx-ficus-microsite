@@ -31,7 +31,7 @@
   height: auto;
   min-height: 5px;
   margin-top: 50px;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 /*MODIF AURELIEN*/
 #dashboard_profile {
@@ -59,7 +59,7 @@
   margin-bottom: 40px;
   box-shadow: 0 3px 12px 3px rgba(0,0,0,0.15);
 /*  border-radius: 15px;*/
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 /*MODIF AURELIEN*/
 #dashboard_profile_up {
@@ -84,7 +84,7 @@
   color: #fff;
   width: 100%;
   text-align: center;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 /*MODIF AURELIEN*/
 #dashboard_profile_up h3 {
@@ -107,7 +107,7 @@
   min-height: 63px;
   color: #636363;
   font-weight: 600;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 #dashboard_profile_middle_middle {
   width: 60%;
@@ -141,7 +141,7 @@
   text-transform: uppercase;
   /* primary color */
   color: tma_primary_color;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 #dashboard_profile_bottom_up span:first-child {
   position: absolute;
@@ -187,7 +187,7 @@
   font-weight: 600;
   text-transform: uppercase;
   font-size: 13px;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 .dashboard_profile_bottom_middle span:last-child {
   width: 48px;
@@ -219,7 +219,7 @@
   font-weight: bold;
   margin: 0;
   padding: 0;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   box-shadow: 0 3px 12px 3px rgba(0,0,0,0.15);
 /*  border-radius: 15px;*/
 }
@@ -306,7 +306,7 @@ fill: rgba(191, 191, 191, 1);
   font-weight: bold;
   font-size: 14px;
   display:block;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 .course_nav span {
   width: 100%;
@@ -372,7 +372,7 @@ fill: rgba(191, 191, 191, 1);
   line-height: normal;
   font-weight: bolder;
   text-transform: uppercase;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 .course_cell:nth-child(2n+1),.course_cell:first-child {
   margin-right: calc(50% - 287.7px);
@@ -428,7 +428,7 @@ fill: rgba(191, 191, 191, 1);
   padding: 0;
   color: #fff;
   margin: 0;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 #course_info_next a,#course_info_next a:hover,#course_info_next a:focus {
   color: #fff;
@@ -438,7 +438,7 @@ fill: rgba(191, 191, 191, 1);
   cursor: pointer;
   display:block;
   width: 100%;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   border-radius: 15px;
   /* secondary color */
   background-color: rgba(237,115,29,1);
@@ -464,7 +464,7 @@ fill: rgba(191, 191, 191, 1);
   height: 206.4px;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   /*visibility: hidden;*/
   box-shadow: 0 3px 12px 3px rgba(0,0,0,0.15);
   position: relative;
@@ -486,7 +486,7 @@ fill: rgba(191, 191, 191, 1);
   box-shadow: none;
   text-shadow: none;
   vertical-align: middle;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 .updates-article:nth-child(n+4) {
   display: none;
@@ -549,7 +549,7 @@ fill: rgba(191, 191, 191, 1);
   width: calc(100% - 50px);
   margin-left: 50px;
   height: 100%;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   font-size: 16px;
   font-weight: 600;
   color: #636363;
@@ -557,7 +557,7 @@ fill: rgba(191, 191, 191, 1);
 #profile_bottom_multi h3 {
   font-size: 29px;
   font-weight: 300;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   color: #636363;
   padding: 35px;
   height: auto;
@@ -614,7 +614,7 @@ fill: rgba(191, 191, 191, 1);
 }
 #list_multi_title h1 {
   width: 100%;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   text-align:center;
   /* secondary color */
   color: #ed731d;
@@ -701,7 +701,7 @@ fill: rgba(191, 191, 191, 1);
   font-size: 25px;
   line-height: 25px;
   font-weight: 600;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
 }
 #list_multi .wrapper-course-details .course-title a:hover {
   text-decoration: none;
@@ -769,7 +769,7 @@ fill: rgba(191, 191, 191, 1);
  line-height: 24px;
  vertical-align: middle;
  text-align:center;
- font-family:'custom_font';
+ font-family: "Open Sans" !important;
 }
 .course_show_tma a:hover {
   text-decoration: none;
@@ -782,7 +782,7 @@ fill: rgba(191, 191, 191, 1);
   min-height: 16px;
   line-height: 16px;
   vertical-align: middle;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   width: 140px;
   text-align: center;
 }

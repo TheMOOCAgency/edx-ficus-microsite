@@ -17,7 +17,7 @@
 }
 #header {
   width: 100%;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   text-align: center;
   height: auto;
   min-height: 60px;
@@ -70,7 +70,7 @@
   height: auto;
   font-size: 20px;
   font-weight: bold;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   line-height: 30px;
   padding: 20px;
   text-transform: uppercase;
@@ -86,7 +86,7 @@
   padding-right: 20px;
   margin-bottom: 0;
   font-size: 18px;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   /* primary color */
   color: tma_primary_color;
 }
@@ -119,7 +119,7 @@
 .cellule_stat p:first-child {
   text-align: center;
   font-weight: bold;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   font-size: 20px;
   line-height: 20px;
   padding-top: 30px;
@@ -130,7 +130,7 @@
 .cellule_stat p:last-child {
   text-align: center;
   font-weight: bold;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   font-size: 50px;
   line-height: 50px;
   text-transform: uppercase;
@@ -151,7 +151,7 @@
   vertical-align: middle;
   font-size: 33px;
   padding: 0;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -181,7 +181,7 @@
   width: 100%;
   margin-top: 30px;
   margin-bottom: 30px;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
 }
 .cell_result p:first-child {
   text-align: center;
@@ -216,7 +216,7 @@
   height: auto;
   font-size: 20px;
   font-weight: bold;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   line-height: 30px;
   padding: 20px;
   margin: 0;
@@ -244,7 +244,7 @@
   line-height: 55px;
   vertical-align: middle;
   text-align: center;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   font-size: 17px;
   font-weight: bold;
   text-transform: uppercase;
@@ -310,7 +310,7 @@
   margin-bottom: 5px;
   text-align: left;
   cursor: pointer;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   /* primary color */
   color: tma_primary_color;
 }
@@ -330,7 +330,7 @@
   border-right: none;
   display:block;
   float: left;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   /* primary color */
   color: tma_primary_color;
 }
@@ -419,7 +419,7 @@
   margin-bottom: 5px;
   padding: 5px;
   text-shadow: none;
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   font-weight: bold;
   text-transform: uppercase;
   color: tma_primary_color;
@@ -454,7 +454,7 @@
   display: none;
 }
 .vertical_name {
-  font-family:'custom_font';
+  font-family: "Open Sans" !important;
   font-size: 18px;
   text-align: center;
   line-height: 18px;
@@ -512,7 +512,7 @@
   font-size: 18px;
   line-height: 18px;
   font-weight: bold;
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   text-transform: uppercase;
 }
 .chart_success {
@@ -705,7 +705,7 @@ Generic Styling, for Desktops/Laptops
   /* primary color */
   color: tma_primary_color;
   /* font family */
-  font-family: 'custom_font';
+ font-family: "Open Sans" !important;
   padding: 10px;
 }
 #table_participant td {
