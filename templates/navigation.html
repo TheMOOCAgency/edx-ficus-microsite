@@ -372,7 +372,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 <%include file="help_modal.html"/>
 
 <!--IE DETECT POPUP-->
-<%include file="tma_apps/ie_detect.html" args=""/>
+<%include file="tma_apps/ie_detect.html" args="is_auth=user.is_authenticated()"/>
 
 % if static.get_value('piwik_id') is not None:
   <!-- PIWIK -->
