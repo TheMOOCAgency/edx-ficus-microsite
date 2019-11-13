@@ -14,6 +14,8 @@ from openedx.core.djangolib.markup import HTML, Text
 from courseware.courses import get_course_info_section, get_course_date_blocks
 from courseware.courses import get_course_by_id
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
 #from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
@@ -786,11 +788,10 @@ $(window).initialize(function(){
 </div>
 
   <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language if course else LANGUAGE_CODE, primary_color=primary_color"/>
-
+  <%include file="/tma_apps/loader.html" args="language=get_user_preference(request.user, LANGUAGE_KEY), primary_color=primary_color"/>
 
   <script>
-      $('#course_continue, #course_start, #see_answers, #course_results, #last_score, #skill-bo').live('click', function(){
-        $('#overlay').removeClass('hide-loader');
-      })
-    </script>
+    $('#course_continue, #course_start, #see_answers, #course_results, #last_score, #skill-bo').live('click', function(){
+      $('#overlay').removeClass('hide-loader');
+    })
+  </script>

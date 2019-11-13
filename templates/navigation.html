@@ -370,6 +370,10 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   </script>
 % endif
 <%include file="help_modal.html"/>
+
+<!--IE DETECT POPUP-->
+<%include file="tma_apps/ie_detect.html" args=""/>
+
 % if static.get_value('piwik_id') is not None:
   <!-- PIWIK -->
   <script type="text/javascript">
