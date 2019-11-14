@@ -1,97 +1,403 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ameublement</title>
+    <link rel="stylesheet" href="/media/microsite/ameublement/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/media/microsite/ameublement/assets/css/styles.css">
+    <link rel="stylesheet" href="/media/microsite/ameublement/assets/css/stylesVideo.css">
+    <script src="/media/microsite/ameublement/assets/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="/media/microsite/ameublement/assets/js/wmBox.js"></script>
+    <script src="/media/microsite/ameublement/assets/js/main.js"></script>
+</head>
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+.titles {
+    width: 65%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.pager li a {
+    min-width: 180px;
+    border-color: #fff;
+    color: #fff;
+    background-color: #005892;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 10px;
+    border: 1px solid #005892;
+    display: inline-block;
+    padding: 5px 14px;
+    border: 1px solid #005892;
+    border-radius: 5px;
+}
+
+.pager li a:hover {
+    color: #c6c6c6;
+    border-radius: 15px;
+}
+
+/*
+.head_nav h1, h2, h3, h4, h5 {
+    font-size: 100px;
+    text-align: center;
+    letter-spacing: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'sangbleu';
+}
+
+
+.head_nav h1, h2, h3, h4, h5 {
+    font-size: 80px;
+    text-align: center;
+    letter-spacing: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'sangbleu';
+}
+*/
+@media screen and (min-width: 640px) and (max-width: 960px) {
+    .head_nav h1, h2, h3, h4, h5 {
+        font-size: 50px;
+        text-align: center;
+        letter-spacing: 5px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: 'sangbleu';
+    }
+    .head_nav p {
+        font-size: 30px;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 640px) {
+    .head_nav h1, h2, h3, h4, h5 {
+        font-size: 30px;
+        text-align: center;
+        letter-spacing: 5px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: 'sangbleu';
+    }
+    .head_nav p {
+        font-size: 20px;
+    }
+    p.scroll {
+        top: 90%;
+    }
+}
+.logoCentre{
+width: 30%;
+
+}
+
+.title_section_2{color:#0c529e}
+.blackP{color:black}
+
+
+.blueReborn{
+background-color:#0c529e;color:white}
+
+.mooc_title h2 {
+    text-align: center;
+    font-size: 30px;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 50px;
+    font-family: 'Verlag-Black';
+    letter-spacing: 2px;
+}
+
+.mooc_degrade2_under p {
+    text-align: center;
+    color: white;
+}
+#section4 {
+    height: auto;
+    background-color: #FAAF00;
+}
+
+.pictos img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+#boder_span_section2 {
+    height: 7px;
+    width: 370px;
+    margin-right: calc(100% - 41px);
+    background-color: #FAAF00;
+    margin-top: 25px;
+    margin-bottom: 55px;
+}
+
+p.scroll {
+    top: 93%;
+    position: absolute;
+    font-style: italic;
+    text-align: center;
+    width: 102%;
+    color: white;
+    font-size: 1.3em;
+}
+
+#srcoll_button {
+    position: absolute;
+    bottom: 5px;
+    margin:auto;
+    top: 96%;
+    width: auto;
+    height: 25px;
+    z-index: 1000;
+    cursor: pointer;
+}
+img {
+    vertical-align: middle;
+}
+#section4 {
+    height: 250px;
+    background-image: url('media/microsite/ameublement/assets/img/footer.png');
+    margin-top: 86px;
+    background-position: center;
+    background-size: cover;
+}
+
+footer {
+    text-align: center;
+    color: #fff;
+    border-top: 4px solid #005892;
+    border-bottom: 4px solid #005892;
+    background-color: #005892;
+    height: 34px;
+    font-size: 12px;
+}
+
+#video-teaser {
+    width: 100% !important;
+    height: 377px;
+}
+
+.vignette-img {
+    display: block;
+    margin-right: 20px;
+    float: left;
+    width: 300px;
+}
+.vignette {
+    padding: 20px;
+}
+
+#section3-2 h5 {
+    font-weight: 700 !important;
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1400px !important;
+    }
+}
+@media (min-width: 992px) and (max-width: 1200px){
+    .container {
+        width: 1000px !important;
+    }
+}
+</style>
+
+<body>
+    <div class="container-fluid">
+        <section id="section1" class="container-fluid">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-xs-12 head_nav">
+					<center>
+                    <img  class="logoCentre" src="/media/microsite/ameublement/assets/img/logo2.png">
+                        </center>
+                    <div class="titles">
+                        <p style="margin-bottom:0px !important">Perfectionnez-vous sur</p>
+                        <p style="background-color:rgba(255, 255, 255, 0.6);color:#005892">l'univers de l'ameublement</p>
+                    </div>
+                    <p style="text-transform:uppercase;font-size:20px;font-family:'Verlag-Light';font-weight:bold;margin-top:40px">Pour suivre le MOOC,
+                        <span style="background-color:#FAAF00;display:inline;padding:10px;">enregistrez-vous maintenant</span></p>
+                    <ul class="pager" style="margin-top:0px !important">
+                        <li><a href="/login?course_id=course-v1:ameublement+ameublementfr+2018&enrollment_action=enroll">Connexion</a></li>
+                        <li><a href="/register?course_id=course-v1:ameublement+ameublementfr+2018&enrollment_action=enroll" style="cursor:pointer"class='wmBox'>Inscription</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="scroll">Scrollez pour découvrir le contenu de la formation</p>
+                    <a href="#section2" style="text-align:center;display:inherit;" class="smooth-scroll"><img id="srcoll_button" src="/media/microsite/ameublement/assets/img/white_arrow.png"></a>
+                </div>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </section>
+        <section id="section2" class="container-fluid" style="padding-bottom:0px;">
+            <div class="container">
+                <div class="col-lg-12 col-md-12 col-xs-12 text_section2">
+                    <div class="border_section2"></div>
+                    <h2 class="title_section_2"> <span class="title_section_2" style="text-align: left!important;">découvrez</span><span class="title_section_2" style="text-align: left!important;"> la formation</span></h2>
+                    <h2><span class="title_section_2"></span><span class="blackP"></span><span id="boder_span_section2"> </span></h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12 text-center">
+                        <!--<video id="video-teaser" preload="metadata" src="https://player.vimeo.com/external/273907658.hd.mp4?s=afbd82596a5b319beb0d83a64aecc109e9946193&profile_id=175">
+                        </video>
+                        <iframe id="video-teaser" src="https://player.vimeo.com/external/273907658.hd.mp4?s=afbd82596a5b319beb0d83a64aecc109e9946193&profile_id=175" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen></iframe>-->
+                        <div id="video-teaser" data-vimeo-url="https://vimeo.com/273907658"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 mooc_degrade1">
+                        <!--<div class="border_section2"></div>-->
+                        <div class="text_section2 col-lg-10 col-md-10 col-xs-12">
+                            <p class='blackP' style="font-family:'Verlag-Black'">Les finitions en ameublement</p>
+                            <p class='blackP'>Vous souhaitez développer vos connaissances liées au secteur de l’ameublement ? Vous aimeriez améliorer la performance du process finition au sein de votre entreprise et correspondre aux attentes de vos clients ? Alors ce MOOC est fait pour vous !</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="col-lg-12 col-md-12 col-xs-12 mooc_degrade2 blueReborn">
+                    <div class="col-lg-12 col-md-12 col-xs-12 bottom_border">
+                        <div class="middle_ligne"></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 mooc_title">
+                        <h2>une manière ludique de se former <span> </span></h2>
+                        <div class="col-lg-4 col-md-4 col-xs-12 mooc_degrade2_under">
+                            <div class="col-lg-12 col-md-12 col-xs-12"><img src="/media/microsite/ameublement/assets/img/cam1.png"></div>
+                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                <p> Des vidéos étapes par étapes </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xs-12 mooc_degrade2_under">
+                            <div id="under2" class="col-lg-12 col-md-12 col-xs-12"><img src="/media/microsite/ameublement/assets/img/coche.png"></div>
+                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                <p id="underp2">Des quiz pour tester vos </p>
+                                <p>connaissances </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xs-12 mooc_degrade2_under">
+                            <div class="col-lg-12 col-md-12 col-xs-12"><img src="/media/microsite/ameublement/assets/img/bulle.png"></div>
+                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                <p>Des espaces de discussions </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 bottom_border"></div>
+                    <div class="middle_ligne_bottom"></div>
+                </div>-->
+            </div>
+        </section>
+        <section id="section3" class="container-fluid">
+            <div class="col-lg-6 col-md-6 col-xs-12 mooc_title">
+                <h2 class="title_section_2" style="color:#005892!important;">qu'est ce qu'un mooc ? <span> </span></h2>
+            </div>
+            <div class="container picto_content">
+                <div class="col-lg-3 col-md-6 col-xs-12 pictos"><img src="/media/microsite/ameublement/assets/img/Picto-1-FCBA2.png">
+                    <h4> <span>massive</span></h4>
+                    <p>Des cours pour tous</p>
+                    <p>les professionnels de l'ameublement </p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12 pictos"><img src="/media/microsite/ameublement/assets/img/Picto-2-FCBA2.png">
+                    <h4> <span>Open </span></h4>
+                    <p>Accédez librement à </p>
+                    <p>un ensemble de ressources </p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12 pictos"><img src="/media/microsite/ameublement/assets/img/Picto-3-FCBA2.png">
+                    <h4> <span>online </span></h4>
+                    <p>Connectez-vous à tout </p>
+                    <p>moment et où que vous </p>
+                    <p>soyez </p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12 pictos"><img src="/media/microsite/ameublement/assets/img/Picto-4-FCBA2.png">
+                    <h4> <span>course </span></h4>
+                    <p>Suivez un parcours pédagogique in- </p>
+                    <p>novant vous permettant l'aquisition </p>
+                    <p>de connaissances </p>
+                </div>
+            </div>
+        </section>
+        <section id="section3-2">
+            <div class="container">
+                <div class="col-lg-6 col-md-6 col-xs-12 text_section2" style="margin-left:0px !important">
+                    <h2 class="title_section_2"><span class="title_section_2">Contenu</span><span class="title_section_2" style="text-align: left!important;"> de la formation</span></h2>
+                    <h2><span class="title_section_2"></span><span class="blackP"></span><span id="boder_span_section2"> </span></h2>
+                </div>
+                <p class="blackP">Pendant ces 5 semaines de formation, voici les 5 thèmes que vous aborderez :</p>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+                        <img src="/media/microsite/ameublement/assets/img/grotte.png" class="vignette-img">
+                        <div>
+                            <h5>Histoire & Nuances de la finition</h5>
+                            <p>Nous vous proposerons dans cette séquence d’étudier l’histoire des pigments et des laques avant de s’intéresser aux différentes thématiques que comporte la finition.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+                        <img src="media/microsite/ameublement/assets/img/ponceuse.png" class="vignette-img">
+                        <h5>Connaître son environnement</h5>
+                        <p>Dans cette séquence, nous vous donnerons toutes les informations nécessaires à l’optimisation des aspects de votre finition, et cela à travers les types de séchages, supports et autres.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+                        <img src="media/microsite/ameublement/assets/img/image.png" class="vignette-img">
+                        <h5>Caractériser les exigences du client</h5>
+                        <p>Pour vous assurer que votre finition correspondra aux attentes de votre client, vous devrez cerner et répondre à toutes les spécificités.
+                            </p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+                        <img src="media/microsite/ameublement/assets/img/gant.png" class="vignette-img">
+                        <h5>Choisir & utiliser le bon matériel</h5>
+                        <p>Il est important de respecter et d’utiliser les bons équipements déstinés à la réalisation de vos finitions. 
+                        </p>
+                    </div>
+                    <div style="clear:left"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+                        <img src="/media/microsite/ameublement/assets/img/fcba5.png" class="vignette-img">
+                        <div>
+                            <h5>Risques et réglages du matériel</h5>
+                            <p>Dans cette toute dernière séquence, nous vous donnerons toutes les informations pour une utilisation optimale du matériel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section4">
+            <div class="container">
+                <div class="col-lg-12 col-md-12 col-xs-12 head_nav_4">
+                    <h1 style="padding-bottom:0px;margin-top:5%">Découvrez la formation</h1>
+                    <ul class="pager">
+                        <li><a href="/register?course_id=course-v1:ameublement+ameublementfr+2018&enrollment_action=enroll" style="margin-top:0px;">Inscription</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <footer class="col-lg-12 col-md-12 col-xs-12"><span>site déployé par&nbsp; </span><a href="#">The MOOC Agency </a><span> - 2017 </span></footer>
     </div>
-  </section>
-% endif
+    <script src="/media/microsite/ameublement/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/ameublement/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        /*
+        var options = {
+            url: "https://vimeo.com/273907658"
+        };
+        
+        var videoPlayer = new Vimeo.Player('video-teaser', options);
+        videoPlayer.on('play', function() {
+            console.log('Played the video');
+        });
+        */
+    </script>
+</body>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+</html>
