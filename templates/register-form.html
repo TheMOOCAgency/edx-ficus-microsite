@@ -14,12 +14,94 @@ import datetime
 %>
 <script>
 $( document ).ready(function(){
+  $('#activity_or_formation').parent().hide()
+  $('#tell_us_more').parent().hide()
+  $('#tell_us_more_again').parent().hide()
+  $('#is_pro').on('change', function() {
+      if(this.value === "oui" ){
+        $('#activity_or_formation').parent().show()
+      }else{
+        $('#activity_or_formation').parent().hide()
+      }
+  });
+  $('#activity_or_formation').on('change', function() {
+      if(this.value === "activity"){
+        $('#tell_us_more').parent().show()
+      }else{
+        $('#tell_us_more').parent().hide()
+      }
+  });
+  $('#tell_us_more').on('change', function() {
+      if(this.value === "formation"){
+        $('#tell_us_more_again').parent().show()
+      }else{
+        $('#tell_us_more_again').parent().hide()
+      }
+  });
+
+
+
+
   if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
     $("#field-password > span").text('Your password must contain at least 8 characters, one uppercase, one lowercase and one digit.')
     $("#username-custom-champagne").text('Your public alias name must contain no space')
     $("#field-username > label").text("Public alias name")
     $("#last_name").attr('placeholder','exemple: Green')
     $("#first_name").attr('placeholder','exemple: John')
+
+
+    $("#field-is_pro label").text('Are you working or studying in the wine-related industry ?');
+
+    $("#field-activity_or_formation label").text('You are');
+
+    $("#field-tell_us_more label").text('Tell us more');
+    $("#field-tell_us_more_again label").text('Tell us more');
+
+
+    $("#field-is_pro option[value='oui']").text('Yes');
+    $("#field-is_pro option[value='no']").text('No');
+
+    $("#field-activity_or_formation option[value='formation']").text('In training');
+    $("#field-activity_or_formation option[value='activity']").text('Experienced');
+
+
+
+    $("#tell_us_more option[value='grossiste']").text('Wholesaler');
+    $("#tell_us_more option[value='acheteur']").text('Buyer');
+    $("#tell_us_more option[value='commercial']").text('Sales rep /Sales agent');
+    $("#tell_us_more option[value='caviste']").text('Wine retailer');
+    $("#tell_us_more option[value='autre_distribution']").text('Other');
+    $("#tell_us_more option[value='gerant']").text('Manager');
+    $("#tell_us_more option[value='chef']").text('Chef');
+    $("#tell_us_more option[value='trateur']").text('Caterer');
+    $("#tell_us_more option[value='autre_Restauration']").text('Autre');
+    $("#tell_us_more option[value='visite']").text('Hospitality');
+    $("#tell_us_more option[value='autre_viticole']").text('Autre');
+    $("#tell_us_more option[value='journalisme']").text('Journalism');
+    $("#tell_us_more option[value='tourisme']").text('Tourism');
+    $("#tell_us_more option[value='formation']").text('Training-Teaching-Education');
+    $("#tell_us_more option[value='autre']").text('Other ');
+
+    $("#tell_us_more_again option[value='hotellerie']").text('Hospitality/Sommellerie');
+    $("#tell_us_more_again option[value='commerce']").text('Business/Sales');
+    $("#tell_us_more_again option[value='viticulture']").text('Viticulture/Œnology');
+    $("#tell_us_more_again option[value='marketing']").text('Marketing/Communication');
+    $("#tell_us_more_again option[value='droit']").text('Law');
+    $("#tell_us_more_again option[value='journalisme']").text('Journalism');
+    $("#tell_us_more_again option[value='tourisme']").text('Tourism');
+    $("#tell_us_more_again option[value='autre']").text('Other ');
+
+
+
+    $("<optgroup label=\" Sales :\">").insertBefore($("#tell_us_more option[value='importexport']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_distribution']"))
+    $("<optgroup label=\" Hospitality & Gastronomy : \">").insertBefore($("#tell_us_more option[value='gerant']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_Restauration']"))
+    $("<optgroup label=\" Wine-making industry : \">").insertBefore($("#tell_us_more option[value='Viticulture']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_viticole']"))
+    $("<optgroup label=\" Others : \">").insertBefore($("#tell_us_more option[value='visite']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
+
   } else{
     $("#last_name").attr('placeholder','exemple: Dupont')
     $("#first_name").attr('placeholder','exemple: Jean')
@@ -27,6 +109,14 @@ $( document ).ready(function(){
     $("#username-custom-champagne").text('Votre nom d’utilisateur ne doit pas contenir d’espace')
     $("#username").attr("placeholder", "JeanDupont");
 
+    $("<optgroup label=\" Distribution : \">").insertBefore($("#tell_us_more option[value='importexport']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_distribution']"))
+    $("<optgroup label=\" Hôtellerie & Restauration : \">").insertBefore($("#tell_us_more option[value='gerant']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_Restauration']"))
+    $("<optgroup label=\" Secteur vitivinicole : \">").insertBefore($("#tell_us_more option[value='Viticulture']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_viticole']"))
+    $("<optgroup label=\" Autres : \">").insertBefore($("#tell_us_more option[value='visite']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
   }
 });
 </script>

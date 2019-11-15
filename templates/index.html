@@ -48,10 +48,13 @@ from pipeline_mako import render_require_js_path_overrides
     background-image: url("/media/microsite/champagne-mooc/home/terroir.jpg")
   }
   #valeursImage{
-    background-image: url("/media/microsite/champagne-mooc/home/valeurs.jpg")
+    background-image: url("/media/microsite/champagne-mooc/home/micheljolyotleremuage.jpg")
   }
   #sciencesImage{
     background-image: url("/media/microsite/champagne-mooc/home/sciences.jpg")
+  }
+  #perfectionnement{
+    background-image: url("/media/microsite/champagne-mooc/home/valeurs.jpg")
   }
   /*Fonts*/
   @font-face {
@@ -252,10 +255,10 @@ font-size:16px !important;}
                     <b>Pour qui ?</b> Toutes les personnes <b>travaillant dans l’univers du vin</b> – sommeliers, œnologues, cavistes, acheteurs, journalistes, agents commerciaux, professionnels du tourisme, formateurs, étudiants etc, ainsi que tous les <b>amateurs de vin</b>, dans le <b>monde entier</b>.</br></br>
                     Guidés par <b>Jérémy Cukierman</b>, Master of Wine 2017, et accompagnés par des <b>spécialistes de la filière</b>, vous gagnerez de nombreuses compétences sur le Champagne, son <b>histoire</b>, son <b>terroir</b>, son <b>élaboration</b>, la <b>diversité</b> de ses vins et leur dégustation.</br></br>
                     <b>En combien de temps&nbsp; ?</b> La formation dure <b>moins de 5h</b>.</br></br>
-                    Quand ? Vous choisissez : la plateforme est disponible <b>24h/24, 7jours/7 !</b></br></br>
+                    <b>Quand ?</b> Vous choisissez  : la plateforme est disponible <b>24h/24, 7jours/7 !</b></br></br>
 
-                    <b>Comment ?</b> Grâce à de nombreuses <b>vidéos</b> et des <b>quiz</b> regroupés en <b>4 thématiques</b>, qui permettront de vous évaluer à chaque étape.
-                    A l’issue de cette formation exclusive, vous pourrez obtenir <b>l’Attestation officielle du MOOC du Champagne*</b>, délivrée par le Comité Champagne.</br></br></br>
+                    <b>Comment ?</b> Vous pouvez accéder <b>gratuitement</b> à <b>4 modules pédagogiques.</b> Tous sont présentés sous forme de courtes vidéos intégrant des dessins explicatifs, ainsi que du texte, pour une mémorisation plus facile.<br><br>
+                    A ces 4 volets, s’ajoute un <b>5ème module payant</b> qui vous permettra d’obtenir <b>l’Attestation de suivi du MOOC*</b> délivrée par le Comité Champagne, et d’accéder à des vidéos de perfectionnement. Le coût de cette version premium est de <b>49€</b></br></br></br>
 
                   <i>*sous réserve d’avoir atteint le score requis aux quiz</i>
                   </p>
@@ -278,7 +281,7 @@ font-size:16px !important;}
             <div class="col-md-3 text-center">
               <img src="/media/microsite/champagne-mooc/home/massive.png" alt="massive">
               <h4 class="mainColorText">MASSIVE</h4>
-              <p>Un contenu autour duquel vous pouvez échanger, directement sur cette plateforme.</p>
+              <p>Un nombre illimité d’apprenants, connectés en même temps, avec la possibilité d’échanger en direct.</p>
             </div>
             <div class="col-md-3 text-center">
               <img src="/media/microsite/champagne-mooc/home/open.png" alt="open">
@@ -311,7 +314,7 @@ font-size:16px !important;}
                   <div id="valeursImage"></div>
                 </div>
                 <div class="col-md-6">
-                  <h5 class="titlePage">L’HISTOIRE DU CHAMPAGNE</h5>
+                  <h5 class="titlePage">HISTOIRE ET ÉCONOMIE DU CHAMPAGNE</h5>
                   <!-- <p class="subTitlePage">L’Histoire du Champagne</p> -->
                   <p>Remontez le cours du temps ! Des origines jusqu’aux tendances actuelles, l’histoire du Champagne ne sera plus un mystère pour vous.</p>
                 </div>
@@ -323,7 +326,7 @@ font-size:16px !important;}
                   <div id="terroirImage"></div>
                 </div>
                 <div class="col-md-6">
-                  <h5 class="titlePage">LE VIGNOBLE CHAMPENOIS</h5>
+                  <h5 class="titlePage">LE TERROIR CHAMPENOIS</h5>
                   <!-- <p class="subTitlePage">Le vignoble champenois</p> -->
                   <p>Il n’est Champagne que de la Champagne !
                         Vous comprendrez pourquoi le terroir champenois est unique au monde et quelles en sont ses caractéristiques.
@@ -345,9 +348,6 @@ font-size:16px !important;}
               </div>
             </div>
 
-
-
-
   		    <div class="col-lg-6 formationVignette">
               <div class="row">
                 <div class="col-md-6">
@@ -357,6 +357,19 @@ font-size:16px !important;}
                   <h5 class="titlePage">DIVERSITÉ ET DÉGUSTATION</h5>
                   <!-- <p class="subTitlePage">Le Champagne, sa diversité et comment le déguster</p> -->
                   <p>Découvrez toute la diversité des vins de Champagne et leurs accords culinaires. Le service du Champagne n’aura plus de secret pour vous.    </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div  id="perfectionnement"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">PERFECTIONNEMENT</h5>
+                  <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                  <p>Obtenez l’Attestation de suivi du MOOC du Comité Champagne et accédez à des vidéos d’approfondissement.  </p>
                 </div>
               </div>
             </div>
@@ -542,10 +555,10 @@ font-size:16px !important;}
                 The Comité interprofessionel du vin de Champagne (Champagne trade association), Comité Champagne, is pleased to announce the launch of its official teaching tool: <b>the Champagne MOOC</b>.</br></br>
                 <b>Who is it for? Everyone working in the wine industry</b> – sommeliers, oenologists, wine merchants, buyers, journalists, sales representatives, tourism professionals, trainers, students etc, and the wine lovers, from <b>all over the world</b>.</br></br>
                 Learn about Champagne from <b>Jérémy Cukierman</b>, Master of Wine 2017, and <b>the people who work in the Champagne industry itself</b>: the <b>history of Champagne</b>; the <b>terroir</b> that produces it; the Champagne <b>making process</b>; the <b>many different varieties</b> of Champagne wines and <b>how to taste them</b>.</br></br>
-                <b>How long is it?</b> The total course runs for <b>less than 5 hours</b>.</br></br>
-                <b>When?</b> It is your own choice: the platform is <b>available 24/7</b>!</br></br>
-                <b>How?</b> Thanks to a large number of <b>videos</b> and <b>quizzes</b>, gathered in <b>4 thematics</b>, you will check you progress at the close of each stage.</br></br>
-                Once you have completed this exclusive course, you will be issued with <b>an official Champagne MOOC Certificate*</b>, delivered by the Comité Champagne.</br></br></br>
+
+
+                <b>How ?</b> You have <b>free access</b> to <b>4 educational modules.</b> All of them are made of short videos, with illustrative contents and texts, in order to make your memorizing easier. </br></br>
+                A <b>5th module</b> will allow you to get the <b>MOOC attendance certification</b>*, delivered by the Comité Champagne, and to access extra videos for an in-depth knowledge. The cost of this premium version is <b>49€</b>.</br></br></br>
 
                 <i>* subject to passing the quizz</i>
                 </p>
@@ -568,7 +581,7 @@ font-size:16px !important;}
           <div class="col-md-3 text-center">
             <img src="/media/microsite/champagne-mooc/home/massive.png" alt="massive">
             <h4 class="mainColorText">MASSIVE</h4>
-            <p>Information at your fingertips, available for discussion on the MOOC platform.</p>
+            <p>Unlimited number of learners, connected at the same time, with the possibility to exchange ideas online.</p>
           </div>
           <div class="col-md-3 text-center">
             <img src="/media/microsite/champagne-mooc/home/open.png" alt="open">
@@ -601,7 +614,7 @@ font-size:16px !important;}
                 <div id="valeursImage"></div>
               </div>
               <div class="col-md-6">
-                <h5 class="titlePage">THE HISTORY OF CHAMPAGNE</h5>
+                <h5 class="titlePage">HISTORY AND ECONOMY OF CHAMPAGNE</h5>
                 <!-- <p class="subTitlePage">L’Histoire du Champagne</p> -->
                 <p>Go back in time! Retrace the history of Champagne from its origins to present-day production trends. Champagne’s secrets revealed!</p>
               </div>
@@ -613,7 +626,7 @@ font-size:16px !important;}
                 <div id="terroirImage"></div>
               </div>
               <div class="col-md-6">
-                <h5 class="titlePage">THE CHAMPAGNE VINEYARDS</h5>
+                <h5 class="titlePage">THE CHAMPAGNE TERROIR</h5>
                 <!-- <p class="subTitlePage">Le vignoble champenois</p> -->
                 <p>Champagne only comes from Champagne!
 You will understand why the Champagne terroir is unique, with specific characteristics that set it apart from all other wine regions in the world.
@@ -644,12 +657,24 @@ You will understand why the Champagne terroir is unique, with specific character
               <div class="col-md-6">
                 <h5 class="titlePage">DIVERSITY AND TASTING</h5>
                 <!-- <p class="subTitlePage">Le Champagne, sa diversité et comment le déguster</p> -->
-                <p>DIVERSITY AND TASTING
-                    Discover the diversity of Champagne wines and how to pair them with food – everything you need to know before choosing a Champagne.
-               </p>
+                <p>Discover the diversity of Champagne wines and how to pair them with food – everything you need to know before choosing a Champagne. </p>
               </div>
             </div>
           </div>
+
+          <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div  id="perfectionnement"></div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="titlePage">UPGRADING</h5>
+                <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                <p>Get the MOOC attendance certification, delivered by the Comité Champagne, and access extra videos for an in-depth knowledge. </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
