@@ -27,21 +27,30 @@ background_url = configuration_helpers.get_value('bg_img')
     font-family: inherit
   }
   p{
-    padding:10px
+    padding-top:10px;
+    padding-bottom:10px;
+    color: white;
+    font-size: 30px;
   }
   h4{
-    font-size: 1.5rem;
+    font-size: 40px;
+    color: white;
+    font-weight: 600;
+    font-style: italic;
+    margin-top: 45px;
   }
   h3{
-    font-size: 1.7rem
+    font-size: 30px;
+    font-weight: 900;
+    color: white;
   }
   #certificate-wrapper{
     background: white;
   }
-  .certificate-border{
+  /* .certificate-border{
     border:2px solid ${primary_color};
     border-radius:5px;
-  }
+  } */
   #custom-btn{
     background: ${primary_color};
     border: none;
@@ -57,7 +66,7 @@ background_url = configuration_helpers.get_value('bg_img')
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: white;
+    /* background: white; */
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -70,14 +79,34 @@ background_url = configuration_helpers.get_value('bg_img')
     width:854px;
     height:500px;
     margin: 0 auto;
-    padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('${background_url}');
+    background-size: cover;
+    background-position-y: bottom;
   }
   #pdf-btn-wrapper{
     padding: 15px
   }
   #certificate-title{
     text-transform: uppercase;
+    background: #2948bfd9;
+    padding: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  #certificate-title > h3{
+    color: white;
+    font-size: 40px;
+    font-weight: 900;
+  }
+  #certificate-details{
+    background: #2948bfd9;
+    padding: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 70%;
+    text-align: left;
+    position: relative;
+    top: -25px;
   }
   #noCertificateMessage{
     background: white;
@@ -86,6 +115,30 @@ background_url = configuration_helpers.get_value('bg_img')
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+  #medal-container{
+    position: relative;
+    height: 0px;
+  }
+  #medal{
+    position: relative;
+    top: -325px;
+    left: 320px;
+    height: 230px;
+  }
+  #site-url{
+    background: white;
+    text-align: center;
+    padding: 1px;
+    top: -78px;
+    position: relative;
+  }
+  #logo-container{
+    height: 60px;
+    background: white;
+  }
+  #logo{
+    height: 60px;
   }
 </style>
 
@@ -99,19 +152,24 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
+      <div id="logo-container">
+        <img id="logo" src="/media/microsite/ameublement/images/logo2.png" alt="logo ameublement">
+      </div>
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
+          <div id="certificate-title"><h3>Attestation de Réussite</h3></div>
+          <div id="certificate-details">
             <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
+            <h3 style="text-transform: capitalize">${first_name} ${last_name}</h3>
+            <!-- <p>a obtenu la note de</p>
+            <h4>${int(grades['grade']*100)}%</h4> -->
+            <p>à réussi avec succès le cours :</p>
             <h4>${course_name}</h4>
           </div>
-          <div>
+          <div id="medal-container">
+            <img id="medal" src="/media/microsite/ameublement/images/certificate.png" alt="Médaille du cours">
           </div>
-      </div>
+        </div>
+    <div id="site-url">http://www.mooc-ameublement.com</div>
   </div>
 </div>
 %else:
