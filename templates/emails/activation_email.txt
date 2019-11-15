@@ -1,18 +1,23 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bienvenue sur le MOOC du Champagne !
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
-
-https://${ site }/activate/${ key }
-
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
-
-Welcome
-
-You must now activate your account, with the following link :
+Avant de pouvoir accéder à la plateforme, vous devez maintenant activer votre compte, en cliquant sur le lien suivant :
 
 https://${ site }/activate/${ key }
 
-If you didn’t ask for the creation of an account, you have nothing else to do, we won’t contact you anymore. 
+Encore un peu de patience, les cours seront bientôt disponibles. Nous vous tiendrons informés de leur ouverture.
+A bientôt !
+
+-----
+
+Welcome on the Champagne MOOC !
+
+Before entering the platform, you must now activate your account, by clicking on the following link :
+
+
+https://${ site }/activate/${ key }
+
+Just wait a little longer, the courses will be available soon. We will keep you informed as soon as they open.
+See you soon !
