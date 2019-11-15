@@ -20,18 +20,22 @@ $( document ).ready(function(){
   $('#is_pro').on('change', function() {
       if(this.value === "oui" ){
         $('#activity_or_formation').parent().show()
+        $('#tell_us_more_again').parent().show()
       }else{
         $('#activity_or_formation').parent().hide()
+        $('#tell_us_more_again').parent().hide()
       }
   });
   $('#activity_or_formation').on('change', function() {
       if(this.value === "activity"){
         $('#tell_us_more').parent().show()
+
       }else{
         $('#tell_us_more').parent().hide()
+
       }
   });
-  $('#tell_us_more').on('change', function() {
+  $('#activity_or_formation').on('change', function() {
       if(this.value === "formation"){
         $('#tell_us_more_again').parent().show()
       }else{
@@ -68,20 +72,22 @@ $( document ).ready(function(){
 
     $("#tell_us_more option[value='grossiste']").text('Wholesaler');
     $("#tell_us_more option[value='acheteur']").text('Buyer');
-    $("#tell_us_more option[value='commercial']").text('Sales rep /Sales agent');
+    $("#tell_us_more option[value='commercial']").text('Sales rep/Sales agent');
     $("#tell_us_more option[value='caviste']").text('Wine retailer');
     $("#tell_us_more option[value='autre_distribution']").text('Other');
     $("#tell_us_more option[value='gerant']").text('Manager');
     $("#tell_us_more option[value='chef']").text('Chef');
     $("#tell_us_more option[value='trateur']").text('Caterer');
-    $("#tell_us_more option[value='autre_Restauration']").text('Autre');
+    $("#tell_us_more option[value='autre_Restauration']").text('Other');
     $("#tell_us_more option[value='visite']").text('Hospitality');
-    $("#tell_us_more option[value='autre_viticole']").text('Autre');
+    $("#tell_us_more option[value='autre_viticole']").text('Other');
     $("#tell_us_more option[value='journalisme']").text('Journalism');
     $("#tell_us_more option[value='tourisme']").text('Tourism');
     $("#tell_us_more option[value='formation']").text('Training-Teaching-Education');
+    $("#tell_us_more option[value='eonology']").text('Œnology');
     $("#tell_us_more option[value='autre']").text('Other ');
 
+    $("#tell_us_more_again option[value='hotellerie']").text('Hospitality/Sommellerie');
     $("#tell_us_more_again option[value='hotellerie']").text('Hospitality/Sommellerie');
     $("#tell_us_more_again option[value='commerce']").text('Business/Sales');
     $("#tell_us_more_again option[value='viticulture']").text('Viticulture/Œnology');
@@ -99,7 +105,7 @@ $( document ).ready(function(){
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_Restauration']"))
     $("<optgroup label=\" Wine-making industry : \">").insertBefore($("#tell_us_more option[value='Viticulture']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_viticole']"))
-    $("<optgroup label=\" Others : \">").insertBefore($("#tell_us_more option[value='visite']"))
+    $("<optgroup label=\" Others : \">").insertBefore($("#tell_us_more option[value='journalisme']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
 
   } else{
@@ -115,7 +121,7 @@ $( document ).ready(function(){
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_Restauration']"))
     $("<optgroup label=\" Secteur vitivinicole : \">").insertBefore($("#tell_us_more option[value='Viticulture']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_viticole']"))
-    $("<optgroup label=\" Autres : \">").insertBefore($("#tell_us_more option[value='visite']"))
+    $("<optgroup label=\" Autres : \">").insertBefore($("#tell_us_more option[value='journalisme']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
   }
 });
