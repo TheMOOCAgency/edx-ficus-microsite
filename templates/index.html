@@ -1,97 +1,58 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html style="font-family:'Open Sans', sans-serif;">
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOOC CNIEL</title>
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/css/user.css">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/css/Highlight-Blue.css">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/css/Testimonials.css">
+</head>
 
-          </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+<body style="font-family:'Open Sans', sans-serif;">
+    <nav class="navbar navbar-default" style="height:80px;font-family:'Open Sans', sans-serif;background-color:#ffffff;">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand" href="http://www.cniel-infos.com/"> <img src="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/img/cniel-logo.jpg" style="height:75px;margin-top: -12px;"></a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active" role="presentation"><a href="http://www.cniel-infos.com/Record.htm?idlist=1283&amp;record=19036488124918546609">Qui sommes-nous ?</a></li>
+                    <li role="presentation"><a href="/register?course-v1:mooc-cniel-reseaux-sociaux+1+2019_T3&enrollment_action=enroll">Inscription </a></li>
+                    <li role="presentation"><a href="/login?course-v1:mooc-cniel-reseaux-sociaux+1+2019_T3&enrollment_action=enroll">Connexion </a></li>
+                </ul>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </nav>
+    <div class="jumbotron" style="padding:20px;padding-left:48px;padding-right:48px;background-image:url(&quot;/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/img/fond_MOOC_cniel.jpeg&quot;);background-size:cover;height:calc(100vh - 140px);padding-top:calc(50vh - 70px - 167px);background-position:bottom;margin-bottom:0px;border:none;">
+        <div class="container" style="display:flex;text-align:center">
+            <div class="col-md-5" style="color:white;background-color:rgba(13,13,13,0.38);padding: 4%;height:auto;margin: 0 auto;">
+ 
+              <p style="font-size:16px;">MOOC PRISE DE PAROLE SUR LES RESEAUX SOCIAUX</p>
+              </center>
+              <div style="margin:0 auto;text-align:center;">
+                <a class="btn btn-primary btn-lg" role="button" href="/register?course-v1:mooc-cniel-reseaux-sociaux+1+2019_T3&enrollment_action=enroll" style="/*margin-left:80px;*//*margin-right:5px;*/margin-top:10px;background-color:#0053b7;font-size:16px;/*text-align:center;*//*margin:0 auto;*/padding: 15px 16px 13px; border-width: 0 1px 4px 1px;">
+                  JE M'INSCRIS
+                </a>
+              </div>
+ 
+            </div>
+         
+        </div>
     </div>
-  </section>
-% endif
+	<footer class="site-footer" style="height:120px;background-color:#0053b7;">
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+    </footer>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+    <script src="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/mooc-cniel-reseaux-sociaux/hp/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+</html>
