@@ -474,12 +474,40 @@ function multi_unenroll() {
     $('#unenroll_course_id').attr('value',course_id);
   })
 }
+
+// Set user pref language to EN if not already
+function setLang() {
+  $.ajax({
+    url: '/api/user/v1/preferences/${request.user.username}',
+    type: 'GET',
+    success: function(result){
+      if (result['pref-lang'] !== 'en') {
+        $.ajax({
+          url: '/api/user/v1/preferences/${request.user.username}',
+          type: 'PATCH',
+          contentType: 'application/merge-patch+json',
+          data: JSON.stringify({
+            "pref-lang": "en"
+          }),
+          success: function(result){
+            console.log("Languages successfully changed")
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("An error occurred");
+          }
+        });
+      }
+    }
+  });
+};
+
 $(document).ready(function(){
   lineHeight();
   title_border_multi();
   alignH2();
   multi_unenroll();
   //puceParam();
+  setLang();
 })
 $(window).initialize(function(){
   lineHeight();
