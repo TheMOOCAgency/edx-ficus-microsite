@@ -36,7 +36,6 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-
 %>
 
 <%block>
@@ -118,10 +117,10 @@ div.course-material{
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
         <%
-           authorized_stats_bo = ["LucieO"]
-           with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_bo_access_rights.json') as json_file:
-               data = json.load(json_file)
-           authorized_stats_bo.extend(data['allowed_usernames'])
+          authorized_stats_bo = ["LucieO"]
+          with open('/edx/var/edxapp/secret/microsite/{}/barometer_bo_access_rights.json'.format(configuration_helpers.get_value('course_org_filter'))) as json_file:
+              data = json.load(json_file)
+          authorized_stats_bo.extend(data['allowed_usernames'])
 
 
 
@@ -351,8 +350,8 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 % endif
 
 <script>
-  if(window.location.href==="https://psa-netexplo.the-mooc-agency.com/login"){
-    window.location.replace("https://psa-netexplo.the-mooc-agency.com")
+  if(window.location.href==="https://${configuration_helpers.get_value('course_org_filter')}.the-mooc-agency.com/login"){
+    window.location.replace("https://${configuration_helpers.get_value('course_org_filter')}.the-mooc-agency.com")
   }
 </script>
 
