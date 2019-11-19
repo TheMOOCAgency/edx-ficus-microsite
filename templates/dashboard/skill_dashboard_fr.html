@@ -63,15 +63,15 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
   </div>
       %if course_state=="finished":
       <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215"/>
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       %elif course_state=="ongoing":
       <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215"/>
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       %else:
       <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215"/>
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       <!-- <button class="dashboard-btn" id="course_start">
         <i class="fa fa-play-circle"></i>
