@@ -1,97 +1,775 @@
 <%page expression_filter="h"/>
-<%inherit file="main.html" />
 <%namespace name='static' file='static_content.html'/>
 <%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-
+from context_processors import doc_url
+from django.utils.translation import get_language
 from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from django.utils.http import urlquote_plus
+from django.utils.translation import get_language_bidi
 
+from pipeline_mako import render_require_js_path_overrides
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Champagne MOOC</title>
+  <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
+</head>
+<body>
+    <link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/media/microsite/champagne/home/home.css">
+
+
+% if not uses_pattern_library:
+  % if disable_courseware_js:
+    <%static:js group='base_vendor'/>
+    <%static:js group='base_application'/>
+  % else:
+    <%static:js group='main_vendor'/>
+    <%static:js group='application'/>
+  % endif
+% else:
+  ## TODO: Update to only bring in RequireJS
+  ## https://openedx.atlassian.net/browse/FEDX-140
+  <%static:js group='base_vendor'/>
+  <%static:js group='base_application'/>
+% endif
+  <style>
+  /* Programme Mooc*/
+  #sensImage{
+    background-image: url("/media/microsite/champagne/home/sens.jpg")
+  }
+  #terroirImage{
+    background-image: url("/media/microsite/champagne/home/terroir.jpg")
+  }
+  #valeursImage{
+    background-image: url("/media/microsite/champagne/home/micheljolyotleremuage.jpg")
+  }
+  #sciencesImage{
+    background-image: url("/media/microsite/champagne/home/sciences.jpg")
+  }
+  #perfectionnement{
+    background-image: url("/media/microsite/champagne/home/valeurs.jpg")
+  }
+  /*Fonts*/
+  @font-face {
+    font-family: CIVCTitle;
+    src: url("/media/microsite/champagne/fonts/CIVCTitle.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansBold;
+    src: url("/media/microsite/champagne/fonts/CIVCSansBold.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansLight;
+    src: url("/media/microsite/champagne/fonts/CIVCSansLight.ttf");
+  }
+
+.pointer{
+cursor : pointer
+}
+.font16{
+font-size:16px !important;}
+
+
+
+.BUTTON_QGJ {
+
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #000000;
+    font-family: "CIVCTitle";
+    font-size: 20px;
+    font-weight: 50;
+    padding: 5px 27px;
+    background-color: #C8AF82;
+    box-shadow: 1px 1px 20px 0px #000000;
+    -webkit-box-shadow: 1px 1px 20px 0px #000000;
+    -moz-box-shadow: 1px 1px 20px 0px #000000;
+    text-shadow: 1px 1px 20px #000000;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    display: flex;
+    border: none;
+    margin: 15px;
+
+}
+
+.BUTTON_QGJ:hover {
+   background: #FFDD9E;
+   background-image: -webkit-linear-gradient(top, #FFDD9E, #FFDD9E);
+   background-image: -moz-linear-gradient(top, #FFDD9E, #FFDD9E);
+   background-image: -ms-linear-gradient(top, #FFDD9E, #FFDD9E);
+   background-image: -o-linear-gradient(top, #FFDD9E, #FFDD9E);
+   background-image: linear-gradient(to bottom, #FFDD9E, #FFDD9E);
+   text-decoration: none;
+}
+  #main-content-en{
+    display: none;
+  }
+  #main-content-fr{
+    display: none;
+  }
+
+ .language-selector {
+   display: none;
+ }
+ #lang-content {
+   width: 60px;
+   height: 24px;
+ }
+ #lang-content img{
+   width: 25px;
+  cursor : pointer;
+ }
+.settings-language-form{
+  margin :5px
+ }
+</style>
+  <div id="main-content-fr">
+    <div class="modal fade" id="exampleModalCenterFR" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Contactez-nous.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Votre nom</label>
+                <input name ="email2"type="text" class="form-control" id="recipient-name">
+                <label for="recipient-name" class="col-form-label">Votre email</label>
+                <input name ="email2"type="text" class="form-control" id="recipient-email">
+                <label for="recipient-name" class="col-form-label">Message</label>
+                <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary BUTTON_QGJ font16" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosend2()">Envoyer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="main">
+      <div id="intro">
+        <div id="navPart">
+          <div class="mainColorBg bandeau"></div>
+          <nav class="navbar navbar-expand-sm navbar-dark">
+            <a class="navbar-brand" href="#">
+              <img id="logo" src="/media/microsite/champagne/auto/images/logo.png" alt="logo champagne">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon">
+
+              </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <% languages = static.get_released_languages() %>
+                 <li class="primary nav-item active">
+                   <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+                     <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+                     % if user.is_authenticated():
+                     <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+                     % else:
+                     <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+                     % endif
+                       <!--LANGUAGE FLAGS-->
+                       <div id="lang-content">
+                         <img src="/media/microsite/champagne/home/en.png" class="en">
+                         <img src="/media/microsite/champagne/home/fr.png" class="fr">
+                         <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                           % for language in languages:
+                            % if language[0] =="en" or language[0] =="fr":
+                             % if language[0] == LANGUAGE_CODE:
+                               <option value="${language[0]}" selected="selected">${language[0]}</option>
+                             % else:
+                               <option value="${language[0]}">${language[0]}</option>
+                             % endif
+                            % endif
+                           % endfor
+                         </select>
+                       </div>
+                     </label>
+                   </form>
+                 </li>
+                <li class="nav-item active">
+                  <a class="nav-link text-dark" href="https://www.champagne-mooc.the-mooc-agency.com/register?course_id=course-v1:champagne-mooc+001+001&enrollment_action=enroll">Inscription</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link text-dark" href="/about">Qui sommes-nous&nbsp; ?</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link text-dark" href="/press">Intervenants</a>
+                </li>
+  			   <li class="nav-item active pointer">
+                  <a class="nav-link text-dark" data-toggle="modal" data-target="#exampleModalCenterFR">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div id="introPart">
+          <h2 class="titlePage text-center" style="margin-top:80px">DEVENEZ UN EXPERT </h2>
+          <span class="separator mainColorBg" style="height:10px"></span>
+          <h2 class="titlePage text-center">DU CHAMPAGNE</h2>
+  		   <div id="buttont">
+  		<button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?course_id=course-v1:champagne-mooc+001+001&enrollment_action=enroll">m'inscrire</button>
+  		<button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/login?course_id=course-v1:champagne-mooc+001+001D&enrollment_action=enroll">me connecter</button>
+
+  		 </div>
+        </div>
+        <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+          <source src="/media/microsite/champagne/home/champagne_video_home.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+
+      </div>
+      <section id="formationRecap" class="whiteBg" style="margin-bottom:-60px">
+        <div class="container">
+          <h1>La seule formation officielle <br> du Champagne</h1>
+          <div class="text-left">
+            <span class="separator smallSeparator mainColorBg"></span>
+          </div>
+          <div class="row pt-50">
+            <div class="col-md-6">
+             <iframe width="560" height="315" src="//www.youtube.com/embed/ieQMKXRQcZM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-6 discoverVideo" style="padding : 0px 15px;">
+              <p>Vous souhaitez développer vos connaissances pour mieux <b>déguster</b>, <b>présenter</b> ou <b>vendre</b> du Champagne ?</br>
+                    Le Comité interprofessionnel du vin de Champagne, le <b>Comité Champagne</b>, lance son outil officiel de formation en ligne : le <b>MOOC du Champagne</b>.</br></br>
+                    <b>Pour qui ?</b> Toutes les personnes <b>travaillant dans l’univers du vin</b> – sommeliers, œnologues, cavistes, acheteurs, journalistes, agents commerciaux, professionnels du tourisme, formateurs, étudiants etc, ainsi que tous les <b>amateurs de vin</b>, dans le <b>monde entier</b>.</br></br>
+                    Guidés par <b>Jérémy Cukierman</b>, Master of Wine 2017, et accompagnés par des <b>spécialistes de la filière</b>, vous gagnerez de nombreuses compétences sur le Champagne, son <b>histoire</b>, son <b>terroir</b>, son <b>élaboration</b>, la <b>diversité</b> de ses vins et leur dégustation.</br></br>
+                    <b>En combien de temps&nbsp; ?</b> La formation dure <b>moins de 5h</b>.</br></br>
+                    <b>Quand ?</b> Vous choisissez  : la plateforme est disponible <b>24h/24, 7 jours/7 !</b></br></br>
+
+                    <b>Comment ?</b> Vous pouvez accéder <b>gratuitement</b> à <b>4 modules pédagogiques.</b> Tous sont présentés sous forme de courtes vidéos intégrant des dessins explicatifs, ainsi que du texte, pour une mémorisation plus facile.<br><br>
+                    A ces 4 volets, s’ajoute un <b>5ème module payant</b> qui vous permettra d’obtenir <b>l’Attestation de suivi du MOOC*</b> délivrée par le Comité Champagne, et d’accéder à des vidéos de perfectionnement. Le coût de cette version premium est de <b>49€</b>.</br></br></br>
+
+                  <i>*sous réserve d’avoir atteint le score requis aux quiz</i>
+                  </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="formationDefinition" class="whiteBg" style="margin-bottom:-60px">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center">
+                <p><b>Langues disponibles</b> : Français, Anglais, Italien, Espagnol, Russe, Allemand, Japonais, Chinois</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="formationDefinition" class="whiteBg">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <img src="/media/microsite/champagne/home/massive.png" alt="massive">
+              <h4 class="mainColorText">MASSIVE</h4>
+              <p>Un nombre illimité d’apprenants, connectés en même temps, avec la possibilité d’échanger en direct.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <img src="/media/microsite/champagne/home/open.png" alt="open">
+              <h4 class="mainColorText">OPEN</h4>
+              <p>Un accès libre à toutes les ressources.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <img src="/media/microsite/champagne/home/online.png" alt="online">
+              <h4 class="mainColorText">ONLINE</h4>
+              <p>Disponible en ligne, tout le temps et où que vous soyez.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <img src="/media/microsite/champagne/home/course.png" alt="course">
+              <h4 class="mainColorText">COURSE</h4>
+              <p>Un vrai parcours pédagogique, pour vous permettre d'acquérir des connaissances.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="formationContent" class="whiteBg">
+        <div class="container">
+          <h1>Contenu <br> de la formation</h1>
+          <div class="text-left">
+            <span class="separator smallSeparator mainColorBg"></span>
+          </div>
+          <div class="row pt-50">
+            <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="valeursImage"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">HISTOIRE ET ÉCONOMIE DU CHAMPAGNE</h5>
+                  <!-- <p class="subTitlePage">L’Histoire du Champagne</p> -->
+                  <p>Remontez le cours du temps ! Des origines jusqu’aux tendances actuelles, l’histoire du Champagne ne sera plus un mystère pour vous.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="terroirImage"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">LE TERROIR CHAMPENOIS</h5>
+                  <!-- <p class="subTitlePage">Le vignoble champenois</p> -->
+                  <p>Il n’est Champagne que de la Champagne !
+                        Vous comprendrez pourquoi le terroir champenois est unique au monde et quelles en sont ses caractéristiques.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div  id="sciencesImage"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">L’ÉLABORATION DU CHAMPAGNE</h5>
+                  <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                  <p>Partez en immersion pendant 365 jours dans les vignes et les caves. Plongez-vous dans les différentes étapes de l’élaboration des vins de Champagne.</p>
+                </div>
+              </div>
+            </div>
+
+  		    <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div  id="sensImage"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">DIVERSITÉ ET DÉGUSTATION</h5>
+                  <!-- <p class="subTitlePage">Le Champagne, sa diversité et comment le déguster</p> -->
+                  <p>Découvrez toute la diversité des vins de Champagne et leurs accords culinaires. Le service du Champagne n’aura plus de secret pour vous.    </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 formationVignette">
+              <div class="row">
+                <div class="col-md-6">
+                  <div  id="perfectionnement"></div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="titlePage">PERFECTIONNEMENT</h5>
+                  <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                  <p>Obtenez l’Attestation de suivi du MOOC du Comité Champagne et accédez à des vidéos d’approfondissement.  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="formationContent" class="whiteBg">
+        <div class="container">
+        <div class="row">
+        <div class="col-lg-6">
+          <div class="row pt-50">
+           <div class="col-12">
+              <h1>Compétences<br>acquises :</h1>
+              <div class="text-left">
+                <span class="separator smallSeparator mainColorBg"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-50">
+            <div class="col-12">
+          		<p>A l’issue de ce MOOC, vous serez en mesure de : </p>
+              <ul>
+                <li><p>Savoir comment servir et déguster le Champagne</p></li>
+                <li><p>Connaître l’étendue de la diversité des vins de Champagne</p></li>
+                <li><p>Identifier les nombreuses possibilités d’accords mets et Champagne</p></li>
+                <li><p>Connaître la spécificité du terroir champenois et comprendre l’Appellation d’Origine Contrôlée Champagne</p></li>
+                <li><p>Connaître les étapes du cycle de la vigne en Champagne</p></li>
+                <li><p>Comprendre les étapes de l’élaboration du Champagne</p></li>
+                <li><p>Identifier les moyens mis en place par la filière pour préserver l’environnement</p></li>
+                <li><p>Identifier les étapes clés de l’histoire de la Champagne et des vins de Champagne</p></li>
+                <li><p>Connaître les données économiques et les rôles des acteurs en Champagne</p></li>
+              </ul>
+            </div>
+          </div>
+          </div>
+        <div class="col-lg-6">
+          <div class="row pt-50">
+           <div class="col-12">
+              <h1>Consommation<br>responsable</h1>
+              <div class="text-left">
+                <span class="separator smallSeparator mainColorBg"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-50">
+            <div class="col-12">
+          		<p>S'il est incontestablement l'un des piliers du patrimoine culturel français, le vin n'est pas une boisson comme une autre car il contient de l'alcool. </p>
+          		<p>Quel que soit sa couleur ou son étiquette, le vin se consomme avec plaisir et raison. </p>
+          		<p>Membre de Vin & Société, la filière Champagne s’engage chaque jour pour une consommation de vin modérée et responsable. </p>
+          		<p>Pour en savoir plus : </p>
+          		<p><a class="nav-link-p" href="http://www.vinetsociete.fr/s-engager/consommation-responsable" target="_blank">Vin & Société </a></p>
+          		<p><a class="nav-link-p" href="https://www.wineinmoderation.eu/frfr/content/Wine-only-appreciated-in-Moderation.12/" target="_blank">Wine in Moderation </a></p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <section class="whiteBg" style="display: flex;justify-content: center;">
+        <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?course_id=course-v1:champagne-mooc+001+001&enrollment_action=enroll">m'inscrire</button>
+        <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/login?course_id=course-v1:champagne-mooc+001+001&enrollment_action=enroll">me connecter</button>
+      </section>
+    </div>
+  </div>
+<div id="main-content-en">
+    <div class="modal fade" id="exampleModalCenterEN" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Contact us.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Your name</label>
+                <input name ="email2"type="text" class="form-control" id="recipient-name">
+                <label for="recipient-name" class="col-form-label">Your mail</label>
+                <input name ="email2"type="text" class="form-control" id="recipient-email">
+                <label for="recipient-name" class="col-form-label">Message</label>
+                <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary BUTTON_QGJ font16" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosend2()">Send</button>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div id="main">
+    <div id="intro">
+      <div id="navPart">
+        <div class="mainColorBg bandeau"></div>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+          <a class="navbar-brand" href="#">
+            <img id="logo" src="/media/microsite/champagne/auto/images/logo.png" alt="logo champagne">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+
+            </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <% languages = static.get_released_languages() %>
+               <li class="primary nav-item active">
+                 <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+                   <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+                   % if user.is_authenticated():
+                   <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+                   % else:
+                   <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+                   % endif
+                     <!--LANGUAGE FLAGS-->
+                     <div id="lang-content">
+                       <img src="/media/microsite/champagne/home/en.png" class="en">
+                       <img src="/media/microsite/champagne/home/fr.png" class="fr">
+                       <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                         % for language in languages:
+                          % if language[0] =="en" or language[0] =="fr":
+                           % if language[0] == LANGUAGE_CODE:
+                             <option value="${language[0]}" selected="selected">${language[0]}</option>
+                           % else:
+                             <option value="${language[0]}">${language[0]}</option>
+                           % endif
+                          % endif
+                         % endfor
+                       </select>
+                     </div>
+                   </label>
+                 </form>
+               </li>
+              <li class="nav-item active">
+                <a class="nav-link text-dark" href="https://www.champagne-mooc.the-mooc-agency.com/register?course_id=course-v1:champagne-mooc+002+002&enrollment_action=enroll">Registration</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link text-dark" href="/about">Who are we?</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link text-dark" href="/press">Speakers</a>
+              </li>
+         <li class="nav-item active pointer">
+                <a class="nav-link text-dark" data-toggle="modal" data-target="#exampleModalCenterEN">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div id="introPart">
+        <h2 class="titlePage text-center" style="margin-top:80px">BECOME A</h2>
+        <span class="separator mainColorBg" style="height:10px"></span>
+        <h2 class="titlePage text-center">CHAMPAGNE EXPERT</h2>
+       <div id="buttont">
+    <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?course_id=course-v1:champagne-mooc+002+002&enrollment_action=enroll">Register</button>
+    <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/login?course_id=course-v1:champagne-mooc+002+002&enrollment_action=enroll">Log in</button>
+
+     </div>
+      </div>
+
+      <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+        <source src="/media/microsite/champagne/home/champagne_video_home.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+
+    </div>
+    <section id="formationRecap" class="whiteBg" style="margin-bottom:-60px">
+      <div class="container">
+        <h1>The only <br> Champagne training</h1>
+        <div class="text-left">
+          <span class="separator smallSeparator mainColorBg"></span>
+        </div>
+        <div class="row pt-50">
+          <div class="col-md-6">
+           <iframe width="560" height="315" src="//www.youtube.com/embed/-P3TqeOJg2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="col-md-6 discoverVideo" style="padding : 0px 15px;">
+            <p>You want to deepen your knowledge to better taste, present or sell Champagne?</br></br>
+                The Comité interprofessionel du vin de Champagne (Champagne trade association), Comité Champagne, is pleased to announce the launch of its official teaching tool: <b>the Champagne MOOC</b>.</br></br>
+                <b>Who is it for? Everyone working in the wine industry</b> – sommeliers, oenologists, wine merchants, buyers, journalists, sales representatives, tourism professionals, trainers, students etc, and the wine lovers, from <b>all over the world</b>.</br></br>
+                Learn about Champagne from <b>Jérémy Cukierman</b>, Master of Wine 2017, and <b>the people who work in the Champagne industry itself</b>: the <b>history of Champagne</b>; the <b>terroir</b> that produces it; the Champagne <b>making process</b>; the <b>many different varieties</b> of Champagne wines and <b>how to taste them</b>.</br></br>
+
+
+                <b>How?</b> You have <b>free access</b> to <b>4 educational modules.</b> All of them are made of short videos, with illustrative contents and texts, in order to make your memorizing easier. </br></br>
+                A <b>5th module</b> will allow you to get the <b>MOOC attendance certification</b>*, delivered by the Comité Champagne, and to access extra videos for an in-depth knowledge. The cost of this premium version is <b>49€</b>.</br></br></br>
+
+                <i>* subject to passing the quizz</i>
+                </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="formationDefinition" class="whiteBg" style="margin-bottom:-60px">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+              <p><b>Available in the following languages</b>: French, English, Italian, Spanish, Russia, German, Japanese and Chinese.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="formationDefinition" class="whiteBg">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <img src="/media/microsite/champagne/home/massive.png" alt="massive">
+            <h4 class="mainColorText">MASSIVE</h4>
+            <p>Unlimited number of learners, connected at the same time, with the possibility to exchange ideas online.</p>
+          </div>
+          <div class="col-md-3 text-center">
+            <img src="/media/microsite/champagne/home/open.png" alt="open">
+            <h4 class="mainColorText">OPEN</h4>
+            <p>Open access resources.</p>
+          </div>
+          <div class="col-md-3 text-center">
+            <img src="/media/microsite/champagne/home/online.png" alt="online">
+            <h4 class="mainColorText">ONLINE</h4>
+            <p>Available online, anytime, anywhere.</p>
+          </div>
+          <div class="col-md-3 text-center">
+            <img src="/media/microsite/champagne/home/course.png" alt="course">
+            <h4 class="mainColorText">COURSE</h4>
+            <p>A new teaching tool to gain a greater understanding of Champagne.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="formationContent" class="whiteBg">
+      <div class="container">
+        <h1>Training content</h1>
+        <div class="text-left">
+          <span class="separator smallSeparator mainColorBg"></span>
+        </div>
+        <div class="row pt-50">
+          <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div id="valeursImage"></div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="titlePage">HISTORY AND ECONOMY OF CHAMPAGNE</h5>
+                <!-- <p class="subTitlePage">L’Histoire du Champagne</p> -->
+                <p>Go back in time! Retrace the history of Champagne from its origins to present-day production trends. Champagne’s secrets revealed!</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div id="terroirImage"></div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="titlePage">THE CHAMPAGNE TERROIR</h5>
+                <!-- <p class="subTitlePage">Le vignoble champenois</p> -->
+                <p>Champagne only comes from Champagne!
+You will understand why the Champagne terroir is unique, with specific characteristics that set it apart from all other wine regions in the world.
+                </p>
+              </div>
+            </div>
           </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
+          <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div  id="sciencesImage"></div>
               </div>
-            </a>
-          % endif
+              <div class="col-md-6">
+                <h5 class="titlePage">THE CHAMPAGNE-MAKING PROCESS </h5>
+                <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                <p>Take an in-depth look at the different stages in Champagne-making – Immerse yourself in a year-round process that starts in the vines and continues in the cellars.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div  id="sensImage"></div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="titlePage">DIVERSITY AND TASTING</h5>
+                <!-- <p class="subTitlePage">Le Champagne, sa diversité et comment le déguster</p> -->
+                <p>Discover the diversity of Champagne wines and how to pair them with food – everything you need to know before choosing a Champagne. </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 formationVignette">
+            <div class="row">
+              <div class="col-md-6">
+                <div  id="perfectionnement"></div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="titlePage">UPGRADING</h5>
+                <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
+                <p>Get the MOOC attendance certification, delivered by the Comité Champagne, and access extra videos for an in-depth knowledge. </p>
+              </div>
+            </div>
+          </div>
+
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
+      </div>
     </section>
-</main>
+    <section id="formationContent" class="whiteBg">
+      <div class="container">
+        <div class="row">
+      <div class="col-lg-6">
+        <div class="row pt-50">
+         <div class="col-12">
+            <h1>Learning<br>new skills:</h1>
+            <div class="text-left">
+              <span class="separator smallSeparator mainColorBg"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-50">
+          <div class="col-12">
+            <p>After completing the Champagne MOOC, you will understand : </p>
+            <ul>
+              <li><p>The etiquette of serving and tasting Champagne wines</p></li>
+              <li><p>The range and diversity of Champagne wines</p></li>
+              <li><p>The many possibilities for pairing Champagne wine with food</p></li>
+              <li><p>The stages in the life cycle of a Champagne vine</p></li>
+              <li><p>The stages in the Champagne-making process</p></li>
+              <li><p>The measures put in place by the industry to protect the environment</p></li>
+              <li><p>The key stages in the history of the Champagne region and Champagne wines</p></li>
+              <li><p>The economics of Champagne and the roles of Champagne stakeholders</p></li>
+            </ul>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+        <div class="row pt-50">
+         <div class="col-12">
+            <h1>Responsible<br>drinking</h1>
+            <div class="text-left">
+              <span class="separator smallSeparator mainColorBg"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-50">
+          <div class="col-12">
+            <p>Wine is an undisputed pillar of French cultural heritage. But being an alcoholic beverage, wine is no ordinary drink. </p>
+            <p>Whatever the color or label, wine should be enjoyed in moderation.</p>
+            <p>As a member of the French voluntary organization Vin & Société, the Champagne industry has an ongoing commitment to encourage moderation and responsibility in wine drinking. </p>
+            <p>To find out more, visit : </p>
+            <p><a class="nav-link-p" href="http://www.vinetsociete.fr/s-engager/consommation-responsable" target="_blank">Vin & Société </a></p>
+            <p><a class="nav-link-p" href="https://www.wineinmoderation.eu/en/content/Wine-only-appreciated-in-Moderation.12/" target="_blank">Wine in Moderation </a></p>
+          </div>
+        </div>
+      </div>
+</div>
+      </div>
+    </section>
+    <section class="whiteBg" style="display: flex;justify-content: center;">
+      <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?course-v1:champagne-mooc+002+002&enrollment_action=enroll">Register</button>
+      <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/login?course-v1:champagne-mooc+002+002&enrollment_action=enroll">Log in</button>
+    </section>
+  </div>
+</div>
+  <div id="footer-main" class="mainColorBg text-center bandeau">
+    <p class="m-0 whiteText">Website created by The Mooc Agency - 2019</p>
+    <%include file="footer.html" />
+  </div>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
+  <script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+  <script>
+    $( document ).ready(function(){
+      if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+        $('#main-content-fr').hide()
+        $('#main-content-en').show()
+        $('#footer-main .m-0').text('Website created by The Mooc Agency - 2019')
+      } else{
+        $('#main-content-fr').show()
+        $('#main-content-en').hide()
+        $('#footer-main .m-0').text('Site web réalisé par The Mooc Agency - 2019')
+      }
+      $('.en').on('click', function() {
+        $('#settings-language-value > option[value="en"]').attr('selected','selected');
+        $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+      });
+      $('.fr').on('click', function() {
+        $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+        $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+      });
+      $('.BUTTON_QGJ').each(function(){
+        if(this.hasAttribute('href')){
+          $(this).click(function(){
+            window.open(this.getAttribute('href'))
+          })
+        }
       })
-   </script>
-</%block>
+    })
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
 
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+  </script>
+</body>
+</html>
