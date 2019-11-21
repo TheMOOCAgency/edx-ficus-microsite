@@ -450,7 +450,7 @@ function paramBindSelect(value){
 $("#organisme option:selected").removeAttr("selected");
 $('#organisme option[value=Greenflex]').attr('selected', 'selected');
 $("#organisme option[value='"+value +"']").attr('selected', 'selected');
-$("#organisme").val(value).prop('disabled', true).css("background","#e8e8e8")
+$("#organisme").val(value).prop('readonly', true).css("background","#e8e8e8")
 
 }
 bindMyParamatersInput()
