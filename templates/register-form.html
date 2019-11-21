@@ -134,7 +134,7 @@ dates_formation = request.GET.get('dates_formation')
 
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="username-tip"/>
+      <input id="username" type="text" name="username" value="${username}" placeholder="JeanDupont" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
@@ -187,6 +187,19 @@ dates_formation = request.GET.get('dates_formation')
     </li>
 
     % endif
+
+    <label for="site-known">Comment avez-vous connu le programme INVEEST ?</label>
+    <select id="site-known" name="site-known" 'required aria-required="true"'>
+      <option value="">--</option>
+      <option value="Entreprise">Votre entreprise (Management, RH, catalogue de formation)</option>
+      <option value="Moteur">Moteur de recherche</option>
+      <option value="Réseau">Réseau social</option>
+      <option value="Bouche">Bouche à oreille</option>
+      <option value="Evènement">Evènement</option>
+      <option value="Presse">Presse</option>
+      <option value="Catalogue">Catalogue de formation externe</option>
+      <option value="Autre">Autre</option>
+    </select>
 
   </ol>
 
