@@ -254,19 +254,35 @@ site_status_msg = get_site_status_msg(course_id)
     </style>
     <script>
       //LANGUAGE FLAGS
-      $('#en').on('click', function() {
-        $('#settings-language-value > option[value="en"]').attr('selected','selected');
-        $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-      }
-      );
-      $('#fr').on('click', function() {
-        $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-        $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+      let params = new URL(window.location).searchParams;
+      let lang = params.get('lang');
 
-      }
-      );
+      $(document).ready(function(){
+        if ('${LANGUAGE_CODE}' !== lang) {
+          if (lang === 'en') {
+            $('#settings-language-value > option[value="en"]').attr('selected','selected');
+            $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          } else {
+            if (lang === 'fr') {
+              $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+              $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+            }
+          }
+        }
+
+        $('#en').on('click', function() {
+          $('#settings-language-value > option[value="en"]').attr('selected','selected');
+          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          lang = 'en'
+        });
+        $('#fr').on('click', function() {
+          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          lang = 'fr'
+        });
+      });
     </script>
-    </nav>
+  </nav>
 </header>
 % if course:
 <!--[if lte IE 9]>
