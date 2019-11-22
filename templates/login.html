@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("Connexion à mon compte");
       }
       else {
         $submitButton.
@@ -134,7 +134,7 @@ from third_party_auth import provider, pipeline
   </header>
 </section>
 
-<section class="login container">
+<section class="login container" style="width: auto; min-width: 0px; max-width: 650px">
   <section role="main" class="content">
     <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
 
@@ -174,7 +174,7 @@ from third_party_auth import provider, pipeline
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
+            <span class="tip tip-input" id="email-tip">Voici l'adresse e-mail que vous avez utilisée pour vous inscrire</span>
           </li>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
@@ -230,7 +230,7 @@ from third_party_auth import provider, pipeline
 
   </section>
 
-  <aside role="complementary">
+  <!-- <aside role="complementary">
 
 <%
   # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
@@ -239,5 +239,5 @@ from third_party_auth import provider, pipeline
 
     <%include file="${sidebar_file}" />
 
-  </aside>
+  </aside> -->
   </section>
