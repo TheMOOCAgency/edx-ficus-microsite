@@ -53,6 +53,11 @@ $( document ).ready(function(){
     $("#last_name").attr('placeholder','exemple: Green')
     $("#first_name").attr('placeholder','exemple: John')
 
+    $("#field-country>label").text('Country / Region')
+
+    $("#country>option[values='MO']").text('Macao, SAR')
+    $("#country>option[values='TW']").text('Taiwain, SAR')
+    $("#country>option[values='HK']").text('Hong-Kong , SAR')
 
     $("#field-is_pro label").text('Are you working or studying in the wine-related industry ?');
 
@@ -114,6 +119,13 @@ $( document ).ready(function(){
     $("#field-password > span").text('Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.')
     $("#username-custom-champagne").text('Votre nom d’utilisateur ne doit pas contenir d’espace')
     $("#username").attr("placeholder", "JeanDupont");
+
+    $("#field-country>label").text('Pays / Région')
+
+
+    $("#country>option[values='MO']").text('Macao, SAR')
+    $("#country>option[values='TW']").text('Taïwain, SAR')
+    $("#country>option[values='HK']").text('Hong-Kong , SAR')
 
     $("<optgroup label=\" Distribution : \">").insertBefore($("#tell_us_more option[value='importexport']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_distribution']"))
