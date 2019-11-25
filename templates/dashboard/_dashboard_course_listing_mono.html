@@ -1,4 +1,4 @@
-<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings, social_url, related_programs, display_course_modes_on_dashboard" expression_filter="h"/>
+<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings, related_programs, display_course_modes_on_dashboard" expression_filter="h"/>
 
 <%!
 import urllib
@@ -39,13 +39,7 @@ org_static = static.get_value('domain_prefix')
 %>
 
 <%
-_current = time.time()
-if enrollment.course_overview.end is None:
- cours_ouv = True
-elif int(enrollment.course_overview.start.strftime("%s")) < _current and _current < int(enrollment.course_overview.end.strftime("%s")):
-  cours_ouv = True
-else:
-  cours_ouv = False
+cours_ouv = show_courseware_link and not is_course_blocked
 %>
 
 
@@ -58,15 +52,9 @@ else:
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url(org_static+'/images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
-  <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/info_blanc.svg')}"/><span>${_('info')}</span></a>
-  % if return_social is not None:
-  <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url(org_static+'/images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
-  % else:
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
-  % endif
-  % if multi_course_platform:
-    <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
-  % endif
+  <a href="/courses/course-v1:hpsj+HPSJ2+2017Q4/1f1ff3d779d14a969277d59deff8a4e8/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/file.png')}"/><span>Documents</span></a>
+  <a href="/courses/${enrollment.course_id}/courseware/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <a href="/dashboard" class="course_nav"><img class="svg" src="/media/microsite/afpa/images/left-arrow.svg"/><span>${_('Retour')}</span></a>
   <span style="clear:left;display:block;"></span>
 </div>
 <div id="course_dashboard_border"></div>

@@ -109,7 +109,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+<!--              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>-->
             </li>
           % endif
           % if show_program_listing:
@@ -170,16 +170,16 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
+<!--                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>-->
               </li>
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+<!--                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>-->
               </li>
             % else:
               <li class="item nav-global-04">
-                <a class="btn-neutral" href="/register${login_query()}">${_("Register")}</a>
+<!--                <a class="btn-neutral" href="/register${login_query()}">${_("Register")}</a>-->
               </li>
             % endif
           % endif
@@ -280,3 +280,40 @@ js = org_static+'/js/translate.js'
   </script>
 % endif
 <%include file="help_modal.html"/>
+% if user.is_authenticated():
+<script type="text/javascript">
+var username_pid = "${user.username}";
+var email_piwik = "${user.email}";
+</script>
+% endif
+<!-- PIWIK -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push([function() {
+var self = this;
+function getOriginalVisitorCookieTimeout() {
+var now = new Date(),
+nowTs = Math.round(now.getTime() / 1000),
+visitorInfo = self.getVisitorInfo();
+var createTs = parseInt(visitorInfo[2]);
+var cookieTimeout = 33696000; // 13 mois en secondes
+var originalTimeout = createTs + cookieTimeout - nowTs;
+return originalTimeout;
+}
+this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
+}]);
+% if user.is_authenticated():
+_paq.push(['setUserId', '${user.id}']);
+% endif
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.themoocagency.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 24]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=24" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
