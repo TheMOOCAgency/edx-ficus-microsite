@@ -380,7 +380,10 @@ $(".inner-wrapper section h2").click(function() {
        $(this).parent().find('div.about_section').addClass("folded_tma");
   }
 });
-console.log('${request.LANGUAGE_CODE}')
+
+// Set language cookie to send to ecommerce
+document.cookie = "tma_lang=${request.LANGUAGE_CODE};path=/;domain=.the-mooc-agency.com"
+
 </script>
 <style>
 .btn-login {
