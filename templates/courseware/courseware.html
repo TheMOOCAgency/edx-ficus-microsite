@@ -43,7 +43,11 @@ translation={
 org_static = static.get_value('domain_prefix')
 %>
 
-
+<script>
+  $( document ).ready(function() {
+    document.title="Quiz Préparation Data"
+  })
+</script>
 <!-- TMA RANDOMIZATION SINGLE QUIZ MODE ------------------------------------------------------------------------------------------------->
 <%
 tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mode()
@@ -63,13 +67,7 @@ tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mod
 
 <%block name="bodyclass">view-in-course view-courseware courseware ${course.css_class or ''}</%block>
 
-<%block name="title"><title>
-    % if section_title:
-${static.get_page_title_breadcrumbs(section_title, course_name())}
-    % else:
-${static.get_page_title_breadcrumbs(course_name())}
-    %endif
-</title></%block>
+
 
 <%block name="header_extras">
 

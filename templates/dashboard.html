@@ -47,7 +47,7 @@ course_details = ''
 blocks = ''
 root = ''
 children = ''
-course_mono_id = ''
+course_mono_id = ''   
 forum_tma = ''
 course_finished = 0
 course_name = []
@@ -82,9 +82,15 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 
 %>
 
-
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
+
+
+<script>
+  $( document ).ready(function() {
+    document.title="Tableau de bord"
+  })
+</script>
 
 <%block name="header_extras">
 % for template_name in ["donation"]:
