@@ -13,60 +13,9 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+
 <link rel="stylesheet" type="text/css" href="${static.url(css2)}" />
-<!-- <main id="main" aria-label="Content" tabindex="-1">
-  <section class="home">
-    <header>
-      <div class="outer-wrapper">
-        <div class="title">
-          <div class="heading-group">
-            % if homepage_overlay_html:
-            ${homepage_overlay_html | n, decode.utf8}
-            % else:
-            ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-            <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-              ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-              <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-            <div class="course-search">
-              <form method="get" action="/courses">
-                <label><span class="sr">${_("Search for a course")}</span>
-                  <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                </label>
-                <button class="search-button" type="submit">
-                  <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                </button>
-              </form>
-            </div>
-            % endif
-            
-          </div>
-          
-          % if show_homepage_promo_video:
-          <a href="#video-modal" class="media" rel="leanModal">
-            <div class="hero">
-              <div class="play-intro"></div>
-              </div>
-            </a>
-            % endif
-          </div>
-          
-        </header>
-        <%include file="${courses_list}" />
-        
-      </section>
-    </main> -->
-    
-    % if show_homepage_promo_video:
-    <section id="video-modal" class="modal home-page-video-modal video-modal">
-      <div class="inner-wrapper">
-        <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </section>
-    % endif
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
     
     <%block name="js_extra">
     <script type="text/javascript">
@@ -78,7 +27,7 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
    </script>
 </%block>
 
-<div id="titleBlock">
+<!-- <div id="titleBlock">
   <h1 id="titleHomePage">Thématique : Approche offreur</h1>
 </div>
 
@@ -120,7 +69,130 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 
     window.onresize = resize;
   });
-</script>
+</script> -->
+
+
+
+
+
+<section id="lab">
+    <article>
+        <div class="lab_item">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2 theme1" style="background-color: #fcbf43">
+                    <h2 class="titleModule">Accessibilité des objets de mobilité</h2>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="lab_item">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2 theme1" style="background-color: #fcbf43">                
+                    <h2 class="titleModule">Approche du marché</h2>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="lab_item">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2 theme1" style="background-color: #fcbf43">
+                    <h2 class="titleModule">MaaS</h2>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="lab_item">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2 theme1" style="background-color: #fcbf43">
+                    <h2 class="titleModule">Métiers</h2>
+                </div>
+              </div>
+          </div>
+        </div>   
+  </article>
+
+  <article>
+      <div class="lab_item">		
+        <div class="hexagon hexagon2">
+          <div class="hexagon-in1">
+              <div class="hexagon-in2 theme2" style="background-color: #a1b6df">
+                  <h2 class="titleModule">Infrastructures</h2>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="lab_item">
+        <div class="hexagon hexagon2">
+          <div class="hexagon-in1">
+              <div class="hexagon-in2 theme2" style="background-color: #a1b6df">
+                  <h2 class="titleModule">Mobilité autonome</h2>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="lab_item">
+        <div class="hexagon hexagon2">
+          <div class="hexagon-in1">
+              <div class="hexagon-in2 theme2" style="background-color: #a1b6df">
+                  <h2 class="titleModule">Pratiques de mobilité</h2>
+              </div>
+            </div>
+        </div>
+      </div> 
+</article>
+
+<article>
+    <div class="lab_item">		
+      <div class="hexagon hexagon2">
+        <div class="hexagon-in1">
+            <div class="hexagon-in2 theme3" style="background-color: #f39548">
+                <h2 class="titleModule">Acteurs des mobilités</h2>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="lab_item">
+      <div class="hexagon hexagon2">
+        <div class="hexagon-in1">
+            <div class="hexagon-in2 theme3" style="background-color: #f39548">
+                <h2 class="titleModule">Incitation</h2>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="lab_item">
+      <div class="hexagon hexagon2">
+        <div class="hexagon-in1">
+            <div class="hexagon-in2 theme3" style="background-color: #f39548">
+                <h2 class="titleModule">Législation</h2>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="lab_item">
+      <div class="hexagon hexagon2">
+        <div class="hexagon-in1">
+            <div class="hexagon-in2 theme3" style="background-color: #f39548">
+                <h2 class="titleModule">Planification</h2>
+            </div>
+          </div>
+      </div>
+    </div>   
+</article>
+</section>
+
+<style>
+    body {
+      background-image: url('media/microsite/mobilitips/img/bg.jpg') !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      background-size: cover !important;
+    }
+</style>
 
 % if show_signup_immediately is not UNDEFINED:
   ## NOTE: This won't work in production, because anonymous views are cached, so it will
