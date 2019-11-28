@@ -1,13 +1,331 @@
 <%page expression_filter="h"/>
-<%! from django.utils.translation import ugettext as _ %>
-
+   <%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
-
 <%block name="pagetitle">${_("In the Press")}</%block>
+<style>
+   /*Fonts*/
+   @font-face {
+   font-family: CIVCTitle;
+   src: url("/media/microsite/champagne-mooc/fonts/CIVCTitle.ttf");
+   }
+   @font-face {
+   font-family: CIVCSansBold;
+   src: url("/media/microsite/champagne-mooc/fonts/CIVCSansBold.ttf");
+   }
+   @font-face {
+   font-family: CIVCSansLight;
+   src: url("/media/microsite/champagne-mooc/fonts/CIVCSansLight.ttf");
+   }
+</style>
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-        <h1>${_("In the Press")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
+<link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/media/microsite/champagne-mooc/home/press.css">
+
+<main id="main" class="main-content-fr" aria-label="Content" tabindex="-1">
+   <section class="container about" style="background: #ffffffbd !important;">
+      <h1 class="pressTitle">Les intervenants</h1>
+      <h2>Votre guide de formation</h2>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/JeremyCukierman.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jérémy Cukierman - Master of Wine 2017</h5>
+         </div>
+      </div>
+        <h2>Les professionnels du champagne :</h2>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/DenisBunner.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Denis Bunner - Adjoint Chef de Caves - Champagne Bollinger</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/MichelDrappier.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Michel Drappier - Propriétaire et dirigeant - Champagne Drappier</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/CharlesGoemaere.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Charles Goemaere - Directeur Général Adjoint - Comité Champagne</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/GeraldineLacourte.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Géraldine Lacourte - Vigneronne - Champagne Lacourte-Godbillon</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/ArnaudLallement.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Arnaud Lallement - Propriétaire et Chef cuisinier - L'Assiette Champenoise***</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/GerardLigerBelair.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Gérard Liger-Belair - Professeur des Universités / Chercheur - Université de Reims Champagne-Ardenne</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/SandrineLogette.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Sandrine Logette - Chef de Caves - Champagne Duval-Leroy</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PhilippeMille.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Philippe Mille - Chef cuisinier - Le Parc** du Domaine Les Crayères</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PierreNaviaux.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Pierre Naviaux - Chef de Projets Développement Durable - Comité Champagne</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/Jlnormand.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jean-Louis Normand - Vigneron - Champagne Domaine la Borderie</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/VincentPerrin.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>
+               Vincent Perrin - Directeur Général - Comité Champagne
+            </h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/ClementPierlot.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Clément Pierlot - Chef de Caves - Champagne Pommery</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/BrunoTailly.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Bruno Tailly - Directeur des Opérations - Royal Champagne Hotel & Spa</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PierreEmmanuelTaittinger.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>
+               Pierre-Emmanuel Taittinger - Président - Champagne Taittinger
+            </h5>
+         </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/YvesTesson.png" alt="Sandrine Logette">
+        </div>
+        <div class="col-md-9">
+           <h5>Yves Tesson - Historien</h5>
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/JeanPierreVazart.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jean-Pierre Vazart - Vigneron - Champagne Vazart-Coquart & Fils</h5>
+         </div>
+      </div>
+   </section>
 </main>
+<main id="main" class="main-content-en" aria-label="Content" tabindex="-1">
+   <section class="container about" style="background: #ffffffbd !important;">
+      <h1 class="pressTitle">Speakers</h1>
+      <h2>Your training guide</h2>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/JeremyCukierman.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jérémy Cukierman - Master of Wine 2017</h5>
+         </div>
+      </div>
+      <h2 class="pressTitle">The Champagne professionals :</h2>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/DenisBunner.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Denis Bunner - Deputy Head of Cellars - Champagne Bollinger</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/MichelDrappier.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Michel Drappier - Owner & CEO - Champagne Drappier</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/CharlesGoemaere.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Charles Goemaere - Deputy General Director - Champagne Committee</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/GeraldineLacourte.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Géraldine Lacourte - Winegrower - Champagne Lacourte-Godbillon</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/ArnaudLallement.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Arnaud Lallement - Owner & Chef - L'Assiette Champenoise***</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/GerardLigerBelair.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Gérard Liger-Belair - University Professor / Searcher - Reims University Champagne-Ardenne</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/SandrineLogette.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Sandrine Logette - Cellar Chief - Champagne Duval-Leroy</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PhilippeMille.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Philippe Mille - Chef - Le Parc** du Domaine Les Crayères</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PierreNaviaux.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Pierre Naviaux - Sustainable Development Project Manager - Champagne Committee</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/Jlnormand.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jean-Louis Normand - Winegrower - Champagne Domaine la Borderie</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/VincentPerrin.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>
+               Vincent Perrin - General manager - Champagne Committee
+            </h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/ClementPierlot.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Clément Pierlot - Cellar Chief - Champagne Pommery</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/BrunoTailly.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Bruno Tailly - Director of Operations - Royal Champagne Hotel & Spa</h5>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/PierreEmmanuelTaittinger.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>
+               Pierre-Emmanuel Taittinger - Président - Champagne Taittinger
+            </h5>
+         </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+           <img class="partn" src="/media/microsite/champagne-mooc/home/YvesTesson.png" alt="Sandrine Logette">
+        </div>
+        <div class="col-md-9">
+           <h5>Yves Tesson - Historian</h5>
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <img class="partn" src="/media/microsite/champagne-mooc/home/JeanPierreVazart.png" alt="Sandrine Logette">
+         </div>
+         <div class="col-md-9">
+            <h5>Jean-Pierre Vazart - Winegrower - Champagne Vazart-Coquart & Fils</h5>
+         </div>
+      </div>
+   </section>
+</main>
+<script>
+  $( document ).ready(function(){
+    if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $('.main-content-fr').hide();
+      $('.main-content-en').show();
+      window.document.title = "Speakers";
+    } else{
+      $('.main-content-fr').show();
+      $('.main-content-en').hide();
+      window.document.title = "Intervenants";
+    }
+  });
+</script>
+<script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
