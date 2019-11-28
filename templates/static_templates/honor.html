@@ -19,8 +19,11 @@ _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
   _template = "<p>Honor</p>"
 %>
-<%block name="pagetitle">${_("Honor Code")}</%block>
-
+<script>
+  $( document ).ready(function() {
+    document.title="Conditions générales"
+  })
+</script>
 <style>
 main {
  background-color: #fff;
