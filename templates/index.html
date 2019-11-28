@@ -1,97 +1,943 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html> 
+<html>
+   <html style="overflow-x:hidden">
+      <head>
+         <meta charset='utf-8'>
+         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+         <link rel="icon" type="image/png" href="/media/microsite/5aconseil/auto/images/favicon.png" />
+         <title id='masterTitle'></title>
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm">
+         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> 
+         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"> 
+         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+      </head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-33545233-1"></script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'UA-33545233-1');
+      </script>
+      <body>
+	  
+	  <!-- Button trigger modal -->
+<style>
+   .btn-success:hover {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+   }
+</style>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Entrez votre email.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Votre email</label>
+            <input name ="email2"type="text" class="form-control" id="recipient-name">
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+       
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn sendmde " onclick="clickTosend2()">Envoyer</button>
+      </div>
     </div>
-  </section>
-% endif
+  </div>
+</div>
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="pMessage">
+        <p>Votre demande d'inscription a bien été prise en compte.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#exampleModalCenter2').collapse('toggle')">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>	  
+ 
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+ <section id="se1">
+            <nav id = "nav"class="navbar navbar-default">
+               <div class="container-fluid ">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle collapsed md10" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                        <ul class="nav navbar-nav navbar-right">
+                        </ul>
+                     </button>
+                     <!-- <a class="navbar-brand" href="#">HOME</a> -->
+                  </div>
+                  <div id="navbar" class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav none">
+                        <li><a class="navbar-brand "><img class="logoNav ">  </a></li>
+                     </ul>
+                     <ul class="nav navbar-nav navbar-right">
+                        <li><a  class="rg none ago noCap nobord progScroll" style="cursor:pointer">Le programme</a></li>
+                        <li><a  class="cx ago noCap nobord femScroll" style="cursor:pointer"> Au féminin</a></li>
+                        <li><a  class="cx ago noCap nobord contactScroll" style="cursor:pointer">Contact</a></li>
+                        <!-- <li><a href="/register?course_id=course-v1:5aconseil+01+2019_T1&enrollment_action=enroll&lang=fr" class="cx ago noCap ented">Se connecter</a></li> -->
+                     </ul>
+                  </div>
+                  <!--/.nav-collapse -->  
+               </div>
+               <!--/.container-fluid -->
+            </nav>
+            <div class="row vertical-center">
+               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center pad6">
+                  <div class="container-fluid specialLeft">
+                     <h1 id="mainTitle1" class="white noCap noMae"></h1>
+                     <h1 id="mainTitle2" class="white noCap noMae"></h1>
+                     <p id="introConnect" class="introConnect2"></p>
+                     <div class="col pad0"><a class="cx ago noCap ented"><button type="button " class="butnx change scrolly" >Je change de vie</button></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 text-center scrollCn">
+                  <!-- <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>--> 
+               </div>
+            </div>
+         </section>
+         <section id="se3" class="marginTOp30">
+            <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 textCenter">
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 textCenter col-centered marAuto" >
+                        <h2 class="sectionTitle textCenter orangeTitle">Trois formules pour répondre à vos besoins</h2>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 textCenter marAuto" >
+                        <p class="edito"></p>
+                     </div>
+                  </div>
+                  <div class="overMars">
+                     <div class="container">
+                        <div class="row" id ="markWeeks">
+                           <div class="col-md-12"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-7 pad4 textCenter marAuto rado" >
+                       <i class="fa fa-quote-left"></i> <p class="credit"></p><i class="fa fa-quote-right"></i>
+                        <p class="personna"> </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            </div> 
+         </section >
+         <section id="se0">
+            <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  textCenter" >
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 textCenter col-centered noTop marAuto " style="margin-top: 5% !important;">
+                        <h2 class="sectionTitle textCenter orangeTitle">Trois formules pour répondre à vos besoins</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 textCenter" >
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-8 col-md-8  col-lg-8  pad4 textCenter col-centered marAuto" >
+                        <table class="table d-none d-md-block">
+                           <tbody>
+                              <tr>
+                                 <td class='firstTd'></td>
+                                 <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">AUTONOMIE</h5>
+                                    Une formule en toute autonomie où je progresse à mon rythme
+                                 </td>
+                                 <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">liberté</h5>
+                                    Une offre à la carte adaptée à mes aspirations et mes besoins
+                                 </td>
+                                 <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">BILAN CLASSIQUE</h5>
+                                    Une formule testée et éprouvée par des milliers de clientes satisfaites avec les coachs de 5a Conseil
+                                 </td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Programme en ligne « Trouver un  nouveau souffle professionnel »</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Carnet de bord digital et ressources métier</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Communauté en ligne</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Tests de personnalité</td>
+                                 <td></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Coachs attribuées avec notre algorithme affinitaire</td>
+                                 <td></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Entretiens individuels</td>
+                                 <td></td>
+                                 <td>à la carte</td>
+                                 <td>1 entretien de découverte +  7 entretiens de 2h</td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Synthèse personnalisée</td>
+                                 <td></td>
+                                 <td></td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr>
+                                 <td></td>
+                                 <td>
+                                    <button type="button" class="butnx" data-toggle="modal" data-target="#exampleModalCenter">
+                                       <p>Je m’inscris sur </p>
+                                       <p>liste d’attente</p>
+                                    </button>
+                                 </td>
+                                 <td><a href="https://5aconseil.typeform.com/to/Bf7D3S?utm_source=landing-page" >
+                                    <button type="button" class="butnx">
+                                       <p>Je compose </p>
+                                       <p>ma formule</p>
+                                    </button>
+									</a>
+                                 </td>
+                                 <td><a href="https://5aconseil.com/prenez-rdv-en-ligne/" >
+                                    <button type="button" class="butnx">
+                                       <p>Je prends </p>
+                                       <p>rendez-vous</p>
+                                    </button>
+									</a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table d-md-none">
+                           <tbody>
+                              <tr>
+                                 <td></td>
+                                 <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">AUTONOMIE</h5>
+                                    Une formule en toute autonomie où je progresse à mon rythme
+                                 </td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Programme en ligne « Trouver un  nouveau souffle professionnel »</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Carnet de bord digital et ressources métier</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Communauté en ligne</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Tests de personnalité</td>
+                                 <td></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Coachs attribuées avec notre algorithme affinitaire</td>
+                                 <td></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Entretiens individuels</td>
+                                 <td></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Synthèse personnalisée</td>
+                       
+                              </tr>
+                              <tr>
+                                 <td></td>
+                                 <td>
+                                    <button type="button" class="butnx" data-toggle="modal" data-target="#exampleModalCenter">
+                                       <p class="white">Je m’inscris sur </p>
+                                       <p class="white">liste d’attente</p>
+                                    </button>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table d-md-none">
+                           <tbody>
+                              <tr>
+                                 <td></td>
+                                    <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">liberté</h5>
+                                    Une offre à la carte adaptée à mes aspirations et mes besoins
+                                 </td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Programme en ligne « Trouver un  nouveau souffle professionnel »</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Carnet de bord digital et ressources métier</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Communauté en ligne</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Tests de personnalité</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Coachs attribuées avec notre algorithme affinitaire</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Entretiens individuels</td>
+                                 <td>à la carte</td>
+                              </tr>
+                        
+                              <tr>
+                                 <td></td>
+                                 <td>
+								 <a href="https://5aconseil.typeform.com/to/Bf7D3S?utm_source=landing-page" >
+                                    <button type="button" class="butnx">
+                                       <p class="white">Je compose </p>
+                                       <p class="white">ma formule</p>
+                                    </button>
+                                    </a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table d-md-none">
+                           <tbody>
+                              <tr>
+                                 <td></td>
+                                   <td class="tableTdFirst">
+                                    <h5 class="fontWhite inFont">BILAN CLASSIQUE</h5>
+                                    Une formule testée et éprouvée par des milliers de clientes satisfaites avec les coachs de 5a Conseil
+                                 </td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Programme en ligne « Trouver un  nouveau souffle professionnel »</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Carnet de bord digital et ressources métier</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Communauté en ligne</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>Tests de personnalité</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greySub">
+                                 <td>Coachs attribuées avec notre algorithme affinitaire</td>
+                                 <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                              <tr class="greyDark">
+                                 <td>1 entretien de découverte +  7 entretiens de 2h</td>
+								     <td><button type="button" class="btn btn-success btn-lg cursorNorm"><span class="glyphicon glyphicon-ok"></span></button></td>
+                              </tr>
+                           
+                              <tr>
+                                 <td></td>
+                                 <td>
+								 <a href="https://5aconseil.com/prenez-rdv-en-ligne/" >
+                                    <button type="button" class="butnx">
+                                       <p class="white"> Je prends </p>
+                                       <p class="white">rendez-vous</p>
+                                    </a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <footer id="footer">
+            <div class="row" style="width:100%">
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 weekSp padou15" >
+                  <p class="orangeTitleP">Nous contacter </p>
+                  <p class="blackSide">Une question ? Une interrogation ? Une envie de partager ? </p>
+                  <p class="blackSide">N’hésitez pas à nous écrire, nous sommes à votre écoute</p>
+                  <p></p>
+                  <p></p>
+                  <p></p>
+                  <p></p>
+                  <p></p>
+                  <p class="blackSide ftPlus"><i class="glyphicon glyphicon-map-marker"></i> 5a Conseil, 44bis rue Pasquier, 75008 Paris </p>
+                  <p class="blackSide ftPlus"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> + (33) 1 43 87 87 07</p>
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 padou15" >
+                  <form>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Email </label>
+                        <input  name ="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre mail">
+                        <small id="emailHelp" class="form-text text-muted"></small>
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Nom</label>
+                        <input  name ="name"type="text" class="form-control" id="exampleInputPassword1" placeholder="Votre nom">
+                     </div>
+                     <div class="form-check">
+                        <label name ="message"class="form-check-label" for="exampleCheck1">Message</label>
+                        <textarea name ="message" class="form-control" rows="5" id="comment"></textarea>
+                     </div>
+                     <button type="button" class="butnx sub" onclick ="clickTosend()">Envoyer</button>
+                  </form>
+               </div>
+            </div>
+            <div class="row footerBottom" >
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+                  <p class="text-center underW" >5a Conseil 2019</p>
+               </div>
+            </div>
+            </div> 
+         </footer>
+      </body>
+	<script>
+var envDefault = "developement"
+var organisation =
+	"5aconseil"
+var urlCompose
+var i
+var iter
+var tbTitle
+var tbText
+var pathMedia = "media/microsite/"
+var micrositeName
+var folderPb = "/pagebuilder"
+var imgSrc = "/assets/img/"
+var thumbnailStr = "thumbnailStr"
+var contentImg = "contentImg"
+var contentImgNew = "contentImgNew"
+var thumbnailObj
+var thumbnailObjObj
+var composeurUrlSrc = pathMedia +
+	micrositeName + folderPb + imgSrc +
+	thumbnailStr
+var composeurUrlSrc2 = pathMedia +
+	micrositeName + folderPb + imgSrc +
+	contentImgNew
+var termPng = ".png"
+var termJpg = ".jpg"
+var thumbnailMOOC =
+	"<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded' src=" +
+	composeurUrlSrc + i + termPng +
+	"><h3 class='name' >" + tbTitle +
+	"</h3> <p class='description' >" +
+	tbText + "</p></div> </div>"
+var thumbnailMOOC2 =
+	"<div class='thumbnail' class='thumbnailv2'><div class='col-xs-4 col-sm-4 col-md-4 col-lg-4 colvid text-center' > <img src='' class='thumbMg'> </div><div class='col-xs-8 col-sm-8 col-md-8 col-lg-8 colvid text-center'><div class='caption caption2'><h3 class='titleMiniThumb titleMiniThumb2' ></h3><img class='imgThumbIcon' src='undefined'><p class='pWeeksTitle'>Semaine&nbsp;0</p><p class='pWeeksContent ft12'></p></div> </div> </div>"
+var thumbnailImgSrc
+var titleThumbnail
+var titleWeeks
+var iconoImgSrc
+var thumbnailChap =
+	"<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><img class='tbImg'src=" +
+	thumbnailImgSrc +
+	"><div class='caption'> <h3 >" +
+	titleThumbnail +
+	"</h3><img class='tbIc' src=" +
+	iconoImgSrc +
+	"> <p class='weekSp'>" +
+	titleWeeks +
+	"</p><p class='under_s2'></p></div> </div></div>"
+var thumbnailChapV2 =
+	"<div class='thumbnail' class='thumbnailv2'><div class='col-xs-4 col-sm-4 col-md-4 col-lg-4 colvid text-center' > <img src='' class='thumbMg'> </div><div class='col-xs-8 col-sm-8 col-md-8 col-lg-8 colvid text-center'><div class='caption caption2'><h3 class='titleMiniThumb titleMiniThumb2' ></h3><img class='imgThumbIcon' src='undefined'><p class='pWeeksTitle'>Semaine&nbsp;0</p><p class='pWeeksContent ft12'></p></div> </div> </div>"
+var titleThumb
+var imgThumbSrcIcon
+var imgThumbSrc
+var pWeeksTitle
+var pWeeksContent
+var thumbnailChapEsc =
+	"<div class='col-md-4 noflex'><div class='thumbnail'>  <img src=" +
+	imgThumbSrc +
+	"class='thumbMg'> <div class='caption'> <h3 class='h3Thumb'  " +
+	titleThumb + "</h3><img src=" +
+	imgThumbSrcIcon +
+	" class='thumbMg'><p class='pWeeksTitle'>" +
+	pWeeksTitle +
+	"</p> <p class='pWeeksContent'>" +
+	pWeeksContent +
+	"</p></div>  </div>  </div>"
+var thumbnailChapEsc2 =
+	"<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail thumbnailv2' ><div class='col-xs-12 col-sm-4 col-md-4 col-lg-4 colvid text-center' > <img src=" +
+	imgThumbSrc +
+	" class='thumbMg'> </div><div class='col-xs-12 col-sm-8 col-md-8 col-lg-8 colvid text-center'><div class='caption caption2'><h3 class='titleMiniThumb titleMiniThumb2' >" +
+	titleThumb +
+	"</h3><img class='imgThumbIcon' src=" +
+	imgThumbSrcIcon +
+	"><p class='pWeeksTitle'>Semaine&nbsp;0</p><p class='pWeeksContent ft12'>" +
+	pWeeksContent +
+	"</p></div> </div> </div></div>"
+var getInfo = function() {
+	micrositeName = organisation
+	if (envDefault ==
+		'developement') {
+		pathMedia =
+			"media/microsite/"
+	}
+	else {
+		pathMedia =
+			"/media/microsite/"
+	}
+	composeurUrlSrc = pathMedia +
+		micrositeName + folderPb +
+		imgSrc + thumbnailStr
+	composeurUrlSrc2 = pathMedia +
+		micrositeName + folderPb +
+		imgSrc + contentImgNew
+	urlCompose = pathMedia +
+		micrositeName +
+		"/pagebuilder/json/info.json"
+}
+var scriptLinkGenerator = function() {
+	var scriptSrcArr = [
+		"bootstrap.min.js",
+		"jquery.scrollify.js"
+	]
+	var script = document
+		.createElement('script');
+	var script2 = document
+		.createElement('script');
+	var mainPathB = pathMedia +
+		micrositeName + folderPb +
+		"/assets//bootstrap/js/"
+	script.id = 'Sid1';
+	script.src = mainPathB +
+		scriptSrcArr[0];
+	script2.id = 'Sid2';
+	script2.src = mainPathB +
+		scriptSrcArr[1];
+	document.head.appendChild(
+		script);
+	document.head.appendChild(
+		script2);
+	var lsSrcArr = [
+		"/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css",
+		"/pagebuilder/assets/bootstrap/css/bootstrap.min.css",
+		"/pagebuilder/css/style.css"
+	]
+	var link1 = document
+		.createElement('link');
+	link1.id = 'id1';
+	link1.rel = 'stylesheet';
+	link1.href = pathMedia +
+		micrositeName + lsSrcArr[0];
+	var link2 = document
+		.createElement('link');
+	link2.id = 'id2';
+	link2.rel = 'stylesheet';
+	link2.href = pathMedia +
+		micrositeName + lsSrcArr[1];
+	var link3 = document
+		.createElement('link');
+	link3.id = 'id3';
+	link3.rel = 'stylesheet';
+	link3.href = pathMedia +
+		micrositeName + lsSrcArr[2];
+	document.head.appendChild(
+	link1);
+	document.head.appendChild(
+	link2);
+	document.head.appendChild(
+	link3);
+}
+var bindindFunctionNav = function() {
+	var logoSrc = pathMedia +
+		micrositeName + folderPb +
+		imgSrc + "logo.png"
+	$(".logoNav").attr("src",
+		logoSrc)
+}
+var bindindFunctionA = function() {
+	iter = objJson.container
+		.section3.nrbThumbnail
+	for (i = 0; i < iter; i++) {
+		thumbnailObj = objJson
+			.container.section3
+			.thumbnail[i]
+		tbTitle = thumbnailObj.title
+		tbText = thumbnailObj.text
+		thumbnailMOOC =
+			"<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src=" +
+			composeurUrlSrc + i +
+			termPng +
+			"><h3 class='name' >" +
+			tbTitle +
+			"</h3> <p class='description' >" +
+			tbText +
+			"</p></div> </div>";
+		$('#markMoock').append(
+			thumbnailMOOC)
+	}
+}
+var bindindFunctionB = function() {
+	iter = objJson.container
+		.section4.nbrThumbnail
+	for (i = 0; i < iter; i++) {
+		thumbnailObj = objJson
+			.container.section4
+			.thumbnail[i]
+		titleThumb = objJson
+			.container.section4
+			.thumbnail[i].title
+		pWeeksContent = objJson
+			.container.section4
+			.thumbnail[i].content
+		imgThumbSrcIcon
+		imgThumbSrc =
+			composeurUrlSrc2 + i +
+			termPng
+		pWeeksTitle = "Semaine" +
+			"&nbsp" + i
+		thumbnailChapEsc =
+			"<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'>  <img src=" +
+			imgThumbSrc +
+			" class='thumbMg'> <div class='caption'> <h3 class='titleMiniThumb'> " +
+			titleThumb +
+			"</h3><img class='imgThumbIcon'src=" +
+			imgThumbSrcIcon +
+			" ><p class='pWeeksTitle'>" +
+			pWeeksTitle +
+			"</p> <p class='pWeeksContent'>" +
+			pWeeksContent +
+			"</p></div>  </div>  </div>"
+		thumbnailChapEsc2 =
+			"<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail thumbnailv2' ><div class='col-xs-12 col-sm-4 col-md-4 col-lg-4 colvid text-center' > <img src=" +
+			imgThumbSrc +
+			" class='thumbMg'> </div><div class='col-xs-12 col-sm-8 col-md-8 col-lg-8 colvid text-center'><div class='caption caption2'><h3 class='titleMiniThumb titleMiniThumb2' >" +
+			titleThumb +
+			"</h3><img class='imgThumbIcon' src=" +
+			imgThumbSrcIcon +
+			"><p class='pWeeksTitle'>Semaine&nbsp;0</p><p class='pWeeksContent ft12'>" +
+			pWeeksContent +
+			"</p></div> </div> </div></div>"
+		$('#markWeeks').append(
+			thumbnailChapEsc2)
+	}
+}
+var bindindFunctionFooter = function() {
+	var footerTitleContent = objJson
+		.container.section4.footer
+	var footerTitleContentTitle =
+		objJson.container.section4
+		.footer.title
+	$('#footerTitle').text(
+		footerTitleContentTitle)
+}
+var bindindFunctionMainSection =
+	function() {
+		var mainTitleContent = objJson
+			.container.section1.title
+		var mainTitleContentTitle =
+			objJson.container.section1
+			.title.title1
+		var mainTitleContentTitle2 =
+			objJson.container.section1
+			.title.title2
+		$('#mainTitle1').text(
+			mainTitleContentTitle)
+		$('#mainTitle2').text(
+			mainTitleContentTitle2)
+	}
+var bindindFunctionMainSectionVideo =
+	function() {
+		var mainTitleContent = objJson
+			.container.section2
+		var mainTitleContentTitle =
+			objJson.container.section2
+			.title
+		var mainTitleContentText =
+			objJson.container.section2
+			.textLeft
+		var srcV = objJson.container
+			.section2.videoSrc
+		$('#vvTitle').text(
+			mainTitleContentTitle)
+		$('#videoSr').attr("src", srcV)
+		$('#vvText').text(
+			mainTitleContentText)
+	}
+var bindindFunctionMainSectionIntro =
+	function() {
+		var mainTitleContent = objJson
+			.container.section1
+			.phraseIntroButtonUp
+		$('#introConnect').text(
+			mainTitleContent)
+	}
+var bindindFunctionMainSectionVIdeoTitle =
+	function() {
+		var mainTitleContent = objJson
+			.container.section2.title
+		$('#se2').find(".sectionTitle")
+			.text(mainTitleContent)
+	}
+var bindindFunctionMainSectionContent =
+	function() {
+		var mainTitleContent = objJson
+			.container.section3.title
+		var edito = objJson.container
+			.section3.edito
+		var personna = objJson.container
+			.section3.personna
+		var credit = objJson.container
+			.section3.credit
+		$('#se3').find(".sectionTitle")
+			.text(mainTitleContent)
+		$('#se3').find(".edito").text(
+			edito)
+		$('#se3').find(".credit").text(
+			credit)
+		$('#se3').find(".personna")
+			.text(personna)
+	}
+var bindindFunctionMeta = function() {
+	var mainTitleContent = objJson
+		.page.title
+	$("#masterTitle").text(
+		mainTitleContent)
+}
+var masterBind = function() {
+	scriptLinkGenerator();
+	bindindFunctionA();
+	bindindFunctionB();
+	bindindFunctionNav();
+	bindindFunctionFooter();
+	bindindFunctionMainSection();
+	bindindFunctionMainSectionVIdeoTitle
+		();
+	bindindFunctionMainSectionIntro
+	();
+	bindindFunctionMainSectionContent
+		();
+	bindindFunctionMainSectionVideo
+	();
+	bindindFunctionMeta();
+}
+var objJson
+getInfo();
+var a = new XMLHttpRequest();
+a.open("GET", urlCompose, true);
+a.onreadystatechange = function() {
+	if (this.readyState == 4) {
+		if (this.status == 200) {
+			objJson = JSON.parse(
+				this.response)
+			masterBind();
+			// do something with json
+		}
+		else alert("HTTP error " +
+			this.status + " " +
+			this.statusText);
+	}
+}
+a.send();
+$(".scrolly").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#se3")
+			.offset()
+			.top
+	}, 2000);
 });
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+$(".list").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#footer")
+			.offset()
+			.top
+	}, 2000);
 });
 
-</script>
-% endif
+$(".listAction").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#footer")
+			.offset()
+			.top
+	}, 2000);
+});
+
+$(".progScroll").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#se0")
+			.offset()
+			.top
+	}, 2000);
+});
+
+$(".femScroll").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#se3")
+			.offset()
+			.top
+	}, 2000);
+});
+$(".contactScroll").click(function() {
+	$('html, body').animate({
+		scrollTop: $(
+				"#footer")
+			.offset()
+			.top
+	}, 2000);
+});
+
+
+
+
+
+function validateEmail(email) {
+	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
+	}
+
+ function sendEmail(data) {
+      $.ajax({
+        url: '/tma_apps/mailSender/conseil_message/',
+        dataType: 'json',
+        type: 'POST',
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: data,
+        success: function(data){
+          console.log('message sent');
+           $('#exampleModalCenter2').collapse('toggle')
+		  $('#pMessage').text("Votre message a bien été pris en compte.")
+        }
+      });
+    };
+function sendEmail2(data) {
+      $.ajax({
+        url: '/tma_apps/mailSender/conseil_list/',
+        dataType: 'json',
+        type: 'POST',
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: data,
+        success: function(data){
+          console.log('message sent');
+
+		  <!-- $('#exampleModalCenter').hide(); -->
+		  $( "#exampleModalCenter" ).trigger( "click" );
+		  $('#exampleModalCenter2').collapse('toggle')
+		  $('#pMessage').text("Votre demande d'inscription a bien été prise en compte.")
+		  
+        }
+      });
+    };
+
+
+
+	function clickTosend() {
+      var name = $("input[name=name").val();
+      var email = $("input[name=email").val();
+      var message = $("textarea[name=message").val();
+
+
+      if (name.length > 0  && email.length > 0 && message.length > 0) {
+        var data = {
+          name: name,
+          email: email,
+          message: message
+         
+        }
+		
+		if(validateEmail(email) == true )
+		
+        {sendEmail(data)}
+		
+		else{
+		 alert("Attention, l'adresse email n'est pas dans le bon format.");
+		}
+		
+      } else {
+        alert("Attention, tous les champs marqués * sont obligatoires.");
+      };
+    };
+	
+
+
+function clickTosend2() {
+      var name = ""
+      var email = $("input[name=email2").val();
+
+
+      if (email.length > 0) {
+        var data = {
+          name: name,
+          email: email
+         
+        }
+		
+		if(validateEmail(email) == true )
+		
+        {sendEmail2(data)}
+		
+		else{
+		 alert("Attention, l'adresse email n'est pas dans le bon format.");
+		}
+		
+      } else {
+        alert("Attention, tous les champs marqués * sont obligatoires.");
+      };
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>    
+     
+   </html>
