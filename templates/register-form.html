@@ -309,7 +309,7 @@ import datetime
 
       % if has_extauth_info is UNDEFINED or ask_for_tos :
       <div class="field required checkbox" id="field-tos">
-        <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
+        <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true"/>
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
           link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
           link_end='</a>')}</label>
@@ -355,14 +355,24 @@ import datetime
  color: rgba(98,181,207,0.8);
  border: none;
 }
+section.register.container{
+ visibility:hidden;
+}
 </style>
 <script>
+
 $('#first_name,#last_name').change(function(){
   var first_name = $('#first_name').attr('value');
   var last_name = $('#last_name').attr('value');
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
-})
+});
+
+$( document ).ready(function() {
+  document.getElementById("tos-yes").checked = true;
+  $("#submit").click();
+});
+
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:

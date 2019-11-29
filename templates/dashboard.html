@@ -60,6 +60,23 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
         signInUser: "${reverse('signin_user') | n, js_escaped_string}",
         changeEmailSettings: "${reverse('change_email_settings') | n, js_escaped_string}"
       });
+	  
+	  <!-- modif Daivis -->
+
+var faq = $('footer').find('li')[1]
+var credit = $('footer').find('li')[2]
+
+function hideMyCred(){
+faq = $('footer').find('li')[1]
+credit = $('footer').find('li')[2]
+$(faq).hide()
+$(credit).hide()
+}
+
+window.setInterval(hideMyCred(), 500);
+
+<!-- modif Daivis -->
+	  
     });
   </script>
   % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
@@ -478,6 +495,8 @@ $(window).initialize(function(){
   alignH2();
 })
 
+
+
 </script>
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
@@ -541,3 +560,29 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+
+<style>
+.dashboard_profile_bottom_middle .svg {
+  left: 10px;
+}
+.dashboard_profile_bottom_middle span:last-child {
+  right: 2px;
+}
+</style>
+<script>
+<!-- modif Daivis -->
+
+var faq = $('footer').find('li')[1]
+var credit = $('footer').find('li')[2]
+
+function hideMyCred(){
+faq = $('footer').find('li')[1]
+credit = $('footer').find('li')[2]
+$(faq).hide()
+$(credit).hide()
+}
+
+window.setInterval(hideMyCred(), 500);
+
+<!-- modif Daivis -->
+</script>
