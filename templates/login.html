@@ -11,7 +11,6 @@ from third_party_auth import provider, pipeline
 <%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-login</%block>
-
 <%block name="js_extra">
   <script type="text/javascript">
     $(function() {
@@ -98,15 +97,10 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          
-          
-          
           html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
-          //
-          //
           text("${_(u'Processing your account information')}");
       }
     }
@@ -141,7 +135,7 @@ from third_party_auth import provider, pipeline
 </section>
 
 <section class="login container">
-  <section role="main" class="content" style="width:100% !important;">
+  <section role="main" class="content">
     <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
 
       <!-- status messages -->
@@ -177,28 +171,16 @@ from third_party_auth import provider, pipeline
         <h2 class="sr">${_('Required Information')}</h2>
 
         <ol class="list-input">
-          <li class="field required text" id="field-email" style="display:none">
+          <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
             <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
           </li>
-
-          <li class="field required text" id="field-hpsjusername">
-            <label for="email">Login</label>
-            <input class="" id="hpsjusername" type="email" name="hpsjusername" value="" placeholder="Exemple: GDUPONT" required aria-required="true" aria-described-by="hpsjusername-tip" />
-            <span class="tip tip-input" id="hpsjusername-tip">Votre nom d'utilisateur</span>
-          </li>
-<script>
-$("#hpsjusername").on("change paste keyup", function() {
-   $("#email").val($(this).val()+"@placeholder.themoocagency.com");
-   console.log($("#email").val($(this).val()+"@placeholder.themoocagency.com")); 
-});
-</script>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
             <span class="tip tip-input">
-             <!-- <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${_('Forgot password?')}</a>-->
+              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${_('Forgot password?')}</a>
             </span>
           </li>
         </ol>
@@ -248,7 +230,7 @@ $("#hpsjusername").on("change paste keyup", function() {
 
   </section>
 
-  <aside role="complementary" style="display:none">
+  <aside role="complementary">
 
 <%
   # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones

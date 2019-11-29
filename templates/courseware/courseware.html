@@ -9,6 +9,10 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+
+from courseware.courses import get_course_by_id
+import logging
+log = logging.getLogger()
 %>
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
@@ -63,7 +67,39 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
+<script src="/media/microsite/hpsj/js/cookie.js"></script>
 
+<style>
+    #voile,#voile_teaser {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+    }
+    #cookies {
+      padding: 30px;
+      border-radius: 5px;
+      border: 1px solid black;
+      margin: 15%;
+      width: 70%;
+      min-height: 40px;
+      background-color: white;
+      color: black;
+      position: fixed;
+      left: 0;
+      bottom: 15%;
+      z-index: 100;
+      display: none;
+    }
+    body {
+     overflow-x: hidden;
+    }
+  </style>
+  
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
 </%block>
@@ -169,6 +205,27 @@ css = org_static+'/css/courseware.css'
     </div>
 % endif
     <section class="course-content" id="course-content">
+        <div id="voile"></div>
+        <div id="voile_teaser"></div>
+        <section id="cookies">
+          <p>
+              Conformément à la loi n°78-17 du 6 janvier 1978 modifiée relative à l’informatique, aux fichiers et aux libertés, vous disposez d’un droit d’accès, de rectification, de limitation et d’opposition, que vous pouvez exercer :
+              <br>
+              <ul>
+                <li>par voie électronique : <a href="mailto:dpo@hpsj.fr">dpo@hpsj.fr</a></li>
+                <li>par courrier postal : Fondation Hôpital Paris Saint-Joseph, A l'attention du DPO – 185 rue Raymond Losserand – 75674 Paris cedex 14</li>
+              </ul>
+              Je m'engage à ne pas utiliser la plateforme de covoiturage à d'autres fins que celles de permettre le partage d'une voiture pour un trajet domicile/
+              lieu de travail ou lieu de travail/ domicile.
+              <br>
+          </p>
+          <p>
+            <input type="checkbox" id="cookie_agree" name="scales"><span style="margin-left:10px">"Lu et approuvé"</span>
+          </p>
+          <div style="text-align:center">
+            <button id="cookie_ok" disabled>Valider</button>
+          </div>
+          </section>
         <div class="path"></div>
         <main id="main" aria-label="Content" tabindex="-1">
         % if getattr(course, 'entrance_exam_enabled') and \
