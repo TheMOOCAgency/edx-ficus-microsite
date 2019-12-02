@@ -38,6 +38,20 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 
 %>
 <%block>
+
+<%
+  # PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+  from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+
+  tma_lang = request.LANGUAGE_CODE
+  if user.is_authenticated():
+    try:
+      tma_lang = get_user_preference(user, 'pref-lang')
+    except:
+      pass 
+%>
+
+
 <link rel="stylesheet" type="text/css" href="${css}" />
 <%
 try:
@@ -315,6 +329,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     course_id = current_path.split('/')[2]
   %>
   <script>
+    // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+    document.cookie = 'tma_lang=${tma_lang};path=/';
+
     var username_pid = "${user.username}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
