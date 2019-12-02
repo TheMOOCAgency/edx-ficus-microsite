@@ -4,9 +4,33 @@
 
 <%block name="pagetitle">${_("Terms of Service")}</%block>
 
+<style>
+    #tos_content {
+        padding: 30px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin: 5%;
+        width: 83%;
+        min-height: 40px;
+        background-color: white;
+        color: black;
+        position: fixed;
+        left: 0;
+    }
+</style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-        <h1>${_("Terms of Service")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+    <section id="tos_content">
+        <p>
+            Conformément à la loi n°78-17 du 6 janvier 1978 modifiée relative à l’informatique, aux fichiers et aux libertés, vous disposez d’un droit d’accès, de rectification, de limitation et d’opposition, que vous pouvez exercer :
+            <br>
+            <ul>
+              <li>par voie électronique : <a href="mailto:dpo@hpsj.fr">dpo@hpsj.fr</a></li>
+              <li>par courrier postal : Fondation Hôpital Paris Saint-Joseph, A l'attention du DPO – 185 rue Raymond Losserand – 75674 Paris cedex 14</li>
+            </ul>
+            Je m'engage à ne pas utiliser la plateforme de covoiturage à d'autres fins que celles de permettre le partage d'une voiture pour un trajet domicile/
+            lieu de travail ou lieu de travail/ domicile.
+            <br>
+        </p>
     </section>
 </main>
