@@ -39,19 +39,6 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 %>
 <%block>
 
-<%
-  # PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
-  from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
-
-  tma_lang = request.LANGUAGE_CODE
-  if user.is_authenticated():
-    try:
-      tma_lang = get_user_preference(user, 'pref-lang')
-    except:
-      pass 
-%>
-
-
 <link rel="stylesheet" type="text/css" href="${css}" />
 <%
 try:
@@ -327,6 +314,18 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
         org_filter_out_set.remove(course_org_filter)
     course_length = len(list(get_course_enrollments(request.user, course_org_filter, org_filter_out_set)))
     course_id = current_path.split('/')[2]
+  %>
+
+  <%
+    # PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+    from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+
+    tma_lang = request.LANGUAGE_CODE
+    if user.is_authenticated():
+      try:
+        tma_lang = get_user_preference(user, 'pref-lang')
+      except:
+        pass 
   %>
   <script>
     // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
