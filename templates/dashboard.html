@@ -18,6 +18,7 @@ from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
+from courseware.courses import get_course_by_id
 #from discussion_tma.views import get_section_list
 import time
 %>
@@ -103,6 +104,107 @@ css = org_static+'/css/dashboard.css'
         </div>
     %endif
 </div>
+<script src="/media/microsite/hpsj/js/cookie.js"></script>
+<style>
+  .content_tma {
+    display:none;
+  }
+  .authenticated {
+    display: none;
+  }
+  #voile,#voile_teaser {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+  }
+  #cookies {
+    padding: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 15%;
+    width: 70%;
+    min-height: 40px;
+    background-color: #636363;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: 15%;
+    z-index: 100;
+    display: none;
+  }
+  body {
+   overflow-x: hidden;
+  }
+  #covoiturage {
+    border: 3px solid #e4e4e4;
+    background: #f8f8f8;
+    padding: 40px 0;
+    text-align: left;
+    font-size: 1em;
+    padding: 20px;
+    position: relative;
+    z-index: 20;
+    width: 80%;
+    margin-left:10%;
+    margin-top: 50px;
+    box-sizing: border-box;
+  }
+  #covoiturage > h3 {
+    color: #9F9F9F !important;
+    font-size: 1.5em;
+    line-height: 1.4em;
+    text-align: left;
+    font-family: "custom_font";
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  #covoiturage > p {
+    margin-top: 20px;
+  }
+</style>
+<section class="course-content" id="course-content">
+  <div id="voile"></div>
+  <div id="voile_teaser"></div>
+  <section id="cookies">
+    <p>
+        Conformément à la loi n°78-17 du 6 janvier 1978 modifiée relative à l’informatique, aux fichiers et aux libertés, vous disposez d’un droit d’accès, de rectification, de limitation et d’opposition, que vous pouvez exercer :
+        <br>
+        <ul>
+          <li>par voie électronique : <a href="mailto:dpo@hpsj.fr">dpo@hpsj.fr</a></li>
+          <li>par courrier postal : Fondation Hôpital Paris Saint-Joseph, A l'attention du DPO – 185 rue Raymond Losserand – 75674 Paris cedex 14</li>
+        </ul>
+        Je m'engage à ne pas utiliser la plateforme de covoiturage à d'autres fins que celles de permettre le partage d'une voiture pour un trajet domicile/
+        lieu de travail ou lieu de travail/ domicile.
+        <br>
+    </p>
+    <p>
+      <input type="checkbox" id="cookie_agree" name="scales"><span style="margin-left:10px">"Lu et approuvé"</span>
+    </p>
+    <div style="text-align:center">
+      <button id="cookie_ok" disabled>Valider</button>
+    </div>
+</section>
+<div id="covoiturage">
+  <h3>Covoiturage</h3>
+  <div>
+      <p><strong>Inscrivez-vous en qualité de conducteur pour proposer de partager votre voiture.</strong></p> 
+
+      <p>Vous serez contacté(e) directement par vos futurs passagers.</p>
+      
+      <p>Dans le tableau ci-dessous, <strong>votre saisie est automatiquement enregistrée.</strong></p>
+      
+      <p>Si vous êtes sur mobile, <a href="https://docs.google.com/spreadsheets/d/1IsPwhXyDYEe8cSJfGWK3e-5ozcP99gvOFX2v35HmKCk/edit?usp=sharing">cliquez ici pour accéder au fichier partagé</a>.</p>
+      
+      <p>NB : l'installation de Google Sheets est nécessaire pour une utilisation du fichier sur Smartphone</p>
+  </div>
+</div>
+<iframe src="https://docs.google.com/spreadsheets/d/1IsPwhXyDYEe8cSJfGWK3e-5ozcP99gvOFX2v35HmKCk/edit?usp=sharing" width="100%" height="700px" style="position:relative; top:-129px; width: 80%; margin-left: 10%; box-sizing: border-box;"></iframe>
 <!-- CSS DEV -->
 <!-- CSS DEV -->
 <!--
@@ -556,3 +658,6 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+<section class="course-content" id="course-content">
+  <div id="voile"></div>
+  <div id="voile_teaser"></div>
