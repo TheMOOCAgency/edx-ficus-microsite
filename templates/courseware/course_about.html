@@ -102,11 +102,11 @@ from openedx.core.lib.courses import course_image_url
 
   })(this)
   </script>
-
+<script>
+  document.title="Quiz Préparation Data"
+</script>
   <script src="${static.url('js/course_info.js')}"></script>
 </%block>
-
-<%block name="pagetitle">${course.display_name_with_default_escaped}</%block>
 
 <%
 org_static = static.get_value('domain_prefix')
