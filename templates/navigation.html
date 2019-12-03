@@ -315,22 +315,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     course_length = len(list(get_course_enrollments(request.user, course_org_filter, org_filter_out_set)))
     course_id = current_path.split('/')[2]
   %>
-
-  <%
-    # PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
-    from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
-
-    tma_lang = request.LANGUAGE_CODE
-    if user.is_authenticated():
-      try:
-        tma_lang = get_user_preference(user, 'pref-lang')
-      except:
-        pass 
-  %>
   <script>
-    // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
-    document.cookie = 'tma_lang=${tma_lang};path=/';
-
     var username_pid = "${user.username}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
@@ -382,3 +367,23 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<%
+# PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+
+tma_lang = request.LANGUAGE_CODE
+if user.is_authenticated():
+  try:
+    tma_lang = get_user_preference(user, 'pref-lang')
+  except:
+    pass 
+%>
+<script>
+  $(document).ready(function(){
+    // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+    var date = new Date();
+    date.setMonth(date.getMonth() + 1);
+    document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=the-mooc-agency.com;expires='+ date.toGMTString();
+  });
+</script>
