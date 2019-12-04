@@ -24,6 +24,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 register_fields = configuration_helpers.get_value("FORM_EXTRA")
 activate_popup_code = False
 course_id_to_connect = ''
+enrollment_to_connect = type('test', (), {})()
 #from discussion_tma.views import get_section_list
 import time
 %>
@@ -323,6 +324,7 @@ else{
           <%
             activate_popup_code = True
             course_id_to_connect = str(enrollment.course_id)
+            enrollment_to_connect = enrollment
           %>
         % endif
       % endfor
@@ -380,9 +382,9 @@ else{
     <div id="voile_teaser"></div>
     <section id="cookies">
       <p>
-        Nous avons pris en compte votre demande d'inscription à la formation donnée par ${enrollment.course_overview.display_name_with_default}.
+        Nous avons pris en compte votre demande d'inscription à la formation donnée par ${enrollment_to_connect.course_overview.display_name_with_default}.
         <br>
-        <br>N'oubliez pas d'aller compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
+        <br>N'oubliez pas d'aller compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment_to_connect.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
         <br>
         <br>En cas de dysfonctionnement, merci d’adresser un email à <a href="mailto:inveest@greenflex.com">inveest@greenflex.com</a>.
       </p>
