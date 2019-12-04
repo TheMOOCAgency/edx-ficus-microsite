@@ -18,6 +18,12 @@ from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
+
+#Yoann : get register_fields to compare course_id with database
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+register_fields = configuration_helpers.get_value("FORM_EXTRA")
+activate_popup_code = False
+course_id_to_connect = ''
 #from discussion_tma.views import get_section_list
 import time
 %>
@@ -310,8 +316,86 @@ else{
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
+  % for field in register_fields:
+    % if field.get("name") == "organisme":
+      % for option in field.get("options"):
+        % if option.get("course") and str(option.get("course")) == str(enrollment.course_id):
+          <%
+            activate_popup_code = True
+            course_id_to_connect = str(enrollment.course_id)
+          %>
+        % endif
+      % endfor
+    % endif
+  % endfor
   <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
+
+% if activate_popup_code:
+  <script src="/media/microsite/inveest/js/cookie.js"></script>
+  <style>
+    #voile,#voile_teaser {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 100;
+      background-color: rgba(109, 109, 109, 0.5);
+      display: none;
+    }
+    #cookies {
+      padding: 30px;
+      border-radius: 5px;
+      border: 1px solid black;
+      margin-left: 15%;
+      width: 70%;
+      min-height: 40px;
+      background-color: white;
+      color: black;
+      position: fixed;
+      left: 0;
+      top: 20%;
+      z-index: 100;
+      display: none;
+    }
+    #cookie_ok {
+      background-image: linear-gradient(to bottom,#708c9a 0%,#4f6b8c 50%,#5b6882 50%,#1f232b 100%);
+    }
+    #cookie_ok:hover {
+      background-image: linear-gradient(to bottom,#94b5c5 0%,#6b8cb3 50%,#7b89a5 50%,#545b69 100%);
+    }
+    .popup_bold {
+      font-weight: 600;
+    }
+    @media(max-width:1024px) {
+      #cookies {
+        margin-left: 5%;
+      }
+    }
+  </style>
+  <section class="course-content" id="course-content">
+    <div id="voile"></div>
+    <div id="voile_teaser"></div>
+    <section id="cookies">
+      <p>
+        Nous avons pris en compte votre demande d'inscription à la formation donnée par ${enrollment.course_overview.display_name_with_default}.
+        <br>
+        <br>N'oubliez pas d'aller compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
+        <br>
+        <br>En cas de dysfonctionnement, merci d’adresser un email à <a href="mailto:inveest@greenflex.com">inveest@greenflex.com</a>.
+      </p>
+      <p>
+        <input type="checkbox" id="cookie_agree" name="scales"><span style="margin-left:10px">"Lu et approuvé"</span>
+      </p>
+      <div style="text-align:center; margin-top:20px">
+        <button id="cookie_ok" disabled>Valider</button>
+      </div>
+    </section>
+  </section>
+% endif
+
 </ul>
 <!-- multi site css -->
 <style>
