@@ -4,12 +4,7 @@ Bienvenue dans la première étape de votre formation Data for Managers avec HEC
 
 En amont des journées des 10 et 11 décembre, nous vous invitons à tester vos connaissances Data en répondant à 32 questions (comptez 35 minutes).
 
-Rendez vous sur ${_("{site_name}").format(site_name=site_name)} .
-Cliquez sur le bouton connexion et entrez vos identifiants :
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
-
-Il est recommandé de personnaliser votre mot de passe lors de la première connexion en cliquant sur « mot de passe oublié » sur votre page de connexion.
+Pour commencer le cours, rendez-vous sur ${_('https://{site_name}/courses/{course_key}/courseware').format(site_name=platform_name.strip(), course_key=course_key.strip())} avec vos identifiant habituels. Nous vous rappelons que votre login est composé de votre adresse mail. 
 
 Répondre à ce questionnaire est optionnel. Il a pour objectif de vous permettre de vous situer et de vous familiariser avec les enjeux de la data transformation.
 A l'issue de chaque question, un texte explicatif vous permettra de commencer à développer vos connaissances.
