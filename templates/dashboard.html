@@ -22,7 +22,6 @@ from course_api.blocks.api import get_blocks
 #Yoann : get register_fields to compare course_id with database
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 register_fields = configuration_helpers.get_value("FORM_EXTRA")
-activate_popup_code = False
 course_id_to_connect = ''
 enrollment_to_connect = type('test', (), {})()
 #from discussion_tma.views import get_section_list
@@ -316,20 +315,18 @@ else{
 <h1><span id="span_1">Mes formations</span></h1>
 </span>
 <ul id="list_multi">
+<%
+activate_popup_code = False
+for dashboard_index, enrollment in enumerate(course_enrollments):
+  for field in register_fields:
+    if field.get("name") == "organisme":
+      for option in field.get("options"):
+        if option.get("course") and str(option.get("course")) == str(enrollment.course_id):
+          activate_popup_code = True
+          course_id_to_connect = str(enrollment.course_id)
+          enrollment_to_connect = enrollment
+%>
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  % for field in register_fields:
-    % if field.get("name") == "organisme":
-      % for option in field.get("options"):
-        % if option.get("course") and str(option.get("course")) == str(enrollment.course_id):
-          <%
-            activate_popup_code = True
-            course_id_to_connect = str(enrollment.course_id)
-            enrollment_to_connect = enrollment
-          %>
-        % endif
-      % endfor
-    % endif
-  % endfor
   <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
 
