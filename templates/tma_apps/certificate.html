@@ -1,173 +1,297 @@
 <%page expression_filter="h"/>
-<%inherit file="/main.html" />
-<%namespace name='static' file='/static_content.html'/>
-<%def name="online_help_token()"><% return "courseware" %></%def>
+   <%inherit file="/main.html" />
+      <%namespace name='static' file='/static_content.html'/>
+         <%def name="online_help_token()"><% return "courseware" %></%def>
 <%!
-from django.utils.translation import ugettext as _
-from django.conf import settings
-from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
-from openedx.core.djangolib.markup import HTML
-from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
-from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
-from datetime import datetime, date
-import json
-
-%>
-
-
-
+   from django.utils.translation import ugettext as _
+   from django.conf import settings
+   from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+   from openedx.core.djangolib.markup import HTML
+   from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+   from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+   from datetime import datetime, date
+   import json
+   %>
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
-
+<%
+   if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+     is_tma_team=True
+   else :
+     is_tma_team=False
+   %>
+<link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
 <style>
-/* General */
-#global-navigation,.wrapper-footer,#tma_background_font {
-  display: none !important;
-}
-body{
-  text-align:center;
-}
-.container{
-  margin-top:80px;
-  width:854px;
-  height:480px;
-  margin-left: 70px;
-  padding: 0;
-  border: 1px solid lightgray;
-}
-#main {
-  background-image:url('${bg}');
-  background-size:cover;
-  background-position:center;
-}
-.main-color{
-  background-color:#C1CF33;
-}
-.second-color{
-  background-color: #4d4d4d;
-}
-.texte-gras{
-  font-weight: 600;
-}
+   #global-navigation,.wrapper-footer,#tma_background_font {
+   display: none !important;
+   }
+   html{
+   overflow:hidden
+   }
+   body{
+   text-align:center;
+   }
+   /*CHANGE FONT*/
+   h1{
+   font-size: 35px;
+   }
+   h1,h2,h3,p{
+   font-family: 'Open Sans', sans-serif;
+   font-weight: 600;
+   color:gray;
+   }
+   h2{
+   font-size: 1.3rem;
+   letter-spacing: initial !important;
+   text-transform: none !important;
+   }
+   h3{
+   font-size: 1.4rem;
+   }
+   /*CHANGE IMAGE */
+   #main{
+   background-size:cover;
+   border: 1px solid lightgray;
+   margin-top:80px;
+   margin-left: 70px;
+   padding: 0;
+   height:480px;
+   width:854px;
+   }
+   #en3s-1 {
+   background-image: url('/media/microsite/en3s/auto/images/bg_yellow.png');
+   background-position: center;
+   }
+   #en3s-2 {
+   background-image: url('/media/microsite/en3s/auto/images/bg_img.jpg');
+   }
+   .container{
+   display: flex;
+   flex-direction: column;
+   padding: 0;
+   width: 100%;
+   height: 100%;
+   max-width: none!important;
+   }
+   /*CHANGE COLOR */
+   .transparency-color{
+   background-color: rgba(255,255,255,0.7);
+   }
+   .full-color{
+   background-color: rgba(174,34,59,1);
+   }
+   .bandeau-top{
+   box-sizing: border-box;
+   padding: 15px;
+   }
+   .reset-bandeaux{
+   width: 100%;
+   margin: 0;
+   padding: 5px;
+   }
+   #logo-partenaire{
+   max-height: 60px;
+   }
+   .center-vertically{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   }
+   #signature, #logo-secondaire{
+   max-height: 100px;
+   }
+   .m-0{
+   margin: 0;
+   }
+   .p-0{
+   padding: 0;
+   }
+   .container:after, section.outside-app:after{
+   content: none;
+   }
+   #bouton-pdf{
+   background-color: darkgray;
+   color: gray;
+   border-color: gray;
+   background-image: none;
+   box-shadow: none;
+   text-shadow: none;
+   border-radius: 5px;
+   font-weight: 600;
+   }
+   .bandeau-middle{
+   min-height: 200px;
+   display: flex;
+   align-items: center;
+   padding: 20px;
+   margin-top: 70px;
+   }
+   .border-wrap{
+   padding: 15px;
+   border: 1px solid white;
+   }
+   .white_bg{
+   background-color: white;
+   }
+   .p-20{
+   padding: 20px;
+   }
+   .main-color{
+   color:#41596A;
+   }
+   .white-text{
+   color: white;
+   }
+   .black-text{
+   color: black;
+   }
+   .color-text {
+   color: rgba(174,34,59,1);
+   }
+   .logo-dda{
+   max-width: 170%;
+   position: relative;
+   right: 35px;
+   bottom: 16px;
+   }
+   .p-20 {
+   padding: 10px;
+   width: 372px;
+   position: fixed;
+   left: 378px;
+   background-color: transparent !important;
+   }
+   .pt-2, .py-2 {
+   padding-top: 0!important;
+   }
+   .date{
+	padding: 10px;
+	position: fixed;
+	top: 570px;
+	left: 492px;
+	color:rgba(174,34,59,1);
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
 
-/* Premier bandeau */
-.bandeau-top{
-  padding: 10px;
 }
-.bandeau-top p{
-  font-weight: 600;
-  color: white;
-  margin-top: 15px;
-}
-.title-attestation{
-  width: 80%;
-  float: left;
-}
-.logo-attestation{
-  width: 20%;
-  float: left;
-  text-align: right;
-}
-.logo-attestation img{
-  max-height: 40px;
-}
-
-/* Deuxième bandeau */
-.bandeau-middle{
-  color: white;
-  margin-top: 100px;
-  padding: 30px 10px;
-}
-#course-title{
-  font-size: 20px;
-}
-#nom-user{
-  font-size: 30px;
-  margin-bottom: 30px;
-}
-#score, #course-title{
-  margin-top: 10px;
-}
-
-/* Footer */
-.footer-right, .footer-left{
-  float: left;
-}
-.footer-right img{
-  max-height: 80px;
-}
-.footer-right{
-  text-align: right;
-  width: 20%;
-}
-.footer-left{
-  width: 80%;
-}
-.footer{
-  padding: 10px;
-  margin-top: 44px;
-}
-.footer p{
-  margin-top: 74px;
-  font-size: 12px;
-  text-align: left;
-  background-color: white;
-}
-
-
+   }
+   #content{
+      min-height:calc(100vh - 61px) !important
+   }
+   .pdf-btn-wrapper{
+      padding:20px;
+   }
 </style>
-% if grades.get('passed'):
-<div class="container" id="main">
-  <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
-    <div class="logo-attestation">
-      <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
-    </div>
-    <div style="clear:both;"></div>
-  </div>
-
-  <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
-    <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
-  </div>
-
-  <div class="footer">
-      <div class="footer-left">
-          <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
+<!-- IMPORT FONT -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+% if grades.get('passed') or is_tma_team:
+<script>
+   function getSecondPart(str) {
+       return str.split(':')[1];
+   }
+   function getFirstPart(str){
+   
+       return str.substring(0, str.indexOf(":")); 
+   
+   }
+   function replaceCaracter(targetElementHtml,originCaracter,newCaracter){
+   let target = targetElementHtml
+   let targetToString = target.text()
+   let newString = targetToString.replace(originCaracter,newCaracter)
+   target.text(newString)
+   console.log(targetToString.replace(originCaracter,newCaracter))
+   
+   }
+   
+   
+</script>
+<div class="pdf-btn-wrapper">
+   <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
+</div>
+<div id="main">
+   <div id="en3s-2" class="container" style="background-image: url(/media/microsite/en3s/auto/images/bgs.png);">
+      <div class="row bandeau-top transparency-color m-0">
+         <div class="col-3">
+            <img id="logo-partenaire" style="max-width:100%" src="/media/microsite/en3s/auto/images/logo.png" alt="logo">
+         </div>
+         <div class="col-9 center-vertically">
+            <div>
+               <h1 class="color-text">ATTESTATION DE R&Eacute;USSITE</h1>
+            </div>
+         </div>
       </div>
-      <div class="footer-right">
-          <img src="${signature}"/>
+      <div class="bandeau-middle reset-bandeaux">
+         <div class="row transparency-color m-0 p-20">
+            <div class="col-10 text-left" style="padding:10px;">
+               <h2 class="main-color">L'EN3S atteste que :</h2>
+               <h2 class="main-color pt-2 pb-2 color-text">${first_name} ${last_name}</h2>
+               <h2 class="main-color">a suivi et réussi le</br> <span id="courseName">"${course_name}"</span></h2>
+               <script>
+                  replaceCaracter($('#courseName'),'"','')
+                  replaceCaracter($('#courseName'),'"','')
+                  replaceCaracter($('#courseName'),'-',':')
+                  
+                  function putCss(){
+                  var allSt = $("#courseName").text()
+                  var firstPart = getFirstPart(allSt)
+                  var secondPart = getSecondPart(allSt)
+                  var compose = firstPart +"&nbsp"+":"+"&nbsp"+"<span style='color:rgba(174,34,59,1);'>"+secondPart+"</span>"
+                  $("#courseName").html(compose)
+                  }
+                  putCss();
+                  
+               </script>
+            </div>
+            <div class="col-10 text-left date" >
+               Attestation délivrée le <span id = "curDate"></span>
+            </div>
+            <script>
+               var today = new Date();
+               var dd = String(today.getDate()).padStart(2, '0');
+               var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+               var yyyy = today.getFullYear();
+               
+               today = dd + '/' + mm + '/' + yyyy;
+               $("#curDate").text(today)
+               
+            </script>
+         </div>
       </div>
-      <div style="clear:both;"></div>
-  </div>
+   </div>
+</div>
 </div>
 
+<script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript"></script>
+<script
+   src="https://code.jquery.com/jquery-2.2.4.min.js"
+   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 <script type="text/javascript">
+   // Different design according to course_id
+   if (window.location.pathname.indexOf('course-v1:en3s+1+2019') > -1) {
+     $('#en3s-1').show();
+     $('#en3s-2').hide();
+   } else {
+     if (window.location.pathname.indexOf('course-v1:en3s+2+2019') > -1) {
+       $('#en3s-2').show();
+       $('#en3s-1').hide();
+     }
+   }
+   //PDF VERSION
+   function printpage(){
+      html2canvas(document.getElementById("main"), {
+       onrendered : function (canvas){
+        var img=canvas.toDataURL("image/png");
+        var doc = new jsPDF({orientation: 'landscape'});
+        doc.addImage(img, "PNG", 35, 40);
+        doc.save("certificat.pdf");
+       }
+     })
+   }
+   
+   
 </script>
-  %if pdf:
-  <script
-    src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-  <script type="text/javascript">
-  function printpage(){
-     html2canvas(document.body, {
-      onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 20, 20);
-       doc.save("certificat.pdf");
-      }
-    })
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-     printpage();
-  });
-  </script>
-  %endif
 % endif

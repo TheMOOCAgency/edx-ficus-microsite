@@ -68,12 +68,33 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
 <%block name="js_extra">
    <script type="text/javascript">
+   var joko = $('.ec-logo-size')[0]
+   $(joko).css('width','150px !important')
+   $('#global-navigation').css('border','none')
+   $('#global-navigation').css('height','127px')
+   
       $(window).load(function() {
          if(getParameterByName('next')) {
               $('#login').trigger("click");
          }
+		  console.log("foo2");
       })
+	 
+	    function start(){
+		$(".heading-group").html("<h1>Digital Campus EN3S</h1><p>Bienvenue sur la plateforme de formation digitale de l'EN3S !</p>");
+		var jingle= $('.course-search')[0];
+		$(jingle).hide();
+
+	}
+	  
+	  start()
+	  
+	  
+
+$("span:contains('Serious Game - Accueillir un nouveau collaborateur')").parent().parent().parent().parent().hide()
+
    </script>
+   
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
@@ -81,6 +102,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   ## show either with or without this extra js for 3 minutes at a time.
 <script type="text/javascript">
   $(window).load(function() {$('#signup_action').trigger("click");});
+ 
 </script>
 % endif
 
@@ -92,6 +114,7 @@ $(".btn-neutral").each(function(){
 $(".btn-login").each(function(){
  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
 });
+
 
 </script>
 % endif

@@ -1,20 +1,9 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear {full_name}").format(full_name=full_name)}
+Bonjour ${full_name},
+Vous avez été inscrit à ${course_name} accessible sur le campus numérique de l’EN3S. Le cours devrait maintenant apparaitre dans votre tableau de bord sur : ${site_name}
 
-${_("You have been enrolled in {course_name} at {site_name} by a member "
-	"of the course staff. The course should now appear on your {site_name} "
-	"dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}
+Pour commencer le cours, rendez-vous sur ${_('https://{site_name}/courses/{course_key}/courseware').format(site_name=site_name.strip(), course_key=course_key.strip())} avec vos identifiant habituels. Nous vous rappelons que votre login est composé de votre adresse mail. 
+Bonne formation et à bientôt !
 
-${_("To start accessing course materials, please visit {course_url}").format(
-		course_url=course_url
-	)}
-
-----
-${_("This email was automatically sent from {site_name} to "
-	"{full_name}").format(
-		site_name=site_name, full_name=full_name
-	)}
+L'équipe de « ${course_name} »
