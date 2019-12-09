@@ -373,23 +373,26 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
         margin-left: 5%;
       }
     }
+    #cookies > p > a:hover, #cookies > p > span > a:hover {
+      color: #32e900 !important;
+    }
   </style>
   <section class="course-content" id="course-content">
     <div id="voile"></div>
     <div id="voile_teaser"></div>
     <section id="cookies">
       <p>
-        Nous avons pris en compte votre demande d'inscription à la formation donnée par ${enrollment_to_connect.course_overview.display_name_with_default}.
+        Nous avons bien pris en compte votre demande d’inscription à la formation dispensée/animée par ${enrollment_to_connect.course_overview.display_name_with_default}.
         <br>
-        <br>N'oubliez pas d'aller compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment_to_connect.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
+        <br>Merci de bien vouloir compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment_to_connect.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
         <br>
-        <br>En cas de dysfonctionnement, merci d’adresser un email à <a href="mailto:inveest@greenflex.com">inveest@greenflex.com</a>.
+        <br>En cas de problème, merci d’adresser un email à <a href="mailto:inveest@greenflex.com">inveest@greenflex.com</a>.
       </p>
       <p>
         <input type="checkbox" id="cookie_agree" name="scales"><span style="margin-left:10px">Ne plus afficher ce message</span>
       </p>
       <div style="text-align:center; margin-top:20px">
-        <button id="cookie_ok" disabled>Valider</button>
+        <button id="cookie_ok">Fermer</button>
       </div>
     </section>
   </section>
