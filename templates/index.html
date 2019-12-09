@@ -1,97 +1,152 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title id="masterTitle">optimhome</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script id="Sid1" src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/bootstrap.min.js"></script><script id="Sid2" src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/jquery.scrollify.js"></script>
+      <link id="id1" rel="stylesheet" href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
+      <link id="id2" rel="stylesheet" href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
+      <link id="id3" rel="stylesheet" href="media/microsite/optimhome/assets/css/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet"> 
+   </head>
+   <style>
+      body {
+      background : #3C4650;
+      font-family: 'Roboto', sans-serif;
+      }
+      #mainTitle1{
+      color: white;
+      font-weight:bold
+      }
+      #mainTitle2{
+      color:
+		white;
+		font-size: 25px;
+		margin-top: 9px;
+      }
+      .jbo,.cx{
+      color:
+      white !important;
+      background-color:
+      #7C56C7;
+      font-size: 17px;
+      text-transform: uppercase;
+      border: none;
+      padding: 2px 7px !important;
+      margin: 17px;
+      }
+	  
+	  .rg{
+      color:black!important;
+      background-color:white;
+      font-size: 17px;
+      text-transform: uppercase;
+      border: none;
+      padding: 2px 13px !important;
+      margin: 17px;
+	  border-radius: 5px;
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+      }
+	  
+	  .cx{
+      color:
+      white !important;
+      background-color:
+      #7C56C7;
+      font-size: 17px;
+      text-transform: uppercase;
+      border: none;
+      padding: 2px 13px !important;
+      margin: 17px;
+	  border-radius: 5px;
+
+      }
+	  
+	  .top20{
+	  margin-top: 4%;
+	  }
+	  
+	 #se1{
+	     margin-top: 10%;
+	 }
+	 
+	 .logoNav{
+	 height: inherit;
+	 }
+	 
+	 .navbar{
+	 
+	 min-height: 75px;
+	 }
+   </style>
+   <body cz-shortcut-listen="true">
+      <nav id="nav" class="navbar navbar-default">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li><a href="/login?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll">Connexion</a></li>
+                     <li><a href="/register?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll">Inscription</a></li>
+                  </ul>
+               </button>
+               <!-- <a class="navbar-brand" href="#">HOME</a>                 -->
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+            <div id="navbar" class="navbar-collapse collapse">
+               <ul class="nav navbar-nav">
+                  <li><a class="navbar-brand "><img class="logoNav" src="media/microsite/optimhome/assets/img/logo.png">                   
+                     </a>
+                  </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+			    <li><a href="/login?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll" class="cx">Connexion</a></li>
+                  <li><a href="/register?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll" class="rg">Inscription</a></li>
+                 
+               </ul>
+            </div>
+            <!--/.nav-collapse -->             
+         </div>
+         <!--/.container-fluid -->          
+      </nav>
+      <section id="se1" style="">
+         <div class="row vertical-center">
+            <div class="col-md-12 text-center" style="padding: 4%;">
+               <div class="container-fluid">
+                  <h1 id="mainTitle1" class="white">DEVENIR CONSEILLER IMMOBILIER</h1>
+                  <h1 id="mainTitle2" class="yellowBurn">Un métier passion</h1>
+      
+                  <div class="col text-center top20">                  
+				  <a href="/login?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll">
+						<button class="btn btn-default butn jbo cx connexJumbo">connexion</button>  
+					 </a>
+				<a href="/register?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll" >
+                     <button class="btn btn-default butn jbo rg registerJumbo"> inscription </button>
+					 </a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-12 text-center scrollCn">                   				   
+               <!-- <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                        -->
+            </div>
+         </div>
+      </section>
+      <footer id="footer">
+         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+               <!-- <h2 id="footerTitle" class="text-center">découvrez la formation</h2> -->
+            </div>
+         </div>
+         <div class="row" style="display: block">
+            <div class="col text-center">
+               <!-- <button class="btn btn-default butn"> -->
+               <!-- inscription</button>  -->
+            </div>
+         </div>
+         <div class="row footerBottom">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+               <!-- <p class="text-center underW">Site deployé par The MOOC Agency - 2019 </p> -->
+            </div>
+         </div>
+      </footer>
+   </body>
+</html>
