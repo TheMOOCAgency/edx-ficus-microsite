@@ -12,7 +12,6 @@ else:
   is_user_registered = False
 %>
 
-
     <!-- BOOTSTRAP-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -94,3 +93,63 @@ else:
        alert("Support IE11 en cours, merci d'utiliser Chrome");
     }
     </script>
+
+    <!--POPUP for bankers-->
+    <style>
+      #voile,#voile_teaser {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        background-color: rgba(109, 109, 109, 0.5);
+        display: none;
+      }
+      #popupBanker {
+        padding: 30px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-left: 15%;
+        width: 70%;
+        min-height: 40px;
+        background-color: white;
+        color: black;
+        position: fixed;
+        left: 0;
+        top: 20%;
+        z-index: 100;
+        display: none;
+      }
+      #popupBanker_ok {
+        background-image: linear-gradient(to bottom,#708c9a 0%,#4f6b8c 50%,#5b6882 50%,#1f232b 100%);
+      }
+      #popupBanker_ok:hover {
+        background-image: linear-gradient(to bottom,#94b5c5 0%,#6b8cb3 50%,#7b89a5 50%,#545b69 100%);
+      }
+      .popup_bold {
+        font-weight: 600;
+      }
+      @media(max-width:1024px) {
+        #popupBanker {
+          margin-left: 5%;
+        }
+      }
+      #popupBanker > p > a:hover, #popupBanker > p > span > a:hover {
+        color: #32e900 !important;
+      }
+    </style>
+    <section class="course-content" id="course-content">
+      <div id="voile"></div>
+      <div id="voile_teaser"></div>
+      <section id="popupBanker">
+        <p>
+          En tant que banquier vous ne pouvez pas vous inscrire à une session présentielle via la carte.
+          <br> Contactez votre organisme de formation pour connaître les modalités de changement de session
+        </p>
+        <div style="text-align:center; margin-top:20px">
+          <button id="popupBanker_ok">Fermer</button>
+        </div>
+      </section>
+    </section>
