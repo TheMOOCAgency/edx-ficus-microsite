@@ -76,8 +76,6 @@ cursor : pointer
 .font16{
 font-size:16px !important;}
 
-
-
 .BUTTON_QGJ {
 
     -webkit-border-radius: 20px;
@@ -97,19 +95,35 @@ font-size:16px !important;}
     border: 1px solid;
     margin: 15px;
 }
-  #offers>.label-subscribe>.formula-register>p{
-    margin: 0;
-  }
-  #offers>.label-subscribe>.formula-register{
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-  }
+#seemore{
+  display: none;
+}
+#offers>.label-subscribe>.formula-register>p{
+  margin: 0;
+}
+#offers>.label-subscribe>.formula-register{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+#offersFooter>.label-subscribe>.formula-register>p{
+  margin: 0;
+}
+#offersFooter>.label-subscribe>.formula-register{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
 
 .BUTTON_QGJ:hover {
    background: #FFDD9E;
@@ -275,7 +289,7 @@ font-size:16px !important;}
               <div class="label-subscribe">
                 <p class="formula-title"><b>Version Premium</b></p>
                 <div class="formula-content">
-                  <p class="formula-content-header"><b>Accès aux 4 modules pédagogiques</b><br> <b>En Plus :</b></p>
+                  <p class="formula-content-header"><b>Accès aux 4 modules pédagogiques de la version classique</b><br> <b>En Plus :</b></p>
                   <ul class="formula-list">
                     <li class="formula-item"><b>Vidéos d'approfondissement</b></li>
                     <li class="formula-item"><b>Examen de validation des connaissances</b></li>
@@ -288,7 +302,7 @@ font-size:16px !important;}
                   </div>
               </div>
             </section>
-            <button id="seemore" class="BUTTON_QGJ" onclick="goToByScroll1();"><a>Voir nos offres</a></button>
+            <button id="seemore" class="BUTTON_QGJ"><a>Voir nos offres</a></button>
   		    </div>
         <div class="arrow-scroll"><img src="/media/microsite/champagne-mooc/home/arrow.png" /> </div>
         </div>
@@ -487,7 +501,7 @@ font-size:16px !important;}
         </div>
       </div>
       </section>
-      <section id="offers" class="whiteBg" style="display: flex;justify-content: center;">
+      <section id="offersFooter" class="whiteBg" style="display: flex;justify-content: center;">
         <div class="label-subscribe">
           <p class="formula-title"><b>Version Classique</b></p>
           <div class="formula-content">
@@ -507,7 +521,7 @@ font-size:16px !important;}
         <div class="label-subscribe">
           <p class="formula-title"><b>Version Premium</b></p>
           <div class="formula-content">
-            <p class="formula-content-header"><b>Accès aux 4 modules pédagogiques</b><br> <b>En Plus :</b></p>
+            <p class="formula-content-header"><b>Accès aux 4 modules pédagogiques de la version classique</b><br> <b>En Plus :</b></p>
             <ul class="formula-list">
               <li class="formula-item"><b>Vidéos d'approfondissement</b></li>
               <li class="formula-item"><b>Examen de validation des connaissances</b></li>
@@ -623,7 +637,7 @@ font-size:16px !important;}
               <p class="formula-content-header"><b>Access to 4 educational modules</b></p>
               <ul class="formula-list">
                 <li class="formula-item">The Champagne making process</li>
-                <li class="formula-item">The Champagne Terroir</li>
+                <li class="formula-item">The Champagne terroir</li>
                 <li class="formula-item">History and Economy of Champagne</li>
                 <li class="formula-item">Diversity and Tasting</li>
               </ul>
@@ -637,20 +651,20 @@ font-size:16px !important;}
           <div class="label-subscribe">
             <p class="formula-title"><b>Premium Version</b></p>
             <div class="formula-content">
-              <p class="formula-content-header"><b>Access to 4 educational modules of the classic version</b><br> <b>And in addition:</b></p>
+              <p class="formula-content-header"><b>Access to the 4 educational modules of the classic version</b><br> <b>Additionnal contents:</b></p>
               <ul class="formula-list">
-                <li class="formula-item"><b>Extras videos</b></li>
+                <li class="formula-item"><b>Extra videos</b></li>
                 <li class="formula-item"><b>Test your knowledge</b></li>
                 <li class="formula-item"><b>Get the official Certificate of completion</b></li>
               </ul>
             </div>
               <div class="formula-register">
-              <p><b>49€ (All taxes included)</b></p>
+              <p><b>49€ (all taxes included)</b></p>
             <button class="BUTTON_QGJ" href="/register?course_id=course-v1:champagne-mooc+004+004&enrollment_action=enroll">Register now</button>
             </div>
           </div>
           </section>
-          <button id="seemore" onclick="goToByScroll1();" class="BUTTON_QGJ"><a>See our offer</a></button>
+          <button id="seemore" class="BUTTON_QGJ"><a>See our offer</a></button>
         </div>
         <div class="arrow-scroll"><img src="/media/microsite/champagne-mooc/home/arrow.png" /> </div>
       </div>
@@ -677,7 +691,7 @@ font-size:16px !important;}
                 <b>Who is it for? Everyone working in the wine industry</b> – sommeliers, oenologists, wine merchants, buyers, journalists, sales representatives, tourism professionals, trainers, students etc, and the wine lovers, from <b>all over the world</b>.</br></br>
                 Learn about Champagne from <b>Jérémy Cukierman</b>, Master of Wine 2017, and <b>the people who work in the Champagne industry itself</b>: the <b>history of Champagne</b>; the <b>terroir</b> that produces it; the Champagne <b>making process</b>; the <b>many different varieties</b> of Champagne wines and <b>how to taste them</b>.</br></br>
 
-                <b>How long is it</b>? The total course runs for <b>less than 5 hours</b>.</br></br>
+                <b>How long is it?</b> The total course runs for <b>less than 5 hours</b>.</br></br>
                 <b>When?</b> It is your own choice: the platform is <b>available 24/7</b> ! </br></br>
                 <b>How?</b> You have <b>free access</b> to <b>4 educational modules.</b> All of them are made of short videos, with illustrative contents and texts, in order to make your memorizing easier. </br></br>
                 A <b>5th module</b> will allow you to get the <b>MOOC attendance certification</b>*, delivered by the Comité Champagne, and to access extra videos for an in-depth knowledge. The cost of this premium version is <b>49€</b>.</br></br></br>
@@ -851,19 +865,19 @@ You will understand why the Champagne terroir is unique, with specific character
 </div>
       </div>
     </section>
-    <section id="offers" class="whiteBg" style="display: flex;justify-content: center;">
+    <section id="offersFooter" class="whiteBg" style="display: flex;justify-content: center;">
       <div class="label-subscribe">
         <p class="formula-title"><b>Classic Version</b></p>
         <div class="formula-content">
           <p class="formula-content-header"><b>Access to 4 educational modules</b></p>
           <ul class="formula-list">
             <li class="formula-item">The Champagne making process</li>
-            <li class="formula-item">The Champagne Terroir</li>
+            <li class="formula-item">The Champagne terroir</li>
             <li class="formula-item">History and Economy of Champagne</li>
             <li class="formula-item">Diversity and Tasting</li>
           </ul>
         </div>
-                        <div class="formula-register">
+        <div class="formula-register">
         <p><b>Free</b></p>
         <button class="BUTTON_QGJ" href="/register?course_id=course-v1:champagne-mooc+002+002&enrollment_action=enroll">Register Now</button>
         </div>
@@ -871,17 +885,17 @@ You will understand why the Champagne terroir is unique, with specific character
       <div class="label-subscribe">
         <p class="formula-title"><b>Premium Version</b></p>
         <div class="formula-content">
-          <p class="formula-content-header"><b>Access to 4 educational modules of the classic version</b><br> <b>And in addition:</b></p>
+          <p class="formula-content-header"><b>Access to the 4 educational modules of the classic version</b><br> <b>Additionnal contents:</b></p>
           <ul class="formula-list">
-            <li class="formula-item"><b>Extras videos</b></li>
+            <li class="formula-item"><b>Extra videos</b></li>
             <li class="formula-item"><b>Test your knowledge</b></li>
             <li class="formula-item"><b>Get the official Certificate of completion</b></li>
           </ul>
         </div>
-                        <div class="formula-register">
-        <p><b>49€ (All taxes included)</b></p>
-        </div>
+        <div class="formula-register">
+        <p><b>49€ (all taxes included)</b></p>
         <button class="BUTTON_QGJ" href="/register?course_id=course-v1:champagne-mooc+004+004&enrollment_action=enroll">Register now</button>
+        </div>
       </div>
     </section>
   </div>
@@ -893,10 +907,11 @@ You will understand why the Champagne terroir is unique, with specific character
 
   <script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
   <script>
-    function goToByScroll1(){
-        $('html,body').animate({scrollTop: $("#offers").offset().top},'slow');
-    }
     $( document ).ready(function(){
+      $('#seemore').click(function(){
+          console.log('click')
+          $('html,body').animate({scrollTop: $("#offersFooter").offset().top},'slow');
+      })
       window.setInterval(function(){
         $( ".arrow-scroll" ).effect( "bounce", { times: 1 }, "slow" );
       }, 1000);
