@@ -98,6 +98,9 @@ font-size:16px !important;}
 #seemore{
   display: none;
 }
+#seemoreEN{
+  display: none;
+}
 #offers>.label-subscribe>.formula-register>p{
   margin: 0;
 }
@@ -115,6 +118,19 @@ font-size:16px !important;}
   margin: 0;
 }
 #offersFooter>.label-subscribe>.formula-register{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+#offersFooterEN>.label-subscribe>.formula-register>p{
+  margin: 0;
+}
+#offersFooterEN>.label-subscribe>.formula-register{
   position: absolute;
   bottom: 10px;
   left: 0;
@@ -664,7 +680,7 @@ font-size:16px !important;}
             </div>
           </div>
           </section>
-          <button id="seemore" class="BUTTON_QGJ"><a>See our offer</a></button>
+          <button id="seemoreEN" class="BUTTON_QGJ"><a>See our offer</a></button>
         </div>
         <div class="arrow-scroll"><img src="/media/microsite/champagne-mooc/home/arrow.png" /> </div>
       </div>
@@ -865,7 +881,7 @@ You will understand why the Champagne terroir is unique, with specific character
 </div>
       </div>
     </section>
-    <section id="offersFooter" class="whiteBg" style="display: flex;justify-content: center;">
+    <section id="offersFooterEN" class="whiteBg" style="display: flex;justify-content: center;">
       <div class="label-subscribe">
         <p class="formula-title"><b>Classic Version</b></p>
         <div class="formula-content">
@@ -908,10 +924,6 @@ You will understand why the Champagne terroir is unique, with specific character
   <script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
   <script>
     $( document ).ready(function(){
-      $('#seemore').click(function(){
-          console.log('click')
-          $('html,body').animate({scrollTop: $("#offersFooter").offset().top},'slow');
-      })
       window.setInterval(function(){
         $( ".arrow-scroll" ).effect( "bounce", { times: 1 }, "slow" );
       }, 1000);
@@ -922,10 +934,16 @@ You will understand why the Champagne terroir is unique, with specific character
         $('#main-content-fr').hide()
         $('#main-content-en').show()
         $('#footer-main .m-0').text('Website created by The Mooc Agency - 2019')
+        $('#seemoreEN').click(function(){
+            $('html,body').animate({scrollTop: $("#offersFooterEN").offset().top},'slow');
+        })
       } else{
         $('#main-content-fr').show()
         $('#main-content-en').hide()
         $('#footer-main .m-0').text('Site web réalisé par The Mooc Agency - 2019')
+        $('#seemore').click(function(){
+            $('html,body').animate({scrollTop: $("#offersFooter").offset().top},'slow');
+        })
       }
       $('.en').on('click', function() {
         $('#settings-language-value > option[value="en"]').attr('selected','selected');
