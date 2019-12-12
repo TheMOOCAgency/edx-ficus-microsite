@@ -106,8 +106,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <main id="temp-home" aria-label="Content" tabindex="-1">
   <div class="logo-block">
     <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" alt="digimapper logo" />
-    <button class="home-button" style="text-transform:none" disabled>
+    <button class="home-button" id="login-butn" style="text-transform:none" >
       Connexion
     </button>
   </div>
 </main>
+<script>
+  $("#login-butn").click(function(){window.location.href = "/login?admin=true"})
+</script>
