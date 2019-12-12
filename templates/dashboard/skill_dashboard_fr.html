@@ -1,0 +1,101 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+from tma_apps.tma_support_functions import tma_verify_access
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
+%>
+
+<style>
+#main{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image:url("/media/microsite/digimapper/auto/images/bg_img.jpeg") !important;
+  background-size: cover !important;
+  position: fixed;
+  left:0;
+  top:0;
+  color: white;
+}
+
+.text-center{
+  text-align: center
+}
+
+
+</style>
+<div class="container">
+  <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
+    <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" class="course-logo"/>
+    %if associated_courses.get('delayed'):
+      <p class="text-center">Le prochain quiz sera disponible dans ${associated_courses.get('delayed')} jours.</p>
+    %endif
+    <div class="text-center">
+    %if not has_access:
+      <div id="main">
+        <h3>Désolé, vous n’avez pas accès pour le moment <br> au Baromètre Digital.</h3>
+      </div>
+         <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
+    %else:
+      %if course_state=="finished":
+      <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+        <button class="text-align-center dashboard-btn"  id="course_results">
+          <i class="fa fa-play-circle"></i>
+          Voir mes résultats.
+        </button>
+      </a>
+      %elif course_state=="ongoing":
+      <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+        <button class="text-align-center dashboard-btn start-course"  id="course_continue">
+          <i class="fa fa-play-circle"></i>
+          Reprendre
+        </button>
+      </a>
+      %else:
+      <button class="text-align-center dashboard-btn" id="course_start">
+        <i class="fa fa-play-circle"></i>
+        Démarrer
+        %if associated_courses.get('step_number')>1:
+         <!-- L'évaluation ${associated_courses.get('step_number')} -->
+        %endif
+      </button>
+      %endif
+    %endif 
+    </div>
+    <div class="bottom-buttons mt-20">
+      <div class="text-center">
+        %if course_state!="finished" :
+        <button class="text-align-center white-btn mr-20" disabled>
+          Revoir mes réponses
+        </button>
+        %else :
+        <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+          <button class="text-align-center white-btn mr-20 blue-btn"  id="see_answers">
+            Revoir mes réponses
+          </button>
+        </a>
+        %endif
+      </div>
+      <div class="text-center">
+        %if user_course_state=="finished" :
+        <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+          <button class="text-align-center white-btn deactivated" id="last_score">
+            Consulter mon score précédent
+          </button>
+        </a>
+        %else :
+        <button class="text-align-center white-btn deactivated" disabled>
+          Consulter mon score précédent
+        </button>
+        %endif
+      </div>
+    </div> 
+  </div>    
+</div>

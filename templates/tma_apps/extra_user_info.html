@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+<%page expression_filter="h"/>
+<%namespace name='static' file='/static_content.html'/>
+
+<%inherit file="../main.html" />
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+%>
+
+<%block name="pagetitle">${_("Choose language")}</%block>
+
+<link rel="stylesheet" href="/media/microsite/digimapper/user_info/digimap.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<style>
+  .header-global .nav-global {
+    display: none;
+  }
+  #language-selector > a > img:hover {
+    cursor:pointer;
+  }
+  #content {
+    min-height: calc(100vh - 136px) !important;
+  }
+</style>
+
+<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
+  % if user.is_authenticated():
+    <h1 id="welcome-title" style="color:black;">Choisissez votre langue.<br/>Choose your language.</h1>
+    <div id="language-selector" style='display:block'>
+        <a data-value="en" data-course="course-v1:digimapper+level1+EN">
+          <img height="100px" src="/media/microsite/digimapper/user_info/uk.png" alt="uk">
+        </a>
+        <a data-value="fr" data-course="course-v1:digimapper+level1+FR">
+          <img height="100px" src="/media/microsite/digimapper/user_info/fr.png" alt="fr">
+        </a>
+    </div>
+  % endif
+</main>
+<script>
+  // Values for current microsite & alert messages
+  var microsite = "${configuration_helpers.get_value('course_org_filter')}";
+  var alertMessages = {
+    message: {
+      "fr": "Ce choix ne pourra pas être modifié par la suite.\nVeuillez confirmer ce choix.",
+      "en": "This setting cannot be changed later.\nPlease confirm.",
+    },
+    button: {
+      "fr": "Confirmer",
+      "en": "Confirm",
+    },
+    cancel: {
+      "fr": "Annuler",
+      "en": "Cancel",
+    }
+  };
+
+  // Trigger confirmation alert then send info
+  function alertAndSendInfo(element) {
+    swal(alertMessages.message[element.data('value')], {
+        icon: "warning",
+        buttons: {
+          cancel: alertMessages.cancel[element.data('value')],
+          catch: {
+            text: alertMessages.button[element.data('value')],
+            value: "catch",
+          }
+        },
+    }).then(function(value) {
+      if (value) {
+        $.ajax({
+          url: 'check_enrollment',
+          type: 'POST',
+          data: { 
+            language: element.data('value'),
+            course_id: element.data('course'),
+            cohort_name: element.data('cohort'),
+            microsite: microsite
+          }, 
+          success: function(data){
+            console.log(data);
+            window.location.replace(data.redirect_url)
+          }
+        });
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $('#language-selector > a').on('click', function(e){
+      alertAndSendInfo($(this));
+    });
+  });
+</script>
+<style>
+.swal-button--cancel {
+color:white !important;
+}
+</style>
