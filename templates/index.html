@@ -11,20 +11,19 @@
             * {
                 font-family: 'Open Sans', sans-serif;
             }
-
             body {
                 background-image: url('/media/microsite/connexions-citoyennes/auto/images/bg_img.jpg');
                 background-size: cover;
             }
-
             .bg-white {
                 background-color: white;
             }
-
+            .blue-text {
+                color: #2d2e81;
+            }
             .navbar-brand > img, .footer-box img {
                 width: 100px;
             }
-
             .nav-link {
                 margin: 5px;
                 padding: 7px 15px 7px 15px;
@@ -40,19 +39,56 @@
                 background-color: white;
                 color: rgba(0,0,0,.5) !important;
             }
-
             .first-box > .row:first-of-type {
                 margin-top: 200px;
                 margin-bottom: 200px;
                 border-radius: 5px;
                 background-color: rgba(0,0,0,.5);
             }
-            .second-box p {
+            .second-box .row:first-of-type p {
                 font-size: 1.4rem;
             }
+            .separator {
+                width: 150px;
+                height: 5px;
+                background-color:  #2d2e81; 
+            }
+            .separator-l {
+                width: 250px;
+                height: 5px;
+                background-color:  #2d2e81; 
+            }
+            .separator-xl {
+                width: 350px;
+                height: 5px;
+                background-color:  #2d2e81; 
+            }
+            .thumbnail {
+                min-height: 350px;
+                display: table;
+                padding: 25px;
+                margin-bottom: 20px;
+                line-height: 1.42857143;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            .thumbnail > p {
+                margin-top: 50px;
+            }
+            .person-box {
+                border: 1px solid #ddd;
+                padding: 20px;
+                margin: 20px;
+            }
             .footer-box {
-                margin-top: 100px;
                 background-color: #333;
+            }
+
+            @media (max-width: 1316px) {
+                .thumbnail {
+                    min-height: 500px; 
+                }
             }
         </style>
     </head>
@@ -75,8 +111,9 @@
         <div class="container-fluid w-75 first-box">
             <div class="row text-white p-5">
                 <div class="col text-center">
-                    <h1 class="pt-4">Bienvenue sur le MOOC Connexions Citoyennes</h1>
+                    <h1 class="pt-4">Bienvenue dans le MOOC Connexions Citoyennes</h1>
                     <h2 class="mb-5">Ouverture des inscriptions le 16 décembre</h2>
+                    <h3>Devenez acteur du changement par innovation citoyenne et sociétale.</h3>
                     <!--<a class="nav-link d-inline-block" href="/register">Inscription</a>
                     <a class="nav-link d-inline-block" href="/login">Connexion</a>-->
                 </div>
@@ -90,10 +127,10 @@
 
         <div class="container-fluid bg-white second-box h-100">
             <div class="row py-5 justify-content-center align-self-center">
-                <div class="col-4 text-center my-auto">
+                <div class="col-lg-4 text-center my-auto">
                     <img class="mt-3" src="/media/microsite/connexions-citoyennes/auto/images/logo.png" alt="connexions-citoyennes logo">
                 </div>
-                <div class="col-8 py-5 pr-5 my-auto">
+                <div class="col-lg-8 py-4 pr-5 my-auto">
                     <p>Pour la jeune génération africaine, les réseaux sociaux, médias mobiles et applications numériques sont aussi
                         devenus des outils d’action citoyenne. Sur le continent, hackathons* et autres concours pour l’innovation se
                         multiplient et rassemblent développeurs, blogueurs, community managers ou journalistes, autour de projets
@@ -105,8 +142,92 @@
                         de leurs actions CFI, l’agence française de coopération médias, a lancé le projet Connexions citoyennes.</p>
                 </div>
             </div>
+            <hr style="margin: 0px 100px 0px 100px;">
+            <div class="row py-5">
+                <div class="col">
+                    <h1 class="text-center mb-4">Six semaines pour s’emparer des Civic Tech pour un monde ouvert et inclusif.</h1>
+                </div>
+            </div>
+            <div class="row px-5 pb-2">
+                <div class="col">
+                    <h2 class="font-bold">Découvrez la formation</h2>
+                    <div class="separator-xl"></div>
+                </div>
+            </div>
+            <div class="row px-5 py-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 1</h4>
+                        <h4 class="blue-text font-weight-bold">Les Civic Tech, c’est quoi ?</h4>
+                        <hr>
+                        <p>Depuis une dizaine d’années les Civic Tech font avancer la citoyenneté, la démocratie et la transparence dans le monde. De quoi s’agissent-elles et comment est-ce que les acteurs de la société s’en emparent ? </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 2</h4>
+                        <h4 class="blue-text font-weight-bold">Civic Tech - De l’idée au projet</h4>
+                        <hr>
+                        <p>Vous avez peut-être déjà une idée d’initiative. C’est super ! Mais comment faire pour transformer votre idée en véritable projet d’innovation citoyenne ?</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 3</h4>
+                        <h4 class="blue-text font-weight-bold">Mobiliser une équipe autour de son projet</h4>
+                        <hr>
+                        <p>Difficile de développer un projet citoyen seul.e. Identifiez les compétences clés pour votre projet et mobilisez une équipe autour de votre initiative ?</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 4</h4>
+                        <h4 class="blue-text font-weight-bold">Elaborer son modèle économique</h4>
+                        <hr>
+                        <p>Plusieurs modèles économiques existent pour les projets Civic Tech. Du bénévolat à la vente de prestations, quel est le modèle le plus adapté à votre environnement et votre projet ?</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 5</h4>
+                        <h4 class="blue-text font-weight-bold">Définir et suivre les indicateurs</h4>
+                        <hr>
+                        <p>Vous avez défini vos objectifs mais il faut ensuite mettre en place les indicateurs qui permettront de suivre votre activité. Comment choisir les indicateurs les adaptés à votre projet ?</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="thumbnail">
+                        <h4>Semaine 6</h4>
+                        <h4 class="blue-text font-weight-bold">Anticiper et gérer les risques</h4>
+                        <hr>
+                        <p>Il est important d’identifier, d’anticiper et de limiter les risques qui pèsent sur votre projet. Un tour d’horizon de principaux risques et menaces rencontrés par les porteurs de projet Civic Tech et comment les acteurs de l’innovation citoyenne y répondent au quotidien.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="separator m-auto"></div>
+            <div class="row pt-5 px-5">
+                <div class="col">
+                    <h4 class="pb-4">En plus de ces contenus thématiques, des focus au début de chaque semaine vous permettront d’approfondir votre connaissance de l’innovation citoyenne par les Civic Tech et de découvrir quelques initiatives existantes.</h4>
+                    <h4>Vous découvrirez également le programme d’incubation qui attend vingt-cinq lauréat.e.s de chaque édition du MOOC et comment vous pouvez y candidater !</h4>
+                </div>
+            </div>
+            <div class="row px-5 pt-5">
+                <div class="col">
+                    <h2 class="font-bold">Les intervenants</h2>
+                    <div class="separator-l"></div>
+                </div>
+            </div>
+            <div class="row justify-content-center px-5 pt-5" style="padding-bottom:100px">
+                <div class="col-lg-4 person-box">
+                    <h4>Sinatou SAKA</h4>
+                    <p>Journaliste pour le groupe France Médias Monde (RFI, France 24), Sinatou Saka incarne la jeune génération africaine qui s’est emparée des outils du numérique en développant sa présence sur un blog et les réseaux sociaux et en s’interrogeant sur les moyens d’obtenir plus d’impact.</p>
+                </div>
+                <div class="col-lg-4 person-box">
+                    <h4>Tidiani TOGOLA</h4>
+                    <p>Participant de la première édition de Connexions citoyennes, Tidiani Togola est le fondateur de l’ONG Tuwindi. L’objectif de son initiative est de soutenir la société civile, les collectivités et le secteur privé dans l’utilisation des technologies pour renforcer la démocratie et le développement social et économique.</p>
+                </div>
+            </div>
         </div>
-
         <div class="container-fluid footer-box py-5">
             <div class="row">
                 <div class="col-5 my-auto px-5 text-white">
