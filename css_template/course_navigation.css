@@ -22,6 +22,9 @@ body.view-in-course .wrapper-course-material .course-material,.course-index,.cou
 .content-wrapper{
  padding-top:0px;
 }
+#global-navigation{
+  height : 76px!important;
+}
 .wrapper-course-material .course-tabs li {
     color: #fff;
     text-transform: uppercase;

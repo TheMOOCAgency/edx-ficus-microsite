@@ -35,11 +35,14 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-
+cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
 %>
 <%block>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+
+
 <%
 try:
     course_id = course.id
@@ -377,7 +380,7 @@ if user.is_authenticated():
   try:
     tma_lang = get_user_preference(user, 'pref-lang')
   except:
-    pass 
+    pass
 %>
 <script>
   $(document).ready(function(){
