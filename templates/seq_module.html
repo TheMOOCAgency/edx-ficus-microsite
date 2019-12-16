@@ -69,17 +69,29 @@
     function traduction(){
       let xblock = $('.xblock--drag-and-drop')
       if($('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")){
-        $('.problem-progress:contains("graded")').text($('.problem-progress:contains("graded")').text().replace('graded','noté'))
-        $('.problem-progress:contains("graded")').text($('.problem-progress:contains("graded")').text().replace('graded','noté'))
+        $('.problem-progress:contains("graded")').hide()
+        $('.problem-progress:contains("graded")').hide()
 
         xblock.find($('.message.correct')).each(function(index){
           $(this).text($(this).text().replace("Correctly placed",'Vous avez correctement placé'))
+        })
+        xblock.find($('.message.correct')).each(function(index){
+          $(this).text($(this).text().replace("Final attempt was used, highest score is",'Vous avez utilisé votre dernier essai, votre score final est de '))
+        })
+        xblock.find($('.message.correct')).each(function(index){
+          $(this).text($(this).text().replace("Your highest score is",'Votre score maximal est'))
+        })
+        xblock.find($('.message.incorrect')).each(function(index){
+          $(this).text($(this).text().replace("Your highest score is",'Votre score maximal est'))
         })
         xblock.find($('.message.incorrect')).each(function(index){
           $(this).text($(this).text().replace("Misplaced",'Vous avez incorrectement placé'))
         })
         xblock.find($('.message.incorrect')).each(function(index){
           $(this).text($(this).text().replace("Did not place","Vous n'avez pas placé "))
+        })
+        xblock.find($('.message.incorrect')).each(function(index){
+          $(this).text($(this).text().replace("Misplaced items were returned to item bank","Les items mal placé sont de retour à la banque"))
         })
         xblock.find($('.message.incorrect')).each(function(index){
           $(this).text($(this).text().replace("required item","item requis "))
