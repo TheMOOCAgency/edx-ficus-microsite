@@ -7,7 +7,7 @@ Avant de pouvoir accéder à la plateforme, vous devez maintenant activer votre 
 
 https://${ site }/activate/${ key }
 
-Encore un peu de patience, les cours seront bientôt disponibles. Nous vous tiendrons informés de leur ouverture.
+Nous vous remercions pour votre inscription et vous souhaitons un bon apprentissage.
 A bientôt !
 
 -----
@@ -19,5 +19,5 @@ Before entering the platform, you must now activate your account, by clicking on
 
 https://${ site }/activate/${ key }
 
-Just wait a little longer, the courses will be available soon. We will keep you informed as soon as they open.
+Thank you for registering and we hope you’ll enjoy the course.
 See you soon !
