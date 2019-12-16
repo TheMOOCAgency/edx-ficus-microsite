@@ -8,6 +8,20 @@
     <%include file='bookmark_button.html' args="bookmark_id=bookmark_id, is_bookmarked=bookmarked"/>
 % endif
 
+<style>
+  h3.unit-title{
+    display:none;
+  }
+  h3.hd.hd-2.problem-header {
+    display: none;
+  }
+  .question-description > i {
+    font-style: italic;
+    color: rgb(31,166,237);
+    font-size: 16px;
+  }
+</style>
+
 <div class="vert-mod">
 % for idx, item in enumerate(items):
   <div class="vert vert-${idx}" data-id="${item['id']}">
