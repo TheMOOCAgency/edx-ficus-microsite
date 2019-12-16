@@ -19,6 +19,25 @@ from pipeline_mako import render_require_js_path_overrides
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Champagne MOOC</title>
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154568735-1"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+ 
+
+  gtag('config', 'UA-154568735-1');
+
+</script>
+
 </head>
 <body>
     <link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
