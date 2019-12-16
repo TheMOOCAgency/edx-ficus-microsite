@@ -69,16 +69,16 @@
     function traduction(){
       let xblock = $('.xblock--drag-and-drop')
       if($('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")){
-          $(".problem-progress").text($(".problem-progress").text().replace("graded","noté"))
-          $(".problem-progress").text($(".problem-progress").text().replace("ungraded","non noté"))
-          xblock.find($('.message.correct')).text(xblock.find($('.message.correct')).text().replace("Correctly placed",'Vous avez correctement placé'))
-          xblock.find($('.message.incorrect')).text(xblock.find($('.message.incorrect')).text().replace("Misplaced",'Vous avez incorrectement placé'))
-          xblock.find($('.message.partial')).text(xblock.find($('.message.partial')).text().replace("Final attempt was used, highest score is",'Vous avez utilisé votre dernier essai, votre score final est de '))
-          if($('.attempts-used').text() === 'You have used 0 of 1 attempts.'){
-            $('.attempts-used').text("Vous avez utilisé 0 essai sur 1")
-          }else if($('.attempts-used').text() === 'You have used 1 of 1 attempts.'){
-            $('.attempts-used').text("Vous avez utilisé 1 essai sur 1")
-          }
+        $('.problem-progress:contains("graded")').text($('.problem-progress:contains("graded")').text().replace('graded','noté'))
+        //$(".problem-progress").text($(".problem-progress").text().replace("graded","noté"))
+        //$(".problem-progress").text($(".problem-progress").text().replace("ungraded","non noté"))
+        xblock.find($('.message.correct')).text(xblock.find($('.message.correct')).text().replace("Correctly placed",'Vous avez correctement placé'))
+        xblock.find($('.message.incorrect')).text(xblock.find($('.message.incorrect')).text().replace("Misplaced",'Vous avez incorrectement placé'))
+        xblock.find($('.message.partial')).text(xblock.find($('.message.partial')).text().replace("Final attempt was used, highest score is",'Vous avez utilisé votre dernier essai, votre score final est de '))
+        xblock.find($('.attempts-used')).text(xblock.find($('.attempts-used')).text().replace("You have used",'Vous avez utilisé '))
+        xblock.find($('.attempts-used')).text(xblock.find($('.attempts-used')).text().replace("of",'essai sur '))
+        xblock.find($('.attempts-used')).text(xblock.find($('.attempts-used')).text().replace("attempts",''))
+
       }
     }
 
