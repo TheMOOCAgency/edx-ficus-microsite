@@ -14,18 +14,65 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
-  <div class="footer-container">
-    <ul class="links">
+  <div class="footer-container row">
+  <div class="col-md-4">
+    <ul class="links"  style="margin-top: 10px;">
       <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+        <a id="honor"href="${marketing_link('HONOR')}">Conditions générales</a>
       </li>
       <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
+        <a href="${marketing_link('FAQ')}"></a>
       </li>
 	  <li>
         <a href="/about">Cr&eacute;dits</a>
       </li>
+	  <li id="financial" style="color:black;margin-left:76px;font-size: 13px;">
+        Ce MOOC est soutenu financièrement par l’Union européenne<br/>
+    </li>
     </ul>
+    </div>
+	
+	<script>
+    /* Change footer according language */
+    if ($('#settings-language-value').val() === 'fr' ) {
+        console.log('fr')
+       $("#honor").text("Conditions générales")
+       $("#financial").html('Ce MOOC est soutenu financièrement par l’Union européenne.<br/>Vous pouvez contacter le support technique à l\'adresse suivante :<br/><a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a>')
+	    $('#course_nav > a[href="/dashboard"] > span').text('retour');
+    } else {
+        console.log('en')
+       $("#honor").text("Terms and conditions")
+       $("#financial").html('This MOOC is financially supported by the European Union.<br/>You can contact technical support at the following address:<br/><a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a>')
+	   $('#course_nav > a[href="/dashboard"] > span').text('Back');
+    }
+   
+
+</script>
+
+	
+	
+	<div id ="banImg"class="col-md-4" style="height:40px;margin-top:0px;text-align: right;margin-top:-21px">
+			      <a href="">
+            
+                        <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                  </a>
+              <a href="">
+            
+                        <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                  </a>
+				   <a href="">
+            
+                        <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                  </a>
+				
+               </div>
+			   
+			   	  <script>
+	     if (window.location.href.indexOf("forum") > 0) {
+$("#banImg").css("margin-top","0px")
+}
+	  
+	  </script>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">
 	<!--modif on text and image-->
@@ -33,6 +80,8 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
       <a href="/">
         <img src="" alt="">
       </a>
+	  
+
       -->
     </div>
   </div>

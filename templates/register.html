@@ -135,3 +135,94 @@ import calendar
   </aside>
 -->
 </section>
+
+<script>
+  // Translation
+  if (window.location.href.indexOf('register') > -1) {
+    if ($('#settings-language-value').val() === 'en' ) {
+      // Labels
+      $('#field-sexe > label').text('Gender');
+      $('#field-statut > label').text('You are enrolling to this MOOC as');
+      $('#field-secteur > label').text('Business sector');
+      $('#field-niveau-etudes > label').text('Level of education');
+      $('#field-motivation > label').text('Personal motivation');
+
+      // Options
+      $('#sexe > option[value="no-answer"], #age > option[value="no-answer"], #statut > option[value="no-answer"], #secteur > option[value="no-answer"], #niveau-etudes > option[value="no-answer"], #motivation > option[value="no-answer"]').text('I don\'t want to answer');
+
+      $('#sexe > option[value="femme"]').text('Woman');
+      $('#sexe > option[value="homme"]').text('Man');
+
+      $('#age > option[value="less-20"]').text('Less than 20');
+      $('#age > option[value="more-60"]').text('More than 60');
+
+      $('#statut > option[value="elu"]').text('Elected representative');
+      $('#statut > option[value="technicien"]').text('Technician');
+      $('#statut > option[value="particulier"]').text('Private individual');
+      $('#statut > option[value="etudiant"]').text('Student');
+      $('#statut > option[value="autre"]').text('Other');
+
+      $('#secteur > option[value="public"]').text('Public');
+      $('#secteur > option[value="prive"]').text('Private');
+
+      $('#niveau-etudes > option[value="pas-diplome"]').text('No diploma');
+      $('#niveau-etudes > option[value="bepc"]').text('Junior School Certificate');
+      $('#niveau-etudes > option[value="bac"]').text('High School Diploma');
+      $('#niveau-etudes > option[value="bac-3"]').text('Bachelor\'s Degree');
+      $('#niveau-etudes > option[value="bac-5"]').text('Master\'s Degree');
+      $('#niveau-etudes > option[value="bac-8"]').text('PhD');
+      $('#niveau-etudes > option[value="autre"]').text('Other');
+
+      $('#motivation > option[value="echanger"]').text('Discuss');
+      $('#motivation > option[value="precription-formateur"]').text('Advised by a trainer');
+      $('#motivation > option[value="decouvrir-mooc"]').text('Discover a MOOC');
+      $('#motivation > option[value="interet"]').text('Personal interest');
+      $('#motivation > option[value="attestation"]').text('For the certificate');
+      $('#motivation > option[value="acquerir-connaissances"]').text('Acquire knowledge and/or skills');
+
+      // TOS wording
+      $('#field-tos > label > a').text('Terms and conditions')
+
+    } else {
+      // Labels
+      $('#field-sexe > label').text('Sexe');
+      $('#field-statut > label').text('Vous répondez à ce MOOC en tant que');
+      $('#field-secteur > label').text('Secteur d\'activité');
+      $('#field-niveau-etudes > label').text('Niveau d\'études');
+      $('#field-motivation > label').text('Motivations personnelles');
+      
+      // Options
+      $('#sexe > option[value="no-answer"], #age > option[value="no-answer"], #statut > option[value="no-answer"], #secteur > option[value="no-answer"], #niveau-etudes > option[value="no-answer"], #motivation > option[value="no-answer"]').text('Je ne souhaite pas répondre');
+
+      $('#sexe > option[value="femme"]').text('Femme');
+      $('#sexe > option[value="homme"]').text('Homme');
+
+      $('#age > option[value="less-20"]').text('Moins de 20 ans');
+      $('#age > option[value="more-60"]').text('Plus de 60 ans');
+
+      $('#statut > option[value="elu"]').text('Elu');
+      $('#statut > option[value="technicien"]').text('Technicien');
+      $('#statut > option[value="particulier"]').text('Particulier');
+      $('#statut > option[value="etudiant"]').text('Etudiant');
+      $('#statut > option[value="autre"]').text('Autre');
+
+      $('#secteur > option[value="public"]').text('Public');
+      $('#secteur > option[value="prive"]').text('Privé');
+
+      $('#niveau-etudes > option[value="pas-diplome"]').text('Pas de diplôme');
+      $('#niveau-etudes > option[value="bepc"]').text('BEPC');
+      $('#niveau-etudes > option[value="bac"]').text('Bac');
+      $('#niveau-etudes > option[value="bac-3"]').text('Bac +3');
+      $('#niveau-etudes > option[value="bac-5"]').text('Bac +5');
+      $('#niveau-etudes > option[value="bac-8"]').text('Bac +8');
+
+      $('#motivation > option[value="echanger"]').text('Echanger');
+      $('#motivation > option[value="precription-formateur"]').text('Sur prescription d\'un formateur');
+      $('#motivation > option[value="decouvrir-mooc"]').text('Découvrir un MOOC');
+      $('#motivation > option[value="interet"]').text('Par intérêt');
+      $('#motivation > option[value="attestation"]').text('Pour l\'attestation de suivi');
+      $('#motivation > option[value="acquerir-connaissances"]').text('Acquérir des compétences et/ou des connaissances');
+    }
+  }
+
+</script>

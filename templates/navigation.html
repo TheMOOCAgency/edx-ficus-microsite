@@ -56,7 +56,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+  <header style="height:81px" id="global-navigation" class="header-global ${"slim" if course else ""}" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -69,7 +69,8 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img style="width: 50px !important;height: 66px !important;margin-top: -8px;" class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+			<img src="/media/microsite/nature-for-city-life/assets/img/logo_2.png"  height="66px" style="margin-top: -8px;height: 64px;">
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
@@ -88,6 +89,43 @@ site_status_msg = get_site_status_msg(course_id)
 }
 </style>
 -->
+
+<style>
+  li.item.nav-global-04 a {
+    background-color: rgb(62, 110, 177);
+    box-shadow: 0 2px 1px 0 rgb(62, 110, 177);
+    padding: 10px 20px;
+    text-align: center;
+    text-shadow: none;
+    font-weight: 500;
+    letter-spacing: 0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: color 0.25s ease-in-out,background 0.25s ease-in-out,box-shadow 0.25s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: white !important;
+    text-transform: none;
+    font-size: 16px !important;
+  }
+
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 60px;
+    height: 24px;
+  }
+  
+  .noDecimal{list-style: none}
+  
+  .ilEnd{
+  float: inline-end;
+  }
+
+</style>
         </%block>
       </a>
     </h1>
@@ -109,9 +147,9 @@ site_status_msg = get_site_status_msg(course_id)
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
+            <!--<li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
+            </li>-->
           % endif
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -170,9 +208,9 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+              <!--<li class="item nav-global-05">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
+              </li>-->
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
@@ -208,11 +246,9 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-    % if static.show_language_selector():
-     <% languages = static.get_released_languages() %>
-      % if len(languages) > 1:
-      <ol class="user">
-        <li class="primary">
+    <% languages = static.get_released_languages() %>
+      <ol class="user ilEnd">
+        <li class="primary noDecimal">
           <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
             <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
             % if user.is_authenticated():
@@ -221,22 +257,27 @@ site_status_msg = get_site_status_msg(course_id)
             <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
             % endif
             <label><span class="sr">${_("Choose Language")}</span>
-                <select class="input select language-selector" id="settings-language-value" name="language">
+              <!--LANGUAGE FLAGS-->
+              <div id="lang-content">
+                <img src="/media/microsite/nature-for-city-life/img/us.png" id="us">
+                <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
                   % for language in languages:
+                   % if language[0] =="en" or language[0] =="fr":
                     % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[1]}</option>
+                      <option value="${language[0]}" selected="selected">${language[0]}</option>
                     % else:
-                      <option value="${language[0]}" >${language[1]}</option>
+                      <option value="${language[0]}">${language[0]}</option>
                     % endif
+                   % endif
                   % endfor
                 </select>
+              </div>
             </label>
           </form>
         </li>
       </ol>
-      % endif
-      % endif
-    </nav>
+     </nav>
 </header>
 % if course:
 <!--[if lte IE 9]>
@@ -254,6 +295,63 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <script src="${static.url('js/translate.js')}"></script>
+
+
+<script>
+  //LANGUAGE FLAGS
+  
+  var setLanguage = true
+  
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
+function getLangUrl(){
+if(setLanguage = true){
+var lang = getUrlParameter('lang');
+
+if(lang=="en" && ($('#settings-language-value > option[value="en"]').attr('selected')) !='selected'){
+$( "#us" ).trigger( "click" );
+}
+
+if(lang=="fr" && ($('#settings-language-value > option[value="fr"]').attr('selected')) !='selected'){
+$( "#fr" ).trigger( "click" );
+}
+
+}
+}
+  $('#us').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  }
+  );
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+  }
+
+  );
+  
+
+
+$( document ).ready(function() {
+  getLangUrl();
+  setLanguage = false
+}); 
+</script>
+
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
