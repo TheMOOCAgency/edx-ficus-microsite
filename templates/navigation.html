@@ -41,7 +41,11 @@ cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
 
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
-
+<script>
+    setTimeout(function(){
+        $('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text($('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text().replace('spécific','spécifique'))
+    }, 200);
+</script>
 
 <%
 try:
