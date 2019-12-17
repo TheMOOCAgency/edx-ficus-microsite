@@ -41,6 +41,20 @@ import calendar
     });
 
     (function() {
+      $(document).ready(function(){
+        $('#number').parent().hide()
+        $('#organisme').on('change', function() {
+            if(this.checked){
+              $('#number').parent().show()
+              $("#number").prop('required',true);
+            }else{
+              $('#number').parent().hide()
+              $("#number").prop('required',false);
+              $("#number").val('')
+            }
+        });
+      })
+
       toggleSubmitButton(true);
 
       $('#register-form').on('submit', function() {
