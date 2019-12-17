@@ -44,7 +44,7 @@ import calendar
       $(document).ready(function(){
         $('#number').parent().hide()
         $('#organisme').on('change', function() {
-            if(this.checked){
+            if(this.value === 'oui'){
               $('#number').parent().show()
               $("#number").prop('required',true);
             }else{
