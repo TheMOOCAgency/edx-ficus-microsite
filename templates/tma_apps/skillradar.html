@@ -37,8 +37,9 @@
     <link
       href="/media/microsite/digimapper/skill-radar/static/css/main.14566ca2.chunk.css"
       rel="stylesheet"
-    /></head
-  ><style>
+    /></head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <style>
     #root {
       min-height: 100vh;
     }
@@ -152,6 +153,26 @@
     </script>
     <script>
       window.props = ${dump_js_escaped_json(props) | n, decode.utf8};
+      console.log(window.props)
+    </script>
+    <script>
+      let languages = {
+        'en' : {
+          'text': 'The feedbacks displayed here come from the PSA skill radar. They will change according to the Digimapper project. Similarly, the training resources are not available yet.',
+          'button': 'Close'
+        },
+        'fr' : {
+          'text': 'Les textes présentés ici sont issus du radar de compétences de PSA. Ils ont vocation à être adaptés au projet Digimapper. De même, les liens vers les ressources de formation ne sont pas encore fonctionnels.',
+          'button': 'Fermer'
+        }
+      }
+
+      Swal.fire({
+        text: languages[window.props.current_language]['text'],
+        icon: 'info',
+        confirmButtonText: languages[window.props.current_language]['button']
+      });
+
     </script>
     <script src="/media/microsite/digimapper/skill-radar/static/js/2.0445aa68.chunk.js"></script>
     <script src="/media/microsite/digimapper/skill-radar/static/js/main.a22261fc.chunk.js"></script>
