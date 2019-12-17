@@ -12,7 +12,38 @@ register_course_id = static.get_value('course_id')
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
+
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/formation-data/css/digimap.css" />
+<style>
+  .wrapper-header {
+    display: none;
+  }
+  body {
+    background-image: none !important;
+  }
+  .home>header {
+    height: 450px;
+    background-image: none;
+    box-shadow: none;
+  }
+  .header-global {
+    height: 120px;
+  }
+  #logoData4Manager {
+    max-width: 600px;
+    margin-left: 0px;
+    background: none;
+    border: none;
+    text-align: center;
+  }
+  .courses {
+    display: none !important;
+  }
+</style>
+<script>
+  document.title="Préparation-data";
+</script>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
@@ -52,6 +83,18 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           % endif
         </div>
 
+        <div id="logoData4Manager">
+          <img src="/media/microsite/formation-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+        </div>
+
+        <div id="connectButnsWrapper">
+          <div class="butnContainer">
+            <a class="registerButn" href='/register' style="display: none;">Inscription</a>
+          </div>
+          <div class="butnContainer">
+            <a class="connectButn" href='/login'>Connexion</a>
+          </div>
+        </div>
       </header>
       <%include file="${courses_list}" />
 
@@ -86,12 +129,19 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
 % if register_course_id is not None:
 <script>
-$(".btn-neutral").each(function(){
+// $(".btn-neutral").each(function(){
+//  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+// });
+// $(".btn-login").each(function(){
+//  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+// });
+$(".registerButn").each(function(){
  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 });
-$(".btn-login").each(function(){
+$(".connectButn").each(function(){
  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
 });
 
 </script>
 % endif
+
