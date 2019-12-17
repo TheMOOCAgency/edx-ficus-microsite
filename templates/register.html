@@ -46,10 +46,10 @@ import calendar
         $('#organisme').on('change', function() {
             if(this.value === 'oui'){
               $('#number').parent().show()
-              $("#number").prop('required',true);
+              $('#number').parent().parent().addClass('required')
             }else{
               $('#number').parent().hide()
-              $("#number").prop('required',false);
+              $('#number').parent().parent().removeClass('required')
               $("#number").val('')
             }
         });
