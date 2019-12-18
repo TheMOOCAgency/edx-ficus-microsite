@@ -29,3 +29,14 @@
   </div>
 % endfor
 </div>
+
+<script> 
+  let isStaff = '${request.user.is_staff}'
+  $(document).ready(function(){
+    $(document).ajaxSuccess(function(e, xhr, settings) {
+      if (settings.url.indexOf('problem_show') && (isStaff === 'False') ) {
+        $('.show.problem-action-btn.btn-default.btn-small').hide();
+      }
+    })
+  });
+</script>
