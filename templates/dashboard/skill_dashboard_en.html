@@ -29,7 +29,10 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
   text-align: center
 }
 
-
+.deactivated{
+  background-color: #808080cf !important;
+  color: #5a6c73 !important;
+}
 </style>
 <div class="container">
   <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
@@ -72,7 +75,7 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
     <div class="bottom-buttons mt-20">
       <div class="text-center">
         %if course_state!="finished" :
-        <button class="text-align-center white-btn mr-20" disabled>
+        <button class="text-align-center white-btn mr-20 deactivated" disabled>
           Review my answers
         </button>
         %else :
@@ -91,7 +94,7 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
           </button>
         </a>
         %else :
-        <button class="text-align-center white-btn deactivated" disabled>
+        <button class="text-align-center white-btn deactivated deactivated" disabled>
           Consult my previous score
         </button>
         %endif
