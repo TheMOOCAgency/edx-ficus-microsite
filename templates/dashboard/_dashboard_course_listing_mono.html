@@ -46,10 +46,6 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
   <h1>${course_overview.display_name_with_default}
-    % if show_email_settings:
-      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height:21px;width:24px;display:inline-block;float:right;margin:7px 7px 0px 0px;"></a>
-    % endif
-  </h1>
 </div>
 
 %if cours_ouv:
