@@ -17,7 +17,6 @@ css = org_static+'/css/course_navigation.css'
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 
-
 <style>
 body.view-in-course .wrapper-course-material .course-material .course-tabs {
   width: 100% !important;
@@ -101,7 +100,7 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
             %>
             <ol class="tabs course-tabs">
               <li class="tab">
-                  <a href="/dashboard" id="tma_return_dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
+                  <a href="/dashboard" id="tma_return_dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span>Retour aux thématiques</a>
               </li>
                 <%include file="${tabs_tmpl}" args="tab_list=tab_list,active_page=active_page,default_tab=default_tab,tab_image=tab_image" />
                 <%block name="extratabs" />
