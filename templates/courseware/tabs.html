@@ -17,7 +17,7 @@ def url_class(is_active):
   <a href="/blog" class>Glossaire</a>
 </li>
 % for tab in tab_list:
-  % if str(tab.name).lower() != "course" and str(tab.name).lower() != "discussion" and str(tab.name).lower() != "progress":
+  % if str(tab.name).lower() != "course" and str(tab.name).lower() != "discussion" and str(tab.name).lower() != "home":
     <%
       tab_is_active = tab.tab_id in (active_page, default_tab)
       tab_class = url_class(tab_is_active)
