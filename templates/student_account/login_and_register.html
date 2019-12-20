@@ -29,6 +29,17 @@
     % for template_name in ["account", "access", "form_field", "login", "register", "institution_login", "institution_register", "password_reset", "hinted_login"]:
         <script type="text/template" id="${template_name}-tpl">
             <%static:include path="student_account/${template_name}.underscore" />
+            <style>
+                .login-providers{
+                    margin-top: 20px;
+                }
+                .login-providers > .section-title{
+                    display: none;
+                }
+                .toggle-form{
+                    display: none;
+                }
+            </style>
         </script>
 % endfor
 </%block>
@@ -38,9 +49,3 @@
         <div id="login-and-registration-container" class="login-register" />
     </main>
 </div>
-<style>
-    .toggle-form{
-        display:none;
-    }
-</style>
-<p>${configuration_helpers}</p>
