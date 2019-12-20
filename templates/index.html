@@ -1,116 +1,101 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E-formation Artisanat</title>
-        <link rel="icon" type="image/png" href="/media/microsite/e-formation-artisanat/auto/images/logo.png" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-        <style>
-            * {
-                font-family: 'Quicksand', sans-serif;
-            }
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
-            body {
-                background-image: url('/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg');
-                background-size: cover;
-            }
+from openedx.core.djangolib.markup import HTML, Text
+%>
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/auto/css/index.css'.format(org)
+%>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+  #tma_background_font {
+    /* background-image: url(/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg) !important; */
+    background-color: #EDEEEF;
+    background-position: center;
+  }
+  .home {
+    background: none;
+  }
+  .home>header {
+    background-image: none !important;
+    height: 100%;
+    box-shadow: none;
+    margin-top: 25px;
+    text-align: center;
+  }
+  .video-modal {
+    display: block;
+    position: static;
+    margin: auto;
+    color: black;
+  }
+  .courses-container {
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  @media screen and (max-width: 700px) {
+    .promo-video {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal .inner-wrapper, .home-page-video-modal.leanModal_box .inner-wrapper {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal, .home-page-video-modal.leanModal_box {
+      width: 342px;
+    }
+  }
+</style>
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="home">
+      <header>
+        <h1>Développez vos compétences avec les chambres de métiers et de l’artisanat</h1>
+        <section id="video-modal" class="modal home-page-video-modal video-modal">
+          <div class="inner-wrapper">
+            <iframe class="promo-video" title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen autoplay></iframe>
+          </div>
+        </section>
+      </header>
 
-            .bg-grey {
-                background-color: rgba(128, 128, 128, 0.678);
-            }
+      <%include file="${courses_list}" />
 
-            .navbar-brand > img, .footer-box img {
-                width: 100px;
-            }
+    </section>
+</main>
 
-            .nav-link {
-                margin: 5px;
-                padding: 7px 15px 7px 15px;
-                border-radius: 5px;
-                color: rgba(0,0,0,.5);
-                background-color: white;
-                border: 1px solid white;
-                font-size: 1.2rem;
-                font-weight: bold;
-            }
-            .nav-link:hover {
-                border: 1px solid white;
-                background-color: rgba(0,0,0,.5);
-                color: white !important;
-            }
+<%block name="js_extra">
+  <script type="text/javascript">
+    $(window).load(function() {
+      if(getParameterByName('next')) {
+        $('#login').trigger("click");
+      }
+    })
+  </script>
+</%block>
 
-            .first-box > .row:first-of-type {
-                border-radius: 5px;
-                margin-top: 200px;
-                margin-bottom: 200px;
-            }
-            .second-box p {
-                font-size: 1.4rem;
-            }
-            .footer-box {
-                margin-top: 100px;
-                background-color: #353434;
-            }
-        </style>
-    </head>
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
 
+% if register_course_id is not None:
+<script>
+$(".btn-neutral").each(function(){
+ $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+});
+$(".btn-login").each(function(){
+ $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+});
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-grey justify-content-between">
-            <a class="navbar-brand p-3" href="#">
-                <img src="/media/microsite/e-formation-artisanat/assets/logo_blanc.png" alt="e-formation-artisanat logo">
-            </a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Inscription</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Connexion</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="container-fluid w-75 first-box">
-            <div class="row text-white p-5">
-                <div class="col text-center">
-                    <h1 class="pt-4">Bienvenue sur le campus digital de CMA France</h1>
-                    <h2 class="mb-5">Profitez de l'ensemble de nos formations en ligne</h2>
-                    <a class="nav-link d-inline-block" href="/register">Inscription</a>
-                    <a class="nav-link d-inline-block" href="/login">Connexion</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col d-flex justify-content-center">
-                    <img class="h-50" src="/media/microsite/e-formation-artisanat/assets/white_arrow.png" alt="flèche">
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid bg-white second-box h-100">
-            <div class="row py-5 justify-content-center align-self-center">
-                <div class="col-6 text-center my-auto">
-                    <img class="mt-3" src="/media/microsite/e-formation-artisanat/assets/logo-artisanat.png" alt="logo-artisanat">
-                </div>
-                <div class="col-6 py-5 pr-5 my-auto">
-                    <p>Altera sententia est, quae definit amicitiam paribus officiis ac voluntatibus. Hoc quidem est nimis exigue et exiliter ad calculos vocare amicitiam, ut par sit ratio acceptorum et datorum. Divitior mihi et affluentior videtur esse vera amicitia nec observare restricte, ne plus reddat quam acceperit; neque enim verendum est, ne quid excidat, aut ne quid in terram defluat, aut ne plus aequo quid in amicitiam congeratur.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid footer-box py-5">
-            <div class="row">
-                <div class="col-7 my-auto pl-5">
-                    <img src="/media/microsite/e-formation-artisanat/assets/logo_blanc.png" alt="e-formation-artisanat logo">
-                </div>
-                <div class="col-5 my-auto pr-5 text-white">
-                    <p>Utque proeliorum periti rectores primo catervas densas opponunt et fortes, deinde leves armaturas, post iaculatores ultimasque subsidiales acies, si fors adegerit.</p>
-                </div>
-            </div>
-        </div>
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
-</html>
+</script>
+% endif

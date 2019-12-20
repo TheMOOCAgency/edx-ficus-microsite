@@ -58,8 +58,199 @@ site_status_msg = get_site_status_msg(course_id)
 </%block>
   <header id="global-navigation" class="header-global" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
-    <h1 class="logo">
-      <a href="${marketing_link('ROOT')}">
+      <!-- Menu burger Start-->
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            % if user.is_authenticated():
+            <%block name="burger_links_authenticated">
+              % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+                <a href="${marketing_link('COURSES')}"><li>${_('Explore courses')}</li></a>
+              % endif
+              % if show_program_listing:
+                <a href="${reverse('dashboard')}"><li>${_("Courses")}</li></a>
+                <a href="${reverse('program_listing_view')}"><li>${_("Programs")}</li></a>
+              % endif
+              %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
+                <a href="${reverse('sysadmin')}"><li>${_("Sysadmin")}</li></a>
+              %endif
+            </%block>
+            % else:
+            <%block name="burger_sign_in">
+              % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
+                % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+                  <a href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}"><li>${_("Register")}</li></a>
+                  <a href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}"><li>${_("Sign in")}</li></a>
+                % else:
+                  % if static.get_value('course_id') is not None:
+                  <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>${_("Register")}</li></a>
+                  <a href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>${_("Sign in")}</li></a>
+                  % else:
+                  <a href="/register"><li>${_("Register")}</li></a>
+                  <a href="/login"><li>${_("Sign in")}</li></a>
+                  % endif
+                % endif
+              % endif
+            </%block>
+            % endif
+            <a href="/about"><li>À propos</li></a>
+          </ul>
+        </div>
+      <style>
+        .header-global {
+          background:#991816;
+        }
+        .header-global .wrapper-header {
+          margin-left: 0px;
+          max-width: 100%;
+          text-align: right;
+        }
+        .header-global h1.logo {
+          position: inherit;
+          text-align: left;
+          float: left;
+          margin-left: 15px;
+        }
+        .header-global .nav-global {
+          display: inline-block;
+          position: inherit;
+          text-align: left;
+          float: none;
+        }
+        #menuToggle
+        {
+          z-index: 1;
+          user-select: none;
+          margin-left: 13px;
+          float: left;
+          text-align: initial;
+          margin-top: 12px;
+        }
+
+        #menuToggle a
+        {
+          text-decoration: none;
+          color: #232323;
+          transition: color 0.3s ease;
+        }
+
+        #menuToggle a:hover
+        {
+          color: tomato;
+        }
+        #menuToggle input
+        {
+          display: block;
+          width: 40px;
+          height: 32px;
+          position: absolute;
+          top: 25px;
+          left: 20px;
+          cursor: pointer;
+          opacity: 0; /* hide this */
+          z-index: 2; /* and place it over the hamburger */
+          
+          -webkit-touch-callout: none;
+        }
+        #menuToggle span
+        {
+          display: block;
+          width: 33px;
+          height: 4px;
+          margin-bottom: 5px;
+          position: relative;
+          background: #847a7a;
+          border-radius: 3px;
+          z-index: 1;
+          transform-origin: 4px 0px;
+          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                      background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                      opacity 0.55s ease;
+        }
+        #menuToggle span:first-child
+        {
+          transform-origin: 0% 0%;
+        }
+        #menuToggle span:nth-last-child(2)
+        {
+          transform-origin: 0% 100%;
+        }
+        #menuToggle input:checked ~ span
+        {
+          opacity: 1;
+          transform: rotate(45deg) translate(-2px, -1px);
+          background: #232323;
+        }
+        #menuToggle input:checked ~ span:nth-last-child(3)
+        {
+          opacity: 0;
+          transform: rotate(0deg) scale(0.2, 0.2);
+        }
+        #menuToggle input:checked ~ span:nth-last-child(2)
+        {
+          transform: rotate(-45deg) translate(0, -1px);
+        }
+        #menu
+        {
+          position: absolute;
+          width: 195px;
+          margin: -100px 0 0 -50px;
+          padding: 42px;
+          padding-top: 125px;
+          background: #ededed;
+          border: 1px #a0a0a0 solid;
+          list-style-type: none;
+          -webkit-font-smoothing: antialiased;
+          transform-origin: 0% 0%;
+          transform: translate(-100%, 0);
+          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+        }
+        #menu li
+        {
+          padding: 10px 0;
+          font-size: 22px;
+        }
+        #menuToggle input:checked ~ ul
+        {
+          transform: none;
+        }
+        .course-search {
+          display:inline-block;
+          vertical-align: top;
+        }
+        @media screen and (max-width: 650px) {
+          .course-search {
+            display: none;
+          }
+        }
+        @media screen and (max-width: 830px) {
+          .header-global .nav-courseware li .btn {
+            display: block;
+            height: 25px;
+            padding: 4px 20px;
+            margin-bottom: 5px;
+          }
+        }
+        .btn-login, .btn-register {
+          height: 39px;
+          text-transform: uppercase !important;
+          border-radius: 5px !important;
+          font-weight: bold !important;
+          background-color: black !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+        .btn-login:hover, .btn-register:hover {
+          background-color: #991816;
+          box-shadow: none !important;
+        }
+      </style>
+      <!-- Menu burger Stop-->
+      <h1 class="logo">
+        <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
@@ -70,27 +261,20 @@ site_status_msg = get_site_status_msg(course_id)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
         </%block>
       </a>
     </h1>
+
+    <div class="course-search">
+      <form method="get" action="/courses">
+        <label><span class="sr">${_("Search for a course")}</span>
+          <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}" style="height:39px;box-shadow:none"></input>
+        </label>
+        <button class="btn btn-login" type="submit" style="background: black; height:39px;border:none !important;text-shadow:none !important">
+          <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(255, 253, 253); margin-bottom: 6px;"></span><span class="sr">${_("Search")}</span>
+        </button>
+      </form>
+    </div>
 
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
@@ -174,19 +358,6 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
               </li>
             %endif
-            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
-            % else:
-              <li class="item nav-global-04">
-                % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
-                % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
-                % endif
-              </li>
-            % endif
           % endif
         </%block>
       </ol>
@@ -195,11 +366,15 @@ site_status_msg = get_site_status_msg(course_id)
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+                <a class="btn btn-login" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
                 <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
               % else:
+              <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
+                <a class="btn btn-login" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
+                <a class="btn btn-login" href="/register">${_("Register")}</a>
                 <a class="btn btn-login" href="/login">${_("Sign in")}</a>
                 % endif
               % endif
