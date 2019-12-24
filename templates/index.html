@@ -1,49 +1,79 @@
 <html>
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title id="masterTitle">optimhome</title>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script id="Sid1" src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/bootstrap.min.js"></script><script id="Sid2" src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/jquery.scrollify.js"></script>
-      <link rel="stylesheet" href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet"> 
-      <link rel="icon" type="image/png" href="/media/microsite/optimhome/auto/images/logo.png" />
-   </head>
-   <style>
-      body {
-         background-image: url('/media/microsite/optimhome/assets/img/bg_img_optim.jpg');
-         background-position: center;
-         background-size: cover;
-         font-family: 'Roboto', sans-serif;
-      }
-      #mainTitle2{
-         margin-top: 8%;
-         color:#3c464f;
-         font-size: 30px;
-         text-align: left;
-         padding-left: 15%;
-      }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="masterTitle">optimhome</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      id="Sid1"
+      src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/bootstrap.min.js"
+    ></script>
+    <script
+      id="Sid2"
+      src="media/microsite/librairies/pagebuilder/assets//bootstrap/js/jquery.scrollify.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="media/microsite/librairies/pagebuilder/assets/bootstrap/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/media/microsite/optimhome/auto/images/logo.png"
+    />
+  </head>
+  <style>
+    body {
+      background-image: url("/media/microsite/optimhome/assets/img/bg_img_optim.jpg");
+      background-position: center;
+      background-size: cover;
+      font-family: "Roboto", sans-serif;
+    }
+    #mainTitle2 {
+      margin: 0;
+      color: #3c464f;
+      font-size: 20px;
+      width: 80%;
+      text-align: left;
+      padding-left: 8%;
+    }
 
-      .btn {
-         width: 200px;
-         font-size: 24px;
-         color: white;
-         text-transform: uppercase;
-      }
-      .btn:hover {
-         background-color: white;
-         color:#3c464f;
-      }
-      .bg-purple {
-         background-color: #7C56C7;
-      }
-      .bg-orange {
-         background-color: #fc7a1e;
-      }
-   </style>
-   <body cz-shortcut-listen="true">
-      <!--<nav id="nav" class="navbar navbar-default">
+    .btn {
+      width: 200px;
+      font-size: 24px;
+      color: white;
+      text-transform: uppercase;
+    }
+    .btn:hover {
+      background-color: white;
+      color: #3c464f;
+    }
+    .bg-purple {
+      background-color: #7c56c7;
+    }
+    .bg-orange {
+      background-color: #fc7a1e;
+    }
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .aligned-center {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+  <body cz-shortcut-listen="true">
+    <!--<nav id="nav" class="navbar navbar-default">
          <div class="container-fluid">
             <div class="navbar-header">
                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -67,50 +97,67 @@
             </div>            
          </div>        
       </nav>-->
-      <section id="se1">
-         <div class="row vertical-center">
-            <div class="col-md-12 text-center" style="margin-top:30%;">
-               <div class="container-fluid" style="width:60%">
-                  <div class="row" style="background-color:white;padding:35px">
-                     <div class="col-md-6" style="border-right:1px solid #3c464f;">
-                        <img src="/media/microsite/optimhome/assets/img/logo_o.png" style="width:100%;" alt="logo optimhome">
-                     </div>
-                     <div class="col-md-6">
-                        <h1 id="mainTitle2">Des conseillers immobilier<br/>qui vous ressemblent.</h1>
-                     </div>
-                  </div>
-                  <div class="row text-center" style="margin-top:40px;">  
-                     <a href="/register?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll" style="margin-right: 50px;">
-                        <button class="btn bg-purple"> inscription </button>
-                     </a>               
-                     <a href="/login?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll">
-                        <button class="btn bg-orange">connexion</button>  
-                     </a>
-                  </div>
-               </div>
+    <section id="se1">
+      <div class="row vertical-center">
+        <div class="col-md-12 text-center" style="margin-top:30%;">
+          <div class="container-fluid" style="width:60%">
+            <div
+              class="row aligned-center"
+              style="background-color:white;padding:35px"
+            >
+              <div
+                class="col-md-6 center"
+                style="border-right:1px solid #3c464f;"
+              >
+                <img
+                  src="/media/microsite/optimhome/assets/img/logo_o.png"
+                  style="width:100%;"
+                  alt="logo optimhome"
+                />
+              </div>
+              <div class="col-md-6 center">
+                <h1 id="mainTitle2">
+                  Des conseillers immobilier<br />qui vous ressemblent.
+                </h1>
+              </div>
             </div>
-            <div class="col-md-12 text-center scrollCn">                   				   
-               <!-- <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                        -->
+            <div class="row text-center" style="margin-top:40px;">
+              <a
+                href="/register?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll"
+                style="margin-right: 50px;"
+              >
+                <button class="btn bg-purple">inscription</button>
+              </a>
+              <a
+                href="/login?course_id=course-v1:optimhome+Parcours_1+2019T3&enrollment_action=enroll"
+              >
+                <button class="btn bg-orange">connexion</button>
+              </a>
             </div>
-         </div>
-      </section>
-      <footer id="footer">
-         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-               <!-- <h2 id="footerTitle" class="text-center">découvrez la formation</h2> -->
-            </div>
-         </div>
-         <div class="row" style="display: block">
-            <div class="col text-center">
-               <!-- <button class="btn btn-default butn"> -->
-               <!-- inscription</button>  -->
-            </div>
-         </div>
-         <div class="row footerBottom">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-               <!-- <p class="text-center underW">Site deployé par The MOOC Agency - 2019 </p> -->
-            </div>
-         </div>
-      </footer>
-   </body>
+          </div>
+        </div>
+        <div class="col-md-12 text-center scrollCn">
+          <!-- <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                        -->
+        </div>
+      </div>
+    </section>
+    <footer id="footer">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <!-- <h2 id="footerTitle" class="text-center">découvrez la formation</h2> -->
+        </div>
+      </div>
+      <div class="row" style="display: block">
+        <div class="col text-center">
+          <!-- <button class="btn btn-default butn"> -->
+          <!-- inscription</button>  -->
+        </div>
+      </div>
+      <div class="row footerBottom">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <!-- <p class="text-center underW">Site deployé par The MOOC Agency - 2019 </p> -->
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
