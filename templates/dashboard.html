@@ -102,7 +102,18 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 <!-- DASHBOARD MONO -->
 
 <div id="voile"></div>
-<div class="content_tma">
+  <div style="display:none;width: 60%;background-color: white; margin: 0 auto; margin-top: 10px; padding: 25px;" id="name-form">
+      <p>Veuillez entrer votre nom tel qu'il appara&icirc;tra sur le certificat (Attention, votre nom ne sera plus modifiable par la suite).</p>
+      <form action="">
+        <label style="margin-top:10px; display:block" id="label_first_name" for="first_name">Votre pr&eacute;nom :</label>
+        <input style="margin:10px 0px; width : 100%" type="text" name="first_name" />
+        <label style="margin-top:10px; display:block" id="label_last_name" for="last_name">Votre nom :</label>
+        <input style="margin:10px 0px; width : 100%" type="text" name="last_name" />
+        <input style="margin:0 auto; display:block" type="submit" value="Enregistrer" />
+      </form>
+</div>
+<div style="display:none" class="content_tma">
+  <div id="error-register">Une erreur est survenue pendant l'enregistrement de vos donn&eacute;es, veuillez r&eacute;essayer plus tard.</div>
   <!-- profil -->
   <div id="dashboard_profile">
   <div id="profile_button">p r o f i l </div>
@@ -245,7 +256,7 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
@@ -303,6 +314,9 @@ else{
   width: calc(100% - 470px);
   margin-left: 53px;
   margin-right: 53px;
+}
+#global-navigation{
+  height : 76px!important;
 }
 </style>
 <span id="list_multi_title">
@@ -550,3 +564,55 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+
+<script>
+    $('#error-register').hide();
+    $('#name-form').hide();
+    $(".content_tma").hide();
+
+    $.ajax({
+        url: '/tma_apps/api/check_name',
+        success: function(data){
+            $("#while-message").hide();
+            if (data.is_recorded) {
+                $(".content_tma").show();
+                $('#name-form').hide();
+            } else {
+                $('#name-form').show();
+                $(".content_tma").hide();
+            }
+        }
+    });
+
+
+    $('#name-form').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'tma_apps/api/record_name',
+            method: 'POST',
+            data: {
+                first_name: $('input[name="first_name"]').val(),
+                last_name: $('input[name="last_name"]').val()
+            },
+            success: function(data){
+                if(data.name_recorded){
+                    $('#name-form').hide();
+                    $('.content_tma').show();
+                }
+                else{
+                    $('#error-register').show();
+                }
+            }
+        })
+    })
+</script>
+
+<script>
+$( document ).ready(function(){
+  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $("#name-form>p").text('Please enter your name as it will appear on the certificate (Attention, your name will not be modifiable thereafter).')
+      $("#label_first_name").text('Your first name :')
+      $("#label_last_name").text('Your last name :')
+  }
+});
+</script>

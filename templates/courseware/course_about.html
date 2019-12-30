@@ -6,6 +6,9 @@ from courseware.courses import get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 from openedx.core.lib.courses import course_image_url
+
+from django.utils import translation
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
 %>
 
 <%inherit file="../main.html" />
@@ -111,6 +114,13 @@ from openedx.core.lib.courses import course_image_url
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
+%>
+
+<%
+  if user.is_authenticated():
+    user_lang = get_user_preference(user, "pref-lang")
+    translation.activate(user_lang)
+    request.LANGUAGE_CODE = translation.get_language()
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -370,6 +380,7 @@ $(".inner-wrapper section h2").click(function() {
        $(this).parent().find('div.about_section').addClass("folded_tma");
   }
 });
+
 </script>
 <style>
 .btn-login {

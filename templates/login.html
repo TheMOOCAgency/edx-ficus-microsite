@@ -125,6 +125,33 @@ from third_party_auth import provider, pipeline
 
 <%include file="forgot_password_modal.html" />
 
+<style>
+  /*Fonts*/
+  @font-face {
+    font-family: CIVCTitle;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCTitle.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansBold;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCSansBold.ttf");
+  }
+  @font-face {
+    font-family: CIVCSansLight;
+    src: url("/media/microsite/champagne-mooc/fonts/CIVCSansLight.ttf");
+  }
+
+
+*, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
+
+    font-family: 'CIVCSansLight'!important;
+
+}
+
+
+.opacMedium{
+background: #ffffffbd !important;
+}
+</style>
 <section class="introduction">
   <header>
     <h1 class="title">
@@ -134,7 +161,7 @@ from third_party_auth import provider, pipeline
   </header>
 </section>
 
-<section class="login container">
+<section class="login container opacMedium">
   <section role="main" class="content">
     <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
 

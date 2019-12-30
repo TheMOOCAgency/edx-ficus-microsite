@@ -35,10 +35,18 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-
+cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
 %>
 <%block>
+
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<script>
+    setTimeout(function(){
+        $('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text($('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text().replace('spécific','spécifique'))
+    }, 200);
+</script>
+
 <%
 try:
     course_id = course.id
@@ -56,7 +64,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global" >
+  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -110,7 +118,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              <a href="${marketing_link('COURSES')}" style="display:none" >${_('Explore courses')}</a>
             </li>
           % endif
           % if show_program_listing:
@@ -208,35 +216,81 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-    % if static.show_language_selector():
-     <% languages = static.get_released_languages() %>
-      % if len(languages) > 1:
+      <% languages = static.get_released_languages() %>
       <ol class="user">
-        <li class="primary">
-          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
-            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
-            % if user.is_authenticated():
-            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
-            % else:
-            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
-            % endif
-            <label><span class="sr">${_("Choose Language")}</span>
-                <select class="input select language-selector" id="settings-language-value" name="language">
-                  % for language in languages:
-                    % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[1]}</option>
-                    % else:
-                      <option value="${language[0]}" >${language[1]}</option>
-                    % endif
-                  % endfor
-                </select>
-            </label>
-          </form>
-        </li>
-      </ol>
-      % endif
-      % endif
-    </nav>
+       <li class="primary">
+         <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+           <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+           % if user.is_authenticated():
+           <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+           % else:
+           <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+           % endif
+           <label><span class="sr">${_("Choose Language")}</span>
+             <!--LANGUAGE FLAGS-->
+             <div id="lang-content">
+               <img src="/media/microsite/champagne-mooc/home/en.png" id="en">
+               <img src="/media/microsite/champagne-mooc/home/fr.png" id="fr">
+               <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                 % for language in languages:
+                  % if language[0] =="en" or language[0] =="fr":
+                   % if language[0] == LANGUAGE_CODE:
+                     <option value="${language[0]}" selected="selected">${language[0]}</option>
+                   % else:
+                     <option value="${language[0]}">${language[0]}</option>
+                   % endif
+                  % endif
+                 % endfor
+               </select>
+             </div>
+           </label>
+         </form>
+       </li>
+     </ol>
+     <style>
+     /*LANGUAGE FLAGS*/
+     .language-selector {
+       display: none;
+     }
+     #lang-content {
+       width: 60px;
+       height: 24px;
+     }
+     #lang-content img{
+       width: 25px;
+     }
+    </style>
+    <script>
+      //LANGUAGE FLAGS
+      let params = new URL(window.location).searchParams;
+      let lang = params.get('lang');
+
+      $(document).ready(function(){
+        if ('${LANGUAGE_CODE}' !== lang) {
+          if (lang === 'en') {
+            $('#settings-language-value > option[value="en"]').attr('selected','selected');
+            $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          } else {
+            if (lang === 'fr') {
+              $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+              $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+            }
+          }
+        }
+
+        $('#en').on('click', function() {
+          $('#settings-language-value > option[value="en"]').attr('selected','selected');
+          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          lang = 'en'
+        });
+        $('#fr').on('click', function() {
+          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          lang = 'fr'
+        });
+      });
+    </script>
+  </nav>
 </header>
 % if course:
 <!--[if lte IE 9]>
@@ -320,3 +374,23 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<%
+# PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+
+tma_lang = request.LANGUAGE_CODE
+if user.is_authenticated():
+  try:
+    tma_lang = get_user_preference(user, 'pref-lang')
+  except:
+    pass
+%>
+<script>
+  $(document).ready(function(){
+    // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+    var date = new Date();
+    date.setMonth(date.getMonth() + 1);
+    document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=the-mooc-agency.com;expires='+ date.toGMTString();
+  });
+</script>
