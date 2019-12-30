@@ -21,23 +21,21 @@ from pipeline_mako import render_require_js_path_overrides
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154568735-1"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TSV43V7');</script>
+<!-- End Google Tag Manager -->
 
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
- 
-
-  gtag('config', 'UA-154568735-1');
-
-</script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
     <link rel="stylesheet" href="/media/librairies/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/media/microsite/champagne/home/home.css">
     <link rel="stylesheet" type="text/css" href="/media/microsite/champagne/auto/css/footer.css">
@@ -377,7 +375,8 @@ from pipeline_mako import render_require_js_path_overrides
           <div class="container">
             <div class="row">
               <div class="col-12 text-center">
-                  <p><b>Langues disponibles</b> : Français, Anglais, Italien, Espagnol, Russe, Allemand, Japonais, Chinois</p>
+                  <p><b>Langues disponibles</b>: plateforme en français et en anglais.</p>
+                  <p>Vidéos disponibles en français et en anglais, sous-titrées en allemand, anglais, chinois, espagnol, italien, japonais et russe.</p>
               </div>
             </div>
           </div>
@@ -707,7 +706,7 @@ from pipeline_mako import render_require_js_path_overrides
                 <ul class="formula-list">
                   <li class="formula-item"><b>Extra videos</b></li>
                   <li class="formula-item"><b>Test your knowledge</b></li>
-                  <li class="formula-item"><b>Get the official Certificate of completion</b></li>
+                  <li class="formula-item"><b>Get the official Statement of completion</b></li>
                 </ul>
               </div>
                 <div class="formula-register">
@@ -746,7 +745,7 @@ from pipeline_mako import render_require_js_path_overrides
                   <b>How long is it?</b> The total course runs for <b>less than 5 hours</b>.</br></br>
                   <b>When?</b> It is your own choice: the platform is <b>available 24/7</b> ! </br></br>
                   <b>How?</b> You have <b>free access</b> to <b>4 educational modules.</b> All of them are made of short videos, with illustrative contents and texts, in order to make your memorizing easier. </br></br>
-                  A <b>5th module</b> will allow you to get the <b>MOOC attendance certification</b>*, delivered by the Comité Champagne, and to access extra videos for an in-depth knowledge. The cost of this premium version is <b>49€</b>.</br></br></br>
+                  A <b>5th module</b> will allow you to get the <b>MOOC statement of completion</b>*, delivered by the Comité Champagne, and to access extra videos for an in-depth knowledge. The cost of this premium version is <b>49€</b>.</br></br></br>
 
                   <i>* subject to passing the quiz (only available in English and in French)</i>
                   </p>
@@ -758,7 +757,8 @@ from pipeline_mako import render_require_js_path_overrides
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-                <p><b>Available in the following languages</b>: French, English, Italian, Spanish, Russian, German, Japanese and Chinese.</p>
+                <p><b>Language</b>: platform in French and in English</p>
+                <p>The videos are available in French and in English, subtitled in German, English, Chinese, Spanish, Italian, Japanese and Russian.</p>
             </div>
           </div>
         </div>
@@ -858,7 +858,7 @@ from pipeline_mako import render_require_js_path_overrides
                 <div class="col-md-6">
                   <h5 class="titlePage">UPGRADING</h5>
                   <!-- <p class="subTitlePage">L’élaboration du Champagne : de la vigne au verre</p> -->
-                  <p>Get the MOOC attendance certification by completing the quiz (only available in English and in French), delivered by the Comité Champagne, and access extra videos for an in-depth knowledge.</p>
+                  <p>Get the MOOC statement of completion by completing the quiz (only available in English and in French), delivered by the Comité Champagne, and access extra videos for an in-depth knowledge.</p>
                 </div>
               </div>
             </div>
@@ -941,7 +941,7 @@ from pipeline_mako import render_require_js_path_overrides
             <ul class="formula-list">
               <li class="formula-item"><b>Extra videos</b></li>
               <li class="formula-item"><b>Test your knowledge</b></li>
-              <li class="formula-item"><b>Get the official Certificate of completion</b></li>
+              <li class="formula-item"><b>Get the official Statement of completion</b></li>
             </ul>
           </div>
           <div class="formula-register">
