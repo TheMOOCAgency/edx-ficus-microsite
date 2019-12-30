@@ -1,6 +1,7 @@
 <%page expression_filter="h"/>
 <%!
 from django.utils.translation import ugettext as _
+from django.utils.translation import get_language
 from django.core.urlresolvers import reverse
 from openedx.core.djangolib.markup import HTML
 %>
@@ -23,7 +24,7 @@ if _template is None:
 <%
 static.get_value('domain_prefix')
 %>
-<style>
+<!-- <style>
 main {
  background-color: #fff;
 }
@@ -31,5 +32,269 @@ main {
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
       ${_template | n}
+    </section>
+</main> -->
+<style>
+  #main-content-fr {
+   background-color: #fff;
+  }
+</style>
+<main id="main-content-fr" aria-label="Content" tabindex="-1">
+    <section class="container about">
+      % if get_language() == "fr":
+        CONDITIONS GENERALES D’UTILISATION ET MENTIONS LEGALES<br />
+        <br />
+        1. Editeur et gérant<br />
+        Le site web champagne-mooc.com est :<br />
+        édité par le Comité interprofessionnel du vin de Champagne (Comité Champagne) – situé au 5 rue Henri-Martin – CS 30 135 - 51204 Epernay – France Tél. : +33 (0)3 26 51 19 30<br />
+        géré par VARIABLE - THE MOOC AGENCY - situé au 4 rue de Rambervillers, 75012 Paris – France – Tél : + 33 (0)1 77 01 18 91 <br />
+        hébergé par OVH – situé 2 rue Kellermann, 59100 Roubaix – France – Tél : +33 (0)  9 72 10 10 07
+        <br />
+        <br />
+        2. Conditions d’utilisation du site<br />
+        L’utilisation de ce site est soumise aux présentes conditions générales d’utilisation. En parcourant ces sites, vous acceptez ces conditions générales d’utilisation.<br />
+        Le Comité Champagne peut à tout moment réviser les présentes conditions générales d’utilisation.<br />
+        2.1 CRÉATION D’UN COMPTE, IDENTIFIANT, MOT DE PASSE, ADRESSE DE COURRIER ÉLECTRONIQUE<br />
+        Lors de la création du compte, l’apprenant s’engage à fournir des informations réelles correspondant à sa seule situation et à les mettre à jour régulièrement. <br />
+        L’apprenant s'engage également à ne pas créer une fausse identité. <br />
+        L’apprenant est responsable du maintien de la confidentialité de ses identifiants et mots de passe qui lui permettent d'accéder aux cours mis en ligne par le Comité Champagne. <br />
+        L’apprenant est également responsable de l’utilisation du compte de messagerie électronique personnel (adresse courriel) qu’il a indiqué lors de la création de compte sur le site champagne-mooc.com. <br />L’apprenant veille également à ce que des tiers n’utilisent pas cette adresse de courrier électronique pour communiquer avec le Comité Champagne. <br />
+        En cas de perte ou de vol de son identifiant et/ou de son mot de passe, ou dans l’éventualité où l’apprenant penserait qu’un tiers a accédé à son compte, l’apprenant s’engage à informer le Comité Champagne via le formulaire de contact. <br />
+        2.2 USAGES AUTORISÉS / USAGES NON AUTORISÉS<br />
+        Le site champagne-mooc.com doit être utilisé dans le respect des finalités mentionnées au point 3.1 ci-dessous. <br />
+        En tant qu’apprenant, vous devez : <br />
+        - utiliser les services du site champagne-mooc.com uniquement dans les buts pour lesquels ils sont mis à votre disposition ;<br />
+        - assurer la confidentialité de vos identifiants et mots de passe et ne pas les communiquer à un tiers, quel que soit votre lien avec ce tiers ; <br />
+        - saisir uniquement des informations exactes ; <br />
+        - mettre à jour régulièrement les informations vous concernant; <br />
+        - respecter la réglementation en vigueur. 
+        <br />
+        <br />
+        En tant qu’apprenant, vous ne devez pas : <br />
+        - constituer une base de données à des fins publicitaires (envoi de promotion sur des offres, produits ou services par appels, fax, courriers, courriels ou newsletters non sollicités) ou autres ; <br />
+        - mettre en ligne des contenus illégaux ou inappropriés (notamment des opinions politiques, ou religieuses, contrairesatteintes aux bonnes mœurs, etc). <br />
+        - le cas échéant, capter et/ou diffuser, par quelque moyen que ce soit, tout ou partie du contenu des cours en ligne auxquels vous participez, sous peine de sanction pénale. <br />
+        - ne pas publier ou rendre accessibles les réponses aux exercices sur quelque support que ce soit.<br />
+        2.3 CONTENUS ILLÉGAUX<br />
+        L’apprenant est pénalement responsable des informations qu’il met en ligne sur le site champagne-mooc.com, notamment les contenus qui constituent une provocation ou une apologie de crimes, de délits ou d’acte de terrorisme, une incitation à la haine ou à la discrimination, ou qui ont pour effet de porter atteinte à la réputation ou à la tranquillité des personnes sont punis par des peines pouvant aller jusqu’à 100 000 € d’amende et 7 ans d’emprisonnement (articles 23 à 41-1 de la loi du 29 juillet 1881 sur la liberté de la presse et article 421-2-5 du code pénal).<br />
+        2.4 MODÉRATION<br />
+        Les forums relatifs à chaque cours en ligne sont modérés a posteriori ; la modération peut donner lieu à la suppression du compte d’un apprenant, sans préjudice d’éventuelles suites judiciaires, dans le cas où le Comité Champagne constaterait la mise en ligne d’un contenu illégal.<br />
+        2.5 SECURITE INFORMATIQUE<br />
+        Le Comité Champagne garantit avoir fait tous ses meilleurs efforts pour que le site champagne-mooc.com et son contenu ne contiennent aucun virus et autres programmes malveillants, chevaux de Troie connus des services du Comité Champagne.<br />
+        2.6 LOI APPLICABLE<br />
+        Les présentes conditions générales d’utilisation doivent être interprétées selon le droit français. Tout litige sur leur interprétation et/ou leur exécution relève de la compétence exclusive des tribunaux français. En cas de différence d’interprétation entre les différentes traductions, la version française prévaut.<br />
+        2.7 PRE-REQUIS TECHNIQUES<br />
+        L’utilisation d’un navigateur internet récent est recommandée pour consulter le site champagne-mooc.com
+        <br />
+        <br />
+        3. Mentions informatique et libertés<br />
+        3.1 FINALITÉ<br />
+        Le site internet champagne-mooc.com, est un service de formation en ligne permettant aux internautes de suivre des cours en ligne massifs ayant notamment pour objet de faire découvrir le Champagne : son histoire, son terroir, son élaboration, la diversité des vins et leur dégustation. <br />
+        <br />
+        3.2 INFORMATIONS OBLIGATOIRES<br />
+        Les données collectées de manière obligatoire lors de la création d’un compte sont signalées par un astérisque (*). Si ces informations ne sont pas fournies, l’utilisation du service est impossible. <br />
+        La création d’un compte permet notamment aux internautes de recevoir des messages relatifs à l’inscription, au fonctionnement du forum et des différents groupes/pages dédiés aux apprenants sur les réseaux sociaux, à la mise en ligne de nouveaux cours, à l’envoi d’un questionnaire de satisfaction et d’une newsletter informant des divers évènements professionnels (Masterclass, salons etc), ainsi qu’à l’envoi de l’attestation de suivi et de réussite. <br />
+        3.3 DONNÉES COLLECTÉES ET TRAITÉEs, ET MODE DE COLLECTION DES DONNÉES<br />
+        Conformément aux dispositions de l’article 5 du Règlement européen 2016/679, la collecte et le traitement des données des apprenants du site respectent les principes suivants :<br />
+        · Licéité, loyauté et transparence : les données ne peuvent être collectées et traitées qu’avec le consentement de l’apprenant propriétaire des données.<br />
+        · Finalités limitées : la collecte et le traitement des données sont exécutés pour répondre à la finalité du site internet défini ci-dessus.<br />
+        · Minimisation de la collecte et du traitement des données : seules les données nécessaires à la bonne exécution des objectifs poursuivis par le site sont collectées ;<br />
+        · Conservation des données réduites dans le temps : les données sont conservées pour une durée de 36 mois après la dernière utilisation de la plate-forme à moins que l’apprenant n’en demande la suppression avant l’expiration de ce délai (voir article 2-7) ;<br />
+        · Intégrité et confidentialité des données collectées et traitées : le responsable du traitement des données s’engage à garantir l’intégrité et la confidentialité des données collectées.<br />
+        Afin d’être licite, et ce conformément aux exigences de l’article 6 du règlement européen 2016/679, la collecte et le traitement des données à caractère personnel ne pourront intervenir que s’ils respectent au moins l’une des conditions ci-après énumérées :<br />
+        · L’apprenant a expressément consenti au traitement ;<br />
+        · Le traitement est nécessaire à la bonne exécution d’un contrat ;<br />
+        · Le traitement s’explique par une nécessité liée à la sauvegarde des intérêts vitaux de la personne concernée ou d’une autre personne physique ;<br />
+        · Le traitement peut s’expliquer par une nécessité liée à l’exécution d’une mission d’intérêt public ou qui relève de l’exercice de l’autorité publique ;<br />
+        · Le traitement et la collecte des données à caractère personnel sont nécessaires aux fins des intérêts légitimes et privés poursuivis par le responsable du traitement ou par un tiers.<br />
+        3.4 HÉBERGEMENT DES DONNÉES<br />
+        Tel que mentionné plus haut, le site champagne-mooc.com est hébergé par OVH<br />
+        Les données collectées et traitées par le site sont exclusivement hébergées et traitées en France.<br />
+        3.5 RESPONSABLE DU TRAITEMENT DES DONNEES ET DESTINATAIRES DES DONNEES<br />
+        Les destinataires des données à caractère personnel enregistrées sur le site champagne-mooc.com sont le Comité Champagne, responsable du traitement, et les entités statutairement et contractuellement liées au Comité Champagne, notamment The MOOC Agency.<br />
+        3.6 DROITS DE L’APPRENANT ET PROCEDURES DE MISE EN ŒUVRE DE CES DROITS<br />
+        Conformément à la loi « informatique et libertés », vous pouvez exercer votre droit d’opposition, d'accès, de modification, de rectification et de suppression des données vous concernant en contactant le Délégué à la protection des données aux adresses suivantes : dpo@civc.fr ou DPO du Comité Champagne 5 rue Henri Martin CS 30135 – 51 204 Epernay cedex .<br />
+        <br />
+        3.7 COOKIES<br />
+        3.7.1. Consentement de l’apprenant à l’utilisation de fichiers « cookies » par le site<br />
+        Le site a éventuellement recours aux techniques de « cookies » lui permettant de traiter des statistiques et des informations sur le trafic, de faciliter la navigation et d’améliorer le service pour le confort de l’apprenant. Pour l’utilisation de fichiers « cookies » impliquant la sauvegarde et l’analyse de données à caractère personnel, le consentement de l’apprenant est nécessairement demandé.<br />
+        Ce consentement de l’apprenant est considéré comme valide pour une durée de 13 (treize) mois maximum. A l’issue de cette période, le site demandera à nouveau l’autorisation de l’apprenant pour enregistrer des fichiers « cookies » sur son disque dur.<br />
+        <br />
+        3.7.2. Opposition de l’apprenant à l’utilisation de fichiers « cookies » par le site<br />
+        Il est porté à la connaissance de l’apprenant qu’il peut s’opposer à l’enregistrement de ces « cookies » en configurant son logiciel de navigation.<br />
+        Dans le cas où l’apprenant décide de désactiver les fichiers « cookies », il pourra poursuivre sa navigation sur le site. Toutefois, tout dysfonctionnement du site provoqué par cette manipulation ne pourrait être considéré comme étant du fait de l’éditeur du site.<br />
+        <br />
+        3.7.3. Description des fichiers « cookies » utilisés par le site<br />
+        L’éditeur du site attire l’attention de l’apprenant sur le fait que les cookies suivants sont utilisés lors de sa navigation :<br />
+        - Des cookies techniques<br />
+        En naviguant sur le site, il est porté à connaissance de l’apprenant que des fichiers « cookies » de tiers peuvent être enregistrés.<br />
+        De plus, le site intègre des boutons de réseaux sociaux, permettant à l’apprenant de partager son activité sur le site. Des fichiers « cookies » de ces réseaux sociaux sont par conséquent susceptibles d’être stockés sur l’ordinateur de l’apprenant lorsqu’il utilise ces fonctionnalités.<br />
+        L’attention de l’apprenant est portée sur le fait que ces sites disposent de politiques de confidentialité propres et de conditions générales d’utilisation possiblement différentes de celles présentées ici. L’éditeur du site invite les apprenants à consulter les politiques de confidentialités de ces sites.<br />
+        4. Responsabilité<br />
+        Le Comité Champagne ne saurait être tenu pour responsable des dommages de toute nature, directs ou indirects, résultant de l’utilisation du site champagne-mooc.com, ni de l’impossibilité pour l’apprenant d’accéder au site champagne-mooc.com<br />
+        5. Propriété intellectuelle<br />
+        Le site internet champagne-mooc.com est protégé au titre des dispositions relatives au droit d’auteur défini à l’article L.111-1 du code de la propriété intellectuelle et au titre des dispositions relatives aux bases de données définies aux articles L.341-1 et suivants du même code. Le Comité Champagne est titulaire de l’ensemble des droits de propriété intellectuelle sur les éléments composant le site. <br />
+        A l’exception des dispositions prévues à l’article L.122-5 du code de la propriété intellectuelle, toute représentation, reproduction ou diffusion, intégrale ou partielle du site, sur quelque support que ce soit, sans l'autorisation expresse et préalable du Comité Champagne constitue un acte de contrefaçon, sanctionné au titre des articles L.335-2 et L.335.3 du même code. <br />
+        Par ailleurs, toute représentation, reproduction ou diffusion, intégrale ou partielle de la marque Comité Champagne, sur quelque support que ce soit, sans l'autorisation expresse et préalable du Comité Champagne constitue un acte de contrefaçon, sanctionné au titre des articles L.521-10 du même code.<br />
+        <br />
+        <br />
+        6. Paiement<br />
+        L’accès aux versions Premium du MOOC du Champagne nécessite le règlement des frais d’inscription correspondants.<br />
+        Les frais d’inscription aux versions Premium du MOOC du Champagne sont libellés en euros et incluent la TVA.<br />
+        Les frais d’inscription permettent un accès immédiat à la version Premium du MOOC du Champagne choisie. Ces frais ne peuvent faire l’objet d’un remboursement à aucun titre.<br />
+        <br />
+        La gestion des paiements est assurée par VARIABLE - THE MOOC AGENCY, via la plateforme Paypal.<br />
+        <br />
+        L’accès consenti à la version Premium du MOOC du Champagne choisie suite au règlement des frais d’inscription donne uniquement un droit unipersonnel de consultation des ressources mises à disposition et en aucun cas un droit de reproduction.<br />
+        <br />
+        L’accès à la version Premium du MOOC du Champagne choisie pourra être révoqué à tout moment et sans justification par le Comité Champagne, de même que les contenus constituant les versions Premium du MOOC du Champagne pourront être modifiés à tout moment par le Comité Champagne, sans notification préalable.<br />
+      % else:
+        GENERAL TERMS AND CONDITIONS <br />
+        <br />
+        1. Publisher and management<br />
+        <br />
+        The champagne-mooc.com website is:<br />
+        • edited by the Comité Interprofessionnel du Vin de Champagne (CIVC, or Comité Champagne), located at 5 Rue Henri-Martin – CS 30 135 - 51204 Epernay – France, Tel +33 (0)3 26 51 19 30<br />
+        • managed by VARIABLE - THE MOOC AGENCY, located at 4 Rue de Rambervillers, 75012 Paris - France - Phone: + 33 (0)1 77 01 18 91 tel à ajouter <br />
+        <br />
+        • • hosted by OVH – located at 2 rue Kellermann, 59100 Roubaix – France – Phone: +33 (0)  9 72 10 10 07<br />
+        CSC, located at XXX<br />
+        <br />
+        2. Conditions relating to the use of the site<br />
+        <br />
+        The use of this site is subject to the general terms and conditions presented here. By entering the site, you signal your acceptance of these general terms and conditions. <br />
+        <br />
+        The Comité Champagne reserves the right to change these general terms and conditions at any time.<br />
+        <br />
+        2.1 CREATION OF AN ACCOUNT, ID, PASSWORD, EMAIL ADDRESS <br />
+        <br />
+        When creating an account, the trainee undertakes to provide true information corresponding to their his/her particular circumstances and to update that information on a regular basis.<br />
+        The trainee undertakes to create no false identity.<br />
+        It is the trainee’s responsibility to maintain the confidentiality of those identities and passwords that give access to the courses provided on line by the Comité Champagne. <br />
+        The trainee is likewise responsible for the use of the email account (email address) that they he/she provided when setting up the account on the champagne-mooc.com website. The trainee will take careensure that no third party uses this email address to communicate with the Comité Champagne. <br />
+        If the trainee’s identity and/or password are lost or stolen, or if the trainee has reason to believe that a third party has accessed their account, then the trainee undertakes to notify the Comité Champagne via the contact form. <br />
+        <br />
+        2.2 AUTHORISED/UNAUTHORISED USES<br />
+        <br />
+        The champagne-mooc.com site can only be used for the purposes specified in Section 3.1 below. <br />
+        <br />
+        As trainee, you must: <br />
+        - use the services of the champagne-mooc.com site exclusively for those the purposes for which those services are offered to you;<br />
+        - maintain the confidentiality of your identity and password, and never communicate them to any third party, whatever your connection with that third party might be;<br />
+        - only enter accurate information;<br />
+        - update the information that relates to you on a regular basis;<br />
+        - abide by the rules in force.<br />
+        <br />
+        As trainee, you must not: <br />
+        - create a database for promotional purposes (promotional campaigns based on unsolicited offers, products or services by telephone, fax, letters or newsletters) or for other purposes; <br />
+        - post illegal or inappropriate material on line (such as political or religious opinions, morally offensive material, etc)<br />
+        - record and/or distribute by any means all or part of the content of the on-line courses in which you participate, at risk of legal action. <br />
+        - publish or give access to the replies to exercises, in whatever medium.<br />
+        <br />
+        2.3 ILLEGAL CONTENT<br />
+        <br />
+        The trainee is legally liable for the information that he uploads to the champagne-mooc.com website, notably content that constitutes an incitement to crime, offences or acts of terrorism, an incitement to hate or discrimination, or an attack on an individual’s reputation or peace of mind. Such offences are subject to fines up to 100 000 € and seven years’ imprisonment (Articles 23 to 41-1 of the law of 29 July 1881 regarding press freedom, and Article 421-2-5 of the penal code).<br />
+        <br />
+        2.4 MODERATION<br />
+        <br />
+        The forums relating to each course are moderated a posteriori; moderation may give rise to the suppression of a trainee’s account, irrespective without prejudice to anyof possible legal action, in cases where the Comité Champagne considers that illegal content has been placed on line. <br />
+        <br />
+        2.5 ON-LINE SECURITY<br />
+        <br />
+        The Comité Champagne declares that to the best of its ability, the champagne-mooc.com website and its content are free of any virus, malware, or trojansTrojans of which the Comité Champagne is aware.<br />
+        <br />
+        2.6 APPLICABLE LAW<br />
+        <br />
+        These general terms and conditions are to be interpreted under French law. Any dispute regarding their interpretation and/or their application shall be subject to the exclusive authority of the French courts.  Where different translations invite different interpretations, the French version shall prevail. <br />
+        <br />
+        2.7 TECHNICAL REQUIREMENTS<br />
+        <br />
+        A recent internet browser is recommended for consulting the champagne-mooc.com website<br />
+        <br />
+        <br />
+        3. Data protection and liberties<br />
+        <br />
+        3.1 PURPOSE<br />
+        <br />
+        The champagne-mooc.com website is an on-line communication/training service that allows internet users to pursue extensive on-line courses whose principal objective is the presentation of Champagne: its history, terroir, production, the variety of the wines and their tasting. <br />
+        <br />
+        3.2 OBLIGATORY INFORMATION<br />
+        <br />
+        The obligatory information that is required when an account is opened is indicated by an asterisk (*). If this information is not provided, the service cannot be used.<br /> 
+        <br />
+        In particular, the opening of an account allows internet users to receive messages relative to their enrollmentenrolment, to the operation of the forum and the various groups/pages dedicated to trainees on social networks, for notices of new courses on line, for the sending of a satisfaction survey questionnaire, and for the sending of a newsletter announcing a variety of professional events (masterclasses, trade shows, etc) as well as the sending of certificates of course attendance and results. <br />
+        <br />
+        3.3 THE GATHERING AND PROCESSING OF DATA<br />
+        <br />
+        In line with the provisions of Article 5 of European Regulation 2016/679, the following principles apply to the collection and processing of data provided by the site’s trainees: <br />
+        <br />
+        · Lawfulness, fairness and transparency: the data can only be collected and used with the consent of the trainee.<br />
+        <br />
+        · Restricted purpose: the gathering and processing of the data is confined to the purpose of the the internet site specified above. <br />
+        <br />
+        · Minimising the gathering and processing of data: only data necessary to the effective performance of the site’s declared objectives is collected; <br />
+        <br />
+        · Data kept only for a limited period: data is kept for a period of 36 months from the last log in, unless the trainee asks for the data to be deleted earlier (see Article 2-7); <br />
+        <br />
+        · Accuracy and confidentiality in the gathering and processing of the data:  the person responsible for processing the data undertakes to guarantee the accuracy and confidentiality of the data gathered. <br />
+        <br />
+        Under the requirements of Article 6 of European Regulation 2016/679, the gathering and processing of personal data is not allowed unless it meets at least one of the following conditions:<br />
+        <br />
+        · The trainee has expressly agreed to its use;<br />
+        <br />
+        · The use of the data is necessary for the effective execution of a contract;<br />
+        <br />
+        · The use is justified for the protection of vital interests, of the person concerned or another individual;<br />
+        <br />
+        · The use is justified by a necessity linked to some public objective, or the fulfilment of the duties of some public authority;<br />
+        <br />
+        · The gathering and processing of personal data is necessary for the objectives of legitimate and private interests pursued by the person responsible for the processing of the data or a third party.<br />
+        <br />
+        3.4 THE HOSTING OF DATA<br />
+        <br />
+        As noted above, the champagne-mooc.com site is hosted by THE MOOC AGENCY/CSCOVH<br />
+        The data collected and processed by the site is exclusively hosted and processed in France. <br />
+        <br />
+        3.5 RESPONSIBILITY FOR THE PROCESSING OF DATA, AND DATA RECIPIENTS <br />
+        <br />
+        The recipients of personal data held on the champagne-mooc.com site are the Comité Champagne, responsible for data processing, and those bodies that are legally and contractually connected to the Comité Champagne, notably The MOOC Agency.<br />
+
+        3.6 THE RIGHTS OF THE TRAINEE AND HOW THOSE RIGHTS ARE EXERCISED <br />
+        In line with the data protection act, you are entitled to exercise your right of opposition, access, modification, correction or suppression of data relating to you by contacting the data protection officer at one of the following addresses : dpo@civc.fr; or DPO du Comité Champagne 5 Rue Henri Martin CS 30135 – 51 204 Epernay Cedex .<br />
+        <br />
+        3.7 COOKIES<br />
+        <br />
+        3.7.1. When the trainee accepts the site’s use of “cookies” <br />
+        The site makes occasional use of “cookies” so as to process statistics and information relating to site traffic, to assist with navigation and to make the service easier for the trainee. Where the use of cookies involves the saving and analysis of personal data, the consent of the trainee is always sought. <br />
+        <br />
+        This consent is taken to be valid for a period no greater than 13 (thirteen) months. At the end of this period, the site will again seek the authorisation of the trainee for the recording of cookie files on the trainee’s hard drive. <br />
+        <br />
+        3.7.2. When the trainee rejects the site’s use of “cookies” <br />
+        The trainee can always configure his web browser to prevent the saving of these cookie files.<br />
+        <br />
+        If the trainee chooses to deactivate cookie files, he can continue his navigation of the site. The site’s publisher cannot however be held responsible for any malfunction of the site that may be provoked by this manipulation.<br />
+        <br />
+        3.7.3. The types of  “cookie” file used by the site <br />
+        The site’s publisher draws the trainee’s attention to the following cookies that are used in the course of navigation:<br />
+        <br />
+        - Technical cookies<br />
+        <br />
+        The trainee should be aware that third party cookie files may be saved in the course of navigation. <br />
+        <br />
+        Also that the site features social network buttons that allow the trainee to share their activity on the site. Cookie files from these social networks are therefore liable to be saved on the trainee’s computer when the trainee uses these features. <br />
+        <br />
+        The trainee should be aware that these sites operate their own privacy policies, with terms and conditions that may differ from those presented here. The publisher of this site recommends that trainees consult the confidentiality policies of these other sites. <br />
+        <br />
+        4. Responsibility<br />
+        <br />
+        The Comité Champagne accepts no responsibility for losses of any kind, direct or indirect, that may arise from the use of the champagne-mooc.com site, nor for any inability to access the champagne-mooc.com site that the trainee may experience.<br />
+        <br />
+        5. Intellectual property<br />
+        <br />
+        The champagne-mooc.com internet site is protected by provisions relating to authors’ rights as defined in Article L.111-1 of the intellectual property code and by the provisions relating to databases as defined in Articles L.341-1 and following provisions of the same code. All intellectual property rights relating to the elements of which the site is composed are the property of the Comité Champagne.
+        Subject to exceptions cited in Article L.122-5 of the intellectual property code, any representation, reproduction or distribution of material from the site, in whole or in part, in any medium, without the prior express authority of the Comité Champagne, is an act of counterfeiting in the terms of Articles L.335-2 and L.335.3 of the same code. <br />
+        <br />
+        Furthermore, any representation, reproduction or distribution, in whole or in part, of the Comité Champagne identity, in whatever medium, without the prior express authority of the Comité Champagne, is an act of counterfeiting in the terms of Articles L.521-10 of the same code.
+      % endif
     </section>
 </main>
