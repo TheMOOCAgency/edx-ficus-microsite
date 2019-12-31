@@ -17,13 +17,13 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
   <div class="footer-container">
     <ul class="links">
       <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+        <a href="${marketing_link('HONOR')}">${_("Terms of Service")}</a>
       </li>
       <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
+        <a href="${marketing_link('FAQ')}">${_("FAQ")}</a>
       </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
+	    <li>
+        <a href="/about">${_("Contact")}</a>
       </li>
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
@@ -36,4 +36,26 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
       -->
     </div>
   </div>
+  <script>
+	var langGet = $("#settings-language-value").val()
+	var menu = $('.tab')
+	var aTags = $('.tab');
+	var searchText = " RETOUR À L'ACCUEIL";
+	var searchTextReplace = "Terug naar start";
+	var searchText2 = "HUIS";
+	var searchText2replace = "HOME";
+
+	if (langGet == "nl-nl") {
+
+		for (var i = 0; i < aTags.length; i++) {
+			if (aTags[i].firstElementChild.innerText == searchText) {
+				$('.tab')[i].firstElementChild.innerText = searchTextReplace
+			}
+
+			if (aTags[i].firstElementChild.innerText == searchText2) {
+				$('.tab')[i].firstElementChild.innerText = searchText2replace
+			}
+		}
+	}
+  </script>
 </footer>

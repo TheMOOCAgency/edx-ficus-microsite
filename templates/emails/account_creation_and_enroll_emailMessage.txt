@@ -1,14 +1,36 @@
 <%! from django.utils.translation import ugettext as _ %>
+${_("Hello {first_name},").format(first_name=first_name)}
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+${_("Welcome to your digital training course {course_name}.").format(course_name=course.display_name_with_default_escaped)}
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+${_("Your personal account on our training platform is accessible from the page:")}
+${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
 
-${_("email: {email}").format(email=email_address)}
+${_("Your personal access codes:")}
+${_("login: {email}").format(email=email_address)}
 ${_("password: {password}").format(password=password)}
 
 ${_("It is recommended that you change your password.")}
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+${_("Sincerely yours,")}
+
+${_("The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+
+-----------------------------------
+
+Beste Voornaam,
+
+Welkom bij deze digitale opleiding "${course_name}".
+
+Uw persoonlijke account op ons trainingsplatform is toegankelijk via de volgende link :
+${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
+
+Uw persoonlijke toegangscodes :
+Login : ${email_address}
+Paswoord : ${password}
+
+Het is aangewezen om uw wachtwoord te veranderen bij de eerste aanmelding door op de login-pagina te klikken op "wachtwoord vergeten".
+
+Wij wensen u een leerrijke opleiding en tot snel !
+
+Het team van "${course_name}".

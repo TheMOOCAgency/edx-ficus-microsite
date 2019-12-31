@@ -39,6 +39,30 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+  #global-navigation ol.user{
+    float:right;
+    list-style:none;
+    margin:10px
+  }
+  #global-navigation{
+    height:80px!important
+  }
+#lang-content img{
+  cursor: pointer;
+}
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 100px;
+    height: 24px;
+  }
+  #lang-content img{
+    width: 25px;
+  }
+</style>
 <%
 try:
     course_id = course.id
@@ -56,8 +80,8 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
-    <nav class="wrapper-header" aria-label="${_('Global')}">
+  <header id="global-navigation" style="width: 100%" class="header-global ${"slim" if course else ""}" >
+    <nav style="width: 96%" class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
@@ -168,6 +192,7 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
 
         <%block name="navigation_other_global_links">
+<!--
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
@@ -188,6 +213,7 @@ site_status_msg = get_site_status_msg(course_id)
               </li>
             % endif
           % endif
+-->
         </%block>
       </ol>
       <ol class="right nav-courseware list-inline">
@@ -208,34 +234,38 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-    % if static.show_language_selector():
-     <% languages = static.get_released_languages() %>
-      % if len(languages) > 1:
-      <ol class="user">
-        <li class="primary">
-          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
-            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
-            % if user.is_authenticated():
-            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
-            % else:
-            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
-            % endif
-            <label><span class="sr">${_("Choose Language")}</span>
-                <select class="input select language-selector" id="settings-language-value" name="language">
-                  % for language in languages:
-                    % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[1]}</option>
-                    % else:
-                      <option value="${language[0]}" >${language[1]}</option>
-                    % endif
-                  % endfor
-                </select>
-            </label>
-          </form>
-        </li>
-      </ol>
-      % endif
-      % endif
+    <% languages = static.get_released_languages() %>
+    <ol class="user">
+      <li class="primary" style="margin-top:5px">
+        <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+          <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+          % if user.is_authenticated():
+          <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+          % else:
+          <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+          % endif
+          <label><span class="sr">${_("Choose Language")}</span>
+            <!--LANGUAGE FLAGS-->
+            <div id="lang-content">
+              <img src="/media/microsite/engie-ntp-mooc/assets/img/en.png" width="25px" style="padding-right:5px" id="en">
+              <img src="/media/microsite/engie-ntp-mooc/assets/img/fr.png" width="25px" style="padding-right:5px" id="fr">
+              <img src="/media/microsite/engie-ntp-mooc/assets/img/nl.png" width="25px" style="padding-right:5px" id="nl">
+              <select class="input select language-selector" id="settings-language-value" name="language" size="2" style="display:none">
+                % for language in languages:
+                 % if language[0] =="en" or language[0] =="fr" or language[0] =="nl-nl":
+                  % if language[0] == LANGUAGE_CODE:
+                    <option value="${language[0]}" selected="selected">${language[0]}</option>
+                  % else:
+                    <option value="${language[0]}">${language[0]}</option>
+                  % endif
+                 % endif
+                % endfor
+              </select>
+            </div>
+          </label>
+        </form>
+      </li>
+    </ol>
     </nav>
 </header>
 % if course:
@@ -254,6 +284,29 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <script src="${static.url('js/translate.js')}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  //LANGUAGE FLAGS
+  $('#en').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="nl-nl"]').removeAttr('selected').trigger( "change");
+    //swal('Cette fonctionnalité n\'est pas encore effective.')
+  });
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="nl-nl"]').removeAttr('selected').trigger( "change");
+    //swal('Cette fonctionnalité n\'est pas encore effective.')
+  });
+  $('#nl').on('click', function() {
+    $('#settings-language-value > option[value="nl-nl"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    //swal('Cette fonctionnalité n\'est pas encore effective.')
+  });
+</script>
+
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%

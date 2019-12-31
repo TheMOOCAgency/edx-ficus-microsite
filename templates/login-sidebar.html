@@ -16,7 +16,7 @@ from django.core.urlresolvers import reverse
 </div> -->
 % endif
 
-<div class="cta cta-help">
+<div class="cta cta-help" style="display:none">
   <h3>${_("Not Enrolled?")}</h3>
 % if static.get_value('course_id') is not None:
   <p><a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
