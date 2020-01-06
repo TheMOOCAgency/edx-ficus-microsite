@@ -21,6 +21,34 @@ from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
 
+<script type="text/javascript">
+dataLayer = [{
+'env_work': 'prod',
+
+'name_site': 'https://www.champagne-mooc.com/',
+'env_language': '${request.LANGUAGE_CODE}',
+
+
+%if user.is_authenticated():
+'user_login': 'YES',
+'user_email': '${user.email}',
+%else:
+'user_login': 'NO',
+%endif
+
+%if course:
+'course_id': '${course.id}',
+'course_name': '${course.display_name}'
+%endif
+
+}];
+dataLayer[0].page_name = document.title;
+</script>
+
+<script type="text/javascript">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TSV43V7');
+</script>
+
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
 
@@ -366,3 +394,8 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+

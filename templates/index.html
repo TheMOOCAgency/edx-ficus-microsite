@@ -20,6 +20,29 @@ from pipeline_mako import render_require_js_path_overrides
   <title>Champagne MOOC</title>
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/javascript">
+dataLayer = [{
+'env_work': 'prod',
+
+'name_site': 'https://www.champagne-mooc.com/',
+'env_language': '${request.LANGUAGE_CODE}',
+
+
+%if user.is_authenticated():
+'user_login': 'YES',
+'user_email': '${user.email}',
+%else:
+'user_login': 'NO',
+%endif
+
+%if course:
+'course_id': '${course.id}',
+'course_name': '${course.display_name}'
+%endif
+
+}];
+dataLayer[0].page_name = document.title;
+</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
