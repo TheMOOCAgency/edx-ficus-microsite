@@ -13,67 +13,71 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+  #tma_background_font {
+    /* background-image: url(/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg) !important; */
+    background-color: #EDEEEF;
+    background-position: center;
+  }
+  .home {
+    background: none;
+  }
+  .home>header {
+    background-image: none !important;
+    height: 100%;
+    box-shadow: none;
+    margin-top: 25px;
+    text-align: center;
+  }
+  .video-modal {
+    display: block;
+    position: static;
+    margin: auto;
+    color: black;
+  }
+  .courses-container {
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  @media screen and (max-width: 700px) {
+    .promo-video {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal .inner-wrapper, .home-page-video-modal.leanModal_box .inner-wrapper {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal, .home-page-video-modal.leanModal_box {
+      width: 342px;
+    }
+  }
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
+        <h1>Développez vos compétences avec les chambres de métiers et de l’artisanat</h1>
+        <section id="video-modal" class="modal home-page-video-modal video-modal">
+          <div class="inner-wrapper">
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
+        </section>
       </header>
+
       <%include file="${courses_list}" />
 
     </section>
 </main>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
 <%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
+  <script type="text/javascript">
+    $(window).load(function() {
+      if(getParameterByName('next')) {
+        $('#login').trigger("click");
+      }
+    })
+  </script>
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
