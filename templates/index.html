@@ -194,15 +194,15 @@ width: 43px;
 
 }
 
-
-
-
-   </style>
+.fit-picture:hover{
+   border : 2px solid black;
+}
+</style>
 
    <body>
    
-   <img id="switchFr"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/france.png" style="display:none">
-   <img id="switchEn"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/eng.png" style="display:none">
+   <img id="switchFr"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/france.png" style="right: 115px;">
+   <img id="switchEn"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/eng.png" style="right: 65px;">
    <img id="switchNl" class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/netherland.png">
 
    <!-- DEBUT FRANCAIS -->
@@ -1128,9 +1128,9 @@ Dit zijn de belangrijkste verantwoordelijkheden van het DOP Talent-team:
 				  
 				  
 				  
-				  function hideNl(){ $("#switchNl").hide();$("#switchFr").show();$("#containerFr").hide();$("#containerNl").show();}
-				  function hideFr(){ $("#switchFr").hide();$("#switchEn").show();$("#containerNl").hide();$("#containerEn").show();}
-              function hideEn(){ $("#switchEn").hide();$("#switchNl").show();$("#containerEn").hide();$("#containerFr").show();}
+				  function showNl(){ $("#containerFr").hide();$("#containerEn").hide();$("#containerNl").show();}
+				  function showFr(){ $("#containerNl").hide();$("#containerEn").hide();$("#containerFr").show();}
+              function showEn(){ $("#containerNl").hide();$("#containerFr").hide();$("#containerEn").show();}
 				
 				  
 				  
@@ -1138,19 +1138,19 @@ Dit zijn de belangrijkste verantwoordelijkheden van het DOP Talent-team:
 				  
 				  if(lang=="FR"){
 				   setStyleMdg("Fr");
-				   hideFr();
+				   showFr();
 				  
 				  }
 				  
 				  if(lang=="NL"){
 				   setStyleMdg("Nl")
-				   hideNl();
+				   showNl();
 				  
 				  }
 				  
 				  if(lang=="EN"){
 				   setStyleMdg("En")
-				   hideEn();
+				   showEn();
 				  
 				  }
 				  
