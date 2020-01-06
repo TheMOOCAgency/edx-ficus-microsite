@@ -45,6 +45,12 @@ else:
 cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
+<style>
+  .custom_thumbnail_pic {
+    background-color: white;
+    object-fit: contain;
+  }
+</style>
 <li class="course_cell_multi">
   <div class="up_cell">
     <div class="options">
@@ -62,7 +68,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
     </div>
     <div class="multi_course_image">
 % if cours_ouv:
-      <a href="/dashboard/${enrollment.course_id}/"><img src="${course_overview.image_urls['small']}" /></a>
+      <a href="/dashboard/${enrollment.course_id}/"><img class="custom_thumbnail_pic" src="${course_overview.image_urls['small']}" /></a>
 %else:
 <img src="${course_overview.image_urls['small']}" />
 % endif
