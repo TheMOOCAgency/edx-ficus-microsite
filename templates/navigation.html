@@ -21,6 +21,36 @@ from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
 
+
+<script type="text/javascript">
+dataLayer = [{
+'env_work': 'prod',
+
+'name_site': 'https://www.champagne-mooc.com/',
+'env_language': '${request.LANGUAGE_CODE}',
+
+
+%if user.is_authenticated():
+'user_login': 'YES',
+'user_email': '${user.email}',
+%else:
+'user_login': 'NO',
+%endif
+
+%if course:
+'course_id': '${course.id}',
+'course_name': '${course.display_name}'
+%endif
+
+}];
+dataLayer[0].page_name = document.title;
+</script>
+
+<script type="text/javascript">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TSV43V7');
+</script>
+
+
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
 
@@ -78,24 +108,6 @@ site_status_msg = get_site_status_msg(course_id)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
         </%block>
       </a>
     </h1>
@@ -394,3 +406,8 @@ if user.is_authenticated():
     document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=the-mooc-agency.com;expires='+ date.toGMTString();
   });
 </script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
