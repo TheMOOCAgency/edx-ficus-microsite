@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("Connexion à mon compte");
       }
       else {
         $submitButton.
@@ -230,7 +230,7 @@ from third_party_auth import provider, pipeline
 
   </section>
 
-  <aside role="complementary">
+ <aside role="complementary">
 
 <%
   # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
@@ -240,4 +240,4 @@ from third_party_auth import provider, pipeline
     <%include file="${sidebar_file}" />
 
   </aside>
-  </section>
+ </section>
