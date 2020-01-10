@@ -83,7 +83,7 @@ $.ajax({
 %else:
 
 <div id="title_dashboard_course">
-  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+  <h1 class="opening">Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/> A très vite !</h1>
 </div>
 
 
@@ -102,8 +102,8 @@ $.ajax({
 
 <script>
     if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
-      $('#title_dashboard_course>h1').text().replace('Opening on','Opening')
-      $('#title_dashboard_course>h1').text().replace('A très vite !','See you soon')
+      $('#title_dashboard_course>.opening').html($('#title_dashboard_course>.opening').html().replace('Ouverture le','Opening on'))
+      $('#title_dashboard_course>.opening').html($('#title_dashboard_course>.opening').html().replace('A très vite !','See you soon'))
     }
 </script>
 
