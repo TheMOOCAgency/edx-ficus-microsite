@@ -1,0 +1,231 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from django_countries import countries
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string
+import datetime
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+%>
+
+
+
+<%block name="title"><title>ensure form</title></%block>
+
+<%block name="header_extras">
+<% 
+#Only check certificate extra fields
+certificate_form_extra = [field['name'] for field in configuration_helpers.get_value('CERTIFICATE_FORM_EXTRA')]
+fields_cleaned = [field for field in fields if field["name"] in certificate_form_extra]
+
+%>
+<style>
+.section {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.field {
+  position: relative;
+}
+.picto_status {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  right: -50px;
+}
+.wrapper-account-settings .wrapper-header {
+  height: auto;
+}
+.required {
+  font-weight: bold !important;
+}
+#main {
+ min-height:calc(100vh - 112px);
+}
+footer, header{
+  display: none!important
+}
+.register.container{
+  min-width: auto!important
+}
+
+</style>
+
+<div class="wrapper-account-settings">
+  <main id="main" aria-label="Content" tabindex="-1">
+    <div class="account-settings-container">
+      <div class="wrapper-header">
+        <div id="aboutTabSections-tabpanel" class="account-settings-tabpanels " aria-label="Information du compte" role="tabpanel">
+          <div class="section">
+          <!-- FORMS -->
+          <section class="register container">
+            <section role="main" class="content">
+              <p style="font-Size:1.2rem;margin-bottom: 20px;text-align: center;">Inscription au Programme Osac</p>
+              <form role="form" novalidate>
+                <div class="group group-form">
+                  <ol class="list-input">
+                  % for n in fields_cleaned:
+                    <li class="field ${n.get('type')}">
+
+                    % if (user_fields.get(n.get('name')) is None) or (user_fields.get(n.get('name')) == ''):
+                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/cross-remove-sign.png" /></div>
+                    % else:
+                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/checked.png" /></div>
+                    % endif
+
+                    <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+                    % if n.get('type') == 'email':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                    % elif n.get('type') == 'text':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                    % elif n.get('type') == 'select':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <select id="${n.get('name')}" name="${n.get('name')}" class="my_form">
+                      % if n.get('name') == 'country':
+                        % if not user_fields['country']:
+                          <option value="" selected="selected">--</option>
+                        % else:
+                          <option value="" >--</option>
+                        % endif
+                        <%
+                        _countries = list(countries)
+                        %>
+                        % for f in _countries:
+                          % if f[0] == user_fields['country']:
+                           <option value="${f[0]}" selected="selected">${f[1]}</option>
+                          % else:
+                           <option value="${f[0]}">${f[1]}</option>
+                          % endif
+                        %endfor
+                      % endif
+                      % if n.get('name') == 'year_of_birth':
+                        % if not user_fields['year_of_birth']:
+                          <option value="" selected="selected">--</option>
+                        % else:
+                          <option value="" >--</option>
+                        % endif
+                  	<%
+                  	year = datetime.datetime.today().year
+                  	YEARS = [year - i for i in range(100)]
+                  	%>
+                          % for y in YEARS:
+                              % if str(y) == user_fields['year_of_birth']:
+                  	           <option value="${y}" selected="selected">${y}</option>
+                              % else:
+                               <option value="${y}">${y}</option>
+                              % endif
+                  	% endfor
+                      % else:
+                          % for j in n.get('options'):
+                            % if j.get('value') == user_fields.get(n.get('name')):
+                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''} selected="selected">${j.get('name')}</option>
+                            % else:
+                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+                            % endif
+                          %endfor
+                      % endif
+                    </select>
+                    % elif n.get('type') == 'checkbox':
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" class="my_form"/>
+                    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+                    % endif
+                    </div>
+                    </li>
+                  % endfor
+                  </ol>
+                  <p class="required">* champs obligatoires</p>
+                </div>
+              </form>
+            </section>
+          </section>
+          <div id="chargedCourse">
+            <p>
+              Ces cours sont payants pour les personnes ne faisant pas parti d'un organisme agréé. Un système de paiement sera prochainement mis en place.
+            </p>
+          </div>
+          <!-- END FORMS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<style>
+  .account-settings-container{
+    min-height:364px;
+  }
+</style>
+
+<script>
+  (function(){
+    if ($( "#organisme option:selected" ).val() === "non"){
+      $('#field-number').hide();
+    } else {
+      $('#chargedCourse').hide();
+    }
+  }())
+
+  $('#organisme').change(function(){
+    if ($( "#organisme option:selected" ).val() === "non"){
+      $('#field-number').hide();
+      $('#chargedCourse').show();
+    } else {
+      $('#field-number').show();
+      $('#chargedCourse').hide();
+    }
+  })
+
+  var urls_api = [
+    "/tma/api/ensure_profile_form",
+    "/tma/api/profile_form"
+  ];
+
+  $('.my_form').change(function(){
+    var This = $(this);
+    var data = {};
+    var type = This.attr('type');
+    var value = This.val();
+    var name = This.attr('name');
+    if(type == "checkbox") {
+      if(This.is(':checked')) {
+        value = true;
+      }else {
+        value = false;
+      }
+    }
+    if(name && value) {
+      data[name] = value;
+      $.ajax({
+        type: 'post',
+        dataType:'json',
+        data: JSON.stringify(data),
+        url: urls_api[0],
+        success: function(data) {
+          var fields = data.fields;
+          for (var i = 0;i < fields.length; i++) {
+            if (fields[i][name] == value ) {
+              $('.picto_status').each(function(){
+                var data_name = $(this).data('name');
+                if(data_name == name) {
+                  $(this).find('img').attr('src','/media/dev/images/checked.png');
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+  })
+</script>
+<!-- end fields generation -->
+</%block>
