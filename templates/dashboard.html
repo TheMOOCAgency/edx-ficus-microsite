@@ -18,131 +18,121 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <link rel="stylesheet" href="/media/microsite/mobilitips/bootstrap/css/bootstrap.min.css">
 <script src="/media/microsite/mobilitips/bootstrap/js/bootstrap.min.js"></script>
-<script>
-  var redirectToModule = function(link) {
-    window.location.href=link;
-  }
-</script>
+    
+    <%block name="js_extra">
+    <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+            $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
+<h1 id="titleGlossaire">Mobilitips, parlez-vous mobilité ?</h1>
+<div id="glossaire">
+  <aside id="glossaireText">
+    <p>Mobilitips est un glossaire interactif qui permet d’appréhender les définitions et les concepts liés aux nouveaux services de mobilité.</p>
+    <ul>
+      <li>Choisissez le chapitre par lequel vous souhaitez commencer.</li>
+      <li>découvrez au fur et à mesure des capsules les définitions et les concepts aux sysèmes de mobilités.</li>
+      <li>répondez aux questions du quiz et télécharger les récap’.</li>
+    </ul>
+    <a class="btn btn-discover" href="#" onclick="autoscrollBtn()">Découvrir nos thématiques</a>
+  </aside>
+  <div id="clickableImg">
+    <img alt="un quartier de ville avec des zones cliquables" src="/media/microsite/mobilitips/img/img.png">
+  </div>
+</div>
 
-<h1 id="titleGlossaire">Mobilitips : le glossaire des mobilités</h1>
-
-<section id="lab">
-  <article>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme1" style="background-color: #fcbf43" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/12c240d39ea6439ab7742a0b50a81b8a/')">
-                <h2 class="titleTheme">Nouveaux modèles</h2>
-                <h2 class="titleModule">Accessibilité des objets de mobilité</h2>
-            </div>
-          </div>
+<section id="themes">
+  <article class="model tilesContainer">
+    <h1 class="titleTilesContainer">les modèles des mobilités</h1>
+    <div class="squaresContainer">
+      <div>
+        <img alt="icône valise" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-22.png" class="tileIcon">
+        <h2 class="titleModule">Accessibilité des objets de mobilité</h2>
       </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme1" style="background-color: #fcbf43" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/c9c6e123d62b4def94bfae8e213a94db/')">  
-                <h2 class="titleTheme">Nouveaux modèles</h2>              
-                <h2 class="titleModule">Approche du marché</h2>
-            </div>
-          </div>
+      <div>
+        <img alt="icône borne de recharge électrique" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-24.png" class="tileIcon">
+        <h2 class="titleModule">Approche du marché</h2>
       </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme1" style="background-color: #fcbf43" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/750a5644c21849ce979273efbca6504a/')">
-                <h2 class="titleTheme">Nouveaux modèles</h2>
-                <h2 class="titleModule">MaaS</h2>
-            </div>
-          </div>
+      <div>
+        <img alt="icône smartphone" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-23.png" class="tileIcon">
+        <h2 class="titleModule">MAAS</h2>
       </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme1" style="background-color: #fcbf43" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/5b3ad3d1dd7b41a3a24db8898e1092dd/')">
-                <h2 class="titleTheme">Nouveaux modèles</h2>
-                <h2 class="titleModule">Métiers</h2>
-            </div>
-          </div>
-      </div>
-    </div>   
-  </article>
-
-  <article>
-    <div class="lab_item">		
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme2" style="background-color: #a1b6df" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/40d53345e5f843b0a672cf60d052544f/')">
-                <h2 class="titleTheme">Nouveaux objets et usages des mobilités</h2>
-                <h2 class="titleModule">Infrastructures</h2>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme2" style="background-color: #a1b6df" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/40b5866f2ee0405b864c24cfa0385260/')">
-                <h2 class="titleTheme">Nouveaux objets et usages des mobilités</h2>
-                <h2 class="titleModule">Mobilité autonome</h2>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme2" style="background-color: #a1b6df" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/c5540545d9264c3e9952e611641daa2d/')">
-                <h2 class="titleTheme">Nouveaux objets et usages des mobilités</h2>
-                <h2 class="titleModule">Pratiques de mobilité</h2>
-            </div>
-          </div>
+      <div>
+        <img alt="icône euro" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-25.png" class="tileIcon">
+        <h2 class="titleModule">Métiers</h2>
       </div>
     </div> 
   </article>
 
-  <article>
-    <div class="lab_item">		
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme3" style="background-color: #f39548" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/95a36c998d38407f958c8fc7ae1b30c4/')">
-                <h2 class="titleTheme">Intégration dans le territoire</h2>
-                <h2 class="titleModule">Acteurs des mobilités</h2>
-            </div>
-          </div>
+  <article class="object tilesContainer">
+    <h1 class="titleTilesContainer">Les objets et usages des mobilités </h1>
+    <div class="squaresContainer">
+      <div>
+        <img alt="icône onde" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-26.png" class="tileIcon">
+        <h2 class="titleModule">Infrastructure</h2>
+      </div>
+      <div>
+        <img alt="icône voiture" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-27.png" class="tileIcon">
+        <h2 class="titleModule">Mobilité autonome</h2>
+      </div>
+      <div>
+        <img alt="icône trotinette électrique" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-28.png" class="tileIcon">
+        <h2 class="titleModule">Pratiques de mobilité</h2>
       </div>
     </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme3" style="background-color: #f39548" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/93d731aa2a544a659252a2f5605b01a7/')">
-                <h2 class="titleTheme">Intégration dans le territoire</h2>
-                <h2 class="titleModule">Incitation</h2>
-            </div>
-          </div>
+  </article>
+
+  <article class="integration tilesContainer">
+    <h1 class="titleTilesContainer">L’Intégration dans le territoire</h1>
+    <div class="squaresContainer">
+      <div>
+        <img alt="icône chemin" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-32.png" class="tileIcon">
+        <h2 class="titleModule">Acteurs des mobilités</h2>
+      </div>
+      <div>
+        <img alt="icône acteurs" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-31.png" class="tileIcon">
+        <h2 class="titleModule">Incitation</h2>
+      </div>
+      <div>
+        <img alt="icône feuilles" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-29.png" class="tileIcon">
+        <h2 class="titleModule">Législation</h2>
+      </div>
+      <div>
+        <img alt="icône orateur" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-30.png" class="tileIcon">
+        <h2 class="titleModule">Planification</h2>
       </div>
     </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme3" style="background-color: #f39548" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/1c1cca08632846e9b7660b411341414f/')">
-                <h2 class="titleTheme">Intégration dans le territoire</h2>
-                <h2 class="titleModule">Législation</h2>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="lab_item">
-      <div class="hexagon hexagon2">
-        <div class="hexagon-in1">
-            <div class="hexagon-in2 theme3" style="background-color: #f39548" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/7f46ad91f0c6431a9160ab250275630f/')">
-                <h2 class="titleTheme">Intégration dans le territoire</h2>
-                <h2 class="titleModule">Planification</h2>
-            </div>
-          </div>
-      </div>
-    </div>   
   </article>
 </section>
+
+<script>
+  var autoscrollBtn = function scroll_to(div){
+    console.log('div')
+    $('html, body').animate({
+      scrollTop: $("#themes").offset().top
+    },1000);
+  }
+</script>
+
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
+
+% if register_course_id is not None:
+<script>
+$(".btn-neutral").each(function(){
+ $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+});
+$(".btn-login").each(function(){
+ $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+});
+
+</script>
+% endif
