@@ -30,9 +30,14 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 </%block>
 <script>
   var redirectToModule = function(link) {
-    window.location.href=link;
+    // window.location.href=link;
   }
 </script>
+<style>
+  .model > div > div:hover, .object > div > div:hover, .integration > div > div:hover {
+    cursor: default;
+  }
+</style>
 <h1 id="titleGlossaire">Mobilitips, parlez-vous mobilité ?</h1>
 <div id="glossaire">
   <aside id="glossaireText">
