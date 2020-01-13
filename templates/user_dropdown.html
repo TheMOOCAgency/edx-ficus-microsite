@@ -14,6 +14,19 @@ from django.utils.translation import ugettext as _
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
 %>
 
+<style>
+    .user {
+        display: flex;
+        align-items: center;
+    }
+    .user-link {
+        box-shadow: none !important;
+    }
+    .label-username {
+        margin: 15px !important;
+    }
+</style>
+
 % if uses_pattern_library:
     <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu">
         <a href="${reverse('dashboard')}" class="menu-title">
