@@ -9,9 +9,8 @@ from openedx.core.djangolib.markup import HTML, Text
 %>
 <%
 
+course_id = "course-v1:cfe-cgc+MOOC1+2019"
 register_course_id = static.get_value('course_id')
-
-course_id = "course-v1:CFE-CGC+MOOC1+S1"
 
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
@@ -343,7 +342,7 @@ background-color: #41c0f0 !important;
             <p>
               TRAVAILLONS ENSEMBLE À AMÉLIORER L'ÉGALITÉ PROFESSIONELLE EN ENTREPRISE
             </p>
-            <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">
+            <a href="/register?course_id=${course_id}&enrollment_action=enroll">
             <div id='registerButton'>
               INSCRIPTION
             </div>
