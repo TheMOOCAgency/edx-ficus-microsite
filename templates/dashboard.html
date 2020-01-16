@@ -158,7 +158,7 @@ endfor
     %>
 
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <div class="dashboard_profile" id="dashboard_profile_middle" style="display:none">
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
@@ -248,7 +248,7 @@ else{
   
 </script>
 % elif len(course_enrollments) > 1:
-  <div class="dashboard_profile" id="profile_bottom_multi">
+  <div class="dashboard_profile" style="display:none" id="profile_bottom_multi">
     % if course_end < 2:
       <h3>${course_end} cours<br>terminé</h3>
     % else:
@@ -306,7 +306,7 @@ else{
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
+<h1><span id="span_1">${_("My trainings")}</span></h1>
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):

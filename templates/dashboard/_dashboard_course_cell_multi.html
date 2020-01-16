@@ -50,17 +50,17 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <div class="options">
       <span class="list_params">
 
-% if show_email_settings:
+% if False and show_email_settings:
       <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}"><img src="${static.url('images/close-envelope.png')}" title="Ne plus recevoir de mail"/></a>
 % endif
         <a href="#unenroll-modal" class="unenroll_multi" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-course-name="${course_overview.display_name_with_default}" data-dashboard-index="${dashboard_index}"
            data-track-info="${_("Are you sure you want to unenroll from the purchased course %(course_name)s (%(course_number)s)?")}"
            data-refund-info="${_("You will be refunded the amount you paid.")}">
-          <img src="${static.url('images/cancel-button.png')}" title="Se désinscrire"/>
+          <img src="${static.url('images/cancel-button.png')}" title="Unenroll"/>
         </a>
       <span>
     </div>
-    <div class="multi_course_image">
+    <div class="multi_course_image" style="width:300px !important">
 % if cours_ouv:
       <a href="/dashboard/${enrollment.course_id}/"><img src="${course_overview.image_urls['small']}" /></a>
 %else:
@@ -103,7 +103,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 -->
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
-    Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
+    Available since ${course_overview.start.strftime("%d/%b/%Y")}
   % else:
     ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
   % endif
