@@ -16,7 +16,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 <%block name="title"><title>ensure form</title></%block>
 
 <%block name="header_extras">
-<% 
+<%
 #Only check certificate extra fields
 certificate_form_extra = [field['name'] for field in configuration_helpers.get_value('CERTIFICATE_FORM_EXTRA')]
 fields_cleaned = [field for field in fields if field["name"] in certificate_form_extra]
@@ -149,7 +149,7 @@ footer, header{
           </section>
           <div id="chargedCourse">
             <p>
-              Ces cours sont payants pour les personnes ne faisant pas parti d'un organisme agréé. Un système de paiement sera prochainement mis en place.
+              Ces cours sont accessibles pour les personnes faisant partie d’un organisme agréé. Si vous êtes un mécanicien ou un pilote propriétaire, ces cours vous seront accessibles à partir du 22/01.
             </p>
           </div>
           <!-- END FORMS -->
