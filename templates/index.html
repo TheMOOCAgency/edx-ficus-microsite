@@ -57,13 +57,24 @@
                </div> -->
             </div>
          </section>
+         <section id="se1_bis">
+            <div class="row row-eq-height">
+               <div class="col-xs" style="padding-left: 4%; padding-top: 4%;">
+                  <h2 class="text-center sectionTitle"></h2>
+                  <h2 class="surligner">___________________</h2>
+                  <p id="text_bis">This is some text.</p>
+               </div>
+            </div>
+         </section>
          <section id="se2">
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
                   <h2 class="text-center sectionTitle"></h2>
                   <h2 class="surligner">___________________</h2>
                   <div class="embed-responsive embed-responsive-4by3">
-                     <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                     <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" type="video/mp4" allowfullscreen></iframe> -->
+                     <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen poster="/media/microsite/onco-occitanie/pagebuilder/assets/img/video_vignette.png">
+                    </video> 
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
@@ -294,12 +305,13 @@
             		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
             		titleThumb = objJson.container.section4.thumbnail[i].title
             		pWeeksContent = objJson.container.section4.thumbnail[i].content
+                  pWeeksSubContent = objJson.container.section4.thumbnail[i].subContent
                   moduleDetails = objJson.container.section4.thumbnail[i].details
             		imgThumbSrcIcon
             		imgThumbSrc = composeurUrlSrc2+i+termJpg
                   pWeeksTitle = "Semaine"+"&nbsp"+i
                   
-                  thumbnailChapEsc =  "<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'><div class='caption'> <h3 class='titleMiniThumb'> " + titleThumb + "</h3><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div> <div class='details'> <p>"+moduleDetails+"</p> </div>  </div>  </div>"
+                  thumbnailChapEsc =  "<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'><div class='caption'> <h3 class='titleMiniThumb'> " + titleThumb + "</h3><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p><p class='pWeeksSubContent'>"+pWeeksSubContent+"</p></div> <div class='details'> <p>"+moduleDetails+"</p> </div>  </div>  </div>"
             
             		$('#markWeeks').append(thumbnailChapEsc)
             	
@@ -346,6 +358,13 @@
             	var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
             	$('#introConnect').text(mainTitleContent)         
             }
+
+            var bindindFunctionMainSection1Bis= function(){
+            	var mainTitleContent = objJson.container.section1_bis.title
+               var mainTextContent = objJson.container.section1_bis.text
+            	$('#se1_bis').find(".sectionTitle").text(mainTitleContent)
+               $('#text_bis').text(mainTextContent)
+            }
                      
             var bindindFunctionMainSectionVIdeoTitle= function(){
             	var mainTitleContent = objJson.container.section2.title
@@ -373,6 +392,7 @@
             	bindindFunctionMainSectionVIdeoTitle();
             	bindindFunctionMainSectionIntro();
             	bindindFunctionMainSectionContent();
+               bindindFunctionMainSection1Bis();
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
              }

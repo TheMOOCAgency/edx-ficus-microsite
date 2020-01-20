@@ -61,6 +61,7 @@ from pipeline_mako import render_require_js_path_overrides
 
   <%static:css group='style-vendor'/>
   <%static:css group='${self.attr.main_css}'/>
+  <link rel="stylesheet" type="text/css" href="/media/microsite/onco-occitanie/pagebuilder/css/style.css" />
 
   % if not uses_pattern_library:
     % if disable_courseware_js:
