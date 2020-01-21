@@ -989,10 +989,15 @@ You will understand why the Champagne terroir is unique, with specific character
             $('html,body').animate({scrollTop: $("#offersFooter").offset().top},'slow');
         })
       }
+<<<<<<< HEAD
 
       var url = new URL(window.location.href);
       var paramUrl = url.searchParams.get('lang');
         console.log('2')
+=======
+      var url = new URL(window.location.href);
+      var paramUrl = url.searchParams.get('lang');
+>>>>>>> 31d7db2c4c1b3abfe7c0cc60ed4a2c4f95b266af
       if (paramUrl){
         if(paramUrl === 'en' && $('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")) {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
@@ -1005,7 +1010,10 @@ You will understand why the Champagne terroir is unique, with specific character
         console.log('no param')
       }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31d7db2c4c1b3abfe7c0cc60ed4a2c4f95b266af
       $('.en').on('click', function() {
         $('#settings-language-value > option[value="en"]').attr('selected','selected');
         $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
