@@ -63,7 +63,6 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
-
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
 </%block>
@@ -352,7 +351,7 @@ $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
 </script>
-  
+
   <!--TMA TIME TRACKING-->
 %if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
 <%include file="/tma_apps/tma_time_tracking.html" />
@@ -366,3 +365,9 @@ div.problem-progress {
 }
 
 </style>
+<script>
+$(".subtitle-name").ready(function() {
+  $(".subtitle-name" ).hide()
+  $(".subtitle-name" ).next().hide();
+})
+</script>
