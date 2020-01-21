@@ -319,6 +319,8 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/champagne-mooc/css/responsive_top_layer.css" type="text/css" media="screen" />
 <script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
@@ -410,4 +412,3 @@ if user.is_authenticated():
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-
