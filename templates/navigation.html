@@ -24,6 +24,11 @@ from status.status import get_site_status_msg
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
 
+## This template should not use the target student's details when masquerading, see TNL-4895
+<%
+self.real_user = real_user if real_user != UNDEFINED else user
+%>
+
 ## Add UI Toolkit components if using the Pattern Library
 % if uses_pattern_library:
     <%block name="js_extra">
@@ -67,39 +72,55 @@ site_status_msg = get_site_status_msg(course_id)
           <ul id="menu">
             % if user.is_authenticated():
             <%block name="burger_links_authenticated">
+            <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a>
+            <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a>
               % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-                <a href="${marketing_link('COURSES')}"><li>${_('Explore courses')}</li></a>
+                <a href="${marketing_link('COURSES')}"><li>▶ Découvrez notre offre de formation</li></a>
               % endif
               % if show_program_listing:
-                <a href="${reverse('dashboard')}"><li>${_("Courses")}</li></a>
-                <a href="${reverse('program_listing_view')}"><li>${_("Programs")}</li></a>
+                <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a>
+                <a href="${reverse('program_listing_view')}"><li>▶ ${_("Programs")}</li></a>
               % endif
               %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
-                <a href="${reverse('sysadmin')}"><li>${_("Sysadmin")}</li></a>
+                <a href="${reverse('sysadmin')}"><li>▶ ${_("Sysadmin")}</li></a>
               %endif
+              <a href="${reverse('logout')}"><li>▶ ${_("Sign Out")}</li></a>
             </%block>
             % else:
             <%block name="burger_sign_in">
               % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
                 % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                  <a href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}"><li>${_("Register")}</li></a>
-                  <a href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}"><li>${_("Sign in")}</li></a>
+                  <a href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}"><li>▶ ${_("Register")}</li></a>
+                  <a href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}"><li>▶ ${_("Sign in")}</li></a>
                 % else:
                   % if static.get_value('course_id') is not None:
-                  <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>${_("Register")}</li></a>
-                  <a href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>${_("Sign in")}</li></a>
+                  <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>▶ ${_("Register")}</li></a>
+                  <a href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>▶ ${_("Sign in")}</li></a>
                   % else:
-                  <a href="/register"><li>${_("Register")}</li></a>
-                  <a href="/login"><li>${_("Sign in")}</li></a>
+                  <a href="/register"><li>▶ ${_("Register")}</li></a>
+                  <a href="/login"><li>▶ ${_("Sign in")}</li></a>
                   % endif
                 % endif
               % endif
+              <a href="/about"><li>▶ À propos</li></a>
+              <a href="/honor"><li>▶ Mentions légales</li></a>
+              <a href="/privacy"><li>▶ Politique de Confidentialité</li></a>
+              <a href="/tos"><li>▶ Conditions Générales d'Utilisation</li></a>
             </%block>
             % endif
-            <a href="/about"><li>À propos</li></a>
           </ul>
         </div>
       <style>
+        .header-global .user {
+          margin-top: 0px !important;
+        }
+        .header-global .nav-global li a, .header-global .nav-global div a {
+          color: #4c0707;
+        }
+        .course-search > form > label {
+          display: inline-block;
+          vertical-align: top;
+        }
         .header-global {
           background:rgba(170,28,26,1);
         }
@@ -107,6 +128,10 @@ site_status_msg = get_site_status_msg(course_id)
           margin-left: 0px;
           max-width: 100%;
           text-align: right;
+        }
+        .user {
+          background-color: white;
+          border-radius: 5px;
         }
         .header-global h1.logo {
           position: inherit;
@@ -133,7 +158,7 @@ site_status_msg = get_site_status_msg(course_id)
         #menuToggle a
         {
           text-decoration: none;
-          color: #232323;
+          color: black;
           transition: color 0.3s ease;
         }
 
@@ -195,12 +220,12 @@ site_status_msg = get_site_status_msg(course_id)
         }
         #menu
         {
+          background: rgba(170,28,26,1);
           position: absolute;
-          width: 195px;
+          width: 400px;
           margin: -100px 0 0 -50px;
           padding: 42px;
           padding-top: 125px;
-          background: #ededed;
           border: 1px #a0a0a0 solid;
           list-style-type: none;
           -webkit-font-smoothing: antialiased;
@@ -268,7 +293,7 @@ site_status_msg = get_site_status_msg(course_id)
     <div class="course-search">
       <form method="get" action="/courses">
         <label><span class="sr">${_("Search for a course")}</span>
-          <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}" style="height:39px;box-shadow:none"></input>
+          <input class="search-input" name="search_query" type="text" placeholder="Rechercher une formation" style="height:39px;box-shadow:none;border-radius: 2px;"></input>
         </label>
         <button class="btn btn-login" type="submit" style="background: black; height:39px;border:none !important;text-shadow:none !important">
           <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(255, 253, 253); margin-bottom: 6px;"></span><span class="sr">${_("Search")}</span>
@@ -294,7 +319,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              <a href="${marketing_link('COURSES')}">Découvrez notre offre de formation</a>
             </li>
           % endif
           % if show_program_listing:
@@ -355,7 +380,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
+                <a class="btn" href="/courses" style="display:none">Découvrez notre offre de formation</a>
               </li>
             %endif
           % endif
