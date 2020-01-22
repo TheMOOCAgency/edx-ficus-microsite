@@ -213,6 +213,15 @@ endfor
   % endfor
   </div>
 
+<!-- CUSTOM STYLE FOR 5aconseil -->
+<style>
+ #dashboard_profile_bottom{
+   display: none!important;
+ }
+ #dashboard_profile_middle{
+   display: none!important;
+ }
+</style>
 %if course.no_grade:
  <style>
   #dashboard_profile_bottom{
@@ -245,7 +254,7 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">

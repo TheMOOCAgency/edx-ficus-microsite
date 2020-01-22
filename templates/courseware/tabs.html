@@ -25,8 +25,11 @@ def url_class(is_active):
   <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
-
+  %if tab.name=="Discussion":
+  Forum
+  %else:
   ${_(tab.name)}
+  %endif
   % if tab_is_active:
       <span class="sr">, current location</span>
   %endif
