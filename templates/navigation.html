@@ -72,19 +72,19 @@ site_status_msg = get_site_status_msg(course_id)
           <ul id="menu">
             % if user.is_authenticated():
             <%block name="burger_links_authenticated">
-            <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a>
-            <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a>
+            <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a> -->
+            <!-- <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a> -->
               % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
                 <a href="${marketing_link('COURSES')}"><li>▶ Découvrez notre offre de formation</li></a>
               % endif
               % if show_program_listing:
-                <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a>
+                <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a> -->
                 <a href="${reverse('program_listing_view')}"><li>▶ ${_("Programs")}</li></a>
               % endif
               %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
                 <a href="${reverse('sysadmin')}"><li>▶ ${_("Sysadmin")}</li></a>
               %endif
-              <a href="${reverse('logout')}"><li>▶ ${_("Sign Out")}</li></a>
+              <!-- <a href="${reverse('logout')}"><li>▶ ${_("Sign Out")}</li></a> -->
             </%block>
             % else:
             <%block name="burger_sign_in">
@@ -102,12 +102,12 @@ site_status_msg = get_site_status_msg(course_id)
                   % endif
                 % endif
               % endif
+              </%block>
+              % endif
               <a href="/about"><li>▶ À propos</li></a>
               <a href="/honor"><li>▶ Mentions légales</li></a>
               <a href="/privacy"><li>▶ Politique de Confidentialité</li></a>
               <a href="/tos"><li>▶ Conditions Générales d'Utilisation</li></a>
-            </%block>
-            % endif
           </ul>
         </div>
       <style>
