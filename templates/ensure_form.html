@@ -73,13 +73,6 @@ footer, header{
                   <ol class="list-input">
                   % for n in fields_cleaned:
                     <li class="field ${n.get('type')}">
-
-                    % if (user_fields.get(n.get('name')) is None) or (user_fields.get(n.get('name')) == ''):
-                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/cross-remove-sign.png" /></div>
-                    % else:
-                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/checked.png" /></div>
-                    % endif
-
                     <div class="field ${n.get('type')}" id="field-${n.get('name')}">
                     % if n.get('type') == 'email':
                     <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
@@ -149,7 +142,18 @@ footer, header{
           </section>
           <div id="chargedCourse">
             <p>
-              Ces cours sont payants pour les personnes ne faisant pas parti d'un organisme agréé. Un système de paiement sera prochainement mis en place.
+              Cette formation est destinée à toute personne faisant partie d'un organisme agréé, aux mécaniciens indépendants ainsi qu'au propriétaires d'aéronefs.
+            </p>
+          </div>
+          <div id="freeCourse">
+            <p>
+              Ce cours est ouvert gratuitement à toute personne faisant partie d'un organisme agréé, aux mécaniciens indépendants ainsi qu'au propriétaires d'aéronefs.
+              <br />Veuillez rentrer dans le champ suivant :
+              <ul>
+                <li>Votre numéro d'agrément si vous faites partie d'un organisme agréé</li>
+                <li>Votre numéro de licence si vous êtes un mécanicien indépendant</li>
+                <li>Le numéro d'immatriculation d'un de vos aéronefs si vous êtes propriétaire d'aéronef</li>
+              </ul>
             </p>
           </div>
           <!-- END FORMS -->
@@ -168,20 +172,40 @@ footer, header{
 
 <script>
   (function(){
-    if ($( "#organisme option:selected" ).val() === "non"){
-      $('#field-number').hide();
-    } else {
-      $('#chargedCourse').hide();
+    $('#field-agrement').hide();
+    $('#field-licence').hide();
+    $('#field-immatriculation').hide();
+    $('#chargedCourse').hide();
+    $('#freeCourse').hide();
+    if ($( "#organisme option:selected" ).val() === "agrement"){
+      $('#field-agrement').show();
+      $('#freeCourse').show();
+      $('#programme_osac').css('min-height', '500px');
+    } else if ($( "#organisme option:selected" ).val() === "licence"){
+      $('#field-licence').show();
+      $('#freeCourse').show();
+      $('#programme_osac').css('min-height', '500px');
+    } else if ($( "#organisme option:selected" ).val() === "immatriculation"){
+      $('#field-immatriculation').show();
+      $('#freeCourse').show();
+      $('#programme_osac').css('min-height', '500px');
+    } else if ($( "#organisme option:selected" ).val() === "non"){
+      $('#chargedCourse').show();
+      $('#freeCourse').hide();
+      $('#programme_osac').css('min-height', '364px');
     }
   }())
 
   $('#organisme').change(function(){
+    console.log('rrrr')
     if ($( "#organisme option:selected" ).val() === "non"){
-      $('#field-number').hide();
       $('#chargedCourse').show();
+      $('#freeCourse').hide();
+      $('#programme_osac').css("min-height", '364px');
     } else {
-      $('#field-number').show();
       $('#chargedCourse').hide();
+      $('#freeCourse').show();
+      $('#programme_osac').css('min-height', '500px');
     }
   })
 
@@ -189,43 +213,6 @@ footer, header{
     "/tma/api/ensure_profile_form",
     "/tma/api/profile_form"
   ];
-
-  $('.my_form').change(function(){
-    var This = $(this);
-    var data = {};
-    var type = This.attr('type');
-    var value = This.val();
-    var name = This.attr('name');
-    if(type == "checkbox") {
-      if(This.is(':checked')) {
-        value = true;
-      }else {
-        value = false;
-      }
-    }
-    if(name && value) {
-      data[name] = value;
-      $.ajax({
-        type: 'post',
-        dataType:'json',
-        data: JSON.stringify(data),
-        url: urls_api[0],
-        success: function(data) {
-          var fields = data.fields;
-          for (var i = 0;i < fields.length; i++) {
-            if (fields[i][name] == value ) {
-              $('.picto_status').each(function(){
-                var data_name = $(this).data('name');
-                if(data_name == name) {
-                  $(this).find('img').attr('src','/media/dev/images/checked.png');
-                }
-              })
-            }
-          }
-        }
-      })
-    }
-  })
 </script>
 <!-- end fields generation -->
 </%block>
