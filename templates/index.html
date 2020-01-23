@@ -30,24 +30,21 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 </%block>
 <script>
   var redirectToModule = function(link) {
-    // window.location.href=link;
+    window.location.href=link;
   }
 </script>
-<style>
-  .model > div > div:hover, .object > div > div:hover, .integration > div > div:hover {
-    cursor: default;
-  }
-</style>
-<h1 id="titleGlossaire">Mobilitips, parlez-vous mobilité ?</h1>
 <div id="glossaire">
   <aside id="glossaireText">
-    <p>Mobilitips est un glossaire interactif qui permet d’appréhender les définitions et les concepts liés aux nouveaux services de mobilité.</p>
+    <h1 id="titleGlossaire">Mobilitips, parlez-vous mobilité ?</h1>
+    <p>Mobilitips est un glossaire interactif qui permet d’appréhender les définitions :</p>
     <ul>
-      <li>Choisissez le chapitre par lequel vous souhaitez commencer.</li>
-      <li>découvrez au fur et à mesure des capsules les définitions et les concepts aux sysèmes de mobilités.</li>
-      <li>répondez aux questions du quiz et télécharger les récap’.</li>
+      <li>Par thématique</li>
+      <li>Découvrez les concepts sur des images interactives</li>
+      <li>Répondez au quiz</li>
     </ul>
-    <a class="btn btn-discover" href="#" onclick="autoscrollBtn()">Découvrir nos thématiques</a>
+    <div id="btn-discover-container">
+      <a class="btn btn-discover" href="#" onclick="autoscrollBtn()">Choisissez une thématique</a>
+    </div>
   </aside>
   <div id="clickableImg">
     <img alt="un quartier de ville avec des zones cliquables" src="/media/microsite/mobilitips/img/img.png">
@@ -57,22 +54,30 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
 <section id="themes">
   <article class="model tilesContainer">
     <h1 class="titleTilesContainer">les modèles des mobilités</h1>
-    <div class="squaresContainer" onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/12c240d39ea6439ab7742a0b50a81b8a/')">
-      <div>
+    <div class="squaresContainer">
+      <div >
         <img alt="icône valise" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-22.png" class="tileIcon">
-        <h2 class="titleModule">Accessibilité des objets de mobilité</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Nouveaux métiers</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/c9c6e123d62b4def94bfae8e213a94db/')">
+      <div >
         <img alt="icône borne de recharge électrique" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-24.png" class="tileIcon">
-        <h2 class="titleModule">Approche du marché</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Accessibilité des objets de mobilité</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/750a5644c21849ce979273efbca6504a/')">
+      <div >
         <img alt="icône smartphone" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-23.png" class="tileIcon">
-        <h2 class="titleModule">MAAS</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Mobility As A Service</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/7869685ce98e48f7ae0fe71f6421d607/5b3ad3d1dd7b41a3a24db8898e1092dd/')">
+      <div >
         <img alt="icône euro" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-25.png" class="tileIcon">
-        <h2 class="titleModule">Métiers</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Approche marchés</h2>
+        </div>
       </div>
     </div> 
   </article>
@@ -80,17 +85,23 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
   <article class="object tilesContainer">
     <h1 class="titleTilesContainer">Les objets et usages des mobilités </h1>
     <div class="squaresContainer">
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/40d53345e5f843b0a672cf60d052544f/')">
+      <div >
         <img alt="icône onde" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-26.png" class="tileIcon">
-        <h2 class="titleModule">Infrastructure</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Infrastructure</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/40b5866f2ee0405b864c24cfa0385260/')">
+      <div >
         <img alt="icône voiture" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-27.png" class="tileIcon">
-        <h2 class="titleModule">Mobilité autonome</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Mobilité autonome</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/1dbc1a2edeb742d5a2e3d3550d715429/c5540545d9264c3e9952e611641daa2d/')">
+      <div >
         <img alt="icône trotinette électrique" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-28.png" class="tileIcon">
-        <h2 class="titleModule">Pratiques de mobilité</h2>
+        <div class="titleModuleContainer">
+<h2 class="titleModule">Pratiques de mobilité</h2>
+</div>
       </div>
     </div>
   </article>
@@ -98,21 +109,29 @@ css2 = '/media/microsite/{}/css/mobilitips.css'.format(org)
   <article class="integration tilesContainer">
     <h1 class="titleTilesContainer">L’Intégration dans le territoire</h1>
     <div class="squaresContainer">
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/95a36c998d38407f958c8fc7ae1b30c4/')">
+      <div >
         <img alt="icône chemin" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-32.png" class="tileIcon">
-        <h2 class="titleModule">Acteurs des mobilités</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Planification du territoire</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/93d731aa2a544a659252a2f5605b01a7/')">
+      <div >
         <img alt="icône acteurs" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-31.png" class="tileIcon">
-        <h2 class="titleModule">Incitation</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Acteurs et opérateurs</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/1c1cca08632846e9b7660b411341414f/')">
+      <div >
         <img alt="icône feuilles" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-29.png" class="tileIcon">
-        <h2 class="titleModule">Législation</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Incitations aux mobilités durables</h2>
+        </div>
       </div>
-      <div onclick="redirectToModule('/courses/course-v1:mobilitips+01+2019/courseware/74684500c1664e4bb5aa1498c95a70fe/7f46ad91f0c6431a9160ab250275630f/')">
+      <div >
         <img alt="icône orateur" src="/media/microsite/mobilitips/img/mobilitips_acceuil_pictogrammes-30.png" class="tileIcon">
-        <h2 class="titleModule">Planification</h2>
+        <div class="titleModuleContainer">
+          <h2 class="titleModule">Politiques publiques</h2>
+        </div>
       </div>
     </div>
   </article>

@@ -169,7 +169,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
     </div>
 % endif
     <section class="course-content" id="course-content">
-        <div class="path"></div>
+        <div class="path" style="display: none;"></div>
         <main id="main" aria-label="Content" tabindex="-1">
         % if getattr(course, 'entrance_exam_enabled') and \
            getattr(course, 'entrance_exam_minimum_score_pct') and \
@@ -357,3 +357,12 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 %if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
 <%include file="/tma_apps/tma_time_tracking.html" />
 %endif
+
+<style>
+  .bookmark-button-wrapper{
+    display: none;
+  }
+  .vert-mod > div > div{
+    margin-top: 20px !important;
+  }
+</style>
