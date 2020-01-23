@@ -112,6 +112,29 @@
         justify-content: center;
         align-items: center;
         }
+      @media screen and (max-width: 680px) {
+        .navbar-header{
+          border : none!important;
+        }
+        #navcol-1{
+          background-color: #011547!important;
+          border: none!important;
+        }
+        .navbar-nav{
+          background-color: #011547!important;
+        }
+        #section1>div{
+          background-color: #0115478a;
+        }
+        #lille-university-logo{
+          width:100%!important;
+        }
+        #section-content-2{
+          min-width: auto!important;
+        }
+      }
+
+
     </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -145,7 +168,7 @@
             <source src="https://player.vimeo.com/external/369286281.hd.mp4?s=1bb8fad355c11d0c96e2882d2e37915285ffe760&profile_id=175" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
-        <div class="col-md-5" style="color:white;float:none;margin-top:0;vertical-align:middle;width:70%;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+        <div class="col-md-7 col-xs-12" style="color:white;float:none;margin-top:0;vertical-align:middle;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
             <h1 style="font-size:3em;color:#ebeff1;width:100%;text-transform:unset">Bienvenue sur la plateforme de MOOC de La Grande Ecole du Numérique</h1>
             <p style="font-size:24px;font-weight:normal;margin-bottom:10px;width:70%;margin: 0 auto;">destinée en priorité aux formateurs exerçant dans les formations labellisées GEN.</p><img src="/media/microsite/gen/assets/img/barre_blanc.png" width="30%">
             <p style="font-size:24px;color:#bcd4f9;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
@@ -158,13 +181,13 @@
     <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12">
                     <h2 class="text-center" style="margin-bottom:10px;padding-top:60px;color:#011447;font-size:30px;">L'évaluation dans l'acquisition des compétences </h2>
                     <h3 style="margin: 0px;font-weight:normal;">Un parcours en <span>4 séquences</span> étendu sur <span>4 semaines</span> et une évaluation finale.</h3>
-                    <img style="margin: 30px 0px 30px 0px;width:600px;" src="/media/microsite/gen/assets/img/logolille.png" alt="univ-lille">
+                    <img id="lille-university-logo" style="margin: 30px 0px 30px 0px;width:600px;" src="/media/microsite/gen/assets/img/logolille.png" alt="univ-lille">
                 </div>
             </div>
-            <div class="row" style="min-width:1600px;background-color:rgba(255,255,255,0);">
+            <div class="row" id="section-content-2" style="min-width:1600px;background-color:rgba(255,255,255,0);">
                 <div class="col-md-2 col-md-offset-1" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
                     <div class="thumbnail"><img src="/media/microsite/gen/assets/img/seq1.png" style="height:233px;">
                         <div class="caption">
@@ -292,7 +315,7 @@
                 <div class="col-sm-4 social-icons col-xs-12 col-sm-4" style="height:40px;margin-top:20px;"></div>
                 <div class="col-md-4 col-xs-12 col-sm-4" style="border-left: 5px solid #00F3A7;">
                     <p class="footer-separator">
-                        
+
                         © Grande Ecole du numérique 2017-2019 <span style="padding:5px 5px;">|</span> <a href="/tos">Mentions légales</a>
                     </p>
                 </div>
