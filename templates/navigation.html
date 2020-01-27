@@ -124,10 +124,14 @@ site_status_msg = get_site_status_msg(course_id)
         .header-global {
           background:rgba(170,28,26,1);
         }
+        .header-global .nav-global {
+          margin-top: 0px;
+        }
         .header-global .wrapper-header {
           margin-left: 0px;
           max-width: 100%;
           text-align: right;
+          padding: 8px 10px 0 !important;
         }
         .user {
           background-color: white;
@@ -137,22 +141,28 @@ site_status_msg = get_site_status_msg(course_id)
           position: inherit;
           text-align: left;
           float: left;
-          margin-left: 15px;
+          margin-top: 10px;
+          margin-left: 45px;
         }
         .header-global .nav-global {
           display: inline-block;
           position: inherit;
           text-align: left;
           float: none;
+          margin-top: 20px;
+        }
+        ol.user {
+          display: initial !important;
         }
         #menuToggle
         {
           z-index: 1;
           user-select: none;
-          margin-left: 13px;
           float: left;
           text-align: initial;
-          margin-top: 12px;
+          position: absolute;
+          top: 30px;
+          left: 13px;
         }
 
         #menuToggle a
@@ -172,12 +182,11 @@ site_status_msg = get_site_status_msg(course_id)
           width: 40px;
           height: 32px;
           position: absolute;
-          top: 25px;
-          left: 20px;
+          top: 0px;
+          left: 0px;
           cursor: pointer;
-          opacity: 0; /* hide this */
-          z-index: 2; /* and place it over the hamburger */
-          
+          opacity: 0;
+          z-index: 2;
           -webkit-touch-callout: none;
         }
         #menuToggle span
@@ -191,9 +200,7 @@ site_status_msg = get_site_status_msg(course_id)
           border-radius: 3px;
           z-index: 1;
           transform-origin: 4px 0px;
-          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-                      background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-                      opacity 0.55s ease;
+          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
         }
         #menuToggle span:first-child
         {
@@ -222,8 +229,7 @@ site_status_msg = get_site_status_msg(course_id)
         {
           background: rgba(170,28,26,1);
           position: absolute;
-          width: 400px;
-          margin: -100px 0 0 -50px;
+          width: 600px;
           padding: 42px;
           padding-top: 125px;
           border: 1px #a0a0a0 solid;
@@ -232,6 +238,9 @@ site_status_msg = get_site_status_msg(course_id)
           transform-origin: 0% 0%;
           transform: translate(-100%, 0);
           transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+          left: -13px;
+          top: 46px;
+          box-sizing: border-box;
         }
         #menu li
         {
@@ -245,18 +254,41 @@ site_status_msg = get_site_status_msg(course_id)
         .course-search {
           display:inline-block;
           vertical-align: top;
+          margin-top: 10px;
+        }
+        .header-global .nav-courseware li .btn {
+          margin-top: 10px;
+        }
+        @media screen and (max-width: 980px) {
+          .header-global .user .user-link .label-username {
+            display: none;
+          }
+          .header-global .nav-global {
+            width: 160px;
+            margin-top: 5px;
+          }
+        }
+        @media screen and (max-width: 950px) {
+          .header-global .nav-courseware li .btn {
+            display: block;
+            height: 25px;
+            padding: 4px 10px;
+            margin-bottom: 5px;
+            margin-top: 0px;
+          }
+        }
+        @media screen and (max-width: 750px) {
+          .header-global .nav-global {
+            display: none !important;
+          }
         }
         @media screen and (max-width: 650px) {
           .course-search {
             display: none;
           }
-        }
-        @media screen and (max-width: 830px) {
-          .header-global .nav-courseware li .btn {
-            display: block;
-            height: 25px;
-            padding: 4px 20px;
-            margin-bottom: 5px;
+          #menu
+          {
+            width: 100vw;
           }
         }
         .btn-login, .btn-register {
@@ -452,6 +484,9 @@ site_status_msg = get_site_status_msg(course_id)
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/responsive_top_layer.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/navigation.css" type="text/css" media="screen" />
 <link rel="stylesheet" type="text/css" href="${css}" />
 <script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->

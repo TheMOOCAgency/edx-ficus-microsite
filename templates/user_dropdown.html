@@ -25,6 +25,14 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
     .label-username {
         margin: 15px !important;
     }
+    .dropdown-menuitem .discover-courses{
+        display:none;
+    }
+    @media screen and (max-width: 750px) {
+        .dropdown-menuitem .discover-courses{
+            display:block;
+        }
+    }
 </style>
 
 % if uses_pattern_library:
@@ -74,6 +82,7 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
                     <!-- <li class="item"><a href="${reverse('tos')}" role="menuitem" class="dropdown-menuitem">CGU</a></li>
                     <li class="item"><a href="${reverse('honor')}" role="menuitem" class="dropdown-menuitem">Mentions légales</a></li>
                     <li class="item"><a href="${reverse('privacy')}" role="menuitem" class="dropdown-menuitem">Politique de confidentialité</a></li> -->
+                    <li class="item"><a href="/courses" role="menuitem" class="dropdown-menuitem discover-courses">Découvrez notre offre de formation</a></li>
                     <li class="item"><a href="${reverse('logout')}" role="menuitem" class="dropdown-menuitem">${_("Sign Out")}</a></li>
                     
                 </ul>
