@@ -141,8 +141,8 @@ site_status_msg = get_site_status_msg(course_id)
           position: inherit;
           text-align: left;
           float: left;
-          margin-top: 10px;
-          margin-left: 45px;
+          margin-top: 10px !important;
+          margin-left: 45px !important;
         }
         .header-global .nav-global {
           display: inline-block;
@@ -241,11 +241,13 @@ site_status_msg = get_site_status_msg(course_id)
           left: -13px;
           top: 46px;
           box-sizing: border-box;
+          margin: 0px;
         }
         #menu li
         {
           padding: 10px 0;
           font-size: 22px;
+          line-height: normal;
         }
         #menuToggle input:checked ~ ul
         {
