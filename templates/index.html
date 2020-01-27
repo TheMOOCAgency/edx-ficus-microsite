@@ -152,6 +152,51 @@
                     min-height: 500px;
                 }
             }
+            @media (max-width: 640px) {
+              .row>div{
+                padding : 0px!important;
+              }
+              .first-box > .row:first-of-type {
+                padding: 20px 0px 20px 0px!important;
+              }
+              .first-box > .row:first-of-type h1{
+                font-size: 1.6rem!important;
+              }
+              .first-box>div:nth-child(0n+2){
+                left : 50%!important;
+              }
+              .second-box{
+                padding-top: 50px!important;
+              }
+              .person-box{
+                display: flex;
+                flex-direction: column;
+                height:auto!important;
+              }
+              .person-box img{
+                height : auto!important;
+              }
+              .person-box:first-of-type{
+                display: flex;
+                flex-direction: column-reverse!important;
+              }
+              .container-fluid .row{
+                padding-left: 0px!important;
+                padding-right: 0px!important;
+              }
+              .separator-xl{
+                width: auto!important;
+              }
+              .footer-box>.row{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+              .footer-box>div>div>div{
+                display: block!important;
+              }
+
+            }
         </style>
     </head>
 
