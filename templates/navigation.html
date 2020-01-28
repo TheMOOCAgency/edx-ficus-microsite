@@ -252,6 +252,9 @@ site_status_msg = get_site_status_msg(course_id)
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/lfb/css/responsive_top_layer.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/lfb/css/navigation.css" type="text/css" media="screen" />
 <link rel="stylesheet" type="text/css" href="${css}" />
 <script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
@@ -320,3 +323,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<style>
+  .header-global .nav-global{
+    display: none;
+  }
+</style>
