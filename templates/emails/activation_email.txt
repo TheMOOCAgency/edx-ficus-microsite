@@ -7,9 +7,11 @@ Vous avez décidé de rejoindre le MOOC <span style="color:#d22754;font-weight:b
 
 Vous serez un membre actif de la communauté des MOOCers et vivrez cette nouvelle expérience d’apprentissage avec les experts qui ont construit le MOOC et qui partageront leur savoir avec vous.
 
+
 Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
+
 
 Le MOOC vit grâce à vous tous : vous êtes également invité à échanger et contribuer aux différents forums !
 
@@ -25,4 +27,4 @@ N’oubliez pas de vous munir d’un cahier, d’un stylo et de vos écouteurs�
 
 A très vite sur le MOOC <b>Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins !</b>
 
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+<span style="font-size:10px;">Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.</span>
