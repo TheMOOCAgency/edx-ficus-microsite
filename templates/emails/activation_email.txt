@@ -3,7 +3,7 @@
 
 Bonjour,
 
-Vous avez décidé de rejoindre le MOOC <span style="color:#d22754;font-weight:bold;">Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins,</span> bienvenue dans l’aventure !
+Vous avez décidé de rejoindre le MOOC Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins, bienvenue dans l’aventure !
 
 Vous serez un membre actif de la communauté des MOOCers et vivrez cette nouvelle expérience d’apprentissage avec les experts qui ont construit le MOOC et qui partageront leur savoir avec vous.
 
@@ -15,16 +15,16 @@ https://${ site }/activate/${ key }
 
 Le MOOC vit grâce à vous tous : vous êtes également invité à échanger et contribuer aux différents forums !
 
-Au menu de <span style="color:#d22754;font-weight:bold;">la première semaine qui débutera le vendredi 6 mars,</span> nous vous proposerons une <b>introduction générale sur le cancer et les sujets âgés.</b>
+Au menu de la première semaine qui débutera le vendredi 6 mars, nous vous proposerons une introduction générale sur le cancer et les sujets âgés.
 
 Nous vous donnerons rendez-vous chaque semaine sur la plateforme dédiée afin que vous découvriez les 6 sessions de la formation :
 
-<div style="text-align:center;"><a href="https://www.mooc-oncogeriatrie.the-mooc-agency.com" style="color:#d22754;font-weight:bold;" rel="nofollow">www.mooc-oncogeriatrie.the-mooc-agency.com</a></div>
+www.mooc-oncogeriatrie.the-mooc-agency.com
 
 N’oubliez pas de vous munir d’un cahier, d’un stylo et de vos écouteurs…
 
-<b>Les inscriptions sont ouvertes jusqu’au 5 mars !</b> N’hésitez pas à le faire savoir autour de vous.
+Les inscriptions sont ouvertes jusqu’au 5 mars ! N’hésitez pas à le faire savoir autour de vous.
 
-A très vite sur le MOOC <b>Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins !</b>
+A très vite sur le MOOC Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins !
 
-<span style="font-size:10px;">Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.</span>
+Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
