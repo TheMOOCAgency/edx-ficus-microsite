@@ -18,13 +18,26 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     position: fixed;
     top: 0px;
   }
-  #main>section>header>h1{
+  #main>section>header>#homepage_banner{
     margin-top: 40vh;
-    font-weight: 900;
     background: #00000099;
+    padding: 25px;
+  }
+  #main>section>header>#homepage_banner>h1{
+    font-weight: 900;
     color: white;
     font-size: 2.6rem;
-    padding: 25px;
+  }
+  #main>section>header>#homepage_banner>ol{
+    list-style: none;
+  }
+  #main>section>header>#homepage_banner>ol>li>a{
+    padding: 6px 12px 6px 12px;
+    text-decoration: none;
+  }
+  #main>section>header>#homepage_banner>ol>li>a:hover{
+    color: black!important;
+    background-color: transparent!important;
   }
   #tma_background_font {
     /* background-image: url(/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg) !important; */
@@ -99,7 +112,15 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <h1>Développez vos compétences avec<br />les chambres de métiers et de l’artisanat</h1>
+        <div id="homepage_banner">
+          <h1>Développez vos compétences avec<br />les chambres de métiers et de l’artisanat</h1>
+          <ol class="right nav-courseware list-inline">
+            <li class="item nav-global-04">
+              <a class="btn btn-login" href="/register">${_("Register")}</a>
+              <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+            </li>
+          </ol>
+        </div>
         <!-- <iframe id="videoHeader" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
         <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
           <source src="/media/microsite/e-formation-artisanat/assets/video.mp4" type="video/mp4">
