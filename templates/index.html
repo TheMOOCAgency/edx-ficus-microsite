@@ -14,6 +14,18 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <style>
+  #global-navigation {
+    position: fixed;
+    top: 0px;
+  }
+  #main>section>header>h1{
+    margin-top: 40vh;
+    font-weight: 900;
+    background: #00000099;
+    color: white;
+    font-size: 2.6rem;
+    padding: 25px;
+  }
   #tma_background_font {
     /* background-image: url(/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg) !important; */
     background-color: #EDEEEF;
@@ -26,10 +38,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     background: none;
   }
   .home>header {
-    background-image: none !important;
-    height: 100%;
+    background: inherit !important;
+    height: 80vh;
     box-shadow: none;
-    margin-top: 25px;
     text-align: center;
   }
   .video-modal {
@@ -38,12 +49,40 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     margin: auto;
     color: black;
   }
+  .home .highlighted-courses{
+    position :inherit!important;
+  }
   .courses-container {
     background-color: white;
     padding-left: 25px;
     padding-right: 25px;
+    margin: 0px!important;
+    max-width: 100% !important;
   }
-  @media screen and (max-width: 700px) {
+  .video-wrapper{
+    display: flex;
+    justify-content: center;
+  }
+  #videoHeader{
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .courses-container {
+    margin-bottom: 0px !important;
+  }
+  .courses-container {
+    background-color: #dedede !important;
+  }
+  @media screen and (max-width: 680px) {
     .promo-video {
       width: 320px;
       height: 180px;
@@ -60,12 +99,17 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <h1>Développez vos compétences avec les chambres de métiers et de l’artisanat</h1>
-        <section id="video-modal" class="modal home-page-video-modal video-modal">
-          <div class="inner-wrapper">
-            <iframe width="640" height="360" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h1>Développez vos compétences avec<br />les chambres de métiers et de l’artisanat</h1>
+        <!-- <iframe id="videoHeader" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+          <source src="/media/microsite/e-formation-artisanat/assets/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="row" style="position: absolute;bottom: 157px;left: calc(50% - 50px);">
+          <div class="col d-flex justify-content-center">
+            <img class="h-50" src="/media/microsite/e-formation-artisanat/assets/white_arrow.png" alt="flèche">
           </div>
-        </section>
+        </div>
       </header>
 
       <%include file="${courses_list}" />

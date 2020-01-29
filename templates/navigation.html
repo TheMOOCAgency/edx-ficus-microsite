@@ -111,18 +111,30 @@ site_status_msg = get_site_status_msg(course_id)
           </ul>
         </div>
       <style>
+        #global-navigation{
+          position: 
+        }
         .header-global .user {
           margin-top: 0px !important;
         }
         .header-global .nav-global li a, .header-global .nav-global div a {
-          color: #4c0707;
+          color: #ffffff !important;
+          background: black;
+          border: 1px solid black;
+          border-radius: 6px;
+          margin-right: 5px;
+          text-align: center;
+        }
+        .header-global .nav-global li a:hover {
+          color: black !important;
+          background: #ffffff;
         }
         .course-search > form > label {
           display: inline-block;
           vertical-align: top;
         }
         .header-global {
-          background:rgba(170,28,26,1);
+          background:rgba(0,117,176,1);
         }
         .header-global .nav-global {
           margin-top: 0px;
@@ -150,6 +162,11 @@ site_status_msg = get_site_status_msg(course_id)
           text-align: left;
           float: none;
           margin-top: 20px;
+        }
+        .ec-logo-size-custom {
+          position: absolute;
+          left: calc(50% - 225px);
+          top: -3px !important;
         }
         ol.user {
           display: initial !important;
@@ -227,11 +244,11 @@ site_status_msg = get_site_status_msg(course_id)
         }
         #menu
         {
-          background: rgba(170,28,26,1);
+          background: rgba(0,117,176,1);
           position: absolute;
           width: 600px;
           padding: 42px;
-          padding-top: 125px;
+          /* padding-top: 125px; */
           border: 1px #a0a0a0 solid;
           list-style-type: none;
           -webkit-font-smoothing: antialiased;
@@ -261,7 +278,24 @@ site_status_msg = get_site_status_msg(course_id)
         .header-global .nav-courseware li .btn {
           margin-top: 10px;
         }
-        @media screen and (max-width: 980px) {
+        .ec-logo-size-custom{
+          height: 80px !important;
+        }
+        @media screen and (max-width: 650px) {
+          .ec-logo-size-custom{
+            height: 50px !important;
+            left: calc(50% - 120px);
+            top: 15px !important;
+          }
+        }
+        @media screen and (max-width: 400px) {
+          .ec-logo-size-custom{
+            height: 36px !important;
+            left: calc(50% - 100px);
+            top: 20px !important;
+          }
+        }
+        @media screen and (max-width: 1120px) {
           .header-global .user .user-link .label-username {
             display: none;
           }
@@ -303,7 +337,7 @@ site_status_msg = get_site_status_msg(course_id)
           border: none !important;
         }
         .btn-login:hover, .btn-register:hover {
-          background-color: rgba(170,28,26,1);
+          background-color: rgba(0,117,176,1);
           box-shadow: none !important;
         }
       </style>
@@ -313,7 +347,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
-        logo_size = 'ec-logo-size'
+        logo_size = 'ec-logo-size-custom'
 	logo_url = static.get_value('logo_image_url')
         if logo_url is None:
             logo_url = branding_api.get_logo_url(is_secure)
@@ -324,7 +358,7 @@ site_status_msg = get_site_status_msg(course_id)
       </a>
     </h1>
 
-    <div class="course-search">
+    <!-- <div class="course-search">
       <form method="get" action="/courses">
         <label><span class="sr">${_("Search for a course")}</span>
           <input class="search-input" name="search_query" type="text" placeholder="Rechercher une formation" style="height:39px;box-shadow:none;border-radius: 2px;"></input>
@@ -333,7 +367,7 @@ site_status_msg = get_site_status_msg(course_id)
           <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(255, 253, 253); margin-bottom: 6px;"></span><span class="sr">${_("Search")}</span>
         </button>
       </form>
-    </div>
+    </div> -->
 
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
