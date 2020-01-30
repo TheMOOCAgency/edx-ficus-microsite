@@ -7,6 +7,9 @@ from tma_apps.tma_support_functions import tma_verify_access
 <% 
 course_state = user_course_state[str(enrollment.course_id)] 
 has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
+
+# BYPASS barometer access rights
+has_access = True
 %>
 
 <style>
