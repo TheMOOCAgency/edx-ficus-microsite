@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Connexions Citoyennes</title>
-        <link rel="icon" type="image/png" href="/media/microsite/connexions-citoyennes/auto/images/logo.png" />
+        <link rel="icon" type="image/png" href="/media/microsite/connexions-citoyennes/auto/images/favicon.png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Open Sans&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
@@ -29,7 +29,7 @@
                 padding: 7px 15px 7px 15px;
                 border-radius: 5px;
                 color: white !important;
-                background-color: #2d2e81;
+                background-color: #2d2e8140;
                 border: 1px solid white;
                 font-size: 1.2rem;
                 font-weight: bold;
@@ -126,6 +126,7 @@
             }
             .footer-box {
                 background-color: #fff;
+                border-top : 1px solid #2d2e81!important;
             }
             .footer-box .logo{
                 display: flex;
@@ -153,6 +154,20 @@
                 }
             }
             @media (max-width: 640px) {
+              body {
+                 background-image: url('/media/microsite/connexions-citoyennes/assets/bgbanner.png') !important;
+                 background-size: auto 100vh !important;
+                 background-position: inherit !important;
+                 background-repeat: no-repeat !important;
+              }
+              #videoHeader{
+                display: none !important;
+              }
+              .banner-img{
+                background-size: 240%!important;
+                height : 260px!important;
+                background-position: center!important;
+              }
               .row>div{
                 padding : 0px!important;
               }
@@ -218,29 +233,26 @@
         <div class="container-fluid w-85 first-box">
             <div class="row text-white p-5">
                 <div class="col text-center">
-                    <h1 class="pt-3" style="font-size:2.6rem;font-weight:bold">Devenez acteur du changement par l'innovation citoyenne et sociétale<br></h1>
+                    <h1 class="pt-3" style="font-size:2.6rem;font-weight:bold">MOOC CONNEXIONS CITOYENNES <br><span style="font-weight:300!important;font-size : 2.2rem!important;margin-top : 50px;"> Devenez acteur du changement par l'innovation citoyenne et sociétale</span><br> <nr></h1>
                     <a class="nav-link d-inline-block" href="/register?course_id=course-v1:connexions-citoyennes+CC1+2020&enrollment_action=enroll">Inscription</a>
                     <a class="nav-link d-inline-block" href="/login?course_id=course-v1:connexions-citoyennes+CC1+2020&enrollment_action=enroll">Connexion</a>
                 </div>
             </div>
             <div class="row" style="position: absolute;bottom: 0px;left: calc(50% - 50px);">
                 <div class="col d-flex justify-content-center">
-                    <img class="h-50" src="/media/microsite/connexions-citoyennes/assets/white_arrow.png" alt="flèche">
+                    <img style="display: none"class="h-50" src="/media/microsite/connexions-citoyennes/assets/white_arrow.png" alt="flèche">
                 </div>
             </div>
-          <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
-            <source src="/media/microsite/connexions-citoyennes/assets/banner-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+            <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+              <source src="/media/microsite/connexions-citoyennes/assets/banner-video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
         </div>
 
         <div class="container-fluid bg-white second-box h-100">
             <div class="row justify-content-center align-self-center pb-5 w-85 m-auto reveal">
                 <div class="col-lg-5 text-center my-auto">
-                  <video width="100%" controls>
-                    <source src="/media/microsite/connexions-citoyennes/assets/teaser.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
+                  <iframe style="width: 100%;" src="https://player.vimeo.com/video/378729321" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                 </div>
                 <div style="display:flex;flex-direction: column;" class="col-lg-7 py-4 pr-5 my-auto">
                     <div>
@@ -249,7 +261,7 @@
                     </div>
                     <div>
                       <p>En moins d’une décennie, l’explosion des médias en ligne et l’exigence croissante d’un contrôle citoyen de l’action publique en Afrique ont laissé entrevoir des opportunités sans précédent pour les jeunes d’innover dans le domaine de l’initiative citoyenne et de relever les défis de développement de leurs pays.</p>
-                      <p>Le MOOC Connexions Citoyennes a été pensé comme un outil de sensibilisation aux enjeux, contraintes et possibilités de l’innovation numérique citoyenne s’adressant à toutes et à tous, gratuitement et sans restriction. Il participe à l’acquisition d’une culture générale sur les outils numériques et l’innovation citoyenne - CivicTech - et de compétences de base pour développer un engagement social ou civique grâce aux outils numériques.</p>
+                      <p>Le MOOC Connexions Citoyennes a été pensé comme un outil de sensibilisation aux enjeux, contraintes et possibilités de l’innovation numérique citoyenne s’adressant à toutes et à tous, gratuitement et sans restriction. Il participe à l’acquisition d’une culture générale sur les outils numériques et l’innovation citoyenne - CivicTech - et de compétences de base pour développer un engagement social ou civique grâce aux outils numériques. En plus des contenus thématiques, des focus en début de chaque semaine vous permettront d’approfondir vos connaissances et de découvrir quelques initiatives existantes. Enfin, un chapitre sera dédié au programme d’incubation des 50 lauréats du projet Connexions Citoyennes.</p>
                     </div>
                 </div>
             </div>
@@ -284,16 +296,9 @@
               <div class="row px-5 banner-img reveal">
             </div>
             <div class="separator m-auto reveal"></div>
-            <div class="row pt-5 px-5 w-85 m-auto reveal text-center">
-                <div class="col">
-                    <h4 class="pb-4">En plus de ces contenus thématiques, des focus au début de chaque semaine vous permettront d’approfondir votre connaissance de l’innovation citoyenne par les Civic Tech et de découvrir quelques initiatives existantes.</h4>
-                    <h4>Vous découvrirez également le programme d’incubation qui attend vingt-cinq lauréat(e s) de chaque édition du MOOC et comment vous pouvez y candidater !</h4>
-                </div>
-            </div>
-
             <div class="row px-5 pb-2 py-5 w-85 m-auto reveal">
                 <div class="col">
-                    <h2 class="font-bold">Découvrez la formation - <span style="font-size:1.7rem">Ouverture du MOOC le 03 février</span></h2>
+                    <h2 class="font-bold">Découvrez la formation - <span style="font-size:1.7rem">Ouverture du MOOC prochainement !</span></h2>
                     <div class="separator-xl"></div>
                 </div>
             </div>
@@ -350,10 +355,13 @@
         </div>
         <div class="container-fluid footer-box">
             <div class="row">
-                <div class="col-2 my-auto px-5">
-                    <a class="blue-text" href="/tos">Conditions Générales</a>
+                <div class="col-3 my-auto px-5">
+                    <a class="blue-text" href="/tos">Conditions Générales</a> - <a class="blue-text" href="/faq">FAQ</a>
                 </div>
-                <div class="col-10 my-auto px-5 logo" style="margin: 0px!important;display:flex;justify-content: flex-end;align-items: center;">
+                <div class="col-2 my-auto px-5">
+
+                </div>
+                <div class="col-7 my-auto px-5 logo" style="margin: 0px!important;display:flex;justify-content: flex-end;align-items: center;">
                     <div style="display: flex;align-items: center;">
                       <p>Un projet</p>
                       <img class="float-right" src="/media/microsite/connexions-citoyennes/assets/Logo_CFI_2018_fond_blanc.jpg" alt="connexions-citoyennes logo">
