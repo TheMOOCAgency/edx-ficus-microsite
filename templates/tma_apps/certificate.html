@@ -23,8 +23,20 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <!-- COMMON STYLE-->
 <style>
+  @font-face {
+    font-family: 'CIVCTitle';
+    src: url('/media/microsite/champagne-mooc/certificate/Typo/CIVCTitle-Light.otf');
+  }
+  @font-face {
+    font-family: 'CIVCSans-Bold';
+    src: url('/media/microsite/champagne-mooc/certificate/Typo/CIVCSans-Bold.otf');
+  }
+  @font-face {
+    font-family: 'CIVCSans-Light';
+    src: url('/media/microsite/champagne-mooc/certificate/Typo/CIVCSans-Light.otf');
+  }
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: 'CIVCSans-Light' !important;
   }
   p{
     padding:10px
@@ -37,10 +49,6 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #certificate-wrapper{
     background: white;
-  }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
   }
   #custom-btn{
     background: ${primary_color};
@@ -57,7 +65,6 @@ background_url = configuration_helpers.get_value('bg_img')
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -67,11 +74,14 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width:854px;
-    height:500px;
+    width: 884px;
+    height: 590px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/media/microsite/champagne-mooc/certificate/Attes_Background.png')
+
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -87,6 +97,14 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
     flex-direction: column;
   }
+  .name:after {
+      content: ""; /* This is necessary for the pseudo element to work. */
+      display: block; /* This will put the pseudo element on its own line. */
+      margin: 0 auto; /* This will center the border. */
+      width: 150px; /* Change this to whatever width you want. */
+      padding-top: 10px; /* This creates some space between the element and the border. */
+    border-bottom:1px solid rgba(200,175,130,1) /* This creates the border. Replace black with whatever color you want. */
+  }
 </style>
 
 <!-- CUSTOM STYLE -->
@@ -100,26 +118,48 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
           <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+            <img src="/media/microsite/champagne-mooc/certificate/Attes_Logo_Attestation_FR.png" style="width: 60%;margin-top: 20px;" />
+            <p style="font-size: 32px;margin-top: 30px;margin-bottom: 30px;">Attestation de suivi avec
+              %if 80 <= int(grades['grade']*100) <= 90 :
+                <span>succès</span>
+              %elif 90 <= int(grades['grade']*100) <= 96 :
+                <span>succès</span>
+              %elif 96 <= int(grades['grade']*100) <= 100 :
+                <span>succès</span>
+              %else:
+                <span>${int(grades['grade']*100)}%</span>
+              %endif
+            </p>
+            <h3 class='name'>${first_name} <b style="text-transform:uppercase">${last_name}</b></h3>
           </div>
-          <div>
+          <div style="display: flex;justify-content: space-between;width: calc(100% - 100px);height: 120px;align-items: flex-end;padding: 0px 50px 30px 50px;">
+            <div style="float:left">
+              <p style="padding:0!important">Délivré le <b>${date.today().strftime("%d/%m/%Y") }</b></p>
+            </div>
+            <div style="height : 100%; display: flex;">
+              <div style="height : 100%;text-align: right;margin-right: 60px;">
+                <img style="height : 70%" src="/media/microsite/champagne-mooc/certificate/Attes_Signature_Perrin.png"/>
+                <h5 style="margin-top:5px;font-size: 15px;"> <b>Vincent PERRIN</b></h5>
+                <p style="padding: 0!important;font-size: 15px;">COMITE CHAMPAGNE DiRECTOR</p>
+              </div>
+              <div style="height : 100%">
+                <img style="height : 65%;    margin-top: 42px;" src="/media/microsite/champagne-mooc/certificate/Attes_Logo_CC.png"/>
+              </div>
+            </div>
           </div>
       </div>
   </div>
 </div>
+
 %else:
   <div id="noCertificateMessage">
       <h3>Certificat Non Disponible</h3>
       <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
 %endif
+
+
 
 <!-- PDF CREATOR-->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -143,4 +183,3 @@ background_url = configuration_helpers.get_value('bg_img')
     }
   })
 </script>
-
