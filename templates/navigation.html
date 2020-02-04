@@ -61,7 +61,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global" >
+  <header id="global-navigation" class="header-global" style="height:100px!important">
     <nav class="wrapper-header" aria-label="${_('Global')}">
       <!-- Menu burger Start-->
         <div id="menuToggle">
@@ -111,23 +111,23 @@ site_status_msg = get_site_status_msg(course_id)
           </ul>
         </div>
       <style>
-        #global-navigation{
-          position: 
+        #global-navigation {
+          background: linear-gradient(45deg, rgba(19,169,216,1) 0%, rgba(123,82,187,1) 100%);
         }
         .header-global .user {
           margin-top: 0px !important;
         }
         .header-global .nav-global li a, .header-global .nav-global div a {
-          color: #ffffff !important;
-          background: black;
+          color: black !important;
+          background: #ffffff;
           border: 1px solid black;
           border-radius: 6px;
           margin-right: 5px;
           text-align: center;
         }
         .header-global .nav-global li a:hover {
-          color: black !important;
-          background: #ffffff;
+          color: #fff !important;
+          background: black;
         }
         .course-search > form > label {
           display: inline-block;
@@ -143,7 +143,7 @@ site_status_msg = get_site_status_msg(course_id)
           margin-left: 0px;
           max-width: 100%;
           text-align: right;
-          padding: 8px 10px 0 !important;
+          padding: 17px 10px 0 !important;
         }
         .user {
           background-color: white;
@@ -166,7 +166,7 @@ site_status_msg = get_site_status_msg(course_id)
         .ec-logo-size-custom {
           position: absolute;
           left: calc(50% - 225px);
-          top: -3px !important;
+          top: 10px !important;
         }
         ol.user {
           display: initial !important;
@@ -178,20 +178,20 @@ site_status_msg = get_site_status_msg(course_id)
           float: left;
           text-align: initial;
           position: absolute;
-          top: 30px;
+          top: 38px;
           left: 13px;
         }
 
         #menuToggle a
         {
           text-decoration: none;
-          color: black;
+          color: #fff;
           transition: color 0.3s ease;
         }
 
         #menuToggle a:hover
         {
-          color: tomato;
+          color: black!important;
         }
         #menuToggle input
         {
@@ -231,7 +231,7 @@ site_status_msg = get_site_status_msg(course_id)
         {
           opacity: 1;
           transform: rotate(45deg) translate(-2px, -1px);
-          background: #232323;
+          background: #ffffff;;
         }
         #menuToggle input:checked ~ span:nth-last-child(3)
         {
@@ -387,7 +387,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">Découvrez notre offre de formation</a>
+              <a href="${marketing_link('COURSES')}">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
             </li>
           % endif
           % if show_program_listing:

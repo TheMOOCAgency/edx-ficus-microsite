@@ -190,7 +190,7 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
         <%include file="${static.get_template_path('header.html')}" args="online_help_token=online_help_token" />
     % endif
 
-    <div class="content-wrapper" id="content">
+    <div class="content-wrapper" id="content" style="min-height: calc(100vh - 157px) !important">
       ${self.body()}
       <%block name="bodyextra"/>
     </div>
@@ -325,7 +325,6 @@ setInterval(function(){
   content: "Solution:";
   }
   #tma_background_font{
-    background: rgb(19,169,216);
-    background: linear-gradient(45deg, rgba(19,169,216,1) 0%, rgba(123,82,187,1) 100%);
+    background: rgb(255,255,255);
   }
 </style>
