@@ -321,3 +321,28 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<style>
+.header-global .user .dropdown{
+  background: transparent ! important;
+}
+.header-global .primary>a:hover{
+  background: #fff3e5;
+}
+.header-global .user .user-link .user-image-frame{
+  border-radius : 60% !important;
+}
+.header-global .user{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+body.view-in-course .header-global .wrapper-header, body.view-in-course .header-global.slim .wrapper-header{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.user-menu{
+  margin-top : 5px;
+}
+</style>

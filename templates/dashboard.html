@@ -20,6 +20,7 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -213,6 +214,17 @@ endfor
   % endfor
   </div>
 
+<%
+  custom_color = configuration_helpers.get_value('primary_color')
+  if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+    if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+      custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+    else:
+      custom_color = configuration_helpers.get_value('primary_color')
+    endif
+  endif
+%>
+
 <!-- CUSTOM STYLE FOR 5aconseil -->
 <style>
   #dashboard_profile_bottom{
@@ -224,6 +236,18 @@ endfor
   #dashboard_profile_up{
     background-color: #fff3e4!important;
   }
+  #course_start{
+    background: #fff3e4;
+    color : #000!important;
+  }
+  @keyframes anim {
+    0% {
+  background: #fff3e4;
+    }
+    100% {
+    background: #fff3e4;
+  }
+}
   #dashboard_profile_up h3, #dashboard_profile_up h4 {
     color : inherit!important;
   }
@@ -236,14 +260,69 @@ endfor
     color : rgba(255,124,23,1)!important;
   }
   .course_cells_title {
-    background-color: #fff3e4!important;
+    background-color: ${custom_color} !important;
+    color : #fff;
+  }
+  .course_cells_action{
+    background-color: ${custom_color};
   }
   #title_dashboard_course h1 {
-    color : rgba(255,124,23,1)!important;
+    color : #2b2b2a!important;
   }
   #title_dashboard_course h1:hover {
-    color : rgba(255,124,23,1)!important;
+    color : #2b2b2a!important;
   }
+  .course_cell h2{
+    margin-bottom: 0px!important;
+    color : #fff!important;
+  }
+  .header-global{
+    background-color: #fff3e4!important;
+  }
+  .header-global .primary>a:hover{
+    background-color: #fff3e4!important;
+  }
+  .header-global .user .dropdown{
+    background-color: #fff3e4!important;
+  }
+  #profile_bottom_multi h3{
+    background: #fff3e4;
+  }
+  #title_dashboard_course h1{
+    background: #fff3e4;
+  }
+  .course_nav{
+    background: #fff3e4;
+    color : #000!important;
+  }
+  #course_start .svg {
+    width: 32px;
+    height: 32px;
+    margin: 16px;
+  }
+  .course_nav .svg {
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+  }
+  #course_nav a:hover{
+    background-color: ${custom_color} !important;
+  }
+  #course_start span, .course_nav span{
+    color : #000!important;
+  }
+  #course_nav .svg path{
+    fill : #2b2b2a
+  }
+  #course_nav .svg{
+    fill : #2b2b2a
+  }
+  #global-navigation{
+    background: #fff3e4;
+  }
+
 </style>
 %if course.no_grade:
  <style>

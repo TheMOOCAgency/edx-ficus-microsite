@@ -11,7 +11,15 @@
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
+<style>
+footer.global {
+  background-color: #fff3e4!important;
+}
+footer.global ul.links li a, body footer.global ul.links li a:hover{
+  color : #2b2b2a!important;
+}
 
+</style>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
   <div class="footer-container">
