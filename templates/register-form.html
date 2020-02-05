@@ -189,7 +189,7 @@ import datetime
       _countries = list(countries)
       %>
       % for f in _countries:
-        <option values="${f[0]}">${f[1]}</option>
+        <option value="${f[0]}">${f[1]}</option>
       %endfor
     % endif
     % if n.get('name') == 'year_of_birth':

@@ -95,6 +95,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   #perfectionnement{
     background-image: url("/media/microsite/champagne/home/valeurs.jpg")
   }
+  .formationVignette{
+    width : 100% !important;
+  }
+  .formationVignette > .row{
+    width : 100% !important;
+  }
+  .pMessage{
+    color :green!important;
+  }
   /*Fonts*/
   @font-face {
     font-family: CIVCTitle;
@@ -242,19 +251,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="modal-body">
                <form>
-                <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Votre nom</label>
-                  <input name ="email2"type="text" class="form-control" id="recipient-name">
-                  <label for="recipient-name" class="col-form-label">Votre email</label>
-                  <input name ="email2"type="text" class="form-control" id="recipient-email">
-                  <label for="recipient-name" class="col-form-label">Message</label>
-                  <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
-                </div>
+                 <div class="form-group">
+                   <label for="recipient-name" class="col-form-label">Votre nom</label>
+                   <input name ="name2"type="text" class="form-control" id="recipient-name">
+                   <label for="recipient-name" class="col-form-label">Votre email</label>
+                   <input name ="email2"type="text" class="form-control" id="recipient-email">
+                   <label for="recipient-name" class="col-form-label">Message</label>
+                   <textarea name="message" class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+                 </div>
               </form>
             </div>
+            <p class="pMessage"><p>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary BUTTON_QGJ font16" data-dismiss="modal">Annuler</button>
-              <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosend2()">Envoyer</button>
+              <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosendFR()">Envoyer</button>
             </div>
           </div>
         </div>
@@ -440,7 +450,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="col-lg-6 formationVignette">
                 <div class="row">
                   <div class="col-md-6">
-                    <div id="valeursImage"></div>
+                    <div id="valeursImage" class="col-md-12"></div>
                   </div>
                   <div class="col-md-6">
                     <h5 class="titlePage">HISTOIRE ET ÉCONOMIE DU CHAMPAGNE</h5>
@@ -622,19 +632,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="modal-body">
                <form>
-                <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Your name</label>
-                  <input name ="email2"type="text" class="form-control" id="recipient-name">
-                  <label for="recipient-name" class="col-form-label">Your mail</label>
-                  <input name ="email2"type="text" class="form-control" id="recipient-email">
-                  <label for="recipient-name" class="col-form-label">Message</label>
-                  <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
-                </div>
+                 <div class="form-group">
+                   <label for="recipient-name" class="col-form-label">Your name</label>
+                   <input name ="name2"type="text" class="form-control" id="recipient-name">
+                   <label for="recipient-name" class="col-form-label">Your mail</label>
+                   <input name ="email2"type="text" class="form-control" id="recipient-email">
+                   <label for="recipient-name" class="col-form-label">Message</label>
+                   <textarea name="message" class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+                 </div>
               </form>
+            <p class="pMessage"><p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary BUTTON_QGJ font16" data-dismiss="modal">Annuler</button>
-              <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosend2()">Envoyer</button>
+              <button type="button" class="btn btn-secondary BUTTON_QGJ font16" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn sendmde BUTTON_QGJ font16" onclick="clickTosendEN()">Send</button>
             </div>
           </div>
       </div>
@@ -969,7 +980,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="formula-register">
           <p><b>49€ (all taxes included)</b></p>
-          <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?lang=${LANGUAGE_CODE}&course_id=course-v1:champagne-mooc+004+004&enrollment_action=enroll"">Register now</button>
+          <button class="BUTTON_QGJ" href="https://www.champagne-mooc.the-mooc-agency.com/register?lang=${LANGUAGE_CODE}&course_id=course-v1:champagne-mooc+004+004&enrollment_action=enroll">Register now</button>
           </div>
         </div>
       </section>
@@ -1018,6 +1029,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               $('html,body').animate({scrollTop: $("#offersFooter").offset().top},'slow');
           })
         }
+
+      var url = new URL(window.location.href);
+      var paramUrl = url.searchParams.get('lang');
+      if (paramUrl){
+        console.log(paramUrl)
+        if(paramUrl === 'en' && $('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")) {
+          $('#settings-language-value > option[value="en"]').attr('selected','selected');
+          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+        }else if(paramUrl === 'fr' && $('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");;
+        }
+      }else {
+        console.log('no param')
+      }
+
+
         $('.en').on('click', function() {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
@@ -1034,6 +1062,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           }
         })
       })
+      function validateEmail(email) {
+      	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      	return re.test(String(email).toLowerCase());
+      	}
+        function sendEmail(data) {
+             $.ajax({
+               url: '/tma_apps/mailSender/champagne_message/',
+               dataType: 'json',
+               type: 'POST',
+               headers: {
+                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+               },
+               data: data,
+               success: function(data){
+                 console.log('message sent');
+       		  $('#exampleModalCenterEN .pMessage').text("Your message has been sent !")
+       		  $('#exampleModalCenterFR .pMessage').text("Votre message a bien été pris en compte.")
+               }
+             });
+           };
+       function clickTosendFR() {
+           var name = $("#exampleModalCenterFR input[name=name2]").val();
+           var email = $("#exampleModalCenterFR input[name=email2]").val();
+           var message = $("#exampleModalCenterFR textarea[name=message]").val();
+
+
+           if (name.length > 0  && email.length > 0 && message.length > 0) {
+             var data = {
+               name: name,
+               email: email,
+               message: message
+
+             }
+
+         		if(validateEmail(email) == true )
+                 {sendEmail(data)}
+         		else{
+         		 alert("Attention, l'adresse email n'est pas dans le bon format.");
+         		}
+
+           } else {
+             alert("Attention, tous les champs marqués * sont obligatoires.");
+           };
+         };
+       function clickTosendEN() {
+           var name =  $('#exampleModalCenterEN input[name=name2]').val();
+           var email = $("#exampleModalCenterEN input[name=email2]").val();
+           var message = $("#exampleModalCenterEN textarea[name=message]").val();
+
+           if (name.length > 0  && email.length > 0 && message.length > 0) {
+             var data = {
+               name: name,
+               email: email,
+               message: message
+
+             }
+
+         		if(validateEmail(email) == true )
+                 {sendEmail(data)}
+         		else{
+         		 alert("Please note, the email address is not in the correct format.");
+         		}
+
+           } else {
+             alert("Please note, all fields marked * are compulsory.");
+           };
+         };
     </script>
   </body>
   </html>
