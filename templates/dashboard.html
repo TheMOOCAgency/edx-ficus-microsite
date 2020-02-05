@@ -335,6 +335,14 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
     margin-right: 7px;
   }
 }
+
+.course_cells_action {
+    display: none;
+    width: 287.7px;
+    height: 173.8px;
+    border-radius: 15px;
+    background-color: #00aaff;
+}
 </style>
 % else:
 <style>
@@ -442,6 +450,13 @@ function title_border_multi() {
   }
 
 }
+
+function changeColorCellAction(){
+  $('.course_cells_action').attr('style','background-color: #00aaff;');
+  $('.course_cells_title h2').attr('style','text-transform: lowercase;');
+ 
+
+}
 function alignH2(){
   var width = $(document).width();
   if(width > 732) {
@@ -470,15 +485,27 @@ $(document).ready(function(){
   title_border_multi();
   alignH2();
   multi_unenroll();
+  changeColorCellAction()
   //puceParam();
 })
 $(window).initialize(function(){
   lineHeight();
   title_border_multi();
+  changeColorCellAction()
   alignH2();
 })
 
+/*alert('modif en cours3')*/
+
 </script>
+
+<style>
+.course_cells_title h2::first-letter {
+text-transform:uppercase
+}
+
+
+</style>
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
     <button class="close-modal">

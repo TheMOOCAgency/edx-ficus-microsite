@@ -15,7 +15,7 @@ from django.conf import settings
 	<div class="enroll-button">
     % if user.is_active:
 <!--           <span>Votre inscription a été prise en compte !
-           <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
+           <br/>&nbsp;<br/>	MOOC Start ....<br/>&nbsp;<br/></span>
            <span id="time"></span>-->
 <script type="text/javascript">
 $(document).ready(function(){
@@ -26,7 +26,7 @@ $(document).ready(function(){
 });
 </script>
            <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-           &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
+           &nbsp;<br/>Access the MOOC! <br/>&nbsp;<br/></span>
 
     % else:
            Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>

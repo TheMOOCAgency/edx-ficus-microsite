@@ -60,7 +60,15 @@ ${static.get_page_title_breadcrumbs(course_name())}
 % if is_edxnotes_enabled(course):
 <%static:css group='style-student-notes'/>
 % endif
-
+<style>
+  #tma_background_font {
+    background-image: url('/media/microsite/mooc-tractebel/auto/images/bg_img.jpg') !important;
+  }
+  
+  #courseware-search-bar{display:none}
+  .courseware-bookmarks-button{display:none !important;}
+  .bookmarks-list-button{display:none !important;}
+</style>
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
 
@@ -107,7 +115,31 @@ ${static.get_page_title_breadcrumbs(course_name())}
         $(function() {$("#course-content").css("visibility","visible")});
       },1000);
     }
+	
+	 setTimeout(function(){
+        $(function() {$(".sequence-nav-button").attr('style','background-color: #00aaff !important;');
+		
+		
+		
+		
+});
+      },2000);
+    
   </script>
+  
+  <style>
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a, .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover {
+    color: #fff;
+    background-color: #00aaff !important
+}
+  
+.accordion-nav:hover {
+ background-color: #00aaff !important;
+color : white !important
+
+}
+  
+  </style>
 
 ${HTML(fragment.foot_html())}
 
@@ -351,4 +383,11 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+
+$(document).ready(function(){
+ $("#return_dashboard").hide();
+setTimeout(function(){ $("#return_dashboard").hide(); }, 200);
+});
+
+
 </script>

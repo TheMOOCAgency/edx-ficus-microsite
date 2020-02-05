@@ -108,9 +108,9 @@ site_status_msg = get_site_status_msg(course_id)
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
+        <!--    <li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
+            </li>-->
           % endif
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -304,10 +304,10 @@ _paq.push(['setUserId', '${user.id}']);
   (function() {
     var u="//piwik.themoocagency.com/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', id_piwik_from_api]);
+    _paq.push(['setSiteId', 48]);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
-<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=id_piwik_from_api" style="border:0;" alt="" /></p></noscript>
+<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=48" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
