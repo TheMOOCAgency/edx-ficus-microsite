@@ -74,7 +74,7 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width: 884px;
+    width: 890px;
     height: 590px;
     margin: 0 auto;
     padding: 20px;
@@ -113,9 +113,7 @@ background_url = configuration_helpers.get_value('bg_img')
 </style>
 % if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
-  <div id="pdf-btn-wrapper">
-    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
-  </div>
+
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
           <div>
@@ -124,31 +122,34 @@ background_url = configuration_helpers.get_value('bg_img')
               %if 80 <= int(grades['grade']*100) <= 90 :
                 <span>succès</span>
               %elif 90 <= int(grades['grade']*100) <= 96 :
-                <span>succès</span>
+                <span>mérite</span>
               %elif 96 <= int(grades['grade']*100) <= 100 :
-                <span>succès</span>
+                <span>distinction</span>
               %else:
                 <span>${int(grades['grade']*100)}%</span>
               %endif
             </p>
             <h3 class='name'>${first_name} <b style="text-transform:uppercase">${last_name}</b></h3>
           </div>
-          <div style="display: flex;justify-content: space-between;width: calc(100% - 100px);height: 120px;align-items: flex-end;padding: 0px 50px 30px 50px;">
+          <div style="display: flex;justify-content: space-between;width: calc(100% - 100px);height: 160px;align-items: flex-end;padding: 0px 50px 30px 50px;">
             <div style="float:left">
               <p style="padding:0!important">Délivré le <b>${date.today().strftime("%d/%m/%Y") }</b></p>
             </div>
-            <div style="height : 100%; display: flex;">
+            <div style="display: flex;">
               <div style="height : 100%;text-align: right;margin-right: 60px;">
-                <img style="height : 70%" src="/media/microsite/champagne-mooc/certificate/Attes_Signature_Perrin.png"/>
+                <img style="height : 120px" src="/media/microsite/champagne-mooc/certificate/Attes_Signature_Perrin.png"/>
                 <h5 style="margin-top:5px;font-size: 15px;"> <b>Vincent PERRIN</b></h5>
-                <p style="padding: 0!important;font-size: 15px;">COMITE CHAMPAGNE DiRECTOR</p>
+                <p style="padding: 0!important;font-size: 15px;">DIRECTEUR DU COMITE CHAMPAGNE</p>
               </div>
               <div style="height : 100%">
-                <img style="height : 65%;    margin-top: 42px;" src="/media/microsite/champagne-mooc/certificate/Attes_Logo_CC.png"/>
+                <img style="height : 110px;    margin-top: 42px;" src="/media/microsite/champagne-mooc/certificate/Attes_Logo_CC.png"/>
               </div>
             </div>
           </div>
       </div>
+  </div>
+  <div id="pdf-btn-wrapper">
+    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
 </div>
 
@@ -171,7 +172,7 @@ background_url = configuration_helpers.get_value('bg_img')
       onrendered : function (canvas){
        var img=canvas.toDataURL("image/png");
        var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
+       doc.addImage(img, "PNG", 28 , 28);
        doc.save("certificat.pdf");
       }
     })
