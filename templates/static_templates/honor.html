@@ -1,362 +1,466 @@
 <%page expression_filter="h"/>
-<%! from django.utils.translation import ugettext as _ %>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from openedx.core.djangolib.markup import HTML
+%>
 <%inherit file="../main.html" />
-
-<%block name="pagetitle">${_("Honor Code")}</%block>
-<style>
-main {
- background-color: #fff;
+<%namespace name='static' file='../static_content.html'/>
+<%
+from cms.djangoapps.microsite_manager.mongo_model import staticFiles
+from cms.djangoapps.microsite_manager.models import Microsite
+_key = static.get_value('domain_prefix')
+_microsite_id = Microsite.objects.get(key=_key).id
+_collection = 'honor'
+_values = {
+  "microsite_id":_microsite_id
 }
+_template = staticFiles().return_template(_values,_collection).get('template')
+if _template is None:
+  _template = "<p>Honor</p>"
+%>
+<%block name="pagetitle">${_("Honor Code")}</%block>
+
+<style>
+    main {
+        width: 70%;
+        margin: auto;
+    }
+    .wordSection1{
+        background-color: #fff;
+        padding: 25px;
+    }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("Honor Code")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-<section class="static-container honor">
-<h1>Conditions générales</h1>
-<p>
-    <strong>1. Editeur, hébergeur, directeur de la publication</strong>
-</p>
-<p>
-    Le site web <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> est :
-    <br/>
-    • édité par l’Afpa, dont le siège social est situé 13 place du Général de Gaulle, 93100 Montreuil, Tél : 01 48 70 50 00 ;
-    <br/>
-    • hébergé par OVH dont le siège est situé 2 rue Kellermann - 59100 Roubaix - France
-    <br/>
-    <br/>
-    Directeur de la publication : Monsieur Yves Barou, Président.
-</p>
-<p>
-    <strong>2. Mentions informatique et libertés</strong>
-</p>
-<p>
-    Ce site a fait l’objet d’une déclaration à la CNIL sous le n°1905143.
-</p>
-<p>
-    Afpa est le responsable du traitement automatisé de données à caractère personnel sur ce site.
-</p>
-<p>
-    <strong>2-1. Finalité</strong>
-</p>
-<p>
-    Le site internet <a href="http://mooc.afpa.fr">mooc.afpa.fr</a>, également accessible depuis le site internet <a href="www.afpa.fr">www.afpa.fr</a>, est un service de communication en ligne permettant
-    aux internautes à la recherche d’une formation, de suivre des cours en ligne gratuits et massifs ayant notamment pour objet de confirmer leur projet
-    professionnel, se professionnaliser, d’effectuer des exercices et d’échanger des observations avec les autres internautes participant aux cours.
-    <br/>
-    L'ambition de l’Afpa est de fournir un accès aux meilleures formations sur les techniques professionnelles et ce quelle que soit votre localisation
-    géographique.
-</p>
-<p>
-    <strong>2-2. Informations obligatoires</strong>
-</p>
-<p>
-    Les données collectées de manière obligatoire lors de la création d’un compte sont signalées par un astérisque(*). Si ces informations ne sont pas
-    fournies, l’utilisation du service est impossible.
-    <br/>
-    La création d’un compte permet aux internautes de recevoir des messages relatifs à la mise en ligne de nouveaux cours en ligne par l’Afpa ainsi que des
-    attestations.
-    <br/>
-    Dans le cas où l’internaute est un stagiaire Afpa, l’attestation de fin de formation n’est en aucun cas communiquée à son formateur et ne donne donc lieu à
-    aucun traçage dans son dossier.
-</p>
-<p>
-    <strong> </strong>
-</p>
-<p>
-    <strong>2-3. Les destinataires des données</strong>
-</p>
-<p>
-    Les destinataires des données à caractère personnel enregistrées sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> sont l’Afpa, responsable du traitement, et les entités
-    statutairement et contractuellement à l’Afpa, notamment The MOOC Agency.
-</p>
-<p>
-    <strong>2-4. Droit d’accès, de rectification et suppression des données à caractère personnel</strong>
-</p>
-<p>
-    Conformément aux articles 39 et suivants de la loi n° 78-17 du 6 janvier 1978 modifiée relative à l’informatique, aux fichiers et aux libertés, toute
-    personne peut obtenir communication et, le cas échéant, rectification ou suppression des informations la concernant, en s’adressant à l’Afpa, 13 place du
-    Général de Gaulle, 93100 Montreuil.
-</p>
-<p>
-    <strong>3. Cookies</strong>
-</p>
-<p>
-    Le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> utilise des cookies incluant des informations relatives à la navigation des internautes dans un but d’analyses statistiques. En
-    aucun cas, Afpa ne peut identifier un utilisateur par un cookie ; ce dernier enregistre uniquement des informations relatives à la navigation de
-    l’utilisateur sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>.
-    <br/>
-    Ces cookies sont émis par la société VARIABLE.
-    <br/>
-    La durée de conservation des informations relatives à la navigation est de 2 ans. Les informations de session sont supprimées dès la déconnexion.
-    <br/>
-    Vous pouvez vous opposer à l'enregistrement de cookies sur votre ordinateur :
-    <br/>
-    • en optant de naviguer en statut OPT-OUT sur la page http://www.atinternet.com/politique-du-respect-de-la-vie-privee/ ;
-    <br/>
-    • en configurant votre poste informatique de la manière suivante :
-    <br/>
-    Pour Microsoft Internet Explorer 6.0 et + :
-    <br/>
-    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options Internet" (ou «Internet Options")
-    <br/>
-    2. Cliquez sur l'onglet "Confidentialité" (ou "Confidentiality")
-    <br/>
-    3. Sélectionnez le niveau souhaité à l'aide du curseur ou cliquez sur le bouton "Avancé" pour personnaliser votre gestion des cookies.
-    <br/>
-    <br/>
-    Pour Firefox 3.5 et + :
-    <br/>
-    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options "
-    <br/>
-    2. Cliquez sur l'onglet "Vie privée"
-    <br/>
-    3. Dans « Règles de conservation », sélectionnez « Utiliser les paramètres personnalisés pour l’historique » et décochez le bouton "Accepter les cookies".
-    <br/>
-    <br/>
-    Pour Chrome :
-    <br/>
-    1. Choisissez le menu "Outils" (ou "Tools"), puis "Options "
-    <br/>
-    2. Cliquez sur l'onglet "Options avancées"
-    <br/>
-    3. Dans « Paramètres de contenu », cochez le bouton « Interdire à tous les sites de stocker les données ».
-    <br/>
-    <br/>
-    Pour Netscape 6.X et 7.X :
-    <br/>
-    1. Choisissez le menu "Edition"&gt;"Préférences"
-    <br/>
-    2. Confidentialité et Sécurité
-    <br/>
-    3. Cookies
-    <br/>
-    <br/>
-    Pour Opéra 6.0 et au-delà :
-    <br/>
-    1. Choisissez le menu "Fichier"&gt;"Préférences"
-    <br/>
-    2. Vie Privée
-    <br/>
-    <br/>
-    A défaut, vous acceptez les cookies en poursuivant votre navigation.
-</p>
-<p>
-    <strong>4. Conditions d’utilisation du site</strong>
-</p>
-<p>
-    <strong>4-1 Acceptation des conditions d’utilisation</strong>
-</p>
-<p>
-    L’utilisateur du site reconnait avoir pris connaissance des présentes conditions d’utilisation avant toute utilisation du site et s’engage à les respecter.
-    <br/>
-    Lors de la création de son compte, l’internaute doit impérativement cocher la case par laquelle il reconnaît être parfaitement informé et accepter les
-    conditions du présent document. A défaut, le compte n’est pas créé.
-    <br/>
-    Afpa conserve pendant une durée de un an, à compter de la date de création du compte, l’information relative à l’acceptation des présentes conditions
-    d’utilisation par l’utilisateur et de la charte utilisateur.
-    <br/>
-    Afpa peut modifier les présentes conditions d’utilisation à tout moment. Ces modifications sont opposables à l’utilisateur dès leur mise en ligne sur le
-    site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>.
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-2 Création d’un compte, identifiant, mot de passe, adresse de courrier électronique</strong>
-</p>
-<p>
-    Lors de la création du compte, l’utilisateur s’engage à fournir des informations réelles correspondant à sa seule situation et à les mettre à jour
-    régulièrement.
-    <br/>
-    L’utilisateur s'engage également à ne pas créer une fausse identité.
-    <br/>
-    L’utilisateur est responsable du maintien de la confidentialité de ses identifiant et mot de passe qui lui permettent d'accéder aux cours mis en ligne au
-    fur et à mesure par Afpa.
-    <br/>
-    L’utilisateur est également responsable de l’utilisation du compte de messagerie électronique personnel (adresse courriel) qu’il a indiqué lors de la
-    création de compte sur le site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>. L’utilisateur veille également à ce que des tiers n’utilisent pas cette adresse de courrier
-    électronique pour communiquer avec Afpa.
-    <br/>
-    En cas de perte ou de vol de son identifiant et/ou de son mot de passe, ou dans l’éventualité où l’utilisateur penserait qu’un tiers a accédé à son compte,
-    l’utilisateur s’engage à informer Afpa en renseignant le formulaire correspondant accessible dans la rubrique « Contact ».
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-3 Contenu des cours en ligne</strong>
-</p>
-<p>
-    L’inscription aux cours en ligne nécessite que l’utilisateur créé préalablement un compte.
-    <br/>
-    Chaque cours en ligne comprend :
-    <br/>
-    <br/>
-    1/ des vidéos :
-</p>
-<p>
-    - de l’équipe des ingénieurs et formateurs qui présentent le contenu pédagogique proposé,
-</p>
-<p>
-    - de démonstration des gestes techniques à acquérir,
-</p>
-<p>
-    - de professionnels exerçant le métier de cuisinier, de formateurs et de stagiaires en cours de formation à l’Afpa.
-</p>
-<p>
-    <br/>
-    2/ des exercices
-    <br/>
-    - des QUIZZS afin que l’internaute puisse vérifier de sa compréhension des savoirs communiqués au travers des cours en ligne.
-</p>
-<p>
-    3/ un espace au sein duquel les internautes ont accès à une communauté
-    <br/>
-    <br/>
-    Chaque cours en ligne présente :
-    <br/>
-    • les dates de début et de fin du cours
-    <br/>
-    • la présentation du contenu du cours
-    <br/>
-    • le plan du cours comprenant, le cas échéant, les différentes séquences
-    <br/>
-    • à titre d’information, les pré-requis attendus pour participer au cours, étant précisé que tout utilisateur accède librement au cours auquel il souhaite
-    participer
-    <br/>
-    • la présentation du formateur
-    <br/>
-    • la durée prévisionnelle du cours
-    <br/>
-    • l’effort estimé en termes d’heures hebdomadaires
-    <br/>
-    <br/>
-    Lorsque le cours en ligne est terminé l’utilisateur peut consulter les vidéos contenues dans le cours.
-</p>
-<p>
-    <br/>
-    Pour bénéficier à nouveau de l’intégralité du cours en ligne, l’utilisateur doit s’inscrire à la prochaine session.
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-4 Usages autorisés / Usages non autorisés</strong>
-</p>
-<p>
-    Le site <a href="https://www.mooc.afpa.fr">mooc.afpa.fr</a> doit être utilisé dans le respect des finalités mentionnées au point 2-1 ci-dessus.
-    <br/>
-    En tant qu’utilisateur, vous devez :
-    <br/>
-    - utiliser les services du site <a href="http://www.mooc.afpa.fr">mooc.afpa.fr</a> uniquement dans les buts pour lesquels ils sont mis à votre disposition;
-    <br/>
-    - assurer la confidentialité de vos identifiant et mot de passe et ne pas les communiquer à un tiers, quel que soit votre lien avec ce tiers;
-    <br/>
-    - saisir uniquement des informations exactes;
-    <br/>
-    - mettre à jour régulièrement les informations vous concernant;
-    <br/>
-    - respecter la réglementation en vigueur.
-    <br/>
-    <br/>
-    En tant qu’utilisateur, vous ne devez pas :
-    <br/>
-    - constituer une base de données à des fins publicitaires (envoi de promotion sur des offres, produits ou services par appels, fax, courriers, courriels ou
-    newsletters non sollicités) ou autres;
-    <br/>
-    - mettre en ligne des contenus illégaux ou inappropriés (opinions politiques ou religieuses, atteintes aux bonnes mœurs, etc).
-    <br/>
-    - le cas échéant, capter et/ou diffuser, par quelque moyen que ce soit, tout ou partie du contenu des cours en ligne auxquels vous participez, sous peine
-    de sanction pénale.
-    <br/>
-    - ne pas publier ou rendre accessibles les réponses aux exercices sur quelque support que ce soit.
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-5 Contenus illégaux</strong>
-</p>
-<p>
-    L’utilisateur est pénalement responsable des informations qu’il met en ligne sur le site <a href="http://www.mooc.afpa.fr">mooc.afpa.fr</a> , notamment les
-    contenus qui constituent une provocation ou une apologie de crimes, de délits ou d’acte de terrorisme, une incitation à la haine ou à la discrimination, ou
-    qui ont pour effet de porter atteinte à la réputation ou à la tranquillité des personnes sont punis par des peines pouvant aller jusqu’à 100 000 € d’amende
-    et 7 ans d’emprisonnement (articles 23 à 41-1 de la loi du 29 juillet 1881 sur la liberté de la presse et article 421-2-5 du code pénal).
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-6 Signalement de contenus illégaux mis en ligne</strong>
-</p>
-<p>
-    Afpa met en place une procédure de signalement des contenus illégaux mis en ligne.
-    <br/>
-    <br/>
-    Ce dispositif est accessible à partir du forum : cliquer sur le bouton « Plus… » puis le bouton « Dénoncer ».
-    <br/>
-Les internautes ont également la faculté d’émettre un signalement à l’adresse courriel suivante :    <a href="mailto:contact@mooc.afpa.fr">contact@mooc.afpa.fr</a>
-    <br/>
-    Afpa conserve l’ensemble de données ayant donné lieu à un signalement pendant un délai de UN an à compter de la date du signalement.
-    <br/>
-    <br/>
-</p>
-<p>
-    <strong>4-7 Modération</strong>
-</p>
-<p>
-    Les FAQ mises en lignes à l’ouverture de chaque sont modérées à priori : les questions posées par les internautes sont lues avant leur publication. Un
-    délai de quelques jours peut donc s’écouler avant que la question et sa réponse ne soient visibles sur le site.
-    <br/>
-    Les forums relatifs à chaque cours en ligne sont modérés à postériori ; la modération peut donner lieu à la suppression du compte d’un utilisateur, sans
-    préjudice d’éventuelles suites judiciaires, dans le cas où Pôle emploi constaterait la mise en ligne d’un contenu illégal.
-</p>
-<p>
-    <strong>5. Responsabilité</strong>
-</p>
-<p>
-    Afpa ne saurait être tenu pour responsable des dommages de toute nature, directs ou indirects, résultant de l’utilisation du site <a href="https://mooc.afpa.fr">mooc.afpa.fr</a>, ni
-    de l’impossibilité pour l’utilisateur d’accéder au site <u>mooc.afpa.fr</u>.
-</p>
-<p>
-    <strong>6 – Notifications – Attestation de fin de formation</strong>
-</p>
-<p>
-    Toute notification doit être adressée via le formulaire en ligne dans la rubrique « Contact ».
-    <br/>
-    Toute notification qui est destinée aux apprenants est envoyée par courriel à l'adresse que les internautes ont communiquée lors de la création de leur
-    compte. On entend par notification l’attestation de suivi de cours en ligne que les internautes peuvent obtenir sous réserve qu’ils aient suivi la totalité
-    du cours. Ce document ne vaut ni certification ni diplôme quelconque.
-</p>
-<p>
-    <strong>7. Propriété intellectuelle</strong>
-</p>
-<p>
-    Le site internet <a href="https://mooc.afpa.fr">mooc.afpa.fr</a> est protégé au titre des dispositions relatives au droit d’auteur défini à l’article L.111-1 du code de la propriété
-    intellectuelle et au titre des dispositions relatives aux bases de données définies aux articles L.341-1 et suivants du même code. Afpa est titulaire de
-    l’ensemble des droits de propriété intellectuelle sur les éléments composant le site.
-    <br/>
-    A l’exception des dispositions prévues à l’article L.122-5 du code de la propriété intellectuelle, toute représentation, reproduction ou diffusion,
-    intégrale ou partielle du site, sur quelque support que ce soit, sans l'autorisation expresse et préalable de Afpa constitue un acte de contrefaçon,
-    sanctionné au titre des articles L.335-2 et L.335.3 du même code.
-    <br/>
-    Par ailleurs, toute représentation, reproduction ou diffusion, intégrale ou partielle de la marque Afpa, sur quelque support que ce soit, sans
-    l'autorisation expresse et préalable de l’Afpa constitue un acte de contrefaçon, sanctionné au titre des articles L.521-10 du même code.
-    <br/>
-    <br/>
-    <br/>
-    Mis à jour le 2 novembre 2015
-</p>
-<p>
-    Les MOOCs de l’AFPA, © 2015 Afpa et, tous droits réservés.
-    <br/>
-    Plateforme basée sur OpenEdx. Thème initial développé par <a href="https://ionisx.com/">ionisx</a>.
-    <br/>
-    Une réalisation <a href="http://themoocagency.com/">TheMOOCAgency</a>.
-</p>
-<p>
-    <a href="http://themoocagency.com/"> </a>
-</p>
-
-</section>
+    
+    </head>
+    
+    <body lang=EN-US link=blue vlink="#954F72">
+    
+    <div class=wordSection1>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>Terms and conditions</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'><span style='text-decoration:none'>&nbsp;</span></span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>OBJET</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>The purpose of these Terms of Use is to govern your use of the
+    &quot;"Hydropower" e-learning platform (the &quot;<b>Platform</b>&quot;) as well
+    as the training modules to which you may have access via this Platform (the
+    &quot;<b>Training Modules</b>&quot;).</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>In accessing the Platform and the Training Modules, you fully
+    accept these Terms of Use and agree to abide by them at all times.&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>These Terms of Use are subject to change at any time. TRACTEBEL
+    may notify you of any substantial changes to these Terms of Use, but it is your
+    responsibility to review them regularly to ensure that your use of the Platform
+    and the Training Modules is consistent with these Terms of Use.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>If you have any questions about using the Platform or about
+    these Terms of Use, please contact:</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><b><u><span style='color:#222222'>CONDITIONS FOR ACCESS</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>As an employee of the TRACTEBEL Group, you have a general right
+    to access the Platform and a specific right to access the Training Modules
+    assigned to you initially and/or over time.</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>Your access rights may be limited in time, for example, when you
+    have been given a specified period within which to complete a particular
+    training course. It is your responsibility to complete the training courses
+    within that time frame.</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>These access rights are&nbsp;<b>strictly personal</b>. Consequently,
+    you may not provide access to the Platform or your Training Modules to any
+    third parties, including other TRACTEBEL Group employees. You also agree not to
+    provide any third party with the means of authentication (login/password)
+    assigned to you to access the Platform and/or the Training Modules.</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><b><u><span style='color:#222222'>TECHNICAL ENVIRONMENT AND SECURITY</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You can access the Platform at any
+    time from your workstation.&nbsp;<b>For technical reasons, we recommend that
+    you connect to the Platform by cable connection only, and not via Wi-Fi</b>.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You are prohibited from accessing or
+    attempting to access the Platform from any other computer workstation within
+    the TRACTEBEL Group or from any computer workstation outside the TRACTEBEL
+    Group, unless expressly authorized and in all cases, only under the conditions
+    set forth in the applicable rules on computer security and/or remote working.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>Logins and passwords can be provided
+    to you for Platform access (the &quot;<b>Credentials</b>&quot;).</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>Credentials are&nbsp;<b>strictly personal, confidential and
+    exclusively for internal use</b>. Therefore, you agree not to provide
+    credentials to any third parties to allow them to connect to the Platform.</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You agree to take the necessary
+    security precautions to prevent the disclosure of your Credentials to third
+    parties.&nbsp;&nbsp;You are hereby informed that the use of your Credentials by
+    a third party may alter your follow-up and evaluation information</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>In using the Platform, you agree to comply with the IT security
+    policy applicable within the TRACTEBEL Group, as well as any applicable charter
+    covering the use of IT tools</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>FAIR USE</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+    normal;background:white'><span style='color:#222222'>You
+    agree to make fair use of the Platform and the Training Modules and not to use
+    the Platform and the Training Modules for purposes other than those related to
+    your occupational training needs and/or the performance of your duties within
+    the TRACTEBEL Group.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>In particular, you agree to follow the
+    training courses without outside help and without seeking to mislead the
+    methods of monitoring your results or to distort the operation of the software.
+    You agree not to post answers to problems that are being used to assess
+    employee performance.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You agree not to circumvent any
+    technical security measures that may be incorporated into the Platform, and more
+    generally not to make any use of the Platform or the Training Modules that
+    could be considered fraudulent or contrary to applicable laws and regulations.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>Some training courses are mandatory.
+    You agree to follow the training courses within the allotted time limit and to
+    remain attentive to what courses are open to you.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>RESPONSIBLE&nbsp;USE</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You must make responsible use of the
+    information, content and data made available to you on the Platform and in the
+    Training Modules.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>In this respect, TRACTEBEL shall
+    ensure that the information within the Platform and Training Modules is as
+    accurate as possible.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>However, this information may be provided by third parties, be
+    subject to interpretation, or become obsolete over time, for example in the
+    event of changing legal frameworks, standards or professional practices.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>Therefore, please bear in mind that the information provided
+    through the Platform or the Training Modules is made available solely for
+    information purposes: it cannot be considered as advice that is applicable in
+    principle to a particular situation or as a recommendation that can serve as
+    the standalone basis for a decision, without having been verified for accuracy.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>You acknowledge that TRACTEBEL cannot
+    be held liable for any damage whatsoever attributable to the incompleteness or
+    inaccuracy of the information, content or data available on the Platform or in
+    the Training Modules.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>COMPLIANCE WITH INTELLECTUAL PROPERTY
+    RIGHTS</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>The content of the Platform and/or the Training Modules may be
+    protected by intellectual property rights belonging to TRACTEBEL or third
+    parties.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>Consequently, you shall refrain from
+    downloading, extracting, reproducing, copying, duplicating or communicating the
+    contents of the Platform or the Training Modules to third parties or the public
+    and generally speaking, from using these contents for purposes other than those
+    related to your occupational training needs or your duties.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>CONFIDENTIALITY</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>The Platform and/or certain Training
+    Modules may include confidential information about the TRACTEBEL Group, TRACTEBEL
+    or third parties.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>In this regard, you are reminded that
+    as a TRACTEBEL Group employee, you are subject to professional secrecy rules
+    and that you are bound by a duty of confidentiality throughout your use of the
+    Platform.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span style='
+    color:#222222'>You must therefore ensure that you use the Platform in
+    accordance with your obligations in this regard and refrain from disclosing any
+    information derived from the Platform. All information appearing on the
+    Platform and in the Training Modules is considered confidential.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='font-size:12.0pt;color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><u><span
+    style='color:#222222'>DATA PROTECTION</span></u></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><b><span
+    style='color:#222222'>&nbsp;</span></b></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>Your use of the Platform may be
+    subject to the processing of personal data in accordance with the French Data
+    Protection law of 6 January 1978 (as amended by law n° 2018-493 of 20 June
+    2018) and Regulation (EU) 2016/679 dated 27 April 2016, to enable TRACTEBEL, in
+    its capacity as data controller, and WeUp Learning, as processor, to provide
+    you with Platform access, to monitor your training for the purposes of your
+    professional evaluation, or as part of certain legal obligations borne by TRACTEBEL.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>In particular, your connections, your
+    route on the Platform and the results of tests integrated in the Modules may be
+    recorded and analyzed.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>This information is only accessible to
+    persons who need to know it for the purposes described above.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>It is kept throughout the duration of
+    your Employment Contract and for a maximum of 5 years thereafter.</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>With respect to your personal data,
+    you have the right to access, the right&nbsp;&nbsp;to rectification, the right
+    to erasure, the right to restrict, the right to object, the right to
+    restriction of processing, the right to data portability, which you can
+    exercise by sending an e-mail to the following address:</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span lang=FR style='color:black'><a
+    href="mailto:technical@themoocagency.com"><span lang=EN-GB style='color:#0075B4'>technical@themoocagency.com</span></a></span></p>
+    
+    <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;text-align:
+    justify;line-height:normal;background:white'><span lang=EN-GB style='color:#222222'>&nbsp;</span></p>
+    
+    <p class=MsoNormal style='margin-top:15.0pt;margin-right:0in;margin-bottom:
+    0in;margin-left:0in;margin-bottom:.0001pt;line-height:normal;background:white'><span
+    lang=EN-GB style='color:#222222'>Pursuant to the applicable regulations,
+    you have the right to lodge a complaint with the competent control authority
+    (as the CNIL in France).</span></p>
+    
+    <p class=MsoNormal>&nbsp;</p>
+    
+    </div>
 
 </main>
