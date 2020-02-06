@@ -35,7 +35,6 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -47,6 +46,8 @@ except:
     course_id = None
 site_status_msg = get_site_status_msg(course_id)
 %>
+
+
 % if site_status_msg:
 <div class="site-status">
   <div class="inner-wrapper">
@@ -322,7 +323,49 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <!-- End Piwik Code -->
 % endif
 
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+%>
 <style>
+
+.discussion.wrapper-course-material{
+  background-color: ${custom_color} !important;
+}
+div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary .page-header-secondary .form-actions button.new-post-btn{
+  background-color:  ${custom_color} !important;
+}
+.discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand, .forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label{
+  background-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.btn-brand {
+    background-color:  ${custom_color} !important;
+    border-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.cancel, .discussion-reply-new button.discussion-submit-post {
+    color:  ${custom_color} !important;
+}
+.discussion-module .btn, .wmd-prompt-dialog .btn, .btn {
+  border: 1px solid  ${custom_color} !important;
+}
+.has-breadcrumbs .breadcrumbs .all-topics{
+  color:  ${custom_color} !important;
+}
+.btn-brand, .modal .inner-wrapper form .submit input[type="submit"], .leanModal_box .inner-wrapper form .submit input[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"] {
+    border-color:  ${custom_color} !important;
+    background:  ${custom_color}!important;
+}
+.edit-post-form .post-cancel {
+  color:  ${custom_color} !important;
+}
 .header-global .user .dropdown{
   background: transparent ! important;
 }
@@ -332,10 +375,26 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 .header-global .user .user-link .user-image-frame{
   border-radius : 60% !important;
 }
+.header-global .user .user-link .user-image-frame{
+  border-radius : 60% !important;
+}
 .header-global .user{
   flex: 1;
   display: flex;
   justify-content: flex-end;
+}
+.header-global .wrapper-header .wrapper-user-menu{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.header-global .wrapper-header{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.header-global{
+background-color: #fff3e4!important;
 }
 body.view-in-course .header-global .wrapper-header, body.view-in-course .header-global.slim .wrapper-header{
   display: flex;
