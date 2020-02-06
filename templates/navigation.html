@@ -325,7 +325,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 
 <%
 custom_color = str(configuration_helpers.get_value('primary_color'))
-if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
   if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
     custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
   else:
@@ -336,7 +336,18 @@ else:
 endif
 %>
 <style>
-
+.header-global .wrapper-header{
+  padding: 10px 10px 10px !important;
+}
+.dropdown-menu-container .menu-button{
+  margin-top: 0px !important;
+}
+.list-inline > li > a{
+  font-size: 0.9rem;
+}
+.dropdown-menu-container .menu-image{
+  border-radius : 60%;
+}
 .discussion.wrapper-course-material{
   background-color: ${custom_color} !important;
 }
@@ -347,8 +358,8 @@ div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary 
   background-color:  ${custom_color} !important;
 }
 .forum-new-post-form button.btn-brand {
-    background-color:  ${custom_color} !important;
-    border-color:  ${custom_color} !important;
+  background-color:  ${custom_color} !important;
+  border-color:  ${custom_color} !important;
 }
 .forum-new-post-form button.cancel, .discussion-reply-new button.discussion-submit-post {
     color:  ${custom_color} !important;
@@ -392,14 +403,19 @@ div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary 
   display: flex;
   justify-content: flex-start;
   align-items: center;
+height : 74%;
 }
 .header-global{
-background-color: #fff3e4!important;
+  background-color: #fff3e4!important;
 }
 body.view-in-course .header-global .wrapper-header, body.view-in-course .header-global.slim .wrapper-header{
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height : 74%;
+}
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
+  background-color:  ${custom_color} !important;
 }
 .user-menu{
   margin-top : 5px;
