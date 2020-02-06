@@ -129,6 +129,9 @@ site_status_msg = get_site_status_msg(course_id)
           color: #fff !important;
           background: black;
         }
+        .header-global .nav-global li a:hover > span{
+          color: #fff !important;
+        }
         .course-search > form > label {
           display: inline-block;
           vertical-align: top;
@@ -452,7 +455,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses">Découvrez notre offre de formation</a>
+                <a class="btn" href="/courses">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
               </li>
             %endif
           % endif
