@@ -1,20 +1,20 @@
 <%! from django.utils.translation import ugettext as _ %>
-${_("Hello {first_name},").format(first_name=first_name)}
+Bonjour ${first_name},
 
-${_("Welcome to your digital training course {course_name}.").format(course_name=course.display_name_with_default_escaped)}
+Bienvenue dans votre parcours de formation digital "${course_name}".
 
-${_("Your personal account on our training platform is accessible from the page:")}
+Votre compte personnel sur notre plateforme de formation est accessible à partir de la page :
 ${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
 
-${_("Your personal access codes:")}
-${_("login: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+Vos codes d'accès personnels :
+Login : ${email_address}
+Mot de passe : ${password}
 
-${_("It is recommended that you change your password.")}
+Il est recommandé de personnaliser votre mot de passe lors de la première connexion en cliquant sur " mot de passe oublié " sur votre page de connexion.
 
-${_("Sincerely yours,")}
+Bonne formation et à bientôt !
 
-${_("The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+L'équipe de "${course_name}".
 
 -----------------------------------
 
@@ -34,3 +34,22 @@ Het is aangewezen om uw wachtwoord te veranderen bij de eerste aanmelding door o
 Wij wensen u een leerrijke opleiding en tot snel !
 
 Het team van "${course_name}".
+
+-----------------------------------
+
+Hello ${first_name},
+
+Welcome to your digital training course "${course_name}".
+
+Your personal account on our training platform is accessible from the page:
+${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
+
+Your personal access codes:
+Login : ${email_address}
+password : ${password}
+
+It is recommended to personalise your password during the first connection by clicking on "forgotten password" on your connection page.
+
+Good training and see you soon!
+
+The "${course_name}" team.
