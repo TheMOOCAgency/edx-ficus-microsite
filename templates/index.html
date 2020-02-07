@@ -172,12 +172,27 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   </div>
 </div>
 <script>
-  $("#login-butn").click(function()
-    {
-      // window.location.href = "/login?admin=true"
-      
-      $("#connect-popin-veil").show();
-      console.log('pouet 2')
-    }
-  )
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+$("#login-butn").click(function(){
+  if(getParameterByName("company")=="to"){
+    window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod";
+  }else if(getParameterByName("company")=="safran"){
+    window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod";
+  }else if(getParameterByName("company")=="saintgobain"){
+    window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain";
+  }else{
+    $("#connect-popin-veil").show();
+  }
+});
+
+
 </script>
