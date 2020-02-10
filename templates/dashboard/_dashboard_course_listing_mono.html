@@ -63,7 +63,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   <!--<a href="/courses/${enrollment.course_id}/courseware/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Bookmarks')}</span></a>-->
   % endif
   % if multi_course_platform:
-    <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
+    <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Return')}</span></a>
   % endif
   <span style="clear:left;display:block;"></span>
 </div>
@@ -87,7 +87,7 @@ $.ajax({
 %else:
 
 <div id="title_dashboard_course">
-  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+  <h1 class="opening">Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/> A très vite !</h1>
 </div>
 
 
@@ -103,6 +103,14 @@ $.ajax({
                }
            });
 </script>
+
+<script>
+    if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      $('#title_dashboard_course>.opening').html($('#title_dashboard_course>.opening').html().replace('Ouverture le','Opening on'))
+      $('#title_dashboard_course>.opening').html($('#title_dashboard_course>.opening').html().replace('A très vite !','See you soon'))
+    }
+</script>
+
 
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");

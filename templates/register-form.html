@@ -55,9 +55,9 @@ $( document ).ready(function(){
 
     $("#field-country>label").text('Country / Region')
 
-    $("#country>option[values='MO']").text('Macao, SAR')
-    $("#country>option[values='TW']").text('Taiwan region')
-    $("#country>option[values='HK']").text('Hong-Kong, SAR')
+    $("#country>option[value='MO']").text('Macao, SAR')
+    $("#country>option[value='TW']").text('Taiwan region')
+    $("#country>option[value='HK']").text('Hong-Kong, SAR')
 
     $("#field-is_pro label").text('Are you working or studying in the wine-related industry ?');
 
@@ -123,9 +123,9 @@ $( document ).ready(function(){
     $("#field-country>label").text('Pays / Région')
 
 
-    $("#country>option[values='MO']").text('Macao, SAR')
-    $("#country>option[values='TW']").text('Taïwan region')
-    $("#country>option[values='HK']").text('Hong-Kong, SAR')
+    $("#country>option[value='MO']").text('Macao, SAR')
+    $("#country>option[value='TW']").text('Taïwan region')
+    $("#country>option[value='HK']").text('Hong-Kong, SAR')
 
     $("<optgroup label=\" Distribution : \">").insertBefore($("#tell_us_more option[value='importexport']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_distribution']"))
@@ -346,7 +346,7 @@ margin-left: 38px;
       _countries = list(countries)
       %>
       % for f in _countries:
-        <option values="${f[0]}">${f[1]}</option>
+        <option value="${f[0]}">${f[1]}</option>
       %endfor
     % endif
     % if n.get('name') == 'year_of_birth':
