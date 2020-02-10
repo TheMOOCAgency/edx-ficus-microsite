@@ -103,37 +103,42 @@
                   </div>
                </div>
             </div>
-            <div class="row" style="width: 85%; margin: auto;">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4" >
+            <div class="row" style="width: 85%;margin: auto;text-align: center;">
+               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4">
                   <button id="discoverOnco" onclick="openDiscoverOnco()">G8 Découvrez l’outil d’aide à l’orientation vers l’évaluation oncogériatrique</button>
                </div>
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer" >
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion0.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer" >
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion1.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion2.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion3.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion4.jpg" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
+               <div class="col-xs-12 special_thanks">
+                  <h4>Avec la participation financière de :</h4>
                   <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion5.jpg" class="logoRegion">
                </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion0.png" class="logoRegion">
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion1.png" class="logoRegion">
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion2.png" class="logoRegion">
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion3.png" class="logoRegion">
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion4.jpg" class="logoRegion">
+               </div>
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
                   <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion6.png" class="logoRegion">
                </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
                   <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion7.jpg" class="logoRegion">
                </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer" >
+               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
                   <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion8.jpg" class="logoRegion">
-               </div>                                 
+               </div>
+               <div class="col-xs-12 special_thanks">
+                  <h4>Et avec le soutien de :</h4>
+                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoSoutien.jpg" class="logoRegion"></div>
+               </div>                                
             </div>
          </section>
          <section>
@@ -395,6 +400,10 @@
                bindindFunctionMainSection1Bis();
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
+               $(document).ready(function(){
+                  console.log('pouet3')
+                  $("body").css({"display":"inherit"})
+               })
              }
             
             var objJson
@@ -413,7 +422,7 @@
               }
             }
             a.send();
-            a.addEventListener('loadend', $("body").css({"display":"inherit"}));
+            // a.addEventListener('loadend', $("body").css({"display":"inherit"}));
             
             $(".scroll").click(function() {
             	$('html, body').animate({
