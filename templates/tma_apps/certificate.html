@@ -207,7 +207,8 @@ background_url = configuration_helpers.get_value('bg_img')
     Swal.fire({
       text: languages['${request.LANGUAGE_CODE}']['text'],
       icon: 'info',
-      confirmButtonText: languages['${request.LANGUAGE_CODE}']['button']
+      confirmButtonText: languages['${request.LANGUAGE_CODE}']['button'],
+      confirmButtonColor: 'rgba(200,175,130,1)'
     });
   }
 </script>
