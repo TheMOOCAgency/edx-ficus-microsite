@@ -363,6 +363,41 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+let dropdownDepartments = document.getElementById('departement');
+dropdownDepartments.length = 0;
+
+let defaultOption = document.createElement('option');
+
+dropdownDepartments.add(defaultOption);
+dropdownDepartments.selectedIndex = 0;
+
+const url = '/media/microsite/onco-occitanie/pagebuilder/json/departements.json';
+
+fetch(url)  
+  .then(  
+    function(response) {  
+      if (response.status !== 200) {  
+        console.warn('Looks like there was a problem. Status Code: ' + 
+          response.status);  
+        return;  
+      }
+
+      // Examine the text in the response  
+      response.json().then(function(data) {  
+        let option;
+    
+    	for (let i = 0; i < data.length; i++) {
+          option = document.createElement('option');
+      	  option.text = data[i].departmentCode + ' - ' + data[i].departmentName;
+      	  option.value = data[i].departmentName;
+      	  dropdownDepartments.add(option);
+    	}    
+      });
+    }  
+  )  
+  .catch(function(err) {  
+    console.error('Fetch Error -', err);  
+  });
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
