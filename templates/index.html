@@ -1,13 +1,18 @@
 <!DOCTYPE html> 
 <html>
-   <html>
+   <div>
       <head>
      <meta charset='utf-8'>
          <meta name='viewport' content='width=device-width, initial-scale=1.0'>
          <title id='masterTitle'></title>
-		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+         <script src='/media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/js/bootstrap.min.js'></script>
+         <script src='/media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/js/jquery.scrollify.js'></script>
+         <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
+         <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
+         <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/css/style.css">
       </head>
-      <body style="display: none">
+      <body>
          <nav id = "nav"class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -35,124 +40,129 @@
             </div>
             <!--/.container-fluid -->          
          </nav>
-         <section id="se1" style="">
-            <div class="row vertical-center">
-               <div class="col-md-12 text-center">
-                  <div class="container-fluid" id="containerTitleBand">
-                     <div id="titleBand">
-                        <h1 id="mainTitle1"></h1>
-                        <h1 pre id="mainTitle2"></h1>
-                        <h1 id="mainTitle3" style="display: none"></h1>
-                        <!-- <p id="introConnect"></p> -->
+         <div id="loading_spinner">
+            <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/loading.gif">
+         </div>
+         <div id="page_content" style="display: none">
+            <section id="se1" style="">
+               <div class="row vertical-center">
+                  <div class="col-md-12 text-center">
+                     <div class="container-fluid" id="containerTitleBand">
+                        <div id="titleBand">
+                           <h1 id="mainTitle1"></h1>
+                           <h1 pre id="mainTitle2"></h1>
+                           <h1 id="mainTitle3" style="display: none"></h1>
+                           <!-- <p id="introConnect"></p> -->
+                        </div>
+                        <div class="col" style="text-align: left;">                  
+                           <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
+                           <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
+                                       
+                        </div>
                      </div>
-                     <div class="col" style="text-align: left;">                  
-                        <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
-                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
-                                     
+                  </div>
+                  <!-- <div class="col-md-12 text-center scrollCn">                   				   
+                     <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                       
+                  </div> -->
+               </div>
+            </section>
+            <section id="se1_bis">
+               <div class="row row-eq-height">
+                  <div class="col-xs" style="padding-left: 4%; padding-top: 4%;">
+                     <h2 class="text-center sectionTitle"></h2>
+                     <h2 class="surligner">___________________</h2>
+                     <p id="text_bis">This is some text.</p>
+                  </div>
+               </div>
+            </section>
+            <section id="se2">
+               <div class="row row-eq-height">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
+                     <h2 class="text-center sectionTitle"></h2>
+                     <h2 class="surligner">___________________</h2>
+                     <div class="embed-responsive embed-responsive-4by3">
+                        <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" type="video/mp4" allowfullscreen></iframe> -->
+                        <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen poster="/media/microsite/onco-occitanie/pagebuilder/assets/img/video_vignette.png">
+                     </video> 
                      </div>
                   </div>
-               </div>
-               <!-- <div class="col-md-12 text-center scrollCn">                   				   
-                  <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                       
-               </div> -->
-            </div>
-         </section>
-         <section id="se1_bis">
-            <div class="row row-eq-height">
-               <div class="col-xs" style="padding-left: 4%; padding-top: 4%;">
-                  <h2 class="text-center sectionTitle"></h2>
-                  <h2 class="surligner">___________________</h2>
-                  <p id="text_bis">This is some text.</p>
-               </div>
-            </div>
-         </section>
-         <section id="se2">
-            <div class="row row-eq-height">
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
-                  <h2 class="text-center sectionTitle"></h2>
-                  <h2 class="surligner">___________________</h2>
-                  <div class="embed-responsive embed-responsive-4by3">
-                     <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" type="video/mp4" allowfullscreen></iframe> -->
-                     <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen poster="/media/microsite/onco-occitanie/pagebuilder/assets/img/video_vignette.png">
-                    </video> 
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
+                     <div class="tableChild">
+                        <!-- <h1 id="vvTitle"></h1> -->
+                        <p id="vvText1">This is some text.</p>
+                        <p id="vvText2">This is some text.</p>
+                        <p id="vvText3">This is some text.</p>
+                        <p id="vvText4">This is some text.</p>
+                     </div>
+                     <button id="goToWhatIsMooc" href="#" onclick="goToWhatIsMooc()">qu'est-ce qu'un mooc ?</button>
                   </div>
                </div>
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
-                  <div class="tableChild">
-                     <!-- <h1 id="vvTitle"></h1> -->
-                     <p id="vvText1">This is some text.</p>
-                     <p id="vvText2">This is some text.</p>
-                     <p id="vvText3">This is some text.</p>
-                     <p id="vvText4">This is some text.</p>
-                  </div>
-                  <button id="goToWhatIsMooc" href="#" onclick="goToWhatIsMooc()">qu'est-ce qu'un mooc ?</button>
-               </div>
-            </div>
-         </section>
-         <section id="se3">
-            <div class="row">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
-                  <h2 class="text-center sectionTitle"></h2>
-                  <h2 class="surligner">___________________</h2>
-                  <div class="overMars">
-                     <div class="container">
-                        <div class="row" id ="markWeeks">
-                           <div class="col-md-12"></div>
+            </section>
+            <section id="se3">
+               <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+                     <h2 class="text-center sectionTitle"></h2>
+                     <h2 class="surligner">___________________</h2>
+                     <div class="overMars">
+                        <div class="container">
+                           <div class="row" id ="markWeeks">
+                              <div class="col-md-12"></div>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="row" style="width: 85%;margin: auto;text-align: center;">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4">
-                  <button id="discoverOnco" onclick="openDiscoverOnco()">G8 Découvrez l’outil d’aide à l’orientation vers l’évaluation oncogériatrique</button>
+               <div class="row" style="width: 85%;margin: auto;text-align: center;">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4">
+                     <button id="discoverOnco" onclick="openDiscoverOnco()">G8 Découvrez l’outil d’aide à l’orientation vers l’évaluation oncogériatrique</button>
+                  </div>
+                  <div class="col-xs-12 special_thanks">
+                     <h4>Avec la participation financière de :</h4>
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion5.jpg" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion0.png" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion1.png" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion2.png" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion3.png" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion4.jpg" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion6.png" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion7.jpg" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion8.jpg" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 special_thanks">
+                     <h4>Et avec le soutien de :</h4>
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoSoutien.jpg" class="logoRegion">
+                  </div>                                
                </div>
-               <div class="col-xs-12 special_thanks">
-                  <h4>Avec la participation financière de :</h4>
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion5.jpg" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion0.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion1.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion2.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion3.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion4.jpg" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion6.png" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion7.jpg" class="logoRegion">
-               </div>
-               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion8.jpg" class="logoRegion">
-               </div>
-               <div class="col-xs-12 special_thanks">
-                  <h4>Et avec le soutien de :</h4>
-                  <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoSoutien.jpg" class="logoRegion"></div>
-               </div>                                
-            </div>
-         </section>
-         <section>
-            <div class="team-boxed" >
-               <div class="container" >
-                  <section id="whatIsMooc">
-                     <h2 class="text-center sectionTitle">qu'est-ce qu'un mooc ?</h2>
-                     <h2 class="surligner">___________________</h2>
-                  </section>
-                  <div class="row people" id = "markMoock"> 
+            </section>
+            <section>
+               <div class="team-boxed" >
+                  <div class="container" >
+                     <section id="whatIsMooc">
+                        <h2 class="text-center sectionTitle">qu'est-ce qu'un mooc ?</h2>
+                        <h2 class="surligner">___________________</h2>
+                     </section>
+                     <div class="row people" id = "markMoock"> 
+                     </div>
                   </div>
                </div>
-            </div>
-         </section>
+            </section>
+         </div>
          <footer id="footer">
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
@@ -243,34 +253,33 @@
                      }
 			
 					var scriptLinkGenerator =  function(){
-		
-						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
-						var script = document.createElement('script');
-						var script2 = document.createElement('script');
-						var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
-						script.id = 'Sid1';
-						script.src = mainPathB+scriptSrcArr[0];
-						script2.id = 'Sid2';
-						script2.src = mainPathB+scriptSrcArr[1];
-						document.head.appendChild(script);
-						document.head.appendChild(script2);
+						// var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
+						// var script = document.createElement('script');
+						// var script2 = document.createElement('script');
+						// var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
+						// script.id = 'Sid1';
+						// script.src = mainPathB+scriptSrcArr[0];
+						// script2.id = 'Sid2';
+						// script2.src = mainPathB+scriptSrcArr[1];
+						// document.head.appendChild(script);
+						// document.head.appendChild(script2);
 				
-						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
-						var link1 = document.createElement('link');
-						link1.id = 'id1';
-						link1.rel = 'stylesheet';
-						link1.href = pathMedia+ micrositeName + lsSrcArr[0];
-						var link2 = document.createElement('link');
-						link2.id = 'id2';
-						link2.rel = 'stylesheet';
-						link2.href = pathMedia+ micrositeName + lsSrcArr[1];
-						var link3 = document.createElement('link');
-						link3.id = 'id3';
-						link3.rel = 'stylesheet';
-						link3.href = pathMedia+ micrositeName + lsSrcArr[2];
-						document.head.appendChild(link1);
-						document.head.appendChild(link2);
-                  document.head.appendChild(link3);
+						// var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
+						// var link1 = document.createElement('link');
+						// link1.id = 'id1';
+						// link1.rel = 'stylesheet';
+						// link1.href = pathMedia+ micrositeName + lsSrcArr[0];
+						// var link2 = document.createElement('link');
+						// link2.id = 'id2';
+						// link2.rel = 'stylesheet';
+						// link2.href = pathMedia+ micrositeName + lsSrcArr[1];
+						// var link3 = document.createElement('link');
+						// link3.id = 'id3';
+						// link3.rel = 'stylesheet';
+						// link3.href = pathMedia+ micrositeName + lsSrcArr[2];
+						// document.head.appendChild(link1);
+						// document.head.appendChild(link2);
+                  // document.head.appendChild(link3);
                   
                   $("#loginLink1").attr("href",pathLogin + connectLink)
                   $("#registerLink1").attr("href",pathRegister + connectLink)
@@ -279,85 +288,73 @@
                   $("#loginButn").click(function(){window.location.href = pathLogin + connectLink})
                   $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
                   $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
-		}
+		         }
 			
-                     var bindindFunctionNav = function(){
-					 var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
+               var bindindFunctionNav = function(){
+					   var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
 						$(".logoNav").attr("src",logoSrc)
-            	
             	}
-                     
-                   
 					 
-					 var bindindFunctionA = function(){
-            	iter =  objJson.container.section3.nrbThumbnail
-            	for (i = 0; i < iter ; i++ ){
-            		thumbnailObj = objJson.container.section3.thumbnail[i]
-            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
-            		tbTitle = thumbnailObj.title
-            		tbText = thumbnailObj.text
-            		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
-            		$('#markMoock').append(thumbnailMOOC)
-            	
-            	}
-                     
-                     }
+					var bindindFunctionA = function(){
+                  iter =  objJson.container.section3.nrbThumbnail
+                     for (i = 0; i < iter ; i++ ){
+                     thumbnailObj = objJson.container.section3.thumbnail[i]
+                     tbTitle = thumbnailObj.title
+                     tbText = thumbnailObj.text
+                     thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
+                     $('#markMoock').append(thumbnailMOOC)
+                  }
+               }
             
-                     var bindindFunctionB = function(){
-            	iter =  objJson.container.section4.nbrThumbnail
-            	for (i = 0; i < iter ; i++ ){
-            		thumbnailObj = objJson.container.section4.thumbnail[i]
-            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
-            		titleThumb = objJson.container.section4.thumbnail[i].title
-            		pWeeksContent = objJson.container.section4.thumbnail[i].content
-                  pWeeksSubContent = objJson.container.section4.thumbnail[i].subContent
-                  moduleDetails = objJson.container.section4.thumbnail[i].details
-            		imgThumbSrcIcon
-            		imgThumbSrc = composeurUrlSrc2+i+termJpg
-                  pWeeksTitle = "Semaine"+"&nbsp"+i
+               var bindindFunctionB = function(){
+                  iter =  objJson.container.section4.nbrThumbnail
+                  for (i = 0; i < iter ; i++ ){
+                     thumbnailObj = objJson.container.section4.thumbnail[i]
+                     titleThumb = objJson.container.section4.thumbnail[i].title
+                     pWeeksContent = objJson.container.section4.thumbnail[i].content
+                     pWeeksSubContent = objJson.container.section4.thumbnail[i].subContent
+                     moduleDetails = objJson.container.section4.thumbnail[i].details
+                     imgThumbSrcIcon
+                     imgThumbSrc = composeurUrlSrc2+i+termJpg
+                     pWeeksTitle = "Semaine"+"&nbsp"+i
+                     
+                     thumbnailChapEsc =  "<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'><div class='caption'> <h3 class='titleMiniThumb'> " + titleThumb + "</h3><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p><p class='pWeeksSubContent'>"+pWeeksSubContent+"</p></div> <div class='details'> <p>"+moduleDetails+"</p> </div>  </div>  </div>"
+               
+                     $('#markWeeks').append(thumbnailChapEsc)
                   
-                  thumbnailChapEsc =  "<div class='col-md-4 noflex ChapEsc ' ><div class='thumbnail'><div class='caption'> <h3 class='titleMiniThumb'> " + titleThumb + "</h3><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p><p class='pWeeksSubContent'>"+pWeeksSubContent+"</p></div> <div class='details'> <p>"+moduleDetails+"</p> </div>  </div>  </div>"
-            
-            		$('#markWeeks').append(thumbnailChapEsc)
-            	
-            	}
+                  }
+               }
                      
-                     }
+               var bindindFunctionFooter = function(){
+            	   var footerTitleContent = objJson.container.section4.footer
+            	   var footerTitleContentTitle = objJson.container.section4.footer.title
+            	   $('#footerTitle').text(footerTitleContentTitle)
+               }
                      
-                     var bindindFunctionFooter = function(){
-            	 var footerTitleContent = objJson.container.section4.footer
-            	 var footerTitleContentTitle = objJson.container.section4.footer.title
-            	 $('#footerTitle').text(footerTitleContentTitle)
+               var bindindFunctionMainSection= function(){
+                  var mainTitleContent = objJson.container.section1.title
+                  var mainTitleContentTitle = objJson.container.section1.title.title1
+                  var mainTitleContentTitle2 = objJson.container.section1.title.title2
+                  var mainTitleContentTitle3 = objJson.container.section1.title.title3
+                  $('#mainTitle1').text(mainTitleContentTitle)
+                  $('#mainTitle2').html(mainTitleContentTitle2)
+               }
                      
-                     }
-                     
-                     var bindindFunctionMainSection= function(){
-            	  var mainTitleContent = objJson.container.section1.title
-            	  var mainTitleContentTitle = objJson.container.section1.title.title1
-                var mainTitleContentTitle2 = objJson.container.section1.title.title2
-                var mainTitleContentTitle3 = objJson.container.section1.title.title3
-            	  $('#mainTitle1').text(mainTitleContentTitle)
-                $('#mainTitle2').html(mainTitleContentTitle2)
-                //  $('#mainTitle3').text(mainTitleContentTitle3)
-                     
-                     }
-                     
-                     var bindindFunctionMainSectionVideo = function(){
-            	 var mainTitleContent = objJson.container.section2
-            	 var mainTitleContentTitle = objJson.container.section2.title
-                var mainTitleContentText1 = objJson.container.section2.textLeft1
-                var mainTitleContentText2 = objJson.container.section2.textLeft2
-                var mainTitleContentText3 = objJson.container.section2.textLeft3
-                var mainTitleContentText4 = objJson.container.section2.textLeft4
-                var srcV = objJson.container.section2.videoSrc
-                // var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
-            	 $('#vvTitle').text(mainTitleContentTitle)
-            	 $('#videoSr').attr("src",srcV)
-                $('#vvText1').text(mainTitleContentText1)
-                $('#vvText2').html(mainTitleContentText2)
-                $('#vvText3').text(mainTitleContentText3)
-                $('#vvText4').text(mainTitleContentText4)
-                     }
+               var bindindFunctionMainSectionVideo = function(){
+                  var mainTitleContent = objJson.container.section2
+                  var mainTitleContentTitle = objJson.container.section2.title
+                  var mainTitleContentText1 = objJson.container.section2.textLeft1
+                  var mainTitleContentText2 = objJson.container.section2.textLeft2
+                  var mainTitleContentText3 = objJson.container.section2.textLeft3
+                  var mainTitleContentText4 = objJson.container.section2.textLeft4
+                  var srcV = objJson.container.section2.videoSrc
+                  $('#vvTitle').text(mainTitleContentTitle)
+                  $('#videoSr').attr("src",srcV)
+                  $('#vvText1').text(mainTitleContentText1)
+                  $('#vvText2').html(mainTitleContentText2)
+                  $('#vvText3').text(mainTitleContentText3)
+                  $('#vvText4').text(mainTitleContentText4)
+               }
                          
             var bindindFunctionMainSectionIntro= function(){
             	var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
@@ -383,12 +380,11 @@
             
             var bindindFunctionMeta = function(){
             	var mainTitleContent = objJson.page.title
-            	$("#masterTitle").text(mainTitleContent) 
+               $("#masterTitle").text(mainTitleContent) 
             }
             
             var masterBind= function(){
-				
-				scriptLinkGenerator();
+				   scriptLinkGenerator();
             	bindindFunctionA();
             	bindindFunctionB();
             	bindindFunctionNav();
@@ -400,10 +396,6 @@
                bindindFunctionMainSection1Bis();
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
-               $(document).ready(function(){
-                  console.log('pouet3')
-                  $("body").css({"display":"inherit"})
-               })
              }
             
             var objJson
@@ -422,7 +414,8 @@
               }
             }
             a.send();
-            // a.addEventListener('loadend', $("body").css({"display":"inherit"}));
+            $("#page_content").css({"display":"inherit"})
+            $("#loading_spinner").css({"display":"none"})
             
             $(".scroll").click(function() {
             	$('html, body').animate({
