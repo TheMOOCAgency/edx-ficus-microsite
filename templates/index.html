@@ -11,6 +11,7 @@
          <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
          <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
          <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700&display=swap" rel="stylesheet">
       </head>
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-33545233-1"></script>
@@ -77,24 +78,24 @@
 </div>
 <section style='height : 100vh;width : 100vw; background-image:  url("media/microsite/5aconseil/bg_image.png");background-position: center;background-size: cover;'>
   <div style="width : 50%; float:left;display:flex;flex-direction: column;margin-left: 8vw;margin-top : 25vh;height: 100%;">
-      <h1>
+      <h1 style='font-family : "Josefin Sans"!important; font-weight : 600!important;text-transform: inherit !important;line-height: 1.2!important;'>
           Retrouvez la clé du bonheur <br /> au travail maintenant
       </h1>
-      <h3>
+      <h3 style='font-family : "Josefin Sans"!important;line-height: 1.5!important;font-weight : 400!important;text-transform: inherit !important'>
         5a Conseil vous présente le 1er programme <br /> de coaching professionnel en ligne au féminin
       </h3>
-      <div style="display:flex; justify-content : center;width : 50%;">
-        <button type="button" value="s'inscrire" style="width : 200px; height : 60px;font-size : 2.5rem; background-color : #FF7C17; color : #fff; margin : 10px; border-radius : 50px; border : none!important;">
+      <div style="display:flex;width : 100%;">
+        <button class="BUTTON_QGJ" href="/register" type="button" value="s'inscrire" style='font-family : "Josefin Sans"; width : 200px; height : 60px;font-size : 2.5rem; background-color : #FF7C17; color : #fff; margin : 10px; border-radius : 50px; border : none!important;'>
           S'inscrire
         </button>
-        <button type="button" value="s'inscrire" style="width : 200px; height : 60px;font-size : 2.5rem; background-color : #2e2d2d; color : #fff; margin : 10px; border-radius : 50px; border : none!important;">
+        <button class="BUTTON_QGJ" href="/login" type="button" value="s'inscrire" style='font-family : "Josefin Sans"; width : 200px; height : 60px;font-size : 2.5rem; background-color : #2e2d2d; color : #fff; margin : 10px; border-radius : 50px; border : none!important;'>
           Se connecter
         </button>
       </div>
 
   </div>
 </section>
-<footer id="footer">
+<footer id="footer" style="background-color : #fff9f1 !important">
   <div class="row" style="width:100%">
      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 weekSp padou15" >
         <p class="orangeTitleP">Nous contacter </p>
@@ -131,6 +132,13 @@
 </footer>
 </body>
 	<script>
+  $('.BUTTON_QGJ').each(function(){
+    if(this.hasAttribute('href')){
+      $(this).click(function(){
+        window.open(this.getAttribute('href'))
+      })
+    }
+  })
 var envDefault = "developement"
 var organisation =
 	"5aconseil"
