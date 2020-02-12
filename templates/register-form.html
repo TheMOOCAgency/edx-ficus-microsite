@@ -372,31 +372,31 @@ dropdownDepartments.add(defaultOption);
 dropdownDepartments.selectedIndex = 0;
 
 const url = '/media/microsite/onco-occitanie/pagebuilder/json/departements.json';
-
-fetch(url)  
-  .then(  
-    function(response) {  
-      if (response.status !== 200) {  
-        console.warn('Looks like there was a problem. Status Code: ' + 
-          response.status);  
-        return;  
+  $.ajax(url, {
+      dataType: 'json',
+      cache : false,
+      type: 'GET',
+      global: true,
+      crossDomain: true,
+      xhrFields: {
+          withCredentials: true
       }
-
-      // Examine the text in the response  
-      response.json().then(function(data) {  
-        let option;
-    
-    	for (let i = 0; i < data.length; i++) {
-          option = document.createElement('option');
-      	  option.text = data[i].departmentCode + ' - ' + data[i].departmentName;
-      	  option.value = data[i].departmentName;
-      	  dropdownDepartments.add(option);
-    	}    
-      });
-    }  
-  )  
-  .catch(function(err) {  
-    console.error('Fetch Error -', err);  
+  })
+  .done(function(data) {
+    console.log( "Fetch data departements success" );
+    let option;
+    for (let i = 0; i < data.length; i++) {
+        option = document.createElement('option');
+        option.text = data[i].departmentCode + ' - ' + data[i].departmentName;
+        option.value = data[i].departmentName;
+        dropdownDepartments.add(option);
+    } 
+  })
+  .fail(function() {
+    console.log( "Fetch data departements failed" );
+  })
+  .always(function() {
+    console.log( "Fetch end" );
   });
 </script>
 <div class="form-actions" id="login_link_up">
