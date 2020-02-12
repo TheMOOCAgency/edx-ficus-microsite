@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+import json
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -272,6 +273,8 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <script>
     var username_pid = "${user.username}";
     var userid_tma = "${user.id}";
+    var first_name_tma = "${json.loads(user.profile.custom_field).get('first_name')}";
+    var last_name_tma = "${json.loads(user.profile.custom_field).get('last_name')}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
 
