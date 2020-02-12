@@ -125,7 +125,7 @@
               max-height:100%;
             }
             .footer-box {
-                background-color: #e4e4e4;
+                background-color: #fff;
                 border-top : 1px solid #2d2e81!important;
             }
             .footer-box .logo{
@@ -157,8 +157,11 @@
             #scroll_arrow{
               width: 100px;
               position: absolute;
-              top: calc(100vh);
+              top: calc(100vh - 80px);
               left: calc(50vw - 50px);
+            }
+            #scroll_arrow:hover{
+              cursor: pointer;
             }
             .buttns{
               margin-top: 100px;
@@ -179,6 +182,11 @@
               }
               .second-box{
                 padding-top: 25px;
+              }
+            }
+            @media (max-width: 754px) {
+              .footer_links{
+                text-align: center;
               }
             }
             @media (max-width: 640px) {
@@ -260,7 +268,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-white justify-content-between">
             <a class="navbar-brand p-3" style="margin:0 auto;" href="/">
-                <img src="/media/microsite/connexions-citoyennes/assets/logo_text_inside.png" alt="connexions-citoyennes logo">
+                <img src="/media/microsite/connexions-citoyennes/assets/Logo_CFI_2018_fond_blanc.jpg" alt="connexions-citoyennes logo">
             </a>
             <!--<ul class="navbar-nav">
                 <li class="nav-item">
@@ -395,27 +403,21 @@
                 </div>
             </div>
         </div>
-        <div class="footer-box">
-          <div class="text-center">
-              <a class="blue-text" href="/tos">Conditions Générales</a> - <a class="blue-text" href="/faq">FAQ</a>
-          </div>
-          <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-xs-12" style="text-align: center;">
-                  <p class="footer_p text-center">Un projet</p>
-                  <div>
-                    <img src="/media/microsite/connexions-citoyennes/assets/logo_text_inside.png" alt="connexions-citoyennes logo">
+        <div class="container-fluid footer-box">
+          <div class="row">
+              <div class="col-lg-6 col-md-3 col-sm-12 my-auto px-5 footer_links">
+                  <a class="blue-text" href="/tos">Conditions Générales</a> - <a class="blue-text" href="/faq">FAQ</a>
+              </div>
+              <div class="col-lg-6 col-md-9 col-sm-12 my-auto px-5 logo" style="margin: 0px!important;display:flex;justify-content: flex-end;align-items: center;">
+                  <div style="display: flex;text-align:center;align-items: center;margin: auto;margin-top: 10px;margin-bottom: 10px;">
+                    <p>Un projet</p>
+                    <img class="float-right" src="/media/microsite/connexions-citoyennes/assets/Logo_CFI_2018_fond_blanc.jpg" alt="connexions-citoyennes logo">
+                    <p>Financé par</p>
+                    <img class="float-right" src="/media/microsite/connexions-citoyennes/assets/Logo-AFD.jpg" alt="connexions-citoyennes logo">
                   </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-xs-12" style="text-align: center;">
-                  <p class="footer_p text-center">Financé par</p>
-                  <div>
-                    <img src="/media/microsite/connexions-citoyennes/assets/Logo-AFD.jpg" alt="connexions-citoyennes logo">
-                  </div>
-                </div>
               </div>
           </div>
-        </div>
+      </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
