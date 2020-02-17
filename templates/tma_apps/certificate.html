@@ -55,9 +55,8 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: space-between;
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 150px 100px 20px 100px;
     box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -68,10 +67,12 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #certificate-container{
     width:854px;
-    height:500px;
+    height:463px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-size: contain;
+    background-image: url('/media/microsite/onco-occitanie/pagebuilder/assets/img/certificat_onco_fond.png')
+    /* background-image: url('${background_url}') */
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -87,6 +88,32 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
     flex-direction: column;
   }
+  #internal-border > div > p {
+    text-align: left;
+    color: #127194;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  #internal-border > div > p:nth-child(1), #internal-border > div > p:nth-child(3) {
+    font-weight: 900;
+  }
+
+  #internal-border > div > p:nth-child(2) {
+    color: #c07d87;
+    font-size: 40px;
+    text-transform: capitalize;
+  }
+
+  #internal-border > div > p:nth-child(5) {
+    margin-top: 40px;
+    font-size: 16px;
+  }
+
 </style>
 
 <!-- CUSTOM STYLE -->
@@ -99,15 +126,13 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+      <div id="internal-border">
           <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+            <p>Le réseau Onco-Occitanie atteste que </p>
+            <p>${first_name} ${last_name}</p>
+            <p>A suivi avec succès le MOOC</p>
+            <p>${course_name}</p>
+            <p>Certificat délivré le <span id="dateDeCertificat"></span></p>
           </div>
           <div>
           </div>
@@ -141,6 +166,22 @@ background_url = configuration_helpers.get_value('bg_img')
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
+
+    // GET XCERTIFICATE DATE
+    var monthNames = [
+      "Janvier", "Fevrier", "Mars",
+      "Avril", "Mai", "Juin", "Juillet",
+      "Août", "Septembre", "Octobre",
+      "Novembre", "Decembre"
+    ];
+    date = new Date();
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    var certificate_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+
+    $('#dateDeCertificat').text(certificate_date)
   })
 </script>
 
