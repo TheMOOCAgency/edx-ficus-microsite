@@ -124,7 +124,23 @@ from third_party_auth import provider, pipeline
 </%block>
 
 <%include file="forgot_password_modal.html" />
-
+<style>
+.btn-login{
+  background-color : #FF684A !important;
+}
+#submit{
+  background : #FF684A !important;
+}
+section.login a, section.register a.new-vp, section.register #login_link{
+  color : #FF684A !important;
+}
+.login a:link, .login a:visited, .login a:hover, .login a:active, .login a:focus, .register a:link, .register a:visited, .register a:hover, .register a:active, .register a:focus, .passwordreset a:link, .passwordreset a:visited, .passwordreset a:hover, .passwordreset a:active, .passwordreset a:focus, #forgot-password-modal #password-reset a:link, #forgot-password-modal #password-reset a:visited, #forgot-password-modal #password-reset a:hover, #forgot-password-modal #password-reset a:active, #forgot-password-modal #password-reset a:focus{
+  color : #FF684A !important;
+}
+section.login a:hover, section.register a.new-vp:hover, section.register #login_link:hover{
+  color : #FF684A !important;
+}
+</style>
 <section class="introduction">
   <header>
     <h1 class="title">

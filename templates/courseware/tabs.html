@@ -27,6 +27,8 @@ def url_class(is_active):
 
   %if tab.name=="Discussion":
   Forum
+  %elif tab.name=="Course":
+  Parcours
   %else:
   ${_(tab.name)}
   %endif
