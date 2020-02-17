@@ -398,6 +398,17 @@ const url = '/media/microsite/onco-occitanie/pagebuilder/json/departements.json'
   .always(function() {
     console.log( "Fetch end" );
   });
+
+  $('#field-profession_add').hide()
+
+  $('#profession').change(function(e){
+    if (e.target.value === 'IDE autre secteur' || e.target.value === 'Médecin autre spécialité' || e.target.value === 'Autre') {
+      $('#field-profession_add').show();
+    } else {
+      $('#field-profession_add').hide();
+      $('#profession_add').val('');
+    }
+  })
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
