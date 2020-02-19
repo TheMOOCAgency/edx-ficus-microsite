@@ -121,6 +121,7 @@ background_url = configuration_helpers.get_value('bg_img')
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
           <div>
+            %if request.LANGUAGE_CODE == 'fr':
             <img src="/media/microsite/champagne-mooc/certificate/Attes_Logo_Attestation_FR.png" style="width: 60%;margin-top: 20px;" />
             <p style="font-size: 32px;margin-top: 30px;margin-bottom: 30px;">Attestation de suivi avec
               %if 80 <= int(grades['grade']*100) <= 90 :
@@ -133,17 +134,39 @@ background_url = configuration_helpers.get_value('bg_img')
                 <span>${int(grades['grade']*100)}%</span>
               %endif
             </p>
+            %else:
+            <img src="/media/microsite/champagne-mooc/certificate/Attes_Logo_Attestation_EN.png" style="width: 60%;margin-top: 20px;" />
+            <p style="font-size: 32px;margin-top: 30px;margin-bottom: 30px;">Statement of completion
+              %if 80 <= int(grades['grade']*100) <= 90 :
+                <span>with success</span>
+              %elif 90 <= int(grades['grade']*100) <= 96 :
+                <span>with merit</span>
+              %elif 96 <= int(grades['grade']*100) <= 100 :
+                <span>with distinction</span>
+              %else:
+                <span>${int(grades['grade']*100)}%</span>
+              %endif
+            </p>
+            %endif
             <h3 class='name'>${first_name} <b style="text-transform:uppercase">${last_name}</b></h3>
           </div>
           <div style="display: flex;justify-content: space-between;width: calc(100% - 100px);height: 160px;align-items: flex-end;padding: 0px 50px 30px 50px;">
             <div style="float:left">
+              %if request.LANGUAGE_CODE == 'fr':
               <p style="padding:0!important">Délivré le <b>${date.today().strftime("%d/%m/%Y") }</b></p>
+              %else:
+              <p style="padding:0!important">Delivered <b>${date.today().strftime("%d/%m/%Y") }</b></p>
+              %endif
             </div>
             <div style="display: flex;">
               <div style="height : 100%;text-align: right;margin-right: 60px;">
                 <img style="height : 120px" src="/media/microsite/champagne-mooc/certificate/Attes_Signature_Perrin.png"/>
                 <h5 style="margin-top:5px;font-size: 15px;"> <b>Vincent PERRIN</b></h5>
+                %if request.LANGUAGE_CODE == 'fr':
                 <p style="padding: 0!important;font-size: 15px;">DIRECTEUR DU COMITE CHAMPAGNE</p>
+                %else:
+                <p style="padding: 0!important;font-size: 15px;">COMITE CHAMPAGNE DIRECTOR</p>
+                %endif
               </div>
               <div style="height : 100%">
                 <img style="height : 110px;    margin-top: 42px;" src="/media/microsite/champagne-mooc/certificate/Attes_Logo_CC.png"/>
@@ -200,11 +223,13 @@ background_url = configuration_helpers.get_value('bg_img')
     let languages = {
       'en' : {
         'text': 'For an optimal rendering of your certificate please check that your certificate is fully visible, if not, zoom out.',
-        'button': 'Close'
+        'button': 'Close',
+        'TELECHARGER PDF': 'DOWNLOAD PDF'
       },
       'fr' : {
         'text': 'Pour un rendu optimal de votre certificat merci de régler votre écran en dézoomant si nécessaire pour voir l\'intégralité du certificat.',
-        'button': 'Fermer'
+        'button': 'Fermer',
+        'TELECHARGER PDF': 'TELECHARGER PDF'
       }
     }
 
@@ -214,5 +239,6 @@ background_url = configuration_helpers.get_value('bg_img')
       confirmButtonText: languages['${request.LANGUAGE_CODE}']['button'],
       confirmButtonColor: 'rgba(200,175,130,1)'
     });
+    $('#custom-btn').text(['${request.LANGUAGE_CODE}']['TELECHARGER PDF']);
   }
 </script>
