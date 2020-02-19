@@ -176,7 +176,11 @@ background_url = configuration_helpers.get_value('bg_img')
       </div>
   </div>
   <div id="pdf-btn-wrapper">
-    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+    %if request.LANGUAGE_CODE == 'fr':
+      <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+    %else:
+      <button id="custom-btn" onclick="CertificateToPdf()">DOWNLOAD PDF</button>
+    %endif
   </div>
 </div>
 
@@ -223,13 +227,11 @@ background_url = configuration_helpers.get_value('bg_img')
     let languages = {
       'en' : {
         'text': 'For an optimal rendering of your certificate please check that your certificate is fully visible, if not, zoom out.',
-        'button': 'Close',
-        'TELECHARGER PDF': 'DOWNLOAD PDF'
+        'button': 'Close'
       },
       'fr' : {
         'text': 'Pour un rendu optimal de votre certificat merci de régler votre écran en dézoomant si nécessaire pour voir l\'intégralité du certificat.',
-        'button': 'Fermer',
-        'TELECHARGER PDF': 'TELECHARGER PDF'
+        'button': 'Fermer'
       }
     }
 
@@ -239,6 +241,5 @@ background_url = configuration_helpers.get_value('bg_img')
       confirmButtonText: languages['${request.LANGUAGE_CODE}']['button'],
       confirmButtonColor: 'rgba(200,175,130,1)'
     });
-    $('#custom-btn').text(['${request.LANGUAGE_CODE}']['TELECHARGER PDF']);
   }
 </script>
