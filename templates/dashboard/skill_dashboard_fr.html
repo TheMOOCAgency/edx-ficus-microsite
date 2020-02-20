@@ -1,0 +1,116 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+from tma_apps.tma_support_functions import tma_verify_access
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
+%>
+<link rel="stylesheet" type="text/css" href="/media/microsite/digimapper-data/css/digimap.css" />
+<style>
+  .content_tma {
+    min-height: calc(100vh - 181px) !important;
+  }
+  .header-global .nav-global li a {
+    display: none;
+  }
+  .text-center{
+    text-align: center
+  }
+  .dashboard_profile {
+    margin-bottom: 20px;
+  }
+  #dashboard_course_content{
+    text-align: center;
+    padding-right: 49%;
+  }
+  @media(max-width:1024px) {
+    #dashboard_course_content {
+      width: calc(100% - 76px);
+      margin-left: 23px;
+    }
+  }
+  @media(max-width:673px) {
+    .course_show_tma {
+      left: calc(100% - 120px);
+      bottom: -48px;
+      transform: none;
+    }
+    #dashboard_course_content{
+      padding-right: 0px;
+    }
+    .tma_bottom_course_listing_multi {
+      position: relative;
+      bottom: 0;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+  @media(max-width:445px) {
+    #dashboard_course_content {
+      width: calc(100% - 14px);
+      margin-left: 7px;
+      margin-right: 7px;
+    }
+  }
+</style>
+
+<div id="dashboard_course_content">
+  <div id="logoData4Manager">
+    <img src="/media/microsite/digimapper-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+  </div>
+      %if course_state=="finished":
+      <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+      </a>
+      %elif course_state=="ongoing":
+      <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+      </a>
+      %else:
+      <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+      </a>
+      <!-- <button class="dashboard-btn" id="course_start">
+        <i class="fa fa-play-circle"></i>
+        DÉMARRER
+        %if associated_courses.get('step_number')>1:
+        L'EVALUATION ${associated_courses.get('step_number')}
+        %endif
+      </button> -->
+      %endif
+    </div>
+    <div class="row mt-20">
+      <div class="col-md-6 text-center">
+        %if user_course_state!="finished" :
+        <!-- <button class="sub-btn" disabled>
+          <i class="fa fa-book"></i>
+          Revoir mes réponses
+        </button> -->
+        %else :
+        <!-- <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+          <button class="sub-btn blue-btn"  id="see_answers">
+            <i class="fa fa-book"></i>
+            Revoir mes réponses
+          </button>
+        </a> -->
+        %endif
+      </div>
+      <div class="col-md-6 text-center">
+        %if user_course_state=="finished" :
+        <!-- <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+          <button class="sub-btn blue-btn deactivated" id="last_score">
+            <i class="fa fa-search"></i>
+            Consulter mon score précédent
+          </button>
+        </a> -->
+        %else :
+        <!-- <button class="sub-btn deactivated" disabled>
+          <i class="fa fa-search"></i>
+          Consulter mon score précédent
+        </button> -->
+        %endif
+      </div>
+</div>

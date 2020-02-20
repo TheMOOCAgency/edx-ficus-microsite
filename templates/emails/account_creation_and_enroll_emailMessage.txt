@@ -1,14 +1,20 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+Bienvenue dans la première étape de votre formation Data for Managers avec HEC Paris !
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+En amont des journées des 10 et 11 décembre, nous vous invitons à tester vos connaissances Data en répondant à 32 questions (comptez 35 minutes).
 
+Rendez vous sur ${_("{site_name}").format(site_name=site_name)} .
+Cliquez sur le bouton connexion et entrez vos identifiants :
 ${_("email: {email}").format(email=email_address)}
 ${_("password: {password}").format(password=password)}
 
-${_("It is recommended that you change your password.")}
+Il est recommandé de personnaliser votre mot de passe lors de la première connexion en cliquant sur « mot de passe oublié » sur votre page de connexion.
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+Répondre à ce questionnaire est optionnel. Il a pour objectif de vous permettre de vous situer et de vous familiariser avec les enjeux de la data transformation.
+A l'issue de chaque question, un texte explicatif vous permettra de commencer à développer vos connaissances.
+
+Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante : vbras@netexplo.org
+
+Cordialement,
+L'équipe de Data for Managers
