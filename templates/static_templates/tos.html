@@ -19,7 +19,7 @@ _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
   _template = "<p>Cgu</p>"
 %>
-<%block name="pagetitle">${_("Terms of Service")}</%block>
+<%block name="pagetitle"> Conditions Générales d’Utilisation » | Grande Ecole du Numérique </%block>
 <%
 static.get_value('domain_prefix')
 %>
@@ -27,6 +27,11 @@ static.get_value('domain_prefix')
 main {
  background-color: #fff;
 }
+
+a.static-link:hover {
+    color: gray !important;
+    text-decoration: none !important;
+  }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">

@@ -98,7 +98,7 @@ import datetime
     -->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
-      <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+      <input class="" id="email" type="email" name="email" value="${email}" placeholder="exemple : formateurGENial@grandeecole.numerique.fr" required aria-required="true" />
     </li>
 
 
@@ -110,7 +110,7 @@ import datetime
 
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
+      <input id="username" type="text" name="username" value="${username}" placeholder="exemple : formateurGENial" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
@@ -126,6 +126,7 @@ import datetime
     <li class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <span class="tip tip-input" style="position:inherit;">Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.</span>
     </li>
 
     % endif
@@ -207,6 +208,9 @@ import datetime
         %endfor
     % endif
   </select>
+  % if n.get('name') == 'formations':
+    <span style='line-height: 1em;font-size: 13px;' class="tip tip-input" >Si vous ne connaissez pas l’identifiant APGEN de la formation dans laquelle vous exercez, nous vous invitons à le rechercher sur notre <a style='font-family:"custom_font"' target="_blank" href="https://www.grandeecolenumerique.fr/les-formations">site internet</a> ou bien à le demander à la formation dans laquelle vous exercez.</span>
+  % endif
   % elif n.get('type') == 'checkbox':
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
