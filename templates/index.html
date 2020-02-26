@@ -7,7 +7,7 @@
          <title id='masterTitle'></title>
 		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
       </head>
-      <body style="display: none">
+      <body style="display: none;background-color: #F1F7F7;;">
          <nav id = "nav"class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -36,12 +36,11 @@
             <!--/.container-fluid -->          
          </nav>
          <section id="se1">
-            <div class="row" style="min-height: 630px; margin-top: 80px;">
-               <div class="col-md-12 text-center">
+            <div id="titleLogo"><img class="logoNav"></div>
+            <div class="row" style="min-height: 630px">
+               <div class="col-md-12">
                   <div class="container-fluid" id="containerTitleBand">
                      <div id="titleBand">
-                        <div id="titleLogo"><img class="logoNav"></div>
-                        <div id="titleTriangle">▼</div>
                         <h1 id="mainTitle1"></h1>
                         <h1 pre id="mainTitle2"></h1>
                         <h1 id="mainTitle3"></h1>
@@ -86,7 +85,7 @@
                <h2 class="text-center sectionTitle"></h2>
                <h2 class="surligner">___________________</h2>
                <div class="overMars">
-                  <div class="container">
+                  <div class="container" style="padding-right:0px">
                      <div class="row" id ="markWeeks">
                         <div class="col-md-12"></div>
                      </div>
@@ -247,22 +246,21 @@
                      }
             
                      var bindindFunctionB = function(){
-            	iter =  objJson.container.section4.nbrThumbnail
-            	for (i = 0; i < iter ; i++ ){
-            		thumbnailObj = objJson.container.section4.thumbnail[i]
-            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
-            		titleThumb = objJson.container.section4.thumbnail[i].title
-            		pWeeksContent = objJson.container.section4.thumbnail[i].content
-            		imgThumbSrcIcon
-            		imgThumbSrc = composeurUrlSrc2+i+termJpg
-                  pWeeksTitle = "Semaine"+"&nbsp"+i
-                  
-                  thumbnailChapEsc =  "<div class='col-md-6 noflex ChapEsc ' ><div class='thumbnail'>  <img src="+imgThumbSrc+ " class='thumbMg'> <div class='caption'> <h3 class='titleMiniThumb thumbText"+i+"'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
-            
-            		$('#markWeeks').append(thumbnailChapEsc)
-            	
-            	}
+                        iter =  objJson.container.section4.nbrThumbnail
+                        for (i = 0; i < iter ; i++ ){
+                           thumbnailObj = objJson.container.section4.thumbnail[i]
+                           // <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
+                           titleThumb = objJson.container.section4.thumbnail[i].title
+                           pWeeksContent = objJson.container.section4.thumbnail[i].content
+                           imgThumbSrcIcon
+                           imgThumbSrc = composeurUrlSrc2+i+termJpg
+                           pWeeksTitle = "Semaine"+"&nbsp"+i
+                           
+                           thumbnailChapEsc =  "<div class='col-md-6 noflex ChapEsc ' ><div class='thumbnail'><div class='imgcontainer'><img src="+imgThumbSrc+ " class='thumbMg'> <div class='hugicon-expand' id='hugicon"+i+"'></div></div><div class='caption'> <h3 class='titleMiniThumb thumbText"+i+"'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
                      
+                           $('#markWeeks').append(thumbnailChapEsc)
+                        }
+                        setThumbnailImgClickable(); 
                      }
                      
                      var bindindFunctionFooter = function(){
@@ -277,7 +275,7 @@
             	 var mainTitleContentTitle = objJson.container.section1.title.title1
                 var mainTitleContentTitle2 = objJson.container.section1.title.title2
                 var mainTitleContentTitle3 = objJson.container.section1.title.title3
-            	 $('#mainTitle1').text(mainTitleContentTitle)
+            	 $('#mainTitle1').html(mainTitleContentTitle)
                 $('#mainTitle2').text(mainTitleContentTitle2)
                 $('#mainTitle3').text(mainTitleContentTitle3)
                      
@@ -323,6 +321,29 @@
             	 $("#masterTitle").text(mainTitleContent)
                      
                      }
+
+            var setThumbnailImgClickable = function () {
+               console.log('set Thum nail 1 fois')
+               if ($(window).width() > 1500) {
+                  $(".hugicon-expand").hide()
+               } else {
+                  $(".caption > ul").hide()
+                  $(".hugicon-expand").click(function(e){
+                     var target_number = parseInt(e.target.id.slice(7)) + 2;
+                     console.log($(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").is(":visible"))
+                     if ($(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").is(":visible")) {
+                        $(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").slideUp()
+                     } else {
+                        for (let i = 2; i < $(".ChapEsc > .thumbnail > .caption > ul").length+2; i++) {
+                           if($(".ChapEsc:nth-child("+i+") > .thumbnail > .caption > ul").is(":visible")){
+                              $(".ChapEsc:nth-child("+i+") > .thumbnail > .caption > ul").slideUp()
+                           }                           
+                        }
+                        $(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").slideDown()
+                     }
+                  })
+               }
+            }
             
             var masterBind= function(){
 				
@@ -362,6 +383,7 @@
             		scrollTop: $("#se2").offset().top
             	}, 2000);
             });
+
 			</script>       
       </body>
    </html>
