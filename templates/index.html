@@ -323,14 +323,12 @@
                      }
 
             var setThumbnailImgClickable = function () {
-               console.log('set Thum nail 1 fois')
                if ($(window).width() > 1500) {
                   $(".hugicon-expand").hide()
                } else {
                   $(".caption > ul").hide()
                   $(".hugicon-expand").click(function(e){
                      var target_number = parseInt(e.target.id.slice(7)) + 2;
-                     console.log($(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").is(":visible"))
                      if ($(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").is(":visible")) {
                         $(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").slideUp()
                      } else {
