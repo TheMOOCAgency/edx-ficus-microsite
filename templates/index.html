@@ -115,15 +115,11 @@
                <div class="row" style="width: 85%;margin: auto;text-align: center;">
                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4">
                      <button id="discoverOnco" onclick="openDiscoverOnco()">G8 Découvrez l’outil d’aide à l’orientation vers l’évaluation oncogériatrique</button>
-                  </div>
-                  <div class="col-xs-12 special_thanks">
-                     <h4>Avec la participation financière de :</h4>
-                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion5.jpg" class="logoRegion">
-                  </div>
-                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                  </div>                            
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
                      <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion0.png" class="logoRegion">
                   </div>
-                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pad4 logoRegionContainer">
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
                      <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion1.png" class="logoRegion">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pad4 logoRegionContainer">
@@ -145,9 +141,13 @@
                      <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion8.jpg" class="logoRegion">
                   </div>
                   <div class="col-xs-12 special_thanks">
+                     <h4>Avec la participation financière de :</h4>
+                     <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoRegion5.jpg" class="logoRegion">
+                  </div>
+                  <div class="col-xs-12 special_thanks">
                      <h4>Et avec le soutien de :</h4>
                      <img src="/media/microsite/onco-occitanie/pagebuilder/assets/img/logoSoutien.jpg" class="logoRegion">
-                  </div>                                
+                  </div>    
                </div>
             </section>
             <section>
@@ -350,10 +350,10 @@
                   var srcV = objJson.container.section2.videoSrc
                   $('#vvTitle').text(mainTitleContentTitle)
                   $('#videoSr').attr("src",srcV)
-                  $('#vvText1').text(mainTitleContentText1)
+                  $('#vvText1').html(mainTitleContentText1)
                   $('#vvText2').html(mainTitleContentText2)
-                  $('#vvText3').text(mainTitleContentText3)
-                  $('#vvText4').text(mainTitleContentText4)
+                  $('#vvText3').html(mainTitleContentText3)
+                  $('#vvText4').html(mainTitleContentText4)
                }
                          
             var bindindFunctionMainSectionIntro= function(){
