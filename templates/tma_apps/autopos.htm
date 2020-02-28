@@ -1,0 +1,42 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%def name="online_help_token()"><% return "courseware" %></%def>
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from datetime import datetime, date
+import json
+from tma_apps.tma_support_functions import tma_verify_access
+
+primary_color = configuration_helpers.get_value('primary_color')
+background_url = configuration_helpers.get_value('bg_img')
+%>
+
+<style>
+.iframe-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+.iframe-container iframe {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+</style>
+
+<div class="iframe-container">
+  <iframe width="1425" height="559" src="/media/microsite/e-formation-artisanat/autopos/story.html"></iframe>
+</div>
+
+<script>
+
+</script>
