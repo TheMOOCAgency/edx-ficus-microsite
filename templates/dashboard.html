@@ -358,7 +358,35 @@ else{
 </div>
 
 <script>
-
+  console.log('test 5');
+  window.addEventListener('storage', function(event) {  
+    if (event.key === 'quizpos' && event.newValue.length > 0) {
+      var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
+      var valueArray = event.newValue.split('-');
+      var customFields = {
+        score1: parseInt(valueArray[0]),
+        score1p: parseInt(valueArray[1]),
+        score3: parseInt(valueArray[2]),
+        score4: parseInt(valueArray[3]),
+        score5: parseInt(valueArray[4]),
+        score7: parseInt(valueArray[5]),
+        score8: parseInt(valueArray[6]),
+        score9: parseInt(valueArray[7]),
+        score9p: parseInt(valueArray[8]),
+        score10: parseInt(valueArray[9]),
+        score11: parseInt(valueArray[10]),
+        score12: parseInt(valueArray[11])
+      }
+      console.log(customFields);
+      $.post( urlAPI, customFields )
+      .done(function( data ) {
+          // e.target.getElementsByTagName('IMG')[0].src = "/media/dev/images/checked.png";
+      })
+      .fail(function() {
+          // e.target.getElementsByTagName('IMG')[0].src = "/media/dev/images/cross-remove-sign.png";
+      })
+    }
+  });
 </script>
 
 
