@@ -110,6 +110,10 @@ tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mod
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
+  
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/responsive_top_layer.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/navigation.css" type="text/css" media="screen" />
 
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
@@ -158,24 +162,23 @@ ${HTML(fragment.foot_html())}
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
-% if disable_accordion is UNDEFINED or not disable_accordion:
+    % if disable_accordion is UNDEFINED or not disable_accordion:
+    <div class="menu-accordion">
+    <input class="burger" type="checkbox">
     <div class="course-index">
-
-      <div class="wrapper-course-modes">
-
-          <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
+      <div class="wrapper-course-modes" style="overflow:hidden">
+            <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
               <button type="button" class="bookmarks-list-button is-inactive" aria-pressed="false">
                   ${_('Bookmarks')}
               </button>
           </div>
-
           % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
             <div id="courseware-search-bar" class="search-bar courseware-search-bar" role="search" aria-label="Course">
               <form>
                 <label for="course-search-input" class="sr">${_('Course Search')}</label>
                 <div class="search-field-wrapper">
-                  <input id="course-search-input" type="text" class="search-field" placeholder="Recherche"/>
-                  <button type="submit" class="search-button"><img src="${static.url(org_static+'/images/recherche_couleur.svg')}" class="svg" /></button>
+                  <input id="course-search-input" type="text" class="search-field" placeholder=${_('Search')} />
+                  <button type="submit" class="search-button"><img src="${static.url('images/recherche_couleur.svg')}" class="svg" /></button>
                   <button type="button" class="cancel-button" title="${_('Clear search')}">
                     <span class="icon fa fa-remove" aria-hidden="true"></span>
                   </button>
@@ -183,10 +186,9 @@ ${HTML(fragment.foot_html())}
               </form>
             </div>
           % endif
-
+  
       </div>
-
-      <div class="accordion">
+      <div class="accordion" style="overflow:hidden">
         <nav class="course-navigation" aria-label="${_('Course')}">
           % if accordion.strip():
             ${HTML(accordion)}
@@ -195,9 +197,10 @@ ${HTML(fragment.foot_html())}
           % endif
         </nav>
       </div>
-
     </div>
-% endif
+    </div>
+ % endif
+ 
     <section class="course-content" id="course-content">
         <!-- TMA RANDOMIZATION SINGLE QUIZ ------------------------------------------------------------------------------------------------------>
         %if tma_randomization_mode!="random":
