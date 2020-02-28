@@ -8,7 +8,7 @@ from tma_apps.tma_support_functions import tma_verify_access
 course_state = user_course_state[str(enrollment.course_id)] 
 has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
 %>
-<link rel="stylesheet" type="text/css" href="/media/microsite/digimapper-data/css/digimap.css" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/data-ready/css/digimap.css" />
 <style>
   .content_tma {
     min-height: calc(100vh - 181px) !important;
@@ -59,19 +59,19 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
 
 <div id="dashboard_course_content">
   <div id="logoData4Manager">
-    <img src="/media/microsite/digimapper-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+    <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
   </div>
       %if course_state=="finished":
       <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       %elif course_state=="ongoing":
       <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       %else:
       <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/digimapper-data/images/macaron.png" width="215" style="margin-top: 100px;"/>
+        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
       </a>
       <!-- <button class="dashboard-btn" id="course_start">
         <i class="fa fa-play-circle"></i>
