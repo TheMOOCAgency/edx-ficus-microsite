@@ -41,6 +41,7 @@ translation={
 </style>
 <%
 org_static = static.get_value('domain_prefix')
+tma_skill_randomization_quiz = static.get_template_path('tma_apps/tma_skill_randomization_quiz.html')
 %>
 
 <script>
@@ -53,7 +54,7 @@ org_static = static.get_value('domain_prefix')
 tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mode()
 %>
 %if tma_randomization_mode!="random":
-  <%include file="/tma_apps/tma_skill_randomization_quiz.html" />
+  <%include file="${tma_skill_randomization_quiz}" />
 %endif
 
 <!-- END TMA RANDOMIZATION SINGLE QUIZ MODE ------------------------------------------------------------------------------------------------->
