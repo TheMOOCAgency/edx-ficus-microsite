@@ -55,8 +55,18 @@
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%">
                   <div class="embed-responsive embed-responsive-4by3">
-                     <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen poster="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg">
-                    </video> 
+                     <video 
+                     id="videoSr" 
+                     type="video/mp4"
+                     class="embed-responsive-item" 
+                     width="550"
+                     controls="true" 
+                     allow="fullscreen" 
+                     allowfullscreen
+                     poster="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg"
+                     src="">
+                        <img src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg" alt="Votre navigateur ne supporte pas cette vidéo">
+                     </video>
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
@@ -285,7 +295,6 @@
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
                $(document).ready(function(){
-                  console.log('pouet3')
                   $("body").css({"display":"inherit"})
                })
              }
