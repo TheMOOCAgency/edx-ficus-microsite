@@ -37,35 +37,30 @@
          </nav>
          <section id="se1">
             <div id="titleLogo"><img class="logoNav"></div>
-            <div class="row" style="min-height: 630px">
+            <div class="row" style="min-height: 800px;">
                <div class="col-md-12">
+                  <div class="col" style="text-align: right;margin-left: 50%;">                  
+                     <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>               
+                     <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
+                  </div>
                   <div class="container-fluid" id="containerTitleBand">
                      <div id="titleBand">
                         <h1 id="mainTitle1"></h1>
                         <h1 pre id="mainTitle2"></h1>
                         <h1 id="mainTitle3"></h1>
-                        <!-- <p id="introConnect"></p> -->
-                     </div>
-                     <div class="col text-center">                  
-                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
-                        <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
-                                     
                      </div>
                   </div>
                </div>
-               <!-- <div class="col-md-12 text-center scrollCn">                   				   
-                  <a class="scroll white">Pour découvrir le contenu de la formation, <span class="yellowSpan"> merci de scroller vers le bas</span></a>                       
-               </div> -->
             </div>
          </section>
          <section id="se2">
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
-                  <h2 class="text-center sectionTitle"></h2>
-                  <h2 class="surligner">___________________</h2>
+                  <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se2.png" alt="Découvrez la formation" style="max-width: 100%;margin-bottom:30px;">
                   <div class="embed-responsive embed-responsive-4by3" style="text-align: right;">
-                     <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe> -->
-                     <img id="videoSr"></img>
+                     <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen poster="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/teaser_poster.png"></iframe> -->
+                     <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen="" poster="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/teaser_poster.png" src="">
+                     </video>
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
@@ -82,8 +77,7 @@
          <section id="se3">
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
-               <h2 class="text-center sectionTitle"></h2>
-               <h2 class="surligner">___________________</h2>
+               <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se3.png" alt="Contenu la formation" style="max-width: 50%;margin-bottom:30px;">
                <div class="overMars">
                   <div class="container" style="padding-right:0px">
                      <div class="row" id ="markWeeks">
@@ -96,7 +90,11 @@
          </div>          
          </section id="se4">
          <section>
-            <div class="team-boxed" style="display:none">
+            <div id="big_circle_container">
+               <div id="big_circle"></div>
+            </div>
+            <div class="team-boxed">
+               <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se4.png" alt="Qu'est-ce qu'un MOOC" style="max-width: 50%;margin-bottom:30px;">
                <div class="container underSe4" >
                   <div class="row people" id = "markMoock"> 
                   </div>
@@ -112,14 +110,13 @@
                </div>
                <div class="row" style="display: block; padding-bottom: 40px;">
                   <div class="col text-center">
-                     <button class="btn btn-default butn" id="subscribeButn2">
-                     inscription</button> 
+                     <img src="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/inscription.png" alt="inscription" id="subscribeButn2">
                   </div>
                </div>
             </div>
             <div class="row footerBottom">
                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
-                  <p class="text-center underW" >Site deployé par The MOOC Agency - 2020 </p>
+                  <p class="text-center underW" >Site deployé par We Up Learning - 2020</p>
                </div>
             </div>
             </div>          
@@ -127,7 +124,7 @@
          <script>   
        
 				 var envDefault = "developement"
-					 var organisation = "hug"
+					 var organisation = "mooc-economie-circulaire"
 					 	var urlCompose
 					 var i 
                      var iter
@@ -256,11 +253,10 @@
                            imgThumbSrc = composeurUrlSrc2+i+termJpg
                            pWeeksTitle = "Semaine"+"&nbsp"+i
                            
-                           thumbnailChapEsc =  "<div class='col-md-6 noflex ChapEsc ' ><div class='thumbnail'><div class='imgcontainer'><img src="+imgThumbSrc+ " class='thumbMg'> <div class='hugicon-expand' id='hugicon"+i+"'></div></div><div class='caption'> <h3 class='titleMiniThumb thumbText"+i+"'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
+                           thumbnailChapEsc =  "<div class='col-md-6 noflex ChapEsc ' ><div class='thumbnail'><div class='imgcontainer'><img src="+imgThumbSrc+ " class='thumbMg'></div><div class='caption' id='caption"+i+"'> <h3 class='titleMiniThumb thumbText"+i+"'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p></div><p class='pWeeksContent'>"+pWeeksContent+"</p>  </div>  </div>"
                      
                            $('#markWeeks').append(thumbnailChapEsc)
                         }
-                        setThumbnailImgClickable(); 
                      }
                      
                      var bindindFunctionFooter = function(){
@@ -288,8 +284,8 @@
                 var mainTitleContentText2 = objJson.container.section2.textLeft2
                 var mainTitleContentText3 = objJson.container.section2.textLeft3
                 var mainTitleContentText4 = objJson.container.section2.textLeft4
-               //  var srcV = objJson.container.section2.videoSrc
-                var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
+                var srcV = objJson.container.section2.videoSrc
+                //var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
             	 $('#vvTitle').text(mainTitleContentTitle)
             	 $('#videoSr').attr("src",srcV)
                 $('#vvText1').text(mainTitleContentText1)
@@ -321,27 +317,6 @@
             	 $("#masterTitle").text(mainTitleContent)
                      
                      }
-
-            var setThumbnailImgClickable = function () {
-               if ($(window).width() > 1500) {
-                  $(".hugicon-expand").hide()
-               } else {
-                  $(".caption > ul").hide()
-                  $(".hugicon-expand").click(function(e){
-                     var target_number = parseInt(e.target.id.slice(7)) + 2;
-                     if ($(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").is(":visible")) {
-                        $(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").slideUp()
-                     } else {
-                        for (let i = 2; i < $(".ChapEsc > .thumbnail > .caption > ul").length+2; i++) {
-                           if($(".ChapEsc:nth-child("+i+") > .thumbnail > .caption > ul").is(":visible")){
-                              $(".ChapEsc:nth-child("+i+") > .thumbnail > .caption > ul").slideUp()
-                           }                           
-                        }
-                        $(".ChapEsc:nth-child("+target_number+") > .thumbnail > .caption > ul").slideDown()
-                     }
-                  })
-               }
-            }
             
             var masterBind= function(){
 				

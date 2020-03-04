@@ -140,7 +140,7 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 ${font_string | n}
 <style>
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
-    font-family:"${font_name}" !important;
+    font-family:"custom_font" !important;
   }
 </style>
 % else:
@@ -162,6 +162,16 @@ ${font_string | n}
     src: url("${static.url(org+'/fonts/Socicon.eot#iefix')}")format('embedded-opentype'), url("{static.url(org+'/fonts/Socicon.woff2')}") format('woff2'), url("{static.url(org+'/fonts/Socicon.ttf')}") format('truetype'), url("{static.url(org+'/fonts/Socicon.woff')}") format('woff'), url("{static.url(org+'/fonts/Socicon.svg#Socicon')}") format('svg');
     font-weight: normal;
     font-style: normal;
+  }
+  @font-face {
+    font-family: 'custom_font';
+    src: url("/media/microsite/mooc-economie-circulaire/pagebuilder/assets/font/GOTHAM/Gotham-Medium.otf");
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'custom_font';
+    src: url("/media/microsite/mooc-economie-circulaire/pagebuilder/assets/font/GOTHAM/Gotham-Bold.otf");
+    font-weight: bold;
   }
 </style>
 <style>

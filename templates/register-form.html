@@ -363,17 +363,6 @@ import datetime
     var name = first_name+' '+last_name;
     $('#name').attr('value',name);
   })
-
-  $('#field-domaine').hide()
-
-  $('#travail_HUG').change(function(e){
-    if ($('#travail_HUG').is(":checked")) {
-      $('#field-domaine').show();
-    } else {
-      $('#field-domaine').hide();
-      $('#domaine').val('');
-    }
-  })
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
