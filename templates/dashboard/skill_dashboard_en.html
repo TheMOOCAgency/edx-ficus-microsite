@@ -58,31 +58,33 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
 </style>
 
 <div id="dashboard_course_content">
-  <div id="logoData4Manager">
-    <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
-  </div>
-      %if course_state=="finished":
-      <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-      </a>
-      %elif course_state=="ongoing":
-      <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-      </a>
-      %else:
-      <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-        <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-      </a>
-      <!-- <button class="dashboard-btn" id="course_start">
-        <i class="fa fa-play-circle"></i>
-        Start
-        %if associated_courses.get('step_number')>1:
-        Quiz ${associated_courses.get('step_number')}
-        %endif
-      </button> -->
-      %endif
+  <div id="white_veil">
+    <div id="logoData4Manager">
+      <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
     </div>
-    <div class="row mt-20">
+    %if course_state=="finished":
+    <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
+    </a>
+    %elif course_state=="ongoing":
+    <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
+    </a>
+    %else:
+    <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
+      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
+    </a>
+    <!-- <button class="dashboard-btn" id="course_start">
+      <i class="fa fa-play-circle"></i>
+      Start
+      %if associated_courses.get('step_number')>1:
+      Quiz ${associated_courses.get('step_number')}
+      %endif
+    </button> -->
+    %endif
+  </div>
+</div>
+<div class="row mt-20">
       <div class="col-md-6 text-center">
         %if user_course_state!="finished" :
         <!-- <button class="sub-btn" disabled>
