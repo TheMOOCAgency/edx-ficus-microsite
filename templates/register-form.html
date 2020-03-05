@@ -357,6 +357,16 @@ import datetime
 }
 </style>
 <script>
+  $( document ).ready(function(){
+    $('#field-autre_formation').hide()
+    $('#diplome').change(function(){
+      if ($('#diplome').val() === "autre") {
+        $('#field-autre_formation').show()
+      } else {
+        $('#field-autre_formation').hide()
+      }
+    })
+  })
   $('#first_name,#last_name').change(function(){
     var first_name = $('#first_name').attr('value');
     var last_name = $('#last_name').attr('value');
@@ -364,6 +374,7 @@ import datetime
     $('#name').attr('value',name);
   })
 </script>
+
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
   <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
