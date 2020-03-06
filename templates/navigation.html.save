@@ -62,8 +62,8 @@ dataLayer = [{
 dataLayer[0].page_name = document.title;
 
 if(getUrlParameter('orderNum')){
-   dataLayer[0].order_price = $(".total-value .value-amount").first().html();
    dataLayer[0].orderID=getUrlParameter('orderNum');
+   dataLayer[0].order_price = $(".total-value .value-amount").first().html();
 }
 </script>
 
