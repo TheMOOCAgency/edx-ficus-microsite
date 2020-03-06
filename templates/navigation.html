@@ -428,7 +428,7 @@ if user.is_authenticated():
   var getCookie;
   var setCookie;
   var vimeoToQQList
-  var url = '/media/microsite/champagne-mooc/json/vimeo_to_QQ.json';
+  var vimeoToQQ_url = '/media/microsite/champagne-mooc/json/vimeo_to_QQ.json';
   $(document).ready(function(){
     // <![CDATA[
       $( "iframe[src*='vimeo.com'], iframe[src*='qq.com']" ).before('<div id="video_selector_container"><div class="video_container"><img src="/media/microsite/champagne-mooc/home/lecteur.png" alt ="lecteur video"></div><p style="font-weight:bold;font-size: 20px;text-align: center">Pick any of the following providers to view the video</p><p style="font-style: italic;text-align: center">(Your choice will apply to all course videos and can be changed later)</p><div class="row"><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/vimeo_logo.png" style="margin-top: 20px;" onclick="useVimeo()" alt ="logo vimeo"><p>VIMEO</p></div><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/qq_logo.png" onclick="useQQ()" alt ="logo QQ"><p>QQ</p></div></div></div>')
@@ -447,7 +447,7 @@ if user.is_authenticated():
           if(currentSrc === vimeoToQQList[i][currentKey]) {
             $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', currentKey)
           } else if (i === vimeoToQQList.length) {
-            console.error('[WUL] '+currentSrc+' QQ\'s corresponding video is not in the list, please add it in '+url)
+            console.error('[WUL] '+currentSrc+' QQ\'s corresponding video is not in the list, please add it in '+vimeoToQQ_url)
           }
         }
         $("#video_selector_container").css("display","none");
@@ -461,7 +461,7 @@ if user.is_authenticated():
           if(vimeoToQQList[i].hasOwnProperty(currentSrc)) {
             $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', vimeoToQQList[i][currentSrc])
           } else if (i === vimeoToQQList.length) {
-            console.error('[WUL] '+currentSrc+' vimeo\'s corresponding video is not in the list, please add it in '+url)
+            console.error('[WUL] '+currentSrc+' vimeo\'s corresponding video is not in the list, please add it in '+vimeoToQQ_url)
           }
         }
         $("#video_selector_container").css("display","none");
@@ -491,7 +491,7 @@ if user.is_authenticated():
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
       }
 
-      $.ajax(url, {
+      $.ajax(vimeoToQQ_url, {
           dataType: 'json',
           cache : false,
           type: 'GET',
