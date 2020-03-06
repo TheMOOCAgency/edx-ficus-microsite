@@ -421,13 +421,138 @@ if user.is_authenticated():
     pass
 %>
 <script>
+  var changeVideoProvider;
+  var useVimeo;
+  var useQQ;
+  var getCookie;
+  var setCookie;
+  var vimeoToQQList
+  var url = '/media/microsite/champagne-mooc/json/vimeo_to_QQ.json';
   $(document).ready(function(){
-    // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
-    var date = new Date();
-    date.setMonth(date.getMonth() + 1);
-    document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=the-mooc-agency.com;expires='+ date.toGMTString();
-  });
+    // <![CDATA[
+      $( "iframe[src*='vimeo.com'], iframe[src*='qq.com']" ).before('<div id="video_selector_container"><div class="video_container"><img src="/media/microsite/champagne-mooc/home/lecteur.png" alt ="lecteur video"></div><p style="font-weight:bold;font-size: 20px;text-align: center">Pick any of the following providers to view the video</p><p style="font-style: italic;text-align: center">(Your choice will apply to all course videos and can be changed later)</p><div class="row"><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/vimeo_logo.png" style="margin-top: 20px;" onclick="useVimeo()" alt ="logo vimeo"><p>VIMEO</p></div><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/qq_logo.png" onclick="useQQ()" alt ="logo QQ"><p>QQ</p></div></div></div>')
+      $( "iframe[src*='vimeo.com'], iframe[src*='qq.com']" ).after('<span id="addendum">Having troubles viewing the video? Click&nbsp;<a onclick="changeVideoProvider()" target="[object Object]" style="cursor: pointer;">here</a> to change the video provider.</span>')
+      
+      changeVideoProvider = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","none");
+        $("#addendum").css("display","none");
+        $("#video_selector_container").css("display","block");
+      }
+      useVimeo = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","block");
+        var currentSrc = $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src');
+        for (let i = 0; i < vimeoToQQList.length; i++) {
+          currentKey = Object.keys(vimeoToQQList[i])[0];
+          if(currentSrc === vimeoToQQList[i][currentKey]) {
+            $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', currentKey)
+          } else if (i === vimeoToQQList.length) {
+            console.error('[WUL] '+currentSrc+' QQ\'s corresponding video is not in the list, please add it in '+url)
+          }
+        }
+        $("#video_selector_container").css("display","none");
+        $("#addendum").css("display","block");
+        setCookie('video_provider', 'vimeo', 90);
+      }
+      useQQ = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","block");
+        var currentSrc = $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src');
+        for (let i = 0; i < vimeoToQQList.length; i++) {
+          if(vimeoToQQList[i].hasOwnProperty(currentSrc)) {
+            $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', vimeoToQQList[i][currentSrc])
+          } else if (i === vimeoToQQList.length) {
+            console.error('[WUL] '+currentSrc+' vimeo\'s corresponding video is not in the list, please add it in '+url)
+          }
+        }
+        $("#video_selector_container").css("display","none");
+        $("#addendum").css("display","block");
+        setCookie('video_provider', 'QQ', 90);
+      }
+
+      // COOKIE MANAGEMENT
+      getCookie = function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      setCookie = function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      $.ajax(url, {
+          dataType: 'json',
+          cache : false,
+          type: 'GET',
+          global: true,
+          crossDomain: true,
+          xhrFields: {
+              withCredentials: true
+          }
+      })
+      .done(function(data) {
+        vimeoToQQList = data;
+        if(getCookie('video_provider').length == 0) {
+          setCookie('video_provider', 'vimeo', 90);
+        } else {
+          if (getCookie('video_provider') === 'QQ') {
+            useQQ();
+          }
+        }
+      })
+      .fail(function() {
+        console.error( "[WUL] Fetch "+url+" failed" );
+      })
+      .always(function() {
+        //console.log( "Fetch end" );
+      });
+      
+      // END COOKIE MANAGEMENT
+      
+      // ]]>
+
+      // PASS USER PREF-LANG TO ECOMMERCE VIA A COOKIE
+      var date = new Date();
+      date.setMonth(date.getMonth() + 1);
+      document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=the-mooc-agency.com;expires='+ date.toGMTString();
+    });
 </script>
+<style>
+  #video_selector_container{
+    display: block;
+    text-align: center;
+    margin: auto;
+    display: none;
+  }
+  .video_container{
+      display: inline-block;
+      text-align: center;
+      font-weight:bold;
+      min-height: 130px;
+  }
+  .video_container > img{
+      max-width: 100px!important;
+  }
+  #video_selector_container > .row > .video_container > img:hover{
+      cursor: pointer;
+  }
+  .video_container > p{
+      position: absolute;
+      bottom: 0px;
+      font-size: 20px;
+      font-weight: 900;
+  }
+</style>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
