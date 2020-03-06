@@ -21,34 +21,6 @@ from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
 
-<script type="text/javascript">
-dataLayer = [{
-'env_work': 'prod',
-
-'name_site': 'https://www.champagne-mooc.com/',
-'env_language': '${request.LANGUAGE_CODE}',
-
-
-%if user.is_authenticated():
-'user_login': 'YES',
-'user_email': '${user.email}',
-%else:
-'user_login': 'NO',
-%endif
-
-%if course:
-'course_id': '${course.id}',
-'course_name': '${course.display_name}'
-%endif
-
-}];
-dataLayer[0].page_name = document.title;
-</script>
-
-<script type="text/javascript">
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TSV43V7');
-</script>
-
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
 
@@ -84,7 +56,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+  <header id="global-navigation" class="header-global" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -138,7 +110,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}" style="display:none" >${_('Explore courses')}</a>
+              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
           % if show_program_listing:
@@ -236,81 +208,35 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-      <% languages = static.get_released_languages() %>
+    % if static.show_language_selector():
+     <% languages = static.get_released_languages() %>
+      % if len(languages) > 1:
       <ol class="user">
-       <li class="primary">
-         <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
-           <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
-           % if user.is_authenticated():
-           <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
-           % else:
-           <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
-           % endif
-           <label><span class="sr">${_("Choose Language")}</span>
-             <!--LANGUAGE FLAGS-->
-             <div id="lang-content">
-               <img src="/media/microsite/champagne-mooc/home/en.png" id="en">
-               <img src="/media/microsite/champagne-mooc/home/fr.png" id="fr">
-               <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
-                 % for language in languages:
-                  % if language[0] =="en" or language[0] =="fr":
-                   % if language[0] == LANGUAGE_CODE:
-                     <option value="${language[0]}" selected="selected">${language[0]}</option>
-                   % else:
-                     <option value="${language[0]}">${language[0]}</option>
-                   % endif
-                  % endif
-                 % endfor
-               </select>
-             </div>
-           </label>
-         </form>
-       </li>
-     </ol>
-     <style>
-     /*LANGUAGE FLAGS*/
-     .language-selector {
-       display: none;
-     }
-     #lang-content {
-       width: 60px;
-       height: 24px;
-     }
-     #lang-content img{
-       width: 25px;
-     }
-    </style>
-    <script>
-      //LANGUAGE FLAGS
-      let params = new URL(window.location).searchParams;
-      let lang = params.get('lang');
-
-      $(document).ready(function(){
-        if ('${LANGUAGE_CODE}' !== lang) {
-          if (lang === 'en') {
-            $('#settings-language-value > option[value="en"]').attr('selected','selected');
-            $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-          } else {
-            if (lang === 'fr') {
-              $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-              $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
-            }
-          }
-        }
-
-        $('#en').on('click', function() {
-          $('#settings-language-value > option[value="en"]').attr('selected','selected');
-          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-          lang = 'en'
-        });
-        $('#fr').on('click', function() {
-          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
-          lang = 'fr'
-        });
-      });
-    </script>
-  </nav>
+        <li class="primary">
+          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+            % if user.is_authenticated():
+            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+            % else:
+            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+            % endif
+            <label><span class="sr">${_("Choose Language")}</span>
+                <select class="input select language-selector" id="settings-language-value" name="language">
+                  % for language in languages:
+                    % if language[0] == LANGUAGE_CODE:
+                      <option value="${language[0]}" selected="selected">${language[1]}</option>
+                    % else:
+                      <option value="${language[0]}" >${language[1]}</option>
+                    % endif
+                  % endfor
+                </select>
+            </label>
+          </form>
+        </li>
+      </ol>
+      % endif
+      % endif
+    </nav>
 </header>
 % if course:
 <!--[if lte IE 9]>
@@ -394,8 +320,141 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSV43V7"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<script>
+  var changeVideoProvider;
+  var useVimeo;
+  var useQQ;
+  var getCookie;
+  var setCookie;
+  var vimeoToQQList
+  var vimeoToQQ_url = '/media/microsite/champagne-mooc/json/vimeo_to_QQ.json';
 
+  $(document).ready(function(){
+    var textVideoProvider1 = "Pick any of the following providers to view the video";
+    var textVideoProvider2 = "(Your choice will apply to all course videos and can be changed later)";
+    var textAddendum = '<span id="addendum">Having troubles viewing the video? Click&nbsp;<a onclick="changeVideoProvider()" target="[object Object]" style="cursor: pointer;">here</a> to change the video provider.</span>'
+    var currentLang = '${request.LANGUAGE_CODE}';
+    if (currentLang === 'fr') {
+      textVideoProvider1 = "Choisissez un des lecteurs de vidéos";
+      textVideoProvider2 = "(Votre choix s'appliquera à toutes les vidéos du site)";
+      textAddendum = '<span id="addendum">Vous avez des difficultés à voir la vidéo ? Cliquez&nbsp;<a onclick="changeVideoProvider()" target="[object Object]" style="cursor: pointer;">ici</a> pour changer de lecteur de vidéo.</span>'
+    }
+    // <![CDATA[
+      $( "iframe[src*='vimeo.com'], iframe[src*='qq.com']" ).before('<div id="video_selector_container"><div class="video_container"><img src="/media/microsite/champagne-mooc/home/lecteur.png" alt ="lecteur video"></div><p style="font-weight:bold;font-size: 20px;text-align: center">'+textVideoProvider1+'</p><p style="font-style: italic;text-align: center">'+textVideoProvider2+'</p><div class="row"><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/vimeo_logo.png" style="margin-top: 20px;" onclick="useVimeo()" alt ="logo vimeo"><p>VIMEO</p></div><div class="video_container col-md-6"><img src="/media/microsite/champagne-mooc/home/qq_logo.png" onclick="useQQ()" alt ="logo QQ"><p>QQ</p></div></div></div>')
+      $( "iframe[src*='vimeo.com'], iframe[src*='qq.com']" ).after(textAddendum)
+      
+      changeVideoProvider = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","none");
+        $("#addendum").css("display","none");
+        $("#video_selector_container").css("display","block");
+      }
+      useVimeo = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","block");
+        var currentSrc = $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src');
+        for (let i = 0; i < vimeoToQQList.length; i++) {
+          currentKey = Object.keys(vimeoToQQList[i])[0];
+          if(currentSrc === vimeoToQQList[i][currentKey]) {
+            $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', currentKey)
+          } else if (i === vimeoToQQList.length) {
+            console.error('[WUL] '+currentSrc+' QQ\'s corresponding video is not in the list, please add it in '+vimeoToQQ_url)
+          }
+        }
+        $("#video_selector_container").css("display","none");
+        $("#addendum").css("display","block");
+        setCookie('video_provider', 'vimeo', 90);
+      }
+      useQQ = function(){
+        $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").css("display","block");
+        var currentSrc = $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src');
+        for (let i = 0; i < vimeoToQQList.length; i++) {
+          if(vimeoToQQList[i].hasOwnProperty(currentSrc)) {
+            $("iframe[src*='vimeo.com'], iframe[src*='qq.com']").attr('src', vimeoToQQList[i][currentSrc])
+          } else if (i === vimeoToQQList.length) {
+            console.error('[WUL] '+currentSrc+' vimeo\'s corresponding video is not in the list, please add it in '+vimeoToQQ_url)
+          }
+        }
+        $("#video_selector_container").css("display","none");
+        $("#addendum").css("display","block");
+        setCookie('video_provider', 'QQ', 90);
+      }
+
+      // COOKIE MANAGEMENT
+      getCookie = function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      setCookie = function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      $.ajax(vimeoToQQ_url, {
+          dataType: 'json',
+          cache : false,
+          type: 'GET',
+          global: true,
+          crossDomain: true,
+          xhrFields: {
+              withCredentials: true
+          }
+      })
+      .done(function(data) {
+        vimeoToQQList = data;
+        if(getCookie('video_provider').length == 0) {
+          setCookie('video_provider', 'vimeo', 90);
+        } else {
+          if (getCookie('video_provider') === 'QQ') {
+            useQQ();
+          }
+        }
+      })
+      .fail(function() {
+        console.error( "[WUL] Fetch "+url+" failed" );
+      })
+      .always(function() {
+        //console.log( "Fetch end" );
+      });
+      
+      // END COOKIE MANAGEMENT
+      
+      // ]]>
+    });
+</script>
+<style>
+  #video_selector_container{
+    display: block;
+    text-align: center;
+    margin: auto;
+    display: none;
+  }
+  .video_container{
+      display: inline-block;
+      text-align: center;
+      font-weight:bold;
+      min-height: 130px;
+  }
+  .video_container > img{
+      max-width: 100px!important;
+  }
+  #video_selector_container > .row > .video_container > img:hover{
+      cursor: pointer;
+  }
+  .video_container > p{
+      position: absolute;
+      bottom: 0px;
+      font-size: 20px;
+      font-weight: 900;
+  }
+</style>
