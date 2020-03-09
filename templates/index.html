@@ -90,7 +90,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
           <div id="connectButnsWrapper">
             <div class="butnContainer">
-              <a class="registerButn" href='/register' style="display: none;">Inscription</a>
+              <a class="registerButn" id="register-butn">Inscription</a>
             </div>
             <div class="butnContainer">
               <a class="connectButn" href='/login?admin=true'>Connexion</a>
@@ -98,6 +98,15 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           </div>
         </div>
       </header>
+      <div id="connect-popin-veil">
+        <div id="connect-popin-groups-container">
+          <h2>Veuillez sélectionner votre langue<br />Please choose your language</h2>
+          <div id="wrapper-img-popup">
+            <img class="connect-img" src="/media/microsite/data-ready/images/fr.png" alt="drapeau fr" onclick='window.location.href="/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll"'>
+            <img class="connect-img" src="/media/microsite/data-ready/images/uk.png" alt="drapeau en" onclick="window.location.href='/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'">
+          </div>
+        </div>
+      </div>
       <%include file="${courses_list}" />
 
     </section>
@@ -146,3 +155,9 @@ $(".connectButn").each(function(){
 
 </script>
 % endif
+
+<script>
+  $("#register-butn").click(function(){
+    $("#connect-popin-veil").show();
+  });
+</script>
