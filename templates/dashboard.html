@@ -166,7 +166,7 @@ endfor
         % elif cours_ouv:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % endif
       </div>
       <!-- border middle -->
@@ -201,7 +201,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          poids: ${int(n.get('weight') * 100)}%
+          ${_('Weight')}: ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
@@ -241,9 +241,9 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
     % if course_end < 2:
-      <h3>${course_end} cours<br>terminé</h3>
+      <h3>${course_end} ${_("course completed")}</h3>
     % else:
-      <h3>${course_end} cours<br>terminés</h3>
+      <h3>${course_end} ${_("courses completed")}</h3>
     % endif
     % for n in course_name:
         <div class="course_name_profile_list">
@@ -297,7 +297,7 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
+<h1><span id="span_1">${_("My Courses")}</span></h1>
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):

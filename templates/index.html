@@ -13,9 +13,15 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" href="/media/microsite/tiama/custom-tiama.css">
+
+<div id="burger-menu-submenu">
+  
+</div>
+
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
+      <!--<header style="height:530px !important">
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -52,7 +58,15 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           % endif
         </div>
 
-      </header>
+      </header>-->
+      <div id="header-tiama">
+        <img id="img-header-tiama" src="media/microsite/tiama/img/banner.jpg" alt="welcome to the MX4 Tiama">
+      </div>
+      <div id="tiama-title">
+        <h1>Welcome to the <strong>MX4</strong></h1>
+        <h2><strong>S</strong>mall <strong>P</strong>rivate <strong>O</strong>nline <strong>C</strong>ourses</h2>
+        <h2>Platform!</h2>
+      </div>
       <%include file="${courses_list}" />
 
     </section>
@@ -95,3 +109,4 @@ $(".btn-login").each(function(){
 
 </script>
 % endif
+<script src="/media/microsite/tiama/custom-tiama.js" charset="utf-8"></script>

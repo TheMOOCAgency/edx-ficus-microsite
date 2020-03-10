@@ -1,14 +1,24 @@
-<%! from django.utils.translation import ugettext as _ %>
+Welcome to ${course.display_name_with_default_escaped}.
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+To get started, please visit https://${site_name}. The login information for your account follows.
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+email: ${email_address}
+password: ${password}
 
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+It is recommended to change the password.
 
-${_("It is recommended that you change your password.")}
+Sincerely, the team of ${course.display_name_with_default_escaped}
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+
+
+
+Bienvenido a ${course.display_name_with_default_escaped}.
+
+Para comenzar, vaya a https://${site_name}.
+
+correo electrónico: ${email_address}
+contraseña: ${password}
+
+Se recomienda cambiar la contraseña.
+
+Atentamente, el equipo de ${course.display_name_with_default_escaped}

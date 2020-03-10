@@ -1,10 +1,20 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Welcome,
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
+You must now activate your account with the following link:
 
 https://${ site }/activate/${ key }
 
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+If you have not asked for an account creation, you have nothing to do, we will not contact you again.
+
+
+
+Bienvenido/a,
+
+Debe activar su cuenta con el enlace siguiente :
+
+https://${ site }/activate/${ key }
+
+Si no ha realizado la creación de su cuenta, no hay nada que hacer,no lo contactaremos más.

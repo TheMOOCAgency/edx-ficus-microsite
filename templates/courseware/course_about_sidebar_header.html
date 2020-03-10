@@ -14,8 +14,8 @@ from django.conf import settings
   % if user.is_authenticated() and registered:
 	<div class="enroll-button">
     % if user.is_active:
-<!--           <span>Votre inscription a été prise en compte !
-           <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
+<!--           <span>Your registration was successful
+           <br/>&nbsp;<br>The MOOC begins in...<br/>&nbsp;<br/></span>
            <span id="time"></span>-->
 <script type="text/javascript">
 $(document).ready(function(){
@@ -26,15 +26,15 @@ $(document).ready(function(){
 });
 </script>
            <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-           &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
+           &nbsp;<br/>${_("Access the MOOC!")}<br/>&nbsp;<br/></span>
 
     % else:
-           Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
+           ${_("Activate your account!")}<span style="font-size:12px"><br/>${_("You received an activation link.<br/>Check your email inbox and your spam folders.")}</span>
     % endif
         </div>
   % else:
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+           ${_("I want to enroll!")}
         </div>
   % endif
   </div>

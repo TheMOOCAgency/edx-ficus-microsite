@@ -107,16 +107,15 @@ site_status_msg = get_site_status_msg(course_id)
     text-transform: none;
     font-size: 16px !important;
   }
-
-  /*LANGUAGE FLAGS*/
-  .language-selector {
-    display: none;
-  }
-  #lang-content {
-    width: 60px;
-    height: 24px;
-  }
-
+.language-selector {
+    overflow-y: hidden;
+    border: none;
+}
+.language-selector option {
+    float: left;
+    display: inline-block;
+    cursor: pointer
+}
 </style>
         </%block>
       </a>
@@ -140,7 +139,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-             <!-- <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>-->
+              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
           % if show_program_listing:
@@ -163,8 +162,18 @@ site_status_msg = get_site_status_msg(course_id)
           %endif
         </%block>
       </ol>
+     <ol class="user">
+          <li style="margin-right:25px;margin-top:10px;">
+            <a href="#"><img src="/media/microsite/tiama/img/us.png" alt="english"></a>
+            <a href="#"><img src="/media/microsite/tiama/img/es.png" alt="spanish"></a>
+          </li>
+               <li style="margin-right:25px;margin-top:10px;">
+            <a href="#"><img src="/media/microsite/tiama/img/us.png" alt="english"></a>
+            <a href="#"><img src="/media/microsite/tiama/img/es.png" alt="spanish"></a>
+          </li>
+</ol>
 
-     <%include file="user_dropdown.html"/>
+      <%include file="user_dropdown.html"/>
 
       <a href="${get_online_help_info(online_help_token)['doc_url']}"
          target="_blank"
@@ -201,7 +210,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-               <!-- <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>-->
+                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
               </li>
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
@@ -222,6 +231,10 @@ site_status_msg = get_site_status_msg(course_id)
       </ol>
       <ol class="right nav-courseware list-inline">
         <%block name="navigation_sign_in">
+          <li style="margin-right:25px; margin-top:10px;">
+            <a href="#" id="us-flag"><img src="/media/microsite/tiama/img/us.png" alt="english"></a>
+            <a href="#" id="es-flag"><img src="/media/microsite/tiama/img/es.png" alt="spanish"></a>
+          </li>
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
@@ -238,8 +251,9 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-
+    % if static.show_language_selector():
      <% languages = static.get_released_languages() %>
+      % if len(languages) > 1:
       <ol class="user">
         <li class="primary">
           <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
@@ -250,27 +264,22 @@ site_status_msg = get_site_status_msg(course_id)
             <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
             % endif
             <label><span class="sr">${_("Choose Language")}</span>
-              <!--LANGUAGE FLAGS-->
-              <div id="lang-content">
-                <img src="/media/microsite/tiama/img/us.png" id="us">
-                <img src="/media/microsite/tiama/img/es.png" id="es">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                <select class="input select language-selector" id="settings-language-value" name="language">
                   % for language in languages:
-                   % if language[0] =="en" or language[0] =="es-419":
                     % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[0]}</option>
+                      <option value="${language[0]}" selected="selected">${language[1]}</option>
                     % else:
-                      <option value="${language[0]}">${language[0]}</option>
+                      <option value="${language[0]}" >${language[1]}</option>
                     % endif
-                   % endif
                   % endfor
                 </select>
-              </div>
             </label>
           </form>
         </li>
       </ol>
-     </nav>
+      % endif
+      % endif
+    </nav>
 </header>
 % if course:
 <!--[if lte IE 9]>
@@ -289,20 +298,40 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="${css}" />
 <!--<script src="${static.url('js/translate.js')}"></script>-->
 
+<!--change language on click on flags-->
 <script>
-  //LANGUAGE FLAGS
-  $('#us').on('click', function() {
-    $('#settings-language-value > option[value="en"]').attr('selected','selected');
-    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
-  }
-  );
-  $('#es').on('click', function() {
-    $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
-
-  }
-
-  );
+  $('#es-flag').click(function() {
+    var chosenLang = 'es';
+    var token_csrf = $("#csrf_token").val();
+    $.ajax({
+      type:'POST',
+      url: "/i18n/setlang/",
+      data: {
+        csrfmiddlewaretoken: token_csrf,
+        language: chosenLang,
+      },
+      dataType: 'json',
+      success: function(data){
+          location.reload();
+      }
+    });
+  });
+  $('#en-flag').click(function() {
+    var chosenLang = 'en';
+    var token_csrf = $("#csrf_token").val();
+    $.ajax({
+      type:'POST',
+      url: "/i18n/setlang/",
+      data: {
+        csrfmiddlewaretoken: token_csrf,
+        language: chosenLang,
+      },
+      dataType: 'json',
+      success: function(data){
+          location.reload();
+      }
+    });
+  });
 </script>
 
 <!-- superglobale js username and course_enrollment -->
@@ -334,13 +363,8 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 
     $(document).ready(function(){
       course_navigation_change(course_id_nav,course_length_nav);
-    });
+    })
   </script>
-
-
-
-
-
 % endif
 <%include file="help_modal.html"/>
 % if static.get_value('piwik_id') is not None:

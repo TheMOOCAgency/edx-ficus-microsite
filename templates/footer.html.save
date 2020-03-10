@@ -18,16 +18,11 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
     /* Change banner according to language */
     if ($('#settings-language-value').val() === 'es-419' ) {
         console.log('es')
-        $('#main > section.home > header').css('background-image', 'url(/media/microsite/tiama/img/banner-es.jpg)')
+        $('#main > section.home > header').css('background-image', '	url(/media/microsite/tiama/img/banner-es.jpg) !important')
     } else {
         console.log('en')
-        $('#main > section.home > header').css('background-image', 'url(/media/microsite/tiama/img/banner.jpg)')
+        $('#main > section.home > header').css('background-image', 'url(/media/microsite/tiama/img/banner.jpg) !important')
     }
-    /* Fix trad es*/
-    if ($('#course_nav > a[href="/dashboard"] > span').text() === 'Volver Atrás') {
-        $('#course_nav > a[href="/dashboard"] > span').text('Atrás');
-    }
-
 </script>
 
 <footer class="global">

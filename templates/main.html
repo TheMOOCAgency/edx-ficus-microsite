@@ -26,7 +26,9 @@ from pipeline_mako import render_require_js_path_overrides
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  % if request.path == "/":
+    <meta name="description" content="Welcome to Tiama’s company MX4 Small Private Online Course, world leader in inspection and quality control machines for the glass packaging market (bottles, jars, flasks, …)">
+  %endif
 ## Define a couple of helper functions to make life easier when
 ## embedding theme conditionals into templates. All inheriting
 ## templates have access to these functions, and we can import these
@@ -35,9 +37,16 @@ from pipeline_mako import render_require_js_path_overrides
 ## this needs to be here to prevent the title from mysteriously appearing in the body, in one case
 <%def name="pagetitle()" />
   <%block name="title">
+  % if request.get_full_path == "/":
+    <title>
+      TIAMA | Small Private Online Course
+    </title>
+  %else:
       <title>
        ${static.get_page_title_breadcrumbs(self.pagetitle())}
       </title>
+
+  %endif
   </%block>
 
   % if not allow_iframing:
@@ -131,7 +140,7 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
-    
+
 % if static.get_value('google_font') is not None:
 <%
 font_string = static.get_value('google_font')
@@ -153,7 +162,7 @@ ${font_string | n}
       url("/static/sncf/fonts/avenir.eot?#iefix") format("embedded-opentype");
   }
 </style>
-% endif    
+% endif
 <style>
   /*Font*/
   @font-face {
@@ -174,7 +183,7 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 .fa {
  font: normal normal normal 14px/1 FontAwesome !important;
 }
-</style>   
+</style>
 </head>
 
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
@@ -245,7 +254,8 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
   }());
 </script>
 % endif
-<script>
+
+<!--<script>
 setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
@@ -318,7 +328,7 @@ setInterval(function(){
     });
   }
 },500);
-</script>
+</script>-->
 
 <style>
 .xmodule_display.xmodule_CapaModule div.problem div p.answer:before{
