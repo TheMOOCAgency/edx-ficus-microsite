@@ -8,11 +8,11 @@ third_list = []
 
 for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   if "Module" in str(course.id):
-    first_list.append(course)
-  elif "Auto_positionnement" in str(course.id):
-    second_list.append(course)
-  else:
     third_list.append(course)
+  elif "Auto_positionnement" in str(course.id):
+    first_list.append(course)
+  else:
+    second_list.append(course)
 
 third_list.sort()
 %>
