@@ -20,7 +20,7 @@ for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   else:
     second_list.append(course)
 
-second_list.sort()
+second_list.sort(key=lambda x: x.id)
 third_list.sort(key=lambda x: x.id)
 %>
 
@@ -48,7 +48,6 @@ third_list.sort(key=lambda x: x.id)
     <section class="courses">
       <h1>Accédez à nos formations en ligne</h1>
       <div class="custom-courses-display">
-        ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
         <div class="custom-courses-category">Nos packs de formations</div>
         <ul class="courses-listing">
           %for course in first_list:
