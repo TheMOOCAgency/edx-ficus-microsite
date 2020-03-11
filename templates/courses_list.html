@@ -20,7 +20,8 @@ for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   else:
     second_list.append(course)
 
-third_list.sort()
+second_list.sort()
+third_list.sort(key=lambda x: x.id)
 %>
 
 <style>
@@ -61,7 +62,7 @@ third_list.sort()
             </li>
           %endfor
         </ul>
-        <div class="custom-courses-category">Modules individuels</div>
+        <div class="custom-courses-category">Nos modules individuels</div>
         <ul class="courses-listing">
           %for course in third_list:
             <li class="courses-listing-item">
