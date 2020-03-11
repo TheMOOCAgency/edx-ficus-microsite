@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 <%
 if "Module" in course.display_number_with_default:
   new_course_number = list(course.display_number_with_default.split(" "))
-  if new_course_number.index("-"):
+  if new_course_number.index("-") >= 0:
     index = new_course_number.index("-")
     new_course_number[index] = "'"
     course_default_number = "".join(new_course_number)
