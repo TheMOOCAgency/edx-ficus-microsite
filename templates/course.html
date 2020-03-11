@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 if "Module" in course.display_number_with_default:
   new_course_number = list(course.display_number_with_default.split(" "))
   try:
-    log.info(new_course_number)
+    log.info(new_course_number[-1])
     index = new_course_number.index("/")
     log.info("indexxxxxxxxxxxxxxxxxxxxxxxxxxx")
     log.info(index)
