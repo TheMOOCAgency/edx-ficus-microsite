@@ -1,7 +1,13 @@
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
-<%! from django.utils.translation import ugettext as _ %>
+<%! 
+from django.utils.translation import ugettext as _
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+%>
+
 <%
+primary_color=configuration_helpers.get_value('primary_color')
+
 first_list = []
 second_list = []
 third_list = []
@@ -17,15 +23,28 @@ for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
 third_list.sort()
 %>
 
-
+<style>
+  .custom-courses-category{
+    font-weight: bold;
+    font-size:1.6em;
+    margin-bottom:30px;
+    text-transform: uppercase;
+    color:${primary_color};
+  }
+  .custom-courses-display{
+    display: flex;
+    flex-direction: column;
+  }
+</style>
 <section class="courses-container" style="margin-bottom:50px;">
   <section class="highlighted-courses">
 
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
     <section class="courses">
       <h1>Accédez à nos formations en ligne</h1>
-      <div>
+      <div class="custom-courses-display">
         ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
+        <div class="custom-courses-category">Nos packs de formations</div>
         <ul class="courses-listing">
           %for course in first_list:
             <li class="courses-listing-item">
@@ -38,6 +57,7 @@ third_list.sort()
             </li>
           %endfor
         </ul>
+        <div class="custom-courses-category">Modules individuels</div>
         <ul class="courses-listing">
           %for course in third_list:
             <li class="courses-listing-item">
