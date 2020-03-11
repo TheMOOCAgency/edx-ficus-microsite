@@ -13,7 +13,7 @@ if "Module" in course.display_number_with_default:
     new_course_number[index] = "'"
     course_default_number = "".join(new_course_number)
   except ValueError:
-    print("Nothing to change")
+    course_default_number = course.display_number_with_default
 else:
   course_default_number = course.display_number_with_default
 %>
