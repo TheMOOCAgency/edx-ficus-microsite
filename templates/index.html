@@ -49,37 +49,37 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li role="presentation"><a href="https://formation.isidoor.org/login" style="color:#6A88B2;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Connexion </a></li>
+                    <li role="presentation"><a href="https://formation.isidoor.org/login" style="color:#6A88B2;font-weight:bold;font-size:17px;margin-top:20px;">Connexion </a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container" id="section1">
   
-        <div class="col-md-5" style="color:white;/*background-color:rgba(0,0,0,0.25);*/float:none;margin-top:0;vertical-align:middle;width:100%;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%); padding: 0;">
-            <h1 style="text-transform: uppercase;background-color: rgba(78, 77, 77, 0.45);;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;padding-top: 50px; padding-bottom: 25px;">PARCOURS DE FORMATION DES BÉNÉVOLES DU RÉSEAU DES OGEC</h1>
-            <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:#bcd4f9;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
+        <div class="col-md-5" id="header_connexion">
+            <!--<h1 style="text-transform: uppercase;background-color: rgba(78, 77, 77, 0.45);;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;padding-top: 50px; padding-bottom: 25px;">PARCOURS DE FORMATION DES BÉNÉVOLES DU RÉSEAU DES OGEC</h1>
+            <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:#bcd4f9;margin-top:10px;">Ouverture le 6 décembre</p>-->
             <div style="margin:0 auto;text-align:center;"><a class="btn btn-primary btn-lg link_header" role="button" href="https://formation.isidoor.org/login" id="login_link" style="background-color:#C40056">Connexion </a></div>
         </div>
     </div>
-    <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+    <div style="background-color:white;height:auto;z-index:1;position:relative;">
         <div class="container">
             <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
-                <div class="col-md-12">
+                <div class="col-md-12" id="trainYou">
                     <h2 class="text-center" style="margin-bottom:40px;padding-top:60px;color:#6A88B2;font-size:23px;font-size: 23px; font-weight: bold;">FORMEZ-VOUS POUR DÉCOUVRIR LA MISSION D’UN BÉNÉVOLE AU SEIN D’UN OGEC</h2>
                 </div>
-                <div id="thumbnail_container container">
+                <div id="thumbnail_container">
                     <div class="col-md-6" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
-                        <div class="thumbnail" style="border: none;"><img src="/media/microsite/fnogec/assets/img/fondamentaux.jpeg" style="height:233px;">
+                        <div class="thumbnail" style="border: none; margin:0 auto"><img src="/media/microsite/fnogec/assets/img/fondamentaux.jpeg" style="height:233px;">
                             <div class="caption">
-                                <h3 style="font-family:'Carrois Gothic', sans-serif;color:#6A88B2;font-weight:bold;height:49px;">LES FONDAMENTAUX DU RÉSEAU DES OGEC</h3>                     
+                                <h3 style="color:#6A88B2;height:49px;">LES FONDAMENTAUX DU RÉSEAU DES OGEC</h3>                     
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
-                        <div class="thumbnail" style="border: none;"><img src="/media/microsite/fnogec/assets/img/tresorier.jpeg" style="height:233px;">
+                        <div class="thumbnail" style="border: none; margin:0 auto"><img src="/media/microsite/fnogec/assets/img/tresorier.jpeg" style="height:233px;">
                             <div class="caption">
-                                <h3 style="font-family:'Carrois Gothic', sans-serif;color:#6A88B2;font-weight:bold;height:49px;">PRINCIPES COMMUNS À LA GESTION FINANCIÈRE D’UN OGEC </h3>                     
+                                <h3 style="color:#6A88B2;height:49px;">PRINCIPES COMMUNS À LA GESTION FINANCIÈRE D’UN OGEC </h3>                     
                             </div>
                         </div>
                     </div>
@@ -154,3 +154,14 @@
 </body>
 
 </html>
+
+<script>
+    // Set caption text's width as img's width
+    $('.thumbnail:eq(0) > .caption').width($('.thumbnail:eq(0) > img').width())
+    $('.thumbnail:eq(1) > .caption').width($('.thumbnail:eq(1) > img').width())
+
+    if ($('body').width() >= 992) {
+        $('#trainYou').width($('#thumbnail_container > div:eq(0)').width() + $('#thumbnail_container > div:eq(1) > .thumbnail').width() + 30)
+        $('#trainYou').css('margin-left', $('#thumbnail_container > div:eq(0) > .thumbnail').css('margin-left'))
+    }
+</script>
