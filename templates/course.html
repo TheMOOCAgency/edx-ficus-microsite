@@ -15,9 +15,9 @@ from django.core.urlresolvers import reverse
     </header>
     <div class="course-info" aria-hidden="true">
       <h2 class="course-name">
-        <span class="course-organization">${course.display_org_with_default}</span>
+        <span class="course-organization">Parcours Créateur</span>
         <span class="course-code">${course.display_number_with_default}</span>
-        <span class="course-title">${course.display_name_with_default}</span>
+        <span class="course-title" style="font-weight:bold!important;">${course.display_name_with_default}</span>
       </h2>
       <%
       if course.start is not None:
@@ -25,24 +25,26 @@ from django.core.urlresolvers import reverse
       else:
           course_date_string = ''
       %>
-      % if course.advertised_start is not None:
-          <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
-      % else:
-          <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}"></div>
-      % endif
-    </div>
-    <div class="sr">
-      <ul>
-        <li>${course.display_org_with_default}</li>
-        <li>${course.display_number_with_default}</li>
-        % if course.advertised_start is not None:
-            <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
-        % else:
-            <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
-        % endif
-      </ul>
-    </div>
-  </a>
+% if course.advertised_start is not None:
+<div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+% else:
+<div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate"
+  data-datetime="${course_date_string}" data-string="${_(" Starts: {date}")}"></div>
+% endif
+</div>
+<div class="sr">
+  <ul>
+    <li>${course.display_org_with_default}</li>
+    <li>${course.display_number_with_default}</li>
+    % if course.advertised_start is not None:
+    <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
+    % else:
+    <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate"
+        data-datetime="${course_date_string}"></time></li>
+    % endif
+  </ul>
+</div>
+</a>
 </article>
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized_datetime");
