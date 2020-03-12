@@ -38,10 +38,6 @@ background_url = configuration_helpers.get_value('bg_img')
   #certificate-wrapper{
     background: white;
   }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
-  }
   #custom-btn{
     background: ${primary_color};
     border: none;
@@ -67,11 +63,12 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width:854px;
-    height:500px;
+    width: 814px;
+    height: 460px;
     margin: 0 auto;
-    padding: 20px;
-    background-image: url('${background_url}')
+    padding: 40px;
+    background-image: url(/media/microsite/gen/auto/images/bg_img.jpg);
+    background-size: 50%;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -90,9 +87,8 @@ background_url = configuration_helpers.get_value('bg_img')
 </style>
 
 <!-- CUSTOM STYLE -->
-<style>
+<link rel="stylesheet" type="text/css" href="/media/microsite/gen/css/certificate.css" />
 
-</style>
 % if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
@@ -100,17 +96,23 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+        <div>
+          <img src="/media/microsite/gen/assets/img/logo_GEN.png" alt="logo GEN">
+          <img src="/media/microsite/gen/assets/img/badge5.png" alt="logo GEN">
+          <img src="/media/microsite/gen/assets/img/logo_lille_transparent.png" alt="logo GEN">
+        </div>
+          <div id="certificate-title">
+            <h3>ATTESTATION DE RÉUSSITE</h3>
+          </div>
           <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
+            <h3 id="nameDatas">${first_name} ${last_name}</h3>
+            <p>a suivi avec succès le cours en ligne</p>
             <h4>${course_name}</h4>
+            <p>proposé par <span style="font-weight: bold;">Grande École du Numérique</span> et <span style="font-weight: bold;">l’Université de Lille</span"></p>
+            <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
           </div>
-          <div>
-          </div>
+          <p>La présente attestation n’est pas un diplôme et ne confère pas de crédits (ECTS). Elle n’atteste pas que le participant était inscrit dans une formation labellisée GEN ni à l’Université de Lille. L’identité du participant n’a pas été vérifiée.
+          </p>
       </div>
   </div>
 </div>
@@ -141,6 +143,22 @@ background_url = configuration_helpers.get_value('bg_img')
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
+
+    // GET XCERTIFICATE DATE
+    var monthNames = [
+      "Janvier", "Fevrier", "Mars",
+      "Avril", "Mai", "Juin", "Juillet",
+      "Août", "Septembre", "Octobre",
+      "Novembre", "Decembre"
+    ];
+    date = new Date();
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    var certificate_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+
+    $('#dateDeCertificat').text(certificate_date)
   })
 </script>
 
