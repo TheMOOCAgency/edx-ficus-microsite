@@ -312,11 +312,19 @@ site_status_msg = get_site_status_msg(course_id)
         }
 
         $('#en').on('click', function() {
+          var urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('lang') && urlParams.get('lang') === 'fr') {
+            window.history.pushState({}, document.title, location.href.replace("lang=fr&", ""));
+          }
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
           lang = 'en'
         });
         $('#fr').on('click', function() {
+          var urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('lang') && urlParams.get('lang') === 'en') {
+            window.history.pushState({}, document.title, location.href.replace("lang=en&", ""));
+          }
           $('#settings-language-value > option[value="fr"]').attr('selected','selected');
           $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
           lang = 'fr'
