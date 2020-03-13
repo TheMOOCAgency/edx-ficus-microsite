@@ -1,97 +1,115 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+<!DOCTYPE html>
+<html>
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Plasturgie</title>
+      <link rel="stylesheet" type="text/css" href="/media/microsite/Plasturgie/css/style.css" />
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid1">
+    <div class="row">
+      <div class="col col-xs-6">
+        <img width=200px; src="/media/microsite/Plasturgie/img/favicon.png" style="margin-left: 25px; margin-top: 25px;">
+      </div>
+      <div class="col col-xs-6" >
+        <div id="connexionAndRegisterButtons">
+          <a width=200px class="indexButton" id="connexionButtonNav" onclick="goToConnect()">Connexion</a>
+          <a width=200px class="indexButton" id="inscriptionButtonNav" onclick="goToRegister()">Inscription</a>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
-  </section>
-% endif
+    <div class="row" style="height:600px">
+      <div class="col-sm-12 col-lg-6 " style="padding:50px; margin-top:100px">
+        <h1>Parcours sensibilisation</h1>
+        <h2>Economie circulaire en plasturgie</h2>
+        <p>Découvrez dans cette formation les principes généraux de l'économie circulaire appliqués à la Plasturgie. Le plastique? Ses impacts sur l'environnement ? l'Eco-conception des produits plastiques ? Les matières plastiques recyclées?</p>
+          <br>
+          <a onclick="scroll_to()" class="indexButton" id="discoverButton">Découvrir le MOOC </a>
+      </div>
+      <div class="col-sm-12 col-lg-6 text-center">
+        <img class="main-image" src="/media/microsite/Plasturgie/img/trabajo.png">
+      </div>
+    </div>
+   <div class="ensavoirplus">
+     <p>En savoir plus </p>
+     <img  src="/media/microsite/Plasturgie/img/anchor.png" onclick="scroll_to()">
+   </div> 
+  </div>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+  <div class="container-fluid" id="teaserSection">
+    <div class="row">
+      <div class="col-sm-12 col-lg-6" style="padding:20px; text-align: right;">
+        <img class="col-sm-12" src="/media/microsite/Plasturgie/img/planete.png" style="width:600px;">
+      </div>
+      <div class="col-sm-12 col-lg-6" style="padding:10px">
+        <h3>Suivez ce parcours de sensibilisation pour comprendre les grands principes de l’économie circulaire et comment les plastiques peuvent y trouver leur place.</h3>
+        <p>Vous souhaitez comprendre ce qu'est l'économie circulaire ? Quels sont les enjeux ? L'éco-conception des produits de la plasturgie ? Consultez cette vidéo pour découvrir le contenu de cette formation et n'attendez plus, inscrivez-vous !
+        </p>
+        <div id="teaserRegisterContainer">
+          <a width=200px class="indexButton" id="teaserRegister" onclick="goToRegister()">S'inscrire au MOOC</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+    <div id="sectionWhatIsMooc">
+      <div id="sectionWhatIsMoocTexts">
+        <h3>Et au fait...qu'est-ce qu'un MOOC ?</h3>
+        <p>Une formation, ouverte à tous, disponibe et accessible où que vous soyez</p>
+      </div>
+      <img  src="/media/microsite/Plasturgie/img/schema_MOOC.png">
+      <div class="container-fluid" id="mooc_legend_container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <h3 style="color: #fdb811;">MASSIVE</h3>
+            <p>Un contenu disponible gratuitement et autour duquel vous pouvez échanger, directement sur cette plateforme.</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <h3 style="color: #99cb3c;">OPEN</h3>
+            <p>Un accès libre à toutes les resources.</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <h3 style="color: #23b0b3;">ONLINE</h3>
+            <p>Disponible en ligne, tout le temps où que vous soyez.</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <h3 style="color: #f26843;">COURSE</h3>
+            <p>Un vrai parcours pédagogique, pour vous permettre d'acquérir des compétences.</p>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="connexionAndRegisterButtons">
+        <a width=200px class="indexButton" id="connexionButton">Connexion</a>
+        <a width=200px class="indexButton" id="inscriptionButton">Inscription</a>
+      </div> -->
+    </div>
 
-% if register_course_id is not None:
+    <footer class="col col-sm-12 col-lg-12 text-center">
+      <p>Cet e-campus est porté par la Branche Professionnelle de la Plasturgie et des Composites, il est financé par :</p>
+      <br>
+      <img src="/media/microsite/Plasturgie/img/Logo.jpg" style="width:150px;">
+      <img src="/media/microsite/Plasturgie/img/LOGO_DEF.png" style="width:150px">
+      <img src="/media/microsite/Plasturgie/img/travail_150.png" style="width:150px">
+      <div id="footer_links" style="text-align: center;">
+        <p>Plasturgie-Design Ingenium digital learning - Mentions légales - Configuration requise - Contact - Politique</p>
+      </div>
+    </footer>
+  </body>
+</html>
 <script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
+  function scroll_to(div){
+    $('html, body').animate({
+      scrollTop: $("#teaserSection").offset().top
+    },1000);
+  }
+  var goToConnect = function(){
+    window.location.href="/login"
+  }
+  var goToRegister = function(){
+    window.location.href="/register"
+  }
 </script>
-% endif
