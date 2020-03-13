@@ -55,7 +55,7 @@ import datetime
   </span>
 
   <p class="instructions">
-    ${_('Create your own {platform_name} account below').format(platform_name=platform_name)}
+    ${_('Create your own account below')}
     <span class="note">${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}</span>
   </p>
 
@@ -65,7 +65,7 @@ import datetime
   <p class="instructions">
     ## Translators: selected_provider is the name of an external, third-party user authentication service (like Google or LinkedIn).
     ${_("You've successfully signed in with {selected_provider}.").format(selected_provider='<strong>%s</strong>' % selected_provider)}<br />
-    ${_("We just need a little more information before you start learning with {platform_name}.").format(platform_name=settings.PLATFORM_NAME)}
+    ${_("We just need a little more information before you start learning with us.")}
   </p>
 
   % endif
@@ -293,7 +293,7 @@ import datetime
 
     % if settings.REGISTRATION_EXTRA_FIELDS['goals'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['goals']} text" id="field-goals">
-      <label for="goals">${_("Please share with us your reasons for registering with {platform_name}").format(platform_name=platform_name)}</label>
+      <label for="goals">${_("Please share with us your reasons for registering")}</label>
       <textarea id="goals" name="goals" value="" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['goals'] == 'required' else ''}></textarea>
     </li>
     % endif

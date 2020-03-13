@@ -13,7 +13,7 @@ from third_party_auth import pipeline, provider
 import calendar
 %>
 
-<%block name="pagetitle">${_("Register for {platform_name}").format(platform_name=platform_name)}</%block>
+<%block name="pagetitle">${_("Register")}</%block>
 
 <%block name="bodyclass">view-register</%block>
 
@@ -86,7 +86,7 @@ import calendar
           removeClass('is-disabled').
           attr('aria-disabled', false).
           removeProp('disabled').
-          html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
+          html("${_('Create My Account')}");
       }
       else {
         $submitButton.
@@ -112,7 +112,7 @@ import calendar
   <header>
     <h1 class="title">
       <span class="title-super">${_("Welcome!")}</span>
-      <span class="title-sub">${_("Register below to create your {platform_name} account").format(platform_name=platform_name)}</span>
+      <span class="title-sub">${_("Register below to create your account")}</span>
     </h1>
   </header>
 </section>
