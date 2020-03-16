@@ -19,8 +19,23 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
   .text-center{
     text-align: center
   }
+  .course-block{
+    text-align: left;
+  }
   .dashboard_profile {
     margin-bottom: 20px;
+  }
+  .container{
+    min-width: 250px;
+  }
+  .bottom_btn{
+    margin: 15px;
+  }
+  .dashboard-btn{
+    width: 100%;
+  }
+  .dashboard-btn:hover{
+    background-color: rgb(255, 90, 52)!important;
   }
   #dashboard_course_content{
     text-align: center;
@@ -62,57 +77,61 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
     <div id="logoData4Manager">
       <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
     </div>
-    %if course_state=="finished":
-    <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-    </a>
-    %elif course_state=="ongoing":
-    <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-    </a>
-    %else:
-    <a href="${reverse('courseware', args=[str(enrollment.course_id)])}" style="background-color: transparent; box-shadow: none; border:none; margin-top: 100px;">
-      <img src="/media/microsite/data-ready/images/macaron.png" width="215" style="margin-top: 100px;"/>
-    </a>
-    <!-- <button class="dashboard-btn" id="course_start">
-      <i class="fa fa-play-circle"></i>
-      Start
-      %if associated_courses.get('step_number')>1:
-      Quiz ${associated_courses.get('step_number')}
-      %endif
-    </button> -->
-    %endif
-  </div>
-</div>
-<div class="row mt-20">
-      <div class="col-md-6 text-center">
-        %if user_course_state!="finished" :
-        <!-- <button class="sub-btn" disabled>
-          <i class="fa fa-book"></i>
-          Review my answers
-        </button> -->
-        %else :
-        <!-- <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
-          <button class="sub-btn blue-btn"  id="see_answers">
-            <i class="fa fa-book"></i>
+    <div class="container">
+      <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
+        <div class="bottom_btn">
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="text-align-center dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              See my results
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="text-align-center dashboard-btn start-course"  id="course_continue" onmouseover="this.style.background='#FFFF99'">
+              <i class="fa fa-play-circle"></i>
+              Resume
+            </button>
+          </a>
+          %else:
+          <button class="text-align-center dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            Start
+            %if associated_courses.get('step_number')>1:
+             <!-- L'évaluation ${associated_courses.get('step_number')} -->
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="bottom_btn">
+          %if course_state!="finished" :
+          <button class="text-align-center white-btn mr-20 dashboard-btn deactivated" disabled>
             Review my answers
           </button>
-        </a> -->
-        %endif
-      </div>
-      <div class="col-md-6 text-center">
-        %if user_course_state=="finished" :
-        <!-- <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
-          <button class="sub-btn blue-btn deactivated" id="last_score">
-            <i class="fa fa-search"></i>
+          %else :
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="text-align-center white-btn mr-20 blue-btn dashboard-btn"  id="see_answers">
+              <i class="fa fa-play-circle"></i>
+              Review my answers
+            </button>
+          </a>
+          %endif
+        </div>
+        <div class="bottom_btn">
+          %if user_course_state=="finished" :
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="text-align-center white-btn deactivated dashboard-btn" id="last_score">
+              Consult my previous score
+            </button>
+          </a>
+          %else :
+          <button class="text-align-center white-btn deactivated dashboard-btn" disabled>
             Consult my previous score
           </button>
-        </a> -->
-        %else :
-        <!-- <button class="sub-btn deactivated" disabled>
-          <i class="fa fa-search"></i>
-          Consult my previous score
-        </button> -->
-        %endif
-      </div>
+          %endif
+        </div>
+      </div>    
+    </div>
+  </div>    
 </div>

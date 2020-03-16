@@ -82,8 +82,11 @@ import calendar
       var $submitButton = $('form .form-actions #submit');
 
       if(enable) {
-        $submitButton.
-          html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
+        %if request.LANGUAGE_CODE == "en":
+          $submitButton.html("Create My Account");
+        %else:
+          $submitButton.html("Créer mon compte");
+        %endif
       }
       else {
         $submitButton.
@@ -107,7 +110,11 @@ import calendar
   <header>
     <h1 class="title">
       <span class="title-super">${_("Welcome!")}</span>
-      <span class="title-sub">${_("Register below to create your {platform_name} account").format(platform_name=platform_name)}</span>
+      %if request.LANGUAGE_CODE == "en":
+        <span class="title-sub">Register below to create your account</span>
+      %else:
+        <span class="title-sub">Enregistrez-vous ci-dessous pour créer votre compte</span>
+      %endif
     </h1>
   </header>
 </section>
@@ -135,6 +142,9 @@ import calendar
   </aside>
 -->
 </section>
+<script>
+  console.log("la langue : " + "${request.LANGUAGE_CODE}")
+</script>
   
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="/media/microsite/data-ready/css/responsive_top_layer.css" type="text/css" media="screen" />
