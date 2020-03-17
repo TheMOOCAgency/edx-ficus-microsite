@@ -16,6 +16,65 @@ else:
     aria_label = chapter['display_name']
     active_class = ''
 %>
+<script>
+getCourseData = function(courseId) {
+  var courseDetailUrl = '/api/courses/v1/courses/${course_id}/';
+  return $.ajax({
+      url: courseDetailUrl,
+      type: 'GET',
+      dataType: 'json'
+  });
+}
+getCourseData2 = function(courseId) {
+  var courseDetailUrl = '/api/course_structure/v0/course_structures/${course_id}/';
+  return $.ajax({
+      url: courseDetailUrl,
+      type: 'GET',
+      dataType: 'json'
+  });
+}
+var coursesData = getCourseData2()
+</script>
+<style>
+  .wrapper-course-modes{
+    display: none!important;
+  }
+  .currentitemlist{
+    font-size: 14px;
+    font-weight: 400;
+    color: #3e3e3e;
+
+  }
+  .currentitemlist>li>button{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+}
+  .currentitemlist>li>button:hover{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+}
+  .currentitemlist>li>button:focus{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+}
+  .currentitemlist>li:hover{
+  background-color: #f09580
+}
+
+</style>
+
 <a href="#${chapter['display_id']}-child" role="button" class="button-chapter chapter ${active_class}" id="${chapter['display_id']}-parent" aria-controls="${chapter['display_id']}-child" aria-expanded="false">
     <span class="group-heading ${active_class}" aria-label="${aria_label}">
         <span class="icon fa fa-caret-right" aria-hidden="true"></span>
@@ -25,6 +84,9 @@ else:
 <div class="chapter-content-container" id="${chapter['display_id']}-child" tabindex="-1" role="group" aria-label="${chapter['display_name']} submenu">
     <div class="chapter-menu">
         % for section in chapter['sections']:
+      	<script>
+      		console.log("${section}")
+      	</script>
         <div class="menu-item ${'active' if 'active' in section and section['active'] else ''} ${'graded'  if 'graded' in section and section['graded'] else ''}">
             <a class="accordion-nav" href="${reverse('courseware_section', args=[course_id, chapter['url_name'], section['url_name']])}">
                 <p class="accordion-display-name">${section['display_name']} ${Text(_('{span_start}current section{span_end}')).format(

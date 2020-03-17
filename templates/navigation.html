@@ -36,9 +36,11 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
+cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
 <%
 try:
     course_id = course.id
@@ -48,7 +50,7 @@ except:
 site_status_msg = get_site_status_msg(course_id)
 %>
 
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 % if site_status_msg:
 <div class="site-status">
   <div class="inner-wrapper">
@@ -59,6 +61,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
+    <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -338,6 +341,16 @@ else:
   custom_color = str(configuration_helpers.get_value('primary_color'))
 endif
 %>
+<script>
+  $(document).ready(function(i){
+    $('.course-tabs>li').appendTo('.nav-global')
+    $('.logo').appendTo('#global-navigation')
+    $('.user').appendTo('#global-navigation')
+    $('.wrapper-user-menu').appendTo('#global-navigation')
+    console.log($('.wrapper-user-menu'))
+  })
+</script>
+
 <style>
 .header-global .wrapper-header{
   padding: 10px 10px 10px !important;
@@ -423,4 +436,118 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 .user-menu{
   margin-top : 5px;
 }
+/*Custom 5a */
+  .logo{
+    position: absolute!important;
+    left: 50vw!important;
+    top: 5px!important;
+  }
+  .course-index{
+    display:block;
+  }
+  .wrapper-header{
+    height : 0px!important;
+    display:inline-block!important;
+  }
+  .header-global  .user{
+    margin-top:5px!important;
+  }
+  .nav-global>li{
+    width : 100%!important;
+    text-align : center!important;
+  }
+  .wrapper-header{
+    max-width:0vw!important;
+    width:0vw!important;
+    flex-direction : column!important;
+  }
+  .window-wrap>#global-navigation{
+    height : 50px!important;
+  }
+
+#global-navigation .burger{
+    display: block!important;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    cursor: pointer;
+    font-family: 'Material Icons'!important;
+    font-size: 30px;
+    line-height: 50px;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    top: 0px;
+    width: 50px;
+    z-index: 601;
+    color: black;
+    float : left;
+  }
+  #global-navigation .burger:before
+  {
+    content:'menu';
+  }
+  #global-navigation .burger:checked:before
+  {
+    content:'close';
+
+  }
+  #global-navigation .burger:checked
+  {
+    left: 5px!important;
+
+  }
+
+  #global-navigation .wrapper-header
+  {
+    max-width:0;
+    overflow:hidden;
+    transition:max-width .5s;
+    background-color: inherit!important;
+  }
+  #global-navigation .wrapper-header > *
+  {
+    overflow:hidden;
+  }
+
+  #global-navigation .burger:checked + .wrapper-header
+  {
+    max-width:96vw!important;
+    width:20% !important;
+    z-index: 600;
+    min-height: 82vh!important;
+    position: absolute;
+    margin-top: 50px;
+    left: 0px;
+    height: 90vh!important;
+  }
+  @media screen and (max-width: 680px) {
+      #global-navigation .burger:checked + .wrapper-header{
+        width : 100%!important;
+      }
+  }
+  .logo {
+    left:50px!important;
+  }
+  #global-navigation .burger:checked + .tabs>.tab
+  {
+    width: 100%!important;
+    text-align: center;
+  }
+  #return_dashboard a{
+    color : #0075b4!important;
+  }
+  .wrapper-header>#return_dashboard a:hover{
+    color : #0075b4!important;
+  }
+  .dropdown-menu-container {
+    display: inline-flex;
+    right: 30px!important;
+    float: right!important;
+    width: auto!important;
+    top: 5px!important;
+}
+  }
 </style>
