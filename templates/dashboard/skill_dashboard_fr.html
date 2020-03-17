@@ -31,9 +31,9 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
   .bottom_btn{
     margin: 15px;
   }
-  .dashboard-btn{
+/*  .dashboard-btn{
     width: 100%;
-  }
+  }*/
   .dashboard-btn:hover{
     background-color: rgb(255, 90, 52)!important;
   }
@@ -106,29 +106,29 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
         </div>
         <div class="bottom_btn">
           %if course_state!="finished" :
-          <button class="text-align-center white-btn mr-20 dashboard-btn deactivated" disabled>
+          <!-- <button class="text-align-center white-btn mr-20 dashboard-btn deactivated" disabled>
             Revoir mes réponses
-          </button>
+          </button> -->
           %else :
-          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+          <!-- <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
             <button class="text-align-center white-btn mr-20 blue-btn dashboard-btn"  id="see_answers">
               <i class="fa fa-play-circle"></i>
               Revoir mes réponses
             </button>
-          </a>
+          </a> -->
           %endif
         </div>
         <div class="bottom_btn">
           %if user_course_state=="finished" :
-          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+          <!-- <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
             <button class="text-align-center white-btn deactivated dashboard-btn" id="last_score">
               Consulter mon score précédent
             </button>
-          </a>
+          </a> -->
           %else :
-          <button class="text-align-center white-btn deactivated dashboard-btn" disabled>
+          <!-- <button class="text-align-center white-btn deactivated dashboard-btn" disabled>
             Consulter mon score précédent
-          </button>
+          </button> -->
           %endif
         </div>
       </div>    
