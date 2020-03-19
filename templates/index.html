@@ -1,3 +1,15 @@
+<%page expression_filter="h"/>
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
+from openedx.core.djangolib.markup import HTML, Text
+%>
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+%>
 <!DOCTYPE html>
 <html>
    <head>
@@ -25,7 +37,7 @@
       <link rel="stylesheet" href="/media/microsite/nature-for-city-life/assets/css/thumbnails1-1.css">
       <link rel="stylesheet" href="/media/microsite/nature-for-city-life/assets/css/thumbnails1.css">
 	    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-	    <!-- <script>alert('modif en cours')</script> -->
+	    <!-- <script>alert('modif en cours 2')</script> -->
    </head>
    
    <style>
@@ -71,7 +83,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                <ul class="nav navbar-nav navbar-right">
-                  <li role="presentation"><a class="registerBind" href="/register?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Inscription </a></li>
+                  <li role="presentation"><a class="registerBind" href="/register?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Découvrez nos formations </a></li>
                   <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Connexion </a></li>
                </ul>
             </div>
@@ -91,12 +103,20 @@
                      <!--Ouverture le 6 décembre-->
                   </p>
                   <div style="margin:0 auto;text-align:center;">
-                     <a class="btn btn-primary btn-lg link_header registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="register_link">INSCRIPTIOn </a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Connexion </a>
+                     <a class="btn btn-primary btn-lg link_header registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="register_link"><p style="margin:0px">Découvrez nos <br />formations </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Connexion </a>
                   </div>
             </div>
          </div>
       </div>
-      <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+      <div style="padding: 0px 40px;">
+         <h2 class="text-center" style="margin-bottom:10px;padding-top:120px;color:#C2CC37;font-size:18px;font-weight: bold;">Découvrez comment concevoir une ville-nature</h2>
+         <p style="font-size: 18px;">La formation Nature For City Life ets composée de deux parcours : <br />Le projet initial et le parcours de perfectionnement. Les parcours sont disponibles en différentes langues.</p>
+         <p style="font-size: 18px;">Cliquez sur le parcours correspondant à la langue de votre choix pour en savoir plus</p>
+      </div>
+
+      <%include file="${courses_list}" />
+
+      <!-- <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
          <div class="container">
             <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
                <div class="col-md-12">
@@ -182,7 +202,7 @@
                </div>
             </div>
          </div>
-      </div>
+      </div> -->
       <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;">
          <div class="container" style="background-color:white;margin-top:0px;">
             <div class="intro" style="padding-top:0px;">
@@ -230,7 +250,7 @@
               
             </div>
             <div>
-               <a class="btn btn-primary btn-lg registerBind"" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Je m'inscris !</a></br>
+               <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Je m'inscris !</a></br> -->
 			   <p style="font-style:italic">Ce MOOC est soutenu financièrement par l’Union européenne</p>
                <div class="modal fade"
                   role="dialog" tabindex="-1" id="myModal">
@@ -527,7 +547,7 @@
 				var composeHrefConnection = connectionStringHref + langArg + lang
 				var composeHrefRegister = registerStringHref + langArg + lang
 				function bindMyLanButton(target, link) {
-					console.log(target)
+					/*console.log(target)*/
 					var targ = target
 					var link = link
 					for (i = 0; i < targ.length; i++) {
@@ -591,6 +611,25 @@
 			}
 
 			getLanguageBrowser()
+
+			$( document ).ready(function(){
+				// GET DATE
+				var monthNames = [
+					"Janvier", "Fevrier", "Mars",
+					"Avril", "Mai", "Juin", "Juillet",
+					"Août", "Septembre", "Octobre",
+					"Novembre", "Decembre"
+				];
+
+				for (i=0; i<$('.course-date').length; i++) {
+					date = new Date($('.course-date:eq('+i+')').attr('data-datetime'));
+					var day = date.getDate();
+					var monthIndex = date.getMonth();
+					var year = date.getFullYear();
+					var formated_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+					$('.course-date:eq('+i+')').html('Début : '+formated_date)
+				}
+			})
 
 	  </script>
 	  <script src="/media/microsite/nature-for-city-life/assets/js/jquery.min.js"></script>
