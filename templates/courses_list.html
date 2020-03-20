@@ -1,6 +1,10 @@
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
-<%! from django.utils.translation import ugettext as _ %>
+<%! 
+from django.utils.translation import ugettext as _ 
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+%>
+<% hidden_courses = configuration_helpers.get_value('hidden_courses') %>
 
 <section class="courses-container">
   <section class="highlighted-courses">
@@ -10,9 +14,11 @@
         <ul class="courses-listing">
           ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
           %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-          <li class="courses-listing-item">
-              <%include file="course.html" args="course=course" />
-          </li>
+            %if str(course.id) not in hidden_courses:
+              <li class="courses-listing-item">
+                  <%include file="course.html" args="course=course" />
+              </li>
+            %endif
         %endfor
         </ul>
       </section>
