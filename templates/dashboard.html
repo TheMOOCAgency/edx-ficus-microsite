@@ -256,8 +256,10 @@ endfor
     </div>
 % if len(course_enrollments) == 1:
     <%
+    course_id = ""
     for enrollment in course_enrollments:
-         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+        course_id = str(enrollment.course_id)
+        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     %>
 
     <!-- block milieu profil -->
@@ -272,8 +274,9 @@ endfor
           <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
         % endif
       </div>
-      <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
+      %if "replay_2020" not in course_id:
+       <!-- border middle -->
+       <div id="dashboard_profile_middle_middle">
       </div>
       <!-- actif forum -->
       <div id="dashboard_profile_middle_bottom">
@@ -285,6 +288,7 @@ endfor
           <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
       </div>
+      %endif
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
