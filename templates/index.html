@@ -33,6 +33,15 @@ from openedx.core.djangolib.markup import HTML, Text
 .courses-container .courses .course {
   border-bottom: 3px solid rgba(103,177,52,1) !important;
 }
+.covid_banner {
+  background-color: #67B134;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
@@ -74,6 +83,7 @@ from openedx.core.djangolib.markup import HTML, Text
         </div>
 
       </header>
+      <div class="covid_banner">Dans le contexte exceptionnel qui impose à tous une solidarité nationale, l’Afpa met ses MOOC et des modules de formation à disposition de tous les organismes de formation et de leurs stagiaires.</div>
       <%include file="${courses_list}" />
 
     </section>
