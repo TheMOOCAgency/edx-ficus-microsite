@@ -1,4 +1,4 @@
-<%page args="course_overview,org_static, enrollment,show_email_settings, dashboard_index" />
+<%page args="show_courseware_link,is_course_blocked,course_overview,org_static, enrollment,show_email_settings, dashboard_index" />
 
 <%!
 import urllib
@@ -35,39 +35,14 @@ cours_ouv = ''
 
 if course_overview.enrollment_start is None:
   insc_ouv = False
-elif int(course_overview.enrollment_start.strftime("%s")) < _current:
-  if course_overview.enrollment_end is not None:
-    if int(course_overview.enrollment_end.strftime("%s")) < _current:
-      insc_ouv = True
-    else:
-      insc_ouv = False
-  else:
+else:
+  if (course_overview.enrollment_end is None and int(course_overview.enrollment_start.strftime("%s")) < _current) or (int(course_overview.enrollment_start.strftime("%s")) < _current and (_current < int(course_overview.enrollment_end.strftime("%s")) or course_overview.enrollment_end is None)):
     insc_ouv = True
-elif course_overview.enrollment_end is not None:
-  if int(course_overview.enrollment_end.strftime("%s")) < _current:
+  else:
     insc_ouv = False
-  else:
-    insc_ouv = True
-else:
-  insc_ouv = False
 
-if course_overview.start is None:
-  cours_ouv = False
-elif int(course_overview.start.strftime("%s")) < _current:
-  if course_overview.enrollment_end is not None:
-    if int(course_overview.end.strftime("%s")) < _current:
-      cours_ouv = True
-    else:
-      cours_ouv = False
-  else:
-    cours_ouv = True
-elif course_overview.end is not None:
-  if int(course_overview.end.strftime("%s")) < _current:
-    cours_ouv = False
-  else:
-    cours_ouv = True
-else:
-  cours_ouv = False
+
+cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
 <li class="course_cell_multi">
@@ -86,10 +61,18 @@ else:
       <span>
     </div>
     <div class="multi_course_image">
+% if cours_ouv:
       <a href="/dashboard/${enrollment.course_id}/"><img src="${course_overview.image_urls['small']}" /></a>
+%else:
+<img src="${course_overview.image_urls['small']}" />
+% endif
     </div>
     <div class="multi_course_title">
+% if cours_ouv:
       <h2><a href="/dashboard/${enrollment.course_id}/">${course_overview.display_name_with_default}</a></h2>
+% else:
+<h2>${course_overview.display_name_with_default}</h2>
+% endif
     </div>
     <span style="display:block;clear:left"></span>
   </div>
@@ -105,9 +88,9 @@ else:
 % endif
 <span>${_('and')}</span>
 % if cours_ouv:
-  <span> ${_("Course is close")}</span>
-% else:
   <span> ${_("Course is open")}</span>
+% else:
+  <span> ${_("Course is close")}</span>
 % endif
 <span></span>
       </div>
@@ -124,7 +107,9 @@ else:
       </div>
     </div>
     <div class="dashboard_button">
-      <a href="/dashboard/${course_overview.id}/">Course dashboard</a>
+% if cours_ouv:
+      <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+% endif
     </div>
     <span style="display:block;clear:left"></span>
   </div>

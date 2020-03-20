@@ -34,6 +34,33 @@ css = org_static+'/css/navigation.css'
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+  #global-navigation ol.user{
+    float:right;
+    list-style:none;
+    margin:10px
+  }
+  #global-navigation{
+    height:80px!important
+  }
+  .header-global .nav-global li a {
+    color: rgba(103,177,52,1);
+}
+#lang-content img{
+  cursor: pointer;
+}
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 60px;
+    height: 24px;
+  }
+  #lang-content img{
+    width: 25px;
+  }
+</style>
 <%
 try:
     course_id = course.id
@@ -105,7 +132,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}" style="display:none">${_('Explore courses')}</a>
+              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
           % if show_program_listing:
@@ -224,8 +251,65 @@ site_status_msg = get_site_status_msg(course_id)
       </ol>
       % endif
       % endif
+
+     <% languages = static.get_released_languages() %>
+      <ol class="user">
+        <li class="primary">
+          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+            % if user.is_authenticated():
+            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+            % else:
+            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+            % endif
+            <label><span class="sr">${_("Choose Language")}</span>
+              <!--LANGUAGE FLAGS-->
+              <div id="lang-content" style="display:none">
+                <img src="/media/microsite/afpa/images/uk.png" id="en">
+                <img src="/media/microsite/afpa/images/fr.png" id="fr">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                  % for language in languages:
+                   % if language[0] =="en" or language[0] =="fr":
+                    % if language[0] == LANGUAGE_CODE:
+                      <option value="${language[0]}" selected="selected">${language[0]}</option>
+                    % else:
+                      <option value="${language[0]}">${language[0]}</option>
+                    % endif
+                   % endif
+                  % endfor
+                </select>
+              </div>
+            </label>
+          </form>
+        </li>
+      </ol>
+
+
     </nav>
 </header>
+
+
+<script>
+  //LANGUAGE FLAGS, ONLY FOR MOOC_FLI
+$(document).ready(function () {
+    if(window.location.href.indexOf("MOOC_FLI") > -1 || $('#title_dashboard_course h1').html()==="MOOC FLI") {
+         $('#lang-content').show();
+    }
+});
+  $('#en').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  }
+  );
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+  }
+
+  );
+</script>
+
 % if course:
 <!--[if lte IE 9]>
 <div class="ie-banner" aria-hidden="true">${Text(_('{begin_strong}Warning:{end_strong} Your browser is not fully supported. We strongly recommend using {chrome_link} or {ff_link}.')).format(
@@ -247,6 +331,9 @@ js = org_static+'/js/translate.js'
 <style>
 body.view-in-course .wrapper-course-material .course-material .course-tabs {
   width: 100% !important;
+}
+#content {
+ min-height: calc(100vh - 153px) !important;
 }
 </style>
 <%include file="help_modal.html"/>

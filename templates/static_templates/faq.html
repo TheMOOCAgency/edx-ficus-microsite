@@ -3,10 +3,277 @@
 <%inherit file="../main.html" />
 
 <%block name="pagetitle">${_("FAQ")}</%block>
-
+<style>
+main { 
+ background-color: #fff;
+}
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
+<!--
     <section class="container about">
         <h1>${_("FAQ")}</h1>
         <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
     </section>
+-->
+<section class="static-container faq">
+<h1>${_("FAQ")}</h1>
+<h3>
+    Voici la liste des questions les plus fréquentes, auxquelles nous nous efforçons de répondre le plus précisément possible :
+</h3>
+<ul>
+    <li>
+        <em>Qui peut s’inscrire à un MOOC Afpa ?</em>
+    </li>
+</ul>
+<p>
+    Toute personne souhaitant suivre la formation, quel que soit son niveau d’études, son âge et qu’elle soit pourvue ou non d’un projet spécifique.
+</p>
+<p>
+    Le MOOC se déroule en français.
+</p>
+<ul>
+    <li>
+        <em>Comment puis-je m’inscrire au MOOC ?</em>
+    </li>
+</ul>
+<p>
+    Créez simplement un compte sur «Les MOOC de l’Afpa», qui est gratuit et ensuite inscrivez-vous au MOOC. Suivez les consignes sur le site Internet.
+</p>
+<ul>
+    <li>
+        <em>Que se passe-t-il si je m'inscris à un MOOC ?</em>
+    </li>
+</ul>
+<p>
+    Vous allez recevoir un courriel d'activation. Suivez les consignes de ce courrier pour activer votre compte. Vous devrez systématiquement vous enregistrer
+    avec ce compte pour accéder au MOOC auquel vous vous êtes inscrit(e). Lorsque celui-ci aura débuté, vous pourrez accéder aux documents, devoirs, tutoriaux,
+    etc., semaine par semaine.
+</p>
+<ul>
+    <li>
+        <em>Quand débute et finit mon MOOC ?</em>
+    </li>
+</ul>
+<p>
+    Les dates de début et de fin des MOOCs sont disponibles sur la page de description de chaque MOOC.
+</p>
+<ul>
+    <li>
+        <em>Peut-on avoir un aperçu du MOOC avant l’inscription ?</em>
+    </li>
+</ul>
+<p>
+    Oui, vous pouvez avoir un aperçu du cours en visionnant le teaser associé à la formation.
+</p>
+<ul>
+    <li>
+        <em>Y-a-t-il des pré-requis pour un MOOC qui m'intéresse ?</em>
+    </li>
+</ul>
+<p>
+    La plupart des MOOCs ne nécessitent pas de pré-requis de formation. Vous pouvez suivre les MOOCs que vous souhaitez dans l’ordre que vous voulez. Vous
+    noterez toutefois que certains MOOCs présentent un parcours pédagogique ordonné.
+</p>
+<ul>
+    <li>
+        <em>Que se passe-t-il si je quitte un MOOC ? Y a-t-il des pénalités ? Pourrai-je suivre un autre MOOC à l'avenir ?</em>
+    </li>
+</ul>
+<p>
+    Vous pouvez vous désinscrire d'un MOOC sur <a href="http://mooc.afpa.fr/">mooc.afpa.fr</a> n'importe quand, sans pénalité. Vous pourrez vous réinscrire au
+    même MOOC plus tard, lors d'une session ultérieure.
+</p>
+<ul>
+    <li>
+        <em>Quelle quantité de travail sera nécessaire pour suivre un MOOC dans sa totalité ?</em>
+    </li>
+</ul>
+<p>
+    Le nombre estimé d'heures de travail requises pour réussir le MOOC est décrit sur la page de description spécifique à chaque MOOC.
+</p>
+<ul>
+    <li>
+        <em>Puis-je suivre plusieurs MOOCs à la fois ?</em>
+    </li>
+</ul>
+<p>
+    Vous pouvez suivre plusieurs MOOCs simultanément sur <a href="http://mooc.afpa.fr/">mooc.afpa.fr</a>. Néanmoins nous vous recommandons de vérifier les
+    pré-requis et la charge de travail sur la page de description de chaque MOOC pour déterminer l'adéquation entre votre temps d'étude disponible et celui
+    réclamé par le(s) MOOC(s) souhaité(s).
+</p>
+<ul>
+    <li>
+        <em>Quelles sont les heures d’ouverture du service ?</em>
+    </li>
+</ul>
+<p>
+    Vous préférez dormir et étudier plus tard ? Pas de problème. Les vidéos et exercices sont disponibles 24 heures sur 24, ce qui signifie que vous pouvez
+    regarder les vidéos et compléter votre travail dès que vous avez du temps de disponible. Connectez-vous à votre MOOC par Internet et travaillez avec les
+    ressources pédagogiques, une semaine à la fois.
+</p>
+<ul>
+    <li>
+        <em>Si je rate une semaine, cela va-t-il affecter mon évaluation ?</em>
+    </li>
+</ul>
+<p>
+    Il est certainement possible de réussir un MOOC en ayant raté une semaine ; néanmoins, les enseignants ont prévu une progression pédagogique, donc vous
+    devrez revoir et étudier ce que vous avez manqué. Vous pouvez vérifier sur votre tableau de bord du cours votre progression tout au long du cours si cela
+    vous préoccupe.
+</p>
+<ul>
+    <li>
+        <em>Comment puis-je rencontrer et échanger avec d'autres utilisateurs ?</em>
+    </li>
+</ul>
+<p>
+    Tous les MOOCs sur <a href="http://mooc.afpa.fr/">mooc.afpa.fr</a> ont des forums de discussion dans lesquels vous pouvez discuter en direct et aider les
+    autres, dans le respect de la Charte Utilisateurs.
+</p>
+<ul>
+    <li>
+        <em>Comment puis-je échanger avec les tuteurs et les encadrants ?</em>
+    </li>
+</ul>
+<p>
+    Les forums de discussion sont le meilleur endroit pour joindre l'équipe pédagogique <a href="http://mooc.afpa.fr/">mooc.afpa.fr</a>, et vous n'avez pas à
+    attendre en ligne ou à réorganiser votre emploi du temps pour l’adapter à celui des membres de l’équipe pédagogique : posez simplement vos questions ; la
+    réponse n'est pas toujours immédiate, mais généralement assez rapide.
+</p>
+<ul>
+    <li>
+        <em>Comment puis-je obtenir de l'aide ?</em>
+    </li>
+</ul>
+<p>
+    Pour vous aider, faites appel à la communauté dynamique et globale des apprenants en ligne, disponibles 24h/24 et 7j/7, dans le respect de la Charte
+    Utilisateurs. Vous disposez aussi du soutien des tuteurs qui animent le cours. Jetez un œil au forum de discussion où vous pouvez passer en revue les
+    questions posées, les réponses et commentaires des apprenants en ligne. Vous pouvez également poser des questions.
+</p>
+<ul>
+    <li>
+        <em>Puis-je suivre un MOOC à nouveau ?</em>
+    </li>
+</ul>
+<p>
+    Bonne nouvelle : vous pouvez rejouer tant que vous voulez un MOOC sur <a href="http://mooc.afpa.fr/">mooc.afpa.fr</a>. Vous pouvez suivre à nouveau les
+    cours aussi souvent que vous le souhaitez. Vos résultats dans une session du MOOC n'auront aucune influence sur les futures sessions, y compris s'il s'agit
+    du même cours.
+</p>
+<ul>
+    <li>
+        <em>L'inscription pour un MOOC qui m'intéresse est encore possible, mais le cours a commencé. Puis-je encore m'inscrire ?</em>
+    </li>
+</ul>
+<p>
+    Oui, mais vous ne pourrez pas valider les travaux que vous auriez déjà dû rendre.
+</p>
+<ul>
+    <li>
+        <em>Est-ce que les mêmes MOOCs seront à nouveau offerts à l'avenir ?</em>
+    </li>
+</ul>
+<p>
+    Si ce premier MOOC est un succès, d’autres MOOCs seront disponibles «Les MOOCs de l’Afpa».
+</p>
+<h3>
+    <br/>
+    <br/>
+</h3>
+<h3>
+    Quant aux problèmes techniques et informatiques, nous tentons de les anticiper et de vous aider :
+</h3>
+<ul>
+    <li>
+        <em>Pourquoi mon mot de passe s'affiche-t-il sur la page de connexion du MOOC ?</em>
+    </li>
+</ul>
+<p>
+    Oups ! Cela peut dépendre de la manière dont vous avez créé votre compte. Par exemple, vous pouvez avoir par erreur tapé votre mot de passe dans la case
+    correspondant à votre identifiant.
+</p>
+<ul>
+    <li>
+        <em>J'ai des problèmes de connexion (mot de passe/courriel non reconnus)</em>
+    </li>
+</ul>
+<p>
+    Merci de vérifier les paramètres de votre navigateur pour vous assurer que vous avez la dernière version de votre navigateur, puis essayez à nouveau de
+    vous connecter. Si l'accès est impossible, créez un nouveau compte en utilisant une adresse alternative. Le vieux compte, inutilisé, disparaîtra plus tard.
+</p>
+<ul>
+    <li>
+        <em>Je n'ai pas reçu de mail d'activation</em>
+    </li>
+</ul>
+<p>
+    Si vous n'avez pas reçu de mail d'activation, cela peut être parce que :
+</p>
+<p>
+    - Il y avait une faute de frappe dans votre adresse email
+</p>
+<p>
+    - Votre filtre anti-spam a peut-être considéré l’email d’activation comme un spam. Merci de vérifier votre dossier spam.
+</p>
+<p>
+    - Vous utilisez peut-être un ancien navigateur. Nous recommandons de télécharger la version courante de votre navigateur.
+</p>
+<p>
+    - Javascript est peut-être désactivé dans votre navigateur. Vérifiez les paramètres de votre navigateur et confirmez que Javascript est activé. Si vous
+    avez des problèmes avec l'activation de votre compte, nous recommandons de créer un nouveau compte. Il n'y a rien à faire avec l'ancien. S'il n'est pas
+    activé via le lien du mail, il disparaîtra plus tard.
+</p>
+<ul>
+    <li>
+        <em>Puis-je détruire mon compte ?</em>
+    </li>
+</ul>
+<p>
+    Il n'y a pas besoin de détruire votre compte. Un vieux compte «Les MOOCs de l’Afpa», sans MOOC associé, disparaîtra.
+</p>
+<ul>
+    <li>
+        <em>J'ai fait une erreur en créant mon nom d'utilisateur. Comment puis-je la réparer ?</em>
+    </li>
+</ul>
+<p>
+    Dans la plupart des cas, il est plus simple et plus rapide de créer un nouveau compte. Votre ancien compte disparaîtra naturellement. Si vous découvrez
+    votre erreur beaucoup plus tard, vous devrez nous envoyer une demande de changement détaillée et nous ferons de notre mieux pour modifier votre nom
+    d'utilisateur. Gardez à l'esprit que les identifiants sont uniques, et celui que vous voulez peut être déjà pris.
+</p>
+<ul>
+    <li>
+        <em>J'ai des problèmes d'affichage. Par exemple, il manque des fonctionnalités ou je ne peux pas voir les vidéos.</em>
+    </li>
+</ul>
+<p>
+    Vérifiez les paramètres de votre navigateur. Nous recommandons de télécharger la dernière version de votre navigateur. Sinon, vous pouvez vous réinscrire
+    avec un compte courriel alternatif. Il n'y a pas besoin de détruire l’ancien compte, il disparaîtra plus tard s'il est inutilisé.
+</p>
+<ul>
+    <li>
+        <em>Un utilisateur a publié un contenu illégal, comment le signaler ?</em>
+    </li>
+</ul>
+<p>
+    L’Afpa met en place une procédure de signalement des contenus illégaux mis en ligne.
+    <br/>
+    Ce dispositif est accessible à partir du forum : cliquer sur le bouton « Plus… » puis le bouton « Dénoncer ». ».
+    <br/>
+Les internautes ont également la faculté d’émettre un signalement à l’adresse courriel suivante :    <a href="mailto:contact@mooc.afpa.fr">contact@mooc.afpa.fr</a> .
+    <br/>
+    L’Afpa conserve l’ensemble de données ayant donné lieu à un signalement pendant un délai de UN an à compter de la date du signalement.
+</p>
+<p>
+    Mis à jour le 14 décembre 2015
+</p>
+<p>
+    Les MOOCs de l’AFPA, © 2015 Afpa et, tous droits réservés.
+    <br/>
+    Plateforme basée sur OpenEdx. Thème initial développé par <a href="https://ionisx.com/"><u>ionisx</u></a>.
+    <br/>
+    Une réalisation <a href="http://themoocagency.com/"><u>TheMOOCAgency</u></a>.
+</p>
+
+</section>
 </main>

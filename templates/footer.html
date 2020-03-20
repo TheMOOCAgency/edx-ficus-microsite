@@ -11,79 +11,194 @@
 org = static.get_value('domain_prefix')
 css = org+'/css/footer.css'
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<div class="wrapper wrapper-footer">
-  <footer id="footer-openedx" class="grid-container"
-    ## When rendering the footer through the branding API,
-    ## the direction may not be set on the parent element,
-    ## so we set it here.
-    % if bidi:
-      dir=${bidi}
-    % endif
-  >
-    <div class="colophon">
-      <nav class="nav-colophon" aria-label="${_('About')}">
-        <ol>
-            % for item_num, link in enumerate(footer['navigation_links'], start=1):
-            <li class="nav-colophon-0${item_num}">
-              <a id="${link['name']}" href="${link['url']}">${link['title']}</a>
-            </li>
-            % endfor
-        </ol>
-      </nav>
 
-      <div class="wrapper-logo">
-        <p>
-          <a href="/">
-            ## The default logo is a placeholder.
-            ## You can either replace this link entirely or update
-            ## the FOOTER_ORGANIZATION_IMAGE in Django settings.
-            ## If you customize FOOTER_ORGANIZATION_IMAGE, then the image
-            ## can be included in the footer on other sites
-            ## (e.g. a blog or marketing front-end) to provide a consistent
-            ## user experience.  See the branding app for details.
-<!--            <img alt="organization logo" src="${footer['logo_image']}">-->
-          </a>
-        </p>
-      </div>
-
-      ## Site operators: Please do not remove this paragraph! This attributes back to edX and makes your acknowledgement of edX's trademarks clear.
-      <p class="copyright">${footer['copyright']}</p>
-
-      <nav class="nav-legal" aria-label="${_('Legal')}">
-        <ul>
-          % for item_num, link in enumerate(footer['legal_links'], start=1):
-            <li class="nav-legal-0${item_num}">
-              <a href="${link['url']}">${link['title']}</a>
-            </li>
-          % endfor
-        </ul>
-      </nav>
+<style>
+body footer.global {
+  background-color: #67B134;
+  font-size: .9em;
+  color: #f7f7f7;
+  padding: 20px 0;
+  overflow: hidden;
+}
+body footer.global .footer-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1170px;
+}
+footer.global ul.links {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+body footer.global ul.links {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+body footer.global ul.links li {
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+body footer.global ul.links li a, body footer.global ul.links li a:hover {
+  color: #f7f7f7;
+}
+body footer.global .by-ionisx img {
+    margin-top: -20px;
+    height: 76px;
+}
+body footer.global .by-ionisx {
+    position: absolute;
+    top: -8px;
+    right: 0;
+}
+body footer.global .copyright {
+  margin: 0;
+}
+body footer.global .footer-container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+}
+</style>
+<footer class="global">
+  <div class="footer-container">
+    <ul class="links">
+      <li>
+        <a href="/tos">Conditions générales</a>
+      </li>
+      <li>
+        <a href="${marketing_link('FAQ')}">FAQ</a>
+      </li>
+	  <li>
+        <a href="/about">Cr&eacute;dits</a>
+      </li>
+    </ul>
+    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+    <div class="by-ionisx">
+	<!--modif on text and image-->
+<!--
+      <a href="/">
+        <img src="/media/microsite/afpa/images/logotma.png" alt="Bonshommes AFPA">
+      </a>
+-->
     </div>
+  </div>
+</footer>
 
-    ## Please leave this link and use one of the logos provided
-    ## The OpenEdX link may be hidden when this view is served
-    ## through an API to partner sites (such as marketing sites or blogs),
-    ## which are not technically powered by OpenEdX.
-    % if not hide_openedx_link:
-    <div class="footer-about-openedx">
-      <p>
-        <a href="http://themoocagency.com/">
-          <img src="${static.url(org+'/images/logo_tma.png')}" alt="" width="140" />
-        </a>
-      </p>
-    </div>
-    % endif
-  </footer>
-</div>
-% if include_dependencies:
-  <%static:js group='base_vendor'/>
-  <%static:css group='style-vendor'/>
-  <%include file="widgets/segment-io.html" />
-  <%include file="widgets/segment-io-footer.html" />
-% endif
-% if footer_css_urls:
-  % for url in footer_css_urls:
-    <link rel="stylesheet" type="text/css" href="${url}"></link>
-  % endfor
-% endif
+
+<script>
+
+var value = "url('/media/microsite/afpa/images/font.jpg')"
+var target = $('#tma_background_font')
+var property = 'background-image'
+
+target.css(property,value)
+</script> 
+
+
+
+
+<script>
+if(window.location.href.indexOf('/courseware/')>-1){
+ setInterval(function(){
+  $("p.message").each(function() {
+     $(this).html($(this).html().replace("Drag the items onto the image above.","D&eacute;posez les items sur l'image").replace('Correctly placed','Correctement placé : ').replace('items','').replace('item','').replace('Final attempt was used','Tentative finale utilisé').replace('highest score is','votre score le plus élevé est').replace('Your votre','Votre').replace('Did not place',"réponses fausses : ").replace("was","").replace("returned","").replace("to","").replace("bank","").replace(". Misplaced","").replace("Misplaced","réponses mal placé : ").replace("required","").replace(".",""));
+  });
+ },10);
+};
+setInterval(function(){
+  $(".problem-progress").each(function() {
+    $(this).html($(this).html().replace("(ungraded)",""));
+  });
+  if(window.location.href.indexOf('/courseware/')>-1){
+    $(".problem-progress").each(function() {
+      $(this).html($(this).html().replace("(ungraded)",""));
+      $(this).html($(this).html().replace("notés","noté"));
+      $(this).html($(this).html().replace("graded","noté"));
+    });
+    $(".poll-voting-thanks span").each(function() {
+      $(this).html($(this).html().replace("Thank you","Merci"));
+    });
+    $(".title1").each(function() {
+      $(this).html($(this).html().replace("Feedback","Commentaire"));
+      $(this).html($(this).html().replace("Problem",""));
+    });
+    $(".unbutton.btn-default.btn-small.keyboard-help-button").each(function() {
+      $(this).css("display","none");
+    });
+    $(".unbutton.btn-link.keyboard-help-button").each(function() {
+      $(this).css("display","none");
+    });
+    $(".view-results-button").each(function() {
+       $(this).html($(this).html().replace("View results","Voir les r&eacute;sultats"));
+    });
+    $(".poll-header").each(function() {
+       $(this).html($(this).html().replace("Results","R&eacute;sultats"));
+    });
+    $(".poll-footnote").each(function() {
+       $(this).html($(this).html().replace("Results gathered from ","R&eacute;sultats sur un total de "));
+       $(this).html($(this).html().replace("respondent","r&eacute;pondant"));
+    });
+    $("h3.poll-header").each(function() {
+      $(this).html($(this).html().replace("Feedback","Commentaire"));
+    });
+    $("input.input-main").each(function() {
+       $(this).attr("value",$(this).attr("value").replace("Submit","Soumettre"));
+    });
+    $(".message__content").each(function() {
+       $(this).html($(this).html().replace("Your Response"," Votre r&eacute;ponse"));
+    });
+    $('.popup-content').find('p').each(function(){
+      $(this).html($(this).html().replace('Some of your answers were not correct.','Certaines de vos réponses sont fausses.').replace('Hints:','Astuces:'));
+    })
+    $('.sidebar-button-wrapper').each(function(){
+      $(this).html($(this).html().replace('Show Answer','Afficher la réponse'));
+    })
+    $('.attempts-used').each(function(){
+      $(this).html($(this).html().replace('You have used','Vous avez utilisé').replace('attempts','tentatives').replace("of","de vos"));
+    })
+    $(".action.action--save.submission__save").each(function() {
+       $(this).html($(this).html().replace("Save your progress","Sauvegarder votre progression"));
+    });
+    $("h2.bookmarks-results-header").each(function() {
+       $(this).html($(this).html().replace("My Bookmarks","Mes favoris"));
+    });
+    $(".unbutton.btn-default.btn-small.reset-button").each(function() {
+       $(this).html($(this).html().replace("Reset","Réinitialiser"));
+    });
+  }
+  if(window.location.href.indexOf('/forum')>-1){
+    $(".field-help").each(function() {
+      $(this).html($(this).html().replace("Add your post to a relevant topic to help others find it.","Ajoutez votre message sur le bon sujet pour aider les autres à le trouver"));
+      $(this).html($(this).html().replace("Questions raise issues that need answers. Discussions share ideas and start conversations.","Utilisez les 'Questions' si vous attendez une réponse. Les 'Discussions' servent à lancer des conversations."));
+      $(this).html($(this).html().replace("Add a clear and descriptive title to encourage participation.","Ajoutez un titre clair et descriptif pour favoriser la participation"));
+    });
+    $("#new-post-editor-description").each(function() {
+      $(this).html($(this).html().replace("Your question or idea","Votre question ou idée"));
+    });
+    $(".posted-details").each(function() {
+      $(this).html($(this).html().replace("discussion posted ","posté"));
+      $(this).html($(this).html().replace(" by "," par "));
+    });
+    $(".user-roles").each(function() {
+      $(this).css('display','none');
+    });
+  }
+},500);
+ if(window.location.href.indexOf("Les101techniquesreplay") > -1) {
+       var jema = $('.tab')[4]
+			$(jema).hide();
+    }
+
+			
+			</script>
+
+
+<style>
+.xmodule_display.xmodule_CapaModule div.problem div p.answer:before{
+ content: "Solution:";
+}
+</style>

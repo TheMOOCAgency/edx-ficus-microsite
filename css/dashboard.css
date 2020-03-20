@@ -67,7 +67,7 @@
   height: 230px;
   width: calc(100% - 20px);
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 /*MODIF AURELIEN*/
 #dashboard_profile_up img {
@@ -140,7 +140,7 @@
   vertical-align: middle;
   text-transform: uppercase;
   /* primary color */
-  color: tma_primary_color;
+  color: rgba(103,177,52,1);
   font-family:'custom_font';
 }
 #dashboard_profile_bottom_up span:first-child {
@@ -214,7 +214,7 @@
 #title_dashboard_course h1 {
   color: white;
   /* primary color */
-  background-color:tma_primary_color;
+  background-color:rgba(103,177,52,1);
   font-size: 30px;
   font-weight: bold;
   margin: 0;
@@ -233,7 +233,7 @@
 /*  border-radius: 15px;*/
 }
 #course_nav a:hover{
- background-color:tma_primary_hover_color;
+ background-color:rgba(103,177,52,0.8);
  border-bottom: 4px solid white;
  box-sizing: border-box;
  -moz-box-sizing: border-box;
@@ -264,7 +264,7 @@
   width: 184.1px;
   height: 66.5px;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
   animation-name: anim;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
@@ -274,17 +274,17 @@
 @keyframes anim {
   0% {
   /* primary color */
-    background-color: tma_primary_color;
+    background-color: rgba(103,177,52,1);
   }
   100% {
-    background-color: tma_primary_hover_color;
+    background-color: rgba(103,177,52,0.8);
   }
 }
 /*MODIF AURELIEN*/ .course_nav {
   width: 85px;
   height: 66.5px;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .course_nav .svg {
   width: 37px;
@@ -499,7 +499,7 @@ fill: rgba(191, 191, 191, 1);
 .updates-article:first-child .check_more,.updates-article:first-child .check_more:hover,.updates-article:first-child .check_more:focus,.updates-article:nth-child(2n+1)
 .check_more,.updates-article:nth-child(2n+1) .check_more:hover,.updates-article:nth-child(2n+1) .check_more:focus {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .updates-article:nth-child(2n){
   /* secondary color */
@@ -511,7 +511,7 @@ fill: rgba(191, 191, 191, 1);
 }
 .updates-article h5 {
   /* primary color */
-  color: tma_primary_color;
+  color: rgba(103,177,52,1);
   font-weight: bold;
   margin-bottom: 6px;
 }
@@ -573,7 +573,7 @@ fill: rgba(191, 191, 191, 1);
 }
 #dashboard_profile_middle_up .svg_passed path:first-child,#dashboard_profile_middle_bottom .svg_passed path:first-child,.course_name_profile_list .svg_passed path:first-child {
   /* primary color */
-  fill: tma_primary_color;
+  fill: rgba(103,177,52,1);
 }
 #dashboard_profile_middle_up .svg_passed path,#dashboard_profile_middle_bottom .svg_passed path,.course_name_profile_list .svg_passed path {
   /* secondary color */
@@ -596,7 +596,7 @@ fill: rgba(191, 191, 191, 1);
   font-weight: bold;
   text-transform: uppercase;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #voile {
   position:fixed;
@@ -648,13 +648,13 @@ fill: rgba(191, 191, 191, 1);
 }
 */
 #list_multi .englob_multi_tma_cards:nth-child(2n) .course_show_tma,#list_multi .englob_multi_tma_cards:nth-child(2n) .wrapper-action-more {
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #list_multi .englob_multi_tma_cards:nth-child(2n+1) .wrapper-course-details,#list_multi .englob_multi_tma_cards:first-child .wrapper-course-details {
   background-color: #ed731d;
 }
 #list_multi .englob_multi_tma_cards:nth-child(2n) .wrapper-course-details {
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #list_multi .englob_multi_tma_cards:first-child .course_show_tma a,#list_multi .englob_multi_tma_cards:nth-child(2n+1) .course_show_tma a {
   /* rgb to rgba font #000 */
@@ -884,7 +884,7 @@ fill: rgba(191, 191, 191, 1);
     margin-top: 0;
     overflow: hidden;
     /* primary color */
-    border-bottom: 4px solid tma_primary_color;
+    border-bottom: 4px solid rgba(103,177,52,1);
   }
   #profile_button {
     display: block;
@@ -988,14 +988,14 @@ fill: rgba(191, 191, 191, 1);
   padding-bottom: 0 !important;
 }
 #list_multi_title h1 {
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #list_multi_title h1 span:last-child {
   border: none;
 }
 #list_multi .englob_multi_tma_cards:nth-child(2n+1) .wrapper-course-details, #list_multi .englob_multi_tma_cards:first-child .wrapper-course-details,.course-container,#list_multi .wrapper-action-more {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #list_multi .wrapper-course-details, #list_multi .wrapper-course-image,#list_multi .wrapper-action-more {
   border-radius : 0;
@@ -1010,7 +1010,7 @@ fill: rgba(191, 191, 191, 1);
 }
 .up_cell {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
   position: relative;
   width: 100%;
   height: 200px;
@@ -1127,13 +1127,13 @@ fill: rgba(191, 191, 191, 1);
   font-weight: bold;
   color: #fff;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .dashboard_button a:hover,.dashboard_button a:focus {
   color: #fff !important;
   text-decoration: none !important;
   /* primary color hover*/
-  background-color: tma_primary_hover_color;
+  background-color: rgba(103,177,52,0.8);
 }
 .list_params {
   display: block;
@@ -1244,14 +1244,14 @@ fill: rgba(191, 191, 191, 1);
   padding-bottom: 0 !important;
 }
 #list_multi_title h1 {
-  background-color: rgba(112, 130, 169, 1);
+  background-color: rgba(103,177,52,1);
 }
 #list_multi_title h1 span:last-child {
   border: none;
 }
 #list_multi .englob_multi_tma_cards:nth-child(2n+1) .wrapper-course-details, #list_multi .englob_multi_tma_cards:first-child .wrapper-course-details,.course-container,#list_multi .wrapper-action-more {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 #list_multi .wrapper-course-details, #list_multi .wrapper-course-image,#list_multi .wrapper-action-more {
   border-radius : 0;
@@ -1266,7 +1266,7 @@ fill: rgba(191, 191, 191, 1);
 }
 .up_cell {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
   position: relative;
   width: 100%;
   height: 200px;
@@ -1383,13 +1383,13 @@ fill: rgba(191, 191, 191, 1);
   font-weight: bold;
   color: #fff;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .dashboard_button a:hover,.dashboard_button a:focus {
   color: #fff !important;
   text-decoration: none !important;
   /* primary color hover*/
-  background-color: tma_primary_hover_color;
+  background-color: rgba(103,177,52,0.8);
 }
 .list_params {
   display: block;

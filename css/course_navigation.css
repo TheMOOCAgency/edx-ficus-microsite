@@ -4,11 +4,11 @@ body.view-in-course .wrapper-course-material .course-material .course-tabs {
 }
 body.view-in-course .wrapper-course-material .course-material,.course-index,.course-index .accordion .course-navigation .button-chapter,.course-index .accordion .course-navigation .button-chapter.active .group-heading,.course-index .accordion .course-navigation .button-chapter .group-heading {
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .discussion.wrapper-course-material{
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
 }
 .wrapper-course-material .course-tabs li a:hover, .wrapper-course-material .course-tabs li a.active {
     color: #fff !important;

@@ -6,14 +6,14 @@
    },250);
   }
 */
-  if(window.location.href.indexOf("/about")>-1){
+/*  if(window.location.href.indexOf("/about")>-1){
    setInterval(function(){
     $(".important-dates-item-text.start-date.localized_datetime").html("7 Sept. 2017");
     $(".important-dates-item-text.final-date.localized_datetime").html("18 Nov. 2017");
     $(".icon.fa.fa-thumbs-up").removeClass("fa-thumbs-up").addClass("fa-facebook");
    },250);  
   }
-
+*/
 /* jQuery initialize */
 ;(function ($) {
 

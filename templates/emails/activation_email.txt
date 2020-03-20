@@ -1,7 +1,7 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue dans le MOOC Expérience Gaz !
+Bienvenue
 
 Vous devez maintenant activer votre compte, avec le lien suivant :
 

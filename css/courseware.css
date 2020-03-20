@@ -1,56 +1,56 @@
 .discussion-module .btn:hover, .wmd-prompt-dialog .btn:hover, .discussion-module .btn-brand:hover, .wmd-prompt-dialog .btn-brand:hover, .discussion-module .btn:active, .wmd-prompt-dialog .btn:active, .discussion-module .btn-brand:active, .wmd-prompt-dialog .btn-brand:active, .discussion-module .btn:focus, .wmd-prompt-dialog .btn:focus, .discussion-module .btn-brand:focus, .wmd-prompt-dialog .btn-brand:focus{
-   border-color: tma_primary_color !important;
-   background-color: tma_primary_color !important;
+   border-color: rgba(103,177,52,1) !important;
+   background-color: rgba(103,177,52,1) !important;
 }
 .forum-nav-thread.never-read .forum-nav-thread-link{
-    border-left: 3px solid tma_primary_color;
-    color: tma_primary_color;
+    border-left: 3px solid rgba(103,177,52,1);
+    color: rgba(103,177,52,1);
 }
 .discussion.inline-discussion .inline-thread .forum-nav-bar .all-posts-btn {
-   color: tma_primary_color;
+   color: rgba(103,177,52,1);
 }
 .discussion.inline-discussion .new-post-article .add-post-cancel {
-   color: tma_primary_color;
+   color: rgba(103,177,52,1);
 }
 
 
 .bookmarks-results-list .bookmarks-results-list-item:hover{
-  border-color: tma_primary_color;
+  border-color: rgba(103,177,52,1);
 }
 .bookmarks-results-list .bookmarks-results-list-item:hover .list-item-breadcrumbtrail{
-  color: tma_primary_color;
+  color: rgba(103,177,52,1);
 }
 
 p a,p a:visited {
-   color: tma_primary_color;;
+   color: rgba(103,177,52,1);;
 }
 
 .btn-link,.view-student-notes .note-group .note .wrapper-note-excerpts .note-excerpt-more-link,.view-student-notes .note-group .note .reference .wrapper-reference-content a.reference-meta,.edx-notes-wrapper .annotator-adder button:after,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-edit:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-delete:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-close:before,.edx-notes-wrapper .annotator-wrapper .annotator-editor.annotator-outer button.annotator-cancel,.view-student-notes .wrapper-tabs .tab-list .tab .tab-label,.view-student-notes .wrapper-tabs .tab-list .tab .action-close {
-    color: tma_primary_color;
+    color: rgba(103,177,52,1);
 }
 
 .btn-link:hover,.view-student-notes .note-group .note .wrapper-note-excerpts .note-excerpt-more-link:hover,.view-student-notes .note-group .note .reference .wrapper-reference-content a.reference-meta:hover,.view-student-notes .note-group .note .reference .wrapper-reference-content div.info-wrapper section.handouts ol li div.hitarea:hover+h4.reference-meta,div.info-wrapper section.handouts ol li .view-student-notes .note-group .note .reference .wrapper-reference-content div.hitarea:hover+h4.reference-meta,.view-student-notes .note-group .note .reference .wrapper-reference-content div.info-wrapper section.handouts ol li div.hitarea:focus+h4.reference-meta,div.info-wrapper section.handouts ol li .view-student-notes .note-group .note .reference .wrapper-reference-content div.hitarea:focus+h4.reference-meta,.edx-notes-wrapper .annotator-adder button:hover:after,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-edit:hover:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-delete:hover:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-close:hover:before,.edx-notes-wrapper .annotator-wrapper .annotator-editor.annotator-outer button.annotator-cancel:hover,.view-student-notes .wrapper-tabs .tab-list .tab .tab-label:hover,.view-student-notes .wrapper-tabs .tab-list .tab .action-close:hover,.btn-link:focus,.view-student-notes .note-group .note .wrapper-note-excerpts .note-excerpt-more-link:focus,.view-student-notes .note-group .note .reference .wrapper-reference-content a.reference-meta:focus,.edx-notes-wrapper .annotator-adder button:focus:after,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-edit:focus:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-delete:focus:before,.edx-notes-wrapper .annotator-viewer .annotator-controls .annotator-close:focus:before,.edx-notes-wrapper .annotator-wrapper .annotator-editor.annotator-outer button.annotator-cancel:focus,.view-student-notes .wrapper-tabs .tab-list .tab .tab-label:focus,.view-student-notes .wrapper-tabs .tab-list .tab .action-close:focus {
-    color: tma_primary_color;
+    color: rgba(103,177,52,1);
 }
 
 
 .xmodule_display.xmodule_CapaModule div.problem .choicegroup label:hover, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup label:hover, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicegroup label:hover, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup label:hover{
-    border: 2px solid tma_primary_color;
+    border: 2px solid rgba(103,177,52,1);
 }
 
 .btn-default {
-    color: tma_primary_color
+    color: rgba(103,177,52,1)
 }
 
 .btn-default:hover,.btn-default.is-hovered,.btn-default:focus,.btn-default.is-focused {
-    border-color: tma_primary_color;
+    border-color: rgba(103,177,52,1);
     background-color: transparent;
-    color: tma_primary_color
+    color: rgba(103,177,52,1)
 }
 
 .btn-default:active,.btn-default.is-pressed,.btn-default.is-active {
-    border-color: tma_primary_color;
-    color: tma_primary_color
+    border-color: rgba(103,177,52,1);
+    color: rgba(103,177,52,1)
 }
 
 .btn-default:disabled,.btn-default.is-disabled {
@@ -59,8 +59,8 @@ p a,p a:visited {
 }
 
 .btn-brand {
-    border-color: tma_primary_color;
-    background: tma_primary_color;
+    border-color: rgba(103,177,52,1);
+    background: rgba(103,177,52,1);
     color: #fcfcfc
 }
 
@@ -71,8 +71,8 @@ p a,p a:visited {
 }
 
 .btn-brand:active,.btn-brand.is-pressed,.btn-brand.is-active {
-    border-color: tma_primary_color;
-    background: tma_primary_color;
+    border-color: rgba(103,177,52,1);
+    background: rgba(103,177,52,1);
 }
 
 .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item:last-of-type{
@@ -80,7 +80,7 @@ p a,p a:visited {
 }
 .xmodule_display.xmodule_CapaModule div.problem button.btn-brand:hover{
   background-color: white;
-  color: tma_primary_color;
+  color: rgba(103,177,52,1);
 }
 
 
@@ -130,7 +130,7 @@ p a,p a:visited {
 }
 .bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
    border: 1px solid white !important;
-   color:tma_primary_color !important;
+   color:rgba(103,177,52,1) !important;
    background-color:white !important;
    margin-top: 5px;
    margin-bottom:5px;
@@ -140,13 +140,13 @@ p a,p a:visited {
 }
 .courseware-bookmarks-button .bookmarks-list-button.is-active{
   background-color:white !important;
-  color:tma_primary_color !important;
+  color:rgba(103,177,52,1) !important;
 }
 body.view-in-course .wrapper-course-material .course-material,.course-index,.course-index .accordion .course-navigation .button-chapter,.course-index .accordion .course-navigation .button-chapter.active .group-heading,.course-index .accordion .course-navigation .button-chapter .group-heading {
     color: #fff;
  /* primary color */
  /*background-color: rgba(158,227,226,1) !important;*/
-   background-color: tma_primary_color !important;
+   background-color: rgba(103,177,52,1) !important;
 }
 .fa-chevron-prev:before{
  color:white;
@@ -156,7 +156,7 @@ body.view-in-course .wrapper-course-material .course-material,.course-index,.cou
 }
 
 .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.graded .menu-icon {
-  color:tma_primary_color;
+  color:rgba(103,177,52,1);
 }
 
 #course-search-input {
@@ -225,7 +225,7 @@ body.view-in-course .wrapper-course-material .course-material,.course-index,.cou
 .course-index .accordion .course-navigation .button-chapter,.course-index .accordion .course-navigation .button-chapter:hover {
   color: #fff;
   border: none;
-  background: tma_primary_color;
+  background: rgba(103,177,52,1);
   box-shadow: none;
 }
 .xblock .xblock h3.unit-title{
@@ -252,7 +252,7 @@ body.view-in-course .wrapper-course-material .course-material,.course-index,.cou
   width: 100%;
   height: 5px;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
   top: 50%;
   margin-top: -2.5px;
 }
@@ -275,7 +275,7 @@ body.view-in-course .wrapper-course-material .course-material,.course-index,.cou
 .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover,.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button {
   border-radius: 50%;
   /* primary color */
-  background-color: tma_primary_color;
+  background-color: rgba(103,177,52,1);
   width: 30px;
   height: 30px;
   display: inline-block;

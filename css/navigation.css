@@ -11,7 +11,7 @@
  display: block;
  width: 100vw;
  height: 100vh;
- background-image: tma_background_image_font;
+ background-image: url("/static/afpa/images/font.jpg");
  background-size: cover;
  background-position: center;
  z-index: -1;
@@ -35,28 +35,28 @@ body {
 }
 
 .discussion-module .btn, .wmd-prompt-dialog .btn,.btn  {
- color: tma_primary_color !important;
- border: 1px solid tma_primary_color !important;
+ color: rgba(103,177,52,1) !important;
+ border: 1px solid rgba(103,177,52,1) !important;
 }
 .discussion-module .btn:hover, .wmd-prompt-dialog .btn:hover,.discussion-module .btn:focus, .wmd-prompt-dialog .btn:focus,.btn:hover, .is-hovered.btn, .btn:focus, .is-focused.btn {
- border-color: tma_primary_hover_color !important;
- background-color: tma_primary_hover_color !important;
+ border-color: rgba(103,177,52,0.8) !important;
+ background-color: rgba(103,177,52,0.8) !important;
  color: #fff !important;
 }
 .forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label {
- background-color: tma_primary_color !important;
+ background-color: rgba(103,177,52,1) !important;
 }
 .btn-brand:hover, .modal .inner-wrapper form .submit input[type="submit"]:hover, .leanModal_box .inner-wrapper form .submit input[type="submit"]:hover, .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"]:hover, .is-hovered.btn-brand, .modal .inner-wrapper form .submit input.is-hovered[type="submit"], .leanModal_box .inner-wrapper form .submit input.is-hovered[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input.is-hovered[type="submit"], .btn-brand:focus, .modal .inner-wrapper form .submit input[type="submit"]:focus, .leanModal_box .inner-wrapper form .submit input[type="submit"]:focus, .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"]:focus, .is-focused.btn-brand, .modal .inner-wrapper form .submit input.is-focused[type="submit"], .leanModal_box .inner-wrapper form .submit input.is-focused[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input.is-focused[type="submit"] {
- border-color: tma_primary_color !important;
- background-color: tma_primary_color !important; 
+ border-color: rgba(103,177,52,1) !important;
+ background-color: rgba(103,177,52,1) !important; 
 }
 .has-breadcrumbs .breadcrumbs .all-topics {
- color: tma_primary_color !important; 
+ color: rgba(103,177,52,1) !important; 
 }
 .discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand,.forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label {
- background-color: tma_primary_color !important;
+ background-color: rgba(103,177,52,1) !important;
 }
 .discussion-module .btn, .wmd-prompt-dialog .btn { 
- color: tma_primary_color !important; 
- border: 1px solid tma_primary_color !important;
+ color: rgba(103,177,52,1) !important; 
+ border: 1px solid rgba(103,177,52,1) !important;
 }

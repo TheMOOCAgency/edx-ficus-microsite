@@ -19,6 +19,9 @@ from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
+import time
+import json
+from datetime import datetime
 %>
 
 <%
@@ -35,6 +38,93 @@ css = org_static+'/css/dashboard.css'
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
 <%block name="header_extras">
+<!-- AFPA -->
+
+<!-- AFPA DASHBOARD UPDATE -->
+<%
+import json
+from student.models import UserProfile
+from django.http import HttpResponseRedirect
+
+custom_field = request.user.profile.custom_field
+try:
+    custom_field = json.loads(custom_field)
+except:
+    custom_field = {}
+%>
+% if (custom_field.get('afpa_met_et_vins_ensure') is None or custom_field.get('afpa_met_et_vins_ensure') == 'non') and ("Metsetvin" in request.path):
+<style>
+#voile_afpa{
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100vw;
+ height: 100vh;
+ background-color: rgba(0,0,0,0.5);
+ z-index: 1000;
+}
+#pop_up_ensure {
+ position:fixed;
+ top: 40%;
+ left: 50%;
+ width: auto;
+ height: auto;
+ transform:translate(-50%,-50%);
+ z-index: 1001;
+ background-color: rgba(255,255,255,0.8);
+ padding: 20px;
+ text-align: center;
+}
+#pop_up_ensure form {
+ display: inline-block;
+ width: auto;
+ height: auto;
+ margin-left: 5px;
+ margin-right: 5px;
+}
+#pop_up_ensure h2 {
+ text-align:center;
+ height: 23px;
+ line-height: 23px;
+ vertical-align: middle;
+ padding: 10px;
+ padding-bottom: 8px;
+ border-radius: 5px;
+ font-weight: bold;
+ color: #fff;
+ background-color: rgba(103,177,52,1);
+}
+</style>
+<%
+ params = request.GET.get('ensure_afpa_met_et_vin')
+ if params is not None:
+     custom_field['afpa_met_et_vins_ensure'] = params
+     _profile = UserProfile.objects.get(user=request.user)
+     _profile.custom_field = json.dumps(custom_field)
+     _profile.save()
+%>
+% if params is None:
+<div id="pop_up_ensure">
+ <h2>Avez-vous plus de 18 ans ?</h2>
+ <form method="get" action="">
+  <input type="submit" value="non" name="ensure_afpa_met_et_vin" />
+ </form>
+ <form method="get" action="">
+  <input type="submit" value="oui" name="ensure_afpa_met_et_vin" />
+ </form>
+</div>
+<div id="voile_afpa">
+</div>
+% elif params == "non":
+<script>
+    window.open('/courses','_self');
+</script>
+% endif
+% endif
+
+
+<!-- END AFPA -->
+
 % for template_name in ["donation"]:
 <script type="text/template" id="${template_name}-tpl">
   <%static:include path="dashboard/${template_name}.underscore" />
@@ -73,7 +163,22 @@ css = org_static+'/css/dashboard.css'
     </%static:require_module>
   % endif
 </%block>
+<style>
+ input[type="submit"], input[type="button"]{
+  background-color: rgba(103,177,52,1) !important;
+  background-image: none;
+  text-shadow: none;
+  box-shadow: none;
+  border: none;
 
+}
+.content_tma {
+  min-height: calc(100vh - 153px) !important;
+}
+.empty-dashboard-message a {
+  color: #fff !important;
+}
+</style>
 <div class="dashboard-notifications" tabindex="-1">
     %if message:
         <div class="dashboard-banner">
@@ -131,6 +236,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     course_mono_id = enrollment.course_id
     course_module = modulestore().get_course(enrollment.course_id, depth=0)
     course_details = course_module._field_data_cache['grading_policy']['GRADER']
+  """
   elif len(course_enrollments) > 1:
     get_persisted = CourseGradeFactory().get_persisted(request.user, course)
     if get_persisted is None:
@@ -140,6 +246,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
       course_name.append(enrollment.course_overview.display_name_with_default)
     endif
   endif
+  """
 endfor
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
@@ -148,14 +255,21 @@ endfor
       <h4>${user.email}</h4>
     </div>
 % if len(course_enrollments) == 1:
+    <%
+    for enrollment in course_enrollments:
+         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+    %>
+
     <!-- block milieu profil -->
     <div class="dashboard_profile" id="dashboard_profile_middle">
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training validated")}</span>
-        % else:
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">{_("Training not validated")}</span>
+        % elif cours_ouv:
           <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+        % else:
+          <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
         % endif
       </div>
       <!-- border middle -->
@@ -165,8 +279,10 @@ endfor
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
-        % else:
+        % elif cours_ouv:
           <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+        % else:
+          <img src="${static.url(org_static+'/images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
       </div>
     </div>
@@ -199,6 +315,11 @@ endfor
     % endif
   % endfor
   </div>
+  % if (str(course_enrollments[0].course_id) == 'course-v1:afpa+Les101techniquesdebase+MOOCCUISINEAFPA_S3' or str(course_enrollments[0].course_id) == 'course-v1:afpa+LaPatisserie2+MOOCPatisserieAFPA_S2' or str(course_enrollments[0].course_id) == 'course-v1:afpa+Metsetvins+MOOCmetsetvinsAFPA_S3') and int(datetime.now().strftime('%s')) >= 12:
+  <div class="dashboard_profile" id="attestation_reussite">
+    <a href="">ATTESTATION DE REUSSITE</a>
+  </div>
+  % endif
 <script type="text/javascript">
 grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
 j=1;
@@ -214,13 +335,60 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
  }
 }
 $("#score_tma").html(grade_summary['percent']*100+" %");
+
+
+<!-- modif Daivis -->
+
+function didee(){
+var oda = $('.course_nav')[0]
+
+var dashMini = $('#dashboard_profile_middle') 
+var oda2 = $("#dashboard_profile_middle_bottom")
+$(oda).hide();
+$(dashMini).css('height','auto');
+$(oda2).hide();
+}
+
+
+function hideMyFace(){
+
+var oda3 = $('.course_nav')[2]
+$(oda3).hide();
+
+
+}
+
+function checkUrl(){
+
+ if(window.location.href.indexOf(":afpa+Les101techniquesreplay+2019") > -1) {
+      didee()
+    }
+	
+ if(window.location.href.indexOf("course-v1:afpa+MOOC_FLI+FLI_2019") > -1) {
+     hideMyFace();
+    }	
+
+if(window.location.href.indexOf("course-v1:afpa+MOOC_FLE_AFPA+FLE") > -1) {
+     hideMyFace();
+    }	
+}
+
+setTimeout(function(){ checkUrl()}, 500);
+
+
+<!-- modif Daivis -->
+
+
+
 </script>
+
 % elif len(course_enrollments) > 1:
+<!--
   <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_finished < 2:
-      <h3>${course_finished} cours<br>terminé</h3>
+    % if course_end < 2:
+      <h3>${course_end} cours<br>terminé</h3>
     % else:
-      <h3>${course_finished} cours<br>terminés</h3>
+      <h3>${course_end} cours<br>terminés</h3>
     % endif
     % for n in course_name:
         <div class="course_name_profile_list">
@@ -228,6 +396,7 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
         </div>
     % endfor
   </div>
+  -->
 % endif
   </div>
   <div id="dashboard_course_content">
@@ -278,7 +447,7 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
 </ul>
 <!-- multi site css -->
@@ -313,6 +482,22 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
   }
 }
 </style>
+% else:
+<style>
+.empty-dashboard-message a:hover{
+  color: #fff !important;
+}
+</style>
+  <div class="empty-dashboard-message">
+    <p>${_("You are not enrolled in any courses yet.")}</p>
+
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+      <a href="${marketing_link('COURSES')}">
+        ${_("Explore courses")}
+      </a>
+
+    %endif
+</div>
 % endif
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->

@@ -7,7 +7,33 @@ from django.core.urlresolvers import reverse
 
 from openedx.core.djangolib.markup import HTML, Text
 %>
-
+<style>
+.btn-login ,.btn-login:hover,.btn-login:focus,.btn-login:visited{
+  color: #fff !important;
+}
+.home {
+  background-color: #fff;
+}
+.home>header {
+    background: #67B134 none repeat scroll 0 center;
+    background-image: url('/media/microsite/afpa/images/index.jpg');
+    background-position: center;
+    height: 361px;
+}
+#tma_background_font {
+  background-image: none;
+}
+.home>header .outer-wrapper {
+  display: none !important;
+}
+.courses-container .courses .course .course-image .cover-image .learn-more {
+  border-color: rgba(103,177,52,1) !important;
+  background: rgba(103,177,52,1) !important;
+}
+.courses-container .courses .course {
+  border-bottom: 3px solid rgba(103,177,52,1) !important;
+}
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
@@ -78,3 +104,22 @@ from openedx.core.djangolib.markup import HTML, Text
   $(window).load(function() {$('#signup_action').trigger("click");});
 </script>
 % endif
+
+
+<script>
+$(".btn-neutral").each(function(){
+ $(this).attr('href','https://mooc.afpa.fr/register?course_id=course-v1%3Aafpa%2BLes101techniquesdebase%2BMOOCCUISINEAFPA_S3&enrollment_action=enroll');
+});
+$(".btn-login").each(function(){
+ $(this).attr('href','https://mooc.afpa.fr/login?next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Aafpa%252BLes101techniquesdebase%252BMOOCCUISINEAFPA_S3%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+});
+
+    $('a').each(function() {
+        var href = $(this).attr('href');
+        if (href.indexOf('http:') > -1) {
+            href = href.replace('http:', 'https:');
+            $(this).attr('href', href);
+        }
+    });
+
+</script>

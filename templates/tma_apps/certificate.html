@@ -1,0 +1,305 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%def name="online_help_token()"><% return "courseware" %></%def>
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from datetime import datetime, date
+import json
+%>
+
+
+
+<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+<%
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
+
+<link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
+<style>
+#global-navigation,.wrapper-footer,#tma_background_font {
+  display: none !important;
+}
+body{
+  text-align:center;
+}
+/*CHANGE FONT*/
+h1{
+  font-size: 35px;
+}
+h1,h2,h3,p{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color:gray;
+}
+h2{
+  font-size: 1.4rem;
+}
+h3{
+  font-size: 1.3rem;
+}
+h4 {
+  font-size: 1.2rem;
+}
+
+
+/*CHANGE IMAGE */
+#main{
+  background-color: white;
+  border: 1px solid lightgray;
+  margin-top:10px;
+  margin-left: 70px;
+  padding: 0;
+  height:480px;
+  width:854px;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none!important;
+}
+/*CHANGE COLOR */
+.transparency-color{
+  background-color: rgba(255,255,255,0.7);
+}
+.full-color{
+  background-color: rgba(103,177,52,1);
+}
+.bandeau-top{
+  box-sizing: border-box;
+  padding: 15px;
+}
+.reset-bandeaux{
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+}
+#logo-partenaire{
+  max-height: 60px;
+}
+.center-vertically{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#signature, #logo-secondaire{
+  max-height: 100px;
+}
+.m-0{
+  margin: 0;
+}
+.p-0{
+  padding: 0;
+}
+.container:after, section.outside-app:after{
+  content: none;
+}
+#bouton-pdf{
+  background-color: darkgray;
+  color: gray;
+  border-color: gray;
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.bandeau-middle{
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.border-wrap{
+  padding: 15px;
+  border: 1px solid white;
+}
+.white_bg{
+  background-color: white;
+}
+.p-20{
+  padding: 20px;
+}
+.main-color{
+  color:#41596A;
+}
+.white-text{
+  color: white;
+}
+.logo-dda{
+  max-width: 170%;
+    position: relative;
+    right: 35px;
+    bottom: 16px;
+}
+</style>
+<!-- IMPORT FONT -->
+<link href="https://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet">
+
+
+% if grades.get('passed') or is_tma_team:
+
+
+<div style='margin-top:10px;'>
+  <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
+</div>
+
+<!--CERT OCCITANIE-->
+<div id="main" class="occitanie" style="display:none">
+  <div class="container" style="border: 20px solid #c44a32;">
+    <div class="row bandeau-top m-0">
+      <div class="col-3">
+          <img style="height:70px;" src="/media/microsite/afpa/images/occitanie.jpg" alt="">
+      </div>
+      <div class="col-9 center-vertically">
+        <div>
+          <!--<h3 class="main-color">Session Mars/Avril 2019</h3>-->
+        </div>
+        <div class="col-3">
+            <img style="height:80px;" src="/media/microsite/afpa/images/logo.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="bandeau-middle reset-bandeaux">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20">
+          <div class="col-12 text-left" style="padding:10px;">
+            <h1 class="main-color">ATTESTATION DE RÉUSSITE</h1>
+            <h4 class="main-color">L'Afpa certifie que</h3>
+            <h3 class="main-color"><span>${first_name} ${last_name}</h3>
+            <h4 class="main-color">a suivi avec succès le MOOC "${course_name}"</h3>
+            <h3 class="main-color">Le ${datetime.now().strftime('%d-%m-%Y')}</h3>
+            <div class="row">
+              <div class="col-10">
+                <h6 class="main-color text-right" >Christophe SADOK<br>Directeur de l'Ingénierie</h6>
+              </div>
+              <div class="col-2 text-left pl-0">
+                <img src="/media/microsite/afpa/images/signature.png" alt="signature" style="max-height:70px;">
+              </div>
+            </div>
+            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reset-bandeaux p-0 main-color" style="height:80px;">
+        <!--<div class="col-2">
+          <img class="logo-dda" src="/media/microsite/mooc-agea-sinistres/assets/images/logo_DDA.png" alt="">
+        </div>-->
+        <div class="row">
+          <div class="col">
+            <p class="main-color text-left" style="font-size:12px;margin-left:50px;">La présente attestation n'est ni une certification professionnelle, ni une partie de certification professionnelle.<br> Elle n'atteste pas que le participant était stagiaire à l'Afpa - Agence nationale pour la formation professionnelle des adultes.
+            </p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!--CERT FLI-->
+<div id="main" class="fli" style="display:none">
+    <div class="container" style="border: 20px solid #c02b74;">
+      <div class="row bandeau-top m-0">
+        <div class="col-3">
+        </div>
+        <div class="col-9 center-vertically">
+          <div>
+            <!--<h3 class="main-color">Session Mars/Avril 2019</h3>-->
+          </div>
+          <div class="col-3">
+              <img style="height:80px;" src="/media/microsite/afpa/images/logo.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="bandeau-middle reset-bandeaux pt-0">
+        <div class="w-100">
+          <div class="row white_bg m-0 p-20">
+            <div class="col-12 text-left" style="padding:10px;">
+              <h1 class="main-color pb-4">ATTESTATION DE RÉUSSITE</h1>
+              <h4 class="main-color">L'Afpa certifie que</h3>
+              <h3 class="main-color"><span>${first_name} ${last_name}</h3>
+              <h4 class="main-color">a suivi avec succès le MOOC "${course_name}"</h3>
+              <h3 class="main-color">Le ${datetime.now().strftime('%d-%m-%Y')}</h3>
+              <div class="row">
+                <div class="col-10">
+                  <h6 class="main-color text-right" >Christophe Sadok<br>Directeur de l'Ingénierie</h6>
+                </div>
+                <div class="col-2 text-left pl-0">
+                </div>
+              </div>
+              <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reset-bandeaux p-0 main-color" style="height:80px;">
+        <!--<div class="col-2">
+          <img class="logo-dda" src="/media/microsite/mooc-agea-sinistres/assets/images/logo_DDA.png" alt="">
+        </div>-->
+        <div class="row">
+          <div class="col">
+		  </br>
+            <p class="main-color text-left" style="font-size:12px;margin-left:50px;">La présente attestation n'est ni une certification professionnelle, ni une partie de certification professionnelle.<br> Elle n'atteste pas que le participant était stagiaire à l'Afpa - Agence nationale pour la formation professionnelle des adultes.
+            </p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+</script>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script type="text/javascript">
+//PDF VERSION
+
+  console.log("modif 2207")
+  var element = document.getElementById("main");
+  if (element.style.display=="none"){element.id="mainOld"}
+  var button = document.getElementById("bouton-pdf");
+  button.style.color='white'
+
+function printpage(){
+   html2canvas(document.querySelector("#main"), {
+    onrendered : function (canvas){
+     var img=canvas.toDataURL("image/png");
+     var doc = new jsPDF({orientation: 'landscape'});
+     doc.addImage(img, "PNG", 35, 40);
+     doc.save("certificat.pdf");
+    }
+  })
+};
+
+$(document).ready(function(){
+  if (window.location.pathname.indexOf('course-v1:afpa+occitanie+2019_S1') > -1) {
+    $('.occitanie').show();
+    $('.fli').hide();
+  } else if (window.location.pathname.indexOf('course-v1:afpa+MOOC_FLI+FLI_2019') > -1) {
+    $('.fli').show();
+    $('.occitanie').hide();
+  }
+});
+
+</script>
+
+% endif
