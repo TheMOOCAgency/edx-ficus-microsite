@@ -15,10 +15,13 @@ from openedx.core.djangolib.markup import HTML, Text
   background-color: #fff;
 }
 .home>header {
-    background: #67B134 none repeat scroll 0 center;
-    background-image: url('/media/microsite/afpa/images/index.jpg');
-    background-position: center;
-    height: 361px;
+    position:relative;
+}
+#absolute-bg-img{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
 }
 #tma_background_font {
   background-image: none;
@@ -45,7 +48,8 @@ from openedx.core.djangolib.markup import HTML, Text
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
+      <header id="home-banner-header">
+        <img src="/media/microsite/afpa/images/index.jpg" alt="bg" id="absolute-bg-img">
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -132,4 +136,14 @@ $(".btn-login").each(function(){
         }
     });
 
+</script>
+<script>
+  // Update top banner height regarding img height
+  const updateBannerSize = () => {
+    let bannerHeight = $("#absolute-bg-img").height()
+    let banner = $("#home-banner-header")
+    $(banner).height(bannerHeight)
+  }
+  updateBannerSize()
+  window.addEventListener("resize", updateBannerSize)
 </script>
