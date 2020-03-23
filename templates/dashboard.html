@@ -22,6 +22,7 @@ from course_api.blocks.api import get_blocks
 import time
 import json
 from datetime import datetime
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -93,6 +94,11 @@ except:
  font-weight: bold;
  color: #fff;
  background-color: rgba(103,177,52,1);
+}
+#dashboard_profile_middle {
+  width: 100% !important;
+  height: 127px !important;
+  background-color: blue !important;
 }
 </style>
 <%
@@ -178,6 +184,11 @@ except:
 .empty-dashboard-message a {
   color: #fff !important;
 }
+#dashboard_profile_middle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 </style>
 <div class="dashboard-notifications" tabindex="-1">
     %if message:
@@ -248,6 +259,15 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   endif
   """
 endfor
+hidden_forum_courses = configuration_helpers.get_value('hidden_forum_courses') 
+display_forum = True
+for course_id in hidden_forum_courses:
+  if course_id in str(course_mono_id):
+    display_forum = False
+  else:
+    display_forum = True
+  endif
+endfor
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
@@ -255,12 +275,6 @@ endfor
       <h4>${user.email}</h4>
     </div>
 % if len(course_enrollments) == 1:
-    <%
-    course_id = ""
-    for enrollment in course_enrollments:
-        course_id = str(enrollment.course_id)
-        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
-    %>
 
     <!-- block milieu profil -->
     <div class="dashboard_profile" id="dashboard_profile_middle">
@@ -274,7 +288,7 @@ endfor
           <img src="${static.url(org_static+'/images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
         % endif
       </div>
-      %if "replay_2020" not in course_id:
+      %if display_forum:
        <!-- border middle -->
        <div id="dashboard_profile_middle_middle">
       </div>
@@ -418,7 +432,7 @@ setTimeout(function(){ checkUrl()}, 500);
     <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
     <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
     <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
-    <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard' />
+    <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard, display_forum=display_forum' />
   % endfor
   </div>
   <div id="dashboard_course_info">

@@ -4,8 +4,10 @@
 <%!
  from django.utils.translation import ugettext as _
  from django.core.urlresolvers import reverse
+ from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+
  %>
-<%page args="tab_list, active_page, default_tab, tab_image" expression_filter="h" />
+<%page args="tab_list, active_page, default_tab, tab_image, course_id" expression_filter="h" />
 
 <%
 def url_class(is_active):
@@ -13,26 +15,61 @@ def url_class(is_active):
     return "active"
   return ""
 %>
+
+<%
+hidden_forum_courses = configuration_helpers.get_value('hidden_forum_courses') 
+display_forum = True
+for id in hidden_forum_courses:
+  if id in str(course_id):
+    display_forum = False
+  else:
+    display_forum = True
+  endif
+endfor
+%>
+
 % for tab in tab_list:
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
   %>
-  <li class="tab">
-    %if tab.name=="Home":
-    <a href="/dashboard" class="${tab_class}">
-    %else:
-    <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
-    %endif
-    ${_(tab.name)}
-    % if tab_is_active:
-        <span class="sr">, current location</span>
-    %endif
-    % if tab_image:
-        ## Translators: 'needs attention' is an alternative string for the
-        ## notification image that indicates the tab "needs attention".
-        <img src="${tab_image}" alt="${_('needs attention')}" />
-    %endif
-    </a>
-  </li>
+  % if tab.name != "Discussion":
+    <li class="tab">
+      %if tab.name=="Home":
+      <a href="/dashboard" class="${tab_class}">
+      %else:
+      <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+      %endif
+      ${_(tab.name)}
+      % if tab_is_active:
+          <span class="sr">, current location</span>
+      %endif
+      % if tab_image:
+          ## Translators: 'needs attention' is an alternative string for the
+          ## notification image that indicates the tab "needs attention".
+          <img src="${tab_image}" alt="${_('needs attention')}" />
+      %endif
+      </a>
+    </li>
+  % else:
+    % if display_forum:
+      <li class="tab">
+        %if tab.name=="Home":
+        <a href="/dashboard" class="${tab_class}">
+        %else:
+        <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+        %endif
+        ${_(tab.name)}
+        % if tab_is_active:
+            <span class="sr">, current location</span>
+        %endif
+        % if tab_image:
+            ## Translators: 'needs attention' is an alternative string for the
+            ## notification image that indicates the tab "needs attention".
+            <img src="${tab_image}" alt="${_('needs attention')}" />
+        %endif
+        </a>
+      </li>
+    % endif
+  % endif
 % endfor

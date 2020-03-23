@@ -120,9 +120,9 @@ css = org_static+'/css/courseware.css'
 <div class="message-banner" aria-live="polite"></div>
 
 % if default_tab:
-  <%include file="/courseware/course_navigation.html" />
+  <%include file="./course_navigation.html" />
 % else:
-  <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
+  <%include file="./course_navigation.html" args="active_page='courseware'" />
 % endif
 
 <div class="container">

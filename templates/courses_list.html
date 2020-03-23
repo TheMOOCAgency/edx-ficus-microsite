@@ -4,7 +4,9 @@
 from django.utils.translation import ugettext as _ 
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
-<% hidden_courses = configuration_helpers.get_value('hidden_courses') %>
+<% 
+hidden_courses = configuration_helpers.get_value('hidden_courses') 
+%>
 
 <section class="courses-container">
   <section class="highlighted-courses">
