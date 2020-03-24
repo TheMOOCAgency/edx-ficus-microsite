@@ -41,7 +41,6 @@ else:
   else:
     insc_ouv = False
 
-
 cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
@@ -87,7 +86,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   <span>${_("Enrollments are close")} </span>
 % endif
 <span>${_('and')}</span>
-% if cours_ouv:
+% if not cours_ouv:
   <span> ${_("Course is open")}</span>
 % else:
   <span> ${_("Course is close")}</span>

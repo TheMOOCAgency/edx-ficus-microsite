@@ -12,7 +12,7 @@ from django.conf import settings
     <img src="${course_image_urls['large']}" alt="">
   </div>
   % if user.is_authenticated() and registered:
-	<div class="enroll-button">
+	<div class="enroll-button" style="height:16px !important">
     % if user.is_active:
 <!--           <span>Votre inscription a été prise en compte !
            <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
@@ -25,18 +25,21 @@ $(document).ready(function(){
         });
 });
 </script>
-           <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-           &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
-
+           <span style="cursor:pointer" onclick="window.location.href='/register'">
+           M'inscrire<br/>&nbsp;<br/></span>
     % else:
            Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
     % endif
         </div>
   % else:
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+           M'inscrire
         </div>
   % endif
+        <div style="border-top:1px solid white" class="enroll-button" onclick="window.location.href='/login?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+           Me connecter
+        </div>
+
   </div>
   % if static.get_value('course_about_show_social_links', True):
   <div class="social-sharing">

@@ -13,8 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* courseware content font */
+@font-face {
+  font-family: "Open Sans";
+  src: url('https://fonts.googleapis.com/css?family=Open+Sans');
+}
+
 *,div,span,button,input,p,h1,h2,h3,h4,h5,h6,a,html,body {
- font-family: 'custom_font';
+ font-family: "Open Sans", sans-serif;
 }
 
 /*Header*/
@@ -183,7 +189,7 @@ border-color: tma_primary_color;
 /* font call */
 
 *,div,span,section,h1,h2,h3,h4,h5,h6,p,header {
- font-family: "custom_font";
+  font-family: "Open Sans", sans-serif;
 }
 
 /* logo custom */
@@ -275,7 +281,7 @@ input[type="submit"]:hover:not(:disabled), input[type="button"]:hover:not(:disab
  max-width:none;
  -webkit-background-size: cover;
  background-size: cover;
- background-color: transparent !mportant;
+ background-color: transparent !important;
 }
 
 
@@ -285,7 +291,7 @@ input[type="submit"]:hover:not(:disabled), input[type="button"]:hover:not(:disab
     background-color: rgba(116,184,127,0.7);
     background-image: -webkit-linear-gradient(top, rgba(116,184,127,0.7) 0%,tma_primary_hover_color 50%,tma_primary_color 50%,tma_primary_color 100%);
     background-image: linear-gradient(to bottom,rgba(116,184,127,0.7) 0%,tma_primary_hover_color 50%,tma_primary_color 50%,tma_primary_color 100%);
-    color:white;
+    color: white;
 }
 .course-info header.course-profile{
     background-image: url(/media/hp/assets/images/bg/hpbg4.jpg);

@@ -57,7 +57,7 @@ from pipeline_mako import render_require_js_path_overrides
 
   <script type="text/javascript" src="${static.url(jsi18n_path)}"></script>
 
-  <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon_path', settings.FAVICON_PATH))}" />
+  <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
 
   <%static:css group='style-vendor'/>
   <%static:css group='${self.attr.main_css}'/>
@@ -135,11 +135,11 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
   /*Font*/
   @font-face {
     font-family: 'custom_font';
-    src: url("${static.url('fonts/337D1D_2_0.eot')}");
-    src: url("${static.url('fonts/337D1D_2_0.eot')}?#iefix")
-        format('embedded-opentype'),url("${static.url('fonts/337D1D_2_0.woff2')}")
-        format('woff2'),url("${static.url('fonts/337D1D_2_0.woff')}")
-        format('woff'),url("${static.url('fonts/337D1D_2_0.ttf')}") format('truetype');
+    src: url("${static.url('/media/microsite/actia/font/ptregular/PT_Sans-Web-Regular.eot')}");
+    src: url("${static.url('/media/microsite/actia/font/ptregular/PT_Sans-Web-Regular.eot')}?#iefix")
+        format('embedded-opentype'),url("${static.url('/media/microsite/actia/font/ptregular/PT_Sans-Web-Regular.woff2')}")
+        format('woff2'),url("${static.url('/media/microsite/actia/font/ptregular/PT_Sans-Web-Regular.woff')}")
+        format('woff'),url("${static.url('/media/microsite/actia/font/ptregular/PT_Sans-Web-Regular.ttf')}") format('truetype');
     font-weight: normal;
   }
   /*Font*/

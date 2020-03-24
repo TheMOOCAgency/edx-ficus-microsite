@@ -13,6 +13,15 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+
+<!-- Fix style -->
+<link rel="stylesheet" href="/media/microsite/actia/css/fix-actia.css">
+
+<!-- Fix traduction -->
+% if LANGUAGE_CODE == 'fr':
+<script src="/media/traductions/fix-trad-fr.js" charset="utf-8"></script>
+% endif
+
 <footer class="global">
   <div class="footer-container">
     <ul class="links">

@@ -45,7 +45,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
-  <h1>${course_overview.display_name_with_default}</h1>
+  <h1 style="text-transform:uppercase">${course_overview.display_name_with_default}</h1>
 </div>
 
 %if cours_ouv:
@@ -56,7 +56,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <!--<a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>-->
   % endif
   % if multi_course_platform:
     <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
@@ -67,23 +67,24 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="courses_cells">
 </div>
 <script>
-$.ajax({
-            type: "GET", //rest Type
-            dataType: 'json', //mispelled
-            url: "/courses/${enrollment.course_id}/courseware_api",
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (chapter_list) {
-                for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
-                }
-             }
-});
+  $.ajax({
+  type: "GET", //rest Type
+  dataType: 'json', //mispelled
+  url: "/courses/${enrollment.course_id}/courseware_api",
+  async: false,
+  contentType: "application/json; charset=utf-8",
+  success: function (chapter_list) {
+      for (var i = 0; i < chapter_list.length; i++) {
+          $('#courses_cells').append("<div class='course_cell'><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+      }
+    }
+  });
+
 </script>
 %else:
 
 <div id="title_dashboard_course">
-  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>À très vite !</h1>
 </div>
 
 

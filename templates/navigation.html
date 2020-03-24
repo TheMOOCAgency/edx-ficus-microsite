@@ -35,10 +35,12 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
+css_custom = '/media/microsite/{}/auto/css/customizer.css'.format(org_static)
 
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${css_custom}" />
 <%
 try:
     course_id = course.id
@@ -110,7 +112,8 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+<!--              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>-->
+MOOC QUALITÉ DES ALIMENTS
             </li>
           % endif
           % if show_program_listing:
@@ -183,7 +186,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register?course_id=course-v1%3Aactia%2BV2%2BSession1&enrollment_action=enroll">${_("Register")}</a>
                 % endif
               </li>
             % endif
@@ -200,7 +203,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login?course_id=course-v1%3Aactia%2BV2%2BSession1&enrollment_action=enroll">${_("Sign in")}</a>
                 % endif
               % endif
             % endif

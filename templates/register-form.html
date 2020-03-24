@@ -86,6 +86,7 @@ import datetime
   % if has_extauth_info is UNDEFINED:
 
   <ol class="list-input">
+<!--
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
       <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
@@ -94,6 +95,7 @@ import datetime
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
+-->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
@@ -229,7 +231,7 @@ import datetime
     <li class="field-group">
     <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['country']} select" id="field-country">
         <label for="country">${_("Country")}</label>
-        <select id="country" name="country" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['country'] == 'required' else ''}>
+        <select id="country" name="country" >
           <option value="">--</option>
           %for code, country_name in countries:
           <option value="${code}">${ unicode(country_name) }</option>
