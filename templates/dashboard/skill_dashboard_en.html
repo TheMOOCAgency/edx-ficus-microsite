@@ -2,13 +2,44 @@
 from openedx.core.djangolib.markup import HTML, Text
 from django.core.urlresolvers import reverse
 from tma_apps.tma_support_functions import tma_verify_access
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 <%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
 <% 
 course_state = user_course_state[str(enrollment.course_id)] 
 has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
+
+#Yoann : get user group value, stored in microsite config in CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED object
+domainFiliere = Null
+domainGroup = Null
+userGroup = Null
+if course_state!="finished" and course_state!="ongoing":
+  if configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED') is not None:
+    for group in configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED'):
+      domainGroup = configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED')[group]["domain"]
+      domainUser = user.email.split('@')[1]
+      if any(d == domainUser for d in domainGroup):
+        userGroup = str(group)
 %>
 <link rel="stylesheet" type="text/css" href="/media/microsite/data-ready/css/digimap.css" />
+
+%if userGroup != Null:
+<script>
+  var userGroup = "${userGroup}"
+  var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
+  var customFields = {userGroup:userGroup}
+  if (userGroup) {
+    $.post( urlAPI, customFields )
+      .done(function( data ) {
+        console.log("userGroup added to custom fields")
+      })
+      .fail(function() {
+        console.error("[WUL] : Fail to add userGroup to custom fields")
+      })
+  }
+</script>
+%endif
+
 <style>
   .content_tma {
     min-height: calc(100vh - 181px) !important;

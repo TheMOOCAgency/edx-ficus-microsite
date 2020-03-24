@@ -40,6 +40,12 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   .courses {
     display: none !important;
   }
+  .language-selector {
+    display: none;
+  }
+  #lang-content{
+    display: none;
+  }
 </style>
 <script>
   document.title="Dataready";
@@ -105,8 +111,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           </div>
           <h2>Veuillez sélectionner votre langue<br />Please choose your language</h2>
           <div id="wrapper-img-popup">
-            <img class="connect-img" src="/media/microsite/data-ready/images/fr.png" alt="drapeau fr" onclick='window.location.href="/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll"'>
-            <img class="connect-img" src="/media/microsite/data-ready/images/uk.png" alt="drapeau en" onclick="window.location.href='/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'">
+            <img class="connect-img" src="/media/microsite/data-ready/images/fr.png" alt="drapeau fr" onclick="setFrLang()">
+            <img class="connect-img" src="/media/microsite/data-ready/images/uk.png" alt="drapeau en" onclick="setEnLang()">
           </div>
         </div>
       </div>
@@ -159,7 +165,66 @@ $(".connectButn").each(function(){
 </script>
 % endif
 
+
+
+<% languages = static.get_released_languages() %>
+ <div class="primary nav-item active">
+   <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+     <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+     % if user.is_authenticated():
+     <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+     % else:
+     <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+     % endif
+       <!--LANGUAGE FLAGS-->
+       <div id="lang-content">
+         <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+           % for language in languages:
+            <script>console.log("${language[0]}")</script>
+            % if language[0] =="en" or language[0] =="fr":
+             % if language[0] == LANGUAGE_CODE:
+               <option value="${language[0]}" selected="selected">${language[0]}</option>
+             % else:
+               <option value="${language[0]}">${language[0]}</option>
+             % endif
+            % endif
+           % endfor
+         </select>
+       </div>
+     </label>
+   </form>
+ </div>
+
 <script>
+  //LANGUAGE FLAGS
+  var setEnLang = function() {
+    if ($('#settings-language-value > option[value="fr"]').attr('selected') === 'selected') {
+      var state = {}
+      var title = ''
+      var url = '/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'
+      history.pushState(state, title, url)
+      $('#settings-language-value > option[value="en"]').attr('selected','selected');
+      $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    } else {
+      window.location.href='/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'
+    }
+    console.log('OK EN')
+  }
+
+  var setFrLang =  function() {
+    if ($('#settings-language-value > option[value="en"]').attr('selected') === 'selected') {
+      var state = {}
+      var title = ''
+      var url = '/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll'
+      history.pushState(state, title, url)
+      $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+      $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    } else {
+      window.location.href='/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll'
+    }
+    console.log('OK FR')
+  }
+
   $("#register-butn").click(function(){
     $("#connect-popin-veil").show();
   });
