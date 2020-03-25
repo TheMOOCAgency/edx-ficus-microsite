@@ -8,17 +8,24 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 <%
 primary_color=configuration_helpers.get_value('primary_color')
 
+if(configuration_helpers.get_value('hidden_courses')):
+  hidden_courses = configuration_helpers.get_value('hidden_courses') 
+else:
+  hidden_courses = []
+
 first_list = []
 second_list = []
 third_list = []
 
 for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-  if "Module" in str(course.id):
-    third_list.append(course)
-  elif "Auto_positionnement" in str(course.id):
-    first_list.append(course)
-  else:
-    second_list.append(course)
+  if str(course.id) not in hidden_courses:
+    if "Module" in str(course.id):
+      third_list.append(course)
+    elif "Auto_positionnement" in str(course.id):
+      first_list.append(course)
+    else:
+      second_list.append(course)
+
 
 second_list.sort(key=lambda x: x.id)
 third_list.sort(key=lambda x: x.id)
@@ -26,23 +33,25 @@ third_list.sort(key=lambda x: x.id)
 
 <style>
   .custom-courses-category{
-    font-weight: bold;
-    font-size:1.6em;
+    font-weight: 900 !important;
+    font-size:1.5em;
     margin-bottom:30px;
     text-transform: uppercase;
-    color:white;
     width: 100%;
     padding: 10px;
     border-radius: 2px;
-    background-color:${primary_color};
+    color:${primary_color};
+  }
+  .white-background{
+    background-color: white !important;
   }
   .custom-courses-display{
     display: flex;
     flex-direction: column;
   }
 </style>
-<section class="courses-container" style="margin-bottom:50px;">
-  <section class="highlighted-courses">
+<section class="courses-container white-background" style="margin-bottom:50px;">
+  <section class="highlighted-courses white-background">
 
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
     <section class="courses">
@@ -61,6 +70,19 @@ third_list.sort(key=lambda x: x.id)
             </li>
           %endfor
         </ul>
+
+      </div>
+    </section>
+    % endif
+
+  </section>
+</section>
+<section class="courses-container" style="margin-bottom:50px;">
+  <section class="highlighted-courses">
+
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+    <section class="courses">
+      <div class="custom-courses-display">
         <div class="custom-courses-category">Nos modules individuels</div>
         <ul class="courses-listing">
           %for course in third_list:
@@ -71,7 +93,7 @@ third_list.sort(key=lambda x: x.id)
         </ul>
       </div>
     </section>
-      ## in case there are courses that are not shown on the homepage, a 'View all Courses' link should appear
+    ## in case there are courses that are not shown on the homepage, a 'View all Courses' link should appear
       % if settings.HOMEPAGE_COURSE_MAX and len(courses) > settings.HOMEPAGE_COURSE_MAX:
       <div class="courses-more">
         <a class="courses-more-cta" href="${marketing_link('COURSES')}"> ${_("View all Courses")} </a>

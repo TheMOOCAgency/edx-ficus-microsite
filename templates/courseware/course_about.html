@@ -371,6 +371,10 @@ $(".inner-wrapper section h2").click(function() {
   }
 });
 </script>
+<script>
+  var courseId = "${str(course.id)}"
+  $("#course-illustration").attr("src","/media/microsite/e-formation-artisanat/auto/images/course-illustrations/" + courseId + ".png");
+</script>
 <style>
 .btn-login {
   color: #fff !important;
