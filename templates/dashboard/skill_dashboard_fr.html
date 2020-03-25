@@ -13,32 +13,42 @@ has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
 domainFiliere = Null
 domainGroup = Null
 userGroup = Null
-if course_state!="finished" and course_state!="ongoing":
-  if configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED') is not None:
-    for group in configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED'):
-      domainGroup = configuration_helpers.get_value('CUSTOM_TMA_REGISTRATION_EMAIL_PATTERNS_ALLOWED')[group]["domain"]
-      domainUser = user.email.split('@')[1]
-      if any(d == domainUser for d in domainGroup):
-        userGroup = str(group)
+domainUser = user.email.split('@')[1]
 %>
 <link rel="stylesheet" type="text/css" href="/media/microsite/data-ready/css/digimap.css" />
 
-%if userGroup != Null:
+%if course_state!="finished" and course_state!="ongoing":
 <script>
-  var userGroup = "${userGroup}"
-  var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
-  var customFields = {userGroup:userGroup}
-  console.log(userGroup)
-  if (userGroup) {
-    console.log("Mode Démarrer")
-    $.post( urlAPI, customFields )
-      .done(function( data ) {
-        console.log("userGroup ajouté au custom fields")
-      })
-      .fail(function() {
-        console.log("bug : userGroup pas ajouté au custom fields")
-      })
-  }
+  $.get( "/tma_apps/tma_api/v0/email_allowed/" )
+    .done(function( data ) {
+      var userGroup = "unknown"
+      var keys = Object.keys(data)
+      var domainUser = "${domainUser}"
+      for (var i = 0; i < keys.length; i++) {
+        var domain = data[keys[i]].domain
+        for (var j = 0; j < domain.length; j++) {
+          if (domainUser === domain[j]) {
+            userGroup = keys[i];
+          }
+        }
+      }
+      var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
+      var customFields = {userGroup:userGroup}
+      console.log(userGroup)
+      if (userGroup) {
+        console.log("Mode Démarrer")
+        $.post( urlAPI, customFields )
+          .done(function( data ) {
+            console.log("userGroup ajouté au custom fields")
+          })
+          .fail(function() {
+            console.log("bug : userGroup pas ajouté au custom fields")
+          })
+      }
+    })
+    .fail(function() {
+      console.error("[WUL] : Fail to get email_allowed data")
+  })
 </script>
 %endif
 
