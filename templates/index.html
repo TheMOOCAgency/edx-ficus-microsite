@@ -542,7 +542,7 @@ org = static.get_value('domain_prefix')
       </footer>
 	  </div>
 	  
-	  
+	  <script src="/media/microsite/nature-for-city-life/assets/js/cookie.js"></script>
 	  <script>
 			var language
 			var registerStringHref = "/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll"
@@ -600,10 +600,12 @@ org = static.get_value('domain_prefix')
 
 			$("#switchEng").click(function() {
 				switchLanguage('ENG')
+            setCookie('language', 'en', 10)
 			});
 
 			$("#switchFr").click(function() {
 				switchLanguage('FR')
+            setCookie('language', 'fr', 10)
 			});
 
 
@@ -614,17 +616,25 @@ org = static.get_value('domain_prefix')
 			var userLang = navigator.language || navigator.userLanguage;
 
 			if(userLang=="fr"){
-			switchLanguage("FR")
-			}
-			else{
-			switchLanguage("ENG")
-
-			}
+   			   switchLanguage("FR")
+   			}
+   			else{
+   			   switchLanguage("ENG")
+   			}
 			}
 
 			getLanguageBrowser()
 
 			$( document ).ready(function(){
+            // SWITCH TO ENGLISH MODE
+            if (getCookie('language') !== '${request.LANGUAGE_CODE}') {
+               if (getCookie('language') === 'en') {
+                  switchLanguage('ENG')
+               } else {
+                  switchLanguage("FR")
+               }
+            }
+
 				// GET DATE
 				var monthNames = [
 					"Janvier", "Fevrier", "Mars",
@@ -644,6 +654,7 @@ org = static.get_value('domain_prefix')
 
             // translate EN SAVOIR PLUS in eng courses div
             $("#engNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('LEARN MORE')
+
 			})
 
          var scrollToTrainings = function scroll_to(lang){
