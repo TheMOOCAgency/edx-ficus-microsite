@@ -320,7 +320,7 @@ org = static.get_value('domain_prefix')
             <div class="collapse navbar-collapse" id="navcol-1">
                <ul class="nav navbar-nav navbar-right">
                   <li role="presentation"><a  onclick="scrollToTrainings('eng')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Discover our trainings </a></li>
-                  <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Connection </a></li>
+                  <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Login </a></li>
                </ul>
             </div>
          </div>
@@ -339,7 +339,7 @@ org = static.get_value('domain_prefix')
                      <!--Ouverture le 6 décembre-->
                   </p>
                   <div style="margin:0 auto;text-align:center;">
-                     <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('eng')" id="register_link"><p style="margin:0px">Discover our <br />trainings </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Connection </a>
+                     <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('eng')" id="register_link"><p style="margin:0px">Discover our <br />trainings </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Login </a>
                   </div>
             </div>
          </div>
@@ -627,7 +627,7 @@ org = static.get_value('domain_prefix')
 
 			$( document ).ready(function(){
             // SWITCH TO ENGLISH MODE
-            if (getCookie('language') !== '${request.LANGUAGE_CODE}') {
+            if (getCookie('language') !== '') {
                if (getCookie('language') === 'en') {
                   switchLanguage('ENG')
                } else {
