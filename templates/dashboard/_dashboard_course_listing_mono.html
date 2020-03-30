@@ -42,7 +42,59 @@ org_static = static.get_value('domain_prefix')
 cours_ouv = show_courseware_link and not is_course_blocked
 %>
 
+<style>
+  #course-redirection {
+    width: 100%;
+    background-color: rgba(0,131,169,1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px !important;
+    font-family:"Montserrat";
+    font-weight: 800;
+    line-height: 30px !important;
+    color: white !important;
+    border-radius: 20px !important;
+    font-size: 20px !important;
+    height: 200px;
+    margin: 0 auto 10px auto;
+  }
 
+  #course-redirection div{
+    text-align: center;
+    width: 70%;
+  }
+
+  #course-redirection a{
+    color: white !important;
+    ;
+  }
+
+  #course-redirection #redirect-button {
+    background-color: rgb(243, 146, 36) !important;
+    text-align: center !important;
+    margin: 15px auto !important;
+    border-radius: 15px !important;
+    border-style: none !important;
+    padding: 10px 20px !important;
+    width: calc(100% - 40px);
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #course-redirection {
+      width: 80%;
+      font-size: 18px !important;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    #course-redirection {
+      width: 70%;
+      font-size: 16px !important;
+    }
+  }
+</style>
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
   <h1 style="text-transform:uppercase">${course_overview.display_name_with_default}</h1>
@@ -64,6 +116,23 @@ cours_ouv = show_courseware_link and not is_course_blocked
   <span style="clear:left;display:block;"></span>
 </div>
 <div id="course_dashboard_border"></div>
+% if str(enrollment.course_id) == "course-v1:actia+V2+Session1":
+  <div id="course-redirection">
+    <div>
+      Ce cours est fermé.
+    </div>
+    <div>
+      Une nouvelle session de cours est actuellement disponible.
+    </div>
+    <div>
+      <div id="redirect-button">
+         <a href="/login?course_id=course-v1:actia+qualitedesaliments+2020&enrollment_action=enroll">
+          Cliquez ici pour vous inscrire !
+        </a>
+      </div>
+    </div>
+  </div>
+% endif
 <div id="courses_cells">
 </div>
 <script>
