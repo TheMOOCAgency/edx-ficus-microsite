@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
    <html>
       <head>
@@ -8,7 +8,7 @@
 		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
       </head>
       <body style="display: none">
-         <nav id = "nav"class="navbar navbar-default">
+      <!--   <nav id = "nav"class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -20,7 +20,7 @@
                </div>
                <div id="navbar" class="navbar-collapse collapse">
                   <ul class="nav navbar-nav">
-                     <li><a class="navbar-brand "><img class="logoNav">                   
+                     <li><a class="navbar-brand "><img class="logoNav">
                         </a>
                      </li>
                   </ul>
@@ -29,9 +29,9 @@
                      <li><a href="/faq" id="FAQLink" class="rg">FAQ</a></li>
                      <li><a href="/honor" id="contactLink" class="rg">Contact</a></li>
                   </ul>
-               </div>           
-            </div>       
-         </nav>
+               </div>
+            </div>
+         </nav>-->
          <section id="se1" style="">
             <div class="row vertical-center">
                <div class="col-md-12 text-center">
@@ -41,9 +41,9 @@
                         <h1 pre id="mainTitle2"></h1>
                         <h1 id="mainTitle3" style="display: none"></h1>
                      </div>
-                     <div class="col">                  
+                     <div class="col">
                         <button class="btn btn-default butn jbo rg howRegisterJumbo" onclick="goToWhatIsMooc()" id="subscribeButn">Comment s'inscrire ?</button>
-                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>         
+                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>
                      </div>
                   </div>
                </div>
@@ -55,13 +55,13 @@
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%">
                   <div class="embed-responsive embed-responsive-4by3">
-                     <video 
-                     id="videoSr" 
+                     <video
+                     id="videoSr"
                      type="video/mp4"
-                     class="embed-responsive-item" 
+                     class="embed-responsive-item"
                      width="550"
-                     controls="true" 
-                     allow="fullscreen" 
+                     controls="true"
+                     allow="fullscreen"
                      allowfullscreen
                      poster="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg"
                      src="">
@@ -103,7 +103,7 @@
                   <p class="text-center underW" >Site deployé par The MOOC Agency - 2020 </p>
                </div>
             </div>
-            </div>          
+            </div>
          </footer>
          <script>
             var openDiscoverCPQ = function (){
@@ -119,7 +119,7 @@
 				 var envDefault = "developement"
 					 var organisation = "formation-cqp-branchedechet"
 					 	var urlCompose
-					 var i 
+					 var i
                      var iter
                      var tbTitle
                      var tbText
@@ -129,7 +129,7 @@
                      var enrollment_action = "enroll"
                      var connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
                      var pathMedia = "media/microsite/"
-                     var micrositeName 
+                     var micrositeName
                      var folderPb = "/pagebuilder"
                      var imgSrc = "/assets/img/"
                      var thumbnailStr = "thumbnailStr"
@@ -142,29 +142,29 @@
                      var termJpg = ".jpg"
                      var vNone = 'none'
                      var thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>"
-                     
-                     
+
+
                      var thumbnailImgSrc
                      var titleThumbnail
                      var titleWeeks
                      var iconoImgSrc
-                     
+
                      var thumbnailChap =  "<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><div class='caption'> <h3 >"+titleThumbnail+"</h3><p class='weekSp'>"+titleWeeks+"</p><p class='under_s2'></p></div> </div></div>"
-            
+
                      var titleThumb
                      var imgThumbSrcIcon
                      var imgThumbSrc
                      var pWeeksTitle
                      var pWeeksContent
                      var moduleDetails
-            
+
                      var thumbnailChapEsc =  "<div class='col-md-4 noflex'><div class='thumbnail'> <div class='caption'> <h3 class='h3Thumb'  " + titleThumb + "</h3><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
-            
+
                         var swapDisplay = function(elm){
                               var elmt = elm
                               elmt.style.display = 'none'
                         }
-            
+
             var getInfo= function(){
 					 micrositeName  = organisation
 					 if (envDefault=='developement'){pathMedia =  "media/microsite/"}
@@ -173,9 +173,9 @@
                     composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
 					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
             }
-			
+
             var scriptLinkGenerator =  function(){
-   
+
                var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
                var script = document.createElement('script');
                var script2 = document.createElement('script');
@@ -186,7 +186,7 @@
                script2.src = mainPathB+scriptSrcArr[1];
                document.head.appendChild(script);
                document.head.appendChild(script2);
-         
+
                var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
                var link1 = document.createElement('link');
                link1.id = 'id1';
@@ -203,12 +203,12 @@
                document.head.appendChild(link1);
                document.head.appendChild(link2);
                document.head.appendChild(link3);
-               
+
                $("#loginLink1").attr("href",pathLogin + connectLink)
                $("#loginLink2").attr("href",pathLogin + connectLink)
                $("#loginButn").click(function(){window.location.href = pathLogin + connectLink})
             }
-               
+
             var bindindFunctionA = function(){
                iter =  objJson.container.section3.nrbThumbnail
                for (i = 0; i < iter ; i++ ){
@@ -218,16 +218,16 @@
                   tbText = thumbnailObj.text
                   thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
                   $('#markMoock').append(thumbnailMOOC)
-               
+
                }
             }
-                  
+
             var bindindFunctionFooter = function(){
                var footerTitleContent = objJson.container.section4.footer
                var footerTitleContentTitle = objJson.container.section4.footer.title
-               $('#footerTitle').text(footerTitleContentTitle)  
+               $('#footerTitle').text(footerTitleContentTitle)
             }
-                  
+
             var bindindFunctionMainSection= function(){
                var mainTitleContent = objJson.container.section1.title
                var mainTitleContentTitle = objJson.container.section1.title.title1
@@ -235,9 +235,9 @@
                var mainTitleContentTitle3 = objJson.container.section1.title.title3
                $('#mainTitle1').text(mainTitleContentTitle)
                $('#mainTitle2').html(mainTitleContentTitle2)
-               //  $('#mainTitle3').text(mainTitleContentTitle3)     
+               //  $('#mainTitle3').text(mainTitleContentTitle3)
             }
-                     
+
             var bindindFunctionMainSectionVideo = function(){
                var mainTitleContent = objJson.container.section2
                var mainTitleContentTitle = objJson.container.section2.title
@@ -254,17 +254,17 @@
                $('#vvText3').html(mainTitleContentText3)
                $('#vvText4').html(mainTitleContentText4)
             }
-                         
+
             var bindindFunctionMainSectionIntro= function(){
             	var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
-            	$('#introConnect').text(mainTitleContent)         
+            	$('#introConnect').text(mainTitleContent)
             }
-                     
+
             var bindindFunctionMainSectionVIdeoTitle= function(){
             	var mainTitleContent = objJson.container.section2.title
-            	$('#se2').find(".sectionTitle").text(mainTitleContent)         
+            	$('#se2').find(".sectionTitle").text(mainTitleContent)
             }
-                     
+
             var bindindFunctionSection3= function(){
             	var mainTitleContent = objJson.container.section3.title
                var text1 = objJson.container.section3.textLeft1
@@ -277,14 +277,14 @@
                $('#se3').find(".text2").html(text2)
                $('#se3').find(".text3").html(text3)
             }
-            
+
             var bindindFunctionMeta = function(){
             	var mainTitleContent = objJson.page.title
             	$("#masterTitle").text(mainTitleContent)
             }
-            
+
             var masterBind= function(){
-				
+
 				scriptLinkGenerator();
             	bindindFunctionA();
             	bindindFunctionFooter();
@@ -298,9 +298,9 @@
                   $("body").css({"display":"inherit"})
                })
              }
-            
+
             var objJson
-            
+
             getInfo();
             var a = new XMLHttpRequest();
 
@@ -316,13 +316,12 @@
             }
             a.send();
             // a.addEventListener('loadend', $("body").css({"display":"inherit"}));
-            
+
             $(".scroll").click(function() {
             	$('html, body').animate({
             		scrollTop: $("#se2").offset().top
             	}, 2000);
             });
-			</script>       
+			</script>
       </body>
    </html>
-
