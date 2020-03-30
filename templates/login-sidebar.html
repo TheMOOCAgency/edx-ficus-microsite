@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 
 <div class="cta cta-help">
   <h3>${_("Not Enrolled?")}</h3>
-  <p><a href="/register?course_id=course-v1:mooc-agea+agea01+2017_Q1&enrollment_action=enroll">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
+  <p><a href="/register?course_id=course-v1:mooc-agea+COURS3-2+2020_T1&enrollment_action=enroll">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
 
   ## Disable help unless the FAQ marketing link is enabled
   % if settings.MKTG_URL_LINK_MAP.get('FAQ'):
