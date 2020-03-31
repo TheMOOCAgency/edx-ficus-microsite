@@ -194,17 +194,17 @@ import datetime
     % endif
     % if n.get('name') == 'year_of_birth':
         <option value="" data-isdefault="true">--</option>
-	<%
-	year = datetime.datetime.today().year
-	YEARS = [year - i for i in range(100)]
-	%>
+	        <%
+	        year = datetime.datetime.today().year
+	        YEARS = [year - i for i in range(100)]
+	        %>
         % for y in YEARS:
 	    <option value="${y}">${y}</option>
-	% endfor
+	      % endfor
     % else:
         % for j in n.get('options'):
             <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
-        %endfor
+        %endfor      
     % endif
   </select>
   % elif n.get('type') == 'checkbox':
