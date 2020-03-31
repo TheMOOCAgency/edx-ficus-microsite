@@ -86,6 +86,15 @@ site_status_msg = get_site_status_msg(course_id)
     color: #7F7F7F;
     font-size: 16px;
 }
+
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 60px;
+    height: 24px;
+  }
 </style>
 -->
         </%block>
@@ -110,7 +119,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
+              <!-- <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a> -->
             </li>
           % endif
           % if show_program_listing:
@@ -171,7 +180,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
+                <!-- <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a> -->
               </li>
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
@@ -208,9 +217,7 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-    % if static.show_language_selector():
      <% languages = static.get_released_languages() %>
-      % if len(languages) > 1:
       <ol class="user">
         <li class="primary">
           <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
@@ -221,21 +228,26 @@ site_status_msg = get_site_status_msg(course_id)
             <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
             % endif
             <label><span class="sr">${_("Choose Language")}</span>
-                <select class="input select language-selector" id="settings-language-value" name="language">
+              <!--LANGUAGE FLAGS-->
+              <div id="lang-content" style="margin-right:33px;cursor:pointer">
+                <img width="34px" style="padding-right:5px" src="/media/microsite/netexplo-smartcities/images/us.png" id="us">
+                <img width="34px" src="/media/microsite/netexplo-smartcities/images/fr.png" id="fr">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="2"  style="display:none !important;"> 
                   % for language in languages:
+                   % if language[0] =="en" or language[0] =="fr":
                     % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[1]}</option>
+                      <option value="${language[0]}" selected="selected">${language[0]}</option>
                     % else:
-                      <option value="${language[0]}" >${language[1]}</option>
+                      <option value="${language[0]}">${language[0]}</option>
                     % endif
+                   % endif
                   % endfor
                 </select>
+              </div>
             </label>
           </form>
         </li>
       </ol>
-      % endif
-      % endif
     </nav>
 </header>
 % if course:
@@ -253,6 +265,22 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+
+<script>
+  //LANGUAGE FLAGS
+  $('#us').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  }
+  );
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+  }
+
+  );
+</script>
 <script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():

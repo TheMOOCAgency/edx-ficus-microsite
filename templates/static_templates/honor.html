@@ -19,11 +19,26 @@ _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
   _template = "<p>Honor</p>"
 %>
-<%block name="pagetitle">${_("Honor Code")}</%block>
-
+<script>
+  $( document ).ready(function() {
+    document.title="Crédit"
+  })
+</script>
 <style>
 main {
  background-color: #fff;
+}
+</style>
+<style>
+main {
+ background-color: #fff;
+}
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+p {
+  line-height: 120%;
 }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
@@ -33,8 +48,11 @@ main {
         <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
     </section>
 -->
-  <section class="static-container honor">
-  ${_template | n}
-  </section>
+<section class="container honor">
+    <h1>Crédits</h1>
+    <p>La version actuelle du Site a été conçue par la société HappeningCo, en collaboration avec HEC, et développée par la société The MOOC Agency.</p>
+    Happeningco – Netexplo Academy – 264 rue du Faubourg Saint-Honoré – <a href="https://hello@netexplo.com">hello@netexplo.com</a>
+    </p>
+</section>
 
 </main>

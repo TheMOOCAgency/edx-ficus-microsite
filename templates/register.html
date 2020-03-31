@@ -52,14 +52,14 @@ import calendar
       });
       */
       $('#register-form').on('ajax:success', function(event, json, xhr) {
-        var nextUrl = "${login_redirect_url}";
+        var nextUrl = "/tma_apps/user_info";
         if (json.redirect_url) {
           nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
         }
         if (!isExternal(nextUrl)) {
           location.href=nextUrl;
         } else {
-          location.href="${reverse('dashboard')}";
+          location.href="/tma_apps/user_info";
         }
       });
 

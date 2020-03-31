@@ -20,21 +20,40 @@ if _template is None:
   _template = "<p>About</p>"
 %>
 
-<%block name="pagetitle">${_("About")}</%block>
+<%block name="pagetitle">Crédits</%block>
+<script>
+  $( document ).ready(function() {
+    document.title="Mentions légal"
+  })
+</script>
 <style>
-main { 
+main {
  background-color: #fff;
+}
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+p {
+  line-height: 120%;
 }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
     <section class="container about">
-        <h1>${_("About")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+        <h2>Mentions légales</h2>
+        <h3>1. Editeur du Site</h3>
+        <p>La société éditrice du site netexplosmartcitiesprogram: </p> 
+        <br/>
+        <p>HAPPENINGCO</p>
+        <p>Société par Actions Simplifiée au capital de 148 092,60 euros</p>
+        <p>Siège social : 264, rue du Faubourg Saint-Honoré, 75008 Paris</p>
+        <p>RCS Paris : 447 906 165 000 33</p>
+        <p>Tél :  01 45 01 60 00</p>
+        <p>Numéro individuel d’identification de TVA : FR11447906165</p>
+        <p>Directeur de la Publication : Thierry HAPPE</p>
+        <p>Hébergeur : OVH, 2 rue Kellermann, 59100 Roubaix</p>
+        <p>Tél. : 09.72. 10.10.07</p>
+        <p>Date de création : 1er Janvier 2020</p>
+        <br/>
     </section>
--->
-<section class="static-container about">
-${_template | n}
-</section>
-
 </main>

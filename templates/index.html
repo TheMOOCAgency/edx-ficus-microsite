@@ -1,97 +1,199 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<html>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netexplo Smartcities</title>
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/4-Columns-Info-Icons.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/user.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/dh-highlight-icon-heading.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Full-Page-Background.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Full-Page-Background1.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Full-Page-Background2.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/html5-video.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/PUSH---Bootstrap-Button-Pack.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/PUSH---Bootstrap-Button-Pack1.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/PUSH---Bootstrap-Button-Pack2.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/PUSH---Bootstrap-Button-Pack3.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Team-Boxed.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Testimonials-1.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/Testimonials.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/thumbnails1-1.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/thumbnails1.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/stylesheet.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/base.css">
+    <link rel="stylesheet" href="/media/microsite/netexplo-smartcities/css/base.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics -->
 
-          </div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108400250-1"></script>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
 <script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108400250-1');
 </script>
-% endif
+
+</head>
+
+<style>
+
+ body{
+      font-family: 'Praktika Bold Condensed'; !important;
+  }
+  footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
+  .footer-container>ul>li{
+    display: inline-block;
+  }
+.under_s2{
+  margin-bottom: 10px;
+}
+
+  #section1{
+    background-image:url('/media/microsite/netexplo-smartcities/falback.jpg');
+  }
+
+a.evitement {
+    width: 200px;
+    height: 50px;
+    left: 40%;
+    top: -600px;
+    display: inline-block;
+    position: absolute;
+    padding: 15px 10px;
+    overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid #fcfcfc;
+    z-index: 99999999999;
+}
+
+a.evitement:focus{
+    top: 0;
+}
+
+
+@media screen and (min-width: 1200px)
+{
+  .thumbnail {
+    min-height: 705px !important;
+  }
+}
+
+@media screen and (max-width: 1200px)
+{
+  .thumbnail {
+    min-height: 800px !important;
+  }
+}
+
+@media screen and (max-width: 990px)
+{
+  .thumbnail {
+    min-height: auto !important;
+  }
+}
+
+
+.title{    width: 30%;
+    margin: 0 auto;
+        margin-bottom: 0px;
+    margin-bottom: 5%;
+}}
+
+.link_header{
+
+
+}
+
+
+#register_link{font-family: 'Praktika Bold Condensed'; !important;font-size: 2.2em; text-transform: uppercase;}
+
+
+#login_link{font-family: 'Praktika Bold Condensed'; !important;font-size: 2.2em; text-transform: uppercase;}
+
+#register-nav{font-family: 'Praktika Bold Condensed'; !important;font-size: 1.2em; text-transform: uppercase;}
+
+
+#login-nav{font-family: 'Praktika Bold Condensed'; !important;font-size: 1.2em; text-transform: uppercase;}
+
+
+</style>
+
+<body>
+    <a class="evitement" href="#contenu">Aller au contenu</a>
+<!-- BARRE NAV-->
+  <header id="nav_header" role="banner">
+    <nav class="navbar navbar-default" id="nav_header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="https://netexplo.the-mooc-agency.com/" style="/*position:absolute;*/padding-top:15px;">
+                  <img src="/media/microsite/netexplo-smartcities/auto/images/logo.png" style="height:40px;" alt="Netexplo Academy (aller à l’accueil)">
+                </a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a id="register-nav" href="/register">Inscription </a></li>
+                    <li><a id="login-nav" href="/login">Connexion </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  </header>
+
+<!-- BLOC INTRO -->
+    <div class="container text-center" id="section1">
+        <video autoplay="true" loop="loop" preload="metadata" muted="muted">
+            <source src="/media/microsite/netexplo-smartcities/video_bg.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+        </video>
+        <div class="col-md-5" style="color:white;background-color:rgba(0,0,0,0.25);float:none;margin-top:0;vertical-align:middle;width:100%;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height: 100%;display: flex;justify-content: center;flex-direction: column;">
+           <img src="/media/microsite/netexplo-smartcities/auto/images/logo.png" class="title">
+
+            <div style="margin:0 auto;text-align:center;">
+              <a class="btn btn-primary btn-lg link_header" href="/register" id="register_link">INSCRIPTION</a>
+              <a class="btn btn-primary btn-lg link_header" href="/login" id="login_link">Connexion </a></div>
+        </div>
+    </div>
+
+
+    <script src="/media/microsite/netexplo-smartcities/js/jquery.min.js"></script>
+    <script src="/media/microsite/netexplo-smartcities/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/media/microsite/netexplo-smartcities/js/Full-Page-Background1.js"></script>
+    <script src="/media/microsite/netexplo-smartcities//js/Full-Page-Background2.js"></script>
+    <script src="/media/microsite/netexplo-smartcities/js/Full-Page-Background3.js"></script>
+    <script src="/media/microsite/netexplo-smartcities/js/Full-Page-Background.js"></script>
+
+    <footer class="global">
+      <div class="footer-container">
+        <ul class="links">
+          <li>
+            <a href="/tos">Conditions générales -</a>
+          </li>
+          <li>
+            <a href="/about">Mentions Légales -</a>
+          </li>
+    	  <li>
+            <a href="/privacy">Confidentialité -</a>
+          </li>
+        <li>
+            <a href="/honor">Cr&eacute;dits</a>
+          </li>
+        </ul>
+        <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+        <div class="by-ionisx">
+        </div>
+      </div>
+    </footer>
+</body>
+
+</html>
