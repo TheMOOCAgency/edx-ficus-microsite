@@ -12,6 +12,14 @@ from openedx.core.djangolib.markup import HTML, Text
   <section class="message">
     %if not already_active:
       <h1 class="valid">${_("Account Activated")}</h1>
+<style>
+section.container.activation{
+  display:none;
+}
+</style>
+<script>
+  document.location.href="/login?next=%2Fdashboard"; 
+</script>
     %else:
       <h1>${_("Account already active")}</h1>
     %endif

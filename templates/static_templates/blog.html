@@ -1,6 +1,7 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string %>
+<%! from tma_apps.tma_support_functions import tma_verify_access %>
 <%namespace name='static' file='../static_content.html'/>
 <%
 org = static.get_value('domain_prefix')
@@ -19,6 +20,7 @@ jsMain = '/media/microsite/{}/email_allowed/js/main.7a5a0da8.chunk.js'.format(or
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
       <noscript>You need to enable JavaScript to run this app.</noscript>
+      % if tma_verify_access(request.user).is_tma_team():
       <div id="root"></div>
       <script>
           ! function(e) {
@@ -99,5 +101,6 @@ jsMain = '/media/microsite/{}/email_allowed/js/main.7a5a0da8.chunk.js'.format(or
 
       <script src="${js}"></script>
       <script src="${jsMain}"></script>
+     %endif
     </section>
 </main>
