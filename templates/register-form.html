@@ -208,8 +208,13 @@ import datetime
     % endif
   </select>
   % elif n.get('type') == 'checkbox':
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
-  <label for="${n.get('name')}"  style="font-weight:600 !important;">${_(n.get('label'))}</label>
+    % if n.get('name') == 'newsletter':
+      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
+      <label for="${n.get('name')}"  style="font-weight:600 !important;">${_(n.get('extra-label'))}</label>
+    % else:
+      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
+      <label for="${n.get('name')}"  style="font-weight:600 !important;">${_(n.get('label'))}</label>
+    % endif
   % endif
   </div>
   </li>
