@@ -193,14 +193,14 @@ import datetime
       %endfor
     % endif
     % if n.get('name') == 'year_of_birth':
-        <option value="" data-isdefault="true">--</option>
-	        <%
-	        year = datetime.datetime.today().year
-	        YEARS = [year - i for i in range(100)]
-	        %>
-        % for y in YEARS:
-	    <option value="${y}">${y}</option>
-	      % endfor
+      <option value="" data-isdefault="true">--</option>
+	      <%
+	      year = datetime.datetime.today().year
+	      YEARS = [year - i for i in range(100)]
+	      %>
+      % for y in YEARS:
+	      <option value="${y}">${y}</option>
+	    % endfor
     % else:
         % for j in n.get('options'):
             <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
@@ -209,7 +209,7 @@ import datetime
   </select>
   % elif n.get('type') == 'checkbox':
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
+  <label for="${n.get('name')}"  style="font-weight:600 !important;">${_(n.get('label'))}</label>
   % endif
   </div>
   </li>
@@ -217,7 +217,7 @@ import datetime
 </ol>
 </div>
 <!-- end extraform generation -->
-<div class="group group-form group-form-secondary group-form-personalinformation">
+<div class="group group-form group-form-secondary group-form-personalinformation"  style="padding-bottom:0;">
   <h2 class="sr">${_("Additional Personal Information")}</h2>
 
   <ol class="list-input">
@@ -283,7 +283,7 @@ import datetime
 
 </div>
 
-<div class="group group-form group-form-personalinformation2">
+<div class="group group-form group-form-personalinformation2" style="padding-bottom:0;">
   <ol class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['mailing_address']} text" id="field-address-mailing">
