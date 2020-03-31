@@ -64,8 +64,9 @@
                      allow="fullscreen"
                      allowfullscreen
                      poster="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg"
-                     src="">
-                        <img src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/video_vignette.jpg" alt="Votre navigateur ne supporte pas cette vidéo">
+                     muted
+                     autoplay
+                     source="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/video/Filiere_dechets_teaser.mp4">
                      </video>
                   </div>
                </div>
@@ -85,14 +86,17 @@
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
                   <div class="tableChild">
-                     <p class="text1">This is some text.</p>
-                     <p class="text2">This is some text.</p>
-                     <p class="text3">This is some text.</p>
+                    <h4>Comment obtenir un CQP ?</h4>
+                    <p>Contactez l’un des organismes de formation inscrit sur la liste ci-dessous. Cet organisme vous orientera vers le parcours le plus adapté à votre profil.
+Ici, intégrer le tableau en pièce jointe</p>
+                    <img src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/tableau1.png" style="width: 100%!important;" />
+                    <h4>Comment se préparer ?</h4>
+                    <p>Quel que soit votre profil, un certain nombre de connaissances concernant les activités de déchets vous sont nécessaires. Cette plateforme de formation e-learning est à votre disposition pour confirmer vos connaissances ou vous aider à progresser si besoin. Demandez les codes à votre organisme ! A très vite !</p>
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%">
                   <div class="">
-                     <img class='img-rounded moocIco' src="">
+                     <img class='img-rounded moocIco' src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/contentImg0.jpg">
                   </div>
                </div>
             </div>
@@ -272,7 +276,6 @@
                var text3 = objJson.container.section3.textLeft3
                var imgSrc = pathMedia + micrositeName + objJson.container.section3.imgSrc
                $('#se3').find(".sectionTitle").text(mainTitleContent)
-               $('#se3').find("img").attr("src",imgSrc)
                $('#se3').find(".text1").html(text1)
                $('#se3').find(".text2").html(text2)
                $('#se3').find(".text3").html(text3)
