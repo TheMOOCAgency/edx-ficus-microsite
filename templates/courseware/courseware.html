@@ -6,6 +6,7 @@
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
+
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
@@ -435,44 +436,31 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 %endif
 <script>
 $(document).ready(function(){
-
-$( ".menu-item.active" ).append('<ol class="currentitemlist"></ol>')
-$('.sequence-list-wrapper>ol>li').clone().appendTo( ".currentitemlist" )
+  var highlightCustomUnit = function(){
+    $('.nav-item').each(function(indexnav,elementnav){
+        if($(elementnav).hasClass('active')){
+          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
+        }else{
+          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
+        }
+      })
+    }
+  highlightCustomUnit()
 
 
 $('.sequence-nav>nav>ol>li').each(function(index){
     $(this).click(function(){
-      $( ".currentitemlist>li>button" ).css('color',"#3e3e3e")
-      $('.currentitemlist #tab_'+index).css('color',"white")
+      highlightCustomUnit()
   })
 })
-$( ".currentitemlist>li>button" ).each(function(index){
-    var that = this;
-
-    if($('.sequence-nav #tab_'+index).hasClass('active')){
-      $(that).css('color',"white")
-    }else{
-      $(that).css('color',"#3e3e3e")
-    }
-    $(this).text($(this).attr('data-page-title'))
-    $(this).click(function(){
-
-      $(".currentitemlist>li>button").removeClass('active')
-      $(".currentitemlist>li>button").addClass('inactive')
-      $(this).removeClass('inactive')
-      $(this).addClass('active')
-      $( ".currentitemlist>li>button" ).css('color',"#3e3e3e")
-      $(that).css('color',"white")
-      $('.sequence-nav #tab_'+index).trigger('click')
-    })
-  })
 $('.button-next').live('click',function(e){
-    $('.currentitemlist>li>button.active').parent().next().children().trigger('click')
+    highlightCustomUnit()
 })
 $('.button-previous').live('click',function(e){
-  $('.currentitemlist>li>button.active').parent().prev().children().trigger('click')
+   highlightCustomUnit()
 })
 })
+
 </script>
 <style>
   .wrapper-course-material>.menu-responsive{
