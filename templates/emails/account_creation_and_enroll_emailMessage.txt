@@ -2,13 +2,17 @@
 
 ${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+${_("Pour commencer, rendez-vous sur https://{site_name}. Les informations d'identification pour votre compte sont les suivantes :").format(site_name=site_name)}
 
 ${_("email: {email}").format(email=email_address)}
 ${_("password: {password}").format(password=password)}
 
 ${_("It is recommended that you change your password.")}
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+${_("Vous bénéficiez de l’accès au cours pour une durée de 30 jours.")}
+
+${_("Pour une meilleure audition sonore, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer.")}
+
+${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}
+
+${_("Cordialement")}
