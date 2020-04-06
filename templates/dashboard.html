@@ -173,11 +173,11 @@ endfor
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span class="training-not-validated" style="margin-left:50px;">${_("Training not validated")}</span>
         % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span class="training-not-validated" style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span class="training-not-validated" style="margin-left:50px;">${_("Training not validated")}</span>
         % endif
       </div>
       <!-- border middle -->
@@ -613,6 +613,7 @@ $( document ).ready(function(){
       $("#name-form>p").text('Please enter your name as it will appear on the certificate (Attention, your name will not be modifiable thereafter).')
       $("#label_first_name").text('Your first name :')
       $("#label_last_name").text('Your last name :')
+      $(".training-not-validated").text('Follow your progress')
   }
 });
 </script>
