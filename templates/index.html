@@ -8,16 +8,8 @@
 		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
       </head>
       <body style="display: none">
-      <!--   <nav id = "nav"class="navbar navbar-default">
+        <nav id = "nav"class="navbar navbar-default">
             <div class="container-fluid">
-               <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" id="loginLink1">Connexion</a></li>
-                        <li><a href="" id="howRegisterLink1" onclick="goToWhatIsMooc()">Comment s'inscrire ?</a></li>
-                     </ul>
-                  </button>
-               </div>
                <div id="navbar" class="navbar-collapse collapse">
                   <ul class="nav navbar-nav">
                      <li><a class="navbar-brand "><img class="logoNav">
@@ -25,13 +17,13 @@
                      </li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                     <li><a href="" id="loginLink2" class="cx">Connexion</a></li>
-                     <li><a href="/faq" id="FAQLink" class="rg">FAQ</a></li>
-                     <li><a href="/honor" id="contactLink" class="rg">Contact</a></li>
+                     <li><a href="#se1" id="filliereDechet" class="cx">Accueil</a></li>
+                     <li><a href="#se2" id="obtenirCQP" class="cx">Obtenir votre CQP</a></li>
+                     <li><a href="#se3" id="inscriptionCQP" class="rg">Comment m'inscrire ?</a></li>
                   </ul>
                </div>
             </div>
-         </nav>-->
+         </nav>
          <section id="se1" style="">
             <div class="row vertical-center">
                <div class="col-md-12 text-center">
@@ -85,10 +77,9 @@
             <h2 class="surligner">___________________</h2>
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
-                  <div class="tableChild">
+                  <div class="tableChild" style="margin-top : 0px!important;padding-top : 0px!important">
                     <h4>Comment obtenir un CQP ?</h4>
-                    <p>Contactez l’un des organismes de formation inscrit sur la liste ci-dessous. Cet organisme vous orientera vers le parcours le plus adapté à votre profil.
-Ici, intégrer le tableau en pièce jointe</p>
+                    <p>Contactez l’un des organismes de formation inscrit sur la liste ci-dessous. Cet organisme vous orientera vers le parcours le plus adapté à votre profil.</p>
                     <img src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/tableau1.png" style="width: 100%!important;" />
                     <h4>Comment se préparer ?</h4>
                     <p>Quel que soit votre profil, un certain nombre de connaissances concernant les activités de déchets vous sont nécessaires. Cette plateforme de formation e-learning est à votre disposition pour confirmer vos connaissances ou vous aider à progresser si besoin. Demandez les codes à votre organisme ! A très vite !</p>
@@ -96,7 +87,7 @@ Ici, intégrer le tableau en pièce jointe</p>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%">
                   <div class="">
-                     <img class='img-rounded moocIco' src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/contentImg0.jpg">
+                     <img class='img-rounded moocIco' src="/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/contentImg0.jpg"  style="width : 90%!important">
                   </div>
                </div>
             </div>
@@ -109,6 +100,21 @@ Ici, intégrer le tableau en pièce jointe</p>
             </div>
             </div>
          </footer>
+         <style>
+         #nav{
+          position: fixed;
+          width: 100%;
+          border-radius: 0px;
+          z-index: 10000;
+          top : 0px;
+         }
+         #se1{
+           margin-top: 50px;
+         }
+         html {
+            scroll-behavior: smooth;
+          }
+         </style>
          <script>
             var openDiscoverCPQ = function (){
                // window.open("/media/microsite/formation-cqp-branchedechet/pagebuilder/assets/img/questionnaire-G8.pdf", '_blank');
