@@ -20,7 +20,7 @@ jsMain = '/media/microsite/{}/email_allowed/js/main.7a5a0da8.chunk.js'.format(or
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
       <noscript>You need to enable JavaScript to run this app.</noscript>
-      % if tma_verify_access(request.user).is_tma_team():
+      % if tma_verify_access(request.user).is_page_allowed():
       <div id="root"></div>
       <script>
           ! function(e) {
