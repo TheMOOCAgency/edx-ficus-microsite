@@ -55,7 +55,9 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   %endif
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+  %if str(course_overview.id) ==  str("course-v1:afpa+replay_2020+2020"):
   <a href="https://www.facebook.com/groups/MoocCuisineAfpa/?fref=ts" class="course_nav" target="_blank"><img class="svg" src="/media/microsite/afpa/images/facebook.svg"/><span>Facebook</span></a>
+  %endif
   <a href="/dashboard" class="course_nav"><img class="svg" src="/media/microsite/afpa/images/left-arrow.svg"/><span>${_('Retour')}</span></a>
   <span style="clear:left;display:block;"></span>
 </div>
