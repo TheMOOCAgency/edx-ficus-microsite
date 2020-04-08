@@ -15,56 +15,123 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+      <div id="homepage_banner">
+        <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+          <source src="/media/microsite/${org}/assets/videos/intro_handicap.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h1>Sensibilisation au handicap</h1>
+        <h2>Devenez acteurs d'une société plus inclusive</h2>
+        <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="large_separator">
+        <div id="login_or_register">
+           <button>
+             <a class="home-register" href="/register">${_("Register")}</a>
+           </button>
+           <button>
+             <a class="home-login" href="/login">${_("Sign in")}</a>
+           </button>
+        </div> 
+      </div>
+      <div id="main-content">
+        <div id="home_container">
+          <div id="discover_title">Découvrez comment devenir  acteur d'une société inclusive</div>
+          <div id="home_thumbnails">
+            <div class="thumbnail">
+              <div class="thumbnail_pic">
+                <img src="/media/microsite/${org}/assets/img/home/thumbnail_1.jpg" alt="Vignette 1"/>
+              </div>
+              <div class="title">Définir le handicap</div>
+              <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="small_separator">
+              <div class="module_number">Module 1</div>
+              <ul>
+                <li>Qu'est-ce que le handicap ?</li>
+                <li>Le quotidien du handicap</li>
+                <li>Portraits de personnes porteuses de handicap, familles et professionnels concernés</li>
+              </ul>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
+            <div class="thumbnail">
+              <div class="thumbnail_pic">
+                <img src="/media/microsite/${org}/assets/img/home/thumbnail_2.jpg" alt="Vignette 2"/>
               </div>
-            % endif
-
+              <div class="title">Les formes de handicap</div>
+              <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="small_separator">
+              <div class="module_number">Module 2</div>
+              <ul>
+                <li>Les handicaps visibles</li>
+                <li>Les handicaps invisibles</li>
+                <li>Le polyhandicap</li>
+                <li>Handicap et génétique</li>
+              </ul>
+            </div>
+            <div class="thumbnail">
+              <div class="thumbnail_pic">
+                <img src="/media/microsite/${org}/assets/img/home/thumbnail_3.jpg" alt="Vignette 3"/>
+              </div>
+              <div class="title">Le handicap dans la société</div>
+              <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="small_separator">
+              <div class="module_number">Module 3</div>
+              <ul>
+                <li>Le handicap à l'école, dans le sport et dans les musées</li>
+                <li>L'insertion professionelle des personnes porteuses de handicap</li>
+                <li>Être acteur d'une société inclusive</li>
+              </ul>
+            </div>
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
+          <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="large_separator">
+          <div id="mooc_definition">
+            <div id="mooc_definition_title">${_("Et  au fait...  Qu'est ce qu'un MOOC ?")}</div>
+            <div id="mooc_definition_subtitle">${_("Une formation gratuite, ouverte à tous, disponible et accessible où que vous soyez !")}</div>
+            <div id="mooc_definition_steps">
+              <div class="step">
+                <img class="step_logo" src="/media/microsite/${org}/assets/img/pictos/people.png"/>
+                <div class="step_title">Massive</div>
+                <div class="step_content">
+                  Un contenu disponible gratuitement et autour duquel vous pouvez échanger directement sur cette plateforme.
+                </div>
               </div>
-            </a>
-          % endif
+              <div class="step">
+                <img class="step_logo" src="/media/microsite/${org}/assets/img/pictos/cadenas.png"/>
+                <div class="step_title">Open</div>
+                <div class="step_content">
+                  Un accès libre à toutes les ressources.
+                </div>
+              </div>
+              <div class="step">
+                <img class="step_logo" src="/media/microsite/${org}/assets/img/pictos/connect.png"/>
+                <div class="step_title">Online</div>
+                <div class="step_content">
+                  Disponible en ligne, tout le temps et où que vous soyez.
+                </div>
+              </div>
+              <div class="step">
+                <img class="step_logo" src="/media/microsite/${org}/assets/img/pictos/book.png"/>
+                <div class="step_title">Course</div>
+                <div class="step_content">
+                  Un vrai parcours pédagogique pour vous permettre d'acquérir des compétences.
+                </div>
+              </div>
+            </div>
+          </div>
+          <img src="/media/microsite/${org}/assets/img/pictos/separator.png" alt="Séparateur" class="large_separator">
+          <div id ="bottom_register">
+            <button>
+              <a href="/register">${_("Je m'inscris !")}</a>
+            </button>
+          </div>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
+        <div id="bottom_banner">
+          <div class="left_side">
+            <img src="/media/microsite/${org}/assets/img/logos/logo_ari.png" alt="Logo ARI" class="banner_logo" />
+            <img src="/media/microsite/${org}/assets/img/logos/logo_adapei.png" alt="Logo ADAPEI" class="banner_logo" />
+            <img src="/media/microsite/${org}/assets/img/logos/logo.png" alt="Logo ARI" class="banner_logo" />
+          </div>
+          <div class="right_side">
+            <img src="/media/microsite/${org}/assets/img/logos/logo_we_up.png" alt="Logo ARI" class="banner_logo" />
+          </div>
+        </div>
+      </div>
     </section>
 </main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
 
 <%block name="js_extra">
    <script type="text/javascript">
@@ -86,12 +153,12 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
 % if register_course_id is not None:
 <script>
-$(".btn-neutral").each(function(){
+$(".home-register").each(function(){
  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 });
-$(".btn-login").each(function(){
+$(".home-login").each(function(){
  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
 });
-
+$("#bottom_register").attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 </script>
 % endif
