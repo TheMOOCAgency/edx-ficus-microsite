@@ -245,7 +245,7 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
@@ -550,3 +550,8 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+<style>
+  #dashboard_profile_bottom{
+    display: none;
+  }
+</style>
