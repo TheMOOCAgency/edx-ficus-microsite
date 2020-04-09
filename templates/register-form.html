@@ -1,6 +1,7 @@
 <%namespace name='static' file='static_content.html'/>
 <%!
 import third_party_auth
+import json
 from third_party_auth import pipeline, provider
 from django.utils.translation import ugettext as _
 from django_countries import countries
@@ -12,7 +13,9 @@ if extra_form is None:
     extra_form = []
 import datetime
 %>
-
+<%!
+options = []
+%>
 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 
 <!-- status messages -->
@@ -169,7 +172,7 @@ import datetime
   % endif
 </div>
 <!-- EXTRA_FORM GENERATION -->
-<div class="group group-form group-form-requiredinformation">
+<div class="group group-form group-form-requiredinformation" id="extra_form">
 <ol class="list-input">
 % for n in extra_form:
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
@@ -182,7 +185,7 @@ import datetime
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
   % elif n.get('type') == 'select':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
+  <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}   >
     % if n.get('name') == 'country':
       <option value="" data-isdefault="true">--</option>
       <%
@@ -190,21 +193,24 @@ import datetime
       %>
       % for f in _countries:
         <option values="${f[0]}">${f[1]}</option>
-      %endfor
-    % endif
-    % if n.get('name') == 'year_of_birth':
-        <option value="" data-isdefault="true">--</option>
-	<%
-	year = datetime.datetime.today().year
-	YEARS = [year - i for i in range(100)]
-	%>
-        % for y in YEARS:
-	    <option value="${y}">${y}</option>
-	% endfor
+      % endfor
+    % elif n.get('name') == 'year_of_birth':
+      <option value="" data-isdefault="true">--</option>
+	    <%
+	    year = datetime.datetime.today().year
+	    YEARS = [year - i for i in range(100)]
+	    %>
+      % for y in YEARS:
+	      <option value="${y}">${y}</option>
+      % endfor
+    % elif n.get('name') == "location":
+      <%
+      options = json.dumps((n.get('options')))
+      %>
     % else:
-        % for j in n.get('options'):
-            <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
-        %endfor
+      % for j in n.get('options'):
+        <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+      %endfor
     % endif
   </select>
   % elif n.get('type') == 'checkbox':
@@ -371,3 +377,33 @@ $('#first_name,#last_name').change(function(){
   <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
 </div>
+
+<script>
+  // Filtre le choix  de zones geo, en fonction du secteur d'activités
+  $("#extra_form").ready(function(){
+    var optionList = ${options};
+    var area = $("#area")
+    var location = $("#location")
+    function filterResults(){
+      var newOptionsList = ""
+      if(location){
+        location.empty()
+        for(i = 0; i < optionList.length; i++){
+          var filters = optionList[i].filters;
+          var value = optionList[i].value;
+          var name = optionList[i].name;
+          if(filters.includes(area.val())){
+            if(i === 0){
+              newOptionsList = newOptionsList + "<option value=" + value + "default >" + name + "</option>"
+            } else {newOptionsList = newOptionsList + "<option value=" + value + ">" + name + "</option>"}
+          }
+        }
+        location.append(newOptionsList)
+      }
+    }
+    filterResults()
+    area.change(function(){
+      filterResults()
+    })
+  })
+</script>
