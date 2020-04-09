@@ -208,6 +208,7 @@ options = []
       options = json.dumps((n.get('options')))
       %>
     % else:
+      <option value="" data-isdefault="true">--</option>
       % for j in n.get('options'):
         <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
       %endfor
@@ -386,6 +387,12 @@ $('#first_name,#last_name').change(function(){
     var location = $("#location")
     function filterResults(){
       var newOptionsList = ""
+      if(area.val() !== "mnca" && area.val() !== "mtpm" && area.val() !== "mamp"){
+        newOptionsList = "<option value='' default >--</option>"
+      } else {
+        newOptionsList = ""
+      }
+   
       if(location){
         location.empty()
         for(i = 0; i < optionList.length; i++){
@@ -393,10 +400,8 @@ $('#first_name,#last_name').change(function(){
           var value = optionList[i].value;
           var name = optionList[i].name;
           if(filters.includes(area.val())){
-            if(i === 0){
-              newOptionsList = newOptionsList + "<option value=" + value + "default >" + name + "</option>"
-            } else {newOptionsList = newOptionsList + "<option value=" + value + ">" + name + "</option>"}
-          }
+            newOptionsList = newOptionsList + "<option value=" + value + ">" + name + "</option>"}
+
         }
         location.append(newOptionsList)
       }
