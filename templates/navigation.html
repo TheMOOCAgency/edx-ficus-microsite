@@ -40,29 +40,35 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <style>
-  .custom_register, .custom_login {
+  .custom_register, .custom_login, .custom_register:visited,.custom_register:hover, .custom_login:hover, .custom_login:visited, .custom_register:focus, .custom_login:focus,.custom_register:hover:visited, .custom_login:hover:visited,.custom_register:active, .custom_login:active{
     --primary-color: #0F056B;
     --secondary-color:#E75C0F;
-    --text-grey:#313437;
+    --text-light-grey:#8E8C8C;
     background-image: none !important;
     background-color: none!important;
     background: none !important;
     box-shadow: none !important;
+    border:none !important;
   }
 
   .custom_register {
-    color:var(--primary-color);
-    font-weight: 800;
+    color:var(--primary-color) !important;
+    font-weight: 800 !important;
   }
 
   .custom_login {
-    color:var(--text-grey);
-    font-weight: 800;
+    color:var(--text-light-grey) !important;
+    font-weight: 800 !important;
   }
 
   .custom_register:hover, .custom_login:hover {
-    color:var(--secondary-color);
+    color:var(--secondary-color) !important;
   }
+
+  .nav-logo{
+    height: 50px !important;
+  }
+
 </style>
 <%
 try:
@@ -94,7 +100,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img class="nav-logo" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
