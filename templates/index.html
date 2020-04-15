@@ -107,6 +107,13 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     margin-bottom: 0 !important;
   }
 
+  .home #login_or_register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
   /* CONTENT BLOCK */
   .home #main-content {
     background-color: white;
@@ -253,17 +260,190 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     align-items: center;
   }
 
-  .home #botom_banner .left_side {
+  .home #bottom_banner .left_side {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-
   }
 
   .home #bottom_banner .banner_logo {
     width: 120px;
     margin: 20px;
+  }
+
+  @media only screen and (max-width: 1024px){
+    #global-navigation {
+      display: none !important;
+    }
+
+    .home #main-content #home_container{
+      width:100vw;
+    }
+
+    .home #bottom_banner .banner_logo {
+      width: 80px;
+    }
+
+    .home #main-content #home_thumbnails {
+      width: 90%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail li {
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 768px){
+    .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+      height:120px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps {
+      flex-wrap: wrap;
+    }
+  
+    .home #main-content #mooc_definition #mooc_definition_steps .step { 
+      width:40%;   
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(1),.home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(2) { 
+      margin-bottom: 30px; 
+   }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_logo {
+      height: 60px;  
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .title {
+      font-size: 12px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+      width: 60%;
+    }
+  }
+
+  @media only screen and (max-width: 414px) {
+    .home #main-content #mooc_definition #mooc_definition_steps {
+      flex-wrap: nowrap;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step { 
+      width:60%;   
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(3) { 
+      margin-bottom: 30px; 
+    }
+
+    .home #main-content #home_thumbnails {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 80%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail {
+      width:100%;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_subtitle {
+      width: 80%;
+      font-size: 12px;
+    }
+
+    .home #bottom_banner {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #bottom_banner .left_side {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #main-content #discover_title {
+      font-size: 16px;
+      width:70%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail:nth-child(2) {
+      margin: 30px 0;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+      height:210px;
+    }
+
+    .home #homepage_banner h1 {
+      font-size: 20px;
+    }
+  
+    .home #homepage_banner h2 {
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .home .small_separator {
+      width: 40%;
+    }
+  
+    .home .large_separator {
+      width: 50%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .title {
+      font-size: 16px;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .module_number {
+      font-size: 14px;
+    }
+
+    .home #login_or_register {
+      display: flex;
+      flex-direction: column ;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .home #homepage_banner button:nth-child(odd){
+      margin-bottom: 20px;
+    }
+
+    .home button {
+      padding: 8px 20px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+      width:100%;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_title {
+      font-size: 14px;
+    }
+  }
+
+  @media only screen and (max-width: 320px) {
+    .home #homepage_banner h1 {
+      font-size: 16px;
+    }
+  
+    .home #homepage_banner h2 {
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_subtitle {
+      font-size: 10px;
+    }
   }
 
 </style>
