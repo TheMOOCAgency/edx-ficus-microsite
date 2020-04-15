@@ -16,12 +16,48 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <style>
   .home {
     position: relative;
-    width:100vw;
+    width:100vw !important;
     background-color: transparent;
     --primary-color: #0F056B;
     --secondary-color:#E75C0F;
     --text-grey:#313437;
     --text-light-grey:#8E8C8C;
+  }
+
+  .home button:nth-child(odd) {
+    text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: var(--primary-color) !important;
+    border: 3px solid var(--primary-color) !important;
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+  }
+
+  .home button:nth-child(even) {
+    text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: white !important;
+    border: 3px solid white !important;
+    border-radius: 25px !important;
+    color: var(--primary-color) !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+  }
+
+  .home button a {
+    text-shadow: inherit !important;
+    font-weight: inherit;
+    color: inherit !important;
   }
 
   .home .small_separator {
@@ -34,7 +70,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   }
 
   /* VIDEO BLOCK */ 
-  .home .homepage_banner {
+  .home #homepage_banner {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position:fixed;
     top:0;
     bottom: 0;
@@ -42,10 +82,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     right: 0;
     width:100vw;
     height: 100vh;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    z-index:-1;
+    z-index:1;
   }
 
   .home #videoHeader {
@@ -59,10 +96,26 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     z-index:-1;
   }
 
+  .home #homepage_banner h1 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px !important;
+  }
+
+  .home #homepage_banner h2 {
+    text-transform: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0 !important;
+  }
+
   /* CONTENT BLOCK */
   .home #main-content {
     background-color: white;
-    z-index:0;
+    z-index:1;
     margin-top: 100vh;
   }
 
@@ -114,14 +167,15 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   }
 
   .home #main-content #home_thumbnails .thumbnail ul {
-    color:var(--text-grey);
+    color:var(--text-grey) !important;
     padding-left:20px;
     margin: 0;
     width:80%;
   }
 
   .home #main-content #home_thumbnails .thumbnail li {
-    color:inherit;
+    color:inherit !important;
+    font-size: 14px;
     margin-bottom: 10px;
   }
 
@@ -142,6 +196,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 20px 0;
   }
 
   .home #main-content #mooc_definition #mooc_definition_title {
@@ -150,6 +205,49 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     color:var(--primary-color);
     font-weight: 900;
     font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_subtitle {
+    text-align: center;
+    color:var(--text-light-grey);
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    width:20%;   
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_logo {
+    height: 120px;  
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_title {
+    margin:15px 0;
+    font-weight: 700;
+    text-align: center;  
+    font-size: var(--text-grey);
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+    text-align: justify;
+    font-size: 12px;
+    color: var(--text-light-grey);
   }
 
   /* BOTTOM BANNER */ 

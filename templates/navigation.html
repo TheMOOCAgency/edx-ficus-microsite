@@ -39,6 +39,31 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+  .custom_register, .custom_login {
+    --primary-color: #0F056B;
+    --secondary-color:#E75C0F;
+    --text-grey:#313437;
+    background-image: none !important;
+    background-color: none!important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .custom_register {
+    color:var(--primary-color);
+    font-weight: 800;
+  }
+
+  .custom_login {
+    color:var(--text-grey);
+    font-weight: 800;
+  }
+
+  .custom_register:hover, .custom_login:hover {
+    color:var(--secondary-color);
+  }
+</style>
 <%
 try:
     course_id = course.id
