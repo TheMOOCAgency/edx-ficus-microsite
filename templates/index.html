@@ -13,6 +13,168 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+  .home {
+    position: relative;
+    width:100vw;
+    background-color: transparent;
+    --primary-color: #0F056B;
+    --secondary-color:#E75C0F;
+    --text-grey:#313437;
+    --text-light-grey:#8E8C8C;
+  }
+
+  .home .small_separator {
+    width: 60%;
+  }
+
+  .home .large_separator {
+    width: 300px;
+    margin: 40px 0 30px 0;
+  }
+
+  /* VIDEO BLOCK */ 
+  .home .homepage_banner {
+    position:fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width:100vw;
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    z-index:-1;
+  }
+
+  .home #videoHeader {
+    position:fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width:100vw;
+    min-height: 100vh;
+    z-index:-1;
+  }
+
+  /* CONTENT BLOCK */
+  .home #main-content {
+    background-color: white;
+    z-index:0;
+    margin-top: 100vh;
+  }
+
+  .home #main-content #home_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    width:1200px;
+  }
+
+  /* THUMBNAILS */
+
+  .home #main-content #discover_title {
+    text-align: center;
+    margin: 40px 0;
+    color:var(--primary-color);
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .home #main-content #home_thumbnails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:30%;
+    padding-bottom: 20px;
+    border:1px solid var(--text-light-grey);
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .title {
+    text-align: center;
+    color:var(--primary-color);
+    font-weight: 900;
+    margin: 20px 0;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .module_number {
+    color:var(--secondary-color);
+    font-weight: 500;
+    margin: 20px 0;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail ul {
+    color:var(--text-grey);
+    padding-left:20px;
+    margin: 0;
+    width:80%;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail li {
+    color:inherit;
+    margin-bottom: 10px;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+    height:220px;
+    width: 100%;
+    overflow: hidden;
+    object-fit: contain;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .thumbnail_pic img {
+    width: 100%;
+  }
+
+  /* MOOC DEFINITION */
+
+  .home #main-content #mooc_definition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_title {
+    text-align: center;
+    text-transform: uppercase;
+    color:var(--primary-color);
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  /* BOTTOM BANNER */ 
+
+  .home #bottom_banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .home #botom_banner .left_side {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+  }
+
+  .home #bottom_banner .banner_logo {
+    width: 120px;
+    margin: 20px;
+  }
+
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <div id="homepage_banner">
@@ -157,7 +319,7 @@ $(".home-register").each(function(){
  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 });
 $(".home-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+ $(this).attr('href','login?course_id=${register_course_id}&enrollment_action=enroll');
 });
 $("#bottom_register").attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 </script>
