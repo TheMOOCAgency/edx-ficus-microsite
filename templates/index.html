@@ -100,7 +100,7 @@ footer.global{
 .home-button:disabled {
   opacity: 1 !important;
 }
-#connect-popin-veil{
+#connect-popin-veil, #register-popin-veil {
   display: none;
   position: absolute;
   top: 0px;
@@ -145,17 +145,112 @@ footer.global{
     display: block;
   }
 }
+/* Pop up register FR/EN */
+#register-popin-veil{
+display: none;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+  }
+#register-popin-groups-container{
+    max-width: 750px;
+    min-height: 240px;
+    margin: auto;
+    margin-top: 20vh;
+    background-color: rgba(255,255,255,0.9);
+    padding: 25px;
+    border-radius: 15px;
+}
+#register-popin-groups-container>#wrapper-img-popup>img{
+    width: 30%;
+    text-align: center;
+    padding: 0px!important;
+    margin: 0 auto;
+    width: 200px;
+}
+#register-popin-groups-container>#wrapper-img-popup>img:hover{
+    cursor: pointer;
+}
+#register-popin-groups-container>h2{
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
+.veilCloseContainer {
+    position: absolute;
+    padding-left: 15px;
+}
+.veilCloseContainer > img {
+    width: 30px;
+    position: absolute;
+    right: 0;
+}
+.veilCloseContainer > img:hover {
+    cursor: pointer;
+}
+#wrapper-img-popup{
+    display: flex;
+    justify-items: center;
+}
+@media screen and (max-width: 800px) {
+    #register-popin-groups-container>#wrapper-img-popup>img {
+      display:block;
+      width: 220px;
+      margin-bottom: 15px;
+      display: block;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #logoData4Manager {
+        margin-left: 10px;
+    }
+    #logoData4Manager > img {
+        position: relative;
+    }
+}
+@media screen and (max-width: 500px) {
+    .header-global h1.logo img.ec-logo-size {
+        min-width: 90vw;
+    }
+}
 </style>
 <main id="temp-home" aria-label="Content" tabindex="-1">
   <div class="logo-block">
     <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" alt="digimapper logo" />
-    <button class="home-button" id="login-butn" style="text-transform:none" >
-      Connexion
+    <div>
+      <button class="home-button" id="register-butn" style="text-transform:none; display: inline-block;" >
+        Inscription 
+      </button>
+      <button class="home-button" id="login-butn" style="text-transform:none; display: inline-block;" >
+        Connexion
+      </button>
+    </div>
+    <button class="home-button" id="login-sso-butn" style="text-transform:none" >
+      Je me connecte via un SSO / Access through my company's SSO
     </button>
   </div>
 </main>
+<div id="register-popin-veil">
+  <div id="register-popin-groups-container">
+    <div class="veilCloseContainer">
+      <img src="/media/microsite/digimapper/images/close.png" alt="close button" onclick='closeFlags()'>
+    </div>
+    <h2>Veuillez sélectionner votre langue<br />Please choose your language</h2>
+    <div id="wrapper-img-popup">
+      <img class="register-img" src="/media/microsite/data-ready/images/fr.png" alt="drapeau fr" onclick="setFrLang()">
+      <img class="register-img" src="/media/microsite/data-ready/images/uk.png" alt="drapeau en" onclick="setEnLang()">
+    </div>
+  </div>
+</div>
 <div id="connect-popin-veil">
   <div id="connect-popin-groups-container">
+    <div class="veilCloseContainer">
+      <img src="/media/microsite/digimapper/images/close.png" alt="close button" onclick='closeLogin()'>
+    </div>
     <h2>Veuillez sélectionner l'organisme auquel vous appartenez<br />Please choose your company</h2>
     <div id="wrapper-img-popup">
     <button id="saint-gobain" onclick='window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain"'>
@@ -170,7 +265,65 @@ footer.global{
   </div>
   </div>
 </div>
+
+<% languages = static.get_released_languages() %>
+ <div class="primary nav-item active">
+   <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+     <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+     % if user.is_authenticated():
+     <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+     % else:
+     <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+     % endif
+       <!--LANGUAGE FLAGS-->
+       <div id="lang-content">
+         <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+           % for language in languages:
+            <script>console.log("${language[0]}")</script>
+            % if language[0] =="en" or language[0] =="fr":
+             % if language[0] == LANGUAGE_CODE:
+               <option value="${language[0]}" selected="selected">${language[0]}</option>
+             % else:
+               <option value="${language[0]}">${language[0]}</option>
+             % endif
+            % endif
+           % endfor
+         </select>
+       </div>
+     </label>
+   </form>
+ </div>
+
 <script>
+  //LANGUAGE FLAGS
+  var setEnLang = function() {
+    var url = '/register?course_id=course-v1:digimapper+level1+EN&enrollment_action=enroll'
+    if ($('#settings-language-value > option[value="fr"]').attr('selected') === 'selected') {
+      var state = {}
+      var title = ''
+      history.pushState(state, title, url)
+      $('#settings-language-value > option[value="en"]').attr('selected','selected');
+      $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    } else {
+      window.location.href=url
+    }
+    console.log('OK EN')
+  }
+
+  var setFrLang =  function() {
+    var url = '/register?course_id=course-v1:digimapper+level1+FR&enrollment_action=enroll'
+    if ($('#settings-language-value > option[value="en"]').attr('selected') === 'selected') {
+      var state = {}
+      var title = ''
+      history.pushState(state, title, url)
+      $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+      $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    } else {
+      window.location.href=url
+    }
+    console.log('OK FR')
+  }
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -182,6 +335,10 @@ function getParameterByName(name, url) {
 }
 
 $("#login-butn").click(function(){
+  window.location.href="/login?admin=true";
+});
+
+$("#login-sso-butn").click(function(){
   if(getParameterByName("company")=="to"){
     window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod";
   }else if(getParameterByName("company")=="safran"){
@@ -191,7 +348,15 @@ $("#login-butn").click(function(){
   }else{
     $("#connect-popin-veil").show();
   }
+  closeLogin = function(){
+    $("#connect-popin-veil").hide();
+  }
 });
 
-
+$("#register-butn").click(function(){
+    $("#register-popin-veil").show();
+  });
+  closeFlags = function(){
+    $("#register-popin-veil").hide();
+  }
 </script>
