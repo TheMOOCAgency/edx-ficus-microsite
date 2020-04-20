@@ -241,8 +241,8 @@ display: none;
     </div>
     <h2>Veuillez sélectionner votre langue<br />Please choose your language</h2>
     <div id="wrapper-img-popup">
-      <img class="register-img" src="/media/microsite/data-ready/images/fr.png" alt="drapeau fr" onclick="setFrLang()">
-      <img class="register-img" src="/media/microsite/data-ready/images/uk.png" alt="drapeau en" onclick="setEnLang()">
+      <img class="register-img" src="/media/microsite/digimapper/images/fr.png" alt="drapeau fr" onclick="setFrLang()">
+      <img class="register-img" src="/media/microsite/digimapper/images/uk.png" alt="drapeau en" onclick="setEnLang()">
     </div>
   </div>
 </div>
@@ -277,7 +277,7 @@ display: none;
      % endif
        <!--LANGUAGE FLAGS-->
        <div id="lang-content">
-         <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+         <select class="input select language-selector" id="settings-language-value" name="language" size="2" style="display: none;">
            % for language in languages:
             <script>console.log("${language[0]}")</script>
             % if language[0] =="en" or language[0] =="fr":
