@@ -9,31 +9,44 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+from opaque_keys.edx.keys import CourseKey
 
 #Yoann : add stuff to collect user profile (to know if it is a banker)
-from student.models import UserProfile
+from student.models import UserProfile, CourseEnrollment
 import json
 %>
 
 <% 
+# Check if bank student from course enrollments
 if request.user.is_authenticated() :
+  # 2 methods
   banker = False
+
+  # By checking user enrollments
+  course_key = CourseKey.from_string("course-v1:inveest+metier1+SP")
+  is_enrolled_to_bank_course = CourseEnrollment.is_enrolled(request.user, course_key)
+
+  # By checking user custom fields
   user_custom_fields = {}
-  #Get user custom field
-  try:
-    user_profile = UserProfile.objects.get(user=request.user)
-    user_custom_fields = json.loads(user_profile.custom_field)
-    if 'role' in user_custom_fields and user_custom_fields['role'] == 'b':
-      banker = True
-  except:
-    user_custom_fields = {}
-else:
-  banker = False
+  user_profile = UserProfile.objects.get(user=request.user)
+  user_custom_fields = json.loads(user_profile.custom_field)
+
+  if is_enrolled_to_bank_course:
+    banker = True
+  elif 'role' in user_custom_fields and user_custom_fields['role'] == 'b':
+    banker = True
+  else: 
+    banker = False
 %>
 
-<script>
+<script type="text/javascript" src="/media/microsite/inveest/ssm/js/session_updater.js"></script>
+<script type="text/javascript"> 
   var is_banker = "${banker}"
+  $(document).ready(function(){
+    followsBankProgram(is_banker) 
+  })
 </script>
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
@@ -273,8 +286,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
  * Released under the MIT license
  * https://github.com/timpler/jquery.initialize/blob/master/LICENSE
  */
- <!--
-;(function ($) {
+(function ($) {
 
     "use strict";
 
