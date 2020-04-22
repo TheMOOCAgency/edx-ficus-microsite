@@ -360,7 +360,14 @@
               }
             }
             a.send();
-            a.addEventListener('loadend', $("body").css({"display":"inherit"}));
+            a.addEventListener('loadend', function(){
+               $("body").css({"display":"inherit"})
+               if ($('body').width() > 991) {
+               for (var i = 0; i < $('.thumbMg').length; i++) {
+                  $('.thumbMg').eq(i).attr('src', 'media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/contentImg'+i+'_extended.jpg')
+               }
+            }
+            });
             
             $(".scroll").click(function() {
             	$('html, body').animate({
