@@ -14,6 +14,9 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
 <style>
 #global-navigation {
   display: none;
@@ -234,10 +237,10 @@ display: none;
     <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" alt="digimapper logo" />
     <div>
       <button class="home-button" id="register-butn" style="text-transform:none; display: inline-block;" >
-        Inscription 
+        ${_("Register")} 
       </button>
       <button class="home-button" id="login-butn" style="text-transform:none; display: inline-block;" >
-        Connexion
+        ${_("Sign in")}
       </button>
     </div>
     <button class="home-button" id="login-sso-butn" style="text-transform:none" >
@@ -290,7 +293,6 @@ display: none;
        <div id="lang-content">
          <select class="input select language-selector" id="settings-language-value" name="language" size="2" style="display: none;">
            % for language in languages:
-            <script>console.log("${language[0]}")</script>
             % if language[0] =="en" or language[0] =="fr":
              % if language[0] == LANGUAGE_CODE:
                <option value="${language[0]}" selected="selected">${language[0]}</option>
@@ -307,32 +309,28 @@ display: none;
 
 <script>
   //LANGUAGE FLAGS
+  var state = {}
+  var title = ''
+
   var setEnLang = function() {
     var url = '/register?course_id=course-v1:digimapper+level1+EN&enrollment_action=enroll'
     if ($('#settings-language-value > option[value="fr"]').attr('selected') === 'selected') {
-      var state = {}
-      var title = ''
-      history.pushState(state, title, url)
       $('#settings-language-value > option[value="en"]').attr('selected','selected');
       $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-    } else {
-      window.location.href=url
     }
     console.log('OK EN')
+    history.pushState(state, title, url)
   }
 
   var setFrLang =  function() {
     var url = '/register?course_id=course-v1:digimapper+level1+FR&enrollment_action=enroll'
     if ($('#settings-language-value > option[value="en"]').attr('selected') === 'selected') {
-      var state = {}
-      var title = ''
-      history.pushState(state, title, url)
       $('#settings-language-value > option[value="fr"]').attr('selected','selected');
       $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
-    } else {
-      window.location.href=url
     }
     console.log('OK FR')
+    //  window.location.href=url;
+    history.pushState(state, title, url)
   }
 
 function getParameterByName(name, url) {
@@ -357,7 +355,24 @@ $("#login-sso-butn").click(function(){
   }else if(getParameterByName("company")=="saintgobain"){
     window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain";
   }else{
-    $("#connect-popin-veil").show();
+    //$("#connect-popin-veil").show();
+Swal.fire({
+  html:
+    '<h2 style="margin-top:30px">SÉLECTIONNEZ VOTRE ENTREPRISE<br>PLEASE CHOOSE YOUR COMPANY</h2>' +
+    '<div>'+
+    '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_saint-gobain.png" alt="logo Saint-Gobain" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain\'">'+
+    '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_transitions.jpg" alt="logo TO" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod\'">'+
+    '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_safran.jpg" alt="logo Safran" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod\'">'+
+    '</div>',
+  showCloseButton: true,
+  showCancelButton: false,
+  showCloseButton: false,
+  focusConfirm: true,
+  showConfirmButton: false,
+})
+
+
+
   }
   closeLogin = function(){
     $("#connect-popin-veil").hide();
@@ -365,8 +380,22 @@ $("#login-sso-butn").click(function(){
 });
 
 $("#register-butn").click(function(){
-    $("#register-popin-veil").show();
-  });
+
+Swal.fire({
+  html:
+    '<h2 style="margin-top:30px">Veuillez sélectionner votre langue<br>Please choose your language</h2>' +
+    '<div>'+
+    '<img style="cursor:pointer;" src="/media/microsite/digimapper/images/fr.png" alt="drapeau fr" onclick="setFrLang()">'+
+    '<img style="margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/images/uk.png" alt="drapeau en" onclick="setEnLang()">'+
+    '</div>',
+  showCloseButton: true,
+  showCancelButton: false,
+  showCloseButton: false,
+  focusConfirm: true,
+  showConfirmButton: false,
+})
+
+});
   closeFlags = function(){
     $("#register-popin-veil").hide();
   }
