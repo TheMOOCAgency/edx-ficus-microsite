@@ -13,6 +13,13 @@
 <%block name="js_extra">
     <%static:require_module module_name="js/student_account/logistration_factory" class_name="LogistrationFactory">
         var options = ${data | n, dump_js_escaped_json};
+        options['registration_form_desc']['fields'][1]["label"] = "${_('Full Name')}";
+        options['registration_form_desc']['fields'][1]["instructions"] = ""
+        options['registration_form_desc']['fields'][2]["label"] = "${_('Username (pseudo)')}";
+        options['registration_form_desc']['fields'][2]["instructions"] = "${_('Mandatory for registration purposes but will remain hidden')}";
+        options['registration_form_desc']['fields'][4]["label"] = "${_('I agree to the Terms of Service')}";
+        options['registration_form_desc']['fields'][4]["supplementalText"] = "${_('View the terms of Service')}";
+        options['registration_form_desc']['fields'][4]["supplementalLink"]= "/tos";
         LogistrationFactory(options);
         if ('newrelic' in window) {
             newrelic.finished();

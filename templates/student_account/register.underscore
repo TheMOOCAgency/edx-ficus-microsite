@@ -39,7 +39,7 @@
         <% } else { %>
             <div class="section-title lines">
                 <h2>
-                    <span class="text"><%- gettext("Create a new account") %></span>
+                    <span class="text"><%- gettext("Please complete the following fields to register for an account. Required fields are noted by an asterisk (*).") %></span>
                 </h2>
             </div>
         <% } %>

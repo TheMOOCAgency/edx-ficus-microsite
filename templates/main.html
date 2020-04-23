@@ -117,17 +117,12 @@ from pipeline_mako import render_require_js_path_overrides
     </script>
 % endif
 
-<!--
-<link rel="stylesheet" type="text/css" href="/media/css/customizer.css">
-<script type="text/javascript" src="/media/assets/js/customize.js"></script>
--->
 <%
 org = static.get_value('domain_prefix')
 css = org+'/css/dashboard.css'
 css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${css}">
-<script type="text/javascript" src="${static.url('js/customize.js')}"></script>
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
@@ -250,6 +245,12 @@ setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
   });
+  if(window.location.href.indexOf('/register')>-1){
+    //TODO: REMOVE THAT UGLY STUFF !!
+    if($("#register-username-desc").html().indexOf("Nécessaire pour l'inscription mais ne sera pas visible")>-1){
+      $("#register > div.section-title.lines > h2 > span.text").html("Complétez les champs suivants pour créer votre compte.<br/>Les champs requis sont notés avec un astérisque (*).");
+    }
+  }
   if(window.location.href.indexOf('/courseware/')>-1){
     $(".problem-progress").each(function() {
       $(this).html($(this).html().replace("(ungraded)",""));
@@ -317,11 +318,15 @@ setInterval(function(){
       $(this).css('display','none');
     });
   }
-},500);
+},100);
 </script>
 
 <style>
 .xmodule_display.xmodule_CapaModule div.problem div p.answer:before{
  content: "Solution:";
+}
+.supplemental-link a:hover{
+ color:rgba(14,34,137,1) !important;
+ text-decoration: underline;
 }
 </style>
