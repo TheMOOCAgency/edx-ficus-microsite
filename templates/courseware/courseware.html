@@ -354,22 +354,34 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 </script>
 
 <script>
-function use_own_cdn(){
+function use_own_cdn(forceplaying){
 	$("video > source").each(function(){
+             //only if src has not already been set
+             if($(this).attr("src").indexOf("vimeo.com/")>-1){
 		$(this).parent().get(0).pause();
 		$(this).attr("src",$(this).attr("src").replace("https://player.vimeo.com/external/","https://cn-video.netexplosmartcitiesprogram.com/").split("?")[0])
 		$(this).parent().get(0).load();
-		$(this).parent().get(0).play();
+                if(forceplaying){
+		    $(this).parent().get(0).play();
+                }
+             }
 	});
+        if(forceplaying){
+             $.cookie("chinese_viewer", 1, {expires : 5,path: '/'});
+        }
 }
 
 var chinesevieweraddition = setInterval(function(){
    if(window.location.href.indexOf("/courses/course-v1:netexplo-smartcities+002+002/courseware")>-1){
         $("video").each(function(){
            if($("#" + $(this).attr('id') + "chineseviewer").length == 0){
-               $("<p class='chineseviewer' id='" + $(this).attr('id') + "chineseviewer" + "'>Viewing from China ? <a onclick='use_own_cdn()'>Click here to reload the video.</a></p>").insertAfter("div.video");
+               $("<p class='chineseviewer' id='" + $(this).attr('id') + "chineseviewer" + "'>Viewing from China ? <a onclick='use_own_cdn(true)'>Click here to reload the video.</a></p>").insertAfter("div.video");
            }
         });
+        // If there is a cookie then force China CDN without needing to click but do not start video
+        if( ! ($.cookie('chinese_viewer') == null) ){
+               use_own_cdn(false);
+        }
    }
 },500);
 </script>
