@@ -19,6 +19,7 @@
         options['registration_form_desc']['fields'][2]["instructions"] = "${_('Mandatory for registration purposes but will remain hidden')}";
         options['registration_form_desc']['fields'][4]["label"] = "${_('I agree to the Terms of Service')}";
         options['registration_form_desc']['fields'][4]["supplementalText"] = "${_('View the terms of Service')}";
+        options['registration_form_desc']['fields'][4]["supplementalLink"]= "/tos";
         LogistrationFactory(options);
         if ('newrelic' in window) {
             newrelic.finished();
