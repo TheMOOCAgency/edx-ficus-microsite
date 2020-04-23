@@ -54,11 +54,12 @@ else:
   background-color: #f09580
 }
 .custom_unit{
-  margin-left:4px;
+  margin-right:4px;
   background-color:transparent!important;
-  border-left : 1px solid #3c3c3c!important;
   border-radius: 0px!important;
   color : #3c3c3c!important;
+  display : block!important;
+  margin-left : 30px!important;
 }
 .custom_unit:hover{
     background-color: #06060626 !important;
@@ -66,13 +67,31 @@ else:
 .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a{
   background-color: transparent!important;
 }
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item{
+  margin-bottom : 20px!important;
+  margin-top : 0px!important;
+}
+.accordion-nav{
+  display: inline-block!important;
+  margin-left : 20px!important;
+}
+.accordion-nav a{
+  display: inline-block!important;
+}
 .accordion-nav{
   padding-bottom: 0px!important;
-  height: 25px!important;
-  border-left : 1px solid #3c3c3c!important;
+  max-height: 45px!important;
+  height: initial!important;
+  font-weight: 700!important;
 }
-.custom_unit.active{
-  color : white!important;
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover{
+  background-color : #06060626 !important
+}
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item a:hover{
+    background-color : #06060626 !important
+}
+.group-heading{
+  font-weight : 800!important;
 }
 
 </style>
@@ -86,15 +105,12 @@ else:
 <div class="chapter-content-container" id="${chapter['display_id']}-child" tabindex="-1" role="group" aria-label="${chapter['display_name']} submenu">
     <div class="chapter-menu">
         % for section in chapter['sections']:
-      	<script>
-      		console.log("${section}")
-      	</script>
         <div class="menu-item ${'active' if 'active' in section and section['active'] else ''} ${'graded'  if 'graded' in section and section['graded'] else ''}">
             <a class="accordion-nav" href="${reverse('courseware_section', args=[course_id, chapter['url_name'], section['url_name']])}">
                 <p class="accordion-display-name">${section['display_name']} ${Text(_('{span_start}current section{span_end}')).format(
                         span_start=HTML('<span class="sr">'),
                         span_end=HTML('</span>'),
-                    ) if 'active' in section and section['active'] else ''}</p>
+                    ) if 'active' in section and section['active'] else ''}</p></a>
                     <%
                     from courseware.views.views import get_current_child
                     from courseware.courses import get_course_by_id
@@ -119,10 +135,11 @@ else:
 
                     <br>
                     % for unit in iterated_subsection.get_display_items():
-
-                    <a class="custom_unit" href="/courses/${course_id}/jump_to/${unit.location.to_deprecated_string()}">${unit.display_name}</a>
+                      % if len(iterated_subsection.get_display_items()) > 1:
+                        <a class="custom_unit" href="/courses/${course_id}/jump_to/${unit.location.to_deprecated_string()}">${unit.display_name}</a>
+                      %endif
                     %endfor
-                    <br>
+
                 ## There are behavior differences between
                 ## rendering of sections which have proctoring/timed examinations
                 ## and those that do not.
@@ -168,6 +185,7 @@ else:
         % endfor
     </div>
 </div>
+
 
 </%def>
 

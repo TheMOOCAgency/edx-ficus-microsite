@@ -66,7 +66,7 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
-
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85f28f02759b6f"></script>
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
 </%block>
@@ -151,7 +151,7 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
   background-color: ${custom_color} !important;
 }
 .course-index .accordion .course-navigation .chapter-content-container{
-  background-color: ${custom_color} !important;
+  background-color: #fff3e4!important;
 }
 .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
   background-color: ${custom_color} !important;
@@ -189,9 +189,19 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 .fa-caret-right:before, .fa-caret-down:before{
   color : #2e2d2d!important
 }
-.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a, .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover{
-  background-color: #06060626 !important;
-}
+
+
+ .custom_unit.active{
+   color :  ${custom_color} !important;
+   font-weight : 600!important;
+ }
+ .custom_unit{
+   color :  ${custom_color} !important;
+   font-weight : 400!important;
+ }
+ .menu-item.active>.accordion-nav>.accordion-display-name{
+    color :  ${custom_color} !important
+ }
 .xmodule_display.xmodule_SequenceModule .sequence-nav-button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav-button{
 	background-color: #3e3e3e !important;
 }
@@ -242,6 +252,7 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
         </nav>
       </div>
     </div>
+    <div class="addthis_inline_share_toolbox"></div>
     </div>
 
 % endif

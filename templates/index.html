@@ -135,7 +135,7 @@
   $('.BUTTON_QGJ').each(function(){
     if(this.hasAttribute('href')){
       $(this).click(function(){
-        window.open(this.getAttribute('href'))
+        window.location.href = this.getAttribute('href');
       })
     }
   })

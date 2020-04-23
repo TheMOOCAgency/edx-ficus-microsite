@@ -21,6 +21,14 @@ from branding import api as branding_api
 from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-33545233-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-33545233-1');
+</script>
 
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
@@ -61,7 +69,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
-    <input class="burger" type="checkbox">
+  <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -113,11 +121,6 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
-          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
-          % endif
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
@@ -344,7 +347,7 @@ endif
 <script>
   $(document).ready(function(i){
     $('.course-tabs>li').appendTo('.nav-global')
-    $('.logo').appendTo('#global-navigation')
+    $('.logo').prependTo('#global-navigation')
     $('.user').appendTo('#global-navigation')
     $('.wrapper-user-menu').appendTo('#global-navigation')
     console.log($('.wrapper-user-menu'))
@@ -437,117 +440,49 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
   margin-top : 5px;
 }
 /*Custom 5a */
-  .logo{
-    position: absolute!important;
-    left: 50vw!important;
-    top: 5px!important;
-  }
-  .course-index{
-    display:block;
-  }
-  .wrapper-header{
-    height : 0px!important;
-    display:inline-block!important;
-  }
-  .header-global  .user{
-    margin-top:5px!important;
-  }
-  .nav-global>li{
-    width : 100%!important;
-    text-align : center!important;
-  }
-  .wrapper-header{
-    max-width:0vw!important;
-    width:0vw!important;
-    flex-direction : column!important;
-  }
-  .window-wrap>#global-navigation{
-    height : 50px!important;
-  }
-
-#global-navigation .burger{
-    display: block!important;
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    cursor: pointer;
-    font-family: 'Material Icons'!important;
-    font-size: 30px;
-    line-height: 50px;
-    margin: 0;
-    outline: 0;
-    padding: 0;
-    position: relative;
-    text-align: center;
-    top: 0px;
-    width: 50px;
-    z-index: 601;
-    color: black;
-    float : left;
-  }
-  #global-navigation .burger:before
-  {
-    content:'menu';
-  }
-  #global-navigation .burger:checked:before
-  {
-    content:'close';
-
-  }
-  #global-navigation .burger:checked
-  {
-    left: 5px!important;
-
-  }
-
-  #global-navigation .wrapper-header
-  {
-    max-width:0;
-    overflow:hidden;
-    transition:max-width .5s;
-    background-color: inherit!important;
-  }
-  #global-navigation .wrapper-header > *
-  {
-    overflow:hidden;
-  }
-
-  #global-navigation .burger:checked + .wrapper-header
-  {
-    max-width:96vw!important;
-    width:20% !important;
-    z-index: 600;
-    min-height: 82vh!important;
-    position: absolute;
-    margin-top: 50px;
-    left: 0px;
-    height: 90vh!important;
-  }
-  @media screen and (max-width: 680px) {
-      #global-navigation .burger:checked + .wrapper-header{
-        width : 100%!important;
-      }
-  }
-  .logo {
-    left:50px!important;
-  }
-  #global-navigation .burger:checked + .tabs>.tab
-  {
-    width: 100%!important;
-    text-align: center;
-  }
-  #return_dashboard a{
-    color : #0075b4!important;
-  }
-  .wrapper-header>#return_dashboard a:hover{
-    color : #0075b4!important;
-  }
-  .dropdown-menu-container {
-    display: inline-flex;
-    right: 30px!important;
-    float: right!important;
-    width: auto!important;
-    top: 5px!important;
+#global-navigation{
+  display: flex!important;
+  justify-content: space-around;
 }
-  }
+.header-global .user{
+  flex : inherit!important;
+}
+#return_dashboard{
+  display: none!important;
+}
+.wrapper-header{
+  flex: 5;
+  margin : 0!important;
+}
+.nav-global.left{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.header-global h1.logo img.ec-logo-size {
+  margin-top: 20px;
+}
+.wrapper-user-menu{
+  width : auto!important;
+  display: flex!important;
+}
+.header-global .wrapper-header .list-inline.nav-global {
+    display: flex!important;
+    justify-content : space-around!important;
+}
+.header-global .nav-global li a, .header-global .nav-global div a{
+  color : #3c3c3c!important;
+}
+.bookmark-button-wrapper{
+  display : none!important;
+}
+#global-navigation>.burger{
+  display: none;
+}
+.wrapper-header>.nav-global>li.tab:hover>a{
+  padding-top : 0px!important;
+}
+.logo{
+  margin-left: 10px!important;
+}
 </style>

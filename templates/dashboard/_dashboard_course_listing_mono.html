@@ -1,4 +1,4 @@
-<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard" expression_filter="h"/>
+<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard, user" expression_filter="h"/>
 
 <%!
 import urllib
@@ -20,6 +20,7 @@ from student.helpers import (
   VERIFY_STATUS_NEED_TO_REVERIFY,
   DISABLE_UNENROLL_CERT_STATES,
 )
+from tma_apps.tma_support_functions import tma_verify_access
 %>
 
 <%
@@ -53,6 +54,10 @@ cours_ouv = show_courseware_link and not is_course_blocked
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+  % if user and tma_verify_access(user).has_dashboard_access(str(enrollment.course_id)):
+  <a href="/tma/${str(enrollment.course_id)}/dashboard" class="course_nav"><img class="svg" src="/media/microsite/5aconseil-mooc/wrench.svg"><span>${_('ADMIN')}</span></a>
+  % endif
+
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
