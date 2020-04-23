@@ -352,3 +352,34 @@ $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
 </script>
+
+<script>
+function use_own_cdn(){
+	$("video > source").each(function(){
+		$(this).parent().get(0).pause();
+		$(this).attr("src",$(this).attr("src").replace("https://player.vimeo.com/external/","https://cn-video.netexplosmartcitiesprogram.com/").split("?")[0])
+		$(this).parent().get(0).load();
+		$(this).parent().get(0).play();
+	});
+}
+
+var chinesevieweraddition = setInterval(function(){
+   if(window.location.href.indexOf("/courses/course-v1:netexplo-smartcities+002+002/courseware")>-1){
+        $("video").each(function(){
+           if($("#" + $(this).attr('id') + "chineseviewer").length == 0){
+               $("<p class='chineseviewer' id='" + $(this).attr('id') + "chineseviewer" + "'>Viewing from China ? <a onclick='use_own_cdn()'>Click here to reload the video.</a></p>").insertAfter("div.video");
+           }
+        });
+   }
+},500);
+</script>
+
+<style>
+p.chineseviewer{
+    text-align: center;
+}
+p.chineseviewer > a{
+    font-weight: bold;
+	cursor: pointer;
+}
+</style>
