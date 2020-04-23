@@ -372,7 +372,7 @@ function use_own_cdn(forceplaying){
 }
 
 var chinesevieweraddition = setInterval(function(){
-   if(window.location.href.indexOf("/courses/course-v1:netexplo-smartcities+002+002/courseware")>-1){
+   if(window.location.href.indexOf("/courses/course-v1:netexplo-smartcities+002+002/courseware")>-1 || window.location.href.indexOf("/courses/course-v1%3Anetexplo-smartcities%2B002%2B002/courseware")>-1){
         $("video").each(function(){
            if($("#" + $(this).attr('id') + "chineseviewer").length == 0){
                $("<p class='chineseviewer' id='" + $(this).attr('id') + "chineseviewer" + "'>Viewing from China ? Video is lagging or blocked ? <a onclick='use_own_cdn(true)'>Click here to reload the video.</a></p>").insertAfter("div.video");
