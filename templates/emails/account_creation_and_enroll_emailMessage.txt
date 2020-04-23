@@ -1,14 +1,23 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+Bonjour ${_("{full_name}").format(full_name=full_name)},
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+Bienvenue chez 5A Conseil !
 
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+Vous êtes désormais inscrit(e) à la ${_("{course_name}").format(course_name=course.display_name_with_default_escaped)} du bilan de compétences digital !
 
-${_("It is recommended that you change your password.")}
+Vous pouvez dès à présent démarrer votre bilan en vous connectant avec vos identifiants :
+Identifiant : ${_("{email}").format(email=email_address)}
+Mot de passe :  ${_("{password}").format(password=password)}
+Lien de connexion : https://bilan-digital.5aconseil.com/login
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+Nous vous recommandons de personnaliser votre mot de passe, en cliquant sur “mot de passe oublié”.
+
+Enfin, nous sommes très heureux de vous accueillir dans notre communauté, et nous espérons que vous serez entièrement satisfait(e) de votre accompagnement chez nous !
+
+En vous souhaitant une excellente journée,
+
+Garance de 5A Conseil
+
+----
+Cet email a été envoyé automatiquement. En cas de souci, n’hésitez pas à nous contacter à bienvenue@5aconseil.com ou au 01 43 87 87 07.
