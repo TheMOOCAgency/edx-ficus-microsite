@@ -24,8 +24,10 @@ def url_class(is_active):
   <li class="tab">
   %if tab.name=="Home":
 
+  %elif tab.name=="Être accompagnée":
+    <a href="https://bilan-digital.5aconseil.com/tma_apps/static_page/coachapp.html">
   %else:
-  <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+    <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
   %if tab.name=="Discussion":
