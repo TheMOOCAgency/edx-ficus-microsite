@@ -17,7 +17,7 @@ primary_color = configuration_helpers.get_value('primary_color')
 
 
 
-<%block name="pagetitle">${_("Attestation de reussite")}</%block>
+<%block name="pagetitle">${_("Attestation de réussite")}</%block>
 
 <!-- COMMON STYLE-->
 <style>
@@ -91,45 +91,6 @@ primary_color = configuration_helpers.get_value('primary_color')
     height: 100%;
   }
 
-  #certificate-border #triangle3{
-    position:absolute;
-    bottom:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 600px 0 0 150px;
-    border-color: transparent transparent transparent #007bff;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
-
-  }
-
-  
-  #certificate-border #triangle2{
-    position:absolute;
-    bottom:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 1000px 0 0 120px;
-    border-color: transparent transparent transparent green;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
-
-  }
-
-  #certificate-border #triangle1{
-    position:absolute;
-    top:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 1120px 120px 0 0;
-    border-color: red transparent transparent transparent;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
-  }
-
   #certificate-planes{
     position:absolute;
     bottom:0;
@@ -187,12 +148,6 @@ primary_color = configuration_helpers.get_value('primary_color')
       <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
     </div>
     <div id="certificate-container">
-      <div id="certificate-border">
-        <!-- <div id="triangle1"></div>
-        <div id="triangle2"></div>
-        <div id="triangle3"></div> -->
-        <div class="triangle"></div>
-      </div>
       <img src="/media/microsite/osac-mooc/images/certificate-border.png" id="certificate-border" alt="Border"/>
       <img src="/media/microsite/osac-mooc/images/certificate-planes.png" id="certificate-planes" alt="Planes"/>
       <div id="certificate-content">

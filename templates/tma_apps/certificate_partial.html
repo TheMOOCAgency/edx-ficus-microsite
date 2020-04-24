@@ -81,6 +81,7 @@ primary_color = configuration_helpers.get_value('primary_color')
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 160px;
   }
 
   #certificate-border{
@@ -89,45 +90,6 @@ primary_color = configuration_helpers.get_value('primary_color')
     bottom:0;
     left:0;
     height: 100%;
-  }
-
-  #certificate-border #triangle3{
-    position:absolute;
-    bottom:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 600px 0 0 150px;
-    border-color: transparent transparent transparent #007bff;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
-
-  }
-
-  
-  #certificate-border #triangle2{
-    position:absolute;
-    bottom:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 1000px 0 0 120px;
-    border-color: transparent transparent transparent green;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
-
-  }
-
-  #certificate-border #triangle1{
-    position:absolute;
-    top:0;
-    left:0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 1120px 120px 0 0;
-    border-color: red transparent transparent transparent;
-    border-image: linear-gradient(180deg, rgba(1,123,194,1) 35%, rgba(1,178,194,1) 100%);
   }
 
   #certificate-planes{
@@ -188,12 +150,6 @@ primary_color = configuration_helpers.get_value('primary_color')
       <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
     </div>
     <div id="certificate-container">
-      <div id="certificate-border">
-        <!-- <div id="triangle1"></div>
-        <div id="triangle2"></div>
-        <div id="triangle3"></div> -->
-        <div class="triangle"></div>
-      </div>
       <img src="/media/microsite/osac-mooc/images/certificate-border.png" id="certificate-border" alt="Border"/>
       <img src="/media/microsite/osac-mooc/images/certificate-planes.png" id="certificate-planes" alt="Planes"/>
       <div id="certificate-content">
@@ -205,11 +161,10 @@ primary_color = configuration_helpers.get_value('primary_color')
         <div>
           <p>This is to acknowledge that</p>
           <h3>${first_name} ${last_name}</h3>
-          <p>has successfully* completed the</p>
+          <p>has attended the</p>
           <p>OSAC MOOC module</p>
           <h3>${course_name}</h3>
           <h4>30 march 2020</h4>
-          <p class="legend">* with a score of more than 75 %</p>
         </div>
       </div>
       <div id="bottom-address">
