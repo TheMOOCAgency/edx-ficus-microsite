@@ -4,7 +4,7 @@ Bonjour ${_("{full_name}").format(full_name=full_name)},
 
 Bienvenue chez 5A Conseil !
 
-Vous êtes désormais inscrit(e) à la ${_("{course_name}").format(course_name=course.display_name_with_default_escaped)} du bilan de compétences digital !
+Vous êtes désormais inscrit(e) au ${_("{course_name}").format(course_name=course.display_name_with_default_escaped)} !
 
 Vous pouvez dès à présent démarrer votre bilan en vous connectant avec vos identifiants :
 Identifiant : ${_("{email}").format(email=email_address)}
