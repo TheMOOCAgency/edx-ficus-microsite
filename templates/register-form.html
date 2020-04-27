@@ -121,9 +121,9 @@ import datetime
     </li>
 
     <li class="field required text" id="field-username">
-      <label for="username">Matricule</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="Exemple de matricule pour FDJ : 100956 / pour FDP : 00800899" required aria-required="true" aria-describedby="username-tip"/>
-      <!--<span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>-->
+      <label for="username">Nom d'utilisateur public</label>
+      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
+      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
