@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django_countries import countries
 from student.models import UserProfile
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from django.conf import settings
 from django_countries import countries
 extra_form = configuration_helpers.get_value('FORM_EXTRA')
 if extra_form is None:
@@ -29,6 +30,16 @@ import datetime
  color: #fff !important;
 }
 </style>
+% if configuration_helpers.get_value('TMA_ENABLE_REGISTRATION_RECAPTCHA'):
+<script type="text/javascript">
+  var RecaptchaOptions = { lang : 'fr' };
+  //wait for document.ready to fire
+  $(function () {
+    //then load the JavaScript file
+    $.getScript('https://www.google.com/recaptcha/api.js?hl=fr');
+  });
+</script>
+% endif
 % if third_party_auth.is_enabled():
 
   % if not running_pipeline:
@@ -98,6 +109,7 @@ import datetime
     -->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
+      <span class="tip toip-input">L'adresse email utilisée lors de votre inscription sur COOC FDJ</span>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
     </li>
 
@@ -109,9 +121,9 @@ import datetime
     </li>
 
     <li class="field required text" id="field-username">
-      <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="username-tip"/>
-      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <label for="username">Matricule</label>
+      <input id="username" type="text" name="username" value="${username}" placeholder="Exemple de matricule pour FDJ : 100956 / pour FDP : 00800899" required aria-required="true" aria-describedby="username-tip"/>
+      <!--<span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>-->
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
@@ -311,7 +323,7 @@ import datetime
       <div class="field required checkbox" id="field-tos">
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
+          link_start='<a href="/honor" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
           link_end='</a>')}</label>
       </div>
       % endif
@@ -332,7 +344,9 @@ import datetime
       % endif
     </li>
   </ol>
-
+  %if configuration_helpers.get_value('TMA_ENABLE_REGISTRATION_RECAPTCHA'):
+  <div style="text-align:center"><div class="g-recaptcha" data-sitekey="${settings.FEATURES.get('RECAPTCHA_SITE_KEY')}" style="display:inline-block"></div></div>
+  %endif
 </div>
 
 <div class="form-actions">
@@ -363,6 +377,40 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+
+// change in register-form fields
+$(document).ready(function() {
+  setInterval(function() {
+    if ($('#structure').val() === '') {
+        $('#field-management_hub').parent().hide();
+    } else {
+        if ($('#structure').val() === 'fj') {
+          $('#field-management_hub').parent().show();
+          $('label[for="management_hub"]').text('Direction/Pôle');
+          $('#management_hub option[value="aa"],option[value="ab"],option[value="ac"],option[value="ad"],option[value="ae"],option[value="af"],option[value="ag"],option[value="ah"],option[value="ai"],option[value="aj"],option[value="ak"],option[value="al"],option[value="am"],option[value="an"],option[value="ao"],option[value="ap"],option[value="aq"],option[value="ar"],option[value="as"],option[value="at"],option[value="au"],option[value="av"],option[value="aw"],option[value="ax"],option[value="ay"],option[value="az"],option[value="ba"],option[value="bb"],option[value="bc"],option[value="bd"],option[value="be"],option[value="bf"],option[value="bg"], option[value="bh"]').hide();
+          $('#management_hub option[value="lo"], option[value="fm"], option[value="fi"], option[value="ge"], option[value="pj"], option[value="fd"], option[value="lv"]').hide();
+          $('#management_hub option[value="dj"], option[value="cq"], option[value="ds"], option[value="dr"], option[value="dd"], option[value="dg"], option[value="pi"], option[value="pr"], option[value="po"]').show();
+        } else {
+          if ($('#structure').val() === 'fp') {
+              $('#field-management_hub').parent().show();
+              $('label[for="management_hub"]').text('Agence');
+              $('#management_hub option[value="dj"], option[value="cq"], option[value="ds"], option[value="dr"], option[value="dd"], option[value="dg"], option[value="pi"], option[value="pr"], option[value="po"]').hide();
+              $('#management_hub option[value="lo"], option[value="fm"], option[value="fi"], option[value="ge"], option[value="pj"], option[value="fd"], option[value="lv"]').hide();
+              $('#management_hub option[value="aa"],option[value="ab"],option[value="ac"],option[value="ad"],option[value="ae"],option[value="af"],option[value="ag"],option[value="ah"],option[value="ai"],option[value="aj"],option[value="ak"],option[value="al"],option[value="am"],option[value="an"],option[value="ao"],option[value="ap"],option[value="aq"],option[value="ar"],option[value="as"],option[value="at"],option[value="au"],option[value="av"],option[value="aw"],option[value="ax"],option[value="ay"],option[value="az"],option[value="ba"],option[value="bb"],option[value="bc"],option[value="bd"],option[value="be"],option[value="bf"],option[value="bg"],option[value="bh"]').show();
+          } else {
+              if ($('#structure').val() === 'ot') {
+                  $('#field-management_hub').parent().show();
+                  $('label[for="management_hub"]').text('Filiale');
+                  $('#management_hub option[value="aa"],option[value="ab"],option[value="ac"],option[value="ad"],option[value="ae"],option[value="af"],option[value="ag"],option[value="ah"],option[value="ai"],option[value="aj"],option[value="ak"],option[value="al"],option[value="am"],option[value="an"],option[value="ao"],option[value="ap"],option[value="aq"],option[value="ar"],option[value="as"],option[value="at"],option[value="au"],option[value="av"],option[value="aw"],option[value="ax"],option[value="ay"],option[value="az"],option[value="ba"],option[value="bb"],option[value="bc"],option[value="bd"],option[value="be"],option[value="bf"],option[value="bg"],option[value="bh"]').hide();
+                  $('#management_hub option[value="dj"], option[value="cq"], option[value="ds"], option[value="dr"], option[value="dd"], option[value="dg"], option[value="pi"], option[value="pr"], option[value="po"]').hide();
+                  $('#management_hub option[value="lo"], option[value="fm"], option[value="fi"], option[value="ge"], option[value="pj"], option[value="fd"], option[value="lv"]').show();
+              }
+          }
+        }
+      }
+  }, 250)
+});
+
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:

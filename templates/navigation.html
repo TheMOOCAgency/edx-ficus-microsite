@@ -39,6 +39,31 @@ css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+  nav.wrapper-header, .window-wrap #global-navigation{
+    height: auto!important;
+  }
+  .header-global h1.logo img.ec-logo-size{
+    height:50px!important;
+  }
+  .header-global.slim h1.logo{
+    margin-top:0px!important;
+  }
+  .header-global .user{
+    margin-top: 5px!important;
+  }
+  #global-navigation{
+    padding: 5px 0 10px 0!important;
+    border:none!important;
+  }
+  .header-global .nav-courseware li .btn {
+    color: white !important;
+    text-transform: none !important;
+  }
+  .header-global .nav-global {
+    float: right;
+  }
+</style>
 <%
 try:
     course_id = course.id
@@ -108,11 +133,13 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
+        <!--
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
+        -->
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
@@ -166,7 +193,7 @@ site_status_msg = get_site_status_msg(course_id)
             </li>
           % endif
         </%block>
-
+        <!--
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
@@ -190,6 +217,7 @@ site_status_msg = get_site_status_msg(course_id)
           % endif
         </%block>
       </ol>
+    -->
       <ol class="right nav-courseware list-inline">
         <%block name="navigation_sign_in">
           <li class="item nav-courseware-01">
@@ -207,6 +235,7 @@ site_status_msg = get_site_status_msg(course_id)
           </li>
         </%block>
       </ol>
+
     % endif
     % if static.show_language_selector():
      <% languages = static.get_released_languages() %>
@@ -268,10 +297,13 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     course_length = len(list(get_course_enrollments(request.user, course_org_filter, org_filter_out_set)))
     course_id = current_path.split('/')[2]
   %>
+  <script src="/media/microsite/fdj/oldResults.js"></script>
   <script>
     var username_pid = "${user.username}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
+    var user_email = "${user.email}"
+    var oldResults = returnOldData();
 
     function course_navigation_change(course_id,num_courses) {
       if(course_id != '') {

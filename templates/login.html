@@ -6,12 +6,24 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 import third_party_auth
 from third_party_auth import provider, pipeline
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from django.conf import settings
 %>
 
 <%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
+  % if configuration_helpers.get_value('TMA_ENABLE_LOGIN_RECAPTCHA'):
+  <script type="text/javascript">
+    var RecaptchaOptions = { lang : 'fr' };
+    //wait for document.ready to fire
+    $(function () {
+      //then load the JavaScript file
+      $.getScript('https://www.google.com/recaptcha/api.js?hl=fr');
+    });
+  </script>
+  % endif
   <script type="text/javascript">
     $(function() {
 
@@ -174,7 +186,7 @@ from third_party_auth import provider, pipeline
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
+            <!--<span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>-->
           </li>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
@@ -196,6 +208,11 @@ from third_party_auth import provider, pipeline
           </li>
         </ol>
       </div>
+
+      %if configuration_helpers.get_value('TMA_ENABLE_LOGIN_RECAPTCHA'):
+      <div style="text-align:center"><div class="g-recaptcha" data-sitekey="${settings.FEATURES.get('RECAPTCHA_SITE_KEY')}" style="display:inline-block"></div></div>
+      %endif
+      
 
       <div class="form-actions">
         <button name="submit" type="submit" id="submit" class="action action-primary action-update login-button"></button>
