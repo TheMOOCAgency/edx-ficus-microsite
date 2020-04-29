@@ -318,8 +318,11 @@ display: none;
       $('#settings-language-value > option[value="en"]').attr('selected','selected');
       $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
     }
-    console.log('OK EN')
-    history.pushState(state, title, url)
+    history.pushState(state, title, url);
+
+    % if LANGUAGE_CODE == "en":
+    document.location.reload(true);
+    % endif
   }
 
   var setFrLang =  function() {
@@ -328,9 +331,12 @@ display: none;
       $('#settings-language-value > option[value="fr"]').attr('selected','selected');
       $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
     }
-    console.log('OK FR')
-    //  window.location.href=url;
     history.pushState(state, title, url)
+
+    % if LANGUAGE_CODE == "fr":
+    document.location.reload(true);
+    % endif
+
   }
 
 function getParameterByName(name, url) {
