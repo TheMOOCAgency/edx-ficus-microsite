@@ -2,6 +2,7 @@
 from openedx.core.djangolib.markup import HTML, Text
 from django.core.urlresolvers import reverse
 from tma_apps.tma_support_functions import tma_verify_access
+import json
 %>
 <%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
 <% 
@@ -16,7 +17,81 @@ domainFiliere = Null
 domainGroup = Null
 company = Null
 domainUser = user.email.split('@')[1]
+
+custom_field ={}
+try:
+  custom_field = json.loads(user.profile.custom_field)
+except:
+  pass
 %>
+%if (user.first_name == "" and user.last_name == "") and (custom_field.get('first_name','') == "" or custom_field.get('first_name') is None) and (custom_field.get('last_name','') == "" or custom_field.get('last_name') is None):
+  <style>
+    button.swal2-confirm:hover{
+      background-color:#15A6ED !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    var first_name = "";
+    var last_name  = "" ;
+
+    function update_ln_fn(first_name,last_name){
+     var customFields = {
+       first_name:first_name,
+       last_name:last_name,
+     }
+     $.ajax({
+       url: '/tma_apps/tma_api/v0/CustomFieldView/',
+       type: "POST",
+       data: customFields,
+       headers: {'X-CSRFToken': $.cookie('csrftoken')},
+       dataType: 'json'
+     });
+    }
+
+    function retrieve_fn_ln(){
+      const { value: fn } = Swal.fire({
+        html: '<h3>Bienvenue</h3><br/>Entrez votre prénom pour que nous puissions personnaliser votre expérience.',
+        input: 'text',
+        inputPlaceholder: 'Jacques',
+        allowOutsideClick: false,
+        inputValidator: (value) => {
+          return new Promise((resolve) => {
+            if (value.length > 1) {
+              resolve()
+            } else {
+              resolve('Veuillez saisir votre prénom')
+            }
+          })
+        }
+      }).then((result) => {
+         first_name = result.value;
+         const { value: ln } = Swal.fire({
+           html: '<h3>Merci !</h3><br/>Entrez maintenant votre nom de famille',
+           input: 'text',
+           inputPlaceholder: 'Dupont',
+           allowOutsideClick: false,
+          inputValidator: (value) => {
+            return new Promise((resolve) => {
+              if (value.length > 1) {
+                resolve()
+              } else {
+                resolve('Veuillez saisir votre nom')
+              }
+            })
+          }
+        }).then((result) => {
+           last_name = result.value;
+           update_ln_fn(first_name,last_name);
+        });
+      });
+    }
+
+    retrieve_fn_ln();
+  </script>
+%endif
+
 
 %if course_state!="finished" and course_state!="ongoing":
 <script>
