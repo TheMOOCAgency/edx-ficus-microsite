@@ -170,12 +170,9 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
   about_course_video=get_course_about_section(request, course, "video")
   about_course_description=get_course_about_section(request, course, "overview")
 
-
-
   
   associated_courses= AssociatedCourses(request.user, str(course.id)).associated_courses_details() or {}
-
-  
+  associated_courses_previous= AssociatedCourses(request.user, str(course.id)).get_previous_course() or {}
 
   %>
 
@@ -295,7 +292,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       background-color:${primary_color} !important;
       border-color:${primary_color} !important;
       height: 60px !important;
-      min-width:220px;
+      min-width:500px;
     }
 
     @keyframes anim {
@@ -401,11 +398,24 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       cursor: pointer;
     }
     .blue-btn{
+      opacity: 1 !important;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 360px;
+      min-height: 60px;
+      border-radius: 10px;
+      text-transform:none !important;
       color: white !important;
-      background-color: ${primary_color}!important;
+      background-color:  #80CFF5 !important;
+    }
+
+    .blue-btn > i {
+      margin-right: 10px;
     }
     .blue-btn:hover{
-      color: white !important;
+      color:  white !important;
       background-color: rgb(46, 133, 209)!important;
     }
   </style>
@@ -430,9 +440,9 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
     <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
   </div>
     %if course.language=="fr":
-      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
+      <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
     %else:
-      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses' />
+      <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous' />
     %endif
 
     </div>

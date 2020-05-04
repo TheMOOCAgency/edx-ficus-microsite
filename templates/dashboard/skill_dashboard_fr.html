@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from tma_apps.tma_support_functions import tma_verify_access
 import json
 %>
-<%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses" expression_filter="h"/>
+<%page args="about_course_description, about_course_video, course_overview, user, enrollment, associated_courses, associated_courses_previous" expression_filter="h"/>
 <% 
 course_state = user_course_state[str(enrollment.course_id)] 
 has_access = tma_verify_access(request.user).hasDigitalQuizAccess()
@@ -147,8 +147,9 @@ except:
 }
 
 .blue-btn:hover, #course_results:hover, #course_continue:hover {
-  background-color: #15A6ED !important;
-  border-color: #15A6ED !important;
+  background-color: #80CFF5 !important;
+  border-color: #80CFF5 !important;
+  color:white;
 }
 
 .deactivated{
@@ -188,7 +189,7 @@ except:
         <i class="fa fa-play-circle"></i>
         Démarrer
         %if associated_courses.get('step_number')>1:
-         <!-- L'évaluation ${associated_courses.get('step_number')} -->
+          l'évaluation ${associated_courses.get('step_number')}
         %endif
       </button>
       %endif
@@ -197,26 +198,27 @@ except:
     <div class="bottom-buttons mt-20">
       <div class="text-center">
         %if course_state!="finished" :
-        <button class="text-align-center white-btn mr-20 deactivated" disabled>
+        <button class="text-align-center blue-btn mr-20 deactivated" disabled>
           Revoir mes réponses
         </button>
         %else :
         <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
-          <button class="text-align-center white-btn mr-20 blue-btn"  id="see_answers">
+          <button class="text-align-center mr-20 blue-btn"  id="see_answers">
             Revoir mes réponses
           </button>
         </a>
         %endif
       </div>
       <div class="text-center">
-        %if user_course_state=="finished" :
-        <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
-          <button class="text-align-center white-btn deactivated" id="last_score">
+        %if course_state != "finished" and associated_courses.get('step_number',1)>1:
+        <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
+          <button class="sub-btn blue-btn deaactivated" id="last_score">
+            <i class="fa fa-search"></i>
             Consulter mon score précédent
           </button>
         </a>
         %else :
-        <button class="text-align-center white-btn deactivated" disabled>
+        <button class="text-align-center blue-btn deactivated" disabled>
           Consulter mon score précédent
         </button>
         %endif
