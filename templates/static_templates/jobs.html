@@ -1,12 +1,30 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/searchApp/css/main.eef31e97.chunk.css'.format(org)
+js = '/media/microsite/{}/searchApp/js/2.0628fb90.chunk.js'.format(org)
+jsMain = '/media/microsite/{}/searchApp/js/main.71da703e.chunk.js'.format(org)
+%>
 <%inherit file="../main.html" />
-
-<%block name="pagetitle">${_("Jobs")}</%block>
+<link href="${css}" rel="stylesheet">
+<style>
+.container .about{
+  max-width: 80%!important;
+}
+.emplacement{
+  font-size: 19px !important;
+  padding: 0px 5px!important;
+}
+</style>
 
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
-        <h1>${_("Jobs")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <div id="root"></div>
+           <script>!function(c){function e(e){for(var r,t,n=e[0],o=e[1],u=e[2],l=0,a=[];l<n.length;l++)t=n[l],Object.prototype.hasOwnProperty.call(i,t)&&i[t]&&a.push(i[t][0]),i[t]=0;for(r in o)Object.prototype.hasOwnProperty.call(o,r)&&(c[r]=o[r]);for(s&&s(e);a.length;)a.shift()();return p.push.apply(p,u||[]),f()}function f(){for(var e,r=0;r<p.length;r++){for(var t=p[r],n=!0,o=1;o<t.length;o++){var u=t[o];0!==i[u]&&(n=!1)}n&&(p.splice(r--,1),e=l(l.s=t[0]))}return e}var t={},i={1:0},p=[];function l(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return c[e].call(r.exports,r,r.exports,l),r.l=!0,r.exports}l.m=c,l.c=t,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(r,e){if(1&e&&(r=l(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var n in r)l.d(t,n,function(e){return r[e]}.bind(null,n));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="/";var r=this.webpackJsonpcoach=this.webpackJsonpcoach||[],n=r.push.bind(r);r.push=e,r=r.slice();for(var o=0;o<r.length;o++)e(r[o]);var s=n;f()}([])</script>
+        <script src="${js}"></script>
+        <script src="${jsMain}"></script>
     </section>
 </main>
