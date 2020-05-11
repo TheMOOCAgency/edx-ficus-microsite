@@ -349,9 +349,26 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-$("#login-butn").click(function(){
-  window.location.href="/login?admin=true";
+$( document ).ready(function() {
+ if(!(getParameterByName("company") === null)){
+  $("#register-butn").hide();
+  $("#login-sso-butn").hide();
+  $("#login-butn").click(function(){
+   if(getParameterByName("company")=="to"){
+     window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod";
+   }else if(getParameterByName("company")=="safran"){
+     window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod";
+   }else if(getParameterByName("company")=="saintgobain"){
+     window.location.href="https://www.netexplodigimapper.com/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain";
+   }
+  });
+ }else{
+  $("#login-butn").click(function(){
+   window.location.href="/login?admin=true";
+  });
+ }
 });
+
 
 $("#login-sso-butn").click(function(){
   if(getParameterByName("company")=="to"){
