@@ -202,46 +202,46 @@ dates_formation = request.GET.get('dates_formation')
 <ol class="list-input">
 % for n in extra_form:
   % if n.get('name') != 'first_name' and n.get('name') != 'last_name':
-  <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
-  <div class="field ${n.get('type')}" id="field-${n.get('name')}">
-  % if n.get('type') == 'email':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
-  % elif n.get('type') == 'text':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
-  % elif n.get('type') == 'select':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
-    % if n.get('name') == 'country':
-      <option value="" data-isdefault="true">--</option>
-      <%
-      _countries = list(countries)
-      %>
-      % for f in _countries:
-        <option values="${f[0]}">${f[1]}</option>
-      %endfor
-    % endif
-    % if n.get('name') == 'year_of_birth':
-        <option value="" data-isdefault="true">--</option>
-	<%
-	year = datetime.datetime.today().year
-	YEARS = [year - i for i in range(100)]
-	%>
-        % for y in YEARS:
-	    <option value="${y}">${y}</option>
-	% endfor
-    % else:
-        % for j in n.get('options'):
+    <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
+      <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+        % if n.get('type') == 'email':
+          <label for="${n.get('name')}">${_(n.get('label'))}</label>
+          <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+        % elif n.get('type') == 'text':
+          <label for="${n.get('name')}">${_(n.get('label'))}</label>
+          <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+        % elif n.get('type') == 'select':
+          <label for="${n.get('name')}">${_(n.get('label'))}</label>
+          <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
+          % if n.get('name') == 'country':
+            <option value="" data-isdefault="true">--</option>
+            <%
+            _countries = list(countries)
+            %>
+            % for f in _countries:
+              <option values="${f[0]}">${f[1]}</option>
+            %endfor
+          % endif
+        % if n.get('name') == 'year_of_birth':
+          <option value="" data-isdefault="true">--</option>
+	      <%
+	      year = datetime.datetime.today().year
+	      YEARS = [year - i for i in range(100)]
+	      %>
+          % for y in YEARS:
+	        <option value="${y}">${y}</option>
+	      % endfor
+        % else:
+          % for j in n.get('options'):
             <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
-        %endfor
+          %endfor
+        % endif
+        </select>
+    % elif n.get('type') == 'checkbox':
+      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
+      <label for="${n.get('name')}">${_(n.get('label'))}</label>
     % endif
-  </select>
-  % elif n.get('type') == 'checkbox':
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  % endif
-  </div>
+    </div>
   </li>
   % endif
 % endfor
@@ -405,8 +405,6 @@ $('#first_name,#last_name').change(function(){
 
 <script>
 /* TMA SELECTIVE FIELDS */
-
-
 var controlledFields=[
   {
     name:"organisme",
@@ -421,12 +419,10 @@ var controlledFields=[
     value:${dump_js_escaped_json(ville) | n, decode.utf8}
   }
 ]
-console.log(controlledFields)
 
 
 function bindMyParamatersInput(){
     for(var i=0;i<controlledFields.length;i++){
-      console.log(controlledFields[i])
         if (controlledFields[i]['value']) {
             var fieldValue = decodeURIComponent(controlledFields[i]['value'])
             var fieldElement = $('#'+controlledFields[i]['name'])
@@ -437,9 +433,9 @@ function bindMyParamatersInput(){
               paramBind(fieldElement,fieldValue) 
             }
         }
-        else{
-          var fieldElement = $('#field-'+controlledFields[i]['name'])  
-          $(fieldElement).hide();
+        else {
+          var fieldElement = $('#'+controlledFields[i]['name']);
+          $(fieldElement).parent("div").hide();
         }
     }
 }
@@ -457,7 +453,10 @@ $("#organisme option[value='"+value +"']").attr('selected', 'selected');
 $("#organisme").val(value).prop('readonly', true).css("background","#e8e8e8")
 
 }
+
+
 bindMyParamatersInput()
+
 
 
 $("#myselect option[valueR = value]").attr('selected', 'selected');
