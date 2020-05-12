@@ -5,10 +5,13 @@
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/coachApp/css/main.462a83bf.chunk.css'.format(org)
 js = '/media/microsite/{}/coachApp/js/2.6bdc790a.chunk.js'.format(org)
-jsMain = '/media/microsite/{}/coachApp/js/main.d5c9153f.chunk.js'.format(org)
+jsMain = '/media/microsite/{}/coachApp/js/main.ead554ef.chunk.js'.format(org)
 %>
 <%inherit file="../main.html" />
 <link href="${css}" rel="stylesheet">
+<script >
+  document.title = "Nos Consultants à votre écoute"
+</script>
 <style>
 .container .about{
   max-width: 80%!important;
@@ -16,6 +19,24 @@ jsMain = '/media/microsite/{}/coachApp/js/main.d5c9153f.chunk.js'.format(org)
 .emplacement{
   font-size: 19px !important;
   padding: 0px 5px!important;
+}
+.maintitleh1{
+  background-color: #f28066;
+padding: 30px;
+color: white;
+margin-bottom: 0;
+}
+.prestations{
+  margin : 0px!important;
+}
+.filter-title{
+  width :18%!important;
+}
+.MuiAutocomplete-root.autocomplete:first-of-type{
+  flex : 1;
+}
+.MuiAutocomplete-root.autocomplete:nth-of-type(4){
+  flex : 1;
 }
 </style>
 

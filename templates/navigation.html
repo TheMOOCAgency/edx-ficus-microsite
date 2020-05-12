@@ -21,14 +21,10 @@ from branding import api as branding_api
 from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-33545233-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-33545233-1');
-</script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFSXGD9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
@@ -478,9 +474,6 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 }
 #global-navigation>.burger{
   display: none;
-}
-.wrapper-header>.nav-global>li.tab:hover>a{
-  padding-top : 0px!important;
 }
 .logo{
   margin-left: 10px!important;
