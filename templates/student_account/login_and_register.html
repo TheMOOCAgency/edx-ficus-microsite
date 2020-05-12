@@ -17,9 +17,15 @@
         options['registration_form_desc']['fields'][1]["instructions"] = ""
         options['registration_form_desc']['fields'][2]["label"] = "${_('Username (pseudo)')}";
         options['registration_form_desc']['fields'][2]["instructions"] = "${_('Mandatory for registration purposes but will remain hidden')}";
-        options['registration_form_desc']['fields'][4]["label"] = "${_('I agree to the Terms of Service')}";
-        options['registration_form_desc']['fields'][4]["supplementalText"] = "${_('View the terms of Service')}";
-        options['registration_form_desc']['fields'][4]["supplementalLink"]= "/tos";
+        options['registration_form_desc']['fields'][6]["label"] = "${_('I agree to the Terms of Service')}";
+        options['registration_form_desc']['fields'][6]["supplementalText"] = "${_('View the terms of Service')}";
+        options['registration_form_desc']['fields'][6]["supplementalLink"]= "/tos";
+
+        if(! options['third_party_auth']["autoSubmitRegForm"]){
+          //if no thirdpartyauth then first and lastname are mandatory
+          options['registration_form_desc']['fields'][4]["required"]=true;
+          options['registration_form_desc']['fields'][5]["required"]=true;
+        }
         LogistrationFactory(options);
         if ('newrelic' in window) {
             newrelic.finished();
@@ -59,7 +65,18 @@
     </main>
 </div>
 <script>
-var bindonemail = setInterval(function(){
+var options_given = ${data | n, dump_js_escaped_json}
+var is_third_party_on = options_given['third_party_auth']["autoSubmitRegForm"];
+
+if(!is_third_party_on){
+ setInterval(function(){
+   $("div.form-field.text-name").hide();
+   $("#register-name").val($("#register-first_name").val()+" "+$("#register-last_name").val());
+ },50);
+}
+
+
+var adaptifssoornot = setInterval(function(){
 
 function usessorather(page){
  if($("#"+page+"-email").val().indexOf("saint-gobain") > -1 || $("#"+page+"-email").val().indexOf("safran") > -1 || $("#"+page+"-email").val().indexOf("transitions") > -1){
@@ -77,16 +94,16 @@ function usessorather(page){
     focusConfirm: true,
     showConfirmButton: false,
   });
-  clearInterval(bindonemail);
+  clearInterval(adaptifssoornot);
  }
 }
 
 registeremailfield = document.getElementById("register-email");
-if(registeremailfield){
+if(registeremailfield && ! is_third_party_on){
  registeremailfield.addEventListener('input', usessorather("register"));
 }
 loginemailfield = document.getElementById("login-email");
-if(loginemailfield){
+if(loginemailfield && ! is_third_party_on){
  loginemailfield.addEventListener('input', usessorather("login"));
 }
 
