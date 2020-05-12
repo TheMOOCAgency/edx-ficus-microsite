@@ -81,7 +81,7 @@ dates_formation = request.GET.get('dates_formation')
 
   <p class="instructions">
     ${_('Create your own {platform_name} account below').format(platform_name=platform_name)}
-    <span class="note">${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}</span>
+    <span class="note">Les champs obligatoires sont notés en <strong class="indicator">gras et avec un astérisque (*).</strong></span>
   </p>
 
 
@@ -99,9 +99,8 @@ dates_formation = request.GET.get('dates_formation')
 
 <p class="instructions">
   ${_("Please complete the following fields to register for an account. ")}<br />
-  ${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}
+  <span>Les champs obligatoires sont notés en <strong class="indicator">gras et avec un astérisque (*).</strong></span>
 </p>
-
 % endif
 
 <div class="group group-form group-form-requiredinformation">
@@ -120,6 +119,17 @@ dates_formation = request.GET.get('dates_formation')
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
     -->
+    % for n in extra_form:
+    <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
+      <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+        % if n.get('name') == 'first_name' or n.get('name') == 'last_name':
+        <label for="${n.get('name')}">${_(n.get('label'))}</label>
+        <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+        % endif
+      </div>
+    </li>
+    % endfor
+
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
@@ -139,19 +149,16 @@ dates_formation = request.GET.get('dates_formation')
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
-
-    <li class="is-disabled field optional password" id="field-password" hidden>
-      <label for="password">${_('Password')}</label>
-      <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
-    </li>
-
+      <li class="is-disabled field optional password" id="field-password" hidden>
+        <label for="password">${_('Password')}</label>
+        <input id="password" type="password" name="password" value="" disabled required aria-required="true"/>
+      </li>
     % else:
-
-    <li class="field required password" id="field-password">
-      <label for="password">${_('Password')}</label>
-      <input id="password" type="password" name="password" value="" required aria-required="true" />
-    </li>
-
+      <li class="field required password" id="field-password" style="margin-bottom: 20px;">
+        <label for="password">${_('Password')}</label>
+        <input id="password" type="password" name="password" value="" required aria-required="true"  aria-describedby="password-tip"/>
+        <span class="tip tip-input" id="password-tip" style="top:auto;left:0;">Le mot de passe doit contenir au moins <strong>8 caractères</strong> dont <strong>1 chiffre</strong> et <strong>1 caractère spécial</strong>.</span>
+      </li>
     % endif
   </ol>
   % else:
@@ -183,24 +190,9 @@ dates_formation = request.GET.get('dates_formation')
     <li class="field required text" id="field-name">
       <label for="name">${_('Full Name')}</label>
       <input id="name" type="text" name="name" value="" placeholder="$_('example: Jane Doe')}" aria-describedby="name-tip" />
-      <span class="tip tip-input" id="name-tip">${_("Your legal name, used for any certificates you earn.")}</span>
     </li>
 
     % endif
-
-    <label for="site-known">Comment avez-vous connu le programme INVEEST ?</label>
-    <select id="site-known" name="site-known" 'required aria-required="true"'>
-      <option value="">--</option>
-      <option value="Entreprise">Votre entreprise (Management, RH, catalogue de formation)</option>
-      <option value="Moteur">Moteur de recherche</option>
-      <option value="Réseau">Réseau social</option>
-      <option value="Bouche">Bouche à oreille</option>
-      <option value="Evènement">Evènement</option>
-      <option value="Presse">Presse</option>
-      <option value="Catalogue">Catalogue de formation externe</option>
-      <option value="Autre">Autre</option>
-    </select>
-
   </ol>
 
   % endif
@@ -209,6 +201,7 @@ dates_formation = request.GET.get('dates_formation')
 <div class="group group-form group-form-requiredinformation">
 <ol class="list-input">
 % for n in extra_form:
+  % if n.get('name') != 'first_name' and n.get('name') != 'last_name':
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
@@ -250,13 +243,13 @@ dates_formation = request.GET.get('dates_formation')
   % endif
   </div>
   </li>
+  % endif
 % endfor
 </ol>
 </div>
 <!-- end extraform generation -->
 <div class="group group-form group-form-secondary group-form-personalinformation" style="padding-bottom:0px">
   <h2 class="sr">${_("Additional Personal Information")}</h2>
-
   <ol class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['city'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['city']} text" id="field-city">
@@ -317,7 +310,6 @@ dates_formation = request.GET.get('dates_formation')
       % endif
     </li>
   </ol>
-
 </div>
 
 <div class="group group-form group-form-personalinformation2" style="padding-bottom:0px">

@@ -27,24 +27,34 @@ else:
     <!-- MOMENT JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/fr.js"></script>
 
-    <p class="titleSearch mainColor">Toutes les prochaines sessions en région</p>
+    <div id="titleBlock">
+        <p class="titleSearch mainColor">Toutes les prochaines sessions en région</p>
+        <div id="partners_block">
+            <div class="mainColor">Nos organismes de formation :</div>
+            <div>
+                <img src="/media/microsite/inveest/ssm/img/logo_aster.jpg" alt="Logo Aster" class="partners_logos"/>
+                <img src="/media/microsite/inveest/ssm/img/logo_greenflex.jpg" alt="Logo Greenflex" class="partners_logos"/>
+                <img src="/media/microsite/inveest/ssm/img/logo_ifp.png" alt="Logo IFP" class="partners_logos"/>
+                <img src="/media/microsite/inveest/ssm/img/logo_transenergie.png" alt="Logo Transenergie" class="partners_logos"/>
+            </div>
+        </div>
+    </div>
     <center>
     <div id="banner">
-      <div id="searchWrapper" class="container">
-        <div id="searchCourses">
-            <p class="filterIntro mainColor">Filtrer par</p>
-          <div class="row">
-
-            <div class="col-md-3 inputWrapper hide" id="datePickerWrap">
-              <div class="input-group flex-nowrap"><input type="text" id="datepicker" class="form-control mb-3" placeholder="Date" aria-label="organisme"></div>
+        <div id="searchWrapper" class="container">
+            <div id="searchCourses">
+                <p class="filterIntro mainColor">Filtrer par</p>
+                <div class="row"  style="justify-content:center;margin-top:5px;">
+                    <div class="col-md-3 inputWrapper hide" id="datePickerWrap">
+                        <div class="input-group flex-nowrap"><input type="text" id="datepicker" class="form-control mb-3" placeholder="Date" aria-label="organisme"></div>
+                    </div>
+                </div>
+                <div class="searchButton">
+                    <button id="search" class="secondColorBg mainColor textBold">Rechercher</button>
+                    <p id="reinitializer">Réinitialiser les filtres</p>
+                </div>
             </div>
-          </div>
-          <div class="searchButton">
-            <button id="search" class="secondColorBg mainColor textBold">Rechercher</button>
-            <p id="reinitializer">Réinitialiser les filtres</p>
-          </div>
         </div>
-      </div>
     </div>
     </center>
     <div id="mapWrapper">
