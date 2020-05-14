@@ -82,6 +82,13 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
 
 %>
 
+%if not user.is_active:
+  <style>
+    div.content_tma{
+      visibility:hidden !important;
+  }
+  </style>
+%endif
 
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
