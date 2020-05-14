@@ -90,6 +90,14 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
   </style>
 %endif
 
+%if not user.is_active:
+  <style>
+    div.content_tma{
+      visibility:hidden !important;
+  }
+  </style>
+%endif
+
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
@@ -214,6 +222,8 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
 
     .bottom-buttons {
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .white-btn, .white-btn:hover {
@@ -221,7 +231,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       opacity: 1 !important;
       border: none;
       display: flex;
-      width: 360px;
+      width: 320px;
       min-height: 60px;
       border-radius: 10px;
       text-transform:none !important;
@@ -410,12 +420,13 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 360px;
+      width: 330px;
       min-height: 60px;
       border-radius: 10px;
       text-transform:none !important;
       color: white !important;
       background-color:  #80CFF5 !important;
+      margin:5px;
     }
 
     .blue-btn > i {
@@ -610,6 +621,7 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       margin-left: 23px;
     }
   }
+
   @media(max-width:673px) {
     .course_show_tma {
       left: calc(100% - 120px);
