@@ -10,37 +10,25 @@ from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
-from tma_apps.tma_support_functions import is_course_opened, is_enrollment_opened
+from tma_apps.tma_support_functions import is_course_opened, is_enrollment_opened, tma_verify_access
 
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from instructor.views.tools import get_student_from_identifier
 from django.core.urlresolvers import reverse
+
 %>
 
 <%block name="pagetitle">${_("TMA Dashboard")}</%block>
 <%
 primary_color=configuration_helpers.get_value('primary_color')
+image_url=CourseOverview.get_from_id(course.id).image_urls['small']
  %>
 
-
- <%
- #Access to TMA Dashboard
- is_tma_team = False
- is_af2a_team=False
- af2a_mail = ['rfossard@af2a.com','alex@myvirtualclassroom.com']
- af2a_courses=['course-v1:af2a+af2a_01+2018','course-v1:af2a+af2a_DDA1+2018']
-
- if request.user.is_staff and request.user.email.find('themoocagency.com') > -1:
-   is_tma_team=True
-
- if request.user.email in af2a_mail and str(course.id) in af2a_courses:
-   is_af2a_team=True
- %>
 
 <script>
 var current_register_fields = ${dump_js_escaped_json(register_fields) | n, decode.utf8};
-var csv_limits = 100;
+var csv_limits = ${dump_js_escaped_json(csv_limits) | n, decode.utf8};
 var task_csv = false;
 var task_grade = false;
 
@@ -139,6 +127,10 @@ h3{
 h5{
   font-size: 1em!important;
 }
+h6{
+  font-size: 1.2em!important;
+  font-weight:bold!important;
+}
 label{
   font-style: normal!important;
 }
@@ -161,6 +153,14 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
   color : red!important;
   font-weight: bold;
 }
+
+#import-warning{
+border: 1px solid red;
+padding: 5px;
+font-style: italic;
+font-size: 0.8em!important
+}
+
 #ponctual_feedback, #scheduled_feedback{
   text-align: center;
   font-weight: bold;
@@ -183,7 +183,24 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
   top: 50px;
 }
 .header-global .user .dropdown-menu li{
-      padding: .25rem 1.5rem!important;
+  padding: .25rem 1.5rem!important;
+}
+.m-0{
+  margin:0
+}
+.mb-20{
+  margin-bottom: 20px!important
+}
+.bold{
+  font-weight:bold;
+}
+.course-pic-thumbnail{
+  width:80%;
+}
+.select-another-course{
+  font-style:italic;
+  font-size:0.8em!important;
+  text-align:center;
 }
 </style>
 
@@ -195,7 +212,6 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link rel="stylesheet" href="/media/dashboard/toggle.css">
-
 
 <!-- current style -->
   <div id="loading_animation" class="is_hide">
@@ -212,71 +228,94 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav">
       <li class="dashboard_tab"><a href="/tma/platform_dashboard" class="dashboard_nav"><i class="fas fa-arrow-circle-left"></i> Dashboard Microsite</a></li>
-      <li class="active dashboard_tab" data-id="info_course"><i class="far fa-list-alt"></i> Accueil</li>
-      <li class="dashboard_tab" id="registered_users_onglet" data-id="registered_users"> <i class="fa fa-user"></i> Participants inscrits</li>
-      <li class="dashboard_tab" data-id="upload_user"><i class="fa fa-upload"></i> Import de participants</li>
-      <li class="dashboard_tab" data-id="grades_reports"><i class="fa fa-graduation-cap"></i> Rapport de notes</li>
+      <li class="active dashboard_tab" data-id="info_course"><i class="far fa-list-alt"></i> ${_('Home')}</li>
+      <li class="dashboard_tab" id="registered_users_onglet" data-id="registered_users"> <i class="fa fa-user"></i> ${_("Registered participants")}</li>
+      <li class="dashboard_tab" data-id="upload_user"><i class="fa fa-upload"></i> ${_("Participants import")}</li>
+      <li class="dashboard_tab" data-id="grades_reports"><i class="fa fa-graduation-cap"></i> ${_('Grades Report')}</li>
+      <li class="dashboard_tab" data-id="settings"><i class="fa fa-cogs"></i> ${_('Settings')} </li>
+      %if configuration_helpers.get_value('TMA_ENABLE_TIME_TRACKING'):
+      <li class="dashboard_tab" data-id="tma_actions"><i class="fa fa-cogs"></i> ${_('Grouped Actions')}</li>
+      %endif
       <!--<li id="course_stats" class="dashboard_tab" data-id="overall_users_stats"><i class="fa fa-area-chart"></i> Statistiques</li>-->
       <!--<li class="dashboard_tab" data-id="course_option"><i class="fa fa-cogs"></i> Options</li>-->
     </ul>
   </div>
 </nav>
 
-% if is_tma_team or is_af2a_team:
+% if tma_verify_access(request.user).has_dashboard_access(str(course.id)):
   <div class="container ptop-20" id="content_page" data-courseid="${course_id}">
     <div class="content">
+      <!--SETTINGS --------------------------------------------->
+      <div id="settings"  class="dashboard_window is_hide">
+        <div class="row mt-25">
+          <div class="col-sm-12">
+            <div class="card">
+              <h4 class="grey-text">${_('Settings')}</h4>
+              %if configuration_helpers.get_value('TMA_ENABLE_SESSION_MAP_EDITION'):
+                <p>${_('Map editing interface:')}<a href="/tma_apps/microsite_dashboard/sessions_map_manager/${course_id}">lien</a><p>
+              % else:
+                <p>${_('There are no settings available for this site.')}</p>
+              % endif
+            </div>
+          </div>
+        </div>
+      </div>
       <!--COURSE INFOS --------------------------------------------->
       <div id="info_course"  class="dashboard_window is_show ">
                 <div class="row mt-25">
                   <div class="col-sm-6">
                     <div class="card">
-                      <h4 class="grey-text">Ouverture du cours</h4>
+                      <h4 class="grey-text">${_('Opening of the course')}</h4>
                       % if course.start:
                       <p class="primary_color_text stat-figure f-22">${course.start.strftime('%d-%m-%Y')}</p>
                       % else:
-                      <p class="primary_color_text stat-figure f-22">non précisé</p>
+                      <p class="primary_color_text stat-figure f-22">${_('unspecified')}</p>
                       % endif
                     </div>
                   </div>
                     <div class="col-sm-6">
                       <div class="card">
-                        <h4 class="grey-text">Fermeture du cours</h4>
+                        <h4 class="grey-text">${_('End of the course')}</h4>
                         % if course.end:
                         <p class="primary_color_text stat-figure f-22">${course.end.strftime('%d-%m-%Y')}</p>
                         % else:
-                        <p class="primary_color_text stat-figure f-22">non précisé</p>
+                        <p class="primary_color_text stat-figure f-22">${_('unspecified')}</p>
                         % endif
                       </div>
                   </div>
                   <div class="col-sm-6 mt-25">
                     <div class="card">
-                      <h4 class="grey-text">Seuil de réussite</h4>
-                      <p class="primary_color_text stat-figure f-22">${course.grade_cutoffs['Pass'] * 100} %</p>
+                      <h4 class="grey-text">${_('Success threshold')}</h4>
+                      %if 'Pass' in course_module.grade_cutoffs:
+                       <p class="primary_color_text stat-figure f-22">${course_module.grade_cutoffs['Pass'] * 100} %</p>
+                      %else:
+                      <p class="primary_color_text stat-figure f-22">${_('Multiple thresholds')}</p>
+                      %endif
                     </div>
                   </div>
                   <div class="col-sm-6 mt-25">
                     <div class="card">
-                      <h4 class="grey-text">Status</h4>
+                      <h4 class="grey-text">${_('Status')}</h4>
                       % if course.end:
                         % if course.end.date() > datetime.today().date():
-                          <p class="primary_color_text stat-figure f-22">En cours</p>
+                          <p class="primary_color_text stat-figure f-22">${_('In progress')}</p>
                         % else:
-                          <p class="primary_color_text stat-figure f-22">Terminé</p>
+                          <p class="primary_color_text stat-figure f-22">${_('Completed')}</p>
                         % endif
                       % else:
-                        <p class="primary_color_text stat-figure f-22">En cours</p>
+                        <p class="primary_color_text stat-figure f-22">${_('In progress')}</p>
                       % endif
                     </div>
                 </div>
                 <div class="col-sm-6 mt-25">
                   <div class='card'>
-                    <h4 class="grey-text">Nombre de participants</h4>
+                    <h4 class="grey-text">${_('Number of participants')}</h4>
                     <p class="primary_color_text stat-figure f-22">${total_participants['total']}</p>
                   </div>
                 </div>
                 <div class="col-sm-6 mt-25">
                   <div class='card'>
-                    <h4 class="grey-text">Nombre de sections</h4>
+                    <h4 class="grey-text">${_('Number of sections')}</h4>
                     <p class="primary_color_text stat-figure f-22">${len(course.children)}</p>
                   </div>
                 </div>
@@ -287,78 +326,202 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
       <div id="upload_user" class="dashboard_window is_hide">
         <div class="col-sm-12">
           <div class="card">
-            <h4 class="card-title">Importer des participants</h4>
-            <p>Vous pouvez ici ajouter des participants au cours actuellement sélectionné : ${course.display_name_with_default_escaped}</p>
-            <p>Pour ajouter ces participants :</p>
-            <ul class="ul_csv">
-              <li>Téléchargez le fichier CSV d’import :<a style=" color : rgba(255,124,23,1)!important"href="https://5aconseil.com/upload/bilan_digital/Bilan%20digital%20-%20import%20de%20participants.csv"> cliquez-ici </a></li>
-              <li>Ouvrez ce fichier</li>
-              <li>Ajoutez les participants que vous souhaitez inscrire :
-                <ul>
-                   <li>1 ligne par participant</li>
-                   <li>pour chaque participant : son email, son Prénom, son NOM</li>
-                   <li><b>attention à l’adresse email</b> : en cas d’erreur, l’invitation ne sera pas envoyée à la bonne adresse !</li>
-                   <li><b>attention à ne pas modifier la ligne de titre</b>, avec les 3 colonnes</li>
-                 </ul>
-              </li>
-              <li>Sauvez le fichier CSV modifié, et importez le via le bouton “Choisir un fichier” ci-dessous</li>
-            </ul>
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead id="thead_main">
-                  <tr>
-                  % for _fields in register_fields:
-                      <th class="${'required' if _fields.get('required') else 'not_required'}">${_fields.get('name')}</th>
-                  % endfor
-                  </tr>
-                </thead>
-              </table>
+            <div class="d-flex flex-md-row flex-column-reverse">
+             <div class="col-md-8 col-sm-12 text-justify">
+              <h4 class="card-title">${_('Import participants')}</h4>
+              <p>${_('Import here the participants on your course via a csv file. Participants who are not yet registered will receive an email with their login and password on the platform, they will be automatically registered for this course. Participants already registered on the platform will receive only a registration email for the course.')}</p>
+              <p>${_('Attention the csv must be built in the following way:')}</p>
+              <ul class="ul_csv">
+                <li>${_('reproduce the header below, respecting the case of the column names')}</li>
+                <li>${_('do not add space in the header')}</li>
+                <li>${_('the columns in')} <span style="text-transform: uppercase">${_('red')}</span> ${_('are the required information to register participants')}</li>
+              </ul>
+             </div>
+             <div class="col-md-1 col-sm-0"></div>
+             <div class="col-md-3 col-sm-12 d-flex flex-column align-items-center">
+               <h6>${course.display_name_with_default_escaped}</h6>
+               <img class="course-pic-thumbnail" src="${image_url}" title="Vignette de cours"/>
+               <div class="select-another-course" >Sélectionner un <a href="https://www.e-formation.artisanat.fr/tma/platform_dashboard">autre cours</a>.</div>
+             </div>
             </div>
-
-            <div class="field participants">
-              <form id="upload_form_participant" enctype="multipart/form-data">
-                <input type="file" name="file" id="invite_participant">
-              </form>
-            </div>
-            <span style="display:block;clear:left;"></span>
-            <div>
-              <div id="csv_import_error" class="mt-20" style="display:none;">
-                <span class="error-message" id="incorrect_header" style='display:none;'>L'entête de votre fichier ne respecte pas les champs obligatoires. Merci de le modifier, pour ajouter les colonnes suivantes :</span>
-                <span id="header-error-details"></span>
-                <span class="error-message" id="incorrect-data" style='display:none;'>Certaines données utilisateur ne sont pas correctes. Merci de modifier votre fichier :</span>
-                <span id="incorrect-error-detail"></span>
-                <span class="error-message" id="required-data" style='display:none;'>Certaines données utilisateur ne sont pas complètes. Merci de compléter votre fichier : </span>
-                <span id="missing-error-detail"></span>
-              </div>
-              <div id="csv_import_feedback" class="green p-10 font-weight-bold" style='display:none;'>Votre demande a bien été prise en compte. <br>Les participants sont en cours d'inscription.<br> Vous recevrez un email lorsque le processus d'inscription sera terminé. </div>
-              <div id="csv_import_preview" class="mt-20" style='display:none;'>
-                <table id="csv_import" class='mt-20'>
-
+            <p id="import-warning">Avant tout import, il est recommandé de vérifier le bon fonctionnement du processus d'inscription en invitant au préalable un compte test. Vous pouvez effectuer un test en créant et inscrivant une adresse <a href="http://www.yopmail.com/en/">yopmail.com</a>, en quelques clics.</p>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead id="thead_main">
+                    <tr>
+                    % for _fields in register_fields:
+                        <th class="${'required' if _fields.get('required') else 'not_required'}">${_fields.get('name')}</th>
+                    % endfor
+                    </tr>
+                  </thead>
                 </table>
               </div>
-            </div>
-            <div id="register_user_btn" class="pad-20" style='display:none'>
-              <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="register_from_csv">Enregistrer les participants</button>
-            </div>
-          </div><!-- end card -->
 
-          </div>
+              <div class="field participants">
+                <form id="upload_form_participant" enctype="multipart/form-data">
+                  <input type="file" name="file" id="invite_participant">
+                </form>
+              </div>
+              <span style="display:block;clear:left;"></span>
+              <div>
+                <div id="csv_import_error" class="mt-20" style="display:none;">
+                  <span class="error-message" id="incorrect_header" style='display:none;'>${_('The header of your file does not respect the required fields. Please edit it to add the following columns:')}</span>
+                  <span id="header-error-details"></span>
+                  <span class="error-message" id="incorrect-data" style='display:none;'>${_('Some user data is not correct. Please edit your file:')}</span>
+                  <span id="incorrect-error-detail"></span>
+                  <span class="error-message" id="required-data" style='display:none;'>${_('Some user data is not complete. Please complete your file:')}</span>
+                  <span id="missing-error-detail"></span>
+                </div>
+                <div id="csv_import_feedback" class="green p-10 font-weight-bold" style='display:none;'>${_('Your request has been taken into account.')}<br>${_('Participants are in the process of registration.')}<br> ${_('You will receive an email when the registration process is complete.')} </div>
+                <div id="csv_import_preview" class="mt-20" style='display:none;'>
+                  <table id="csv_import" class='mt-20'>
+
+                  </table>
+                </div>
+              </div>
+              <div id="register_user_btn" class="pad-20" style='display:none'>
+                <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="register_from_csv">${_('Register participants')}</button>
+              </div>
+           </div><!-- end card -->
+           </div>
         </div>
       </div>
 
-      <!-- REGISTERED PARTICIPANTS ------------------------------------------>
+      %if configuration_helpers.get_value('TMA_ENABLE_TIME_TRACKING'):
+      <!--ACTIONS GROUPEES --------------------------------------------->
+      <div id="tma_actions"  class="dashboard_window is_hide ">
+        <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <h4 class="card-title">${_("Grouped Actions")}</h4>
+                <p style="font-weight:bold" class="m-0"> ${_('Addition of time')} </p> 
+                <p class="m-0 mb-20">${_('Add time to the counter for a list of participants by separating their emails by a new line.')}</p>
+                <div class="row">
+                  <div id="add-time-block">
+                    <div class="col-md-8">
+                        <p>Temps à ajouter</p>
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control" placeholder="00" aria-describedby="basic-addon2" id="tma-actions-extra-time-hours" min="0">
+                          <div class="input-group-append">
+                            <span class="input-group-text">${_('hours')}</span>
+                          </div>
+                          <input type="number" class="form-control" placeholder="00" aria-describedby="basic-addon2" id="tma-actions-extra-time-minutes" min="0">
+                          <div class="input-group-append">
+                            <span class="input-group-text">${_('minutes')}</span>
+                          </div>
+                        </div>
+                        <p>${_('List of participants')}</p>
+                        <div class="input-group ">
+                            <textarea class="form-control" aria-label="With textarea" id="tma-actions-extra-time-list"></textarea>
+                        </div>
+                        <div style="padding:20px 0px">
+                          <button class="btn btn bouton-dashboard primary_color_bg white-text" type="button" id="tma-actions-extra-time">${_('Add')}</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div id="tma-actions-extra-time-feedback"></div>
+              </div>
+            </div>
+          </div>
+      </div>
+      %endif
+
+      <script>
+        //Check for running tasks
+        data={
+          'task_type':'add_extra_time',
+          'task_key':'tma_extra_time'
+        }
+        alreadyRunningGlobalComment="<p class='bold'> <i style='font-size:35px;margin-right:10px' class='fa fa-clock'></i>  ${_('A task to add user time has already been started for this course. It may take a few minutes to complete. The feature will be available again after the task is completed. Reload your page in a few moments.')}</p>"
+        $.ajax({
+              type:'post',
+              url:"${reverse('is_task_running', kwargs={'course_id': str(course.id)})}",
+              dataType : 'json',
+              data:JSON.stringify(data),
+              success : function(data) {
+                if(data.status==="task_running"){
+                  $('#add-time-block').html(alreadyRunningGlobalComment)
+                }
+              }
+            })
+
+        //Add time script
+        $('#tma-actions-extra-time').click(function(){
+          $('#tma-actions-extra-time-feedback').html('').removeClass('has-error-field');
+          var has_error=false;
+          var feedback=[];
+          var student_list=[]
+          if($('#tma-actions-extra-time-list').val()){
+            student_list = $('#tma-actions-extra-time-list').val().split("\n");
+          }
+
+          var seconds_time = $('#tma-actions-extra-time-hours').val()*3600+$('#tma-actions-extra-time-minutes').val()*60;
+          if(seconds_time===0){
+            has_error=true;
+            feedback.push("${_('Please specify a duration to add.')}")
+          }
+          if(student_list.length>0){
+            student_list.forEach(function(student_email){
+            if(!validateEmail(student_email)){
+              has_error=true;
+              feedback.push(student_email+"${_(' is not a valid email address.')}")
+            }
+          })
+          }
+          if(student_list.length===0){
+            has_error=true;
+            feedback.push("${_('Please fill in the emails of the participants.')}")
+          }
+
+          if(has_error){
+            var globalComment='<ul>'
+            feedback.forEach(function(comment){
+              globalComment+='<li>'+comment+'</li>'
+            })
+            globalComment+='</ul>'
+            $('#tma-actions-extra-time-feedback').html(globalComment).addClass('has-error-field')
+          }
+          else{
+            var okGlobalComment="<p style='font-weight:bold'> <i style='font-size:35px;margin-right:10px' class='fa fa-clock'></i>${_(' Your request has been taken into account and its execution may take a few minutes.')}</p> <p class='m-0'>${_('An email will be sent once the addition of effective time. In the meantime, adding time is no longer available.')}</p>";
+            var downGlobalComment = "<p><i style='font-size:35px;margin-right:10px' class='fa fa-exclamation-circle'></i>${_('An error occurred while submitting your request.')}</p><p class='m-0'> ${_('Reload the page and check if you are still connected to the dashboard.')}</p>"
+            data={
+              "time_to_add":seconds_time,
+              "participants_list":student_list
+            }
+            $.ajax({
+              type:'post',
+              url:"${reverse('tma_add_time', kwargs={'course_id': str(course.id)})}",
+              dataType : 'json',
+              data:JSON.stringify(data),
+              success : function(data) {
+                if(data.status==="task_launched"){
+                  $('#add-time-block').html(okGlobalComment)
+                }
+              },
+              error: function(data){
+                $('#add-time-block').html(downGlobalComment)
+              }
+            })
+          }
+        })
+      </script>
+
+
+
+      <!-- REGISTERED USERS ------------------------------------------>
       <div id="registered_users" class="dashboard_window is_hide">
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
-              <h4 class="card-title">Participants inscrits</h4>
-              <p>Consultez ici le profil des participants inscrits à votre cours.</p>
+              <h4 class="card-title">${_("Registered participants")}</h4>
+              <p>${_('Check here the profile of participants registered in your course.')}</p>
               <div class="ptop-20" style="display:inline;">
-                <span style='margin-right:20px;line-height: 35px;'>Email du participant</span>
+                <span style='margin-right:20px;line-height: 35px;'>${_("Participant's email")}</span>
                 <input type="email" id="email_user">
               </div>
               <div>
-                <button id="get_user_data" class="btn bouton-dashboard primary_color_bg mt-20 white-text">Voir le profil</button>
+                <button id="get_user_data" class="btn bouton-dashboard primary_color_bg mt-20 white-text">${_('View Profile')}</button>
               </div>
               <div id="email_waiting" class="mt-20 font-weight-bold text-center primary_color_text"></div>
               <div id="email_error" class="mt-20"></div>
@@ -375,53 +538,89 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
 
           <div id="current_course_wrap" class="col-sm-6 mt-20" style='display:none'>
             <div class="card">
-              <p class="font-weight-bold primary_color_text">A propos de ce cours</p>
+              <p class="font-weight-bold primary_color_text">${_('About this course')}</p>
               <div id="course_basics">
                 %if is_course_opened(course):
-                  <p><i class="green fas fa-check"></i> Le cours est ouvert</p>
+                  <p><i class="green fas fa-check"></i> ${_('The course is open')}</p>
                 %else :
-                  <p><i class="red fas fa-times"></i> Le cours est fermé</p>
+                  <p><i class="red fas fa-times"></i> ${_('The course is closed')}</p>
                 %endif
                 %if is_enrollment_opened(course):
-                  <p><i class="green fas fa-check"></i> Les inscriptions sont ouvertes</p>
+                  <p><i class="green fas fa-check"></i> ${_('Registrations are open')}</p>
                 %else :
-                  <p><i class="red fas fa-times"></i> Les inscriptions sont fermées</p>
+                  <p><i class="red fas fa-times"></i> ${_('Registrations are closed')}</p>
                 %endif
                 %if course.invitation_only :
-                  <p><i class="far fa-envelope red"></i> Cours sur invitation uniquement: Oui</p>
+                  <p><i class="far fa-envelope red"></i> ${_('Invitational course only: Yes')}</p>
                 %else :
-                  <p><i class="far fa-envelope green"></i> Cours sur invitation uniquement : Non </p>
+                  <p><i class="far fa-envelope green"></i> ${_('Invitational course only: No')}</p>
                 %endif
               </div>
-              <p class="font-weight-bold mt-20 primary_color_text">A propos du participant </p>
+              <p class="font-weight-bold mt-20 primary_color_text">${_('About the participant')} </p>
               <div id=current_course_info></div>
             </div>
           </div>
           <div class="col-sm-12 mt-20" id="actions-participant-wrapper" style="display:none;">
             <div class="card">
-              <p class="font-weight-bold primary_color_text">Actions disponibles pour le participant</p>
+              <p class="font-weight-bold primary_color_text">${_('Actions available to the participant')}</p>
               <div id="actions-participant">
                 <div>
-                  <button class="btn bouton-dashboard primary_color_bg white-text" data-toggle="modal" data-target="#reinitialiser-mdp"><i class="fas fa-key"></i> Réinitialiser le mdp</button>
+                  <button class="btn bouton-dashboard primary_color_bg white-text" data-toggle="modal" data-target="#reinitialiser-mdp"><i class="fas fa-key"></i> ${_('Reset password')}</button>
                 </div>
                 <div>
-                  <button class="btn bouton-dashboard primary_color_bg white-text" style="display:none;margin-left:15px;" id="debloquer-compte" data-toggle="modal" data-target="#popup-debloquer-compte"><i class="fas fa-lock-open"></i> Débloquer le compte</button>
+                  <button class="btn bouton-dashboard primary_color_bg white-text" style="display:none;margin-left:15px;" id="debloquer-compte" data-toggle="modal" data-target="#popup-debloquer-compte"><i class="fas fa-lock-open"></i> ${_('Unlock account')}</button>
                 </div>
                 <div>
-                  <button class="btn bouton-dashboard primary_color_bg white-text" style='display:none;margin-left:15px;' id="activer-compte" data-toggle="modal" data-target="#popup-activer-compte"><i class="fas fa-power-off"></i> Activer le compte</button>
+                  <button class="btn bouton-dashboard primary_color_bg white-text" style='display:none;margin-left:15px;' id="activer-compte" data-toggle="modal" data-target="#popup-activer-compte"><i class="fas fa-power-off"></i> ${_('Activate account')}</button>
                 </div>
                 <div>
-                  <button class="btn bouton-dashboard primary_color_bg white-text" style='display:none;margin-left:15px;' id="inscrire-cours" data-toggle="modal" data-target="#popup-inscrire-cours"><i class="fas fa-pencil-alt"></i> Inscrire à ce cours</button>
+                  <button class="btn bouton-dashboard primary_color_bg white-text" style='display:none;margin-left:15px;' id="inscrire-cours" data-toggle="modal" data-target="#popup-inscrire-cours"><i class="fas fa-pencil-alt"></i> ${_('Register for this course')}</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        %if configuration_helpers.get_value('TMA_ENABLE_TIME_TRACKING'):
+        <div class="row" id="additional_actions_wrap">
+          <div class="col-sm-12 mt-20" id="participants-add-time" style="display:none">
+            <div class="card">
+                <p class="font-weight-bold primary_color_text">
+                  ${_('Time Tracking')}</p>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p>${_("Participant's current time on the course:")}</p>
+                    <p id="participant-current-time"></p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p>${_('Add time to the participant')}</p>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" placeholder="00" aria-describedby="basic-addon2" id="hoursToAdd" min="0">
+                      <div class="input-group-append">
+                        <span class="input-group-text">${_('hours')}</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="00" aria-describedby="basic-addon2" id="minutesToAdd" min="0">
+                      <div class="input-group-append">
+                        <span class="input-group-text">${_('minutes')}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <button class="btn btn bouton-dashboard primary_color_bg white-text" type="button" id="add-extra-time">${_('add')}</button>
+                      <p id="time-tracker-feedback"></p>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        %endif
+
         <div class="row">
           <div id="other_courses_wrap" class="col-sm-12 mt-20" style="display:none;">
             <div class="card">
-              <p class="font-weight-bold mt-20 primary_color_text">Autres cours suivis sur le microsite</p>
+              <p class="font-weight-bold mt-20 primary_color_text">
+                ${_('Other courses taken on the microsite')}</p>
               <div id="other_courses_registrations"></div>
             </div>
           </div>
@@ -434,15 +633,15 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Réinitialiser le mot de passe</h5>
+              <h5 class="modal-title" id="exampleModalLabel">${_('Reset password')}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p class="text-center">Vous pouvez ici générer un lien de réintialisation à communiquer au participant pour changer son mot de passe.</p>
+              <p class="text-center">${_('Here you can generate a reinitialization link to communicate to the participant to change their password.')}</p>
               <div class="mt-20 text-center">
-                <button id="generate-mdp-link" class="btn bouton-dashboard primary_color_bg white-text">Générer le lien</button>
+                <button id="generate-mdp-link" class="btn bouton-dashboard primary_color_bg white-text">${_('Generate link')}</button>
               </div>
               <div id="link-mdp" class="mt-20 font-weight-bold text-center" style='min-height:60px;'>
 
@@ -457,17 +656,20 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Inscrire le participant à ${course.display_name_with_default}</h5>
+              <h5 class="modal-title" id="exampleModalLabel">
+                ${_('Register the participant to ')}${course.display_name_with_default}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p id="register_currentcourse_info" class="text-center">Cliquez sur confirmer pour inscrire le participant <span id="participant_email"></span> au cours ${course.display_name_with_default}.</p>
+              <p id="register_currentcourse_info" class="text-center">
+                ${_('Click on confirm to register the participant ')}<span id="participant_email"></span> 
+                ${_('to the course')} ${course.display_name_with_default}.</p>
             </div>
             <div class="modal-footer">
-             <button id="close_current_course_enrollment" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">Annuler</button>
-             <button id="current_course_enrollment" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg white-text">Confirmer l'inscription</button>
+             <button id="close_current_course_enrollment" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">${_('Cancel')}</button>
+             <button id="current_course_enrollment" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg white-text">${_('Confirm registration')}</button>
             </div>
           </div>
         </div>
@@ -478,17 +680,17 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Débloquer le compte</h5>
+              <h5 class="modal-title" id="exampleModalLabel">${_("Unlock account")}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p id="debloquer-compte-instruction" class="text-center">Le compte du participant est bloqué en raison d'un nombre excessif d'échecs de connexion. Cliquez sur débloquer pour réinitialiser les tentatives de connexion de l'utilisateur.</p>
+              <p id="debloquer-compte-instruction" class="text-center">${_("The participant's account is blocked due to an excessive number of connection failures. Click Unblock to reset the user's login attempts.")}</p>
             </div>
             <div class="modal-footer">
-             <button id="debloquer-compte-close" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">Annuler</button>
-             <button id="debloquer-compte-action" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg">Débloquer</button>
+             <button id="debloquer-compte-close" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">${_('Cancel')}</button>
+             <button id="debloquer-compte-action" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg">${_('Unlock')}</button>
             </div>
           </div>
         </div>
@@ -499,17 +701,17 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Activer le compte</h5>
+              <h5 class="modal-title" id="exampleModalLabel">${_("Activate account")}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p id="activer-compte-instruction" class="text-center">Le compte du participant a été désactivé. Pour le réactiver cliquez sur Confirmer la réactivation.</p>
+              <p id="activer-compte-instruction" class="text-center">${_("The participant's account has been disabled. To reactivate it, click Confirm Reactivation.")}</p>
             </div>
             <div class="modal-footer">
-             <button id="activer-compte-close" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">Annuler</button>
-             <button id="activer-compte-action" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg">Confirmer la réactivation</button>
+             <button id="activer-compte-close" type="button" class="btn bouton-dashboard primary_color_text transparent_bg" data-dismiss="modal">${_('Cancel')}</button>
+             <button id="activer-compte-action" data_course_id="${course.id}" type="button" class="btn bouton-dashboard primary_color_bg">${_('Confirm reactivation')}</button>
             </div>
           </div>
         </div>
@@ -520,12 +722,11 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
         <div class="row" id="regular_fields">
           <div class="col-sm-12">
             <div class="card">
-              <h4 class="card-title">Créer un rapport de notes</h4>
-              <p>Composez votre rapport de notes sur mesure en sélectionnant les champs attendus. Vous pouvez ici générer un export ponctuel qui vous sera adressé par mail.</p>
-
-              <p class="font-weight-bold">Champs du formulaire</p>
-              <p class="m-0">
-                Selectionner tous les champs formulaire
+              <h4 class="card-title">${_('Create grades report')}</h4>
+              <p>${_('Compose your customized notes report by selecting the expected fields. Here you can generate a one-time export that will be sent to you by email.')} <span style="font-weight:bold">${_('Changelog at 23/10/2019: Added export of answers to multiple choice questions')}</span></p>
+              % if is_course_opened(course):
+              <p class="font-weight-bold">${_('Fields of the form')}</p>
+              <p class="m-0">${_('Select all form fields')}
                 <label class="switch">
                   <input type="checkbox" id="select_all_fields" class='slider_notes'>
                   <span class="slider round"></span>
@@ -555,14 +756,15 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
                     <input type="checkbox" class='slider_notes' value="inscription_date">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Date Inscription</span>
+                  <span class="label-notes disabled_text">${_('Date Registration')}</span>
                 </div>
                 <div class="col-sm-4" data-field="date-connexion">
                   <label class="switch">
                     <input type="checkbox" class='slider_notes' value="last_connexion">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Dernière connexion</span>
+                  <span class="label-notes disabled_text">
+                    ${_('Last connection')}</span>
                 </div>
                 %if configuration_helpers.get_value('TMA_ENABLE_TIME_TRACKING'):
                 <div class="col-sm-4" data-field="nom-time-tracking">
@@ -570,7 +772,8 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
                     <input type="checkbox" class='slider_notes' value="time_tracking">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Temps passé</span>
+                  <span class="label-notes disabled_text">
+                    ${_('Time spent')}</span>
                 </div>
                 %endif
                 <div class="col-sm-4" data-field="summary">
@@ -578,44 +781,68 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
                     <input type="checkbox" class='slider_notes' value="grade_detailed">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Note par travail</span>
+                  <span class="label-notes disabled_text">
+                    ${_('Grade by type of work')}</span>
                 </div>
                 <div class="col-sm-4" data-field="summary">
                   <label class="switch">
                     <input type="checkbox" class='slider_notes' value="exercises_grade">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Note par exercice</span>
+                  <span class="label-notes disabled_text">${_("Grade by exercise")}</span>
+                </div>
+                <div class="col-sm-4" data-field="summary">
+                  <label class="switch">
+                    <input type="checkbox" class='slider_notes' value="exercises_answers">
+                    <span class="slider round"></span>
+                  </label>
+                  <span class="label-notes disabled_text">${_("QCM answers")}</span>
                 </div>
                 <div class="col-sm-4" data-field="final-grades">
                   <label class="switch">
                     <input type="checkbox" class='slider_notes' value="grade_final">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Note finale</span>
+                  <span class="label-notes disabled_text">${_("Final grade")}</span>
                 </div>
                 <div class="col-sm-4" data-field="certifié">
                   <label class="switch">
                     <input type="checkbox" class='slider_notes' value="certified">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Attestation</span>
+                  <span class="label-notes disabled_text">${_("Certificate")}</span>
                 </div>
+                %if configuration_helpers.get_value('tma_best_grade_mode'):
+                <div class="col-sm-4" data-field="best_grade">
+                    <label class="switch">
+                      <input type="checkbox" class='slider_notes' value="best_grade">
+                      <span class="slider round"></span>
+                    </label>
+                    <span class="label-notes disabled_text">${_("Best Grade")}</span>
+                  </div>
+                  <div class="col-sm-4" data-field="best_grade_date">
+                      <label class="switch">
+                        <input type="checkbox" class='slider_notes' value="best_grade_date">
+                        <span class="slider round"></span>
+                      </label>
+                      <span class="label-notes disabled_text">${_("Best Grade Date")}</span>
+                    </div>
+                %endif
                 %if cohorted:
                 <div class="col-sm-4" data-field="nom-cohorts">
                   <label class="switch">
                     <input type="checkbox" class='slider_notes' value="cohorte_names">
                     <span class="slider round"></span>
                   </label>
-                  <span class="label-notes disabled_text">Cohortes</span>
+                  <span class="label-notes disabled_text">${_("Cohorts")}</span>
                 </div>
                 %endif
               </div>
 
               % if len(certificates_fields) > 0:
-              <p class=font-weight-bold>Champs certificat</p>
+              <p class=font-weight-bold>${_("Extra fields")}</p>
               <p class="m-0">
-                Selectionner tous les champs certificat
+                ${_("Select all certificate fields")}
                 <label class="switch">
                   <input id="select_all_certificate_fields" type="checkbox" class='slider_notes'>
                   <span class="slider round"></span>
@@ -636,7 +863,7 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
 
               <ul class="nav nav-tabs" id="rapport_options" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="ponctuel" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Envoi Ponctuel</a>
+                  <a class="nav-link active" id="ponctuel" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">${_("One-time sending")}</a>
                 </li>
                 <!--
                 <li class="nav-item">
@@ -645,41 +872,52 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <p class="text-center mt-20">Générer un rapport de notes ponctuellement <br> Le rapport de notes vous sera directement envoyé par e-mail une fois les calculs de notes effectués.</p>
+                  <p class="text-center mt-20">${_("Generate a one-time grade report ")}<br> ${_("The report will be sent to you by email, once our grade calculations will be done.")}</p>
                   <div class="text-center">
-                    <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="ponctual-grade-report"><i class="fas fa-pencil-alt"></i> Recevoir le rapport</button>
+                    <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="ponctual-grade-report"><i class="fas fa-pencil-alt"> ${_("Get the report")}</i> </button>
                   </div>
                   <div id="ponctual_feedback"></div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                  <p class="text-center mt-20">Programmer un rapport de notes régulier <br> Sélectionnez une périodicité et ajoutez les emails des personnes auxquelles adresser le rapport de notes.</p>
+                  <p class="text-center mt-20"> ${_("Set a regular grade report")}<br> ${_("Set a frequency and add selected recipients' emails.")}
+                  </p>
                   <div class="row text-center">
                     <div class="offset-sm-4 col-sm-4">
                       <div class="form-group">
-                        <label for="sel1">Quelle périodicité?</label>
+                        <label for="sel1">${_("Which frequency ?")}</label>
                         <select class="form-control" id="detail-periodicite-rapport">
                           <option value=""></option>
-                          <option value="daily">Quotidienne</option>
-                          <option value="weekly">Hedbomadaire</option>
-                          <option value="monthly">Mensuelle</option>
+                          <option value="daily">${_("Daily")}
+                          </option>
+                          <option value="weekly">${_("Weekly")}
+                          </option>
+                          <option value="monthly">${_("Yearly")}
+                          </option>
                         </select>
                       </div>
                     </div>
                     <div class="offset-sm-3 col-sm-6" id="detail-hebdomadaire-jours">
                       <div class="form-group">
-                        <p class="m-0"><label for="sel1">Quel jour de la semaine?</label></p>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="1">Lundi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="2">Mardi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="3">Mercredi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="4">Jeudi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="5">Vendredi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="6">Samedi</label>
-                        <label class="radio-inline"><input type="radio" name="weekday" value="7">Dimanche</label>
+                        <p class="m-0"><label for="sel1">${_("Which day of the week ?")}</label></p>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="1">${_("Monday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="2">${_("Tuesday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="3">${_("Wednesday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="4">${_("Thursday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="5">${_("Friday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="6">${_("Saturday")}
+                        </label>
+                        <label class="radio-inline"><input type="radio" name="weekday" value="7">${_("Sunday")}
+                        </label>
                       </div>
                     </div>
                     <div class="offset-sm-3 col-sm-6" id="detail-mensuel-jours">
                       <div class="form-group">
-                        <p class="m-0"><label for="sel2">Quel jour du mois?</label></p>
+                        <p class="m-0"><label for="sel2">${_("Which day of the month ")}</label></p>
                         <select name="" id="">
                           %for i in range(1,31):
                             <option value="${i}">${i}</option>
@@ -689,24 +927,28 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
                     </div>
                     <div class="offset-sm-3 col-sm-6" id="detail-heure">
                       <div class="form-group">
-                        <p class="m-0"><label for="sel2">Quelle heure?</label></p>
+                        <p class="m-0"><label for="sel2">${_("What time ?")}
+                        </label></p>
                         <input id="time-picker" type="text">
                       </div>
                     </div>
                     <div class="offset-sm-3 col-sm-6" id="detail-destinataires">
                       <div class="form-group">
-                        <p class="m-0"><label for="sel2">A qui l'envoyer?</label></p>
+                        <p class="m-0"><label for="sel2">${_("Recipients ?")}
+                        </label></p>
                         <input type="text" value="" data-role="tagsinput" id="tags" class="form-control">
                       </div>
                     </div>
 
                   </div>
                   <div class="text-center">
-                    <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="scheduled-grade-report"><i class="far fa-clock"></i> Programmer le rapport</button>
+                    <button class="btn bouton-dashboard primary_color_bg mt-20 white-text" id="scheduled-grade-report"><i class="far fa-clock"></i> ${_("Schedule a report")}</button>
                   </div>
                   <div id="scheduled_feedback"></div>
               </div>
-
+            %else :
+            <p class="font-weight-bold"> ${_("Course is currently off. Reports are not available")}</p>
+            %endif
           </div><!-- end card -->
         </div><!-- end col sm 12-->
 <!--
@@ -726,8 +968,10 @@ h1,h2,h3,h4,h5,p,label,li,a,button{
   %else:
   <div class="container ptop-20 no-access" id="content_page" data-courseid="${course_id}">
     <div class="content">
-      <h2 class="text-center">Accès Restreint</h2>
-      <p class="text-center">Vous n'avez pas accès au Dashboard TMA</p>
+      <h2 class="text-center">${_("Limited access")}
+      </h2>
+      <p class="text-center">${_("You are not allowed to access TMA dashboard")}
+      </p>
     </div>
   </div>
   %endif
@@ -895,12 +1139,12 @@ $('#ponctual-grade-report').click(function(){
   }
   data_json=JSON.stringify(data);
   $.ajax({
-    type:'POST',
+    type:'post',
     url:url,
     dataType : 'json',
     data:data_json,
     success : function(data) {
-      display_feedback("ponctual_feedback","Le rapport de notes est en cours de génération. <br> Il vous sera adressé par mail.");
+      display_feedback("ponctual_feedback",'${_("Grades report is being generated. ")} <br> ${_("You will receive it by email.")}');
     }
   })
 })
@@ -935,7 +1179,7 @@ $('#scheduled-grade-report').click(function(){
     'report_fields':JSON.stringify(fields)
   }
   $.ajax({
-    type:'POST',
+    type:'post',
     url:url,
     dataType : 'json',
     data:data,
@@ -1001,7 +1245,7 @@ function ask_course_data(course_id){
 
 //////////////////////////////////////////////// USER REGISTERED ACTIONS /////////////////////////////////////////////////
 $('#generate-mdp-link').on('click', function(){
-  url="${reverse('tma_get_password_link', args=[str(course.id)])}";
+  url=window.location.pathname.replace('dashboard','')+'/tma_password_link';
   data={};
   data['user_email']=$("#email_user").val();
   $.ajax({
@@ -1016,7 +1260,7 @@ $('#generate-mdp-link').on('click', function(){
 })
 
 $('#current_course_enrollment').on('click', function(){
-  url="${reverse('students_update_enrollment', kwargs={'course_id': course.id.to_deprecated_string()})}";
+  url=window.location.origin+'/courses/${course.id}/instructor/api/students_update_enrollment';
   data={};
   data['identifiers']=$("#email_user").val();
   data['action']='enroll';
@@ -1028,19 +1272,17 @@ $('#current_course_enrollment').on('click', function(){
     url:url,
     data:data,
     success:function(data) {
-      if('success' in data){
-        $('#inscrire-cours').css('display','none');
-        $('#register_currentcourse_info').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">Inscription Confirmée</p><p>'+$("#email_user").val()+' a bien été inscrit au cours ${course.display_name_with_default}</p>');
-        $('#current_course_enrollment').css('display','none');
-        $('#close_current_course_enrollment').html('Fermer');
-        $('#bien-inscrit').html('<i class="green fas fa-check"></i> Le participant est bien inscrit au cours : <a target="_blank" href="/courses/${course.id}/progress/'+user_id+'">Progression</a>')
-      }
+      $('#inscrire-cours').css('display','none');
+      $('#register_currentcourse_info').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">${_("Registration has been confirmed")}</p><p>'+$("#email_user").val()+' a bien été inscrit au cours ${course.display_name_with_default}</p>');
+      $('#current_course_enrollment').css('display','none');
+      $('#close_current_course_enrollment').html('Fermer');
+      $('#bien-inscrit').html('<i class="green fas fa-check"></i> ${_("Participant is registered in the course :")} <a target="_blank" href="/courses/${course.id}/progress/'+user_id+'">${_("Progression")}</a>')
     }
   })
 })
 
 $('#debloquer-compte-action').on('click', function(){
-  url="${reverse('tma_unlock_account', args=[str(course.id)])}";
+  url=window.location.pathname.replace('dashboard','')+'tma_unlock_failure';
   data={};
   data['user_email']=$("#email_user").val();
   $.ajax({
@@ -1050,8 +1292,8 @@ $('#debloquer-compte-action').on('click', function(){
     data:data,
     success:function(data) {
       $('#debloquer-compte').css('display','none');
-      $('#debloquer-compte-instruction').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">Compte Débloqué</p>');
-      $('#compte_bloque').html('<i class="green fas fa-check"></i> La connexion au compte du participant n\'est pas bloquée');
+      $('#debloquer-compte-instruction').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">${_("Account has been unlocked")}</p>');
+      $('#compte_bloque').html('<i class="green fas fa-check"></i>${_("Login to participant\'s account is not blocked")}');
       $('#debloquer-compte-action').css('display','none');
       $('#debloquer-compte-close').html('Fermer');
     }
@@ -1059,7 +1301,7 @@ $('#debloquer-compte-action').on('click', function(){
 })
 
 $('#activer-compte-action').on('click', function(){
-  url="${reverse('tma_activate_account', args=[str(course.id)])}";
+  url=window.location.pathname.replace('dashboard','')+'tma_activate_account';
   data={};
   data['user_email']=$("#email_user").val();
   $.ajax({
@@ -1069,8 +1311,8 @@ $('#activer-compte-action').on('click', function(){
     data:data,
     success:function(data) {
       $('#activer-compte').css('display','none');
-      $('#activer-compte-instruction').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">Compte Activé</p>');
-      $('#compte-inactif').html('<i class="green fas fa-check"></i> Le compte du participant est activé');
+      $('#activer-compte-instruction').html('<p class="primary_color_text" style="font-size:50px;"><i class="fas fa-check-circle"></i></p><p class="primary_color_text font-weight-bold">${_("Account has been activated")}</p>');
+      $('#compte-inactif').html('<i class="green fas fa-check"></i> ${_("Participant\'s account has been activated")}');
       $('#activer-compte-action').css('display','none');
       $('#activer-compte-close').html('Fermer');
     }
@@ -1079,14 +1321,14 @@ $('#activer-compte-action').on('click', function(){
 
 
 
-//////////////////////////////////////////////// USER REGISTERED /////////////////////////////////////////////////////////
+//////////////////////////////////////////////// REGISTERED USERS MECANIQUE /////////////////////////////////////////////////////////
+
 $('#get_user_data').on('click', function(){
 
   reset_user_info_display();
-
   user_email = $("#email_user").val();
   if(user_email==''){
-    display_error('Merci de remplir le champ email');
+    display_error('${_("Please fill the email field")}');
   }
   else{
     if(validateEmail(user_email)){
@@ -1096,14 +1338,14 @@ $('#get_user_data').on('click', function(){
       ask_user_data(data);
     }
     else{
-      display_error('Email non valide');
+      display_error('${_("Invalid email")}');
     }
   }
 });
 
 function show_waiting_message()
 {
-  $('#email_waiting').html("<p><i class='fa fa-cogs'></i> <span>Recherche en cours...</span></p>");
+  $('#email_waiting').html("<p><i class='fa fa-cogs'></i> <span>${_('Loading...')}<span></p>");
   $('#email_waiting').show();
 }
 
@@ -1119,6 +1361,7 @@ function reset_user_info_display(){
   $('#other_courses_registrations').html('');
 
   $('#user_info_wrap').css('display','none');
+  $('#participants-add-time').css('display','none');
   $('#current_course_wrap').css('display','none');
   $('#other_courses_wrap').css('display','none');
   $('#actions-participant-wrapper').css('display','none');
@@ -1132,15 +1375,72 @@ function reveal_user_info(){
   $('#current_course_wrap').css('display','block');
   $('#other_courses_wrap').css('display','block');
   $('#actions-participant-wrapper').css('display','block');
+  %if configuration_helpers.get_value('TMA_ENABLE_TIME_TRACKING'):
+  display_user_timer(user_email);
+  %endif
+}
+
+
+function display_user_timer(user_email){
+  var url="${reverse('get_global_time', kwargs={'course_id': str(course.id)})}";
+  var data={
+    'user_email':user_email
+  }
+  $.ajax({
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:data,
+    success:function(response) {
+      $('#participant-current-time').html(secondsToHms(response.global_time));
+      $('#participants-add-time').css('display', 'block');
+    }
+  })
+}
+
+$("#add-extra-time").on('click', function(){
+  var hours_in_seconds=parseInt($('#hoursToAdd').val() || 0)*3600;
+  var minutes_in_seconds=parseInt($('#minutesToAdd').val() || 0)*60;
+  var total_time=hours_in_seconds+minutes_in_seconds;
+  var url="${reverse('add_time_tracking', kwargs={'course_id': str(course.id)})}";
+  var data={
+    'user_email':user_email,
+    'time':total_time,
+    'course_section':"extra",
+    'course_sub_section':"extra"
+  }
+  $.ajax({
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:data,
+    success:function(response) {
+      $('#time-tracker-feedback').html('${_("Your time has been added to  user\'s counter.")}');
+      $('#minutesToAdd').val(0);
+      $('#hoursToAdd').val(0);
+      display_user_timer(user_email);
+    }
+  })
+})
+
+function secondsToHms(d) {
+    d = Number(d);
+
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
 }
 
 function ask_user_data (data){
-  path = "${reverse('tma_get_user_info', args=[str(course.id)])}";
+  path = window.location.pathname.replace('dashboard','');
+  url = path+"tma_users_registered";
   org='${configuration_helpers.get_value('domain_prefix')}';
   $.ajax({
     type:"POST",
     dataType:'json',
-    url:path,
+    url:url,
     data:data,
     success:function(user_data) {
       if(! ('error' in user_data)){
@@ -1163,38 +1463,38 @@ function display_user_info(user_data){
   $('#user_display').css('display','block');
   user_id = user_data['id'];
   //Profil participant
-  $('#user_info_data').append('<p class="font-weight-bold primary_color_text"> Profil participant <br>'+user_data.first_name+' '+user_data.last_name+' </p>');
-  $('#user_info_data').append('<p> Email : <br>'+user_data.email+' </p>');
-  $('#user_info_data').append('<p> Date inscription : <br>'+user_data.inscription+' </p>');
-  $('#user_info_data').append('<p> Dernière connexion :<br> '+user_data.last_login+' </p>');
+  $('#user_info_data').append('<p class="font-weight-bold primary_color_text">${_("Participant\'s profile")} <br>'+user_data.first_name+' '+user_data.last_name+' </p>');
+  $('#user_info_data').append('<p> ${_("Email")} : <br>'+user_data.email+' </p>');
+  $('#user_info_data').append('<p> ${_("Registration date")} : <br>'+user_data.inscription+' </p>');
+  $('#user_info_data').append('<p> ${_("Last login")} :<br> '+user_data.last_login+' </p>');
 
 
 
 
   // A propos du participant
   if(user_data['active']){
-    $('#current_course_info').append('<p class=""> <i class="green fas fa-check"></i> Le compte du participant est activé</p>');
+    $('#current_course_info').append('<p class=""> <i class="green fas fa-check"></i> ${_("Participant\'s account has been activated")}</p>');
   }
   else{
-    $('#current_course_info').append('<p id="compte-inactif"> <i class="red fas fa-times"></i> Le compte du participant est désactivé.</p>');
+    $('#current_course_info').append('<p id="compte-inactif"> <i class="red fas fa-times"></i> ${_("Participant\'s account is not activated")}</p>');
   }
   if(user_data['login_failure']){
-    $('#current_course_info').append('<p id="compte_bloque"> <i class="red fas fa-times"></i> La connexion au compte du participant est bloquée.</p>');
+    $('#current_course_info').append('<p id="compte_bloque"> <i class="red fas fa-times"></i> ${_("Login to participant\'s account is blocked")}.</p>');
   }
   else{
-    $('#current_course_info').append('<p class=""> <i class="green fas fa-check"></i> La connexion au compte du participant n\'est pas bloquée</p>');
+    $('#current_course_info').append('<p class=""> <i class="green fas fa-check"></i> ${_("Login to participant\'s account is not blocked")}</p>');
   }
   if(user_data['enrolled_to_current_course']){
-    $('#current_course_info').append('<p id="bien-inscrit" class=""> <i class="green fas fa-check"></i> Le participant est bien inscrit au cours : <a target="_blank" href="'+user_data['current_course_grades']+'">Progression</a></p>');
+    $('#current_course_info').append('<p id="bien-inscrit" class=""> <i class="green fas fa-check"></i> ${_("Participant is registered in the course :")} <a target="_blank" href="'+user_data['current_course_grades']+'">Progression</a></p>');
   }
   else{
-    $('#current_course_info').append('<p class=""> <i class="red fas fa-times"></i> Le participant n\'est pas inscrit à ce cours.</p>');
+    $('#current_course_info').append('<p class=""> <i class="red fas fa-times"></i> ${_("Participant is registered not in this course.")}</p>');
   }
   if(user_data['passed']){
-    $('#current_course_info').append('<p class=""> <i class="fas fa-graduation-cap green"></i> Le participant a obtenu le certificat avec '+user_data['grade']*100+'%</p>');
+    $('#current_course_info').append('<p class=""> <i class="fas fa-graduation-cap green"></i> ${_("Participant has succeeded with ")} '+user_data['grade']*100+'%</p>');
   }
   else{
-    $('#current_course_info').append('<p class=""> <i class="fas fa-graduation-cap red"></i> Le participant n\'a pas obtenu le certificat. Note actuelle : '+user_data['grade']*100+'%</p>');
+    $('#current_course_info').append('<p class=""> <i class="fas fa-graduation-cap red"></i> ${_("Participant did not succeed. Current grade ")} : '+user_data['grade']*100+'%</p>');
   }
 
 
@@ -1223,14 +1523,14 @@ function display_user_info(user_data){
       else{
         picto_invitation='Non';
       }
-      content_table+=('<tr><td>'+course_data['course_name']+'</td><td><a class="see_grades" target="_blank" href="'+course_data['course_grades']+'">Progression</a></td><td>'+picto_cours+'</td><td>'+picto_enrollment+'</td><td>'+picto_invitation+'</td></tr>');
+      content_table+=('<tr><td>'+course_data['course_name']+'</td><td><a class="see_grades" target="_blank" href="'+course_data['course_grades']+'">${_("Progression")}</a></td><td>'+picto_cours+'</td><td>'+picto_enrollment+'</td><td>'+picto_invitation+'</td></tr>');
     }
   }
   if(registered_to_other_courses){
-    $('#other_courses_registrations').append('<table class="text-center"><thead><tr><th>Nom du cours</th><th>Notes du cours</th><th>Cours ouvert</th><th>Inscriptions ouvertes</th><th>Sur invitation</th></tr></thead><tbody>'+content_table+'</tbody></table>')
+    $('#other_courses_registrations').append('<table class="text-center"><thead><tr><th>${_("Course Name")}</th><th>${_("Course grades")}</th><th>${_("Course is open")}</th><th>${_("Enrollments are open")}</th><th>${_("Invitation Only")}</th></tr></thead><tbody>'+content_table+'</tbody></table>')
   }
   else{
-    $('#other_courses_registrations').append('<p class="ptop-20"> <i class="red fas fa-times"></i> Le participant n\'est inscrit à aucun autre cours sur ce microsite.</p>')
+    $('#other_courses_registrations').append('<p class="ptop-20"> <i class="red fas fa-times"></i> ${_("Participant is not registered on any other course in this microsite.")}</p>')
   }
 
   //Check buttons to display
@@ -1265,10 +1565,9 @@ $(document).ready(function () {
     header_fields.push($(this).html());
   });
   $("#invite_participant").change(ManageCsvFile);
-
   // Send data for user registration
   $('#register_from_csv').on('click',function(){
-    csv_url = "${reverse('tma_import_users', args=[str(course.id)])}";;
+    csv_url = window.location.pathname.replace('dashboard','')+'tma_dashboard_upload_csv';
     $.ajax({
       type:"POST",
       dataType:"json",
@@ -1282,14 +1581,10 @@ $(document).ready(function () {
     })
   })
 });
-
-
 function ManageCsvFile(evt) {
-  //console.log("changgeeeeee");
   reset_csv_page();
   csv_file = evt.target.files[0];
   fileread = new FileReader();
-
   fileread.onload = function(e) {
     if(e.target.result.indexOf('�')>-1){
       encoding_type="ascii"
@@ -1303,25 +1598,17 @@ function ManageCsvFile(evt) {
       encoding: encoding_type,
       complete: function(csv_data) {
         csv_users=csv_data['data'];
-        //console.log("intial file");
-        //console.log(csv_users);
         csv_users=delete_empty_rows(csv_users);
         csv_users=clean_maj(csv_users);
         is_header_valid=check_header(csv_users);
         if(is_header_valid==true){
           csv_errors=check_csv_errors(csv_users);
-          //console.log(csv_errors);
           display_csv(csv_users,csv_errors);
-          console.log("errrooorrrsss");
-          console.log(csv_errors);
-          //console.log("csv_errors");
-          //console.log(csv_errors);
           if(!csv_errors){
             $('#register_user_btn').css('display','block');
           }
         }
         else{
-          //console.log(is_header_valid);
           display_header_errors(is_header_valid);
         }
       }
@@ -1329,8 +1616,6 @@ function ManageCsvFile(evt) {
   };
   fileread.readAsText(csv_file);
 }
-
-
 function reset_csv_page(){
   $("#csv_import_error").css('display','none');
   $('#csv_import').html('').css('display','none');
@@ -1339,8 +1624,6 @@ function reset_csv_page(){
   $('#header-error-details').html('');
   $('#register_user_btn').css('display','none');
 }
-
-
 function clean_maj(csv_users){
   i=0;
   for (user in csv_users){
@@ -1362,7 +1645,6 @@ function clean_maj(csv_users){
   }
   return csv_users;
 }
-
 function delete_empty_rows(csv_users){
   for (user in csv_users){
     if(is_obj_empty(csv_users[user])){
@@ -1371,7 +1653,6 @@ function delete_empty_rows(csv_users){
   }
   return csv_users;
 }
-
 function is_obj_empty(obj){
   for (var key in obj) {
     if (obj[key] !== null && obj[key] != "")
@@ -1379,8 +1660,6 @@ function is_obj_empty(obj){
   }
   return true;
 }
-
-
 function check_header(csv_users){
   valid_header=true;
   header_errors=[];
@@ -1394,7 +1673,6 @@ function check_header(csv_users){
   }
   return valid_header;
 }
-
 function check_csv_errors(csv_users){
   csv_errors={};
   count_line=2;
@@ -1407,8 +1685,6 @@ function check_csv_errors(csv_users){
         has_errors=true;
       }
       if(required_fields[i]=='email' && !validateEmail(csv_users[user]['email'])){
-        console.log(csv_users[user]['email']);
-        console.log(validateEmail(csv_users[user]['email']));
         user_errors.push('email');
         has_errors=true;
       }
@@ -1425,27 +1701,24 @@ function check_csv_errors(csv_users){
     return false;
   }
 }
-
-
 function display_csv(csv_users, csv_errors){
   $('#csv_import').css('display','block');
   set_csv_table_header();
+
   var table_csv_users =replace_dash_in_keys(csv_users);
-  if(times_displayed<1){
-    dynatable = $('#csv_import').dynatable({
+  dynatable = $('#csv_import').dynatable({
     dataset: {
-        records: table_csv_users
-    }
-    }).data('dynatable');
-  }
-  else{
-    dynatable.settings.dataset.originalRecords = table_csv_users;
-    dynatable.process();
-  }
-  times_displayed+=1;
+        records: csv_users
+    },
+    features: {
+      paginate: false,
+    },
+  }).data('dynatable');
+  dynatable.settings.dataset.originalRecords = csv_users;
+  dynatable.process();
+
   $('.dynatable-active-page a').addClass('primary-color-bg');
   $('#csv_import_preview').css('display','block');
-
   //Add classes to columns
   j=1;
   $('#csv_import tr').each(function(){
@@ -1454,7 +1727,6 @@ function display_csv(csv_users, csv_errors){
     }
     j+=1;
   });
-
   //Highlight Errors
   if(csv_errors){
     for(user_errors in csv_errors){
@@ -1463,13 +1735,9 @@ function display_csv(csv_users, csv_errors){
         $('#'+id_name).addClass('has-error-field');
       }
     }
-    $('#csv_import_error').html('<p class="required">Votre fichier contient des erreurs. Corrigez les pour pouvoir importer vos participants.</p>').css('display','block');
-
+    $('#csv_import_error').html('<p class="required">${_("Your file contains errors. Correct them to be able to import your participants.")}</p>').css('display','block');
   }
-
 }
-
-
 function replace_dash_in_keys(original_obj){
   new_obj=jQuery.extend(true, {}, original_obj);
   for(user in new_obj){
@@ -1484,32 +1752,24 @@ function replace_dash_in_keys(original_obj){
   }
   return new_obj;
 }
-
-
 function set_csv_table_header(){
   $('#csv_import').append('<thead class="primary_color_bg"><tr></tr></thead>');
   for (i=0;i<header_fields.length;i++){
       $('#csv_import thead tr').append('<th class="primary-color-bg white-border white-text">'+header_fields[i].split('-').join('_')+'</th>');
   }
 }
-
 function display_header_errors(is_header_valid){
-  error_feedback="<p class='required'>Votre fichier ne respecte pas l'en-tête obligatoire. Merci de rajouter les champs suivants :</p><ul>"
+  error_feedback="<p class='required'>${_('Your file does not respect the required header. Please add the following fields')}:</p><ul>"
   for (header_error in is_header_valid){
     error_feedback+="<li class='required'>"+is_header_valid[header_error]+"</li>";
   }
   error_feedback+="</ul>";
   $('#csv_import_error').css('display','block').html(error_feedback);
-
-
 }
-
-
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
-
 function isempty(obj) {
     for (var key in obj) {
         if (obj[key] !== null && obj[key] != "" && obj[key] != undefined){
@@ -1518,7 +1778,6 @@ function isempty(obj) {
     return true;
   }
 }
-
 ///////////////////////////// AUTRES ////////////////////////////////////////
 function tableInputKeyPress(e){
   e=e||window.event;
