@@ -161,7 +161,7 @@ except:
   <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
     <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" class="course-logo"/>
     %if associated_courses.get('delayed'):
-      <p class="text-center">Next quiz will be available in ${associated_courses.get('delayed')} days.</p>
+      <p class="text-center">Next evaluation will be available in ${associated_courses.get('delayed')} days.</p>
     %endif
     <div class="text-center">
     %if not has_access:
@@ -223,6 +223,28 @@ except:
         </button>
         %endif
       </div>
+      <div class="text-center">
+        %if associated_courses.get('step_number',1)>1:
+          <button onclick="enrollAndRedirect()" class="sub-btn blue-btn deaactivated" id="last_score">
+            Go to learning
+          </button>
+        %else :
+        <button class="text-align-center blue-btn deactivated" disabled>
+          Go to learning
+        </button>
+        %endif
+      </div>
     </div> 
   </div>    
 </div>
+<script>
+  function enrollAndRedirect(course_id_for_enroll){
+    $.ajax({
+      type: "POST",
+      url: "https://learning.netexplodigimapper.com/login?course_id=course-v1:digimapper-ressources+FR+1&enrollment_action=enroll",
+      // data: {"course_id": course_id_for_enroll, "enrollment_action": "enroll"},
+      success: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources%2BFR%2B1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/");},
+      error: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources%2BFR%2B1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/");},
+    });
+  }
+</script>
