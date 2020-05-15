@@ -1,4 +1,4 @@
-<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard" expression_filter="h"/>
+<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard, display_block" expression_filter="h"/>
 
 <%!
 import urllib
@@ -50,7 +50,9 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 %if cours_ouv:
 <div id="course_nav">
-  <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
+  % if display_block:
+    <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
+  % endif
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   ##<a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
   % if return_social is not None:
