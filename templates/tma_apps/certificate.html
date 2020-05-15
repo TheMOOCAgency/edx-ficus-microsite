@@ -1,0 +1,247 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%def name="online_help_token()"><% return "courseware" %></%def>
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from datetime import datetime, date
+import json
+from tma_apps.tma_support_functions import tma_verify_access
+
+primary_color = configuration_helpers.get_value('primary_color')
+from django.contrib.auth.models import User
+from student.models import UserProfile
+%>
+
+<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+
+<%
+if User.objects.filter(id=request.user.id) :
+  user_account = User.objects.filter(id=request.user.id)[0]
+
+if UserProfile.objects.filter(user=user_account) :
+  user_details = UserProfile.objects.filter(user=user_account)[0]
+  try:
+    custom_field = json.loads(user_details.custom_field)
+    statut = custom_field.get("statut")
+    agence = custom_field.get("compagnie-mandante")
+  except:
+    custom_field = {}
+    statut = None
+    agence = None
+  
+
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+
+today = date.today().strftime("%m/%d/%Y")
+%>
+
+<!-- COMMON STYLE-->
+<style>
+  h1,h2,h3,h4,h5,p{
+    font-family: inherit
+  }
+
+h1{
+  margin: 30px 0 10px 0;
+  font-size: 1.5rem;
+}
+
+ h3{
+  font-size: 1rem;
+  letter-spacing: 0;
+  margin-top: 5px;
+}
+
+.white-text {
+  color: white;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+  .mt-35 {
+      margin-top: 35px;
+  }
+.middle-block{
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/media/microsite/tractebel2/images/BG_Tractebel.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow: hidden;
+
+}
+
+.top-block{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+}
+
+#certificate-logo{
+    height: 60%;
+    margin-left: 20px;
+}
+
+.bottom-block{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bottom-link {
+    font-size: 12px;
+    color:rgba(27, 38, 146, 0.7);
+}
+
+.bold {
+font-weight: 700;
+}
+#certificate-wrapper{
+  background: white;
+}
+.certificate-border{
+    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+}
+#custom-btn{
+    background: rgba(27, 38, 146, 1);
+    border-radius: 2px;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#custom-btn:hover {
+    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.38);
+}
+
+#certificate-wrapper{
+  min-height: calc(100vh - 133px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#certificate-container{
+  width:854px;
+  height:500px;
+  margin: 20px auto 30px auto;
+  padding: 0px;
+}
+#pdf-btn-wrapper{
+  padding: 15px
+}
+#noCertificateMessage{
+  background: white;
+  height: calc(100vh - 133px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+  #title-block{
+      padding: 15px 20px;
+      margin: 40px auto 30px auto;
+  }
+  #content-block{
+      padding: 15px 40px;
+      width: 55%;
+      position: relative;
+  }
+  .blue-bg{
+      background-color: rgba(27, 38, 146, 0.7);
+  }
+  #course-name{
+      max-width: 70%;
+  }
+    #macaron {
+        position: absolute;
+        width: 150px;
+        right:-75px;
+        top:15px;
+    }
+    #certificate-date {
+        position: absolute;
+        top:151px;
+        right: 70px;
+    }
+</style>
+
+<!-- CUSTOM STYLE -->
+<style>
+</style>
+% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+<div id="certificate-wrapper">
+  <div id="pdf-btn-wrapper">
+    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+  </div>
+  <div id="certificate-container" class="certificate-border">
+          <div class="top-block">
+              <img src="/media/microsite/tractebel2/images/logo.png" alt="logo" id="certificate-logo"/>
+          </div>
+          <div class="middle-block">
+              <h1 id="title-block" class="bold white-text blue-bg">CERTIFICATE OF ACHIEVEMENT</h1>
+              <div id="content-block" class="blue-bg">
+                  <h3 class="white-text" style="text-transform:none">Tractebel certifies that</h3>
+                  <h3 class="white-text bold" style="text-transform:none">${first_name} ${last_name}</h3>
+                  <h3 class="white-text" style="text-transform:none">has successfully completed the course:</h3>
+                  <h3 class="white-text bold mt-25" id="course-name" style="text-transform:none">"${course_name}".</h3>
+                  <h3 class="white-text" style="text-transform:none;position:relative;">an online program offered by Tractebel.</h3>
+                  <h3 class="white-text bold mt-35" style="text-transform:none">Final score : ${int(grades.get('grade')*100)}%</h3>
+                  <img src="/media/microsite/tractebel2/images/macaron.png" alt="macaron" id="macaron"/>
+                  <h3 id="certificate-date" class="white-text" style="text-transform:none">${today}</h3>
+              </div>
+          </div>
+          <div class="bottom-block">
+              <div id="bottom-link">https://tractebel-moochydro.com/</div>
+          </div>
+      </div>
+</div>
+%else:
+  <div id="noCertificateMessage">
+      <h3>Certificat Non Disponible</h3>
+      <h3>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</h3>
+  </div>
+%endif
+
+<!-- PDF CREATOR-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script>
+  function CertificateToPdf(){
+     html2canvas(document.getElementById("certificate-container"), {
+      onrendered : function (canvas){
+       var img=canvas.toDataURL("image/png");
+       var doc = new jsPDF({orientation: 'landscape'});
+       doc.addImage(img, "PNG", 30, 35);
+       doc.save("certificat.pdf");
+      }
+    })
+  }
+  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
+  $(document).ready(function(){
+    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+    }
+  })
+</script>
