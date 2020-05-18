@@ -20,6 +20,7 @@ from student.helpers import (
   VERIFY_STATUS_NEED_TO_REVERIFY,
   DISABLE_UNENROLL_CERT_STATES,
 )
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -41,6 +42,17 @@ org_static = static.get_value('domain_prefix')
 <%
 cours_ouv = show_courseware_link and not is_course_blocked
 %>
+
+<%
+hidden_forum_courses = configuration_helpers.get_value('hidden_forum_courses')
+for id in hidden_forum_courses:
+  if id in str(enrollment.course_id):
+    display_forum = False
+    break
+  endif
+endfor
+%>
+
 
 
 <%namespace name='static' file='../static_content.html'/>
