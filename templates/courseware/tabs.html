@@ -22,8 +22,7 @@ display_forum = True
 for id in hidden_forum_courses:
   if id in str(course_id):
     display_forum = False
-  else:
-    display_forum = True
+    break
   endif
 endfor
 %>

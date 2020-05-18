@@ -18,10 +18,14 @@ from openedx.core.djangolib.markup import HTML, Text
     position:relative;
 }
 #absolute-bg-img{
-  position: absolute;
-  top:0;
-  left:0;
   width: 100%;
+  cursor:pointer;
+  content:url("/media/microsite/afpa/images/supercleanum_bandeau.png");
+}
+@media (max-width: 700px) { 
+  #absolute-bg-img{
+    content:url("/media/microsite/afpa/images/supercleanum_carre.png");
+  }
 }
 #tma_background_font {
   background-image: none;
@@ -49,7 +53,7 @@ from openedx.core.djangolib.markup import HTML, Text
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header id="home-banner-header">
-        <img src="/media/microsite/afpa/images/index.jpg" alt="bg" id="absolute-bg-img">
+        <img src="/media/microsite/afpa/images/supercleanum_bandeau.png" alt="bg" id="absolute-bg-img" onclick="window.open('https://www.cleanum.fr/applications', '_blank');">
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -88,7 +92,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
       </header>
       <div class="covid_banner">
-6226 inscriptions et 4422 nouveaux inscrits !
+Plus de 12000 inscriptions et 8000 nouveaux inscrits !
 <br>
 Dans le contexte exceptionnel qui impose à tous une solidarité nationale,<br>
 l’Afpa membre du service public se mobilise en mettant ses MOOC et des modules de formation à disposition de tous.
@@ -125,30 +129,3 @@ l’Afpa membre du service public se mobilise en mettant ses MOOC et des modules
 % endif
 
 
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','https://mooc.afpa.fr/register?course_id=course-v1%3Aafpa%2BLes101techniquesdebase%2BMOOCCUISINEAFPA_S3&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','https://mooc.afpa.fr/login?next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Aafpa%252BLes101techniquesdebase%252BMOOCCUISINEAFPA_S3%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-    $('a').each(function() {
-        var href = $(this).attr('href');
-        if (href.indexOf('http:') > -1) {
-            href = href.replace('http:', 'https:');
-            $(this).attr('href', href);
-        }
-    });
-
-</script>
-<script>
-  // Update top banner height regarding img height
-  const updateBannerSize = () => {
-    let bannerHeight = $("#absolute-bg-img").height()
-    let banner = $("#home-banner-header")
-    $(banner).height(bannerHeight)
-  }
-  updateBannerSize()
-  window.addEventListener("resize", updateBannerSize)
-</script>

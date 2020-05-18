@@ -8,6 +8,12 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 hidden_courses = configuration_helpers.get_value('hidden_courses') 
 %>
 
+<%
+try:
+  courses.sort(key=lambda x: int(x.start.strftime("%s")), reverse=True)
+except:
+  pass
+%>
 <section class="courses-container">
   <section class="highlighted-courses">
 
