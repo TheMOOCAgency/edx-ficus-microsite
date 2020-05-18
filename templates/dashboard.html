@@ -264,8 +264,7 @@ display_forum = True
 for course_id in hidden_forum_courses:
   if course_id in str(course_mono_id):
     display_forum = False
-  else:
-    display_forum = True
+    break
   endif
 endfor
 %>
@@ -304,7 +303,16 @@ endfor
       </div>
       %endif
     </div>
+
     <!-- block bottom profil -->
+
+%if str(course_enrollments[0].course_id) in ['course-v1:afpa+TRE_2020+2020','course-v1:afpa+MATU+2020','course-v1:afpa+inclusion_sociale+2020','course-v1:afpa+CPF+CPF_2020','course-v1:afpa+mixite+mixite_2020']:
+<style>
+#dashboard_profile_bottom{
+ display:none !important;
+}
+</style>
+%endif
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
