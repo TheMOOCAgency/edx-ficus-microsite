@@ -14,7 +14,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<link rel="stylesheet" type="text/css" href="/media/microsite/complete-data/css/digimap.css" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/faciliter-transformation/css/digimap.css" />
 <style>
   .wrapper-header {
     display: none;
@@ -42,7 +42,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   }
 </style>
 <script>
-  document.title="Préparation-data";
+  document.title="Faciliter la transformation";
 </script>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
@@ -84,15 +84,16 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
         </div>
 
         <div id="logoData4Manager">
-          <img src="/media/microsite/complete-data/images/logo_data_for_manager.png" width="50" style="width: 500px;"/>
+          <img src="/media/microsite/faciliter-transformation/images/logo_1.png" width="500"/>
+          <img src="/media/microsite/faciliter-transformation/images/logo_2.png" width="500"/>
         </div>
 
         <div id="connectButnsWrapper">
+          <!-- <div class="butnContainer">
+            <a class="registerButn" href='/register' style="position: absolute; top: 25px; right: 190px; background-color: black; font-size: 16px; text-transform: uppercase; z-index: 10;">Inscription</a>
+          </div> -->
           <div class="butnContainer">
-            <a class="registerButn" href='/register' style="display: none;">Inscription</a>
-          </div>
-          <div class="butnContainer">
-            <a class="connectButn" href='/login'>Connexion</a>
+            <a class="connectButn" href='/login' style="position: absolute; top: 25px; right: 25px; color: black; font-size: 16px; text-transform: uppercase; z-index: 10;">Connexion</a>
           </div>
         </div>
       </header>

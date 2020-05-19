@@ -357,16 +357,42 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 <%include file="/tma_apps/tma_time_tracking.html" />
 %endif
 <style>
-    .bookmark-button-wrapper{
-      display:none;
-    }
-div.problem-progress {
-  display:none !important;
-}
-div.xblock-student_view-conditional, div.xblock-student_view-conditional div.xblock-student_view{
-    margin-top: 20px !important;
-}
+  .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button {
+    background-color: #FECD0D;
+  }
+  .bookmark-button-wrapper{
+    display:none;
+  }
+  div.problem-progress {
+    display:none !important;
+  }
+  .xmodule_display.xmodule_CapaModule div.problem .choicegroup label:hover{
+    border: 2px solid #FECD0D;
+  }
+  .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a{
+    color:#FECD0D;
+  }
+  input[type="radio"] {
+    /* remove standard background appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* create custom radiobutton appearance */
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding: 3px;
+    /* background-color only for content */
+    background-clip: content-box;
+    border: 2px solid #fecd0d;
+    background-color: #e7e6e7;
+    border-radius: 50%;
+  }
 
+  /* appearance for checked radiobutton */
+  input[type="radio"]:checked {
+    background-color: #fecd0d;
+  }
 </style>
 <script>
 $(".subtitle-name").ready(function() {

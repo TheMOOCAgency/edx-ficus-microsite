@@ -16,6 +16,86 @@ else:
     aria_label = chapter['display_name']
     active_class = ''
 %>
+<style>
+  .wrapper-course-modes{
+    display: none!important;
+  }
+  .currentitemlist{
+    font-size: 14px;
+    font-weight: 400;
+    color: #3e3e3e;
+
+  }
+  .currentitemlist>li>button{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+}
+  .currentitemlist>li>button:hover{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+}
+  .currentitemlist>li>button:focus{
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+    text-shadow: none;
+}
+  .currentitemlist>li:hover{
+  background-color: #f09580
+}
+.custom_unit{
+  margin-right:4px;
+  background-color:transparent!important;
+  border-radius: 0px!important;
+  color : #3c3c3c!important;
+  display : block!important;
+  margin-left : 30px!important;
+}
+.custom_unit:hover{
+    background-color: #06060626 !important;
+}
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a{
+  background-color: transparent!important;
+}
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item{
+  margin-bottom : 20px!important;
+  margin-top : 0px!important;
+}
+.accordion-nav{
+  display: inline-block!important;
+  margin-left : 20px!important;
+}
+.accordion-nav a{
+  display: inline-block!important;
+}
+.accordion-nav{
+  padding-bottom: 0px!important;
+  max-height: 45px!important;
+  height: initial!important;
+  font-weight: 700!important;
+}
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover{
+  background-color : #06060626 !important
+}
+.course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item a:hover{
+    background-color : #06060626 !important
+}
+.group-heading{
+  font-weight : 800!important;
+}
+
+</style>
+
 <a href="#${chapter['display_id']}-child" role="button" class="button-chapter chapter ${active_class}" id="${chapter['display_id']}-parent" aria-controls="${chapter['display_id']}-child" aria-expanded="false">
     <span class="group-heading ${active_class}" aria-label="${aria_label}">
         <span class="icon fa fa-caret-right" aria-hidden="true"></span>
@@ -30,7 +110,35 @@ else:
                 <p class="accordion-display-name">${section['display_name']} ${Text(_('{span_start}current section{span_end}')).format(
                         span_start=HTML('<span class="sr">'),
                         span_end=HTML('</span>'),
-                    ) if 'active' in section and section['active'] else ''}</p>
+                    ) if 'active' in section and section['active'] else ''}</p></a>
+                    <%
+                    from courseware.views.views import get_current_child
+                    from courseware.courses import get_course_by_id
+                    from opaque_keys.edx.keys import CourseKey
+                    def _find_block(parent, url_name, block_type, min_depth=None):
+                        """
+                        Finds the block in the parent with the specified url_name.
+                        """
+                        child = None
+                        if url_name:
+                            child = parent.get_child_by(lambda m: m.location.name == url_name)
+                            if min_depth and not child.has_children_at_depth(min_depth - 1):
+                                child = None
+                        return child
+                    course_key = CourseKey.from_string(course_id)
+                    course = get_course_by_id(course_key, depth = 2)
+                    iterated_section =_find_block(course, chapter['url_name'], 'chapter', 1)
+                    iterated_subsection = _find_block(iterated_section, section['url_name'], 'section')
+                    %>
+
+
+
+                    <br>
+                    % for unit in iterated_subsection.get_display_items():
+                      % if len(iterated_subsection.get_display_items()) > 1:
+                        <a class="custom_unit" href="/courses/${course_id}/jump_to/${unit.location.to_deprecated_string()}">${unit.display_name}</a>
+                      %endif
+                    %endfor
 
                 ## There are behavior differences between
                 ## rendering of sections which have proctoring/timed examinations
@@ -47,6 +155,7 @@ else:
                         else:
                             data_string = _("{section_format} due {{date}}").format(section_format=section['format'])
                %>
+
                 % if section['format'] or due_date or 'proctoring' in section:
                 <p class="subtitle">
                     % if 'proctoring' in section:
@@ -76,6 +185,8 @@ else:
         % endfor
     </div>
 </div>
+
+
 </%def>
 
 % for chapter in toc:

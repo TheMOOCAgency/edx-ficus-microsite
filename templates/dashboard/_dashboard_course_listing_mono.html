@@ -67,7 +67,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % endif
   <span style="clear:left;display:block;"></span>
 </div>
-<div id="course_dashboard_border"></div>
+<!-- <div id="course_dashboard_border"></div> -->
 <div id="courses_cells">
 </div>
 <script>
@@ -84,6 +84,40 @@ $.ajax({
              }
 });
 </script>
+<img src="/media/microsite/faciliter-transformation/images/logo_1.png" width="300" id="logoDashboard"/>
+<style>
+  #title_dashboard_course{
+    max-width: 425px;
+  }
+  #title_dashboard_course > h1{
+    color: black;
+  }
+  .course_cell {
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+  }
+  .course_cells_title {
+    width: 200px;
+    height: 100px;
+  }
+  .course_cells_action {
+    width: 200px;
+    height: 100px;
+  }
+  .course_cells_title > h2 {
+    font-size: 14px;
+  }
+  #logoDashboard {
+    position: absolute;
+    right: 100px;
+  }
+  @media screen and (max-width: 1024px) {
+    #logoDashboard {
+      position: initial;
+    }
+  }
+</style>
 %else:
 
 <div id="title_dashboard_course">
