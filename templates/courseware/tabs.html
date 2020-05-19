@@ -18,15 +18,25 @@ def url_class(is_active):
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
   %>
+  %if tab.name=="Home":
+
+  %else:
   <li class="tab">
   %if tab.name=="Home":
-  <a href="/dashboard" class="${tab_class}">
+
+  %elif tab.name=="Être accompagnée":
+    <a href="https://bilan-digital.5aconseil.com/tma_apps/static_page/coachapp.html">
   %else:
-  <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+    <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
-
+  %if tab.name=="Discussion":
+  Forum
+  %elif tab.name=="Course":
+  Parcours
+  %else:
   ${_(tab.name)}
+  %endif
   % if tab_is_active:
       <span class="sr">, current location</span>
   %endif
@@ -37,4 +47,5 @@ def url_class(is_active):
   %endif
   </a>
   </li>
+  %endif
 % endfor

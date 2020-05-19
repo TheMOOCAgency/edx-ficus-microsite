@@ -16,7 +16,24 @@ from openedx.core.lib.courses import course_image_url
   <meta property="og:title" content="${course.display_name_with_default_escaped}" />
   <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
 </%block>
+<style>
+  @media only screen and (max-width: 960px) {
+   .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100vw;
+    min-width: auto;
+   }
+   .details{
+     width : 100%!important;
+   }
+   .course-sidebar{
+     width: 60%!important;
+   }
+  }
 
+</style>
 <%block name="js_extra">
   ## CourseTalk widget js script
   % if show_coursetalk_widget:
