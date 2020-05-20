@@ -1,14 +1,26 @@
-<%! from django.utils.translation import ugettext as _ %>
+Bonjour,
+ 
+Nous vous confirmons votre inscription à la formation Facilitateur de la transformation digitale d’ESCP Business School.
+ 
+Pour accéder au programme et démarrer la formation, nous vous invitons à vous rendre sur le lien suivant avec vos identifiants ci-dessous,
+ 
+lien url : https://{site_name}
+ 
+Pour vous connecter, renseignez :
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+- votre adresse email : {email_address}
+ 
+- votre mot de passe : {password}
+ 
+En cas de difficulté de connexion, merci de contacter Claire Lescop par email clescop-ext@netexplo.org
+ 
+La formation prévoit plusieurs sessions animées à distance :
+- dans le module 1 : « les fondamentaux de la transformation » (2h). Vous pouvez avancer dans les modules 1 et 2 avant de participer à cette session.
+- dans le module 4 : « atelier de co-développement » supervisé par un coach (1h30)
+- dans le module 5 : « bilan des apports » (1h)
+ 
+Nous allons prendre contact avec vous dans les prochains jours par email pour organiser ces sessions animées.
+ 
+Bien à vous,
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
-
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
-
-${_("It is recommended that you change your password.")}
-
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+Netexplo/ESCP BS
