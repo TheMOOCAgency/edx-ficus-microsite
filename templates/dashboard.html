@@ -160,7 +160,28 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
         display_blocks = True
       endif
     endfor
+
+    is_not_admin = True
+    enrollment_counter = 0
+    trainer_course_id = ""
+    trainer_course_name = ""
+    for dashboard_index, enrollment in enumerate(course_enrollments):
+      if str(enrollment.course_id) == "course-v1:inveest+metier1+SP" or str(enrollment.course_id) == "course-v1:inveest+metier2+SP" or str(enrollment.course_id) == "course-v1:inveest+metier3+SP" :
+        enrollment_counter += 1
+        trainer_course_id = str(enrollment.course_id)
+        trainer_course_name = enrollment.course_overview.display_name_with_default
+        if enrollment_counter > 1:
+          is_not_admin = False
+      endif
+    endfor
 %>
+
+% if is_not_admin :
+  <div class="dashboard_profile" id="trainer_course" style="display: none;">
+    <a href="/dashboard/${trainer_course_id}"><h2>${trainer_course_name}</h2></a>
+  </div>
+% endif
+
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
@@ -342,9 +363,43 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
           enrollment_to_connect = enrollment
 %>
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % if str(enrollment.course_id) == "course-v1:inveest+invest2019+invest2019":
+    <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % endif
 % endfor
-
+% if not is_not_admin :
+  % for dashboard_index, enrollment in enumerate(course_enrollments):
+    % if str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019":
+      <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+    % endif
+  % endfor
+% endif
+<style>
+  #dashboard_profile_up {
+    display: none;
+  }
+  #profile_bottom_multi {
+    display: none;
+  }
+  #trainer_course {
+    display: block!important;
+    padding: 10px;
+    height: 230px;
+    width: calc(100% - 20px);
+    background-color: rgb(7,77,183,1);
+  }
+  #trainer_course > a > h2 {
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 26%;
+    font-size: 22px;
+  }
+  #trainer_course > a:hover {
+    text-decoration: none;
+  }
+</style>
 % if activate_popup_code:
   <script src="/media/microsite/inveest/js/cookie.js"></script>
   <style>
