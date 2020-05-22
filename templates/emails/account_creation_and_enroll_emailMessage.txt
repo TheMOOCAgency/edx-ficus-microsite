@@ -4,13 +4,13 @@ Nous vous confirmons votre inscription à la formation Facilitateur de la transf
  
 Pour accéder au programme et démarrer la formation, nous vous invitons à vous rendre sur le lien suivant avec vos identifiants ci-dessous,
  
-lien url : https://{site_name}
+lien url : https://${site_name}
  
 Pour vous connecter, renseignez :
 
-- votre adresse email : {email_address}
+- votre adresse email : ${email_address}
  
-- votre mot de passe : {password}
+- votre mot de passe : ${password}
  
 En cas de difficulté de connexion, merci de contacter Claire Lescop par email clescop-ext@netexplo.org
  
