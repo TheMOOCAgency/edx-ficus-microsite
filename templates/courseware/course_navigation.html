@@ -17,11 +17,18 @@ css = org_static+'/css/course_navigation.css'
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 
-
 <style>
 body.view-in-course .wrapper-course-material .course-material .course-tabs {
   width: 100% !important;
 }
+.course-wrapper .course-content .xblock-student_view.xmodule_display{
+  margin-top: 0px !important;
+}
+.course-wrapper .course-content .xblock-student_view-sequential.xmodule_display{
+  margin-top: 60px !important;
+}
+
+
 </style>
 <%
 if active_page is None and active_page_context is not UNDEFINED:
