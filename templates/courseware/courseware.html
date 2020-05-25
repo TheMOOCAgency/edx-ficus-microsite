@@ -470,8 +470,12 @@ $('.button-next').live('click',function(e){
 $('.button-previous').live('click',function(e){
    highlightCustomUnit()
 })
+setInterval(function(){
+    $('#field_help_post_type').text('Utilisez les \'Questions\' si vous attendez une réponse. Les \'Discussions\' servent à lancer des conversations.') ;
+    $('#field_help_title').text('Ajoutez un titre clair et descriptif pour favoriser la participation') ;
+    $('#new-post-editor-description').text('Votre question ou idée') ;
+}, 2000);
 })
-
 </script>
 <style>
   .wrapper-course-material>.menu-responsive{
