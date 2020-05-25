@@ -359,8 +359,18 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
       for option in field.get("options"):
         if option.get("course") and str(option.get("course")) == str(enrollment.course_id):
           activate_popup_code = True
-          course_id_to_connect = str(enrollment.course_id)
           enrollment_to_connect = enrollment
+          course_id_to_connect = str(enrollment.course_id)
+          if course_id_to_connect == "course-v1:inveest+aster+2019" :
+            course_id_to_connect += "/courseware/77ca317ade2a40e8a8d2382cf024c0f8/419b8c3007f34376b771100ada1b094a/"
+          if course_id_to_connect == "course-v1:inveest+ifp+2019" :
+            course_id_to_connect += "/courseware/77ca317ade2a40e8a8d2382cf024c0f8/419b8c3007f34376b771100ada1b094a/"
+          if course_id_to_connect == "course-v1:inveest+transenergie+2019" :
+            course_id_to_connect += "/courseware/77ca317ade2a40e8a8d2382cf024c0f8/419b8c3007f34376b771100ada1b094a/"
+          if course_id_to_connect == "course-v1:inveest+greenflex+2019" :
+            course_id_to_connect += "/courseware/1170d8aa94f946fdbc4752c514ce62ff/6bf4d77021da4d889d287ba5fa26cbde/"
+          else:
+            course_id_to_connect += "/courseware"
 %>
 % for dashboard_index, enrollment in enumerate(course_enrollments):
   % if str(enrollment.course_id) == "course-v1:inveest+invest2019+invest2019":
@@ -454,7 +464,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
       <p>
         Nous avons bien pris en compte votre demande d’inscription à la formation dispensée par ${enrollment_to_connect.course_overview.display_name_with_default}.
         <br>
-        <br>Merci de bien vouloir compléter le formulaire disponible <span class="popup_bold">dans le cours : ${enrollment_to_connect.course_overview.display_name_with_default}</span> ou <span class="popup_bold">directement en cliquant <a  href="/courses/${course_id_to_connect}/courseware">ici</a></span>.
+        <br>N'oubliez pas d'aller compléter le formulaire disponible en cliquant <span class="popup_bold"><a  href="/courses/${course_id_to_connect}">ici</a></span>.
         <br>
         <br>En cas de problème, merci d’adresser un email à <a href="mailto:inveest@greenflex.com">inveest@greenflex.com</a>.
       </p>
