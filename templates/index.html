@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
    <html>
       <head>
@@ -7,7 +7,7 @@
          <meta property="og:title"              content="Mooc economie circulaire" />
          <meta property="og:image"   content="https://mooc-economie-circulaire.fr/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/vignette.jpg" />
          <meta property="og:image:type" content="image/jpeg">
-          
+
          <meta property="og:image" content="https://mooc-economie-circulaire.fr/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/vignette600x400.jpg">
          <meta property="og:image:type" content="image/jpeg">
          <meta property="og:image:width" content="600">
@@ -39,20 +39,20 @@
                   <ul class="nav navbar-nav navbar-right">
 					 <li><a href="" id="registerLink2" class="rg">Inscription</a></li>
                      <li><a href="" id="loginLink2" class="cx">Connexion</a></li>
-                    
+
                   </ul>
                </div>
-               <!--/.nav-collapse -->             
+               <!--/.nav-collapse -->
             </div>
-            <!--/.container-fluid -->          
+            <!--/.container-fluid -->
          </nav>
-         <section id="se1">
+         <section id="se1" style="height : 100vh">
             <div id="titleLogo"><img class="logoNav"></div>
-            <div class="row" style="min-height: 800px;">
-               <div class="col-md-12">
-                  <div class="col" style="text-align: right;margin-left: 50%;" id="jbo_container">                  
-                     <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>               
-                     <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
+            <div class="row" style="min-height: 800px; ">
+               <div class="col-md-12" style="height : 100vh"  >
+                  <div class="col" style="text-align: right;margin-left: 50%;" id="jbo_container">
+                     <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
+                     <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>
                   </div>
                   <div class="container-fluid" id="containerTitleBand">
                      <div id="titleBand">
@@ -75,7 +75,7 @@
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
-                  <div class="tableChild">
+                  <div class="tableChild" style="font-size : 24px">
                      <!-- <h1 id="vvTitle"></h1> -->
                      <p id="vvText1">This is some text.</p>
                      <p id="vvText2">This is some text.</p>
@@ -88,7 +88,7 @@
          <section id="se3">
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
-               <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se3.png" alt="Contenu la formation" style="max-width: 50%;margin-bottom:30px;">
+               <img id="contentformationimg" src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se3.png" alt="Contenu la formation" style="max-width: 50%;margin-bottom:30px;">
                <div class="overMars">
                   <div class="container" style="padding-right:0px">
                      <div class="row" id ="markWeeks">
@@ -98,16 +98,16 @@
                </div>
             </div>
          </div>
-         </div>          
+         </div>
          </section id="se4">
          <section>
             <div id="big_circle_container">
                <div id="big_circle"></div>
             </div>
             <div class="team-boxed">
-               <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se4.png" alt="Qu'est-ce qu'un MOOC" style="max-width: 50%;margin-bottom:30px;">
+               <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se4.png" alt="Qu'est-ce qu'un MOOC" style="max-width: 40%;margin-bottom:30px;">
                <div class="container underSe4" >
-                  <div class="row people" id = "markMoock"> 
+                  <div class="row people" id = "markMoock">
                   </div>
                </div>
             </div>
@@ -130,14 +130,14 @@
                   <p class="text-center underW" >Site deployé par We Up Learning - 2020</p>
                </div>
             </div>
-            </div>          
+            </div>
          </footer>
-         <script>   
-       
+         <script>
+
 				 var envDefault = "developement"
 					 var organisation = "mooc-economie-circulaire"
 					 	var urlCompose
-					 var i 
+					 var i
                      var iter
                      var tbTitle
                      var tbText
@@ -147,7 +147,7 @@
                      var enrollment_action = "enroll"
                      var connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
                      var pathMedia = "media/microsite/"
-                     var micrositeName 
+                     var micrositeName
                      var folderPb = "/pagebuilder"
                      var imgSrc = "/assets/img/"
                      var thumbnailStr = "thumbnailStr"
@@ -160,23 +160,23 @@
                      var termJpg = ".jpg"
                      var vNone = 'none'
                      var thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>"
-                     
-                     
+
+
                      var thumbnailImgSrc
                      var titleThumbnail
                      var titleWeeks
                      var iconoImgSrc
-                     
+
                      var thumbnailChap =  "<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><img class='tbImg'src="+thumbnailImgSrc+"><div class='caption'> <h3 >"+titleThumbnail+"</h3><img class='tbIc' src="+iconoImgSrc+"> <p class='weekSp'>"+titleWeeks+"</p><p class='under_s2'></p></div> </div></div>"
-            
+
                      var titleThumb
                      var imgThumbSrcIcon
                      var imgThumbSrc
                      var pWeeksTitle
                      var pWeeksContent
-            
+
                      var thumbnailChapEsc =  "<div class='col-md-4 noflex'><div class='thumbnail'>  <img src="+imgThumbSrc+ "class='thumbMg'> <div class='caption'> <h3 class='h3Thumb'  " + titleThumb + "</h3><img src="+imgThumbSrcIcon+" class='thumbMg'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
-            
+
                         var swapDisplay = function(elm){
                               var elmt = elm
                               elmt.style.display = 'none'
@@ -191,9 +191,9 @@
                     composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
 					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
                      }
-			
+
 					var scriptLinkGenerator =  function(){
-		
+
 						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
 						var script = document.createElement('script');
 						var script2 = document.createElement('script');
@@ -204,7 +204,7 @@
 						script2.src = mainPathB+scriptSrcArr[1];
 						document.head.appendChild(script);
 						document.head.appendChild(script2);
-				
+
 						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
 						var link1 = document.createElement('link');
 						link1.id = 'id1';
@@ -221,7 +221,7 @@
 						document.head.appendChild(link1);
 						document.head.appendChild(link2);
                   document.head.appendChild(link3);
-                  
+
                   $("#loginLink1").attr("href",pathLogin + connectLink)
                   $("#registerLink1").attr("href",pathRegister + connectLink)
                   $("#loginLink2").attr("href",pathLogin + connectLink)
@@ -230,15 +230,15 @@
                   $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
                   $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
 		}
-			
+
                      var bindindFunctionNav = function(){
 					 var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
 						$(".logoNav").attr("src",logoSrc)
                   $("#titleLogoImage").attr("src",logoSrc)
             	}
-                     
-                   
-					 
+
+
+
 					 var bindindFunctionA = function(){
             	iter =  objJson.container.section3.nrbThumbnail
             	for (i = 0; i < iter ; i++ ){
@@ -248,11 +248,11 @@
             		tbText = thumbnailObj.text
             		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
             		$('#markMoock').append(thumbnailMOOC)
-            	
+
             	}
-                     
+
                      }
-            
+
                      var bindindFunctionB = function(){
                         iter =  objJson.container.section4.nbrThumbnail
                         for (i = 0; i < iter ; i++ ){
@@ -263,20 +263,20 @@
                            imgThumbSrcIcon
                            imgThumbSrc = composeurUrlSrc2+i+termJpg
                            pWeeksTitle = "Semaine"+"&nbsp"+i
-                           
+
                            thumbnailChapEsc =  "<div class='col-md-6 noflex ChapEsc ' ><div class='thumbnail'><div class='imgcontainer'><img src="+imgThumbSrc+ " class='thumbMg'></div><div class='caption' id='caption"+i+"'> <h3 class='titleMiniThumb thumbText"+i+"'> " + titleThumb + "</h3><img class='imgThumbIcon'src="+imgThumbSrcIcon+"  onerror='this.style.display=vNone'><p class='pWeeksTitle'>"+pWeeksTitle+"</p></div><p class='pWeeksContent'>"+pWeeksContent+"</p>  </div>  </div>"
-                     
+
                            $('#markWeeks').append(thumbnailChapEsc)
                         }
                      }
-                     
+
                      var bindindFunctionFooter = function(){
             	 var footerTitleContent = objJson.container.section4.footer
             	 var footerTitleContentTitle = objJson.container.section4.footer.title
             	 $('#footerTitle').text(footerTitleContentTitle)
-                     
+
                      }
-                     
+
                      var bindindFunctionMainSection= function(){
             	 var mainTitleContent = objJson.container.section1.title
             	 var mainTitleContentTitle = objJson.container.section1.title.title1
@@ -285,9 +285,9 @@
             	 $('#mainTitle1').html(mainTitleContentTitle)
                 $('#mainTitle2').html(mainTitleContentTitle2)
                 $('#mainTitle3').html(mainTitleContentTitle3)
-                     
+
                      }
-                     
+
                      var bindindFunctionMainSectionVideo = function(){
             	 var mainTitleContent = objJson.container.section2
             	 var mainTitleContentTitle = objJson.container.section2.title
@@ -304,33 +304,33 @@
                 $('#vvText3').text(mainTitleContentText3)
                 $('#vvText4').text(mainTitleContentText4)
                      }
-                         
+
             var bindindFunctionMainSectionIntro= function(){
             	 var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
             	 $('#introConnect').text(mainTitleContent)
-                     
+
                      }
-                     
+
                      var bindindFunctionMainSectionVIdeoTitle= function(){
             	 var mainTitleContent = objJson.container.section2.title
             	 $('#se2').find(".sectionTitle").text(mainTitleContent)
-                     
+
                      }
-                     
+
             var bindindFunctionMainSectionContent= function(){
             	 var mainTitleContent = objJson.container.section3.title
             	 $('#se3').find(".sectionTitle").text(mainTitleContent)
-                     
+
                      }
-            
+
             var bindindFunctionMeta = function(){
             	 var mainTitleContent = objJson.page.title
             	 $("#masterTitle").text(mainTitleContent)
-                     
+
                      }
-            
+
             var masterBind= function(){
-				
+
 				scriptLinkGenerator();
             	bindindFunctionA();
             	bindindFunctionB();
@@ -343,9 +343,9 @@
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
              }
-            
+
             var objJson
-            
+
             getInfo();
             var a = new XMLHttpRequest();
 
@@ -368,13 +368,12 @@
                }
             }
             });
-            
+
             $(".scroll").click(function() {
             	$('html, body').animate({
             		scrollTop: $("#se2").offset().top
             	}, 2000);
             });
-			</script>       
+			</script>
       </body>
    </html>
-
