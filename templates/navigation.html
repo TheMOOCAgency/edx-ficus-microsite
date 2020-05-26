@@ -349,7 +349,7 @@ $( "#fr" ).trigger( "click" );
 $( document ).ready(function() {
   getLangUrl();
   setLanguage = false
-  if (lang=="fr") {
+  if ($('#settings-language-value').val() == "fr") {
     if ($('.dates').length > 0) {
       for (let j = 0; j < 2; j++) {
         for (let i = 0; i < $('.dates').length; i++) {
