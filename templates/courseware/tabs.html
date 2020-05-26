@@ -18,7 +18,7 @@ def url_class(is_active):
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
   %>
-  % if tab.name != "Discussion":
+  % if tab.name != "Discussion" or str(course.id) == "course-v1:nature-for-city-life+NFCL+Parcours2":
     <li class="tab">
     %if tab.name=="Home":
     <a href="/dashboard" class="${tab_class}">
