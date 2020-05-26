@@ -378,7 +378,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   % endif
 % endfor
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  % if str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019" and str(enrollment.course_id) != "course-v1:inveest+metier1+SP" and str(enrollment.course_id) != "course-v1:inveest+metier2+SP" and str(enrollment.course_id) != "course-v1:inveest+metier3+SP":
+  % if str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019" and not is_not_admin or (str(enrollment.course_id) != "course-v1:inveest+metier1+SP" and str(enrollment.course_id) != "course-v1:inveest+metier2+SP" and str(enrollment.course_id) != "course-v1:inveest+metier3+SP"):
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
   % endif
 % endfor
