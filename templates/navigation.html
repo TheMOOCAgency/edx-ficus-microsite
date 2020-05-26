@@ -349,6 +349,57 @@ $( "#fr" ).trigger( "click" );
 $( document ).ready(function() {
   getLangUrl();
   setLanguage = false
+  if (lang=="fr") {
+    if ($('.dates').length > 0) {
+      for (let j = 0; j < 2; j++) {
+        for (let i = 0; i < $('.dates').length; i++) {
+          var dates_content = $('.dates:eq('+i+')').text();
+          var dates_replacement_pos = -1;
+          var dates_replacement_text = "";
+          if (dates_content.indexOf("/Jan/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jan/")
+            dates_replacement_text = "/Janvier/"
+          } else if (dates_content.indexOf("/Feb/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Feb/")
+            dates_replacement_text = "/Février/"
+          } else if (dates_content.indexOf("/Mar/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Mar/")
+            dates_replacement_text = "/Mars/"
+          } else if (dates_content.indexOf("/Apr/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Apr/")
+            dates_replacement_text = "/Avril/"
+          } else if (dates_content.indexOf("/May/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/May/")
+            dates_replacement_text = "/Mai/"
+          } else if (dates_content.indexOf("/Jun/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jun/")
+            dates_replacement_text = "/Juin/"
+          } else if (dates_content.indexOf("/Jul/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jul/")
+            dates_replacement_text = "/Juillet/"
+          } else if (dates_content.indexOf("/Aug/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Aug/")
+            dates_replacement_text = "/Août/"
+          } else if (dates_content.indexOf("/Sep/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Sep/")
+            dates_replacement_text = "/Septembre/"
+          } else if (dates_content.indexOf("/Oct/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Oct/")
+            dates_replacement_text = "/Octobre/"
+          } else if (dates_content.indexOf("/Nov/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Nov/")
+            dates_replacement_text = "/Novembre/"
+          } else if (dates_content.indexOf("/Dec/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Dec/")
+            dates_replacement_text = "/Décembre/"
+          }
+          if (dates_replacement_pos > -1) {
+            $('.dates:eq('+i+')').text([dates_content.slice(0, dates_replacement_pos), dates_replacement_text, dates_content.slice(dates_replacement_pos+5)].join(''));
+          }
+        }
+      }
+    }
+  }
 }); 
 </script>
 
