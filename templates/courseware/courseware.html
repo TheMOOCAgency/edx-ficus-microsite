@@ -128,63 +128,6 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
 % endif
 
-<!-- TMA Ficus Redesign -->
-<%
-custom_color = str(configuration_helpers.get_value('primary_color'))
-if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-else:
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-endif
-if configuration_helpers.get_value('third_color'):
-  third_color = str(configuration_helpers.get_value('third_color'))
-else:
-  third_color = "#fff"
-endif
-if configuration_helpers.get_value('dark_theme'):
-  color_custom = "#fff"
-else:
-  color_custom = "#3c3c3c"
-%>
-
-<!-- Custom style for 5aconseil -->
-<style>
-body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
-  background-color: ${custom_color} !important;
-}
-.bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
-  color : ${custom_color} !important;
-}
-.xmodule_display.xmodule_SequenceModule .sequence-nav ol{
-  background-color: ${custom_color} !important;
-}
-.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
-  background-color: ${custom_color} !important;
-}
-.btn.btn-link.bookmark-button{
-  color: ${custom_color} !important;
-}
- .custom_unit.active{
-   color :  ${custom_color} !important;
-   font-weight : 600!important;
- }
- .custom_unit{
-   color :  ${custom_color} !important;
-   font-weight : 400!important;
- }
- .menu-item.active>.accordion-nav>.accordion-display-name{
-    color :  ${custom_color} !important;
- }
- #global-navigation .burger{
-    color :  ${color_custom} !important;
- }
-
-</style>
-
 <link rel="stylesheet" href="/media/microsite/connexions-citoyennes/css/responsive_top_layer.css" type="text/css" media="screen" />
 
 <div class="container">
@@ -423,15 +366,18 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 $(document).ready(function(){
   var highlightCustomUnit = function(){
     $('.nav-item').each(function(indexnav,elementnav){
+      $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).on('click',function(){
+        $($('.nav-item')[indexnav]).trigger( "click" )
+      })
+
         if($(elementnav).hasClass('active')){
-          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
         }else{
-          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
         }
       })
     }
   highlightCustomUnit()
-
 
 $('.sequence-nav>nav>ol>li').each(function(index){
     $(this).click(function(){
@@ -439,6 +385,7 @@ $('.sequence-nav>nav>ol>li').each(function(index){
   })
 })
 $('.button-next').live('click',function(e){
+    console.log('sdkljfh');
     highlightCustomUnit()
 })
 $('.button-previous').live('click',function(e){
@@ -486,4 +433,60 @@ setInterval(function(){
   .wrapper-header>.nav-global>li.nav-global-01:hover>a{
       color :#fff!important;
   }
+</style>
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+%>
+
+<!-- Custom style for 5aconseil -->
+<style>
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
+  background-color: ${custom_color} !important;
+}
+.bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
+  color : ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol{
+  background-color: ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
+  background-color: ${custom_color} !important;
+}
+.btn.btn-link.bookmark-button{
+  color: ${custom_color} !important;
+}
+ .custom_unit.active{
+   color :  ${custom_color} !important;
+   font-weight : 600!important;
+ }
+ .custom_unit{
+   color :  ${custom_color} !important;
+   font-weight : 400!important;
+ }
+ .menu-item.active>.accordion-nav>.accordion-display-name{
+    color :  ${custom_color} !important;
+ }
+ #global-navigation .burger{
+    color :  ${color_custom} !important;
+ }
+
 </style>
