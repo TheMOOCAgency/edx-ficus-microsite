@@ -11,26 +11,120 @@
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
-
+<script>
+$( document ).ready(function(){
+  console.log(window.location.pathname)
+  if(window.location.pathname === "/"){
+    $(".footer-translation").show();
+  }else{
+    $('footer.global').attr('style', 'padding: 20px 0px!important');
+  }
+  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+    $('#about-trad').text('Legal Notice')
+    $('#conf-trad').text('Privacy')
+    $('#general-conditions').text('General conditions')
+    $('#credits').text('Credits')
+  } else{
+    $('#about-trad').text('Mentions Légales')
+    $('#conf-trad').text('Confidentialité')
+    $('#general-conditions').text('Conditions générales')
+    $('#credits').html('Cr&eacute;dits')
+  }
+});
+</script>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
   <div class="footer-container">
     <ul class="links">
       <li>
-        <a href="/tos">Conditions générales -</a>
+        <a id="general-conditions" href="/tos"> Conditions générales -</a>
       </li>
       <li>
-        <a href="/about">Mentions Légales -</a>
+        <a id="about-trad" href="/about">Mentions Légales -</a>
       </li>
 	  <li>
-        <a href="/privacy">Confidentialité -</a>
+        <a id="conf-trad" href="/privacy">Confidentialité -</a>
       </li>
     <li>
-        <a href="/honor">Cr&eacute;dits</a>
+        <a id="credits" href="/honor">Cr&eacute;dits</a>
       </li>
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">
     </div>
   </div>
+  <% languages = static.get_released_languages() %>
+        <ol class="user footer-translation" style="display:none;">
+          <li class="primary">
+            <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+              <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+              % if user.is_authenticated():
+              <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+              % else:
+              <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+              % endif
+              <label><span class="sr">${_("Choose Language")}</span>
+                <!--LANGUAGE FLAGS-->
+                <div id="lang-content">
+                  <img src="/media/microsite/afpa/images/uk.png" id="en">
+                  <img src="/media/microsite/afpa/images/fr.png" id="fr">
+                  <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                    % for language in languages:
+                     % if language[0] =="en" or language[0] =="fr":
+                      % if language[0] == LANGUAGE_CODE:
+                        <option value="${language[0]}" selected="selected">${language[0]}</option>
+                      % else:
+                        <option value="${language[0]}">${language[0]}</option>
+                      % endif
+                     % endif
+                    % endfor
+                  </select>
+                </div>
+              </label>
+            </form>
+          </li>
+        </ol>
+
+  <style>
+    /*LANGUAGE FLAGS*/
+    body footer.global {
+      padding: 20px 0 0 0px;
+      display: flex;
+    }
+    footer.global>.user{
+      margin-top: 0px!important;
+    }
+    footer.global>.user>li{
+      list-style-type: none;
+    }
+    .language-selector {
+      display: none;
+    }
+    #lang-content {
+      width: 60px;
+      height: 24px;
+    }
+    #lang-content img{
+      width: 25px;
+    }
+  </style>
+
+  <script>
+    //LANGUAGE FLAGS
+    $('footer #en').on('click', function() {
+      console.log('en');
+      $('#settings-language-value > option[value="en"]').attr('selected','selected');
+      $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    }
+    );
+    $('footer #fr').on('click', function() {
+      console.log('fr');
+      $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+      $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+    }
+
+    );
+  </script>
+
 </footer>

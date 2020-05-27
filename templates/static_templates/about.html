@@ -24,6 +24,16 @@ if _template is None:
 <script>
   $( document ).ready(function() {
     document.title="Mentions légales"
+
+    if($('.wrapper-header #settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      document.title="Legal Notice"
+      $('.main-content-fr').hide()
+      $('.main-content-en').show()
+    } else{
+      document.title="Mentions légal"
+      $('.main-content-fr').show()
+      $('.main-content-en').hide()
+    }
   })
 </script>
 <style>
@@ -38,22 +48,41 @@ p {
   line-height: 120%;
 }
 </style>
-<main id="main" aria-label="Content" tabindex="-1">
+<main id="main" class="main-content-fr" aria-label="Content" tabindex="-1" style="display:none;">
+  <section class="container about">
+      <h1>Mentions légales</h1>
+      <p>La société éditrice du site formationadistance.dataformanagers.com : </p> 
+      <br/>
+      <p>HAPPENINGCO</p>
+      <p>Société par Actions Simplifiée au capital de 148 092,60 euros</p>
+      <p>Siège social : 264, rue du Faubourg Saint-Honoré, 75008 Paris</p>
+      <p>RCS Paris : 447 906 165 000 33</p>
+      <p>Tél :  01 45 01 60 00</p>
+      <p>Numéro individuel d’identification de TVA : FR11447906165</p>
+      <p>Directeur de la Publication : Thierry HAPPE</p>
+      <p>Editrice du Site web : Flore SEGALEN</p>
+      <p>Hébergeur : OVH, 2 rue Kellermann, 59100 Roubaix</p>
+      <p>Tél. : 09.72.10.10.07</p>
+      <p>Date de création : 30 avril 2020</p>
+      <br/>
+  </section>
+</main>
+<main id="main" class="main-content-en" aria-label="Content" tabindex="-1">
     <section class="container about">
-        <h1>Mentions légales</h1>
-        <p>La société éditrice du site formationadistance.dataformanagers.com : </p> 
+        <h2>Legal</h2>
+        <p>The website formationadistance.dataformanagers.com is published by:</p>
         <br/>
         <p>HAPPENINGCO</p>
-        <p>Société par Actions Simplifiée au capital de 148 092,60 euros</p>
-        <p>Siège social : 264, rue du Faubourg Saint-Honoré, 75008 Paris</p>
-        <p>RCS Paris : 447 906 165 000 33</p>
-        <p>Tél :  01 45 01 60 00</p>
-        <p>Numéro individuel d’identification de TVA : FR11447906165</p>
-        <p>Directeur de la Publication : Thierry HAPPE</p>
-        <p>Editrice du Site web : Flore SEGALEN</p>
-        <p>Hébergeur : OVH, 2 rue Kellermann, 59100 Roubaix</p>
-        <p>Tél. : 09.72.10.10.07</p>
-        <p>Date de création : 30 avril 2020</p>
+        <p>SAS with capital of €148,092.60 </p>
+        <p>Registered office: 264, rue du Faubourg Saint-Honoré, 75008 Paris</p>
+        <p>Paris trade register: 447 906 165 000 33</p>
+        <p>Tel.:  +33 (0)1 45 01 60 00</p>
+        <p>TVA (sales tax) identification number: FR11447906165</p>
+        <p>Chief editor: Thierry HAPPE</p>
+        <p>Website editor: Flore SEGALEN</p>
+        <p>Hosted by: OVH, 2 rue Kellermann, 59100 Roubaix</p>
+        <p>Tel.: +33 (0)9.72. 10.10.07</p>
+        <p>Created on: April 30, 2020</p>
         <br/>
     </section>
 </main>

@@ -22,6 +22,15 @@ if _template is None:
 <script>
   $( document ).ready(function() {
     document.title="Crédits"
+    if($('.wrapper-header #settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      document.title="Credit"
+      $('.main-content-fr').hide()
+      $('.main-content-en').show()
+    } else{
+      document.title="Crédit"
+      $('.main-content-fr').show()
+      $('.main-content-en').hide()
+    }
   })
 </script>
 <style>
@@ -41,7 +50,7 @@ p {
   line-height: 120%;
 }
 </style>
-<main id="main" aria-label="Content" tabindex="-1">
+<main id="main" class="main-content-fr" aria-label="Content" tabindex="-1" style="display:none;">
 <!--
     <section class="container about">
         <h1>${_("Honor Code")}</h1>
@@ -56,4 +65,24 @@ p {
     <p>Réalisation : WeUp Learning, 5 rue de Conflans, 94220 Charenton-le-Pont</p>
 </section>
 
+</main>
+<main id="main" class="main-content-en" aria-label="Content" tabindex="-1">
+<!--
+    <section class="container about">
+        <h1>${_("Honor Code")}</h1>
+        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+    </section>
+-->
+<section class="container honor">
+    <h1>Credits</h1>
+    <p>
+      Netexplo is a trademark of HappeningCo SAS,
+    </p>
+    <p></p>
+      264 rue du Faubourg Saint-Honoré, 75008 Paris - RCS Paris B 447 906 165
+    </p>
+    <p>
+      Platform developed by WeUp Learning, 5 rue de Conflans, 94220 Charenton-le-Pont</a>
+    </p>
+</section>
 </main>

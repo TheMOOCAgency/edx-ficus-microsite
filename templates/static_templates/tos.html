@@ -25,7 +25,16 @@ static.get_value('domain_prefix')
 %>
 <script>
   $( document ).ready(function() {
-    document.title="Conditions générales"
+
+    if($('.wrapper-header #settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+      document.title="General conditions"
+      $('.main-content-fr').hide()
+      $('.main-content-en').show()
+    } else{
+      document.title="Conditions générales"
+      $('.main-content-fr').show()
+      $('.main-content-en').hide()
+    }
   })
 </script>
 <style>
@@ -37,62 +46,113 @@ h3{
   margin: 20px 10px;
 }
 </style>
-<main id="main" aria-label="Content" tabindex="-1">
+
+<main id="main" class="main-content-fr" aria-label="Content" tabindex="-1" style="display:none;">
+  <section class="container about">
+    <h1>Conditions générales d'utilisation</h1>
+
+    <h3>1. Conditions générales d'utilisation de la plateforme et des services proposés.</h3>
+    <br/>
+    <p>L'utilisation de la plateforme "Data for Managers - formation à distance" (ci-après le « Site »), implique l'acceptation pleine et entière des conditions générales d'utilisation ci-après décrites. Ces conditions d'utilisation sont susceptibles d'être modifiées ou complétées à tout moment, les utilisateurs du site sont donc invités à les consulter de manière régulière.</p>
+    <p>Ce site est accessible uniquement sur invitation.</p>
+    <p>Le site est mis à jour régulièrement par HappeningCo, propriétaire de la marque Netexplo. De la même façon, les FAQ et Crédits peuvent être modifiés à tout moment : ils s’imposent néanmoins à l’utilisateur qui est invité à s’y référer le plus souvent possible afin d’en prendre connaissance.</p>
+    <br />
+
+    <h3>2. Présentation du site.</h3>
+    <p>Ce site est la propriété de la société HappeningCo, SAS inscrite au Registre du Commerce et des Sociétés de Paris sous le numéro B447906165 et au SIRET sous le numéro 447.906.165.000.17 et dont le siège social est situé 264, du Faubourg Saint-Honoré, 75008 Paris,</p>
+    <p> La version actuelle du site a été conçue par HappeningCo et développée par la société WeUp Learning, 5 rue de Conflans 94220 Charenton-le-Pont, qui se charge de la maintenance du site.</p>
+    <p>Le Directeur de la publication est Flore Segalen, HappeningCo, 264, Rue du Faubourg Saint-Honoré, 75008 Paris</p>
+    <br/>
+
+    <h3>3. Description des services fournis.</h3>
+    <p>Le site a pour objet de présenter le parcours de formations à distance (contenus et quiz d'évaluation) menant à la délivrance du Certificat HEC Paris "Data for Managers".</p>
+    <br/>
+
+    <h3>4. Limitations contractuelles sur les données techniques.</h3>
+    <p>La configuration minimum requise pour l'accès au site est la suivante :</p>
+    <ul>
+      <li>Fonctionne sur Firefox, Google Chrome, Safari et Internet Explorer 8+</li>
+      <li>Sur mobile ou tablette, la plateforme fonctionne sur les navigateurs intégrés aux systèmes d’exploitation</li>
+      <li>Vidéo HTML5 (iOS)</li>
+      <li>L’utilisateur du site s’engage à accéder au site en utilisant un matériel répondant aux exigences de configuration ci-dessus décrites et ne contenant pas de virus.</li>
+    </ul>
+    <br/>
+
+    <h3>5. Propriété intellectuelle</h3>
+    <p>Les noms Netexplo et formation.datamanager sont des marques dûment déposées par la société HappeningCo.</p>
+    <p>La société HappeningCo est propriétaire des droits de propriété intellectuelle ou détient les droits d'usage sur tous les éléments accessibles sur le site, notamment les textes, images, vidéos, graphismes, icônes, sons.</p>
+    <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de la société HappeningCo.</p>
+    <p>Toute exploitation non autorisée du site ou de l'un des éléments qu'il contient sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.</p>
+    <br/>
+
+    <h3>6. Limitations de responsabilité.</h3>
+    <p>La société HappeningCo ne pourra être tenue responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site, et résultant soit de l’utilisation d’un matériel ne répondant pas aux spécifications indiquées au point 4, soit de l’apparition d’un bug ou d’une incompatibilité.</p>
+    <br/>
+
+    <h3>7. Protection des données personnelles.</h3>
+    <p>Les Codes d'Accès permettent à l'Utilisateur de s'identifier et de se connecter aux services souscrits proposés sur la plateforme. Ces Codes d'Accès sont personnels et confidentiels. Ils peuvent être modifiés en ligne par l'Utilisateur ou par la Société HappeningCo à la demande de l'Utilisateur (Code d'Accès oublié, piraté …). L'Utilisateur est entièrement responsable de l'utilisation des Codes d'Accès le concernant. Sauf preuve contraire, toute connexion au Site ou transmission de données effectuées à partir des Codes d'Accès de l'Utilisateur sera réputée avoir été effectuée par ce dernier.</p>
+    <p>L'Utilisateur s'engage à conserver ses Codes d'Accès secrets et s'interdit de les divulguer sous quelque forme que ce soit à des tiers. A cet égard, l'Utilisateur a la possibilité de s'assurer qu'à l'issue de chaque session, il peut se déconnecter explicitement. En cas de perte, de vol ou de divulgation accidentelle de ses Codes d'Accès, l'Utilisateur doit en informer la plateforme sans délai par courrier électronique ou postal. Celui-ci, procèdera alors à l'annulation dans les meilleurs délais des Codes d'Accès de l'Utilisateur. A l'issue de cette procédure, l'Utilisateur recevra un nouveau mot de passe.</p>
+    <p>La Société HappeningCo s’engage à respecter les dispositions légales et réglementaires applicables relatives aux données personnelles et notamment aux dispositions au Règlement général (UE) 2016/679 sur la protection des données du 27 avril 2016 (« RGPD ») ainsi qu’à la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés modifiée et la loi pour la Confiance en l’Economie numérique du 21 juin 2004. </p>
+    <p>La Société HappeningCo s’engage à respecter la confidentialité et la sécurité des données à caractère personnel relatives aux utilisateurs de son site internet. Pour plus d’information sur ces traitements, veuillez consulter la <a href="https://formationadistance.dataformanagers.com/privacy">Politique de Confidentialité</a> du Site.</p>
+    <p>La Société HappeningCo s’engage à mettre en place toutes les mesures techniques et organisationnelles nécessaires à la sécurité des Données en prenant en compte l'état des connaissances, les coûts de mise en œuvre et la nature, portée, contexte et les finalités du traitement ainsi que les risques, dont le degré de probabilité et de gravité varie, pour les droits et libertés des personnes physiques, afin de garantir un niveau de sécurité adapté au risque.</p>
+    <br/>
+
+    <h3>8. Cookies.</h3>
+    <p>La navigation sur ce site entraine l’installation de cookie(s) dits fonctionnels sur le navigateur de l’utilisateur. Un cookie est un fichier de petite taille, qui ne permet pas l’identification de l’utilisateur, mais qui enregistre des informations relatives à la navigation d’un ordinateur sur un site. </p>
+    <br/>
+    <h3>9. Droit applicable et attribution de juridiction.</h3>
+    <p>Tout litige en relation avec l’utilisation du site est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Paris.</p>
+    <br/>
+  </section>
+</main>
+<main id="main" class="main-content-en" aria-label="Content" tabindex="-1">
     <section class="container about">
-      <h1>Conditions générales d'utilisation</h1>
-
-      <h3>1. Conditions générales d'utilisation de la plateforme et des services proposés.</h3>
+      <h1>Terms of use</h1>
+      <h3>1. General terms and conditions for use of the platform and services </h3>
       <br/>
-      <p>L'utilisation de la plateforme "Data for Managers - formation à distance" (ci-après le « Site »), implique l'acceptation pleine et entière des conditions générales d'utilisation ci-après décrites. Ces conditions d'utilisation sont susceptibles d'être modifiées ou complétées à tout moment, les utilisateurs du site sont donc invités à les consulter de manière régulière.</p>
-      <p>Ce site est accessible uniquement sur invitation.</p>
-      <p>Le site est mis à jour régulièrement par HappeningCo, propriétaire de la marque Netexplo. De la même façon, les FAQ et Crédits peuvent être modifiés à tout moment : ils s’imposent néanmoins à l’utilisateur qui est invité à s’y référer le plus souvent possible afin d’en prendre connaissance.</p>
+      <p>Use of the "Data for Managers - remote training" platform (hereafter the “Site“), entails full acceptance of the terms and conditions set out below. These terms and conditions may be changed or added to at any time. Users of the Site are therefore invited to consult them regularly.</p>
+      <p>Access to the Site is by invitation only.</p>
+      <p>The Site is regularly updated by HappeningCo, the owner of the Netexplo brand. Similarly, the FAQ and Credits may be modified at any time. They are nevertheless binding on users, who are invited to refer to them whenever possible in order to familiarize themselves therewith.</p>
       <br />
-
-      <h3>2. Présentation du site.</h3>
-      <p>Ce site est la propriété de la société HappeningCo, SAS inscrite au Registre du Commerce et des Sociétés de Paris sous le numéro B447906165 et au SIRET sous le numéro 447.906.165.000.17 et dont le siège social est situé 264, du Faubourg Saint-Honoré, 75008 Paris,</p>
-      <p> La version actuelle du site a été conçue par HappeningCo et développée par la société WeUp Learning, 5 rue de Conflans 94220 Charenton-le-Pont, qui se charge de la maintenance du site.</p>
-      <p>Le Directeur de la publication est Flore Segalen, HappeningCo, 264, Rue du Faubourg Saint-Honoré, 75008 Paris</p>
+      <h3>2. Presentation of the Site</h3>
+      <p>The Site is the property of HappeningCo SAS, listed on the Paris register of companies under number B447906165,  SIRET #447.906.165.000.17, with registered offices at 264, Rue  du Faubourg Saint-Honoré, 75008 Paris,</p>
+      <p>The current version of the Site was designed by HappeningCo and developed by WeUp Learning, 5 rue de Conflans 94220 Charenton-le-Pont, which is also responsible for maintaining the Site.</p>
+      <p>The Chief Editor is Flore Segalen, HappeningCo, 264, Rue du Faubourg Saint-Honoré, 75008 Paris, France.</p>
       <br/>
+      <h3>3. Services provided</h3>
+      <p>The purpose of the Site is to present the remote training program (content and tests) that enables users to obtain the HEC Paris "Data for Managers" Short Certificate.</p>
 
-      <h3>3. Description des services fournis.</h3>
-      <p>Le site a pour objet de présenter le parcours de formations à distance (contenus et quiz d'évaluation) menant à la délivrance du Certificat HEC Paris "Data for Managers".</p>
       <br/>
-
-      <h3>4. Limitations contractuelles sur les données techniques.</h3>
-      <p>La configuration minimum requise pour l'accès au site est la suivante :</p>
+      <h3>4. Contractual restrictions on technical data </h3>
+      <p>The minimum setup required for access to the site is as follows:</p>
       <ul>
-        <li>Fonctionne sur Firefox, Google Chrome, Safari et Internet Explorer 8+</li>
-        <li>Sur mobile ou tablette, la plateforme fonctionne sur les navigateurs intégrés aux systèmes d’exploitation</li>
-        <li>Vidéo HTML5 (iOS)</li>
-        <li>L’utilisateur du site s’engage à accéder au site en utilisant un matériel répondant aux exigences de configuration ci-dessus décrites et ne contenant pas de virus.</li>
+        <li>Works on Firefox, Google Chrome, Safari and Internet Explorer 8+</li>
+        <li>On smartphones or tablets, the platform works on the operating systems’ embedded browsers </li>
+        <li>HTML5 video (iOS)</li>
+        <li>The Site’s users shall only access it with equipment that meets the above-described criteria and is virus-free.</li>
       </ul>
       <br/>
-
-      <h3>5. Propriété intellectuelle</h3>
-      <p>Les noms Netexplo et formation.datamanager sont des marques dûment déposées par la société HappeningCo.</p>
-      <p>La société HappeningCo est propriétaire des droits de propriété intellectuelle ou détient les droits d'usage sur tous les éléments accessibles sur le site, notamment les textes, images, vidéos, graphismes, icônes, sons.</p>
-      <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de la société HappeningCo.</p>
-      <p>Toute exploitation non autorisée du site ou de l'un des éléments qu'il contient sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.</p>
+      <h3>5. Intellectual property</h3>
+      <p>The names Netexplo and formationadistance.dataformanagers are registered trademarks of HappeningCo.</p>
+      <p>HappeningCo is the sole owner of the intellectual property rights or holds the utilization rights to all the material on the Site, in particular text, images, video, graphics, icons and audio.</p>
+      <p>Any reproduction, representation, modification, publication or adaptation of all or part of the material on the Site, regardless of the media or process used, is prohibited without the prior written authorization of HappeningCo.</p>
+      <p>Any unauthorized use of the Site or any of its components shall be considered an infringement and give rise to proceedings in accordance with articles L.335-2 et seq. of the French intellectual property code.</p>
       <br/>
-
-      <h3>6. Limitations de responsabilité.</h3>
-      <p>La société HappeningCo ne pourra être tenue responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site, et résultant soit de l’utilisation d’un matériel ne répondant pas aux spécifications indiquées au point 4, soit de l’apparition d’un bug ou d’une incompatibilité.</p>
+      <h3>6. Limitations of liability</h3>
+      <p>HappeningCo may not be held liable for any direct or indirect damage to the user’s equipment when visiting the Site, whether resulting from use of equipment that does not meet the specifications set out in point 4, or from the appearance of a bug or incompatibility.</p>
       <br/>
-
-      <h3>7. Protection des données personnelles.</h3>
-      <p>Les Codes d'Accès permettent à l'Utilisateur de s'identifier et de se connecter aux services souscrits proposés sur la plateforme. Ces Codes d'Accès sont personnels et confidentiels. Ils peuvent être modifiés en ligne par l'Utilisateur ou par la Société HappeningCo à la demande de l'Utilisateur (Code d'Accès oublié, piraté …). L'Utilisateur est entièrement responsable de l'utilisation des Codes d'Accès le concernant. Sauf preuve contraire, toute connexion au Site ou transmission de données effectuées à partir des Codes d'Accès de l'Utilisateur sera réputée avoir été effectuée par ce dernier.</p>
-      <p>L'Utilisateur s'engage à conserver ses Codes d'Accès secrets et s'interdit de les divulguer sous quelque forme que ce soit à des tiers. A cet égard, l'Utilisateur a la possibilité de s'assurer qu'à l'issue de chaque session, il peut se déconnecter explicitement. En cas de perte, de vol ou de divulgation accidentelle de ses Codes d'Accès, l'Utilisateur doit en informer la plateforme sans délai par courrier électronique ou postal. Celui-ci, procèdera alors à l'annulation dans les meilleurs délais des Codes d'Accès de l'Utilisateur. A l'issue de cette procédure, l'Utilisateur recevra un nouveau mot de passe.</p>
-      <p>La Société HappeningCo s’engage à respecter les dispositions légales et réglementaires applicables relatives aux données personnelles et notamment aux dispositions au Règlement général (UE) 2016/679 sur la protection des données du 27 avril 2016 (« RGPD ») ainsi qu’à la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés modifiée et la loi pour la Confiance en l’Economie numérique du 21 juin 2004. </p>
-      <p>La Société HappeningCo s’engage à respecter la confidentialité et la sécurité des données à caractère personnel relatives aux utilisateurs de son site internet. Pour plus d’information sur ces traitements, veuillez consulter la <a href="https://formationadistance.dataformanagers.com/privacy">Politique de Confidentialité</a> du Site.</p>
-      <p>La Société HappeningCo s’engage à mettre en place toutes les mesures techniques et organisationnelles nécessaires à la sécurité des Données en prenant en compte l'état des connaissances, les coûts de mise en œuvre et la nature, portée, contexte et les finalités du traitement ainsi que les risques, dont le degré de probabilité et de gravité varie, pour les droits et libertés des personnes physiques, afin de garantir un niveau de sécurité adapté au risque.</p>
+      <h3>7. Protection of personal data</h3>
+      <p>Access Codes enable the user to log into the subscribed services on the platform. These Codes are personal and confidential. They may be modified online by the User or by HappeningCo at the User’s request (Codes forgotten or hacked, etc.). The User is wholly responsible for the use of their Access Codes. Unless proven otherwise, any login to the Site or transmission of data from the User’s Access Codes shall be considered as made by the User.</p>
+      <p>The User shall keep their Access Codes secret and not disclose them to any third party in any form whatsoever. In that respect, the User has the possibility of logging out explicitly at the end of each session. In the event of the loss, theft or disclosure of their Access Codes, the User shall inform the platform without delay by email or post. The platform shall then cancel the User’s Access Codes without delay. Following this procedure, the User shall receive a new password.</p>
+      <p>HappeningCo shall comply with legal and regulatory provisions, particularly EU general regulations #2016/679 on data protection of April 27, 2016 (“GDPR”) and French law #78-17 of January 6, 1978 on information technology, data and liberties, as amended by the law for trust in the digital economy  of June 21, 2004. </p>
+      <p>HappeningCo shall ensure the confidentiality and security of personal data concerning the users of its website. For more information on such processing, please refer to the Site’s <a href="https://formationadistance.faciliterlatransformation.com/privacy">Confidentiality Policy</a>.</p>
+      <p>HappeningCo shall take all the technical and organizational measures needed for the security of the Data, taking into account the state of the art, implementation costs  and the nature, scope, context and purposes of processing, as well as the risks, of varying likelihood and severity, to the rights and freedoms of individuals, in order to guarantee a relevant security level for such risks.</p>
       <br/>
-
       <h3>8. Cookies.</h3>
-      <p>La navigation sur ce site entraine l’installation de cookie(s) dits fonctionnels sur le navigateur de l’utilisateur. Un cookie est un fichier de petite taille, qui ne permet pas l’identification de l’utilisateur, mais qui enregistre des informations relatives à la navigation d’un ordinateur sur un site. </p>
+      <p>Navigation on the Site leads to the installation of “functional” cookies in the user’s browser. A cookie is a small file that does not allow the user to be identified, but records information on a computer’s navigation on the site.</p>
       <br/>
-
-      <h3>9. Droit applicable et attribution de juridiction.</h3>
-      <p>Tout litige en relation avec l’utilisation du site est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Paris.</p>
+      <h3>9. Applicable law, jurisdiction</h3>
+      <p>Any dispute with respect to the use of the Site is governed by French law. The competent Paris courts shall have sole jurisdiction.</p>
       <br/>
     </section>
 </main>

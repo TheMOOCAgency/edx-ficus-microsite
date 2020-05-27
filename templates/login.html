@@ -96,9 +96,14 @@ from third_party_auth import provider, pipeline
       var $submitButton = $('form .form-actions #submit');
 
       if(enable) {
+      if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
         $submitButton.
-          html("Connexion à mon compte");
-      }
+          html("Sign in to my account");
+        }else{
+          $submitButton.
+            html("Connexion à mon compte");
+        }
+        }
       else {
         $submitButton.
           text("${_(u'Processing your account information')}");
