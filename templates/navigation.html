@@ -41,10 +41,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
+
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -418,6 +421,11 @@ color : ${color_custom}!important;
 }
 #global-navigation .burger::before{
   color: ${color_custom}!important;
+}
+.dropdown-menu-container .menu-button{
+  color: ${color_custom}!important;
+  text-decoration: none!important;
+  cursor: pointer;
 }
 </style>
 <!-- TMA Ficus Redesign -->
