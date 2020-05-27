@@ -4,15 +4,49 @@
   from django.core.urlresolvers import reverse
   from django.utils.translation import ugettext as _
   from branding.api import get_footer
+  #maj TMA
+  from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 <% footer = get_footer(is_secure=is_secure) %>
 <%namespace name='static' file='static_content.html'/>
 <%
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
+cssoverride = '/media/microsite/assets_redesign/css/footer.css'.format(org_static)
+%>
+
+
+<!-- TMA Ficus Redesign -->
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+body footer.global {
+    background-color: ${third_color}!important;
+}
+</style>
+
 <footer class="global">
   <div class="footer-container">
     <ul class="links">

@@ -40,11 +40,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
+cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
+
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -328,6 +331,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <!-- End Piwik Code -->
 % endif
 
+
+
+<!-- TMA Ficus Redesign -->
 <%
 custom_color = str(configuration_helpers.get_value('primary_color'))
 if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
@@ -339,6 +345,16 @@ if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
 else:
   custom_color = str(configuration_helpers.get_value('primary_color'))
 endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+
 %>
 <script>
   $(document).ready(function(i){
@@ -351,18 +367,6 @@ endif
 </script>
 
 <style>
-.header-global .wrapper-header{
-  padding: 10px 10px 10px !important;
-}
-.dropdown-menu-container .menu-button{
-  margin-top: 0px !important;
-}
-.list-inline > li > a{
-  font-size: 0.9rem;
-}
-.dropdown-menu-container .menu-image{
-  border-radius : 60%;
-}
 .discussion.wrapper-course-material{
   background-color: ${custom_color} !important;
 }
@@ -392,87 +396,36 @@ div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary 
 .edit-post-form .post-cancel {
   color:  ${custom_color} !important;
 }
-.header-global .user .dropdown{
-  background: transparent ! important;
-}
-.header-global .primary>a:hover{
-  background: #ffffff;
-}
-.header-global .user .user-link .user-image-frame{
-  border-radius : 60% !important;
-}
-.header-global .user .user-link .user-image-frame{
-  border-radius : 60% !important;
-}
-.header-global .user{
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-.header-global .wrapper-header .wrapper-user-menu{
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-.header-global .wrapper-header{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-height : 74%;
-}
+
 .header-global{
-  background-color: #ffffff!important;
-}
-body.view-in-course .header-global .wrapper-header, body.view-in-course .header-global.slim .wrapper-header{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height : 74%;
+  background-color: ${third_color}!important;
 }
 body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
   background-color:  ${custom_color} !important;
 }
-.user-menu{
-  margin-top : 5px;
-}
-/*Custom 5a */
-#global-navigation{
-  display: flex!important;
-  justify-content: space-around;
-}
-.header-global .user{
-  flex : inherit!important;
-}
-#return_dashboard{
-  display: none!important;
-}
-.wrapper-header{
-  flex: 5;
-  margin : 0!important;
-}
-.nav-global.left{
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-.header-global h1.logo img.ec-logo-size {
-  margin-top: 20px;
-}
-.wrapper-user-menu{
-  width : auto!important;
-  display: flex!important;
-}
-.header-global .wrapper-header .list-inline.nav-global {
-    display: flex!important;
-    justify-content : space-around!important;
-}
 .header-global .nav-global li a, .header-global .nav-global div a{
-  color : #3c3c3c!important;
+  color : ${color_custom}!important;
+  font-weight: 600;
+  text-transform: uppercase;
 }
-.bookmark-button-wrapper{
-  display : none!important;
+.header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
+  color : ${color_custom}!important;
+  text-shadow : none!important;
 }
-.logo{
-  margin-left: 10px!important;
+.label-username p, .label-username:hover p{
+color : ${color_custom}!important;
+}
+.fa-sort-down::before, .fa-sort-desc::before {
+    color:   ${color_custom}!important;
+}
+#global-navigation .burger{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
 }
 </style>
+<!-- TMA Ficus Redesign -->
