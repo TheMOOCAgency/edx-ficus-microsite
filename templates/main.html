@@ -56,7 +56,11 @@ from pipeline_mako import render_require_js_path_overrides
   %>
 
   <script type="text/javascript" src="${static.url(jsi18n_path)}"></script>
-
+  <%
+  cssoverride = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
+  %>
+  <link rel="stylesheet" type="text/css" href="${cssoverride}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
 
   <%static:css group='style-vendor'/>
@@ -131,7 +135,7 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
-    
+
 % if static.get_value('google_font') is not None:
 <%
 font_string = static.get_value('google_font')
@@ -153,7 +157,7 @@ ${font_string | n}
       url("/static/sncf/fonts/avenir.eot?#iefix") format("embedded-opentype");
   }
 </style>
-% endif    
+% endif
 <style>
   /*Font*/
   @font-face {
@@ -174,7 +178,7 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 .fa {
  font: normal normal normal 14px/1 FontAwesome !important;
 }
-</style>   
+</style>
 </head>
 
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">

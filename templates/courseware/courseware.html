@@ -6,13 +6,16 @@
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
+
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
+<%include file="/tma_apps/tma_time_tracking.html" />
 <%def name="course_name()">
  <% return _("{course_number} Courseware").format(course_number=course.display_number_with_default) %>
 </%def>
@@ -63,7 +66,7 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
-
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85f28f02759b6f"></script>
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
 </%block>
@@ -125,26 +128,27 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
 % endif
 
+<link rel="stylesheet" href="/media/microsite/connexions-citoyennes/css/responsive_top_layer.css" type="text/css" media="screen" />
+
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
 % if disable_accordion is UNDEFINED or not disable_accordion:
+    <div class="menu-accordion" style="display:none;">
+    <input class="burger" type="checkbox">
     <div class="course-index">
-
-      <div class="wrapper-course-modes">
-
-          <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
+      <div class="wrapper-course-modes" style="overflow:hidden">
+            <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
               <button type="button" class="bookmarks-list-button is-inactive" aria-pressed="false">
                   ${_('Bookmarks')}
               </button>
           </div>
-
           % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
             <div id="courseware-search-bar" class="search-bar courseware-search-bar" role="search" aria-label="Course">
               <form>
                 <label for="course-search-input" class="sr">${_('Course Search')}</label>
                 <div class="search-field-wrapper">
-                  <input id="course-search-input" type="text" class="search-field" placeholder="Recherche"/>
+                  <input id="course-search-input" type="text" class="search-field" placeholder=${_('Search')} />
                   <button type="submit" class="search-button"><img src="${static.url('images/recherche_couleur.svg')}" class="svg" /></button>
                   <button type="button" class="cancel-button" title="${_('Clear search')}">
                     <span class="icon fa fa-remove" aria-hidden="true"></span>
@@ -155,8 +159,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
           % endif
 
       </div>
-
-      <div class="accordion">
+      <div class="accordion" style="overflow:hidden">
         <nav class="course-navigation" aria-label="${_('Course')}">
           % if accordion.strip():
             ${HTML(accordion)}
@@ -165,8 +168,10 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
           % endif
         </nav>
       </div>
-
     </div>
+    <div class="addthis_inline_share_toolbox"></div>
+    </div>
+
 % endif
     <section class="course-content" id="course-content">
         <div class="path"></div>
@@ -352,8 +357,139 @@ $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
 </script>
-  
+
   <!--TMA TIME TRACKING-->
 %if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
 <%include file="/tma_apps/tma_time_tracking.html" />
 %endif
+<script>
+$(document).ready(function(){
+setTimeout($('.menu-accordion').show(), 1000);
+$('.ui-accordion-content:not(.active)>.custom_unit').on('click',function(e){
+    window.location.href=$(e.target).attr('href');
+})
+  var highlightCustomUnit = function(){
+    $('.nav-item').each(function(indexnav,elementnav){
+      $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).on('click',function(){
+        $($('.nav-item')[indexnav]).trigger( "click" )
+      })
+
+        if($(elementnav).hasClass('active')){
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
+        }else{
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
+        }
+      })
+    }
+  highlightCustomUnit()
+
+$('.sequence-nav>nav>ol>li').each(function(index){
+    $(this).click(function(){
+      highlightCustomUnit()
+  })
+})
+$('.button-next').live('click',function(e){
+    highlightCustomUnit()
+})
+$('.button-previous').live('click',function(e){
+   highlightCustomUnit()
+})
+setInterval(function(){
+    $('#field_help_post_type').text('Utilisez les \'Questions\' si vous attendez une réponse. Les \'Discussions\' servent à lancer des conversations.') ;
+    $('#field_help_title').text('Ajoutez un titre clair et descriptif pour favoriser la participation') ;
+    $('#new-post-editor-description').text('Votre question ou idée') ;
+}, 2000);
+})
+</script>
+<style>
+  .wrapper-course-material>.menu-responsive{
+    display:none!important;
+  }
+  #return_dashboard a{
+    padding:5px 0px 5px 0px!important;
+    font-weight: 600!important;
+  }
+  #return_dashboard>a:hover {
+      border-bottom-color: #0075b4!important;
+      color: #0075b4 !important;
+      padding-top : 10px!important;
+  }
+  .wrapper-header>.nav-global>li.tab>a {
+      padding-top : 5px;
+  }
+  .wrapper-header>.nav-global>li.tab:hover>a {
+      color: #0075b4 !important;
+  }
+  .header-global .nav-global {
+      margin-top : 0px!important;
+  }
+  .nav-global-01{
+      border: 2px solid #0075b4;
+      padding: 0px;
+      box-sizing: border-box;
+      margin: 30px 0px!important;
+  }
+  .nav-global-01:hover{
+      color :#fff!important;
+      background-color : #0075b4;
+  }
+  .wrapper-header>.nav-global>li.nav-global-01:hover>a{
+      color :#fff!important;
+  }
+</style>
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+%>
+
+<!-- Custom style for 5aconseil -->
+<style>
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
+  background-color: ${custom_color} !important;
+}
+.bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
+  color : ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol{
+  background-color: ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
+  background-color: ${custom_color} !important;
+}
+.btn.btn-link.bookmark-button{
+  color: ${custom_color} !important;
+}
+ .custom_unit.active{
+   color :  ${custom_color} !important;
+   font-weight : 600!important;
+ }
+ .custom_unit{
+   color :  ${custom_color} !important;
+   font-weight : 400!important;
+ }
+ .menu-item.active>.accordion-nav>.accordion-display-name{
+    color :  ${custom_color} !important;
+ }
+ #global-navigation .burger{
+    color :  ${color_custom} !important;
+ }
+
+</style>

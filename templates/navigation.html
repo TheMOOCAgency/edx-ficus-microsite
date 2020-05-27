@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+import json
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -20,6 +21,10 @@ from branding import api as branding_api
 from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFSXGD9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
@@ -35,10 +40,14 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
+cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
 
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -47,6 +56,8 @@ except:
     course_id = None
 site_status_msg = get_site_status_msg(course_id)
 %>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 % if site_status_msg:
 <div class="site-status">
   <div class="inner-wrapper">
@@ -57,6 +68,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
+  <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -108,11 +120,6 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
-          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
-          % endif
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
@@ -270,6 +277,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   %>
   <script>
     var username_pid = "${user.username}";
+    var userid_tma = "${user.id}";
+    var first_name_tma = "${json.loads(user.profile.custom_field).get('first_name')}";
+    var last_name_tma = "${json.loads(user.profile.custom_field).get('last_name')}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
 
@@ -320,3 +330,100 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+
+
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+%>
+<script>
+  $(document).ready(function(i){
+    $('.course-tabs>li').appendTo('.nav-global')
+    $('.logo').prependTo('#global-navigation')
+    $('.user').appendTo('#global-navigation')
+    $('.wrapper-user-menu').appendTo('#global-navigation')
+    console.log($('.wrapper-user-menu'))
+  })
+</script>
+
+<style>
+.discussion.wrapper-course-material{
+  background-color: ${custom_color} !important;
+}
+div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary .page-header-secondary .form-actions button.new-post-btn{
+  background-color:  ${custom_color} !important;
+}
+.discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand, .forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label{
+  background-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.btn-brand {
+  background-color:  ${custom_color} !important;
+  border-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.cancel, .discussion-reply-new button.discussion-submit-post {
+    color:  ${custom_color} !important;
+}
+.discussion-module .btn, .wmd-prompt-dialog .btn, .btn {
+  border: 1px solid  ${custom_color} !important;
+}
+.has-breadcrumbs .breadcrumbs .all-topics{
+  color:  ${custom_color} !important;
+}
+.btn-brand, .modal .inner-wrapper form .submit input[type="submit"], .leanModal_box .inner-wrapper form .submit input[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"] {
+    border-color:  ${custom_color} !important;
+    background:  ${custom_color}!important;
+}
+.edit-post-form .post-cancel {
+  color:  ${custom_color} !important;
+}
+.header-global{
+  background-color: ${third_color}!important;
+}
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
+  background-color:  ${custom_color} !important;
+}
+.header-global .nav-global li a, .header-global .nav-global div a{
+  color : ${color_custom}!important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
+  color : ${color_custom}!important;
+  text-shadow : none!important;
+}
+.label-username p, .label-username:hover p{
+color : ${color_custom}!important;
+}
+.fa-sort-down::before, .fa-sort-desc::before {
+    color:   ${color_custom}!important;
+}
+#global-navigation .burger{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+</style>
+<!-- TMA Ficus Redesign -->
