@@ -241,10 +241,10 @@ except:
   function enrollAndRedirect(course_id_for_enroll){
     $.ajax({
       type: "POST",
-      url: "https://learning.netexplodigimapper.com/login?course_id=course-v1:digimapper-ressources+FR+1&enrollment_action=enroll",
-      // data: {"course_id": course_id_for_enroll, "enrollment_action": "enroll"},
-      success: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources%2BFR%2B1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/");},
-      error: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources%2BFR%2B1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/");},
+      url:"/change_enrollment",
+      data: {"course_id": "course-v1:digimapper-ressources+FR+1", "enrollment_action": "enroll"},
+      success: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/fca645ff40ab4b60993de20bf404fe11/6a2f4b9fa472440ea1b491e783286d26/");},
+      error: function(){window.open("https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/fca645ff40ab4b60993de20bf404fe11/6a2f4b9fa472440ea1b491e783286d26/");},
     });
   }
 </script>
