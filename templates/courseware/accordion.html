@@ -62,7 +62,10 @@ else:
     console.log(activeItem)
     $( ".chapter-menu" ).accordion({
       header : '.accordion-nav-item',
-      active : activeItem
+      active : activeItem,
+      heightStyle: "content",
+      autoHeight: false,
+      clearStyle: true,
     });
   } );
   </script>
