@@ -9,7 +9,27 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+import time
+import json
 %>
+
+<%
+custom_fields = {}
+timed_out = False
+timestamp = int(round(time.time() * 1000))
+
+custom_fields = json.loads(real_user.profile.custom_field)
+if str(course.id) in custom_fields.keys() :
+  if custom_fields[str(course.id)] + 1000*60*60*30 < timestamp :
+    timed_out = True
+  else:
+    timed_out = False
+else:
+  custom_fields[str(course.id)] = timestamp
+  real_user.profile.custom_field = json.dumps(custom_fields)
+  real_user.profile.save()
+%>
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
