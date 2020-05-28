@@ -329,66 +329,68 @@ else{
 
     %endif
 -->
+	%if user.is_active:
+		<style>
+		#dashboard_profile{
+			display:none;
+		}
+		#dashboard_course_content {
+			width: 100%;
+			margin-left: 0px !important;
+		}
+		.iframe-container {
+			position: relative;
+			overflow: hidden;
+			padding-top: 56.25%;
+		}
+		.iframe-container iframe {
+		  position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+		</style>
 
-<style>
-#dashboard_profile{
-    display:none;
-}
-#dashboard_course_content {
-    width: 100%;
-    margin-left: 0px !important;
-}
-.iframe-container {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%;
-}
-.iframe-container iframe {
-  position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-</style>
+		<div class="iframe-container">
+		  <iframe src="/media/microsite/e-formation-artisanat/autopos/story.html"></iframe>
+		</div>
 
-<div class="iframe-container">
-  <iframe src="/media/microsite/e-formation-artisanat/autopos/story.html"></iframe>
-</div>
-
-<script>
-  console.log('test 5');
-  window.addEventListener('storage', function(event) {  
-    if (event.key === 'quizpos' && event.newValue.length > 0) {
-      var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
-      var valueArray = event.newValue.split('-');
-      var customFields = {
-        score1: parseInt(valueArray[0]),
-        score1p: parseInt(valueArray[1]),
-        score3: parseInt(valueArray[2]),
-        score4: parseInt(valueArray[3]),
-        score5: parseInt(valueArray[4]),
-        score7: parseInt(valueArray[5]),
-        score8: parseInt(valueArray[6]),
-        score9: parseInt(valueArray[7]),
-        score9p: parseInt(valueArray[8]),
-        score10: parseInt(valueArray[9]),
-        score11: parseInt(valueArray[10]),
-        score12: parseInt(valueArray[11])
-      }
-      console.log(customFields);
-      $.post( urlAPI, customFields )
-      .done(function( data ) {
-          // e.target.getElementsByTagName('IMG')[0].src = "/media/dev/images/checked.png";
-      })
-      .fail(function() {
-          // e.target.getElementsByTagName('IMG')[0].src = "/media/dev/images/cross-remove-sign.png";
-      })
-    }
-  });
-</script>
-
+		<script>
+		  window.addEventListener('storage', function(event) {  
+			if (event.key === 'quizpos' && event.newValue.length > 0) {
+			  var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
+			  var valueArray = event.newValue.split('-');
+			  var customFields = {
+				score1: parseInt(valueArray[0]),
+				score1p: parseInt(valueArray[1]),
+				score3: parseInt(valueArray[2]),
+				score4: parseInt(valueArray[3]),
+				score5: parseInt(valueArray[4]),
+				score7: parseInt(valueArray[5]),
+				score8: parseInt(valueArray[6]),
+				score9: parseInt(valueArray[7]),
+				score9p: parseInt(valueArray[8]),
+				score10: parseInt(valueArray[9]),
+				score11: parseInt(valueArray[10]),
+				score12: parseInt(valueArray[11])
+			  }
+			  $.ajax({
+				url: urlAPI,
+				type: "POST",
+				data: customFields,
+				headers: {'X-CSRFToken': $.cookie('csrftoken')},
+				dataType: 'json'
+			  });
+			}
+		  });
+		</script>
+	%else:
+		<h2>Activez votre compte pour accéder aux contenus et au test de positionnement.</h2>
+		<h2>Un email contenant les instructions pour activer votre compte vous a été envoyé.</h2>
+		<h2>Si vous ne recevez pas ce message, vérifiez dans votre dossier de spam.</h2>
+	%endif
 
 
 </div>
