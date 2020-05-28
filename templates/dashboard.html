@@ -165,7 +165,10 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
     enrollment_counter = 0
     trainer_course_id = ""
     trainer_course_name = ""
+    user_have_course_metier = False
     for dashboard_index, enrollment in enumerate(course_enrollments):
+      if str(enrollment.course_id) == 'course-v1:inveest+metier1+SP' or str(enrollment.course_id) == 'course-v1:inveest+metier2+SP' or str(enrollment.course_id) =='course-v1:inveest+metier3+SP':
+        user_have_course_metier = True
       if str(enrollment.course_id) == "course-v1:inveest+metier1+SP" or str(enrollment.course_id) == "course-v1:inveest+metier2+SP" or str(enrollment.course_id) == "course-v1:inveest+metier3+SP" :
         enrollment_counter += 1
         trainer_course_id = str(enrollment.course_id)
@@ -176,7 +179,7 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
     endfor
 %>
 
-% if is_not_admin :
+% if is_not_admin and user_have_course_metier :
   <div class="dashboard_profile" id="trainer_course" style="display: none;">
     <a href="/dashboard/${trainer_course_id}"><h2>${trainer_course_name}</h2></a>
   </div>
@@ -377,6 +380,29 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
   % endif
 % endfor
+% if len(course_enrollments) == 1 or ((len(course_enrollments) == 2 and user_have_course_metier == True)) :
+  <li class="course_cell_multi">
+    <div class="up_cell">
+      <div class="options">
+        <span class="list_params">
+        <span>
+      </div>
+      <div class="multi_course_image">
+        <a href="/about"><img src="/media/microsite/inveest/map_in_dashboard.jpg" /></a>
+      </div>
+      <div class="multi_course_title">
+        <h2><a href="/about">Carte des sessions présentielles</a></h2>
+      </div>
+      <span style="display:block;clear:left"></span>
+    </div>
+    <div class="down_cell" style="height:60px;">
+      <div class="dashboard_button">
+        <a href="/about" style="width:180px;">Accéder à la carte</a>
+      </div>
+      <span style="display:block;clear:left"></span>
+    </div>
+  </li>
+% endif
 % for dashboard_index, enrollment in enumerate(course_enrollments):
   % if str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019" and (not is_not_admin or str(enrollment.course_id) != "course-v1:inveest+metier1+SP" and str(enrollment.course_id) != "course-v1:inveest+metier2+SP" and str(enrollment.course_id) != "course-v1:inveest+metier3+SP"):
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
@@ -397,12 +423,24 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     background-color: rgba(72,137,244,1);
   }
   #trainer_course > a > h2 {
-    color: #fff;
     text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
     margin-top: 26%;
-    font-size: 22px;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    fill: white;
+    color: white;
+    background-color: rgba(2, 1, 1, 0);
+    border-style: solid;
+    border-radius: 50px 50px 50px 50px;
+    padding: 15px 75px 15px 75px;
+  }
+  #trainer_course > a > h2:hover {
+    transition: all .5s cubic-bezier(0.4,0.0,0.2,1);
+    color: rgba(72,137,244,1);
+    background-color: white;
+    border-color: white;
   }
   #trainer_course > a:hover {
     text-decoration: none;
