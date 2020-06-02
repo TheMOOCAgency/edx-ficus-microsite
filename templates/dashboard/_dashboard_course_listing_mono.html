@@ -11,6 +11,7 @@ from course_modes.models import CourseMode
 from course_modes.helpers import enrollment_mode_display
 from openedx.core.djangolib.js_utils import dump_js_escaped_json
 from openedx.core.djangolib.markup import HTML, Text
+from tma_apps.tma_support_functions import tma_verify_access
 from student.helpers import (
   VERIFY_STATUS_NEED_TO_VERIFY,
   VERIFY_STATUS_SUBMITTED,
@@ -51,7 +52,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
     % endif
   </h1>
 </div>
-%if not timed_out:
+%if tma_verify_access(request.user).has_dashboard_access(str(enrollment.course_id)) or not timed_out:
   %if cours_ouv:
   <div id="course_nav">
     <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
