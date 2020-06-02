@@ -329,7 +329,7 @@ font-size: 0.8em!important
              <div class="col-md-8 col-sm-12 text-justify">
               <h4 class="card-title">${_('Import participants')}</h4>
               <p>${_('Import here the participants on your course via a csv file. Participants who are not yet registered will receive an email with their login and password on the platform, they will be automatically registered for this course. Participants already registered on the platform will receive only a registration email for the course.')}</p>
-              <p>${_('Attention the csv must be built in the following way:')}</p>
+              <p>${_('Attention the csv must be built in the following way:')} <a href="/media/microsite/5aconseil/test_comptes.csv" target="_blank">(version téléchargeable)</a></p>
               <ul class="ul_csv">
                 <li>${_('reproduce the header below, respecting the case of the column names')}</li>
                 <li>${_('do not add space in the header')}</li>
@@ -393,7 +393,7 @@ font-size: 0.8em!important
             <div class="col-sm-12">
               <div class="card">
                 <h4 class="card-title">${_("Grouped Actions")}</h4>
-                <p style="font-weight:bold" class="m-0"> ${_('Addition of time')} </p> 
+                <p style="font-weight:bold" class="m-0"> ${_('Addition of time')} </p>
                 <p class="m-0 mb-20">${_('Add time to the counter for a list of participants by separating their emails by a new line.')}</p>
                 <div class="row">
                   <div id="add-time-block">
@@ -663,7 +663,7 @@ font-size: 0.8em!important
             </div>
             <div class="modal-body">
               <p id="register_currentcourse_info" class="text-center">
-                ${_('Click on confirm to register the participant ')}<span id="participant_email"></span> 
+                ${_('Click on confirm to register the participant ')}<span id="participant_email"></span>
                 ${_('to the course')} ${course.display_name_with_default}.</p>
             </div>
             <div class="modal-footer">
