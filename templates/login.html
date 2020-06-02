@@ -7,7 +7,21 @@ from django.utils.translation import ugettext as _
 import third_party_auth
 from third_party_auth import provider, pipeline
 %>
-
+<style>
+@media screen and (max-width: 680px) {
+  .login.container{
+    display: flex!important;
+    flex-direction: column!important;
+    max-width: 100vw!important;
+    min-width: auto!important;
+    justify-content: center!important;
+  }
+.login .content, .register .content, .passwordreset .content, #forgot-password-modal #password-reset .content{
+    margin: 0 auto!important;
+    width: auto!important;
+  }
+}
+</style>
 <%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-login</%block>
