@@ -41,10 +41,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -351,6 +353,17 @@ endif
 </script>
 
 <style>
+@media screen and (max-width: 680px) {
+  .header-global h1.logo {
+      margin: 0px !important;
+      left: -60px !important;
+      padding-left: 30px!important;
+  }
+  .menu-accordion .burger:checked::before
+  {
+    color: #000!important;
+  }
+}
 .header-global .wrapper-header{
   padding: 10px 10px 10px !important;
 }
