@@ -25,19 +25,37 @@ from openedx.core.djangolib.markup import HTML, Text
   }
   #content {
     min-height: calc(100vh - 136px) !important;
+    background: none !important;
   }
+  .flags-block {
+    height: 400px;
+    width:800px;
+    background-color: rgba(226, 228, 225, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+
+  .extra_user_flag{
+    margin: 10px;
+  }
+
 </style>
 
-<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
+<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top:150px;display: flex;justify-content: center;">
   % if user.is_authenticated():
-    <h1 id="welcome-title" style="color:black;">Choisissez votre langue.<br/>Choose your language.</h1>
-    <div id="language-selector" style='display:block'>
-        <a data-value="en" data-course="course-v1:digimapper+level1+EN">
-          <img height="100px" src="/media/microsite/digimapper/user_info/uk.png" alt="uk">
-        </a>
-        <a data-value="fr" data-course="course-v1:digimapper+level1+FR">
-          <img height="100px" src="/media/microsite/digimapper/user_info/fr.png" alt="fr">
-        </a>
+    <div class="flags-block">
+      <h1 id="welcome-title" style="color:black;">Choisissez votre langue.<br/>Choose your language.</h1>
+      <div id="language-selector" style='display:block'>
+          <a data-value="en" data-course="course-v1:digimapper+level1+EN">
+            <img height="100px" src="/media/microsite/digimapper/user_info/uk.png" alt="uk" class="extra_user_flag">
+          </a>
+          <a data-value="fr" data-course="course-v1:digimapper+level1+FR">
+            <img height="100px" src="/media/microsite/digimapper/user_info/fr.png" alt="fr" class="extra_user_flag">
+          </a>
+      </div>
     </div>
   % endif
 </main>
