@@ -281,6 +281,33 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       -moz-box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
       box-shadow: 3px 3px 5px 3px rgba(50, 50, 50, 0.2);
     }
+    #conseils-btn{
+      color: white;
+      font-size: 2.333333em!important;
+      cursor: pointer;
+    }
+    .blue-btn{
+      opacity: 1 !important;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 330px;
+      min-height: 60px;
+      border-radius: 10px;
+      text-transform:none !important;
+      color: white !important;
+      background-color:  #80CFF5 !important;
+      margin:5px;
+    }
+
+    .blue-btn > i {
+      margin-right: 10px;
+    }
+    .blue-btn:hover{
+      color:  white !important;
+      background-color: rgb(46, 133, 209)!important;
+    }
 
     button:hover {
       background-image: none!important;
@@ -407,35 +434,38 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#314bb2"
       padding: 40px 0;
     }
 
+    #course_start{
+      font-size: 16px !important;
+      min-width:340px !important;
     }
 
-    #conseils-btn{
-      color: white;
-      font-size: 2.333333em!important;
-      cursor: pointer;
-    }
-    .blue-btn{
-      opacity: 1 !important;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 330px;
-      min-height: 60px;
-      border-radius: 10px;
-      text-transform:none !important;
-      color: white !important;
-      background-color:  #80CFF5 !important;
-      margin:5px;
+    .course-block {
+     width:360px;
     }
 
-    .blue-btn > i {
-      margin-right: 10px;
     }
-    .blue-btn:hover{
-      color:  white !important;
-      background-color: rgb(46, 133, 209)!important;
+
+    @media(max-width:350px) {
+
+    #course_start{
+      font-size: 14px !important;
+      min-width:260px !important;
     }
+
+    .course-block {
+     width:90%;
+    }
+
+    .course-logo {
+      width: 200px;
+    }
+
+    .blue-btn, .white-btn {
+      max-width:260px;
+    }
+    }
+
+  
   </style>
   <script>
     $('#conseils-btn').live('click', function(){
