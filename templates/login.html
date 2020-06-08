@@ -202,6 +202,16 @@ from third_party_auth import provider, pipeline
       </div>
     </form>
 
+    <style>
+      #submit {
+        background-color: rgb(35, 176, 179)!important;
+        box-shadow: 0 2px 1px 0 rgb(35, 176, 179)!important;
+      }
+      #submit:hover {
+        background-color: rgba(35, 176, 179, 0.5)!important;
+      }
+    </style>
+
     % if third_party_auth.is_enabled():
 
       <span class="deco-divider">
