@@ -350,6 +350,13 @@ $( document ).ready(function() {
   getLangUrl();
   setLanguage = false
   if ($('#settings-language-value').val() == "fr") {
+    var dirtyTranslate = setInterval(function(){ 
+      $('.forum-nav-filter-main-control > option[value = "unread"]').text('Non lus')
+      $('.forum-nav-filter-main-control > option[value = "unanswered"]').text('Non répondus')
+      if ($('.forum-nav-filter-main-control > option[value = "unread"]').text() === 'Non lus') {
+        clearInterval(dirtyTranslate)
+      }
+    }, 1000);
     if ($('.dates').length > 0) {
       for (let j = 0; j < 2; j++) {
         for (let i = 0; i < $('.dates').length; i++) {
