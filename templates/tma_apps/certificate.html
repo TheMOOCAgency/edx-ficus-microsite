@@ -473,27 +473,32 @@ h4 {
 <script type="text/javascript">
 
 
+var part_to_print = ''
 $(document).ready(function(){
-  if (window.location.pathname.indexOf('course-v1:afpa+occitanie+2019_S1') > -1) {
+    if (window.location.pathname.indexOf('course-v1:afpa+occitanie+2019_S1') > -1) {
     $('.occitanie').show();
     $('.fli').hide();
+    part_to_print = "occitanie"
   } else if (window.location.pathname.indexOf('course-v1:afpa+MOOC_FLI+FLI_2019') > -1) {
     $('.fli').show();
     $('.occitanie').hide();
+    part_to_print = "fli"
   } else if (window.location.pathname.indexOf('course-v1:afpa+La_Patisserie_replay_2020+2020') > -1) {
     $('.patisserie').show();
     $('.fli').hide();
+    part_to_print = "patisserie"
   }else if (window.location.pathname.indexOf('course-v1:afpa+Mets_et_vins_replay_2020+2020') > -1) {
-    console.log('course-v1:afpa+La_Patisserie_replay_2020+2020')
     $('.vin').show();
     $('.fli').hide();
+    part_to_print = "vin"
   }else if (window.location.pathname.indexOf('course-v1:afpa+replay_2020+2020') > -1) {
     $('.base').show();
     $('.fli').hide();
+    part_to_print = "base"
   }
 });
 function CertificateToPdf(){
-   html2canvas(document.getElementById("main"), {
+   html2canvas(document.querySelector("."+part_to_print), {
     onrendered : function (canvas){
      var img=canvas.toDataURL("image/png");
      var doc = new jsPDF({orientation: 'landscape'});
