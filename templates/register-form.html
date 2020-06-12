@@ -400,14 +400,14 @@ $('#first_name,#last_name').change(function(){
           var value = optionList[i].value;
           var name = optionList[i].name;
           if(filters.includes(area.val())){
-            newOptionsList = newOptionsList + "<option value=" + value + ">" + name + "</option>"}
-          
-          if ($('#settings-language-value').val() === 'en' ) {
-            $('#location > option[value="european-union"]').text('European Union');
-            $('#location > option[value="out-of-eu"]').text('other countries outside the eu');
+            newOptionsList = newOptionsList + "<option value=" + value + ">" + name + "</option>"
           }
         }
         location.append(newOptionsList)
+        if ($('#settings-language-value').val() === 'en' ) {
+          $('#location > option[value="european-union"]').text('European Union');
+          $('#location > option[value="out-of-eu"]').text('other countries outside the eu');
+        }
       }
     }
     filterResults()
