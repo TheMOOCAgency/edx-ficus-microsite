@@ -174,7 +174,7 @@ body{
 <script type="text/javascript">
 //PDF VERSION
 function printpage(){
-   html2canvas(document.body, {
+   html2canvas(document.getElementById('main'), {
     onrendered : function (canvas){
      var img=canvas.toDataURL("image/png");
      var doc = new jsPDF({orientation: 'landscape'});
