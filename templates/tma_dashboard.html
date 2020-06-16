@@ -329,12 +329,21 @@ font-size: 0.8em!important
              <div class="col-md-8 col-sm-12 text-justify">
               <h4 class="card-title">${_('Import participants')}</h4>
               <p>${_('Import here the participants on your course via a csv file. Participants who are not yet registered will receive an email with their login and password on the platform, they will be automatically registered for this course. Participants already registered on the platform will receive only a registration email for the course.')}</p>
-              <p>${_('Attention the csv must be built in the following way:')} <a href="/media/microsite/5aconseil/test_comptes.csv" target="_blank">(version téléchargeable)</a></p>
-              <ul class="ul_csv">
-                <li>${_('reproduce the header below, respecting the case of the column names')}</li>
-                <li>${_('do not add space in the header')}</li>
-                <li>${_('the columns in')} <span style="text-transform: uppercase">${_('red')}</span> ${_('are the required information to register participants')}</li>
-              </ul>
+              <p>${_('Vous pouvez ici ajouter des participants au cours actuellement sélectionné :')} </p>
+              <ol class="ul_csv">
+                <li>Téléchargez le fichier CSV d’import : <a href="/media/microsite/5aconseil/bilan_digital_import.csv" target="_blank">cliquez-ici</a></li>
+                <li>Ouvrez ce fichier</li>
+                <li>Ajoutez les participants que vous souhaitez inscrire :</li>
+                <ul>
+                  <li>1 ligne par participant</li>
+                  <li>pour chaque participant : son email, son Prénom, son NOM</li>
+                  <li>attention à l’adresse email : en cas d’erreur, l’invitation ne sera pas envoyée à la bonne adresse !</li>
+                  <li>attention à ne pas modifier la ligne de titre, avec les 3 colonnes</li>
+                </ul>
+                <li>
+                    Sauvez le fichier CSV modifié, et importez le via le bouton “Choisir un fichier” ci-dessous
+                </li>
+              </ol>
              </div>
              <div class="col-md-1 col-sm-0"></div>
              <div class="col-md-3 col-sm-12 d-flex flex-column align-items-center">
