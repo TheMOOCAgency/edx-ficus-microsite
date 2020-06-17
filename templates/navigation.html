@@ -71,7 +71,7 @@ site_status_msg = get_site_status_msg(course_id)
   <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
-      <a href="${marketing_link('ROOT')}">
+      <a href="https://www.cfi.fr/fr">
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
@@ -132,6 +132,11 @@ site_status_msg = get_site_status_msg(course_id)
               </a>
             </li>
           % endif
+          <li class="tab accueil">
+            <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
+              Accueil
+            </a>
+          </li>
           %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
             <li class="item">
               ## Translators: This is short for "System administration".
@@ -367,6 +372,15 @@ else:
 </script>
 
 <style>
+.user-menu>.dropdown-menu{
+  display: block;
+}
+.user-menu>.dropdown-menu.is-hidden{
+  display: none;
+}
+.label-username:hover{
+  color : #000!important;
+}
 .discussion.wrapper-course-material{
   background-color: ${custom_color} !important;
 }

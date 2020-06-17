@@ -238,6 +238,14 @@ endfor
     color_font_custom = "#3c3c3c"
   %>
 
+  <!-- Override style only in dashboard -->
+<style>
+.header-global .wrapper-header .list-inline.nav-global {
+  justify-content: flex-start!important;
+}
+</style>
+
+
 <style>
   #dashboard_profile_up{
     background-color: ${custom_color}!important;
@@ -305,6 +313,7 @@ endfor
   #course_nav .svg{
     fill : ${color_font_custom}!important;
   }
+
 
 </style>
 %if course.no_grade:

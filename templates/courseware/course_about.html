@@ -16,6 +16,13 @@ from openedx.core.lib.courses import course_image_url
   <meta property="og:title" content="${course.display_name_with_default_escaped}" />
   <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
 </%block>
+<!-- Override style only in dashboard -->
+<style>
+.header-global .wrapper-header .list-inline.nav-global {
+justify-content: flex-start!important;
+}
+</style>
+
 <style>
   @media only screen and (max-width: 960px) {
    .container{
