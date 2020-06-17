@@ -27,6 +27,7 @@ def getCourseIdValue(parameterValue, parameterName):
 ville = request.GET.get('ville')
 of = getCourseIdValue(request.GET.get('organisme'), 'organisme')
 dates_formation = request.GET.get('dates_formation')
+expert = request.GET.get('expert')
 %>
 
 
@@ -417,6 +418,10 @@ var controlledFields=[
   {
     name:  "ville",
     value:${dump_js_escaped_json(ville) | n, decode.utf8}
+  },
+  {
+    name:  "expert",
+    value:${dump_js_escaped_json(expert) | n, decode.utf8}
   }
 ]
 
@@ -441,6 +446,7 @@ function bindMyParamatersInput(){
 }
 
 function paramBind(target,value){
+  console.log(target,value)
     target.val(value).prop("readonly", true).css("background","#e8e8e8")
 }
 

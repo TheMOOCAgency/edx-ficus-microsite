@@ -26,6 +26,12 @@ course_id_to_connect = ''
 enrollment_to_connect = type('test', (), {})()
 #from discussion_tma.views import get_section_list
 import time
+import json
+%>
+
+<%
+custom_fields = {}
+custom_fields = json.loads(user.profile.custom_field)
 %>
 
 <%
@@ -166,10 +172,12 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
     trainer_course_id = ""
     trainer_course_name = ""
     user_have_course_metier = False
+    user_have_course_expert = False
     for dashboard_index, enrollment in enumerate(course_enrollments):
+      if str(enrollment.course_id) == 'course-v1:inveest+expert+2020':
+        user_have_course_expert = True
       if str(enrollment.course_id) == 'course-v1:inveest+metier1+SP' or str(enrollment.course_id) == 'course-v1:inveest+metier2+SP' or str(enrollment.course_id) =='course-v1:inveest+metier3+SP':
         user_have_course_metier = True
-      if str(enrollment.course_id) == "course-v1:inveest+metier1+SP" or str(enrollment.course_id) == "course-v1:inveest+metier2+SP" or str(enrollment.course_id) == "course-v1:inveest+metier3+SP" :
         enrollment_counter += 1
         trainer_course_id = str(enrollment.course_id)
         trainer_course_name = enrollment.course_overview.display_name_with_default
@@ -380,7 +388,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
   % endif
 % endfor
-% if len(course_enrollments) == 1 or ((len(course_enrollments) == 2 and user_have_course_metier == True)) :
+% if False and len(course_enrollments) == 1 or ((len(course_enrollments) == 2 and (user_have_course_metier == True or user_have_course_expert == True))) or ((len(course_enrollments) == 3 and (user_have_course_metier == True and user_have_course_expert == True))) :
   <li class="course_cell_multi">
     <div class="up_cell">
       <div class="options">
@@ -404,7 +412,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   </li>
 % endif
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  % if str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019" and (not is_not_admin or str(enrollment.course_id) != "course-v1:inveest+metier1+SP" and str(enrollment.course_id) != "course-v1:inveest+metier2+SP" and str(enrollment.course_id) != "course-v1:inveest+metier3+SP"):
+  % if (str(enrollment.course_id) != "course-v1:inveest+invest2019+invest2019" and (not is_not_admin or str(enrollment.course_id) != "course-v1:inveest+metier1+SP" and str(enrollment.course_id) != "course-v1:inveest+metier2+SP" and str(enrollment.course_id) != "course-v1:inveest+metier3+SP")) and (not user_have_course_metier or str(enrollment.course_id) != "course-v1:inveest+expert+2020"):
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
   % endif
 % endfor
