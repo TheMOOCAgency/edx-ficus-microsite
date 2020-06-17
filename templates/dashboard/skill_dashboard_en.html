@@ -198,12 +198,12 @@ except:
     <div class="bottom-buttons mt-20">
       <div class="text-center">
         %if course_state!="finished" :
-        <button class="text-align-center white-btn mr-20 deactivated" disabled>
+        <button class="text-align-center blue-btn mr-20 deactivated" disabled>
           Review my answers
         </button>
         %else :
         <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
-          <button class="text-align-center white-btn mr-20 blue-btn"  id="see_answers">
+          <button class="text-align-center mr-20 blue-btn"  id="see_answers">
             Review my answers
           </button>
         </a>
@@ -212,20 +212,20 @@ except:
       <div class="text-center">
         %if  course_state != "finished" and associated_courses.get('step_number',1)>1:
         <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
-          <button class="sub-btn blue-btn deactivated" id="last_score">
+          <button class="sub-btn blue-btn" id="last_score">
             <i class="fa fa-search"></i>
             Consult my previous score
           </button>
         </a>
         %else :
-        <button class="text-align-center white-btn deactivated deactivated" disabled>
+        <button class="text-align-center blue-btn deactivated" disabled>
           Consult my previous score
         </button>
         %endif
       </div>
       <div class="text-center">
-        %if associated_courses.get('step_number',1)>1:
-          <button onclick="enrollAndRedirect()" class="sub-btn blue-btn deaactivated" id="last_score">
+        %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
+          <button onclick="enrollAndRedirect()" class="sub-btn blue-btn" id="last_score">
             Go to learning
           </button>
         %else :

@@ -212,7 +212,7 @@ except:
       <div class="text-center">
         %if course_state != "finished" and associated_courses.get('step_number',1)>1:
         <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
-          <button class="sub-btn blue-btn deaactivated" id="last_score">
+          <button class="sub-btn blue-btn" id="last_score">
             <i class="fa fa-search"></i>
             Consulter mon score précédent
           </button>
@@ -224,8 +224,8 @@ except:
         %endif
       </div>
         <div class="text-center">
-          %if associated_courses.get('step_number',1)>1:
-            <button onclick="enrollAndRedirect()" class="sub-btn blue-btn deaactivated" id="last_score">
+          %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
+            <button onclick="enrollAndRedirect()" class="sub-btn blue-btn" id="last_score">
               Accès direct au learning
             </button>
           %else :
