@@ -137,7 +137,7 @@ domainUser = user.email.split('@')[1]
               Resume
             </button>
           </a>
-          %else:
+          %elif user.is_active:
           <button class="text-align-center dashboard-btn" id="course_start">
             <i class="fa fa-play-circle"></i>
             Start
