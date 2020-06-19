@@ -3,21 +3,16 @@
 from openedx.core.djangolib.markup import HTML, Text
 from django.core.urlresolvers import reverse
 from tma_apps.associated_courses.helper import SelectiveRegisterManager
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 import json
 %>
 
 <% 
-custom_fields = {}
-user_have_siren_and_siret = False
 if request.user.is_authenticated() :
   is_user_registered = SelectiveRegisterManager(request).has_registered_to_session()
-  custom_fields = json.loads(user.profile.custom_field)
-  if "siren_number" in custom_fields.keys() and "siret_number" in custom_fields.keys() :
-    user_have_siren_and_siret = True
 else:
   is_user_registered = False
 %>
-
     <!-- BOOTSTRAP-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -95,7 +90,15 @@ else:
     <script>
       var user_authenticated = "${user.is_authenticated()}".toLowerCase()
       var is_user_registered = "${is_user_registered}"
-      var user_have_siren_and_siret = "${user_have_siren_and_siret}"
+      var user_have_siren_and_siret = true
+      $.get( "/tma/api/ensure_profile_form" )
+      .done(function( data ) {
+        if (data.certificate_form_extra && data.certificate_form_extra.siren_number && data.certificate_form_extra.siret_number) {
+          user_have_siren_and_siret = true
+        } else {
+          user_have_siren_and_siret = false
+        }
+      })
     </script>
     <script src="/media/microsite/inveest/ssm/js/main.js">
     </script>

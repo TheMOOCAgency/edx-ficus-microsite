@@ -198,6 +198,18 @@ $('.my_form').change(function(){
       }
     })
   }
+
+  if ($('#siren_number').val() !== '' && $('#siret_number').val() !== '') {
+    var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
+    var customFields = {'expert':'oui'}
+    $.post( urlAPI, customFields )
+      .done(function( data ) {
+        
+      })
+      .fail(function() {
+        
+      })
+  }
 })
 </script>
 <!-- end fields generation -->
