@@ -13,27 +13,127 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+    @media screen and (min-width: 1350px)
+    {
+        .footer-about, .footer-legal, .footer-faq {
+/*            width: calc( ( 100% - 30px ) / 3 - 25px ) !important;*/
+             width: 300px;
+        }
+        .footer-about{
+             margin-left: calc( 100% - 900px - 75px );
+        }
+    }
+    @media screen and (min-width: 768px) and (max-width: 1350px)
+    {
+        .footer-faq, .footer-legal {
+            width: calc( 50% - 50px ) !important;
+        }
+        .footer-about {
+           margin-left: 30px !important;
+        }
+    }
+
+    @media screen and (max-width: 768px)
+    {
+        .footer-faq, .footer-about, .footer-legal {
+            width: 90% !important;
+        }
+        .footer-about {
+           margin-left: 30px !important;
+        }
+    }
+    footer {
+        font-family: "Open Sans";
+        line-height: 19px;
+    }
+    .footer-about, .footer-faq, .footer-legal {
+        display: inline-block !important;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+    .footer-about {
+        vertical-align: top;
+    }
+    .footer-faq {
+        vertical-align: top;
+        margin-left: 30px !important;
+    }
+    .footer-legal {
+        vertical-align: top;
+        margin-left: 30px !important;
+    }
+
+    .footer-faq ul, .footer-legal ul,.footer-about ul {
+        margin-top: 0px !important;
+        padding: 0 0 0 16px !important;
+    }
+    .footer-legal ul,.footer-faq ul,.footer-about ul {
+        list-style-type: none;
+    }
+
+    footer a {
+        font-family: "Open Sans";
+        color: white;
+    }
+    footer h5 {
+        margin-bottom: 10px !important;
+    }
+    div.links {
+        text-align: center !important;
+    }
+    h5.about_fa:before{
+        content: "\f129";
+        font-family: FontAwesome;
+    }
+    h5.faq_fa:before{
+        content: "\f128";
+        font-family: FontAwesome;
+    }
+    h5.legal_fa:before{
+        content: "\f1ea";
+        font-family: FontAwesome;
+    }
+
+</style>
+<!--===== Footer ====-->
 <footer class="global">
-  <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
+    <div class="footer-container">
+        <div class="footer-about">
+            <h5 class="about_fa">&nbsp;&nbsp;À propos</h5>
+            <ul><il>Un tour du monde digital via l’Academy, une plateforme dédiée multi niveaux, c’est la solution culture numérique
+                pour toutes et tous dans l’entreprise. Essentiel pour sa vie professionnelle. Et aussi pour sa culture perso
+                ;)</li></ul>
+        </div>
+
+        <div class="footer-faq">
+            <h5 class="faq_fa">&nbsp;&nbsp;Foire aux questions</h5>
+            <ul>
+                <li>
+                    <a href="/pages/faq">Comment m’inscrire et me connecter ?</a>
+                </li>
+                <li>
+                    <a href="/pages/faq">Comment obtenir mon passeport ?</a>
+                </li>
+                <li>
+                    <a href="/pages/faq">Comment obtenir un visa ?</a>
+                </li>
+                <li>
+                    <a href="/pages/faq">Puis-je changer de langue/sous-titres ?</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-legal">
+            <h5 class="legal_fa">&nbsp;&nbsp;Légal</h5>
+            <ul> 
+                <li><a href="/pages/rules">Charte d&#039;utilisation</a></li>
+                <li><a href="/pages/legal">Mentions légales</a></li>
+                <li><a href="mailto:admin@netexploacademy.com?subject=">Contact</a></li>
+            </ul>
+        </div>
+
     </div>
-  </div>
+      <div class="links">
+    © 2018 Netexplo <br class="mobilOnly" />
+      </div>
 </footer>
