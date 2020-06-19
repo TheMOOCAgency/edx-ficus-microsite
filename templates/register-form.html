@@ -434,6 +434,10 @@ function bindMyParamatersInput(){
             if(controlledFields[i]['name']==="organisme"){
               paramBindSelect("${request.GET.get('organisme')}") 
             }
+            else if(controlledFields[i]['name']==="expert"){
+              paramBind(fieldElement,fieldValue)
+              $(fieldElement).parent("div").hide();
+            }
             else{
               paramBind(fieldElement,fieldValue) 
             }
@@ -446,8 +450,7 @@ function bindMyParamatersInput(){
 }
 
 function paramBind(target,value){
-  console.log(target,value)
-    target.val(value).prop("readonly", true).css("background","#e8e8e8")
+  target.val(value).prop("readonly", true).css("background","#e8e8e8")
 }
 
 
