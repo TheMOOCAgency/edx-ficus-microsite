@@ -20,11 +20,54 @@ def url_class(is_active):
   %>
   <li class="tab">
   %if tab.name=="Home":
-  <a href="/dashboard" class="${tab_class}">
+  <a href="/dashboard" class="${tab_class}" style="color:black!important">
   %else:
-  <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+  <a href="${tab.link_func(course, reverse)}" class="${tab_class}" style="color:black!important">
   %endif
 
+  <style>
+  #return_dashboard a {
+    color: #000!important;
+  } 
+  #return_dashboard .fa-chevron-prev:before {
+    margin-left: 10px;
+    color: #000!important;
+  } 
+  .course-index .accordion .course-navigation .button-chapter.active .group-heading {
+    color: #000!important;
+  }
+  .fa-caret-right:before, .fa-caret-down:before {
+    color: #000 !important;
+  }
+  #course-search-input[placeholder] {
+    color: #000!important;
+  }
+  .courseware-bookmarks-button .bookmarks-list-button {
+    color: #000!important;
+    border: 1px solid black!important;
+  }
+  .search-bar .search-button .svg path {
+    fill: #000!important;
+  }
+  .wrapper-course-material .course-tabs li a:visited.active {
+    color: #000!important;
+    border-bottom-color: #000!important;
+  }
+  .tabs .tab a:hover, .tabs .tab a:focus, .tabs .tab a:visited:hover, .tabs .tab a:visited:focus {
+    color: #000 !important;
+    border-bottom-color: #000 !important;
+  }
+  .wrapper-course-material .course-tabs li {
+    border-right: 1px solid #000!important;
+  }
+  .wrapper-course-material .course-tabs li a, .wrapper-course-material .course-tabs li a:visited {
+    color: #000!important;
+  }
+  wrapper-course-material .course-tabs li a, .wrapper-course-material .course-tabs li a:visited:focus {
+    color: #000;
+    border-bottom-color: #000 !important;
+  }
+  </style>
 
   ${_(tab.name)}
   % if tab_is_active:

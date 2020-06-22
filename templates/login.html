@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span style='color:black!important;' class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
@@ -198,7 +198,7 @@ from third_party_auth import provider, pipeline
       </div>
 
       <div class="form-actions">
-        <button name="submit" type="submit" id="submit" class="action action-primary action-update login-button"></button>
+        <button name="submit" type="submit" id="submit" class="action action-primary action-update login-button" style="color:black!important"></button>
       </div>
     </form>
 
@@ -241,3 +241,8 @@ from third_party_auth import provider, pipeline
 
   </aside>
   </section>
+<style>
+  .login form .field.is-focused label {
+    color : #FF5000 !important;
+  }
+</style>

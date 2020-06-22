@@ -1,329 +1,147 @@
-<html>
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netexplo Academy</title>
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/4-Columns-Info-Icons.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/user.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/dh-highlight-icon-heading.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Full-Page-Background.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Full-Page-Background1.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Full-Page-Background2.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/html5-video.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Projects-Horizontal.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/PUSH---Bootstrap-Button-Pack.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/PUSH---Bootstrap-Button-Pack1.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/PUSH---Bootstrap-Button-Pack2.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/PUSH---Bootstrap-Button-Pack3.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Team-Boxed.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Testimonials-1.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/Testimonials.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/thumbnails1-1.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/thumbnails1.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/base.css">
-    <link rel="stylesheet" href="/media/microsite/netexplo/css/base.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics -->
+from openedx.core.djangolib.markup import HTML, Text
+%>
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/auto/css/index.css'.format(org)
+%>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108400250-1"></script>
-
-<script>
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-108400250-1');
-</script>
-
-</head>
-
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/netexplo/css/netexplo_index.css" />
 <style>
-  * {
-      font-family: 'Open Sans' !important;
+  .wrapper-header {
+    display: none;
   }
-.under_s2{
-  margin-bottom: 10px;
-}
- 
-  #section1{
-    background-image:url('/media/microsite/netexplo/falback.jpg');
+  body {
+    background-image: none !important;
   }
-
-a.evitement {
-    width: 200px;
-    height: 50px;
-    left: 40%;
-    top: -600px;
-    display: inline-block;
-    position: absolute;
-    padding: 15px 10px;
-    overflow: hidden;
-    background: #fff;
-    border-bottom: 1px solid #fcfcfc;
-    z-index: 99999999999;
-}
-
-a.evitement:focus{
-    top: 0;
-}
-
-
-@media screen and (min-width: 1200px)
-{
-  .thumbnail {
-    min-height: 705px !important;
+  .home>header {
+    height: 450px;
+    background-image: none;
+    box-shadow: none;
   }
-}
-
-@media screen and (max-width: 1200px)
-{
-  .thumbnail {
-    min-height: 800px !important;
+  .header-global {
+    height: 120px;
   }
-}
-
-@media screen and (max-width: 990px)
-{
-  .thumbnail {
-    min-height: auto !important;
+  #logoNetexplo {
+    max-width: 600px;
+    margin-left: 0px;
+    margin-top: 100px;
+    background: none;
+    border: none;
+    text-align: center;
   }
-}
+  .courses {
+    display: none !important;
+  }
 </style>
-
-<body>
-    <a class="evitement" href="#contenu">Aller au contenu</a>
-<!-- BARRE NAV-->
-  <header id="nav_header" role="banner">
-    <nav class="navbar navbar-default" id="nav_header">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="https://netexplo.the-mooc-agency.com/" style="/*position:absolute;*/padding-top:15px;">
-                  <img src="/media/microsite/netexplo/auto/images/logo.png" style="height:40px;" alt="Netexplo Academy (aller à l’accueil)">
-                </a>
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+<script>
+  document.title="Préparation-data";
+</script>
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="home">
+      <header>
+        <div class="outer-wrapper">
+          <div class="title">
+            <div class="heading-group">
+              % if homepage_overlay_html:
+                ${homepage_overlay_html | n, decode.utf8}
+              % else:
+                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
+                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
+                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
+                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
+              % endif
             </div>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="register-nav" href="/register">Inscription </a></li>
-                    <li><a id="login-nav" href="/login">Connexion </a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-  </header>
-
-<!-- BLOC INTRO -->
-    <div class="container text-center" id="section1">
-        <video autoplay="true" loop="loop" preload="metadata" muted="muted">
-            <source src="/media/microsite/netexplo/video_bg.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-        </video>
-        <div class="col-md-5" style="color:white;background-color:rgba(0,0,0,0.25);float:none;margin-top:0;vertical-align:middle;width:100%;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height: 100%;display: flex;justify-content: center;flex-direction: column;">
-            <h1>Bienvenue dans Netexplo Academy</h1>
-            <p id="sous-titre-intro">Développez et testez vos connaissances numériques</p>
-            <!-- <div class="trait-title-white"></div>
-            <p id="ouverture-date">Ouverture le xx 2018</p>-->
-            <div style="margin:0 auto;text-align:center;">
-              <a class="btn btn-primary btn-lg link_header" href="/register" id="register_link">INSCRIPTION</a>
-              <a class="btn btn-primary btn-lg link_header" href="/login" id="login_link">Connexion </a></div>
-        </div>
-    </div>
-
-<main role="main">
-
- <a id="contenu" tabindex="-1"></a>
-  <!-- PRESENTATION COURS
-      <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
-          <div class="container">
-              <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
-                  <div class="col-md-12">
-                      <h2 class="text-center texte-orangec mb-25 pt-50 uppercase">Programme HandiMOOC – En route vers l’emploi</h2></div>
-                  <div class="col-md-4 text-center" style="background-color:rgba(0,67,104,0);">
-                      <div class="thumbnail w-100">
-                        <div style="height:280px;overflow:hidden;">
-                          <img style="min-height:100%" class="w-100" src="/media/microsite/handimooc/images/photo-chapitre1-plateforme.jpeg" alt="">
-                        </div>
-                          <div class="caption">
-                              <h3 class="font-exob texte-grisc">Handicap et projet professionnel</h3>
-                              <div class="trait-title-gris"></div>
-                              <p class="font-exobit mt-25 texte-grisc">Chapitre 1</p>
-                              <ul>
-                                <li class="under_s2">Le projet professionnel : de quoi s’agit-il ?<span> </span></li>
-                                <li class="under_s2">Les étapes du projet professionnel <span> </span></li>
-                                <li class="under_s2">Le handicap dans votre projet professionnel<span> </span></li>
-                                <li class="under_s2">La compensation du handicap<span> </span></li>
-                                <li class="under_s2">Les acteurs clés<span> </span></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <div class="thumbnail w-100">
-                        <div style="height:280px;overflow:hidden;">
-                          <img style="min-height:100%" class="w-100" src="/media/microsite/handimooc/images/photo-chapitre2-plateforme.jpg" alt="">
-                        </div>
-                          <div class="caption">
-                              <h3 class="font-exob texte-grisc">Organiser et outiller votre recherche d’emploi</h3>
-                              <div class="trait-title-gris"></div>
-                              <p class="font-exobit mt-25 texte-grisc">Chapitre 2</p>
-                              <ul>
-                                <li class="under_s2">Mettre en valeur votre CV<span> </span></li>
-                                <li class="under_s2">Secteur privé et public : comment postuler ?<span> </span></li>
-                                <li class="under_s2">La RQTH sur le CV : oui ou non ?<span> </span></li>
-                                <li class="under_s2">Diffuser et suivre votre candidature<span> </span></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <div class="thumbnail w-100">
-                        <div style="height:280px;overflow:hidden;">
-                          <img class="w-100" style="min-height:100%;" src="/media/microsite/handimooc/images/photo-chapitre3-plateforme.jpg" alt="">
-                        </div>
-                          <div class="caption">
-                              <h3 class="font-exob texte-grisc">Communiquer sur votre situation de handicap</h3>
-                              <div class="trait-title-gris"></div>
-                              <p class="font-exobit mt-25 texte-grisc">Chapitre 3</p>
-                              <ul>
-                                <li class="under_s2">Préparer votre entretien d’embauche<span> </span></li>
-                                <li class="under_s2">Handicap et entretien d’embauche : pourquoi en parler ?<span> </span></li>
-                                <li class="under_s2">Handicap et entretien d’embauche : comment en parler ?<span> </span></li>
-                                <li class="under_s2">Intégration : la mise en place des aménagements<span> </span></li>
-                                <li class="under_s2">La communication avec l’équipe<span> </span></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
+            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+              <div class="course-search">
+                <form method="get" action="/courses">
+                  <label><span class="sr">${_("Search for a course")}</span>
+                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
+                  </label>
+                  <button class="search-button" type="submit">
+                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+                  </button>
+                </form>
               </div>
+            % endif
+
           </div>
-      </div> -->
 
-  <!-- DEF MOOC 
-      <div class="team-boxed bg-white" style="*height:auto;z-index:1;position:relative;">
-          <div class="container mt-50 bg-white text-center">
-              <div class="intro pt-0">
-                <div class="trait-title-gris"></div>
-                  <h2 class="text-center uppercase mb-25 texte-grisc" style="font-size:2em;">qu'est-ce qu'un MOOC ?</h2>
-                  <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
-                      <p class="text-center custom-font ">Une formation gratuite, ouverte à tous, disponible et accessible où que vous soyez !</p>
-                    </div>
-                  </div>
+          % if show_homepage_promo_video:
+            <a href="#video-modal" class="media" rel="leanModal">
+              <div class="hero">
+                <div class="play-intro"></div>
               </div>
-              <div class="row mt-25">
-                <div class="col-md-3 col-sm-6 pad-25" style="min-height:300px;">
-                  <img class="img-rounded" src="/media/microsite/handimooc/images/group-of-people-icon-222.png" style="width:80px;height:80px;" alt="">
-                  <h3 class="name custom-font texte-orangec">MASSIVE </h3>
-                  <p class="custom-font" style="font-size:1.1em;">Un contenu disponible gratuitement et autour duquel vous pouvez échanger, directement sur cette plateforme.</p>
-                </div>
-                <div class="col-md-3 col-sm-6 pad-25" style="min-height:300px;">
-                  <img class="img-rounded" src="/media/microsite/handimooc/images/unlock-5122.png" style="width:80px;height:80px;" alt="">
-                  <h3 class="name custom-font texte-orangec">OPEN </h3>
-                  <p class="custom-font" style="font-size:1.1em;">Un accès libre à toutes les ressources. </p>
-                </div>
-                <div class="col-md-3 col-sm-6 pad-25" style="min-height:300px;">
-                  <img class="img-rounded" src="/media/microsite/handimooc/images/Connect-with-customers2.png" style="width:80px;height:80px;" alt="">
-                  <h3 class="name custom-font texte-orangec">ONLINE </h3>
-                  <p class="custom-font" style="font-size:1.1em;">Disponible en ligne, tout le temps et où que vous soyez.</p>
-                </div>
-                <div class="col-md-3 col-sm-6 pad-25" style="min-height:300px;">
-                  <div class="box"><img class="img-rounded" src="/media/microsite/handimooc/images/book-12.png" style="width:80px;height:80px;" alt="">
-                  <h3 class="name custom-font texte-orangec">COURSE </h3>
-                  <p class="custom-font" style="font-size:1.1em;">Un vrai parcours pédagogique, pour vous permettre d'acquérir des compétences.</p>
-                </div>
-              </div>
+            </a>
+          % endif
+        </div>
+
+        <div id="logoNetexplo">
+          <img src="/media/microsite/netexplo/auto/images/logo.png" width="50" style="width: 300px;"/>
+        </div>
+
+        <div id="connectButnsWrapper">
+          <div class="butnContainer">
+            <a class="connectButn" href='/login'>Connexion</a>
           </div>
-      </div>
+          <div class="butnContainer">
+            <a class="registerButn" href='/register'>Inscription</a>
+          </div>
+        </div>
+      </header>
+      <%include file="${courses_list}" />
+
+    </section>
 </main>
--->
-<!-- JE M'INSCRIS
-    <div class="dh-highlight-text" style="background-color:white;padding:0px;height:auto;position:relative;z-index:1;">
-        <div class="container">
-          <div class="trait-title-gris" style="margin-top:50px;"></div>
-            <h2 class="text-center texte-grisc mt-50 mb-50 custom-font p-0" style="font-size:2em;">Mettez-vous en route vers l’emploi avec HandiMOOC !</h2>
-            <div><a class="btn bg-grisc font-20 custom-font texte-white" href="/register" data-toggle="modal" >Je m'inscris !</a>
-                <div class="modal fade"
-                role="dialog" tabindex="-1" id="myModal">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                <h4 class="modal-title">Modal Title</h4></div>
-                            <div class="modal-body">
-                                <p class="text-center text-muted">Description </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" type="button">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h1></h1>
-            <div class="trait-title-gris" style="margin-top:50px;"></div>
-            <h2 class="text-center texte-grisc mt-50 mb-50 custom-font p-0" style="font-size:2em;">Partenaires</h2>
-        </div>
-    </div>-->
-<!--FOOTER LOGOS
-    <footer class="site-footer">
-        <div class="container">
-            <div class="col-md-2 col-sm-3 col-xs-6" >
-                <a href="https://www.agefiph.fr/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/agefiph.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.amazon.fr/p/feature/k6wxgxw88w7z78q" target="_blank"><img src ="/media/microsite/handimooc/images/logos/amazon.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.arteliagroup.com/fr/le-groupe/entreprise-responsable/le-capital-humain-notre-bien-le-plus-precieux" target="_blank"><img src ="/media/microsite/handimooc/images/logos/artelia.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://career.bayer.fr/fr/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/bayer.png" height="135"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://bnpparibasgt.taleo.net/careersection/ops_2013_1/jobdetail.ftl?job=RHG18_MH_Handimooc&lang=fr_FR" target="_blank"><img src ="/media/microsite/handimooc/images/logos/bnp.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.edf.fr/edf/accueil-magazine/edf-facilite-l-acces-a-l-emploi-des-personnes-en-situation-de-handicap" target="_blank"><img src ="/media/microsite/handimooc/images/logos/edf.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="http://www.enedis.fr/travailler-chez-enedis" target="_blank"><img src ="/media/microsite/handimooc/images/logos/enedis.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="http://www.fiphfp.fr/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/fiphfp.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="http://www.handiem.org/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/handiem.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://mission-handicap-assurance.fr/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/mha.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.lamutuellegenerale.fr/qui-sommes-nous/carrieres/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/mutuellegenerale.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.lvmh.fr/les-maisons/parfums-cosmetiques/parfums-christian-dior/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/dior.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="http://www.radiofrance.fr/l-entreprise/la-diversite-radio-france" target="_blank"><img src ="/media/microsite/handimooc/images/logos/radiofrance.jpg" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.agefiph.fr/" target="_blank"><img src ="/media/microsite/handimooc/images/logos/thconseil.png" width="146" height="146"></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <a href="https://www.total.com/fr/engagement/employeur-responsable?xtmc=handicap&xtnp=1&xtcr=2" target="_blank"><img src ="/media/microsite/handimooc/images/logos/total.jpg" width="146" height="146"></a>
-            </div>
-        </div>
-    </footer> -->
 
-    <script src="/media/microsite/netexplo/js/jquery.min.js"></script>
-    <script src="/media/microsite/netexplo/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/media/microsite/netexplo/js/Full-Page-Background1.js"></script>
-    <script src="/media/microsite/netexplo//js/Full-Page-Background2.js"></script>
-    <script src="/media/microsite/netexplo/js/Full-Page-Background3.js"></script>
-    <script src="/media/microsite/netexplo/js/Full-Page-Background.js"></script>
-</body>
+% if show_homepage_promo_video:
+  <section id="video-modal" class="modal home-page-video-modal video-modal">
+    <div class="inner-wrapper">
+      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+% endif
 
-</html>
+<%block name="js_extra">
+   <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+              $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
+
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
+
+% if register_course_id is not None:
+<script>
+// $(".btn-neutral").each(function(){
+//  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+// });
+// $(".btn-login").each(function(){
+//  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+// });
+$(".registerButn").each(function(){
+ $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+});
+$(".connectButn").each(function(){
+ $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+});
+
+</script>
+% endif
