@@ -1,10 +1,10 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bienvenue sur Mobilitips,
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
+Activez votre compte avec le lien suivant pour avoir accès au glossaire des mobilités : https://${ site }/activate/${ key }
 
-https://${ site }/activate/${ key }
+Mobilitips vous est proposé par <a href="http://www.vedecom.fr">VEDECOM</a> , l’Institut français de recherche et de formation sur le véhicule électrique, connecté, autonome et les nouvelles mobilités. Pour toute question sur le dispositif Mobilitips ou demande de contribution, merci de contacter romy.kombet@vedecom.fr
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.

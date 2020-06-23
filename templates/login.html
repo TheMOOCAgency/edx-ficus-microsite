@@ -8,7 +8,7 @@ import third_party_auth
 from third_party_auth import provider, pipeline
 %>
 
-<%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
+<%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name="mobtips")}</%block>
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("${_('Log into My {platform_name} Account').format(platform_name="mobtips")} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
@@ -140,7 +140,7 @@ from third_party_auth import provider, pipeline
 
       <!-- status messages -->
       <div role="alert" class="status message">
-        <h3 class="message-title">${_("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name=platform_name)}</h3>
+        <h3 class="message-title">${_("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name="mobtips")}</h3>
       </div>
 
       <div role="alert" class="status message submission-error" tabindex="-1">
@@ -156,7 +156,7 @@ from third_party_auth import provider, pipeline
 
       % if third_party_auth_error:
         <div role="alert" class="status message third-party-auth-error is-shown" tabindex="-1">
-          <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name=platform_name)} </h3>
+          <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name="mobtips")} </h3>
           <ul class="message-copy">
             <li>${third_party_auth_error}</li>
           </ul>
@@ -164,7 +164,7 @@ from third_party_auth import provider, pipeline
       % endif
 
       <p class="instructions sr">
-        ${_('Please provide the following information to log into your {platform_name} account. Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.').format(platform_name=platform_name)}
+        ${_('Please provide the following information to log into your {platform_name} account. Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.').format(platform_name="mobtips")}
       </p>
 
       <div class="group group-form group-form-requiredinformation">
