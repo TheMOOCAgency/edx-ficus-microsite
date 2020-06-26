@@ -124,24 +124,24 @@ footer, header{
                                 % else:
                                 <option value="${y}">${y}</option>
                                 % endif
+                      % endfor
+                        % else:
+                            % for j in n.get('options'):
+                              % if j.get('value') == user_fields.get(n.get('name')):
+                                <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''} selected="selected">${j.get('name')}</option>
+                              % else:
+                                <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+                              % endif
+                            %endfor
+                        % endif
+                      </select>
+                      % elif n.get('type') == 'checkbox':
+                      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" class="my_form"/>
+                      <label for="${n.get('name')}">${_(n.get('label'))}</label>
                       % endif
-                  	% endfor
-                      % else:
-                          % for j in n.get('options'):
-                            % if j.get('value') == user_fields.get(n.get('name')):
-                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''} selected="selected">${j.get('name')}</option>
-                            % else:
-                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
-                            % endif
-                          %endfor
-                      % endif
-                    </select>
-                    % elif n.get('type') == 'checkbox':
-                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" class="my_form"/>
-                    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+                      </div>
+                      </li>
                     % endif
-                    </div>
-                    </li>
                   % endfor
                   </ol>
                   <p class="required">* champs obligatoires</p>
