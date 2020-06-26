@@ -1,9 +1,18 @@
 <%! from django.utils.translation import ugettext as _ %>
 
 Bonjour ${full_name},
-Vous avez été inscrit à ${course_name} accessible sur le campus numérique de l’EN3S. Le cours devrait maintenant apparaitre dans votre tableau de bord sur : ${site_name}
 
-Pour commencer le cours, rendez-vous sur ${_('https://{site_name}/courses/{course_key}/courseware').format(site_name=site_name.strip(), course_key=course_key.strip())} avec vos identifiant habituels. Nous vous rappelons que votre login est composé de votre adresse mail. 
+Vous avez été inscrit à ${course_name} accessible sur le campus numérique de l’EN3S.
+Le cours devrait maintenant apparaitre dans votre tableau de bord sur : ${site_name}
+
+Pour commencer le cours, rendez-vous sur :
+
+${_('https://{site_name}/courses/{course_key}/courseware').format(site_name=site_name.strip(), course_key=course_key.strip())}
+
+avec vos identifiant habituels.
+
+Nous vous rappelons que votre login est votre adresse mail. 
+
 Bonne formation et à bientôt !
 
 L'équipe de « ${course_name} »

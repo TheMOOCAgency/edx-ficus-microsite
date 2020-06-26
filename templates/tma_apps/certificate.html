@@ -190,9 +190,9 @@
        return str.split(':')[1];
    }
    function getFirstPart(str){
-   
-       return str.substring(0, str.indexOf(":")); 
-   
+
+       return str.substring(0, str.indexOf(":"));
+
    }
    function replaceCaracter(targetElementHtml,originCaracter,newCaracter){
    let target = targetElementHtml
@@ -200,10 +200,10 @@
    let newString = targetToString.replace(originCaracter,newCaracter)
    target.text(newString)
    console.log(targetToString.replace(originCaracter,newCaracter))
-   
+
    }
-   
-   
+
+
 </script>
 <div class="pdf-btn-wrapper">
    <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
@@ -225,12 +225,12 @@
             <div class="col-10 text-left" style="padding:10px;">
                <h2 class="main-color">L'EN3S atteste que :</h2>
                <h2 class="main-color pt-2 pb-2 color-text">${first_name} ${last_name}</h2>
-               <h2 class="main-color">a suivi et réussi le</br> <span id="courseName">"${course_name}"</span></h2>
+               <h2 class="main-color">a suivi et réussi la formation: <br/> <span style='color:rgba(174,34,59,1);margin-top: 20px;'id="courseName2">${course_name}</span></h2>
                <script>
                   replaceCaracter($('#courseName'),'"','')
                   replaceCaracter($('#courseName'),'"','')
                   replaceCaracter($('#courseName'),'-',':')
-                  
+
                   function putCss(){
                   var allSt = $("#courseName").text()
                   var firstPart = getFirstPart(allSt)
@@ -239,7 +239,7 @@
                   $("#courseName").html(compose)
                   }
                   putCss();
-                  
+
                </script>
             </div>
             <div class="col-10 text-left date" >
@@ -250,10 +250,10 @@
                var dd = String(today.getDate()).padStart(2, '0');
                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                var yyyy = today.getFullYear();
-               
+
                today = dd + '/' + mm + '/' + yyyy;
                $("#curDate").text(today)
-               
+
             </script>
          </div>
       </div>
@@ -274,7 +274,7 @@
    if (window.location.pathname.indexOf('course-v1:en3s+1+2019') > -1) {
      $('#en3s-1').show();
      $('#en3s-2').hide();
-   } else {
+   }else{
      if (window.location.pathname.indexOf('course-v1:en3s+2+2019') > -1) {
        $('#en3s-2').show();
        $('#en3s-1').hide();
@@ -291,7 +291,5 @@
        }
      })
    }
-   
-   
 </script>
 % endif

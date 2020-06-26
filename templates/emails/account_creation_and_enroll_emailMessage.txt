@@ -19,4 +19,4 @@ Il est recommandé de personnaliser votre mot de passe lors de la première conn
 
 Bonne formation et à bientôt !
 
-L'équipe de ${course_name}
+L'équipe de « ${course_name} »
