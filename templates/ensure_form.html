@@ -67,62 +67,64 @@ footer, header{
           <!-- FORMS -->
           <section class="register container">
             <section role="main" class="content">
-              <p style="font-Size:1.2rem;margin-bottom: 20px;text-align: center;">Inscription au Programme Inveest</p>
+              <p style="font-Size:1.2rem;margin-bottom: 20px;text-align: center;">Prise en charge pour le parcours Expert</p>
               <form role="form" novalidate>
                 <div class="group group-form">
                   <ol class="list-input">
                   % for n in fields_cleaned:
-                    <li class="field ${n.get('type')}">
+                    % if not 'contact_' in n.get('name'):
+                      <li class="field ${n.get('type')}">
 
-                    % if (user_fields.get(n.get('name')) is None) or (user_fields.get(n.get('name')) == ''):
-                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/cross-remove-sign.png" /></div>
-                    % else:
-                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/checked.png" /></div>
-                    % endif
-
-                    <div class="field ${n.get('type')}" id="field-${n.get('name')}">
-                    % if n.get('type') == 'email':
-                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
-                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
-                    % elif n.get('type') == 'text':
-                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
-                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
-                    % elif n.get('type') == 'select':
-                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
-                    <select id="${n.get('name')}" name="${n.get('name')}" class="my_form">
-                      % if n.get('name') == 'country':
-                        % if not user_fields['country']:
-                          <option value="" selected="selected">--</option>
-                        % else:
-                          <option value="" >--</option>
-                        % endif
-                        <%
-                        _countries = list(countries)
-                        %>
-                        % for f in _countries:
-                          % if f[0] == user_fields['country']:
-                           <option value="${f[0]}" selected="selected">${f[1]}</option>
-                          % else:
-                           <option value="${f[0]}">${f[1]}</option>
-                          % endif
-                        %endfor
+                      % if (user_fields.get(n.get('name')) is None) or (user_fields.get(n.get('name')) == ''):
+                        <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/cross-remove-sign.png" /></div>
+                      % else:
+                        <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/checked.png" /></div>
                       % endif
-                      % if n.get('name') == 'year_of_birth':
-                        % if not user_fields['year_of_birth']:
-                          <option value="" selected="selected">--</option>
-                        % else:
-                          <option value="" >--</option>
+
+                      <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+                      % if n.get('type') == 'email':
+                      <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                      % elif n.get('type') == 'text':
+                      <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                      <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields.get(n.get('name')))}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                      % elif n.get('type') == 'select':
+                      <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                      <select id="${n.get('name')}" name="${n.get('name')}" class="my_form">
+                        % if n.get('name') == 'country':
+                          % if not user_fields['country']:
+                            <option value="" selected="selected">--</option>
+                          % else:
+                            <option value="" >--</option>
+                          % endif
+                          <%
+                          _countries = list(countries)
+                          %>
+                          % for f in _countries:
+                            % if f[0] == user_fields['country']:
+                            <option value="${f[0]}" selected="selected">${f[1]}</option>
+                            % else:
+                            <option value="${f[0]}">${f[1]}</option>
+                            % endif
+                          %endfor
                         % endif
-                  	<%
-                  	year = datetime.datetime.today().year
-                  	YEARS = [year - i for i in range(100)]
-                  	%>
-                          % for y in YEARS:
-                              % if str(y) == user_fields['year_of_birth']:
-                  	           <option value="${y}" selected="selected">${y}</option>
-                              % else:
-                               <option value="${y}">${y}</option>
-                              % endif
+                        % if n.get('name') == 'year_of_birth':
+                          % if not user_fields['year_of_birth']:
+                            <option value="" selected="selected">--</option>
+                          % else:
+                            <option value="" >--</option>
+                          % endif
+                      <%
+                      year = datetime.datetime.today().year
+                      YEARS = [year - i for i in range(100)]
+                      %>
+                            % for y in YEARS:
+                                % if str(y) == user_fields['year_of_birth']:
+                                <option value="${y}" selected="selected">${y}</option>
+                                % else:
+                                <option value="${y}">${y}</option>
+                                % endif
+                      % endif
                   	% endfor
                       % else:
                           % for j in n.get('options'):
