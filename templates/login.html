@@ -63,6 +63,14 @@ from third_party_auth import provider, pipeline
 
       $('#login-form').on('ajax:success', function(event, json, xhr) {
         if(json.success) {
+
+          /* GTM login event */
+          dataLayer.push({
+            'event':'genericEvent',
+            'eventCategory':'login',
+            'eventAction':'success'
+          });
+          
           var nextUrl = "${login_redirect_url}";
           if (json.redirect_url) {
             nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.

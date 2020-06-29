@@ -52,6 +52,27 @@ import calendar
       });
       */
       $('#register-form').on('ajax:success', function(event, json, xhr) {
+        if ($('#expert').val() !== "oui") {
+        /* GTM discovery register event */
+          dataLayer.push({
+            'event':'genericEvent',
+            'eventCategory':'registration',
+            'eventAction':'success',
+            'eventLabel': 'decouverte',
+            'fonction': '{{fonction}}'
+          });
+        } else 
+        /* GTM expert register event */
+        {
+          dataLayer.push({
+            'event':'genericEvent',
+            'eventCategory':'registration',
+            'eventAction':'success',
+            'eventLabel': 'expert',
+            'fonction': '{{fonction}}'
+          });
+        }
+
         var nextUrl = "${login_redirect_url}";
         if (json.redirect_url) {
           nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
