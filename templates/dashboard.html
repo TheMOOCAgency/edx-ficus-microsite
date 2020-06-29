@@ -160,7 +160,7 @@ endfor
     %>
 
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <div class="dashboard_profile" id="dashboard_profile_middle" style="height:auto!important">
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
@@ -172,10 +172,10 @@ endfor
         % endif
       </div>
       <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
+      <div id="dashboard_profile_middle_middle" style="display:none">
       </div>
       <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
+      <div id="dashboard_profile_middle_bottom" style="display:none">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
