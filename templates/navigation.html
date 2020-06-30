@@ -35,10 +35,14 @@ from status.status import get_site_status_msg
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
+cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
 
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -57,6 +61,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
+    <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <!--<h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -86,7 +91,6 @@ site_status_msg = get_site_status_msg(course_id)
         %>
         <span class="course-name">${display_name}</span></h2>
       % endif
-
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
@@ -297,3 +301,110 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+
+%>
+<script>
+  $(document).ready(function(i){
+    $('.course-tabs>li').appendTo('.nav-global')
+    $('.logo').prependTo('#global-navigation')
+    $('.user').appendTo('#global-navigation')
+    $('.wrapper-user-menu').appendTo('#global-navigation')
+    console.log($('.wrapper-user-menu'))
+  })
+</script>
+
+<style>
+.user-menu>.dropdown-menu{
+  display: block;
+}
+.at-svc-email{
+  display: none!important;
+}
+.user-menu>.dropdown-menu.is-hidden{
+  display: none;
+}
+.label-username:hover{
+  color : #000!important;
+}
+.discussion.wrapper-course-material{
+  background-color: ${custom_color} !important;
+}
+div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary .page-header-secondary .form-actions button.new-post-btn{
+  background-color:  ${custom_color} !important;
+}
+.discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand, .forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label{
+  background-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.btn-brand {
+  background-color:  ${custom_color} !important;
+  border-color:  ${custom_color} !important;
+}
+.forum-new-post-form button.cancel, .discussion-reply-new button.discussion-submit-post {
+    color:  ${custom_color} !important;
+}
+.discussion-module .btn, .wmd-prompt-dialog .btn, .btn {
+  border: 1px solid  ${custom_color} !important;
+}
+.has-breadcrumbs .breadcrumbs .all-topics{
+  color:  ${custom_color} !important;
+}
+.btn-brand, .modal .inner-wrapper form .submit input[type="submit"], .leanModal_box .inner-wrapper form .submit input[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"] {
+    border-color:  ${custom_color} !important;
+    background:  ${custom_color}!important;
+}
+.edit-post-form .post-cancel {
+  color:  ${custom_color} !important;
+}
+
+.header-global{
+  background-color: ${third_color}!important;
+}
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
+  background-color:  ${custom_color} !important;
+}
+.header-global .nav-global li a, .header-global .nav-global div a{
+  font-weight: 600;
+  text-transform: uppercase;
+  color : ${custom_color} !important;
+}
+.header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
+  color : ${color_custom}!important;
+  text-shadow : none!important;
+}
+
+.fa-sort-down::before, .fa-sort-desc::before {
+    color:   ${color_custom}!important;
+}
+#global-navigation .burger{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+</style>
+<!-- TMA Ficus Redesign -->

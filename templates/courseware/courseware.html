@@ -9,6 +9,7 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
@@ -362,4 +363,107 @@ $(".bookmarks-empty-detail-title").initialize(function(){
   body footer.global{
     display : none!important;
   }
+</style>
+
+
+<style>
+  .wrapper-course-material>.menu-responsive{
+    display:none!important;
+  }
+  #return_dashboard a{
+    padding:5px 0px 5px 0px!important;
+    font-weight: 600!important;
+  }
+  #return_dashboard>a:hover {
+      border-bottom-color: #0075b4!important;
+      color: #0075b4 !important;
+      padding-top : 10px!important;
+  }
+  .wrapper-header>.nav-global>li.tab>a {
+      padding-top : 5px;
+  }
+  .wrapper-header>.nav-global>li.tab:hover>a {
+      color: #0075b4 !important;
+  }
+  .header-global .nav-global {
+      margin-top : 0px!important;
+  }
+  .nav-global-01{
+      border: 2px solid #0075b4;
+      padding: 0px;
+      box-sizing: border-box;
+      margin: 30px 0px!important;
+  }
+  .nav-global-01:hover{
+      color :#fff!important;
+      background-color : #0075b4;
+  }
+  .wrapper-header>.nav-global>li.nav-global-01:hover>a{
+      color :#fff!important;
+  }
+</style>
+
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+%>
+
+<!-- Custom style for connexions-citoyennes -->
+<style>
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
+  background-color: ${custom_color} !important;
+}
+.bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
+  color : ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol{
+  background-color: ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
+  background-color: ${custom_color} !important;
+}
+.btn.btn-link.bookmark-button{
+  color: ${custom_color} !important;
+}
+ .custom_unit.active{
+   background-color :  ${custom_color} !important;
+   font-weight : 600!important;
+   color : #fff!important;
+   border-radius : 10px 0px 0px 10px!important;
+ }
+ .custom_unit{
+   color :  ${custom_color} !important;
+   font-weight : 400!important;
+ }
+ .menu-item.active>.accordion-nav>.accordion-display-name{
+    color :  ${custom_color} !important;
+ }
+ #global-navigation .burger:before{
+    color :  #000 !important;
+ }
+ .at-svc-twitter{
+    display : none!important;
+ }
+ .at-svc-linkedin{
+    display : none!important;
+ }
+
 </style>
