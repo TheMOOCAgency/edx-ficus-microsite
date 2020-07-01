@@ -170,6 +170,7 @@ endfor
       <div id="dashboard_profile_middle_middle">
       </div>
       <!-- actif forum -->
+      %if not "Module" in str(enrollment.course_id):
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
@@ -179,6 +180,16 @@ endfor
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
       </div>
+      %else:
+      <style>
+        #dashboard_profile_middle {
+          height: 63px;
+        }
+        #dashboard_profile_middle_middle {
+         display: none;
+        }
+      </style>
+      %endif
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
