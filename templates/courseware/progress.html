@@ -56,7 +56,14 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                 </div>
                 % endif
                 <h3 class="hd hd-3 progress-certificates-title">
-                    ${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}
+                    <%
+                      import json
+                      custom_field=json.loads(student.profile.custom_field)
+                      text = ""
+                      if 'first_name' in custom_field and 'last_name' in custom_field:
+                         text = " - "+str(custom_field['first_name'])+" "+str(custom_field['last_name'])
+                    %>
+                    ${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)} ${text}
                 </h3>
 
                 %if certificate_data:

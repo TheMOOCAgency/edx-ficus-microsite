@@ -20,6 +20,7 @@ from student.helpers import (
   VERIFY_STATUS_NEED_TO_REVERIFY,
   DISABLE_UNENROLL_CERT_STATES,
 )
+from tma_apps.tma_support_functions import tma_verify_access
 %>
 
 <%
@@ -56,8 +57,12 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <!--<a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>-->
   % endif
+  % if user and tma_verify_access(user).has_dashboard_access(str(enrollment.course_id)):
+  <a href="/tma/${str(enrollment.course_id)}/dashboard" class="course_nav"><img class="svg" src="/media/microsite/5aconseil-mooc/wrench.svg"><span>${_('ADMIN')}</span></a>
+  % endif
+
   % if multi_course_platform:
     <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
   % endif

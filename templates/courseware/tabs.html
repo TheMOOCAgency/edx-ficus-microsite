@@ -21,6 +21,20 @@ def url_class(is_active):
   <li class="tab">
   %if tab.name=="Home":
   <a href="/dashboard" class="${tab_class}">
+  <script>
+  function hideProgression(){
+    if(window.location.href.indexOf('course-v1%3Aacademie-daylight%2BParcours1%2BQuizniveau1')>-1){
+	
+      $('a[href="/courses/course-v1:academie-daylight+Parcours1+Quizniveau1/progress"]').parent().hide()
+      
+}
+}
+  setInterval(function(){
+    hideProgression()
+
+  },500);
+
+  </script>
   %else:
   <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif

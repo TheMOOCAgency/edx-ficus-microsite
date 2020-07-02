@@ -166,7 +166,8 @@ endfor
         % elif cours_ouv:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span id="ppStyle"style="margin-left:50px;">Poursuivez votre progression</span>
+
         % endif
       </div>
       <!-- border middle -->
@@ -212,7 +213,13 @@ endfor
     % endif
   % endfor
   </div>
-
+% if "course-v1:academie-daylight+Parcours1+Quizniveau1" in str(enrollment.course_id):
+ <style>
+  #dashboard_profile_bottom, #dashboard_profile_middle{
+    visibility:hidden;
+  }
+ </style>
+% endif
 %if course.no_grade:
  <style>
   #dashboard_profile_bottom{
@@ -238,6 +245,22 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
 }
 $("#score_tma").html(grade_summary['percent']*100+" %");
 </script>
+		  <script>
+	
+		    function hideProgression(){
+    if(window.location.href.indexOf('course-v1:academie-daylight+Parcours1+Quizniveau1')>-1){
+	
+      $('#dashboard_profile_middle_up').hide()
+      $('#dashboard_profile_middle').css('height','80px')
+      
+}
+}
+  setInterval(function(){
+    hideProgression()
+
+  },500);
+  
+    </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
     % if course_end < 2:

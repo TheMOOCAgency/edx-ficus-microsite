@@ -3,6 +3,9 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from openedx.core.djangoapps.course_groups.cohorts import get_cohort_id
+from openedx.core.djangoapps.course_groups.cohorts import get_cohort_by_id
+from django.contrib.auth.models import User
 %>
 
 <%block name="js_extra">
@@ -56,7 +59,17 @@ from django.core.urlresolvers import reverse
         %for student in students:
         <tr>
           <td>
-            <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">${student['username']}</a>
+            <a href="${reverse('student_progress', kwargs=dict(course_id=course_id.to_deprecated_string(), student_id=student['id']))}">
+            ${student['username']}
+            <%
+              cohort_name_for_user = ""
+              try:
+                cohort_name_for_user = "(" + get_cohort_by_id(course_id,get_cohort_id(User.objects.get(id=student['id']),course_id)).name + ")"
+              except:
+                pass
+            %>
+            ${cohort_name_for_user}
+            </a>
           </td>
         </tr>
         %endfor

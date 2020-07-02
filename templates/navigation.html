@@ -109,7 +109,7 @@ site_status_msg = get_site_status_msg(course_id)
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
+            <li class="item nav-global-01" style="display:none">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
             </li>
           % endif
@@ -174,6 +174,7 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
               </li>
             %endif
+<!--
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
                 <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
@@ -187,6 +188,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % endif
               </li>
             % endif
+-->
           % endif
         </%block>
       </ol>
@@ -320,3 +322,10 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+
+<style>
+.scormxblock_block .scorm_object{
+  height:850px !important;
+}
+</style>
