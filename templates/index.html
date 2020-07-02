@@ -20,6 +20,8 @@
          #lang-content {
             width: 60px;
             height: 24px;
+            float: right;
+            margin-top: 13px;
          }
          #lang-content img{
             width: 25px;
@@ -32,8 +34,8 @@
                <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" id="loginLink1">Connexion</a></li>
-                        <li><a href="" id="registerLink1">Inscription</a></li>
+                        <li><a href="" id="loginLink1"><span class='fr_content'>Connexion</span><span class='en_content'>Connection</span></a></li>
+                        <li><a href="" id="registerLink1"><span class='fr_content'>Inscription</span><span class='en_content'>Register</span></a></li>
                      </ul>
                   </button>
                   <!-- <a class="navbar-brand" href="#">HOME</a>                 -->
@@ -45,8 +47,8 @@
                      </li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-					      <li><a href="" id="registerLink2" class="rg">Inscription</a></li>
-                     <li><a href="" id="loginLink2" class="cx">Connexion</a></li>
+					      <li><a href="" id="registerLink2" class="rg"><span class='fr_content'>Inscription</span><span class='en_content'>Register</span></a></li>
+                     <li><a href="" id="loginLink2" class="cx"><span class='fr_content'>Connexion</span><span class='en_content'>Connection</span></a></li>
                      <li><a href="/faq" >F.A.Q.</a></li>
                      <li><a href="/contact" >Contact</a></li> 
                      <!--LANGUAGE FLAGS-->
@@ -83,8 +85,8 @@
                         <!-- <p id="introConnect"></p> -->
                      </div>
                      <div class="col text-center">
-                       <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
-                       <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>               
+                       <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"><span class='fr_content'>Inscription</span><span class='en_content'>Register</span></button>
+                       <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn"><span class='fr_content'>Connexion</span><span class='en_content'>Connection</span></button>               
                      </div>
                   </div>
                </div>
@@ -160,13 +162,13 @@
             <div class="row" style="display: block">
                <div class="col text-center">
                   <button class="btn btn-default butn" id="subscribeButn2">
-                  inscription</button> 
+                     <span class='fr_content'>Inscription</span><span class='en_content'>Register</span></button> 
                </div>
             </div>
             <div class="row footerBottom">
               <div class="container" >
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 " >
-                  <p class="text-center underW" ><a href="/honor">Conditions générales</a></p>
+                  <p class="text-center underW" ><a href="/honor"><span class='fr_content'>Conditions générales</span><span class='en_content'>General terms and conditions</span></a></p>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 " >
                   <p class="text-center underW" ><a href="/faq">F.A.Q.</a></p>
@@ -189,6 +191,7 @@
                      var tbText
                      var pathRegister = "/register?course_id=course-v1:osac-mooc+Introduction+1&enrollment_action=enroll"
                      var pathLogin = "/login"
+                     var paramLang = "lang=fr"
                      var pathFAQ = "/faq"
                      var pathContact = "/about"
                      var course_id = ""
@@ -269,37 +272,36 @@
 						document.head.appendChild(link1);
 						document.head.appendChild(link2);
                   document.head.appendChild(link3);
-                  
-                  $("#loginLink1").attr("href",pathLogin)
-                  $("#registerLink1").attr("href",pathRegister)
-                  $("#loginLink2").attr("href",pathLogin)
-                  $("#registerLink2").attr("href",pathRegister)
-                  $("#loginButn").click(function(){window.location.href = pathLogin})
-                  $("#subscribeButn").click(function(){window.location.href = pathRegister})
-                  $("#subscribeButn2").click(function(){window.location.href = pathRegister})
-		}
+               }
+               
+               var setRegisterAndLoginLinks = function () {
+                  $("#loginLink1").attr("href",pathLogin+"?"+paramLang)
+                  $("#registerLink1").attr("href",pathRegister+"&"+paramLang)
+                  $("#loginLink2").attr("href",pathLogin+"?"+paramLang)
+                  $("#registerLink2").attr("href",pathRegister+"&"+paramLang)
+                  $("#loginButn").click(function(){window.location.href = pathLogin+"&"+paramLang})
+                  $("#subscribeButn").click(function(){window.location.href = pathRegister+"&"+paramLang})
+                  $("#subscribeButn2").click(function(){window.location.href = pathRegister+"&"+paramLang})
+                  console.log(pathRegister+"&"+paramLang)
+                  console.log(pathLogin+"?"+paramLang)
+               }
 			
-                     var bindindFunctionNav = function(){
-					 var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
-						$(".logoNav").attr("src",logoSrc)
-            	
-            	}
-                     
-                   
-					 
-					 var bindindFunctionA = function(){
-            	iter =  objJson.container.section3.nrbThumbnail
-            	for (i = 0; i < iter ; i++ ){
-            		thumbnailObj = objJson.container.section3.thumbnail[i]
-            		// <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
-            		tbTitle = thumbnailObj.title
-            		tbText = thumbnailObj.text
-            		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
-            		$('#markMoock').append(thumbnailMOOC)
-            	
-            	}
-                     
-                     }
+               var bindindFunctionNav = function(){
+					   var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
+					   $(".logoNav").attr("src",logoSrc)
+               }
+                      
+					var bindindFunctionA = function(){
+            	   iter =  objJson.container.section3.nrbThumbnail
+            	   for (i = 0; i < iter ; i++ ){
+                     thumbnailObj = objJson.container.section3.thumbnail[i]
+                     // <!-- thumbnailObj= JSON.parse(thumbnailObj) -->
+                     tbTitle = thumbnailObj.title
+                     tbText = thumbnailObj.text
+                     thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
+                     $('#markMoock').append(thumbnailMOOC)
+            	   }
+               }
             
                      var bindindFunctionB = function(){
             	iter =  objJson.container.section4.nbrThumbnail
@@ -323,7 +325,7 @@
                      var bindindFunctionFooter = function(){
             	 var footerTitleContent = objJson.container.section4.footer
             	 var footerTitleContentTitle = objJson.container.section4.footer.title
-            	 $('#footerTitle').text(footerTitleContentTitle)
+            	 $('#footerTitle').html(footerTitleContentTitle)
                      
                      }
                      
@@ -332,9 +334,9 @@
             	 var mainTitleContentTitle = objJson.container.section1.title.title1
                 var mainTitleContentTitle2 = objJson.container.section1.title.title2
                 var mainTitleContentTitle3 = objJson.container.section1.title.title3
-            	 $('#mainTitle1').text(mainTitleContentTitle)
+            	 $('#mainTitle1').html(mainTitleContentTitle)
                //  $('#mainTitle2').html('&nbsp;' + mainTitleContentTitle2)
-               //  $('#mainTitle3').text(mainTitleContentTitle3)
+               //  $('#mainTitle3').html(mainTitleContentTitle3)
                      
                      }
                      
@@ -349,39 +351,48 @@
                 var mainTitleContentText6 = objJson.container.section2.textLeft6
                //  var srcV = objJson.container.section2.videoSrc
                 var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
-            	 $('#vvTitle').text(mainTitleContentTitle)
+            	 $('#vvTitle').html(mainTitleContentTitle)
             	 $('#videoSr').attr("src",srcV)
-                $('#vvText1').text(mainTitleContentText1)
-                $('#vvText2').text(mainTitleContentText2)
-                $('#vvText3').text(mainTitleContentText3)
-                $('#vvText4').text(mainTitleContentText4)
-                $('#vvText5').text(mainTitleContentText5)
-                $('#vvText6').text(mainTitleContentText6)
+                $('#vvText1').html(mainTitleContentText1)
+                $('#vvText2').html(mainTitleContentText2)
+                $('#vvText3').html(mainTitleContentText3)
+                $('#vvText4').html(mainTitleContentText4)
+                $('#vvText5').html(mainTitleContentText5)
+                $('#vvText6').html(mainTitleContentText6)
                      }
                          
             var bindindFunctionMainSectionIntro= function(){
             	 var mainTitleContent = objJson.container.section1.phraseIntroButtonUp
-            	 $('#introConnect').text(mainTitleContent)
+            	 $('#introConnect').html(mainTitleContent)
                      
                      }
                      
                      var bindindFunctionMainSectionVIdeoTitle= function(){
             	 var mainTitleContent = objJson.container.section2.title
-            	 $('#se2').find(".sectionTitle").text(mainTitleContent)
+            	 $('#se2').find(".sectionTitle").html(mainTitleContent)
                      
                      }
                      
             var bindindFunctionMainSectionContent= function(){
             	 var mainTitleContent = objJson.container.section3.title
-            	 $('#se3').find(".sectionTitle").text(mainTitleContent)
+            	 $('#se3').find(".sectionTitle").html(mainTitleContent)
                      
                      }
             
             var bindindFunctionMeta = function(){
             	 var mainTitleContent = objJson.page.title
-            	 $("#masterTitle").text(mainTitleContent)
-                     
-                     }
+                $("#masterTitle").html(mainTitleContent)
+                if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+                  $('.fr_content').hide()
+                  $('.en_content').show()
+                  paramLang = "lang=en"
+               } else{
+                  $('.fr_content').show()
+                  $('.en_content').hide()
+                  paramLang = "lang=fr"
+               }
+               setRegisterAndLoginLinks()
+            }
             
             var masterBind= function(){
 				
@@ -397,7 +408,7 @@
             	bindindFunctionMainSectionVideo();
                bindindFunctionMeta ();
              }
-            
+
             var objJson
             
             getInfo();
@@ -415,22 +426,13 @@
             }
             a.send();
             a.addEventListener('loadend', $("body").css({"display":"inherit"}));
-            
             // $(".scroll").click(function() {
             // 	$('html, body').animate({
             // 		scrollTop: $("#se2").offset().top
             // 	}, 2000);
             // });
-alert('dsfgh')
-            $( document ).ready(function(){
-               if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
-                  $('#main-content-fr').hide()
-                  $('#main-content-en').show()
-               } else{
-                  $('#main-content-fr').show()
-                  $('#main-content-en').hide()
-               }
 
+            $( document ).ready(function(){
                var url = new URL(window.location.href);
                var paramUrl = url.searchParams.get('lang');
                if (paramUrl){
@@ -449,12 +451,18 @@ alert('dsfgh')
                $('.en').on('click', function() {
                   $('#settings-language-value > option[value="en"]').attr('selected','selected');
                   $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-                  console.log('.en')
+                  $('.fr_content').hide()
+                  $('.en_content').show()
+                  paramLang = "lang=en"
+                  setRegisterAndLoginLinks()
                });
                $('.fr').on('click', function() {
                   $('#settings-language-value > option[value="fr"]').attr('selected','selected');
                   $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
-                  console.log('.fr')
+                  $('.fr_content').show()
+                  $('.en_content').hide()
+                  paramLang = "lang=fr"
+                  setRegisterAndLoginLinks()
                });
             })
 			</script>       

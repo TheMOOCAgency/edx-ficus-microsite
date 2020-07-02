@@ -253,10 +253,12 @@ site_status_msg = get_site_status_msg(course_id)
  </style>
    <script>
     //LANGUAGE FLAGS
-    let params = new URL(window.location).searchParams;
-    let lang = params.get('lang');
+    var params = new URL(window.location).searchParams;
+    var lang = params.get('lang');
 
     $(document).ready(function(){
+      console.log('${LANGUAGE_CODE}')
+      console.log(lang)
       if ('${LANGUAGE_CODE}' !== lang) {
         if (lang === 'en') {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
@@ -272,7 +274,7 @@ site_status_msg = get_site_status_msg(course_id)
       $('#en').on('click', function() {
         var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('lang') && urlParams.get('lang') === 'fr') {
-          window.history.pushState({}, document.title, location.href.replace("lang=fr&", ""));
+          window.history.pushState({}, document.title, location.href.replace("?lang=fr", ""));
         }
         $('#settings-language-value > option[value="en"]').attr('selected','selected');
         $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
@@ -281,7 +283,7 @@ site_status_msg = get_site_status_msg(course_id)
       $('#fr').on('click', function() {
         var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('lang') && urlParams.get('lang') === 'en') {
-          window.history.pushState({}, document.title, location.href.replace("lang=en&", ""));
+          window.history.pushState({}, document.title, location.href.replace("?lang=en", ""));
         }
         $('#settings-language-value > option[value="fr"]').attr('selected','selected');
         $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
