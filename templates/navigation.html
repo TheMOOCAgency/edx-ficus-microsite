@@ -91,7 +91,6 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </a>
     </h1>
-
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
         <span class="course-number">${course.display_number_with_default}</span>
@@ -208,34 +207,90 @@ site_status_msg = get_site_status_msg(course_id)
         </%block>
       </ol>
     % endif
-    % if static.show_language_selector():
-     <% languages = static.get_released_languages() %>
-      % if len(languages) > 1:
-      <ol class="user">
-        <li class="primary">
-          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
-            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
-            % if user.is_authenticated():
-            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
-            % else:
-            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
-            % endif
-            <label><span class="sr">${_("Choose Language")}</span>
-                <select class="input select language-selector" id="settings-language-value" name="language">
-                  % for language in languages:
-                    % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[1]}</option>
-                    % else:
-                      <option value="${language[0]}" >${language[1]}</option>
-                    % endif
-                  % endfor
-                </select>
-            </label>
-          </form>
-        </li>
-      </ol>
-      % endif
-      % endif
+    <% languages = static.get_released_languages() %>
+    <ol class="user">
+     <li class="primary">
+       <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+         <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+         % if user.is_authenticated():
+         <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+         % else:
+         <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+         % endif
+         <label><span class="sr">${_("Choose Language")}</span>
+           <!--LANGUAGE FLAGS-->
+           <div id="lang-content">
+             <img src="/media/microsite/osac-mooc/pagebuilder/assets/img/en.png" id="en">
+             <img src="/media/microsite/osac-mooc/pagebuilder/assets/img/fr.png" id="fr">
+             <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+               % for language in languages:
+                % if language[0] =="en" or language[0] =="fr":
+                 % if language[0] == LANGUAGE_CODE:
+                   <option value="${language[0]}" selected="selected">${language[0]}</option>
+                 % else:
+                   <option value="${language[0]}">${language[0]}</option>
+                 % endif
+                % endif
+               % endfor
+             </select>
+           </div>
+         </label>
+       </form>
+     </li>
+   </ol>
+   <style>
+    .language-selector {
+       display: none;
+    }
+    #lang-content {
+       width: 60px;
+       height: 24px;
+    }
+    #lang-content img{
+       width: 25px;
+       cursor : pointer;
+    }
+ </style>
+   <script>
+    //LANGUAGE FLAGS
+    let params = new URL(window.location).searchParams;
+    let lang = params.get('lang');
+
+    $(document).ready(function(){
+      if ('${LANGUAGE_CODE}' !== lang) {
+        if (lang === 'en') {
+          $('#settings-language-value > option[value="en"]').attr('selected','selected');
+          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+        } else {
+          if (lang === 'fr') {
+            $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          }
+        }
+      }
+
+      $('#en').on('click', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') && urlParams.get('lang') === 'fr') {
+          window.history.pushState({}, document.title, location.href.replace("lang=fr&", ""));
+        }
+        $('#settings-language-value > option[value="en"]').attr('selected','selected');
+        $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+        lang = 'en'
+      });
+      $('#fr').on('click', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') && urlParams.get('lang') === 'en') {
+          window.history.pushState({}, document.title, location.href.replace("lang=en&", ""));
+        }
+        $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+        $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+        lang = 'fr'
+      });
+    });
+  </script>
+</nav>
+</header>
     </nav>
 </header>
 % if course:
@@ -320,7 +375,3 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-
