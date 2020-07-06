@@ -4,6 +4,7 @@
 <%!
  from django.utils.translation import ugettext as _
  from django.core.urlresolvers import reverse
+ from datetime import datetime
  %>
 <%page args="tab_list, active_page, default_tab, tab_image" expression_filter="h" />
 
@@ -12,13 +13,27 @@ def url_class(is_active):
   if is_active:
     return "active"
   return ""
+
+def is_forum_not_expired():
+  if (str(course.id) != "course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours2") or timestamp < 1594512000:
+    return True
+  return False
+
+def is_forum_allowed():
+  if str(course.id) != "course-v1:nature-for-city-life+NFCL_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours1":
+    return True
+  return False
+
+forum_not_expired = is_forum_not_expired()
+forum_allowed = is_forum_allowed()
 %>
+<script>console.log("${forum_not_expired} et ${forum_allowed}")</script>
 % for tab in tab_list:
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
   %>
-  % if tab.name != "Discussion" or (str(course.id) != "course-v1:nature-for-city-life+NFCL_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours1"):
+  % if tab.name != "Discussion" or (forum_allowed and forum_not_expired):
     <li class="tab">
     %if tab.name=="Home":
     <a href="/dashboard" class="${tab_class}">
