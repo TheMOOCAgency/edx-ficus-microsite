@@ -97,7 +97,7 @@ except:
 <script>
   $.get( "/tma_apps/tma_api/v0/email_allowed/" )
     .done(function( data ) {
-      var company = "unknown"
+      var company = undefined;
       var keys = Object.keys(data)
       var domainUser = "${domainUser}"
       for (var i = 0; i < keys.length; i++) {
@@ -110,7 +110,7 @@ except:
       }
       var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
       var customFields = {company:company}
-      if (company) {
+      if(company) {
         $.post( urlAPI, customFields )
           .done(function( data ) {
             // console.log("company ajouté au custom fields")
