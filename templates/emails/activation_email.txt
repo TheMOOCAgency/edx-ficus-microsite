@@ -18,3 +18,14 @@ Debe activar su cuenta con el enlace siguiente :
 https://${ site }/activate/${ key }
 
 Si no ha realizado la creación de su cuenta, no hay nada que hacer,no lo contactaremos más.
+
+
+
+
+Bienvenue,
+
+vous devez maintenant activer votre compte avec le lien suivant :
+
+https://${ site }/activate/${ key }
+
+Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
