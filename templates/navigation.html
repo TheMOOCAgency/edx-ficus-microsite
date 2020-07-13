@@ -257,16 +257,18 @@ site_status_msg = get_site_status_msg(course_id)
     var lang = params.get('lang');
 
     $(document).ready(function(){
-      console.log('${LANGUAGE_CODE}')
-      console.log(lang)
       if ('${LANGUAGE_CODE}' !== lang) {
         if (lang === 'en') {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          $('.fr_content').hide()
+          $('.en_content').show()
         } else {
           if (lang === 'fr') {
             $('#settings-language-value > option[value="fr"]').attr('selected','selected');
             $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+            $('.fr_content').show()
+            $('.en_content').hide()
           }
         }
       }
@@ -278,6 +280,8 @@ site_status_msg = get_site_status_msg(course_id)
         }
         $('#settings-language-value > option[value="en"]').attr('selected','selected');
         $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+        $('.fr_content').hide()
+        $('.en_content').show()
         lang = 'en'
       });
       $('#fr').on('click', function() {
@@ -287,6 +291,8 @@ site_status_msg = get_site_status_msg(course_id)
         }
         $('#settings-language-value > option[value="fr"]').attr('selected','selected');
         $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+        $('.fr_content').show()
+        $('.en_content').hide()
         lang = 'fr'
       });
     });
@@ -308,9 +314,16 @@ site_status_msg = get_site_status_msg(course_id)
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
+courses_EN = ['course-v1:osac-mooc+partie-m+1','course-v1:osac-mooc+part-CAMO+EN','course-v1:osac-mooc+part-CAO+EN','course-v1:osac-mooc+part-M+EN','course-v1:osac-mooc+part-ML+EN','course-v1:osac-mooc+Introduction+EN']
+course_id = ''
+current_path = request.path
+if '/courses/course-v1' in current_path:
+  course_id = current_path.split('/')[2]
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+% if course_id not in courses_EN:
 <script src="${static.url('js/translate.js')}"></script>
+% endif
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
