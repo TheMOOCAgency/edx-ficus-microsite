@@ -1,10 +1,61 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
+<%! from student.models import UserProfile%>
+<%! import json %>
+<%
+expert = False
+userprofile = UserProfile.objects.get(user=user)
+try:
+    custom_field = json.loads(UserProfile.objects.get(user=user).custom_field)
+except:
+    custom_field = {}
+if 'expert' in custom_field:
+    expert = custom_field['expert']
+%>
+% if expert:
+${("Bonjour {name}").format(name=name)},
 
-Bienvenue
+Bienvenue dans le programme INVEEST ! Je m’appelle Magalie, experte en financement de projets bas-carbone et formatrice pour le programme. 
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
+Vous faites désormais partie de la communauté de ceux qui souhaitent accélérer le financement de projets d’efficacité énergétique et bas-carbone dans l’industrie. 
 
+Pour activer votre compte, veuillez cliquer sur ce lien :
 https://${ site }/activate/${ key }
 
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+Vous avez postulé au parcours Expert. Vous pouvez dès aujourd’hui : 
+- Renseigner les numéros SIREN et SIRET de votre entreprise ici afin que nous puissions vous préciser le taux de prise en charge auquel vous pouvez prétendre :
+https://elearning.inveest.org/courses/course-v1:inveest+expert+2020/courseware/d0e4d2b906d14d1b873fc5604f5677bb/
+Le taux de prise en charge peut aller jusqu’à 100%, cela signifie que votre parcours Expert sera totalement gratuit. Les places étant limitées, je vous recommande de remplir le formulaire rapidement !
+
+- Me rejoindre dans le module d’introduction dans lequel je vous explique plus en détail comment fonctionne le e-learning et ce que vous allez pouvoir y apprendre :
+https://elearning.inveest.org/dashboard/course-v1:inveest+invest2019+invest2019
+
+Si vous avez la moindre question, je suis à votre disposition pour y répondre.
+
+A tout de suite,
+Magalie
+Formatrice INVEEST
+
+Vous ne souhaitez plus recevoir de mail de la plateforme e-learning INVEEST ? Cliquez ici :
+https://elearning.inveest.org/dashboard?optOut=course-v1%3Ainveest%2Binvest2019%2Binvest2019
+% else:
+${("Bonjour {name}").format(name=name)},
+
+Bienvenue dans le programme INVEEST ! Je m’appelle Magalie, experte en financement de projets bas-carbone et formatrice pour le programme. 
+
+Vous faites désormais partie de la communauté de ceux qui souhaitent accélérer le financement de projets d’efficacité énergétique et bas-carbone dans l’industrie. 
+
+Pour activer votre compte, veuillez cliquer sur ce lien :
+https://${ site }/activate/${ key }
+
+Par où commencer ?
+Je vous invite à me rejoindre dans le module d’introduction, je vous explique plus en détail comment fonctionne le e-learning et ce que vous allez pouvoir y apprendre :
+https://elearning.inveest.org/dashboard/course-v1:inveest+invest2019+invest2019
+
+A tout de suite,
+Magalie
+Formatrice INVEEST
+
+Vous ne souhaitez plus recevoir de mail de la plateforme e-learning INVEEST ? Cliquez ici :
+https://elearning.inveest.org/dashboard?optOut=course-v1%3Ainveest%2Binvest2019%2Binvest2019
+% endif

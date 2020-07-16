@@ -220,9 +220,22 @@ $('#validate_button').click(function(){
   if ($('#siren_number').val() !== '' && $('#siret_number').val() !== '') {
     var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
     var customFields = {'expert':'oui'}
-    $.post( urlAPI, customFields )
+    $.get( urlAPI )
       .done(function( data ) {
-        
+        if (!data.siren_siret_date) {
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+          var yyyy = today.getFullYear();
+          today = yyyy + '-' + mm + '-' + dd;
+          customFields.siren_siret_date = today
+        }
+        $.post( urlAPI, customFields )
+          .done(function( data ) {
+          })
+          .fail(function() {
+            
+          })
       })
       .fail(function() {
         

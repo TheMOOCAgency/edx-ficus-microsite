@@ -702,8 +702,40 @@ $(window).initialize(function(){
   title_border_multi();
   alignH2();
 })
-
 </script>
+
+<!--Opted in to out management-->
+% if "optOut" in request.GET:
+  <%
+    opt_out_valid = False
+    course_opted_out = request.GET["optOut"]
+    for dashboard_index, enrollment in enumerate(course_enrollments):
+      if str(enrollment.course_id) == str(course_opted_out):
+        opt_out_valid = True
+  %>
+  % if opt_out_valid:
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+      $.post( "/change_email_settings", { course_id: '${course_opted_out}' })
+      .done(function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Vous ne recevrez plus les emails automatiques',
+        })
+      });
+
+      // course that send massive mails
+      $.post( "/change_email_settings", { course_id: 'course-v1:inveest+invest2019+invest2019' })
+      .done(function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Vous ne recevrez plus les emails automatiques',
+        })
+      });
+    </script>
+  % endif
+%endif
+
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
     <button class="close-modal">
@@ -714,7 +746,7 @@ $(window).initialize(function(){
       </span>
     </button>
 
-    <header>
+    <header style="display:none">
       <h2 id="email-settings-title">
         ${Text(_("Email Settings for {course_number}")).format(course_number=HTML('<span id="email_settings_course_number"></span>'))}
         <span class="sr">,
@@ -727,13 +759,26 @@ $(window).initialize(function(){
 
     <form id="email_settings_form" method="post">
       <input name="course_id" id="email_settings_course_id" type="hidden" />
-      <label>${_("Receive course emails")} <input type="checkbox" id="receive_emails" name="receive_emails" /></label>
+      <label>${_("Receive course emails")}<input type="checkbox" id="receive_emails" name="receive_emails" /></label>
       <div class="submit">
         <input type="submit" id="submit" value="${_("Save Settings")}" />
       </div>
     </form>
   </div>
 </div>
+<style>
+  #email_settings_form{
+    margin-top: 30px;
+  }
+  .modal .inner-wrapper form input[type="checkbox"], .leanModal_box .inner-wrapper form input[type="checkbox"] {
+    margin-left: 15px;
+  }
+  .modal .inner-wrapper form label, .leanModal_box .inner-wrapper form label {
+    font-style: inherit;
+    font-weight: 600;
+    font-size: 18px;
+  }
+</style>
 
 <div id="unenroll-modal" class="modal unenroll-modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="unenrollment-modal-title">

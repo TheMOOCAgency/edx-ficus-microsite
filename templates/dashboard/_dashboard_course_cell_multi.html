@@ -50,8 +50,8 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <div class="options">
       <span class="list_params">
 
+      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" onclick="setCourse_id_to_opted('${course_overview.id}')" data-optout="${unicode(course_overview.id) in course_optouts}"><img src="${static.url('images/close-envelope.png')}" title="Ne plus recevoir de mail"/></a>
 % if show_email_settings:
-      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}"><img src="${static.url('images/close-envelope.png')}" title="Ne plus recevoir de mail"/></a>
 % endif
 <!--
         <a href="#unenroll-modal" class="unenroll_multi" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-course-name="${course_overview.display_name_with_default}" data-dashboard-index="${dashboard_index}"
@@ -87,3 +87,15 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <span style="display:block;clear:left"></span>
   </div>
 </li>
+<script>
+  var setCourse_id_to_opted = function(course_id) {
+    var setCourse_id_loop = setInterval(function(){ 
+      if ($('#email-settings-modal:visible').length > 0 && $('#email_settings_course_id').val() !== course_id) {
+        $('#email_settings_course_id').val(course_id)
+        $('#receive_emails').prop('checked', true);
+      } else {
+        clearInterval(setCourse_id_loop)
+      }
+    }, 500);
+  }
+</script>
