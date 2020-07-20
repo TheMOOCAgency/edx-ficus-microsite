@@ -67,7 +67,7 @@
 
 		<!-- Logo -->
 		<div class="logo">
-			<a href="https://www.ciffco.com/fr/accueil/" target="_blank"><img src="/media/microsite/e-ferro/homepage/images/logo.png" width="101" height="81" alt="CIFFCO"></a>
+			<a href="https://e-ferro.ciffco.com/" target="_blank"><img src="/media/microsite/e-ferro/homepage/images/logo.png" width="101" height="81" alt="CIFFCO"></a>
 		</div>
 
 		<!-- Mobile Nav Button -->
@@ -362,7 +362,7 @@
 			})
 
 		// anchors
-		$('.nav-content > li > a').click(function() {
+		$('.nav-content > li > a, .call-to-action > li > .button').click(function() {
 			var id = $(this).attr('href');
 			$('html, body').animate({
                 scrollTop: $(id).offset().top
