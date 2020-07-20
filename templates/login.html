@@ -98,15 +98,15 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          removeClass('is-disabled').
-          attr('aria-disabled', false).
-          removeProp('disabled').
+          
+          
+          
           html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
-          //addClass('is-disabled').
-          //prop('disabled', true).
+          //
+          //
           text("${_(u'Processing your account information')}");
       }
     }

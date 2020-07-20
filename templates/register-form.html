@@ -12,6 +12,19 @@ if extra_form is None:
 import datetime
 %>
 
+<script>
+  $( document ).ready(function(){
+    $('#more_details').parent().hide()
+
+    $('#how_did_you_know_us').on('change', function() {
+      if(this.value === "autre"){
+        $('#more_details').parent().show()
+      }else{
+        $('#more_details').parent().hide()
+      }
+  });
+  });
+</script>
 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 
 <!-- status messages -->
@@ -85,6 +98,7 @@ import datetime
   % if has_extauth_info is UNDEFINED:
 
   <ol class="list-input">
+<!--
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
       <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
@@ -93,6 +107,7 @@ import datetime
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
+-->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
@@ -362,5 +377,5 @@ $('#first_name,#last_name').change(function(){
 })
 </script>
 <div class="form-actions" id="login_link_up">
-  <a id="login_link" href="/login?course_id=course-v1:AXABANQUE+COMPTEBANCAIREAXA+FEVRIER2017&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login?course_id=course-v1:operation-raffinage+Total01+2018Q1&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
 </div>

@@ -1,95 +1,432 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-org = static.get_value('domain_prefix')
-css = org+'/css/index.css'
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+<html lang="fr">
 
-          </div>
+  <head>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+    <meta charset="utf-8">
 
-      </header>
-      <%include file="${courses_list}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    </section>
-</main>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+    <title>MOOC opération raffinage</title>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
+
+
+    <!-- Bootstrap -->
+
+    <link href="/media/microsite/operation-raffinage/hp/assets/css/style.css" rel="stylesheet">
+
+    <link href="/media/microsite/operation-raffinage/hp/assets/css/cookies.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+	<script src="/media/microsite/operation-raffinage/hp/assets/js/jquery.js"></script>
+
+    <style>
+
+    /*
+
+      #video {
+
+        position: absolute;
+
+        top: 50%;
+
+        left: 50%;
+
+        -webkit-transform: translateX(-50%) translateY(-50%);
+
+        transform: translateX(-50%) translateY(-50%);
+
+        min-width: 100%;
+
+        min-height: 100%;
+
+        width: auto;
+
+        height: auto;
+
+        z-index: -2;
+
+        overflow: hidden;
+
+        background-position: center center;
+
+        background-size: contain;
+
+      }
+
+      */
+
+      #video {
+
+        min-width: 100%;
+
+        min-height: 100%;
+
+        width: auto;
+
+        height: auto;
+
+        overflow:hidden;
+
+        top: 0;
+
+        left: 0;
+
+        background-size:cover;
+
+        object-fit: cover;
+
+        z-index: -2;
+
+        position: absolute;
+
+      }
+
+    </style>
+
+
+
+<!-- Piwik -->
+
 <script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
+
+  var _paq = _paq || [];
+
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+
+  _paq.push(["setCookieDomain", "*.mooc-experiencegaz.fr"]);
+
+  _paq.push(["setDoNotTrack", true]);
+
+  _paq.push(['trackPageView']);
+
+  _paq.push(['enableLinkTracking']);
+
+  (function() {
+
+    var u="//piwik.themoocagency.com/";
+
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+
+    _paq.push(['setSiteId', '25']);
+
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+
+  })();
+
 </script>
-% endif
+
+<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=25&rec=1" style="border:0;" alt="" /></p></noscript>
+
+<!-- End Piwik Code -->
 
 
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=course-v1%3Aafpa%2BLes101techniquesdebase%2BMOOCCUISINEAFPA_S3&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Aafpa%252BLes101techniquesdebase%252BMOOCCUISINEAFPA_S3%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
 
-</script>
+  </head>
+
+  <body>
+
+  <div id="player"><span id="close">X</span><iframe id="iframe_teaser" src="" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+
+  <div id="voile"></div>
+
+  <section id="cookies">
+
+    <p>
+
+      En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites et le dépôt de cookies tiers destinés à vous proposer des vidéos.
+
+    </p>
+
+    <p>
+
+      <a href="/honor">En savoir plus</a>
+
+      <button id="cookie_ok">OK</button>
+
+    </p>
+
+  </section>
+
+  <style>
+
+    #background_img {
+
+      position: fixed;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      background-image:url('/media/microsite/operation-raffinage/hp/assets/images/fond.jpg');
+
+      background-size: cover;
+
+      z-index: -1;
+
+    }
+
+    #header {
+
+      background-image: none;
+
+      height:calc(100vh - 80px);
+
+    }
+
+    #unit1 {
+
+      background-color: #fff;
+
+      display: none;
+
+    }
+
+    #nav {
+
+      background: #fff;
+
+      background: -webkit-linear-gradient(left, #fff 25%, transparent 75%);
+
+      background: -o-linear-gradient(right, #fff 25%, transparent 75%);
+
+      background: -moz-linear-gradient(right, #fff 25%, transparent 75%);
+
+      background: linear-gradient(to right, #fff 25%, transparent 75%);
+
+    }
+
+    #scroll {
+
+      background-color: rgba(255,255,255,0.6);
+
+    }
+
+  </style>
+
+  <div id="background_img">
+
+
+
+  </div>
+
+  <section id="nav">
+
+    <div class="contenant">
+
+      <div id="logo">
+
+        <img src="/media/microsite/operation-raffinage/hp/assets/images/logo_only.png" />
+
+      </div>
+
+      <!--
+
+      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
+
+      -->
+
+      <div id="menu">
+
+        <button id="button_low"></button>
+
+        <span>
+
+          <a href="/register?course_id=course-v1:operation-raffinage+Total01+2018Q1&enrollment_action=enroll">Inscription</a>
+
+          <a href="/login?course_id=course-v1:operation-raffinage+Total01+2018Q1&enrollment_action=enroll" style="color:white">Connexion</a>
+
+        </span>
+
+      </div>
+
+      <span style="float: none;"></span>
+
+    </div>
+
+  </section>
+
+  <section id="header">
+
+   <div style="width: 100%;height:100%;opacity:0.55;background-color: black;"></div>
+
+    <div id="menu_header">
+
+      <h1>OPéRATION RAFFINAGE</h1>
+	<p> Un quotidien hors du commun</p>
+      <div id="bouton_header">
+
+        <button onclick="window.location.href='/login?cours_id=course-v1:operation-raffinage+Total01+2018Q1&enrollment_action=enroll';">Connexion</button>
+
+        <button onclick="window.location.href='/register?course_id=course-v1:operation-raffinage+Total01+2018Q13&enrollment_action=enroll';">Inscription</button>
+
+      </div>
+
+    </div>
+
+    <div id="scroll">
+
+      <img src="/media/microsite/operation-raffinage/hp/assets/images/scroll.png" id="scroll_button_action" />
+
+    </div>
+
+  </section>
+
+  <section id="unit1">
+
+    <div class="contenant">
+
+      <img src="/media/microsite/operation-raffinage/hp/assets/images/logo-exp_gaz.png" id="unit1_img_desktop" style="  width:150px;"/>
+
+      <img src="/media/microsite/operation-raffinage/hp/assets/images/logo-exp_gaz.png" id="unit1_img_mobile" style="  width:150px;"/>
+
+    </div>
+
+  </section>
+
+  <style>
+
+  #unit2_p,#unit2 h3,#unit2 #unit2_h2,#unit2 p {
+
+    text-align: left;
+
+    width:auto;
+
+    max-width:800px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    margin-bottom: 8px;
+
+  }
+ #unit2_h2 {
+ text-align: left;
+ }
+  </style>
+
+  <section id="unit2">
+
+    <span id="unit_2_desk">
+	<img src="/media/microsite/operation-raffinage/hp/assets/images/vign.png" id="vign">
+      <h3 id="unit2_h2">Le métier d’opérateur en raffinage pétro-chimie est ouvert à tous quel que soit votre parcours d’origine !</h3>
+
+      <h3 id="unit2_h2">Suivez le MOOC pour entrer dans notre processus de recrutement</h3>
+
+    </span>
+
+    <p id="unit2_p" style="margin-bottom:30px; line-height:20px"><strong>Devenir opérateur en Raffinage-Pétrochimie c’est :</strong></p>
+
+	<div style="margin-left:auto;margin-right:auto;width:auto;padding-left:25px;max-width:800px;">
+
+    <ul>
+
+     <li>Etre polyvalent et avoir un métier faisant appel à de multiples compétences</li>
+
+     <li>Travailler dans un univers responsabilisant</li>
+
+     <li>Travailler en autonomie et en sécurité</li>
+
+  	 <li>Faire partie d’une équipe</li>
+
+  	 <li>Intégrer une filière avec un vrai parcours professionnel</li>
+
+    </ul>
+
+<center><a style="cursor:pointer" href="https://moocoftheyear.com/" target="_blank"><img src="/media/microsite/operation-raffinage/hp/assets/images/MOTY2019.png" style="width:50%,;max-width:500px;margin-top:50px;"></a></center>
+
+</div>
+
+    <!--<img src="/media/microsite/operation-raffinage/hp/assets/images/bloc_sВquence.png" id="unit2_img1"/>
+
+    <img src="/media/microsite/operation-raffinage/hp/assets/images/bloc_sВquence_mobile.png" id="unit2_img2"/>-->
+
+  </section>
+
+  <section id="unit3" style="display:none">
+
+    <div class="contenant">
+
+      <a href="">en savoir plus sur les cours ></a>
+
+    </div>
+
+  </section>
+
+  <section id="footer">
+
+    <span> - Site réalisé par <a href="https://www.themoocagency.com" target="_blank">The MOOC Agency</a> - 2017</span>
+
+
+  </section>
+
+  </body>
+
+  <script src="/media/microsite/operation-raffinage/hp/assets/js/cookie.js"></script>
+
+  <script>
+
+  function menu_nav() {
+
+    var width = $(window).width();
+
+    width = parseInt(width);
+
+    if(width <= 500) {
+
+      $('#button_low').click(function(){
+
+        console.log('coin');
+
+        $('#menu').find('span').toggle();
+
+      })
+
+    }else{
+
+      $('#menu').find('span').attr('style','');
+
+    }
+
+  }
+
+  function scroll_to() {
+
+    $('#scroll_button_action').on('click', function() {
+
+      var speed = 750;
+
+      $('html, body').animate( { scrollTop: $('#footer').offset().top }, speed );
+
+      return false;
+
+    });
+
+  }
+
+  scroll_to();
+
+  </script>
+
+</html>
+
+

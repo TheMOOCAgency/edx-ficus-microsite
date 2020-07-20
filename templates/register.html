@@ -67,7 +67,7 @@ import calendar
         toggleSubmitButton(true);
         json = $.parseJSON(jqXHR.responseText);
         $('.status.message.submission-error').addClass('is-shown').focus();
-        $('.status.message.submission-error .message-copy').html(json.value).stop().css("display", "block");
+        $('.status.message.submission-error .message-copy').html(json.value.replace('appartient a un compte existant.','appartient à un compte existant.').replace("C'est peut-etre car vous vous etes inscrit(e) a un autre MOOC sur une plateforme geree par The MOOC Agency.","C'est peut-être car vous vous êtes inscrit(e) à un autre MOOC sur une plateforme gérée par The MOOC Agency.").replace("Nous avons detecte que cet email est associe aux cours suivant","Nous avons détecté que cet email est associé aux cours suivant").replace("Cliquez-ici pour recuperer votre mot de passe","Cliquez-ici pour récupérer votre mot de passe")).stop().css("display", "block");
         $(".field-error").removeClass('field-error');
         $("[data-field='"+json.field+"']").addClass('field-error')
       });
@@ -83,15 +83,15 @@ import calendar
 
       if(enable) {
         $submitButton.
-          removeClass('is-disabled').
-          attr('aria-disabled', false).
-          removeProp('disabled').
+          
+          
+          
           html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
       }
       else {
         $submitButton.
-          addClass('is-disabled').
-          prop('disabled', true).
+          
+          
           text("${_('Processing your account information')}");
       }
     }

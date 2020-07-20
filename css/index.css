@@ -1,15 +1,15 @@
 .home>header {
     background: transparent none repeat scroll 0 center;
-    background-image: tma_background_image_font;
+    background-image: url('/static/operation-raffinage/images/fond.jpg');
     background-position: center;
     height: 361px;
 }
 .courses-container .courses .course {
-    border-bottom: 3px solid tma_primary_color !important;
+    border-bottom: 3px solid rgba(0,65,150,1) !important;
 }
 .courses-container .courses .course .course-image .cover-image .learn-more {
-    border-color: tma_primary_color !important;
-    background: tma_primary_color !important;
+    border-color: rgba(0,65,150,1) !important;
+    background: rgba(0,65,150,1) !important;
 }
 .btn-login ,.btn-login:hover,.btn-login:focus,.btn-login:visited{
   color: #fff !important;
