@@ -158,7 +158,7 @@ endfor
     %>
 
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <div class="dashboard_profile" id="dashboard_profile_middle" style="height:63px !important">
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
@@ -172,7 +172,7 @@ endfor
       <!-- border middle -->
       <div id="dashboard_profile_middle_middle">
       </div>
-      <!-- actif forum -->
+      <!-- desactive forum et aussi pour #dashboard_profile_middle avec height:63px dans un styleinline plus haut
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
@@ -181,7 +181,7 @@ endfor
         % else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
-      </div>
+      </div>-->
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
