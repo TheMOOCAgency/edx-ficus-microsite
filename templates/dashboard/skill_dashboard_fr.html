@@ -225,8 +225,10 @@ except:
       </div>
         <div class="text-center">
           %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
-            <button onclick="enrollAndRedirect()" class="sub-btn blue-btn" id="last_score">
-              Accès direct au learning
+            <button onclick="enrollAndRedirect()" class="sub-btn blue-btn" id="last_score">\
+              <a style="color:inherit;" href="https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/aa71569bfe8640e7bb58b4da04689ff3/8cdb686a44404bbc9e9318752f93149b/" target="_blank">
+                Accès direct au learning        
+              </a>
             </button>
           %else :
           <button class="text-align-center blue-btn deactivated" disabled>
