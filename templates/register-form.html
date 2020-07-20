@@ -424,6 +424,15 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+$( document ).ready(function(){
+  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+    $("#field-vous_etes > label").text('Are you...')
+    $("#vous_etes > option:eq(1)").text('A member of an approved organisation')
+    $("#vous_etes > option:eq(2)").text('An independent mechanic')
+    $("#vous_etes > option:eq(3)").text('An aircraft owner')
+    $("#vous_etes > option:eq(4)").text('Someone else')
+  }
+})
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
