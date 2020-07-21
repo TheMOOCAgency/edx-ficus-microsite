@@ -27,7 +27,6 @@ def is_forum_allowed():
 forum_not_expired = is_forum_not_expired()
 forum_allowed = is_forum_allowed()
 %>
-<script>console.log("${forum_not_expired} et ${forum_allowed}")</script>
 % for tab in tab_list:
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
