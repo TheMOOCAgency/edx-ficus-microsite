@@ -1,0 +1,165 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from django_countries import countries
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string
+import datetime
+%>
+
+<%block name="title"><title>ensure form</title></%block>
+
+<%block name="header_extras">
+
+<%
+_get = request.GET
+datatype = _get.get('datatype')
+infos = None
+for n in form_infos:
+  if n.get('type') == datatype:
+    infos = n
+%>
+
+<style>
+.section {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.field {
+  position: relative;
+}
+.picto_status {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  right: -50px;
+}
+.wrapper-account-settings .wrapper-header {
+  height: auto;
+}
+.required {
+  font-weight: bold !important;
+}
+#global-navigation,.wrapper-footer {
+ display: none !important;
+}
+#main {
+height: 300px;
+overflow: hidden;
+}
+#tma_background_font {
+ background-image: none !important;
+ background-color: #fff !important;
+}
+body footer.global {
+ display: none;
+}
+#content {
+ min-height: 0px !important;
+}
+#field-connaissance label {
+  background-color: rgb(228,0,43);
+  color: #fff;
+  padding-left: 5px;
+}
+.list-input li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#send {
+  color: #fff !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-color: rgb(228,0,43) !important;
+  border-color: rgb(228,0,43) !important;
+}
+#send:focus,#send:hover {
+  color: rgb(228,0,43) !important;
+  background-color: #fff !important;
+}
+.register {
+  padding-top: 0 !important;
+}
+.italic{
+  font-style: italic;
+  font-size: 12px;
+  margin-top: 5px;
+}
+</style>
+
+<p id="SeqProgression" style="color: rgb(0,51,160);background-color:#fff;">
+  <strong>Veuillez charger votre CV ( formats acceptés : pdf,doc,docx,png,jpeg,jpg)</strong>
+  <div class="italic">Mettez vos noms et prénoms dans le titre de votre fichier pour qu'il soit traité.</div>
+</p>
+
+<div class="wrapper-account-settings">
+  <main id="main" aria-label="Content" tabindex="-1">
+    <div class="account-settings-container">
+      <div class="wrapper-header">
+        <div id="aboutTabSections-tabpanel" class="account-settings-tabpanels " aria-label="Information du compte" role="tabpanel">
+          <div class="section">
+          <!-- FORMS -->
+          <section class="register container">
+            <section role="main" class="content">
+              <form role="form" novalidate id="myform">
+                <div class="group group-form">
+                  <ol class="list-input">
+                    <li><label style="font-weight:bold;">${infos.get('label')} *</label></li>
+                    <li><p>${infos.get('string')}</p></li>
+                    <li><input type="file" name="${infos.get('type')}" id="file" ></li>
+                    <li><button id="send">Envoyer</button></li>
+                  </ol>
+                  <p class="required">* champs obligatoires</p>
+                </div>
+              </form>
+            </section>
+          </section>
+          <!-- END FORMS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+
+var microsite = "${microsite}";
+var user_id = parseInt("${user_id}");
+var data_type = "${datatype}";
+/*
+$('#myform').submit(function(){
+  return false;
+})
+*/
+$('#send').click(function(e){
+
+  e.preventDefault();
+
+  var data = new FormData();
+  data.append(data_type,$('input[type=file]')[0].files[0])
+
+  var url = "/tma_apps/files_api/v1/"+microsite+"/"+data_type+"/"+user_id;
+
+  $.ajax({
+    url: url,
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function(data){
+      localStorage.setItem("ensure_form_cv", "True");
+    }
+  })
+})
+</script>
+<!-- end fields generation -->
+</%block>
