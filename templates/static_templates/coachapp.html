@@ -3,9 +3,9 @@
 <%namespace name='static' file='../static_content.html'/>
 <%
 org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/coachApp/css/main.462a83bf.chunk.css'.format(org)
-js = '/media/microsite/{}/coachApp/js/2.077eec8d.chunk.js'.format(org)
-jsMain = '/media/microsite/{}/coachApp/js/main.e05113b9.chunk.js'.format(org)
+css = '/media/microsite/{}/coachApp/css/main.af1eb179.chunk.css'.format(org)
+js = '/media/microsite/{}/coachApp/js/2.71cb193e.chunk.js'.format(org)
+jsMain = '/media/microsite/{}/coachApp/js/main.a24de303.chunk.js'.format(org)
 %>
 <%inherit file="../main.html" />
 <link href="${css}" rel="stylesheet">
@@ -16,15 +16,31 @@ jsMain = '/media/microsite/{}/coachApp/js/main.e05113b9.chunk.js'.format(org)
 .container .about{
   max-width: 80%!important;
 }
+.minibio {
+    margin-top: 25px;
+    font-size: 16px;
+    text-align: left;
+}
+.formation{
+    font-size: 16px;
+}
+ .coach{
+    margin-top: 10px;
+}
+.buttonAppointment{
+  margin-top : 20px;
+  margin-bottom : 20px;
+}
 .emplacement{
-  font-size: 19px !important;
-  padding: 0px 5px!important;
+  font-size: 16px !important;
+  padding: 0px 0px!important;
+  text-align: left;
 }
 .maintitleh1{
   background-color: #f28066;
-padding: 30px;
-color: white;
-margin-bottom: 0;
+  padding: 30px;
+  color: white;
+  margin-bottom: 0;
 }
 .prestations{
   margin : 0px!important;
@@ -40,6 +56,24 @@ flex: 1;
 }
 .MuiAutocomplete-root.autocomplete:nth-of-type(4){
   flex : 1;
+}
+.App-filter {
+    flex-direction: column;
+}
+#return-dashboard{
+  text-align: left;
+  padding-top : 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+#return-dashboard>a{
+    color : #ffffff;
+    text-decoration:none!important;
+
+}
+#return-dashboard>a:hover{
+  text-decoration:underline!important;
+
 }
 </style>
 

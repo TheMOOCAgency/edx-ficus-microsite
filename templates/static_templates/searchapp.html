@@ -3,15 +3,28 @@
 <%namespace name='static' file='../static_content.html'/>
 <%
 org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/searchApp/css/main.55a27e93.chunk.css'.format(org)
-js = '/media/microsite/{}/searchApp/js/2.f60936f0.chunk.js'.format(org)
-jsMain = '/media/microsite/{}/searchApp/js/main.31a4e96d.chunk.js'.format(org)
+css = '/media/microsite/{}/searchApp/css/main.a2fb6cea.chunk.css'.format(org)
+js = '/media/microsite/{}/searchApp/js/2.28e01553.chunk.js'.format(org)
+jsMain = '/media/microsite/{}/searchApp/js/main.0ab015f3.chunk.js'.format(org)
 %>
 <%inherit file="../main.html" />
+<script>document.title = "Enquête Métiers";</script>
 <link href="${css}" rel="stylesheet">
 <style>
 .container .about{
   max-width: 80%!important;
+}
+#return-dashboard>a>i{
+  margin-right: 10px;
+}
+.MuiExpansionPanel-root.Mui-disabled {
+    background-color: white!important;
+}
+.MuiExpansionPanelSummary-root.Mui-disabled {
+    opacity: 1!important;
+}
+.MuiExpansionPanelSummary-expandIcon.Mui-expanded {
+     display: none!important;
 }
 .emplacement{
   font-size: 19px !important;
