@@ -183,7 +183,7 @@ import datetime
   % elif n.get('type') == 'select':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
   <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
-    % if n.get('name') == 'country':
+    % if n.get('name') == 'country' or n.get('name') == 'nationalite':
       <option value="" data-isdefault="true">--</option>
       <%
       _countries = list(countries)
