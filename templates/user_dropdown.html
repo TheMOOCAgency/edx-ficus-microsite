@@ -45,7 +45,7 @@ a.dropdown.full-width-button.active{
               <%block name="navigation_dropdown_menu_links" >
                   <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
                   <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
-                  <li class="dropdown-item item has-block-link"><a href="/tma_apps/static_page/assistance_technique.html" role="menuitem" class="action dropdown-menuitem">Assistance technique</a></li>
+                  <li class="dropdown-item item has-block-link"><a href="mailto:technical@weuplearning.com&subject=Plateforme%20connexions-citoyennes" role="menuitem" class="action dropdown-menuitem">Assistance technique</a></li>
               </%block>
               <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
           </ul>
