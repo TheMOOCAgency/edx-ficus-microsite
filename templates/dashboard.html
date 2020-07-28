@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.template import RequestContext
 import third_party_auth
+import datetime
+from datetime import date
 from third_party_auth import pipeline
 from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
 from openedx.core.djangolib.markup import HTML, Text
@@ -20,6 +22,8 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+import logging
+log = logging.getLogger()
 %>
 
 <%
@@ -125,6 +129,22 @@ course_finished = 0
 course_name = []
 for dashboard_index, enrollment in enumerate(course_enrollments):
   course = get_course_by_id(enrollment.course_id)
+  enrollment_start = enrollment.course_overview.enrollment_start
+  enrollment_end = enrollment.course_overview.enrollment_end
+  today = date.today()
+  closed_courses = []
+  log.info('***************')
+  log.info(enrollment.course_overview)
+  log.info(enrollment_end.date())
+  log.info(enrollment_end.date() < today)
+  log.info(enrollment_start.date())
+  log.info(enrollment_start.date() > today)
+  log.info('***************')
+  if enrollment_end.date() < today or enrollment_start.date() > today:
+    #closed_courses.append(enrollment.course_id)
+    log.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    log.info(closed_courses)
+    log.info('****************************')
   if len(course_enrollments) == 1:
     course_tma = str(enrollment.course_id)
     user_tma = user.id
@@ -151,18 +171,15 @@ def url_class(is_active):
     return "active"
   return ""
 
-def is_forum_not_expired():
-  if (str(course.id) != "course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours2") or timestamp < 1594512000:
+def is_forum_not_expired(course_id):
+  if (str(course_id) != "course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2" and str(course_id) != "course-v1:nature-for-city-life+NFCL+Parcours2") or timestamp < 1594512000:
     return True
   return False
 
-def is_forum_allowed():
-  if str(course.id) != "course-v1:nature-for-city-life+NFCL_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours1":
+def is_forum_allowed(course_id):
+  if str(course_id) != "course-v1:nature-for-city-life+NFCL_EN+Parcours2" and str(course_id) != "course-v1:nature-for-city-life+NFCL+Parcours1":
     return True
   return False
-
-forum_not_expired = is_forum_not_expired()
-forum_allowed = is_forum_allowed()
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
@@ -172,9 +189,10 @@ forum_allowed = is_forum_allowed()
 % if len(course_enrollments) == 1:
     <%
     for enrollment in course_enrollments:
-        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses) and not (enrollment.course_id in closed_courses)
+        forum_not_expired = is_forum_not_expired(enrollment.course_id)
+        forum_allowed = is_forum_allowed(enrollment.course_id)
     %>
-
     <!-- block milieu profil -->
     <div class="dashboard_profile" id="dashboard_profile_middle">
       <!-- formation validé -->
@@ -302,7 +320,7 @@ else{
     <% course_mode_info = all_course_modes.get(enrollment.course_id) %>
     <% show_refund_option = (enrollment.course_id in show_refund_option_for) %>
     <% is_paid_course = (enrollment.course_id in enrolled_courses_either_paid) %>
-    <% is_course_blocked = (enrollment.course_id in block_courses) %>
+    <% is_course_blocked = (enrollment.course_id in block_courses or enrollment.course_id in closed_courses) %>
     <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
     <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
     <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
@@ -339,7 +357,7 @@ else{
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in  block_courses or enrollment.course_id in closed_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
 </ul>
 <!-- multi site css -->
