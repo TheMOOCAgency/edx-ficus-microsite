@@ -162,6 +162,11 @@ endfor
       <h3>${user.profile.name}</h3>
       <h4>${user.email}</h4>
     </div>
+    <script>
+      if (screen.width <= 610) {
+        $('#dashboard_profile_up > a').attr("href", "#");
+      }
+    </script>
 % if len(course_enrollments) == 1:
     <%
     for enrollment in course_enrollments:

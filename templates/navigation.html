@@ -556,6 +556,10 @@ if user.is_authenticated():
       date.setMonth(date.getMonth() + 1);
       document.cookie = 'tma_pref_lang=${tma_lang};path=/;domain=champagne-mooc.com;expires='+ date.toGMTString();
     });
+    if (screen.width <= 610) {
+      $('li > a:contains("Profil")').hide()
+      $('li > a:contains("Profile")').hide()
+    }
 </script>
 <style>
   #video_selector_container{
