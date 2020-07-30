@@ -257,21 +257,23 @@ site_status_msg = get_site_status_msg(course_id)
     var lang = params.get('lang');
 
     $(document).ready(function(){
-      if ('${LANGUAGE_CODE}' !== lang) {
-        if (lang === 'en') {
+      lang_used = '${LANGUAGE_CODE}';
+      if (lang && '${LANGUAGE_CODE}' !== lang) {
+        lang_used = lang
+      }
+        if (lang_used === 'en') {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
           $('.fr_content').hide()
           $('.en_content').show()
         } else {
-          if (lang === 'fr') {
+          if (lang_used === 'fr') {
             $('#settings-language-value > option[value="fr"]').attr('selected','selected');
             $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
             $('.fr_content').show()
             $('.en_content').hide()
           }
         }
-      }
 
       $('#en').on('click', function() {
         var urlParams = new URLSearchParams(window.location.search);
