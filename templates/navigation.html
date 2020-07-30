@@ -258,22 +258,30 @@ site_status_msg = get_site_status_msg(course_id)
 
     $(document).ready(function(){
       lang_used = '${LANGUAGE_CODE}';
-      if (lang && '${LANGUAGE_CODE}' !== lang) {
-        lang_used = lang
-      }
-        if (lang_used === 'en') {
+      if ('${LANGUAGE_CODE}' !== lang) {
+        if (lang === 'en') {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
           $('.fr_content').hide()
           $('.en_content').show()
-        } else {
-          if (lang_used === 'fr') {
-            $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+        }
+        if (lang === 'fr') {
+          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          $('.fr_content').show()
+          $('.en_content').hide()
+        }
+        if (lang === null) {
+          if ('${LANGUAGE_CODE}' === 'en') {
+            $('.fr_content').hide()
+            $('.en_content').show()
+          }
+          if ('${LANGUAGE_CODE}' === 'fr') {
             $('.fr_content').show()
             $('.en_content').hide()
           }
         }
+      } 
 
       $('#en').on('click', function() {
         var urlParams = new URLSearchParams(window.location.search);
