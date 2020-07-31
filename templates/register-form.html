@@ -426,13 +426,9 @@ $('#first_name,#last_name').change(function(){
 })
 $( document ).ready(function(){
   if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
-    $("#field-vous_etes > label").text('Are you...')
-    $("#vous_etes > option:eq(1)").text('A member of an approved organisation')
-    $("#vous_etes > option:eq(2)").text('An independent mechanic')
-    $("#vous_etes > option:eq(3)").text('An aircraft owner')
-    $("#vous_etes > option:eq(4)").text('Someone else')
+    $("#field-societe > label").text('Company')
 
-    $("#field-metier > label").text('function')
+    $("#field-metier > label").text('Function')
     $("#metier > option:eq(1)").text('Accountable Manager')
     $("#metier > option:eq(2)").text('Quality Manager')
     $("#metier > option:eq(3)").text('Quality Auditor')
