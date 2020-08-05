@@ -29,6 +29,38 @@ def url_class(is_active):
   ${_(tab.name)}
   % if tab_is_active:
       <span class="sr">, current location</span>
+      <%
+      import json
+      from openedx.core.djangolib.js_utils import dump_js_escaped_json
+      if tab.name=="Discussion":
+        with open('/edx/var/edxapp/secret/microsite/champagne-mooc/successfull_usernames.json', 'r') as f:
+          read_data=json.load(f)
+      endif
+      %>
+      %if tab.name=="Discussion":
+        <script>
+          var successfull_usernames = ${json.dumps(read_data) | n , dump_js_escaped_json};
+          successfull_usernames = JSON.parse(successfull_usernames);
+          setInterval(function(){
+            $("a.username").each(function(){
+               if(successfull_usernames["course-v1:champagne-mooc+003+003"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+004+004"].includes($(this).html())){
+                  $(this).css("color","rgba(200,175,130,1) !important");
+                  $(this).addClass("succeeded");
+                  if("${str(course.id)}" == "course-v1:champagne-mooc+001+001" || "${str(course.id)}" == "course-v1:champagne-mooc+003+003"){
+                    $(this).attr('title', 'A obtenu le certificat');
+                  }else{
+                    $(this).attr('title', 'Obtained the certificate');
+                  }
+               }
+            });
+          },250);
+        </script>
+        <style>
+          a.username.succeeded{
+            color:rgba(200,175,130,1) !important;
+          }
+        </style>
+      %endif 
   %endif
   % if tab_image:
       ## Translators: 'needs attention' is an alternative string for the
