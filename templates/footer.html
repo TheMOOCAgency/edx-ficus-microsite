@@ -52,3 +52,29 @@ $( document ).ready(function(){
     </div>
   </div>
 </footer>
+<script type="text/javascript">
+function iOS() {
+  return [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ].includes(navigator.platform)
+  // iPad on iOS 13 detection
+  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+setInterval(function() {
+ if(iOS()){
+// if(false){
+  $(".tmaenrollbutton").hide();
+  $("a").each(function() {
+   if($(this).attr("href") == "/dashboard/course-v1:champagne-mooc+003+003/" || $(this).attr("href") == "/dashboard/course-v1:champagne-mooc+004+004/"){
+    //$(this).closest("li.course_cell_multi").hide();
+   }
+  });
+ }
+},100);
+</script>
+
