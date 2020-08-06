@@ -124,7 +124,23 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+  @media screen and (max-width: 769px) {
+    .ios-responsive-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+    }
 
+    .ios-responsive-container > div {
+      width: 80%!important;
+    }
+
+    .instructor-info-action {
+     text-align: center!important;
+    }
+}
+</style>
 <section class="course-info">
   <header class="course-profile">
     <div class="intro-inner-wrapper">
@@ -220,7 +236,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
       </div>
   </header>
 
-  <div class="container">
+  <div class="container ios-responsive-container">
     <div class="details">
       % if staff_access and studio_url is not None:
         <div class="wrap-instructor-info studio-view">

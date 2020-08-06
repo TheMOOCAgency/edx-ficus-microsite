@@ -11,33 +11,7 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json
 from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 %>
-<%
-org_static = static.get_value('domain_prefix')
-css = org_static+'/css/course_navigation.css'
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154568735-1"></script>
 
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
-
-
-  gtag('config', 'UA-154568735-1');
-
-</script>
-
-
-<style>
-body.view-in-course .wrapper-course-material .course-material .course-tabs {
-  width: 100% !important;
-}
-</style>
 <%
 if active_page is None and active_page_context is not UNDEFINED:
   # If active_page is not passed in as an argument, it may be in the context as active_page_context
@@ -54,8 +28,17 @@ staff_selected = selected(not masquerade or masquerade.role != "student")
 specific_student_selected = selected(not staff_selected and masquerade.user_name)
 student_selected = selected(not staff_selected and not specific_student_selected and not masquerade_group_id)
 include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
-%>
 
+from tma_apps.tma_support_functions import tma_verify_access
+%>
+<style>
+  .menu-responsive .burger{
+    background: none;
+    border: none;
+    z-index:9!important;
+  }
+
+</style>
 % if include_special_exams:
     <%static:js group='proctoring'/>
     % for template_name in ["proctored-exam-status"]:
@@ -109,21 +92,26 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
 
 % if disable_tabs is UNDEFINED or not disable_tabs:
     <nav class="${active_page} wrapper-course-material" aria-label="${_('Course Material')}">
-        <div class="course-material">
+        <div class="course-material menu-responsive">
+          <input class="burger" type="checkbox" style="display:none;">
             <%
             tab_list = get_course_tab_list(request, course)
             tabs_tmpl = static.get_template_path('/courseware/tabs.html')
             %>
-            <ol class="tabs course-tabs" id="tr">
-              <li class="tab">
-                  <a href="/dashboard" id="tma_return_dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
+            <ol class="tabs course-tabs">
+              <li class="tab" id="return_dashboard">
+                  <a href="/dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
               </li>
+              % if user.is_authenticated() and tma_verify_access(request.user).has_dashboard_access(str(course.id)):
+              <li class="tab">
+                  <a href="/tma/${str(course.id)}/dashboard">TMA DASHBOARD (beta)</a>
+              </li>
+              % endif
                 <%include file="${tabs_tmpl}" args="tab_list=tab_list,active_page=active_page,default_tab=default_tab,tab_image=tab_image" />
                 <%block name="extratabs" />
             </ol>
-            <span style="display:block;clear:left;"></span>
+        </input>
         </div>
-        <span class="icon fa fa-bars" id="hamMenu"></span>
     </nav>
 %endif
 
