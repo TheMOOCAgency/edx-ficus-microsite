@@ -236,7 +236,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
               %>
             <li class="important-dates-item">
               <span class="icon fa fa-calendar" aria-hidden="true"></span>
-              <p class="important-dates-item-title">Début du MOOC</p>
+              <p class="important-dates-item-title">${_("Start Date")}</p>
               % if isinstance(course_start_date, str):
                   <span class="important-dates-item-text start-date">${course_start_date}</span>
               % else:
@@ -256,7 +256,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
             <li class="important-dates-item">
                 <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                <p class="important-dates-item-title">Fin du MOOC</p>
+                <p class="important-dates-item-title">${_("End Date")}</p>
                   % if isinstance(course_end_date, str):
                       <span class="important-dates-item-text final-date">${course_end_date}</span>
                   % else:
