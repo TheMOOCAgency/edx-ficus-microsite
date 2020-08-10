@@ -11,177 +11,255 @@ from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_j
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
 import json
-from tma_apps.tma_support_functions import tma_verify_access
-
-primary_color = configuration_helpers.get_value('primary_color')
-background_url = configuration_helpers.get_value('bg_img')
 %>
 
 
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
+<%
+if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
+  is_tma_team=True
+else :
+  is_tma_team=False
+%>
 
-<!-- COMMON STYLE-->
+<link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 <style>
-  h1,h2,h3,h4,h5,p{
-    font-family: inherit
-  }
-  p{
-    padding:10px
-  }
-  h4{
-    font-size: 1.5rem;
-  }
-  h3{
-    font-size: 1.7rem
-  }
-  #certificate-wrapper{
-    background: white;
-  }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
-  }
-  #custom-btn{
-    background: ${primary_color};
-    border: none;
-    box-shadow: none;
-    text-shadow: none;
-  }
-  #internal-border{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
-    padding: 150px 100px 20px 100px;
-    box-sizing: border-box;
-  }
-  #certificate-wrapper{
-    min-height: calc(100vh - 133px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  #certificate-container{
-    width:854px;
-    height:463px;
-    margin: 0 auto;
-    padding: 20px;
-    background-size: contain;
-    background-image: url('/media/microsite/onco-occitanie/pagebuilder/assets/img/certificat_onco_fond.png')
-    /* background-image: url('${background_url}') */
-  }
-  #pdf-btn-wrapper{
-    padding: 15px
-  }
-  #certificate-title{
-    text-transform: uppercase;
-  }
-  #noCertificateMessage{
-    background: white;
-    height: calc(100vh - 133px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  #internal-border > div > p {
-    text-align: left;
-    color: #127194;
-    padding: 0px;
-    margin: 0px;
-    margin-top: 10px;
-    font-size: 22px;
-    font-weight: 600;
-    line-height: normal;
-  }
+  
+#global-navigation,.wrapper-footer,#tma_background_font {
+  display: none !important;
+}
+body{
+  text-align:center;
+}
+/*CHANGE FONT*/
+h1{
+  font-size: 35px;
+}
+h1,h2,h3,p{
+ font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  color:gray;
+}
+h2{
+  font-size: 1.3rem;
+}
+h3{
+  font-size: 1.4rem;
+}
 
-  #internal-border > div > p:nth-child(1), #internal-border > div > p:nth-child(3) {
-    font-weight: 900;
-  }
 
-  #internal-border > div > p:nth-child(2) {
-    color: #c07d87;
-    font-size: 40px;
-    text-transform: capitalize;
-  }
+/*CHANGE IMAGE */
+#main{
+  background-size:cover;
+  border: 1px solid lightgray;
+  margin-top:80px;
+  margin-left: 70px;
+  padding: 0;
+  height:480px;
+  width:854px;
+  background-image: url('/media/microsite/prorefei/cert/fond3.png')
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none!important;
+}
+/*CHANGE COLOR */
+.transparency-color{
+  background-color: rgba(255,255,255,0.7);
+}
+.full-color{
+  background-color: #9BBE50;
+}
+.bandeau-top{
+  box-sizing: border-box;
+  padding: 15px;
+}
+.reset-bandeaux{
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+}
+#logo-partenaire{
+  max-height: 60px;
+}
+.center-vertically{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#signature, #logo-secondaire{
+  max-height: 100px;
+}
+.m-0{
+  margin: 0;
+}
+.p-0{
+  padding: 0;
+}
+.container:after, section.outside-app:after{
+  content: none;
+}
+#bouton-pdf{
+background-color: darkgray;
+color: gray;
+border-color: gray;
+background-image: none;
+box-shadow: none;
+text-shadow: none;
+border-radius: 5px;
+font-weight: 600;
+}
+.bandeau-middle{
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  padding-right: 215px;
+  margin-top: 165px;
+}
+.border-wrap{
+  padding: 15px;
+  border: 1px solid white;
+}
+.white_bg{
+  background-color: white;
+}
+.p-20{
+  padding: 51px;
+}
+.main-color{
+  color:rgba(16,28,137,1);
+}
+.secondary-color {
+  color:rgba(252,192,0,1);
+}
+.white-text{
+  color: white;
+}
+.logo-dda{
+  max-width: 170%;
+    position: relative;
+    right: 35px;
+    bottom: 16px;
+}
 
-  #internal-border > div > p:nth-child(5) {
-    margin-top: 40px;
-    font-size: 16px;
-  }
+.text-left{
+text-align:left;
+margin-left: 39px;
+}
 
+.fontInc{
+text-align:left;
+font-size: 37px;
+margin-left: -4px;
+}
 </style>
 
-<!-- CUSTOM STYLE -->
-<style>
 
-</style>
-% if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
-<div id="certificate-wrapper">
-  <div id="pdf-btn-wrapper">
-    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
-  </div>
-  <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border">
-          <div>
-            <p>Le réseau Onco-Occitanie atteste que </p>
-            <p>${first_name} ${last_name}</p>
-            <p>A suivi avec succès le MOOC</p>
-            <p>${course_name}</p>
-            <p>Certificat délivré le <span id="dateDeCertificat"></span></p>
-          </div>
-          <div>
-          </div>
+% if grades.get('passed') or is_tma_team:
+
+<div id="main">
+  <div class="container">
+    <!--<div class="row bandeau-top full-color m-0">
+      <div class="col-3">
+        <img id="logo-partenaire" style="max-width:100%" src="/media/microsite/mooc-agea-sinistres/assets/images/logo_agea.png" alt="logofa">
       </div>
+      <div class="col-9 center-vertically">
+        <div>
+          <h1 class="white-text">CERTIFICAT DE FORMATION</h1>
+          <h3 class="white-text">Session Mars/Avril 2019</h3>
+        </div>
+        <div>
+          <img style="max-width: 150px; height:80px;" src="/media/certificats/badge-blanc.png" alt="">
+        </div>
+      </div>
+    </div>-->
+
+    <div class="bandeau-middle reset-bandeaux">
+      <div class="w-100">
+        <div class="row p-20">
+          <div class="col-12 text-left" style="padding:10px;">
+            <h3 class="main-color">L'ATEE atteste que</h3>
+            <h3 class="secondary-color fontInc">${first_name} ${last_name}</h3>
+            <h3 class="main-color">A suivi avec succès le MOOC</h3>
+            <h3 class="main-color">${course_name}</h3>
+            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
+          </div>
+          <p class="main-color" style="padding: 30px 0px 0px 50px;font-weight:initial">Attestation délivrée à Paris, le <span id='date'>${datetime.now().strftime('%d-%m-%Y')}</span></p>
+		  <script>
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+			var dateTime = date+' '+time;
+			var mydate = new Date(dateTime);
+			var month = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][mydate.getMonth()];
+			var str = dd + ' ' + month + ' ' + mydate.getFullYear();
+			$('#date').text(str) 
+		  </script>
+		  
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="row reset-bandeaux p-0 full-color white-text" style="height:80px;">
+      <div class="row">
+        <div class="col-2">
+          <img class="logo-dda" src="/media/microsite/mooc-agea-sinistres/assets/images/logo_DDA.png" alt="">
+        </div>
+        <div class="col-10">
+          <p class="white-text text-left" style="font-size:12px">Arrêté du 26 septembre 2018, relatif à la liste des compétences éligibles pour les actions de formation ou de développment professionel continus prévus à l'article R.512-13-1 du code des assurances.<br>
+          1A : "Au titre des compétences professionnelles générales : appréhender l'activité et l'environnement de la distribution d'assurance et ses évolutions au regard des fonctions exercées."
+          </p>
+        </div>
+      </div>
+    </div>-->
+
   </div>
 </div>
-%else:
-  <div id="noCertificateMessage">
-      <h3>Certificat Non Disponible</h3>
-      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
-  </div>
-%endif
 
-<!-- PDF CREATOR-->
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-<script>
-  function CertificateToPdf(){
-     html2canvas(document.getElementById("certificate-container"), {
-      onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
-       doc.save("certificat.pdf");
-      }
-    })
-  }
-  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
-  $(document).ready(function(){
-    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
-    }
 
-    // GET XCERTIFICATE DATE
-    var monthNames = [
-      "Janvier", "Fevrier", "Mars",
-      "Avril", "Mai", "Juin", "Juillet",
-      "Août", "Septembre", "Octobre",
-      "Novembre", "Decembre"
-    ];
-    date = new Date();
+<div id="bouton-pdf-wrapper" style='margin-top:200px;'>
+  <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
+</div>
 
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-    var certificate_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
-
-    $('#dateDeCertificat').text(certificate_date)
-  })
+<script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript">
 </script>
 
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script type="text/javascript">
+//PDF VERSION
+function printpage(){
+   html2canvas(document.body, {
+    onrendered : function (canvas){
+     var img=canvas.toDataURL("image/png");
+     var doc = new jsPDF({orientation: 'landscape'});
+     doc.addImage(img, "PNG", 20, 20);
+     doc.save("certificat.pdf");
+    }
+  })
+}
+
+$(document).ready(function(){
+if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+  $('#bouton-pdf-wrapper').html("Télécharger au format PDF : Cette fonctionnalité n'est pas disponible sur Internet explorer. Pour télécharger votre attestation, veuillez charger cette page depuis un autre navigateur (Mozilla firefox, Google Chrome ou Safari)")
+}
+})
+</script>
+
+% endif

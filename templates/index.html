@@ -11,8 +11,9 @@
          <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
          <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
          <link rel="stylesheet" href="media/microsite/onco-occitanie/pagebuilder/css/style.css">
+         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
       </head>
-      <body>
+      <div>
          <nav id = "nav"class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -58,6 +59,32 @@
                            <!-- <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button> -->
                            <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
                                        
+                        </div>
+                     </div>
+                  </div>
+                  <div id="infobubble_container">
+                     <div class="infobubble">
+                        <div class="infobubble_texts">
+                           <p class="infobubble_title">Effort estimé</p>
+                           <p class="infobubble_date">2h/module</p>
+                        </div>
+                     </div>
+                     <div class="infobubble">
+                        <div class="infobubble_texts">
+                           <p class="infobubble_title">Fin du prochain cours</p>
+                           <p class="infobubble_date">15/01/2021</p>
+                        </div>
+                     </div>
+                     <div class="infobubble">
+                        <div class="infobubble_texts">
+                           <p class="infobubble_title">Début du prochain cours</p>
+                           <p class="infobubble_date">06/11/2020</p>
+                        </div>
+                     </div>
+                     <div class="infobubble">
+                        <div class="infobubble_texts">
+                           <p class="infobubble_title">Inscriptions</p>
+                           <p class="infobubble_date">fermées</p>
                         </div>
                      </div>
                   </div>
@@ -422,7 +449,15 @@
             		scrollTop: $("#se2").offset().top
             	}, 2000);
             });
-			</script>       
+
+            var slideUp = {
+               distance: '150%',
+               origin: 'bottom',
+               opacity: null
+            };
+
+            ScrollReveal().reveal('#infobubble_container', slideUp);
+          </script>
       </body>
    </html>
 
