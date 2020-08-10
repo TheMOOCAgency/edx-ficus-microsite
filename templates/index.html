@@ -454,6 +454,7 @@
                   $('.fr_content').hide()
                   $('.en_content').show()
                   paramLang = "lang=en"
+                  pathRegister = "/register?course_id=course-v1:osac-mooc+Introduction+EN&enrollment_action=enroll"
                   setRegisterAndLoginLinks()
                });
                $('.fr').on('click', function() {
@@ -462,10 +463,10 @@
                   $('.fr_content').show()
                   $('.en_content').hide()
                   paramLang = "lang=fr"
+                  pathRegister = "/register?course_id=course-v1:osac-mooc+Introduction+1&enrollment_action=enroll"
                   setRegisterAndLoginLinks()
                });
             })
 			</script>       
       </body>
    </html>
-
