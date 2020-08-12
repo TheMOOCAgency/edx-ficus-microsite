@@ -159,6 +159,23 @@ $('#send').click(function(e){
       localStorage.setItem("ensure_form_cv", "True");
     }
   })
+
+  var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/';
+  $.get( urlAPI )
+    .done(function( data ) {
+      if (!data.cv_done) {
+        var customFields = {'cv_done':'oui'}
+        $.post( urlAPI, customFields )
+          .done(function( data ) {
+          })
+          .fail(function() {
+            
+          })
+      }
+    })
+    .fail(function() {
+      
+    })
 })
 </script>
 <!-- end fields generation -->
