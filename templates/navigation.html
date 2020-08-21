@@ -292,6 +292,14 @@ site_status_msg = get_site_status_msg(course_id)
      #lang-content img{
        width: 25px;
      }
+      @media screen and (max-width: 680px) {
+        .wmd-prompt-dialog {
+          width: calc(100% - 25px)!important;
+        }
+        .wmd-prompt-dialog .input-text {
+          width: 100%;
+        }
+      }
     </style>
     <script>
       //LANGUAGE FLAGS
