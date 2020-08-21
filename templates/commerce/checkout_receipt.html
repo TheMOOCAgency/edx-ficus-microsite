@@ -59,3 +59,22 @@ from django.utils.translation import ugettext as _
     </section>
 </div>
 </%block>
+
+<script>
+    var detectReceiptLoop = setInterval(function(){
+        if ($('#receipt-container').length === 1) {
+            request_data = {
+                'enrollment_action': 'unenroll',
+                'course_id': 'course-v1:champagne-mooc+001+001',
+            }   
+            $.post( "/change_enrollment", request_data);
+            
+            request_data = {
+                'enrollment_action': 'unenroll',
+                'course_id': 'course-v1:champagne-mooc+002+002',
+            }   
+            $.post( "/change_enrollment", request_data);
+            clearInterval(detectReceiptLoop)
+        }
+    }, 500);
+</script>
