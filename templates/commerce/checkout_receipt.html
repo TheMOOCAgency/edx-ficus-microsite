@@ -69,11 +69,11 @@ from django.utils.translation import ugettext as _
             }   
             $.post( "/change_enrollment", request_data);
             
-            request_data = {
+            request_data2 = {
                 'enrollment_action': 'unenroll',
                 'course_id': 'course-v1:champagne-mooc+002+002',
             }   
-            $.post( "/change_enrollment", request_data);
+            $.post( "/change_enrollment", request_data2);
             clearInterval(detectReceiptLoop)
         }
     }, 500);
