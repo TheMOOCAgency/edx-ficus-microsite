@@ -1,10 +1,17 @@
 <div class="wrapper-content-main payment-confirmation-step">
-  <%
-  from student.models import CourseEnrollment
-  user = request.user
-  CourseEnrollment.unenroll(user, 'course-v1:champagne-mooc+001+001')
-  CourseEnrollment.unenroll(user, 'course-v1:champagne-mooc+002+002')
-  %>
+<script>
+  request_data = {
+      'enrollment_action': 'unenroll',
+        'course_id': 'course-v1:champagne-mooc+001+001',
+  }   
+  $.post( "/change_enrollment", request_data);
+  
+  request_data = {
+      'enrollment_action': 'unenroll',
+        'course_id': 'course-v1:champagne-mooc+002+002',
+  }   
+  $.post( "/change_enrollment", request_data);
+</script>
   <article class="content-main">
     <h3 class="title">
       <%= interpolate(
