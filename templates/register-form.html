@@ -313,7 +313,7 @@ import datetime
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
           link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
           link_end='</a>')}</label>
-          <span class="tip tip-input">Ces données sont collectées par CFI à des fins d’amélioration du dispositif uniquement et ne seront en aucun cas utilisées à des fins de prospections commerciales, ni transmises à des tiers.</span>
+          <span class="tip tip-input">Ces données sont collectées par CFI, Transtele Canal France International, afin de gérer l’accès au présent MOOC et des services associés, et d’améliorer le dispositif. Pour en savoir plus sur l’utilisation de vos données personnelles et exercer vos droits (accès, rectification, opposition, suppression, limitation, portabilité, définir le sort de vos données après votre mort), cliquez <a href="/tos">ici</a>.</span>
       </div>
       % endif
 
@@ -372,3 +372,12 @@ $('#first_name,#last_name').change(function(){
   <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
 </div>
+
+<script>
+  $(document).ready(function(){
+    if ($('#field-mailing_list_acceptee').length > 0) {
+      $('#field-mailing_list_acceptee > input').prop('checked', true);
+      $('#field-mailing_list_acceptee > label').css({'display':'inline'})
+    }
+  })
+</script>
