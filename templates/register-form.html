@@ -428,28 +428,28 @@ $( document ).ready(function(){
   if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
     $("#field-societe > label").text('Company')
 
-    $("#field-metier > label").text('Function')
-    $("#metier > option:eq(1)").text('Accountable Manager')
-    $("#metier > option:eq(2)").text('Quality Manager')
-    $("#metier > option:eq(3)").text('Quality Auditor')
-    $("#metier > option:eq(4)").text('Air Operations Staff')
-    $("#metier > option:eq(5)").text('Technical Staff')
-    $("#metier > option:eq(6)").text('Safety Manager')
-    $("#metier > option:eq(7)").text('Civil Aviation Authority Staff')
-    $("#metier > option:eq(8)").text('Military Aviation Authority Staff')
-    $("#metier > option:eq(9)").text('Aeronautical Inspector')
-    $("#metier > option:eq(10)").text('Maintenance Organisation Staff')
-    $("#metier > option:eq(11)").text('Continuing Airworthiness Management Organisation Staff')
-    $("#metier > option:eq(12)").text('Design Organisation Staff')
-    $("#metier > option:eq(13)").text('Production organisation Staff')
-    $("#metier > option:eq(14)").text('Maintenance Training Organisation Staff')
-    $("#metier > option:eq(15)").text('Airline Staff - Cabin Crew')
-    $("#metier > option:eq(16)").text('Airline Staff - Flight Deck Crew')
-    $("#metier > option:eq(17)").text('Certified Airport Staff')
-    $("#metier > option:eq(18)").text('Airline Staff - Air Operations')
-    $("#metier > option:eq(19)").text('Airworthiness Review Staff')
-    $("#metier > option:eq(18)").text('Mechanic')
-    $("#metier > option:eq(19)").text('Other, please specify')
+    $("#field-fonction > label").text('Function')
+    $("#fonction > option:eq(1)").text('Accountable Manager')
+    $("#fonction > option:eq(2)").text('Quality Manager')
+    $("#fonction > option:eq(3)").text('Quality Auditor')
+    $("#fonction > option:eq(4)").text('Air Operations Staff')
+    $("#fonction > option:eq(5)").text('Technical Staff')
+    $("#fonction > option:eq(6)").text('Safety Manager')
+    $("#fonction > option:eq(7)").text('Civil Aviation Authority Staff')
+    $("#fonction > option:eq(8)").text('Military Aviation Authority Staff')
+    $("#fonction > option:eq(9)").text('Aeronautical Inspector')
+    $("#fonction > option:eq(10)").text('Maintenance Organisation Staff')
+    $("#fonction > option:eq(11)").text('Continuing Airworthiness Management Organisation Staff')
+    $("#fonction > option:eq(12)").text('Design Organisation Staff')
+    $("#fonction > option:eq(13)").text('Production organisation Staff')
+    $("#fonction > option:eq(14)").text('Maintenance Training Organisation Staff')
+    $("#fonction > option:eq(15)").text('Airline Staff - Cabin Crew')
+    $("#fonction > option:eq(16)").text('Airline Staff - Flight Deck Crew')
+    $("#fonction > option:eq(17)").text('Certified Airport Staff')
+    $("#fonction > option:eq(18)").text('Airline Staff - Air Operations')
+    $("#fonction > option:eq(19)").text('Airworthiness Review Staff')
+    $("#fonction > option:eq(18)").text('Mechanic')
+    $("#fonction > option:eq(19)").text('Other')
 
     $("#field-Domaine > label").text('Domain')
     $("#Domaine > option:eq(1)").text('Maintenance')
@@ -457,7 +457,7 @@ $( document ).ready(function(){
     $("#Domaine > option:eq(3)").text('Production')
     $("#Domaine > option:eq(4)").text('Design')
     $("#Domaine > option:eq(5)").text('OPS')
-    $("#Domaine > option:eq(6)").text('Other, please specify')
+    $("#Domaine > option:eq(6)").text('Other')
 
     $("#field-country > label").text('Country')
   }
@@ -465,8 +465,8 @@ $( document ).ready(function(){
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
-  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
+  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll&next=%2Ftma_apps%2Fuser_info">${_("Already have an account?")}</a>
 % else:
-  <a id="login_link" href="/login">${_("Already have an account?")}</a>
+  <a id="login_link" href="/login?next=%2Ftma_apps%2Fuser_info">${_("Already have an account?")}</a>
 % endif
 </div>

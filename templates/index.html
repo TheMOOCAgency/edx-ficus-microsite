@@ -74,7 +74,7 @@
             </div>
             <!--/.container-fluid -->          
          </nav>
-         <section id="se1" style="">
+         <section id="se1">
             <div class="row vertical-center">
                <div class="col-md-12 text-center">
                   <div class="container-fluid" id="containerTitleBand">
@@ -185,7 +185,8 @@
 				 var envDefault = "developement"
 					 var organisation = "osac-mooc"
 					 	var urlCompose
-					 var i 
+                var i 
+                     var userInfo = "next=%2Ftma_apps%2Fuser_info"
                      var iter
                      var tbTitle
                      var tbText
@@ -275,15 +276,13 @@
                }
                
                var setRegisterAndLoginLinks = function () {
-                  $("#loginLink1").attr("href",pathLogin+"?"+paramLang)
+                  $("#loginLink1").attr("href",pathLogin+"?"+paramLang+"&"+userInfo)
                   $("#registerLink1").attr("href",pathRegister+"&"+paramLang)
-                  $("#loginLink2").attr("href",pathLogin+"?"+paramLang)
+                  $("#loginLink2").attr("href",pathLogin+"?"+paramLang+"&"+userInfo)
                   $("#registerLink2").attr("href",pathRegister+"&"+paramLang)
-                  $("#loginButn").click(function(){window.location.href = pathLogin+"?"+paramLang})
+                  $("#loginButn").click(function(){window.location.href = pathLogin+"?"+paramLang+"&"+userInfo})
                   $("#subscribeButn").click(function(){window.location.href = pathRegister+"&"+paramLang})
                   $("#subscribeButn2").click(function(){window.location.href = pathRegister+"&"+paramLang})
-                  console.log(pathRegister+"&"+paramLang)
-                  console.log(pathLogin+"?"+paramLang)
                }
 			
                var bindindFunctionNav = function(){
