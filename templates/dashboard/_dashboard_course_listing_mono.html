@@ -55,7 +55,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 %if cours_ouv:
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
-  <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
+  <a href="/courses/${enrollment.course_id}/discussion/forum/" id="forum_button" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
@@ -94,14 +94,31 @@ $.ajax({
 %endif
 
 <script>
-           $( document ).ready(function() {
+  $( document ).ready(function() {
 
-               if("${is_course_blocked | n, dump_js_escaped_json}" == 'true'){
-                   $( "#unregister_block_course" ).click(function() {
-                       $('.disable-look-unregister').click();
-                   });
-               }
-           });
+      if("${is_course_blocked | n, dump_js_escaped_json}" == 'true'){
+          $( "#unregister_block_course" ).click(function() {
+              $('.disable-look-unregister').click();
+          });
+      }
+
+    function iOS() {
+      return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+      ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    }
+
+    if (iOS()){
+      $("#forum_button").hide();
+    }
+  });
 </script>
 
 <script>
