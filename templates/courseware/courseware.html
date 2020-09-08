@@ -29,15 +29,17 @@ translation={
 %>
 
 <style>
-.blue-btn{
-  background-color: #1d5280!important;
-}
-.blue-btn:hover{
-  background-color: rgb(46, 133, 209)!important;
-}
-h3.problem-title {
-  display: none;
-}
+  .blue-btn {
+    background-color: #1d5280 !important;
+  }
+
+  .blue-btn:hover {
+    background-color: rgb(46, 133, 209) !important;
+  }
+
+  h3.problem-title {
+    display: none;
+  }
 </style>
 <%
 org_static = static.get_value('domain_prefix')
@@ -49,7 +51,7 @@ org_static = static.get_value('domain_prefix')
 tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mode()
 %>
 %if tma_randomization_mode!="random":
-  <%include file="${static.get_template_path('/tma_apps/tma_skill_randomization_quiz.html')}" />
+<%include file="${static.get_template_path('/tma_apps/tma_skill_randomization_quiz.html')}" />
 %endif
 
 <!-- END TMA RANDOMIZATION SINGLE QUIZ MODE ------------------------------------------------------------------------------------------------->
@@ -57,19 +59,12 @@ tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mod
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
-<%def name="course_name()">
- <% return _("{course_number} Courseware").format(course_number=course.display_number_with_default) %>
-</%def>
 
 <%block name="bodyclass">view-in-course view-courseware courseware ${course.css_class or ''}</%block>
 
-<%block name="title"><title>
-    % if section_title:
-${static.get_page_title_breadcrumbs(section_title, course_name())}
-    % else:
-${static.get_page_title_breadcrumbs(course_name())}
-    %endif
-</title></%block>
+<%block name="title">
+<title>${static.get_page_title_breadcrumbs("Digimapper")}</title>
+</%block>
 
 <%block name="header_extras">
 
@@ -236,14 +231,14 @@ ${HTML(fragment.foot_html())}
                 )}
             </p>
             <script type="text/javascript">
-            $(document).ajaxSuccess(function(event, xhr, settings) {
+              $(document).ajaxSuccess(function (event, xhr, settings) {
                 if (settings.url.indexOf("xmodule_handler/problem_check") > -1) {
-                    var data = JSON.parse(xhr.responseText);
-                    if (data.entrance_exam_passed){
-                        location.reload();
-                    }
+                  var data = JSON.parse(xhr.responseText);
+                  if (data.entrance_exam_passed) {
+                    location.reload();
+                  }
                 }
-            });
+              });
             </script>
             % else:
               <p class="sequential-status-message">
@@ -314,102 +309,102 @@ ${HTML(fragment.foot_html())}
  * Released under the MIT license
  * https://github.com/timpler/jquery.initialize/blob/master/LICENSE
  */
- <!--
-;(function ($) {
+ < !--
+; (function ($) {
 
     "use strict";
 
     // MutationSelectorObserver represents a selector and it's associated initialization callback.
     var MutationSelectorObserver = function (selector, callback) {
-        this.selector = selector;
-        this.callback = callback;
+      this.selector = selector;
+      this.callback = callback;
     };
 
     // List of MutationSelectorObservers.
     var msobservers = [];
     msobservers.initialize = function (selector, callback) {
 
-        // Wrap the callback so that we can ensure that it is only
-        // called once per element.
-        var seen = [];
-        var callbackOnce = function () {
-            if (seen.indexOf(this) == -1) {
-                seen.push(this);
-                $(this).each(callback);
-            }
-        };
+      // Wrap the callback so that we can ensure that it is only
+      // called once per element.
+      var seen = [];
+      var callbackOnce = function () {
+        if (seen.indexOf(this) == -1) {
+          seen.push(this);
+          $(this).each(callback);
+        }
+      };
 
-        // See if the selector matches any elements already on the page.
-        $(selector).each(callbackOnce);
+      // See if the selector matches any elements already on the page.
+      $(selector).each(callbackOnce);
 
-        // Then, add it to the list of selector observers.
-        this.push(new MutationSelectorObserver(selector, callbackOnce));
+      // Then, add it to the list of selector observers.
+      this.push(new MutationSelectorObserver(selector, callbackOnce));
     };
 
     // The MutationObserver watches for when new elements are added to the DOM.
     var observer = new MutationObserver(function (mutations) {
 
-        // For each MutationSelectorObserver currently registered.
-        for (var j = 0; j < msobservers.length; j++) {
-            $(msobservers[j].selector).each(msobservers[j].callback);
-        }
+      // For each MutationSelectorObserver currently registered.
+      for (var j = 0; j < msobservers.length; j++) {
+        $(msobservers[j].selector).each(msobservers[j].callback);
+      }
     });
 
     // Observe the entire document.
-    observer.observe(document.documentElement, {childList: true, subtree: true, attributes: true});
+    observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
 
     // Deprecated API (does not work with jQuery >= 3.1.1):
     $.fn.initialize = function (callback) {
-        msobservers.initialize(this.selector, callback);
+      msobservers.initialize(this.selector, callback);
     };
     $.initialize = function (selector, callback) {
-        msobservers.initialize(selector, callback);
+      msobservers.initialize(selector, callback);
     };
-})(jQuery);
-// SVG ACTION
-jQuery('img.svg').each(function(){
+  })(jQuery);
+  // SVG ACTION
+  jQuery('img.svg').each(function () {
     var $img = jQuery(this);
     var imgID = $img.attr('id');
     var imgClass = $img.attr('class');
     var imgURL = $img.attr('src');
-    jQuery.get(imgURL, function(data) {
-        // Get the SVG tag, ignore the rest
-        var $svg = jQuery(data).find('svg');
-        // Add replaced image's ID to the new SVG
-        if(typeof imgID !== 'undefined') {
-            $svg = $svg.attr('id', imgID);
-        }
-        // Add replaced image's classes to the new SVG
-        if(typeof imgClass !== 'undefined') {
-            $svg = $svg.attr('class', imgClass+' replaced-svg');
-        }
-        // Remove any invalid XML tags as per http://validator.w3.org
-        $svg = $svg.removeAttr('xmlns:a');
-        // Replace image with new SVG
-        $img.replaceWith($svg);
+    jQuery.get(imgURL, function (data) {
+      // Get the SVG tag, ignore the rest
+      var $svg = jQuery(data).find('svg');
+      // Add replaced image's ID to the new SVG
+      if (typeof imgID !== 'undefined') {
+        $svg = $svg.attr('id', imgID);
+      }
+      // Add replaced image's classes to the new SVG
+      if (typeof imgClass !== 'undefined') {
+        $svg = $svg.attr('class', imgClass + ' replaced-svg');
+      }
+      // Remove any invalid XML tags as per http://validator.w3.org
+      $svg = $svg.removeAttr('xmlns:a');
+      // Replace image with new SVG
+      $img.replaceWith($svg);
     }, 'xml');
-});
-$('img.svg').show();
-// NEW ACTION
-var div_replace = $('.path');
+  });
+  $('img.svg').show();
+  // NEW ACTION
+  var div_replace = $('.path');
+  /*
+  $('.unit-title').initialize(function(){
+    $('.unit-title').before(div_replace);
+  })
+  */
+  $('#main').children().css('box-shadow', '0 3px 12px 3px rgba(0,0,0,0.15)');
+  var course_id_tma_nav = "${course.id}";
+  $('#return_dashboard').find('a').initialize(function () {
+    $(this).attr('href', '/dashboard/${course.id}/');
+  })
 /*
-$('.unit-title').initialize(function(){
-  $('.unit-title').before(div_replace);
-})
-*/
-$('#main').children().css('box-shadow','0 3px 12px 3px rgba(0,0,0,0.15)');
-var course_id_tma_nav = "${course.id}";
-$('#return_dashboard').find('a').initialize(function(){
-  $(this).attr('href','/dashboard/${course.id}/');
-})
-/*
-$('.tab').find('a').initialize(function(){
-  var text = $(this).attr('href');
-  if(text.indexOf('/dashboard') != -1) {
-    $(this).attr('href','/dashboard/${course.id}/');
-  }
-})
-*/
+    $('.tab').find('a').initialize(function(){
+      var text = $(this).attr('href');
+      if(text.indexOf('/dashboard') != -1) {
+        $(this).attr('href','/dashboard/${course.id}/');
+      }
+    })
+    */
 </script>
 <!--TMA TIME TRACKING-->
 <%include file="/tma_apps/tma_time_tracking.html" />
