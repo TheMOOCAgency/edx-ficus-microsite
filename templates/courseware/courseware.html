@@ -62,10 +62,6 @@ tma_randomization_mode=tma_randomization(course.course_id).get_randomization_mod
 
 <%block name="bodyclass">view-in-course view-courseware courseware ${course.css_class or ''}</%block>
 
-<%block name="title">
-<title>${static.get_page_title_breadcrumbs("Digimapper")}</title>
-</%block>
-
 <%block name="header_extras">
 
 % for template_name in ["image-modal"]:
@@ -398,13 +394,18 @@ ${HTML(fragment.foot_html())}
     $(this).attr('href', '/dashboard/${course.id}/');
   })
 /*
-    $('.tab').find('a').initialize(function(){
-      var text = $(this).attr('href');
-      if(text.indexOf('/dashboard') != -1) {
-        $(this).attr('href','/dashboard/${course.id}/');
-      }
-    })
-    */
+          $('.tab').find('a').initialize(function(){
+            var text = $(this).attr('href');
+            if(text.indexOf('/dashboard') != -1) {
+              $(this).attr('href','/dashboard/${course.id}/');
+            }
+          })
+          */
+</script>
+<script>
+  $(document).ready(() => {
+    $(document).prop('title', 'Digimapper')
+  })
 </script>
 <!--TMA TIME TRACKING-->
 <%include file="/tma_apps/tma_time_tracking.html" />
