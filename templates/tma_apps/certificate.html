@@ -49,15 +49,16 @@ background_url = configuration_helpers.get_value('bg_img')
     text-shadow: none;
   }
   #internal-border{
-    height: 100%;
+    height: 360px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    text-align: center;
     padding: 20px;
+    margin : 0 auto;
+    margin-top : 210px;
+    width : 620px;
     box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -66,18 +67,26 @@ background_url = configuration_helpers.get_value('bg_img')
     align-items: center;
     justify-content: center;
   }
+  p+p, ul+p, ol+p{
+    margin : 0!important;
+  }
   #certificate-container{
-    width:854px;
-    height:500px;
+    width:1082px;
+    height:753px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('/media/microsite/sensibilisation-au-handicap/custom/bg_certificate.png');
+    background-size : contain;
   }
   #pdf-btn-wrapper{
     padding: 15px
   }
   #certificate-title{
-    text-transform: uppercase;
+    margin-bottom : -60px;
+  }
+  #certificate-title>h3{
+    font-size: 18px;
+    font-weight: 600;
   }
   #noCertificateMessage{
     background: white;
@@ -98,16 +107,18 @@ background_url = configuration_helpers.get_value('bg_img')
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-  <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+  <div id="certificate-container">
+      <div id="internal-border" >
+          <div id="certificate-title"><h3>CERTIFICAT DE REALISATION</h3></div>
           <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+            <!--<p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>-->
+
+            <p>Je, soussignée Laurence SANIAL,<br> Représentante de l’organisme de formation ARIANE méditerranée<br>
+(N° de formateur : 93830120783, N° DATADOCK : 0029086)<br>
+Atteste que Mme/M.   <span style="font-weight:bold;font-size : 18px;text-transform:capitalize">${first_name} ${last_name}</span><br>A suivi l’action de formation<span style="font-weight:bold;"> MOOC ${course_name}</span></p>
+            <!--<h4>${int(grades['grade']*100)}%</h4>-->
+            <p>Nature de l’action de formation :<br>Action de formation</p>
+            <p>Qui s’est déroulée le <span class="date-now"></span><br> Pour une durée totale de 3 heures.</p>
           </div>
           <div>
           </div>
@@ -131,16 +142,17 @@ background_url = configuration_helpers.get_value('bg_img')
       onrendered : function (canvas){
        var img=canvas.toDataURL("image/png");
        var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
+       doc.addImage(img, "PNG", 0, 0);
        doc.save("certificat.pdf");
       }
     })
   }
   //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
   $(document).ready(function(){
+    var today  = new Date();
+    $('.date-now').text(today.toLocaleDateString('fr-Fr'))
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
 </script>
-
