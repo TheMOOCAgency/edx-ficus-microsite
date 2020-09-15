@@ -318,11 +318,21 @@ site_status_msg = get_site_status_msg(course_id)
 <script>
   //LANGUAGE FLAGS
   $('#en').on('click', function() {
+    if (window.location.pathname === '/register') {
+      window.history.pushState("", "", '/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll');
+    } else if (window.location.pathname === '/login') {
+      window.history.pushState("", "", '/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll');
+    }
     $('#settings-language-value > option[value="en"]').attr('selected','selected');
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
   }
   );
   $('#fr').on('click', function() {
+    if (window.location.pathname === '/register') {
+      window.history.pushState("", "", '/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll');
+    } else if (window.location.pathname === '/login') {
+      window.history.pushState("", "", '/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll');
+    }
     $('#settings-language-value > option[value="fr"]').attr('selected','selected');
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
 

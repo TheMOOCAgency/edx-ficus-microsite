@@ -208,9 +208,9 @@ from django.utils.translation import ugettext as _
                      var tbText
                      var pathRegister = "/register"
                      var pathLogin = "/login"
-                     var course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
-                     var enrollment_action = "enroll"
-                     var connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
+                     var course_id = ""
+                     var enrollment_action = ""
+                     var connectLink = ""
                      var pathMedia = "media/microsite/"
                      var micrositeName 
                      var folderPb = "/pagebuilder"
@@ -398,15 +398,17 @@ from django.utils.translation import ugettext as _
             a.onreadystatechange = function() {
               if( this.readyState == 4) {
             	if( this.status == 200) {
-                 var response= JSON.parse(this.response)
-                 if ("${LANGUAGE_CODE}" === "fr") {
-                  objJson = response.fr
-                  course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
-                 } else {
-                  objJson = response.en
-                  course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME"
-                 }
-            	  masterBind();
+                  var response= JSON.parse(this.response)
+                  if ("${LANGUAGE_CODE}" === "fr") {
+                     objJson = response.fr
+                     course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
+                  } else {
+                     objJson = response.en
+                     course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME"
+                  }
+                  enrollment_action = "enroll"
+                  connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
+                  masterBind();
             	}
             	else alert("HTTP error "+this.status+" "+this.statusText);
               }
