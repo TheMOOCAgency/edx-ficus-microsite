@@ -1,3 +1,9 @@
+## mako
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+%>
 <!DOCTYPE html> 
 <html>
       <head>
@@ -26,8 +32,73 @@
                      </li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                     <li><img class="pictoLang" src="media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/fr.png"></li>
-                     <li><img class="pictoLang" src="media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png"></li>
+                     <% languages = static.get_released_languages() %>
+                     <ol class="user">
+                     <li class="primary" style="list-style:none">
+                        <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+                           <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+                           % if user.is_authenticated():
+                           <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+                           % else:
+                           <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+                           % endif
+                           <label><span class="sr"></span>
+                           <!--LANGUAGE FLAGS-->
+                           <div id="lang-content">
+                              <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png" id="en">
+                              <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/fr.png" id="fr">
+                              <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                                 % for language in languages:
+                                 % if language[0] =="en" or language[0] =="fr":
+                                 % if language[0] == LANGUAGE_CODE:
+                                    <option value="${language[0]}" selected="selected">${language[0]}</option>
+                                 % else:
+                                    <option value="${language[0]}">${language[0]}</option>
+                                 % endif
+                                 % endif
+                                 % endfor
+                              </select>
+                           </div>
+                           </label>
+                        </form>
+                     </li>
+                     </ol>
+
+
+
+                     <style>
+                     /*LANGUAGE FLAGS*/
+                     .language-selector {
+                        display: none;
+                     }
+                     #lang-content {
+                        width: 60px;
+                        height: 24px;
+                     }
+                     #lang-content img{
+                        width: 25px;
+                     }
+                     </style>
+
+                     <script>
+                     //LANGUAGE FLAGS
+                     $('#en').on('click', function() {
+                        $('#settings-language-value > option[value="en"]').attr('selected','selected');
+                        $('#settings-language-value > option[value="fr"]').removeAttr('selected');
+                        var event = jQuery.Event( "submit" );
+                        $( "form" ).first().trigger( event );
+                     }
+                     );
+                     $('#fr').on('click', function() {
+                        $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+                        $('#settings-language-value > option[value="en"]').removeAttr('selected');
+                        var event = jQuery.Event( "submit" );
+                        $( "form" ).first().trigger( event );
+                     }
+
+                     );
+                     </script>
+
                      <li><a href="" id="registerLink2" class="rg">Inscription</a></li>
                      <li><a href="" id="loginLink2" class="cx">Connexion</a></li>       
                   </ul>
@@ -221,6 +292,15 @@
                   $("#loginButn").click(function(){window.location.href = pathLogin + connectLink})
                   $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
                   $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
+
+                  // texts
+                  $("#subscribeButn2").text(objJson.page.imIn)
+                  $("#loginLink1").text(objJson.page.login)
+                  $("#loginLink2").text(objJson.page.login)
+                  $("#loginButn").text(objJson.page.login)
+                  $("#registerLink1").text(objJson.page.register)
+                  $("#registerLink2").text(objJson.page.register)
+                  $("#subscribeButn").text(objJson.page.register)
 		         }
 			
             var bindindFunctionNav = function(){
@@ -241,7 +321,7 @@
                   var visualModule = ""
 
                   if (imgThumbSrc === "media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/contentImg5.png") {
-                     visualModule = "<p>Suivre ce MOOC<br />à travers<br /><span style='font-weight:bold'>10 questions<br />essentielles</span></p><div class='caption'>"
+                     visualModule = pWeeksTitle
                      titleThumb = ""
                   } else {
                      visualModule = "<img src="+imgThumbSrc+ " class='thumbMg'><div class='caption'><p class='pWeeksTitle'>"+pWeeksTitle+"</p><h2 class='surligner'>__________</h2>"
@@ -299,7 +379,7 @@
             }
             
             var masterBind= function(){
-				   scriptLinkGenerator();
+				   scriptLinkGenerator(objJson);
             	bindindFunctionA();
             	bindindFunctionB();
             	bindindFunctionNav();
@@ -318,7 +398,14 @@
             a.onreadystatechange = function() {
               if( this.readyState == 4) {
             	if( this.status == 200) {
-            	  objJson= JSON.parse(this.response)
+                 var response= JSON.parse(this.response)
+                 if ("${LANGUAGE_CODE}" === "fr") {
+                  objJson = response.fr
+                  course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
+                 } else {
+                  objJson = response.en
+                  course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME"
+                 }
             	  masterBind();
             	}
             	else alert("HTTP error "+this.status+" "+this.statusText);

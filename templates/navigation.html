@@ -42,7 +42,6 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
 cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
-
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -173,7 +172,6 @@ site_status_msg = get_site_status_msg(course_id)
             </li>
           % endif
         </%block>
-
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
@@ -183,14 +181,26 @@ site_status_msg = get_site_status_msg(course_id)
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+                % if LANGUAGE_CODE == "en":
+                <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                % else :
+                <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                % endif
               </li>
             % else:
               <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
+                  % if LANGUAGE_CODE == "en":
+                  <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % else :
+                  <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % endif
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                  % if LANGUAGE_CODE == "en":
+                  <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % else :
+                  <a class="btn-neutral" href="/register?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % endif
                 % endif
               </li>
             % endif
@@ -202,12 +212,24 @@ site_status_msg = get_site_status_msg(course_id)
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
+                % if LANGUAGE_CODE == "en":
+                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                % else :
+                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                % endif
               % else:
                 % if static.get_value('course_id') is not None:
-                <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
+                  % if LANGUAGE_CODE == "en":
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % else :
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % endif
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                  % if LANGUAGE_CODE == "en":
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % else :
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  % endif
                 % endif
               % endif
             % endif
@@ -243,6 +265,72 @@ site_status_msg = get_site_status_msg(course_id)
       </ol>
       % endif
       % endif
+      <% languages = static.get_released_languages() %>
+      <ol class="user">
+        <li class="primary">
+          <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+            <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
+            % if user.is_authenticated():
+            <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
+            % else:
+            <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
+            % endif
+            <label><span class="sr">${_("Choose Language")}</span>
+              <!--LANGUAGE FLAGS-->
+              <div id="lang-content">
+                <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png" id="en">
+                <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/fr.png" id="fr">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                  % for language in languages:
+                   % if language[0] =="en" or language[0] =="fr":
+                    % if language[0] == LANGUAGE_CODE:
+                      <option value="${language[0]}" selected="selected">${language[0]}</option>
+                    % else:
+                      <option value="${language[0]}">${language[0]}</option>
+                    % endif
+                   % endif
+                  % endfor
+                </select>
+              </div>
+            </label>
+          </form>
+        </li>
+      </ol>
+
+
+
+<style>
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 60px;
+    height: 24px;
+  }
+  #lang-content img{
+    width: 25px;
+  }
+</style>
+
+
+
+<script>
+  //LANGUAGE FLAGS
+  $('#en').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  }
+  );
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+  }
+
+  );
+</script>
+
     </nav>
 </header>
 % if course:
