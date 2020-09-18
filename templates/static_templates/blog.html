@@ -12,11 +12,12 @@ from student.models import CourseEnrollment, UserProfile
 
 log = logging.getLogger()
 
-alumni_courses_list = ['course-v1:champagne-mooc+002+002','course-v1:champagne-mooc+003+003','course-v1:champagne-mooc+004+004']
+alumni_courses_list = ['course-v1:champagne-mooc+003+003','course-v1:champagne-mooc+004+004']
 course_enrollments, first_name, last_name, email, city, country = [], [], [], [], [], []
 json_alumni_users = ''
 user_is_alumni_registered = False
 country_codes = {}
+test_list = []
 
 if request.user.is_authenticated():
 
@@ -57,7 +58,8 @@ if request.user.is_authenticated():
 
         try:
             custom_field = json.loads(UserProfile.objects.get(user=user).custom_field)
-            if 'alumni_registered' in custom_field and 'true' in custom_field['alumni_registered']:
+            if 'alumni_registered' in custom_field and custom_field['alumni_registered'] == True:
+                test_list.append(get_custom_field_value(custom_field, 'first_name'))
                 email.append(user.email)
                 first_name.append(get_custom_field_value(custom_field, 'first_name'))
                 last_name.append(get_custom_field_value(custom_field, 'last_name'))
@@ -71,7 +73,7 @@ if request.user.is_authenticated():
 %>
 
 % if request.user.is_authenticated():
-    % if user_is_alumni_registered == 'true':
+    % if user_is_alumni_registered == 'true' or user_is_alumni_registered == 'True' or user_is_alumni_registered == True:
     <script>
         window.props = {}
         window.props.users_list = []
