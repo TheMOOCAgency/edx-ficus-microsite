@@ -39,15 +39,17 @@ org = static.get_value('domain_prefix')
 	    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	    <!-- <script>alert('modif en cours 2')</script> -->
    </head>
-   
+
    <style>
       .fit-picture{
-         width: 43px;
          position: fixed;
          top: 30px;
          right: 15px;
          cursor:pointer;
          z-index: 99999999;
+      }
+      .fit-picture>img{
+        height: 23px;
       }
 
       #section1 > .col-md-5 {
@@ -66,14 +68,18 @@ org = static.get_value('domain_prefix')
          height:100%;
          display: flex;
          justify-content: center;
-         align-items: center; 
+         align-items: center;
       }
    </style>
    <body>
-   
-   <img  id="switchFr"class="fit-picture" src="/media/microsite/nature-for-city-life/img/fr.png" style="display:none">
-   <img id="switchEng" class="fit-picture" src="/media/microsite/nature-for-city-life/img/us.png">
-	<div id="frNode">
+  <div id="switch-lang-wrapper" class="fit-picture">
+     <img  id="switchfr" data-lang="fr" src="/media/microsite/nature-for-city-life/img/fr.png" style="display:none">
+     <img  id="switchit" data-lang="it" src="/media/microsite/nature-for-city-life/img/it.png" >
+     <img  id="switches" data-lang="es" src="/media/microsite/nature-for-city-life/img/es.png" >
+     <img  id="switchde" data-lang="de" src="/media/microsite/nature-for-city-life/img/de.png" >
+     <img  id="switcheng" data-lang="en" src="/media/microsite/nature-for-city-life/img/us.png">
+   </div>
+	<div id="frNode" class="section-main-language">
       <nav class="navbar navbar-default" id="nav_header">
          <div class="container">
             <div class="navbar-header">
@@ -94,7 +100,7 @@ org = static.get_value('domain_prefix')
             <div class="content-box">
                <h1 style="text-transform: uppercase;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
                   Nature for City LIFE
-                  </h2>      
+                  </h2>
                   <h1 style="text-transform: uppercase;font-size:2em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
                   Quelle ville-nature vivez-vous ?
                   </h2>
@@ -133,10 +139,10 @@ org = static.get_value('domain_prefix')
                         <p class="under_s2">C'est quoi la Nature en ville et la biodiversité ?
                            <span> </span>
                         </p>
-                        <p class="under_s2">La Nature en ville, une "vieille histoire" 
+                        <p class="under_s2">La Nature en ville, une "vieille histoire"
                            <span> </span>
                         </p>
-                        <p class="under_s2">Quelles sont les modifications actuelles de la Nature en ville ? 
+                        <p class="under_s2">Quelles sont les modifications actuelles de la Nature en ville ?
                            <span> </span>
                         </p>
                         <p class="under_s2">En quoi les changements globaux affectent la question de Nature en ville ?
@@ -182,7 +188,7 @@ org = static.get_value('domain_prefix')
                         <p class="under_s2">Évaluation environnementale et conception
                            &nbsp; <span> </span>
                         </p>
-                        <p class="under_s2">Droit environnemental, réglementation et planification 
+                        <p class="under_s2">Droit environnemental, réglementation et planification
                            <span> </span>
                         </p>
                         <p class="under_s2">Mise en œuvre technique et gestion
@@ -208,7 +214,7 @@ org = static.get_value('domain_prefix')
             <div class="intro" style="padding-top:0px;">
                <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
                <h2 class="text-center" style="margin-bottom:50px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">ET AU FAIT... QU'eST-CE QU'UN MOOC ?</h2>
-            
+
             </div>
             <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
                <div class="col-md-3 col-sm-6 item col-xs-12">
@@ -247,7 +253,7 @@ org = static.get_value('domain_prefix')
            <div class="intro" style="padding-top:0px;">
                <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
                <h2 class="text-center" style="margin-bottom:40px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">Réussissez le MOOC et obtenez votre attestation de participation</h2>
-              
+
             </div>
             <div>
                <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Je m'inscris !</a></br> -->
@@ -279,37 +285,37 @@ org = static.get_value('domain_prefix')
             <div class="row">
                <div class="col-sm-2 col-xs-12 col-sm-2" style="margin-top:20px;">
                   <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf1.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
-			
-				  
+
+
                </div>
                <div class="col-sm-8 social-icons col-xs-12 col-sm-8" style="height:40px;margin-top:20px;">
 			      <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
               <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
 				   <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
-				
+
                </div>
                <div class="col-md-2 col-xs-12 col-sm-2"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/nature-for-city-life/assets/img/Logo_256x256.png"></a></div>
             </div>
          </div>
-         
+
       </footer>
 	  </div>
-	  
-	  
-	   
-	<div id="engNode" style=display:none>
+
+
+
+	<div id="enNode" class="section-main-language" style=display:none>
       <nav class="navbar navbar-default" id="nav_header">
          <div class="container">
             <div class="navbar-header">
@@ -319,7 +325,7 @@ org = static.get_value('domain_prefix')
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                <ul class="nav navbar-nav navbar-right">
-                  <li role="presentation"><a  onclick="scrollToTrainings('eng')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Discover our trainings </a></li>
+                  <li role="presentation"><a  onclick="scrollToTrainings('en')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Discover our trainings </a></li>
                   <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Login </a></li>
                </ul>
             </div>
@@ -330,7 +336,7 @@ org = static.get_value('domain_prefix')
             <div class="content-box">
                <h1 style="text-transform: uppercase;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
                   Nature for City LIFE
-                  </h2>      
+                  </h2>
                   <h1 style="text-transform: uppercase;font-size:2em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
                   Which nature city do you live?
                   </h2>
@@ -339,7 +345,7 @@ org = static.get_value('domain_prefix')
                      <!--Ouverture le 6 décembre-->
                   </p>
                   <div style="margin:0 auto;text-align:center;">
-                     <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('eng')" id="register_link"><p style="margin:0px">Discover our <br />trainings </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Login </a>
+                     <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('en')" id="register_link"><p style="margin:0px">Discover our <br />trainings </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Login </a>
                   </div>
             </div>
          </div>
@@ -389,7 +395,7 @@ org = static.get_value('domain_prefix')
                         <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">THE ROLES OF NATURE IN THE CITY</h3>
                         <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
                         <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 2</p>
-                 
+
                         <p class="under_s2">The Living in interactions Ecosystem services in cities
 
                            <span> </span>
@@ -414,7 +420,7 @@ org = static.get_value('domain_prefix')
                         <p class="under_s2">New concepts and solutions for the sustainable city
                            <span> </span>
                         </p>
-                        <p class="under_s2">Environmental assessment and design  
+                        <p class="under_s2">Environmental assessment and design
                            &nbsp; <span> </span>
                         </p>
                         <p class="under_s2">Environmental law, regulation and planning
@@ -443,7 +449,7 @@ org = static.get_value('domain_prefix')
             <div class="intro" style="padding-top:0px;">
                <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
                <h2 class="text-center" style="margin-bottom:50px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">AND FACT.... WHAT IS A MOOC ?</h2>
-            
+
             </div>
             <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
                <div class="col-md-3 col-sm-6 item col-xs-12">
@@ -482,7 +488,7 @@ org = static.get_value('domain_prefix')
            <div class="intro" style="padding-top:0px;">
                <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
                <h2 class="text-center" style="margin-bottom:40px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">PASS THE MOOC AND OBTAIN YOUR CERTIFICATE OF PARTICIPATION</h2>
-              
+
             </div>
             <div>
                <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Register !</a></br> -->
@@ -514,34 +520,734 @@ org = static.get_value('domain_prefix')
             <div class="row">
                <div class="col-sm-2 col-xs-12 col-sm-2" style="margin-top:20px;">
                   <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf1.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
-			
-				  
+
+
                </div>
                <div class="col-sm-8 social-icons col-xs-12 col-sm-8" style="height:40px;margin-top:20px;">
 			      <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
               <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
 				   <a href="">
-            
+
                         <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
                   </a>
-				
+
                </div>
                <div class="col-md-2 col-xs-12 col-sm-2"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/nature-for-city-life/assets/img/Logo_256x256.png"></a></div>
             </div>
          </div>
-         
+
       </footer>
 	  </div>
-	  
+
+    <div id="esNode" class="section-main-language" style=display:none>
+        <nav class="navbar navbar-default" id="nav_header">
+           <div class="container">
+              <div class="navbar-header">
+                 <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_1.png" height="60px" style="height:87px;"></a>
+                 <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_2.png" height="60px" style="height:87px;"></a>
+                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+              </div>
+              <div class="collapse navbar-collapse" id="navcol-1">
+                 <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation"><a  onclick="scrollToTrainings('es')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Descubra nuestros entrenamientos </a></li>
+                    <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Login </a></li>
+                 </ul>
+              </div>
+           </div>
+        </nav>
+        <div class="container" id="section1">
+           <div class="col-md-5">
+              <div class="content-box">
+                 <h1 style="text-transform: uppercase;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                    Nature for City LIFE
+                    </h2>
+                    <h1 style="text-transform: uppercase;font-size:2em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                      ¿EN QUÉ CIUDAD DE LA NATURALEZA VIVES?
+                    </h2>
+                    <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" width="20%">
+                    <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:#bcd4f9;margin-top:10px;">
+                       <!--Ouverture le 6 décembre-->
+                    </p>
+                    <div style="margin:0 auto;text-align:center;">
+                       <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('es')" id="register_link"><p style="margin:0px">Descubra nuestros <br />entrenamientos</p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Login </a>
+                    </div>
+              </div>
+           </div>
+        </div>
+        <div style="padding: 0px 40px;">
+           <h2 class="text-center" style="margin-bottom:10px;padding-top:120px;color:#C2CC37;font-size:18px;font-weight: bold;">DESCUBRIR CÓMO DISEÑAR UNA CIUDAD DE LA NATURALEZA</h2>
+           <p style="font-size: 18px;">El curso Naturaleza para la vida en la ciudad consiste en dos cursos: <br />el curso inicial y el curso avanzado. Los cursos están disponibles en diferentes idiomas.</p>
+           <p style="font-size: 18px;">Haga clic en el curso correspondiente al idioma de su elección para obtener más información.</p>
+        </div>
+
+        <%include file="${courses_list}" />
+
+        <!-- <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+           <div class="container">
+              <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
+                 <div class="col-md-12">
+                    <h2 class="text-center" style="margin-bottom:40px;padding-top:60px;color:#C2CC37;font-size:23px;font-size: 23px;
+                       font-weight: bold;">Discover in 4 weeks how to design a City LIFE</h2>
+                 </div>
+                 <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail">
+                       <img src="/media/microsite/nature-for-city-life/assets/img/1.jpg" style="height:233px;">
+                       <div class="caption">
+                          <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">NATURE IN CITIES AND BIODIVERSITY: GENERALITIES AND MAJOR ISSUES</h3>
+                          <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                          <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 1</p>
+                          <p class="under_s2">What is urban nature and biodiversity?
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Nature in the city, an "old story"
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">What are the current changes in urban nature?
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">How do global changes affect the issue of Nature in cities?
+                             <span> </span>
+                          </p>
+                          </br>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail">
+                       <img src="/media/microsite/nature-for-city-life/assets/img/2.jpg" style="height:233px;">
+                       <div class="caption">
+                          <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">THE ROLES OF NATURE IN THE CITY</h3>
+                          <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                          <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 2</p>
+
+                          <p class="under_s2">The Living in interactions Ecosystem services in cities
+
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">The role of Nature in the city in relation to the physical urban environment
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">The role of Nature in the city in relation to the city dweller and his well-being
+                             <span> </span>
+                          </p>
+                          </br>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail">
+                       <img src="/media/microsite/nature-for-city-life/assets/img/3.jpg" style="height:233px;">
+                       <div class="caption">
+                          <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">HOW TO MAKE THE CITY WITH NATURE?</h3>
+                          <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                          <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 3 and 4</p>
+                          <p class="under_s2">New concepts and solutions for the sustainable city
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Environmental assessment and design
+                             &nbsp; <span> </span>
+                          </p>
+                          <p class="under_s2">Environmental law, regulation and planning
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Technical implementation and management
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Attachments and mobilizations
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Limitations, constraints and uncertainties
+                             <span> </span>
+                          </p>
+                          <p class="under_s2">Co-constructing the natural city of tomorrowadin and its well-being
+                             <span> </span>
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div> -->
+        <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;">
+           <div class="container" style="background-color:white;margin-top:0px;">
+              <div class="intro" style="padding-top:0px;">
+                 <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                 <h2 class="text-center" style="margin-bottom:50px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">Y HECHO... ¿QUÉ ES UN "MOOC"?</h2>
+
+              </div>
+              <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
+                 <div class="col-md-3 col-sm-6 item col-xs-12">
+                    <div class="box">
+                       <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/group-of-people-icon-222.png" style="width:80px;height:80px;">
+                       <h3 class="name" style="font-family:'Open Sans', sans-serif;">MASSIVE </h3>
+                       <p class="description" style="font-family:'Open Sans', sans-serif;">Contenido disponible de forma gratuita y alrededor del cual se puede intercambiar, directamente en esta plataforma.</p>
+                    </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 item col-xs-12">
+                    <div class="box">
+                       <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/unlock-5122.png" style="width:80px;height:80px;">
+                       <h3 class="name" style="font-family:'Open Sans', sans-serif;">OPEN </h3>
+                       <p class="description" style="font-family:'Open Sans', sans-serif;">Acceso libre a todos los recursos.</p>
+                    </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 item col-xs-12">
+                    <div class="box">
+                       <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/Connect-with-customers2.png" style="width:80px;height:80px;">
+                       <h3 class="name" style="font-family:'Open Sans', sans-serif;">ONLINE </h3>
+                       <p class="description" style="font-family:'Open Sans', sans-serif;">Disponible en línea, todo el tiempo y dondequiera que estés.</p>
+                    </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 item col-xs-12">
+                    <div class="box">
+                       <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/book-12.png" style="width:80px;height:80px;">
+                       <h3 class="name" style="font-family:'Open Sans', sans-serif;">COURSE </h3>
+                       <p class="description" style="font-family:'Open Sans', sans-serif;"> Un verdadero camino educativo, para permitirle adquirir habilidades.</p>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="dh-highlight-text" style="background-color:white;padding:0px;height:auto;position:relative;z-index:1;">
+           <div class="container">
+             <div class="intro" style="padding-top:0px;">
+                 <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                 <h2 class="text-center" style="margin-bottom:40px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">PASAR EL MOOC Y OBTENER SU CERTIFICADO DE PARTICIPACIÓN</h2>
+
+              </div>
+              <div>
+                 <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Register !</a></br> -->
+           <p style="font-style:italic">Este MOOC está apoyado financieramente por la Unión Europea</p>
+                 <div class="modal fade"
+                    role="dialog" tabindex="-1" id="myModal">
+                    <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                             <h4 class="modal-title">Modal Title</h4>
+                          </div>
+                          <div class="modal-body">
+                             <p class="text-center text-muted">Description </p>
+                          </div>
+                          <div class="modal-footer">
+                             <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                             <button class="btn btn-primary" type="button">Save</button>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <h1></h1>
+           </div>
+        </div>
+        <footer class="site-footer">
+           <div class="container">
+              <div class="row">
+                 <div class="col-sm-2 col-xs-12 col-sm-2" style="margin-top:20px;">
+                    <a href="">
+
+                          <img src="/media/microsite/nature-for-city-life/assets/img/lgf1.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                    </a>
+
+
+                 </div>
+                 <div class="col-sm-8 social-icons col-xs-12 col-sm-8" style="height:40px;margin-top:20px;">
+              <a href="">
+
+                          <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                    </a>
+                <a href="">
+
+                          <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                    </a>
+             <a href="">
+
+                          <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                    </a>
+
+                 </div>
+                 <div class="col-md-2 col-xs-12 col-sm-2"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/nature-for-city-life/assets/img/Logo_256x256.png"></a></div>
+              </div>
+           </div>
+
+        </footer>
+      </div>
+
+      <div id="itNode"class="section-main-language" style=display:none>
+          <nav class="navbar navbar-default" id="nav_header">
+             <div class="container">
+                <div class="navbar-header">
+                   <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_1.png" height="60px" style="height:87px;"></a>
+                   <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_2.png" height="60px" style="height:87px;"></a>
+                   <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                </div>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                   <ul class="nav navbar-nav navbar-right">
+                      <li role="presentation"><a  onclick="scrollToTrainings('it')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Scopri i nostri corsi </a></li>
+                      <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Accesso </a></li>
+                   </ul>
+                </div>
+             </div>
+          </nav>
+          <div class="container" id="section1">
+             <div class="col-md-5">
+                <div class="content-box">
+                   <h1 style="text-transform: uppercase;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                      Nature for City LIFE
+                      </h2>
+                      <h1 style="text-transform: uppercase;font-size:2em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                      QUALE CITTÀ DI NATURA VIVETE?
+                      </h2>
+                      <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" width="20%">
+                      <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:#bcd4f9;margin-top:10px;">
+                         <!--Ouverture le 6 décembre-->
+                      </p>
+                      <div style="margin:0 auto;text-align:center;">
+                         <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('it')" id="register_link"><p style="margin:0px">Scopri i nostri <br />corsi </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Accesso </a>
+                      </div>
+                </div>
+             </div>
+          </div>
+          <div style="padding: 0px 40px;">
+             <h2 class="text-center" style="margin-bottom:10px;padding-top:120px;color:#C2CC37;font-size:18px;font-weight: bold;">dSCOPRI COME PROGETTARE UNA CITTÀ NELLA NATURA</h2>
+             <p style="font-size: 18px;">Il corso Nature For City Life è composto da due corsi: <br />il corso iniziale e il corso avanzato. I corsi sono disponibili in diverse lingue.</p>
+             <p style="font-size: 18px;">Per saperne di più, cliccate sul corso corrispondente alla lingua scelta.</p>
+          </div>
+
+          <%include file="${courses_list}" />
+
+          <!-- <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+             <div class="container">
+                <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
+                   <div class="col-md-12">
+                      <h2 class="text-center" style="margin-bottom:40px;padding-top:60px;color:#C2CC37;font-size:23px;font-size: 23px;
+                         font-weight: bold;">Discover in 4 weeks how to design a City LIFE</h2>
+                   </div>
+                   <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                      <div class="thumbnail">
+                         <img src="/media/microsite/nature-for-city-life/assets/img/1.jpg" style="height:233px;">
+                         <div class="caption">
+                            <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">NATURE IN CITIES AND BIODIVERSITY: GENERALITIES AND MAJOR ISSUES</h3>
+                            <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                            <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 1</p>
+                            <p class="under_s2">What is urban nature and biodiversity?
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Nature in the city, an "old story"
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">What are the current changes in urban nature?
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">How do global changes affect the issue of Nature in cities?
+                               <span> </span>
+                            </p>
+                            </br>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                      <div class="thumbnail">
+                         <img src="/media/microsite/nature-for-city-life/assets/img/2.jpg" style="height:233px;">
+                         <div class="caption">
+                            <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">THE ROLES OF NATURE IN THE CITY</h3>
+                            <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                            <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 2</p>
+
+                            <p class="under_s2">The Living in interactions Ecosystem services in cities
+
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">The role of Nature in the city in relation to the physical urban environment
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">The role of Nature in the city in relation to the city dweller and his well-being
+                               <span> </span>
+                            </p>
+                            </br>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                      <div class="thumbnail">
+                         <img src="/media/microsite/nature-for-city-life/assets/img/3.jpg" style="height:233px;">
+                         <div class="caption">
+                            <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">HOW TO MAKE THE CITY WITH NATURE?</h3>
+                            <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                            <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 3 and 4</p>
+                            <p class="under_s2">New concepts and solutions for the sustainable city
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Environmental assessment and design
+                               &nbsp; <span> </span>
+                            </p>
+                            <p class="under_s2">Environmental law, regulation and planning
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Technical implementation and management
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Attachments and mobilizations
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Limitations, constraints and uncertainties
+                               <span> </span>
+                            </p>
+                            <p class="under_s2">Co-constructing the natural city of tomorrowadin and its well-being
+                               <span> </span>
+                            </p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div> -->
+          <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;">
+             <div class="container" style="background-color:white;margin-top:0px;">
+                <div class="intro" style="padding-top:0px;">
+                   <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                   <h2 class="text-center" style="margin-bottom:50px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">E FATTO..... COS'È UN MOOC?
+      </h2>
+
+                </div>
+                <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
+                   <div class="col-md-3 col-sm-6 item col-xs-12">
+                      <div class="box">
+                         <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/group-of-people-icon-222.png" style="width:80px;height:80px;">
+                         <h3 class="name" style="font-family:'Open Sans', sans-serif;">MASSIVE </h3>
+                         <p class="description" style="font-family:'Open Sans', sans-serif;">Contenuti disponibili gratuitamente e attorno ai quali è possibile scambiarsi, direttamente su questa piattaforma.</p>
+                      </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6 item col-xs-12">
+                      <div class="box">
+                         <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/unlock-5122.png" style="width:80px;height:80px;">
+                         <h3 class="name" style="font-family:'Open Sans', sans-serif;">OPEN </h3>
+                         <p class="description" style="font-family:'Open Sans', sans-serif;">Libero accesso a tutte le risorse.</p>
+                      </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6 item col-xs-12">
+                      <div class="box">
+                         <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/Connect-with-customers2.png" style="width:80px;height:80px;">
+                         <h3 class="name" style="font-family:'Open Sans', sans-serif;">ONLINE </h3>
+                         <p class="description" style="font-family:'Open Sans', sans-serif;">Disponibile online, sempre e ovunque ci si trovi.</p>
+                      </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6 item col-xs-12">
+                      <div class="box">
+                         <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/book-12.png" style="width:80px;height:80px;">
+                         <h3 class="name" style="font-family:'Open Sans', sans-serif;">COURSE </h3>
+                         <p class="description" style="font-family:'Open Sans', sans-serif;">Un vero e proprio percorso educativo, per consentire l'acquisizione di competenze.</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="dh-highlight-text" style="background-color:white;padding:0px;height:auto;position:relative;z-index:1;">
+             <div class="container">
+               <div class="intro" style="padding-top:0px;">
+                   <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                   <h2 class="text-center" style="margin-bottom:40px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">PASSA IL MOOC E OTTIENI IL TUO ATTESTATO DI PARTECIPAZIONE</h2>
+
+                </div>
+                <div>
+                   <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Register !</a></br> -->
+             <p style="font-style:italic">Questo MOOC è sostenuto finanziariamente dall'Unione Europea</p>
+                   <div class="modal fade"
+                      role="dialog" tabindex="-1" id="myModal">
+                      <div class="modal-dialog" role="document">
+                         <div class="modal-content">
+                            <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                               <h4 class="modal-title">Modal Title</h4>
+                            </div>
+                            <div class="modal-body">
+                               <p class="text-center text-muted">Description </p>
+                            </div>
+                            <div class="modal-footer">
+                               <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                               <button class="btn btn-primary" type="button">Save</button>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <h1></h1>
+             </div>
+          </div>
+          <footer class="site-footer">
+             <div class="container">
+                <div class="row">
+                   <div class="col-sm-2 col-xs-12 col-sm-2" style="margin-top:20px;">
+                      <a href="">
+
+                            <img src="/media/microsite/nature-for-city-life/assets/img/lgf1.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                      </a>
+
+
+                   </div>
+                   <div class="col-sm-8 social-icons col-xs-12 col-sm-8" style="height:40px;margin-top:20px;">
+                <a href="">
+
+                            <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                      </a>
+                  <a href="">
+
+                            <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                      </a>
+               <a href="">
+
+                            <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                      </a>
+
+                   </div>
+                   <div class="col-md-2 col-xs-12 col-sm-2"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/nature-for-city-life/assets/img/Logo_256x256.png"></a></div>
+                </div>
+             </div>
+
+          </footer>
+        </div>
+
+        <div id="deNode" class="section-main-language" style=display:none>
+            <nav class="navbar navbar-default" id="nav_header">
+               <div class="container">
+                  <div class="navbar-header">
+                     <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_1.png" height="60px" style="height:87px;"></a>
+                     <a class="navbar-brand" href="" style="padding: 6px 15px;"> <img src="/media/microsite/nature-for-city-life/assets/img/logo_2.png" height="60px" style="height:87px;"></a>
+                     <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                  </div>
+                  <div class="collapse navbar-collapse" id="navcol-1">
+                     <ul class="nav navbar-nav navbar-right">
+                        <li role="presentation"><a  onclick="scrollToTrainings('de')" style="color:#000;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Entdecken Sie unsere Ausbildungen </a></li>
+                        <li role="presentation"><a class="connectionBind" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" style="color:#C2CC37;font-weight:bold;font-family:'Carrois Gothic', sans-serif;font-size:17px;margin-top:20px;">Anmeldung </a></li>
+                     </ul>
+                  </div>
+               </div>
+            </nav>
+            <div class="container" id="section1">
+               <div class="col-md-5">
+                  <div class="content-box">
+                     <h1 style="text-transform: uppercase;font-size:3em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                        Nature for City LIFE
+                        </h2>
+                        <h1 style="text-transform: uppercase;font-size:2em;color:#ebeff1;font-family:'Open Sans', sans-serif;font-weight:normal;/*line-height:66px;*//*letter-spacing:-5px;*/width:100%;">
+                        IN WELCHER NATURSTADT LEBEN SIE?
+                        </h2>
+                        <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" width="20%">
+                        <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:#bcd4f9;margin-top:10px;">
+                           <!--Ouverture le 6 décembre-->
+                        </p>
+                        <div style="margin:0 auto;text-align:center;">
+                           <a class="btn btn-primary btn-lg link_header" role="button"  onclick="scrollToTrainings('de')" id="register_link"><p style="margin:0px">Entdecken Sie unsere <br />Ausbildungen </p></a><a class="btn btn-primary btn-lg link_header connectionBind" role="button" href="/login?course_id=course-v1:nature-for-city-life+NFCL+Parcours1&enrollment_action=enroll" id="login_link">Anmeldung </a>
+                        </div>
+                  </div>
+               </div>
+            </div>
+            <div style="padding: 0px 40px;">
+               <h2 class="text-center" style="margin-bottom:10px;padding-top:120px;color:#C2CC37;font-size:18px;font-weight: bold;">ENTDECKEN, WIE MAN EINE NATURSTADT GESTALTET</h2>
+               <p style="font-size: 18px;">Der Kurs Nature For City Life besteht aus zwei Kursen: <br />dem Grundkurs und dem Aufbaukurs. Die Kurse sind in verschiedenen Sprachen verfügbar.</p>
+               <p style="font-size: 18px;">Klicken Sie auf den Kurs, der der Sprache Ihrer Wahl entspricht, um mehr darüber zu erfahren.</p>
+            </div>
+
+            <%include file="${courses_list}" />
+
+            <!-- <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+               <div class="container">
+                  <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
+                     <div class="col-md-12">
+                        <h2 class="text-center" style="margin-bottom:40px;padding-top:60px;color:#C2CC37;font-size:23px;font-size: 23px;
+                           font-weight: bold;">Discover in 4 weeks how to design a City LIFE</h2>
+                     </div>
+                     <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                        <div class="thumbnail">
+                           <img src="/media/microsite/nature-for-city-life/assets/img/1.jpg" style="height:233px;">
+                           <div class="caption">
+                              <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">NATURE IN CITIES AND BIODIVERSITY: GENERALITIES AND MAJOR ISSUES</h3>
+                              <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                              <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 1</p>
+                              <p class="under_s2">What is urban nature and biodiversity?
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Nature in the city, an "old story"
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">What are the current changes in urban nature?
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">How do global changes affect the issue of Nature in cities?
+                                 <span> </span>
+                              </p>
+                              </br>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                        <div class="thumbnail">
+                           <img src="/media/microsite/nature-for-city-life/assets/img/2.jpg" style="height:233px;">
+                           <div class="caption">
+                              <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">THE ROLES OF NATURE IN THE CITY</h3>
+                              <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                              <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 2</p>
+
+                              <p class="under_s2">The Living in interactions Ecosystem services in cities
+
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">The role of Nature in the city in relation to the physical urban environment
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">The role of Nature in the city in relation to the city dweller and his well-being
+                                 <span> </span>
+                              </p>
+                              </br>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                        <div class="thumbnail">
+                           <img src="/media/microsite/nature-for-city-life/assets/img/3.jpg" style="height:233px;">
+                           <div class="caption">
+                              <h3 style="font-family:'Carrois Gothic', sans-serif;color:#000;font-weight:bold;height:97px;">HOW TO MAKE THE CITY WITH NATURE?</h3>
+                              <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" style="width:25%;">
+                              <p style="color:#C2CC37;font-weight:600;margin-top:10px;">Week 3 and 4</p>
+                              <p class="under_s2">New concepts and solutions for the sustainable city
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Environmental assessment and design
+                                 &nbsp; <span> </span>
+                              </p>
+                              <p class="under_s2">Environmental law, regulation and planning
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Technical implementation and management
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Attachments and mobilizations
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Limitations, constraints and uncertainties
+                                 <span> </span>
+                              </p>
+                              <p class="under_s2">Co-constructing the natural city of tomorrowadin and its well-being
+                                 <span> </span>
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;">
+               <div class="container" style="background-color:white;margin-top:0px;">
+                  <div class="intro" style="padding-top:0px;">
+                     <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                     <h2 class="text-center" style="margin-bottom:50px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">UND FAKT..... WAS IST EIN MOOC ?</h2>
+
+                  </div>
+                  <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
+                     <div class="col-md-3 col-sm-6 item col-xs-12">
+                        <div class="box">
+                           <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/group-of-people-icon-222.png" style="width:80px;height:80px;">
+                           <h3 class="name" style="font-family:'Open Sans', sans-serif;">MASSIVE </h3>
+                           <p class="description" style="font-family:'Open Sans', sans-serif;">Inhalte, die kostenlos zur Verfügung stehen und um die herum Sie sich austauschen können, direkt auf dieser Plattform.</p>
+                        </div>
+                     </div>
+                     <div class="col-md-3 col-sm-6 item col-xs-12">
+                        <div class="box">
+                           <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/unlock-5122.png" style="width:80px;height:80px;">
+                           <h3 class="name" style="font-family:'Open Sans', sans-serif;">OPEN </h3>
+                           <p class="description" style="font-family:'Open Sans', sans-serif;">Freier Zugang zu allen Ressourcen.</p>
+                        </div>
+                     </div>
+                     <div class="col-md-3 col-sm-6 item col-xs-12">
+                        <div class="box">
+                           <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/Connect-with-customers2.png" style="width:80px;height:80px;">
+                           <h3 class="name" style="font-family:'Open Sans', sans-serif;">ONLINE </h3>
+                           <p class="description" style="font-family:'Open Sans', sans-serif;">Online verfügbar, jederzeit und überall.</p>
+                        </div>
+                     </div>
+                     <div class="col-md-3 col-sm-6 item col-xs-12">
+                        <div class="box">
+                           <img class="img-rounded" src="/media/microsite/nature-for-city-life/assets/img/book-12.png" style="width:80px;height:80px;">
+                           <h3 class="name" style="font-family:'Open Sans', sans-serif;">COURSE </h3>
+                           <p class="description" style="font-family:'Open Sans', sans-serif;">Ein echter Bildungsweg, der es Ihnen ermöglicht, Fähigkeiten zu erwerben.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="dh-highlight-text" style="background-color:white;padding:0px;height:auto;position:relative;z-index:1;">
+               <div class="container">
+                 <div class="intro" style="padding-top:0px;">
+                     <img src="/media/microsite/nature-for-city-life/assets/img/leaf.png" class="border_img" style="margin-top:50px;">
+                     <h2 class="text-center" style="margin-bottom:40px;color:#C2CC37;font-family:'Open Sans', sans-serif;padding-top:0px;">BESTEHEN SIE DAS MOOC UND ERHALTEN SIE IHRE TEILNAHMEBESCHEINIGUNG</h2>
+
+                  </div>
+                  <div>
+                     <!-- <a class="btn btn-primary btn-lg registerBind" role="button" href="/register?course_id=course-v1:nature-for-city-life+1+2019&enrollment_action=enroll" data-toggle="modal" style="font-family:'Open Sans', sans-serif;background-color:#000;font-size:23px;border-radius:20px;border:0px solid;">Register !</a></br> -->
+               <p style="font-style:italic">Dieses MOOC wird von der Europäischen Union finanziell unterstützt.</p>
+                     <div class="modal fade"
+                        role="dialog" tabindex="-1" id="myModal">
+                        <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                 <h4 class="modal-title">Modal Title</h4>
+                              </div>
+                              <div class="modal-body">
+                                 <p class="text-center text-muted">Description </p>
+                              </div>
+                              <div class="modal-footer">
+                                 <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                 <button class="btn btn-primary" type="button">Save</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <h1></h1>
+               </div>
+            </div>
+            <footer class="site-footer">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-sm-2 col-xs-12 col-sm-2" style="margin-top:20px;">
+                        <a href="">
+
+                              <img src="/media/microsite/nature-for-city-life/assets/img/lgf1.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                        </a>
+
+
+                     </div>
+                     <div class="col-sm-8 social-icons col-xs-12 col-sm-8" style="height:40px;margin-top:20px;">
+                  <a href="">
+
+                              <img src="/media/microsite/nature-for-city-life/assets/img/lgf2.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                        </a>
+                    <a href="">
+
+                              <img src="/media/microsite/nature-for-city-life/assets/img/lgf3.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                        </a>
+                 <a href="">
+
+                              <img src="/media/microsite/nature-for-city-life/assets/img/lgf4.png" style="margin:0px;height:60px;padding:0px;margin-top:-10px;">
+                        </a>
+
+                     </div>
+                     <div class="col-md-2 col-xs-12 col-sm-2"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/nature-for-city-life/assets/img/Logo_256x256.png"></a></div>
+                  </div>
+               </div>
+
+            </footer>
+          </div>
+
 	  <script src="/media/microsite/nature-for-city-life/assets/js/cookie.js"></script>
 	  <script>
 			var language
@@ -552,89 +1258,59 @@ org = static.get_value('domain_prefix')
 			var connectionBindBindElm = $(".connectionBind")
 			var composeHrefConnection = connectionStringHref + langArg + language
 			var composeHrefRegister = registerStringHref + langArg + language
-
+      var supportedLang=["fr","en","de","es","it"]
 
 			function addArglang(lang) {
 				language = lang
 				var composeHrefConnection = connectionStringHref + langArg + lang
 				var composeHrefRegister = registerStringHref + langArg + lang
 				function bindMyLanButton(target, link) {
-					/*console.log(target)*/
 					var targ = target
 					var link = link
 					for (i = 0; i < targ.length; i++) {
 						targ[i].href = link
 					}
 				}
-			
+
 				bindMyLanButton(registerBindElm, composeHrefRegister)
 				bindMyLanButton(connectionBindBindElm, composeHrefConnection)
 			}
-
-			function hideEng() {
-				$("#switchEng").hide();
-				$("#switchFr").show();
-				$("#frNode").hide();
-				$("#engNode").show();
-			}
-
-			function hideFr() {
-				$("#switchFr").hide();
-				$("#switchEng").show();
-				$("#engNode").hide();
-				$("#frNode").show();
+      function switchflag (lang){
+        $('#switch-lang-wrapper>img').show()
+        if(lang == "en"){
+          $('#switcheng').hide()
+        }else{
+          $('#switch'+lang).hide()
+        }
+      }
+			function showSection(lang) {
+        switchflag(lang)
+				$('.section-main-language').hide()
+        $('#'+lang+'Node').show()
 			}
 
 			function switchLanguage(lang) {
-
-				if (lang == "FR") {
-					hideFr();
-					addArglang("fr")
-				}
-
-				if (lang == "ENG") {
-					hideEng();
-					addArglang("en")
-				}
+        showSection(lang);
+        addArglang(lang);
 			}
-
-			$("#switchEng").click(function() {
-				switchLanguage('ENG')
-            setCookie('language', 'en', 10)
-			});
-
-			$("#switchFr").click(function() {
-				switchLanguage('FR')
-            setCookie('language', 'fr', 10)
-			});
-
-
-
+      $("#switch-lang-wrapper>img").click(function(el){
+        switchLanguage(el.target.dataset.lang)
+        setCookie('language', el.target.dataset.lang, 10)
+      })
 
 			function getLanguageBrowser(){
-
-			var userLang = navigator.language || navigator.userLanguage;
-
-			if(userLang=="fr"){
-   			   switchLanguage("FR")
-   			}
-   			else{
-   			   switchLanguage("ENG")
-   			}
-			}
-
-			getLanguageBrowser()
+  			var userLang = navigator.language || navigator.userLanguage;
+        switchLanguage(userLang)
+      }
+      getLanguageBrowser()
 
 			$( document ).ready(function(){
             // SWITCH TO ENGLISH MODE
-            if (getCookie('language') !== '') {
-               if (getCookie('language') === 'en') {
-                  switchLanguage('ENG')
-               } else {
-                  switchLanguage("FR")
-               }
-            }
-
+        if (getCookie('language') !== '' && supportedLang.indexOf(getCookie('language')) ) {
+          switchLanguage(getCookie('language'))
+        }else{
+          switchLanguage("en")
+        }
 				// GET DATE
 				var monthNames = [
 					"Janvier", "Fevrier", "Mars",
@@ -642,29 +1318,30 @@ org = static.get_value('domain_prefix')
 					"Août", "Septembre", "Octobre",
 					"Novembre", "Decembre"
 				];
-
 				for (i=0; i<$('.course-date').length; i++) {
 					date = new Date($('.course-date:eq('+i+')').attr('data-datetime'));
-					var day = date.getDate();
-					var monthIndex = date.getMonth();
-					var year = date.getFullYear();
-					var formated_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
-					$('.course-date:eq('+i+')').html('Début : '+formated_date)
-				}
+  				var day = date.getDate();
+  				var monthIndex = date.getMonth();
+  				var year = date.getFullYear();
+  				var formated_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+  				$('.course-date:eq('+i+')').html('Début : '+formated_date)
+  			}
 
             // translate EN SAVOIR PLUS in eng courses div
-            $("#engNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('LEARN MORE')
-
-			})
-
-         var scrollToTrainings = function scroll_to(lang){
-            $('html, body').animate({
-               scrollTop: $("#"+lang+"Node > div > h2").offset().top
-            },1000);
-         }
-
-	  </script>
-	  <script src="/media/microsite/nature-for-city-life/assets/js/jquery.min.js"></script>
+            $("#enNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('LEARN MORE')
+            $("#itNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Saperne di più')
+            $("#esNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Más información')
+            $("#deNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Saperne di più')
+  		})
+       var scrollToTrainings = function scroll_to(lang){
+         console.log(lang)
+         console.log($("#"+lang+"Node"))
+          $('html, body').animate({
+             scrollTop: $("#"+lang+"Node > div > h2").offset().top
+          },1000);
+       }
+    </script>
+    <script src="/media/microsite/nature-for-city-life/assets/js/jquery.min.js"></script>
       <script src="/media/microsite/nature-for-city-life/assets/bootstrap/js/bootstrap.min.js"></script>
    </body>
 </html>

@@ -139,7 +139,8 @@ import calendar
 <script>
   // Translation
   if (window.location.href.indexOf('register') > -1) {
-    if ($('#settings-language-value').val() === 'en' ) {
+    if ($('#settings-language-value').val() != 'fr' ) {
+      console.log($("#settings-language-value"))
       // Labels
       $('#field-sexe > label').text('Gender');
       $('#field-statut > label').text('You are enrolling to this MOOC as');
