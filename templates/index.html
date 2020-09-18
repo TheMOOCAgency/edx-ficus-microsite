@@ -1328,10 +1328,16 @@ org = static.get_value('domain_prefix')
   			}
 
             // translate EN SAVOIR PLUS in eng courses div
-            $("#enNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('LEARN MORE')
-            $("#itNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Saperne di più')
-            $("#esNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Más información')
-            $("#deNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains(EN SAVOIR PLUS)").html('Saperne di più')
+            $("#enNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('EN SAVOIR PLUS')").html('LEARN MORE')
+            $("#itNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('EN SAVOIR PLUS')").html('Saperne di più')
+            $("#esNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('EN SAVOIR PLUS')").html('Más información')
+            $("#deNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('EN SAVOIR PLUS')").html('Saperne di più')
+
+            $("#frNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('LEARN MORE')").html('EN SAVOIR PLUS')
+            $("#itNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('LEARN MORE')").html('Saperne di più')
+            $("#esNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('LEARN MORE')").html('Más información')
+            $("#deNode > .courses-container > .highlighted-courses > .courses > .courses-listing > .courses-listing-item > .course > a > .course-image > .cover-image > .learn-more:contains('LEARN MORE')").html('Saperne di più')
+
   		})
        var scrollToTrainings = function scroll_to(lang){
          console.log(lang)
