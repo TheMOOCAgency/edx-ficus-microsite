@@ -144,7 +144,7 @@ primary_color = configuration_helpers.get_value('primary_color')
 <style>
 
 </style>
-% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+% if grades.get('partial') or  tma_verify_access(request.user).is_tma_team():
   <div id="certificate-wrapper">
     <div id="pdf-btn-wrapper">
       <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
