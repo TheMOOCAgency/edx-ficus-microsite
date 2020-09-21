@@ -71,7 +71,7 @@ site_status_msg = get_site_status_msg(course_id)
   <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
-      <a href="https://www.cfi.fr/fr">
+      <a href="https://www.cfi.fr/fr" target="_blank">
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
@@ -212,7 +212,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login?course_id=course-v1:connexions-citoyennes+CC1+2020&enrollment_action=enroll">${_("Sign in")}</a>
                 % endif
               % endif
             % endif
