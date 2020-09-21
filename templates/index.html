@@ -33,73 +33,8 @@ from django.utils.translation import ugettext as _
                      <div class="navbar-brand "  style ="margin-left: calc(50% - 121px);position: absolute;"><img class="logo_entrNav"></div>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                     <% languages = static.get_released_languages() %>
-                     <ol class="user">
-                     <li class="primary" style="list-style:none">
-                        <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
-                           <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
-                           % if user.is_authenticated():
-                           <input title="preference api" type="hidden" class="url-endpoint" value="${reverse('preferences_api', kwargs={'username': user.username})}" data-user-is-authenticated="true">
-                           % else:
-                           <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
-                           % endif
-                           <label><span class="sr"></span>
-                           <!--LANGUAGE FLAGS-->
-                           <div id="lang-content">
-                              <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png" id="en">
-                              <img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/fr.png" id="fr">
-                              <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
-                                 % for language in languages:
-                                 % if language[0] =="en" or language[0] =="fr":
-                                 % if language[0] == LANGUAGE_CODE:
-                                    <option value="${language[0]}" selected="selected">${language[0]}</option>
-                                 % else:
-                                    <option value="${language[0]}">${language[0]}</option>
-                                 % endif
-                                 % endif
-                                 % endfor
-                              </select>
-                           </div>
-                           </label>
-                        </form>
-                     </li>
-                     </ol>
-
-
-
-                     <style>
-                     /*LANGUAGE FLAGS*/
-                     .language-selector {
-                        display: none;
-                     }
-                     #lang-content {
-                        width: 60px;
-                        height: 24px;
-                     }
-                     #lang-content img{
-                        width: 25px;
-                     }
-                     </style>
-
-                     <script>
-                     //LANGUAGE FLAGS
-                     $('#en').on('click', function() {
-                        $('#settings-language-value > option[value="en"]').attr('selected','selected');
-                        $('#settings-language-value > option[value="fr"]').removeAttr('selected');
-                        var event = jQuery.Event( "submit" );
-                        $( "form" ).first().trigger( event );
-                     }
-                     );
-                     $('#fr').on('click', function() {
-                        $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-                        $('#settings-language-value > option[value="en"]').removeAttr('selected');
-                        var event = jQuery.Event( "submit" );
-                        $( "form" ).first().trigger( event );
-                     }
-
-                     );
-                     </script>
-
+                     <li><a href="" id="switchToEn"><img style="margin-top: 5px;height: 35px;" src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png"></a></li>
+                     <li><a href="" id="switchToFr"><img style="margin-top: 5px;height: 35px;" src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/fr.png"></a></li> 
                      <li><a href="" id="registerLink2" class="rg">Inscription</a></li>
                      <li><a href="" id="loginLink2" class="cx">Connexion</a></li>       
                   </ul>
@@ -286,13 +221,13 @@ from django.utils.translation import ugettext as _
 						document.head.appendChild(link2);
                   document.head.appendChild(link3);
                   
-                  $("#loginLink1").attr("href",pathLogin)
-                  $("#registerLink1").attr("href",pathRegister + connectLink)
-                  $("#loginLink2").attr("href",pathLogin)
-                  $("#registerLink2").attr("href",pathRegister + connectLink)
-                  $("#loginButn").click(function(){window.location.href = pathLogin})
-                  $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
-                  $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
+                  $("#loginLink1").attr("href","/login?next=%2Ftma_apps%2Fuser_info")
+                  $("#registerLink1").attr("href","/register?next=%2Ftma_apps%2Fuser_info")
+                  $("#loginLink2").attr("href","/login?next=%2Ftma_apps%2Fuser_info")
+                  $("#registerLink2").attr("href","/register?next=%2Ftma_apps%2Fuser_info")
+                  $("#loginButn").click(function(){window.location.href = "/login?next=%2Ftma_apps%2Fuser_info"})
+                  $("#subscribeButn").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info"})
+                  $("#subscribeButn2").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info"})
 
                   // texts
                   $("#subscribeButn2").text(objJson.page.imIn)
@@ -390,6 +325,7 @@ from django.utils.translation import ugettext as _
                bindindFunctionMeta ();
              }
             
+            var response
             var objJson
             
             getInfo();
@@ -399,7 +335,7 @@ from django.utils.translation import ugettext as _
             a.onreadystatechange = function() {
               if( this.readyState == 4) {
             	if( this.status == 200) {
-                  var response= JSON.parse(this.response)
+                  response= JSON.parse(this.response)
                   if ("${LANGUAGE_CODE}" === "fr") {
                      objJson = response.fr
                      course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
@@ -422,6 +358,22 @@ from django.utils.translation import ugettext as _
             		scrollTop: $("#se2").offset().top
             	}, 2000);
             });
+
+            $('#switchToEn').click( function( event ) {
+               event.preventDefault();
+               objJson = response.en
+               $('#markMoock').empty()
+               $('#markWeeks').empty()
+               masterBind();
+            })
+
+            $('#switchToFr').click( function( event ) {
+               event.preventDefault();
+               objJson = response.fr
+               $('#markMoock').empty()
+               $('#markWeeks').empty()
+               masterBind();
+            })
 			</script>       
       </body>
    </html>
