@@ -266,7 +266,6 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
       % endif
       <% languages = static.get_released_languages() %>
-      % if not user.is_authenticated() :
       <ol class="user">
         <li class="primary">
           <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
@@ -297,7 +296,6 @@ site_status_msg = get_site_status_msg(course_id)
           </form>
         </li>
       </ol>
-      % endif
 
 
 
@@ -342,6 +340,12 @@ site_status_msg = get_site_status_msg(course_id)
 
   );
 </script>
+
+% if True or not user.is_authenticated() :
+  <script>
+    $('.user > li > form').hide()
+  </script>
+% endif
 
     </nav>
 </header>
