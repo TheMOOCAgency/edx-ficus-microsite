@@ -144,7 +144,7 @@ primary_color = configuration_helpers.get_value('primary_color')
 <style>
 
 </style>
-% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+% if grades.get('partial') or  tma_verify_access(request.user).is_tma_team():
   <div id="certificate-wrapper">
     <div id="pdf-btn-wrapper">
       <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
@@ -204,5 +204,7 @@ primary_color = configuration_helpers.get_value('primary_color')
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
+  console.log('${grades.get("partial")}')
+  console.log('${grades.get("passed")}')
 </script>
 
