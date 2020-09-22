@@ -1,97 +1,1192 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>MOOC NTP ENGIE</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link rel="stylesheet" href="/media/microsite/engie-ntp-mooc/assets/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/media/microsite/engie-ntp-mooc/assets/css/styles.css">
+      <link rel="stylesheet" href="/media/microsite/engie-ntp-mooc/assets/css/stylesVideo.css">
+      <script src="/media/microsite/engie-ntp-mooc/assets/js/jquery.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script src="/media/microsite/engie-ntp-mooc/assets/js/wmBox.js"></script>
+      <script src="/media/microsite/engie-ntp-mooc/assets/js/main.js"></script>
+   </head>
+<style>
+      html {
+      scroll-behavior: smooth;
+      font-family: "Helvetica Neue"
+      }
+      ul {
+      list-style: none;
+      color:black;
+      }
+      ul > h5 {
+      color: black
+      }
+      .titles {
+      width: 65%;
+      margin: auto;
+      margin-top: 20px;
+      }
+      .logoCentre {
+      width: 30%;
+      }
+      .title_section_2  langNe {
+      color: black;
+      }
+      .blackP langNe {
+      color: black
+      }
+      .mooc_degrade2_under p {
+      text-align: center;
+      color: white;
+      }
+      #section4 {
+      height: auto;
+      background-color: #00AAFF;
+      }
+      .pictos img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+      }
+      #boder_span_section2 {
+      height: 7px;
+      width: 30%;
+      margin-right: calc(100% - 41px);
+      background-color: #00AAFF;
+      margin-top: 25px;
+      margin-bottom: 55px;
+      }
+      p.scroll {
+      top: 93%;
+      position: absolute;
+      font-style: italic;
+      text-align: center;
+      width: 102%;
+      color: white;
+      font-size: 1.3em;
+      }
+      #srcoll_button {
+      position: absolute;
+      bottom: 5px;
+      margin: auto;
+      top: 96%;
+      width: auto;
+      height: 25px;
+      z-index: 1000;
+      cursor: pointer;
+      }
+      img {
+      vertical-align: middle;
+      }
+      #section3-2 li::before {
+      content: "• ";
+      color: #00AAFF;
+      }
+      #section4 {
+      height: 250px;
+      background-image: url('/media/microsite/engie-ntp-mooc/assets/img/IMG-Footer-RTE.jpg');
+      margin-top: 86px;
+      background-position: center;
+      background-size: cover;
+      }
+      #section1 {
+      background-image: url('/media/microsite/engie-ntp-mooc/assets/img/bg_img2.jpg');
+      }
+      .mask{background-color: #0f0f0f73;  width: 50%;  margin: 0 auto;  padding: 30px 30px;margin-top:100px}
+      footer {
+      text-align: center;
+      color: #fff;
+      border-top: 4px solid #00AAFF;
+      border-bottom: 4px solid #00AAFF;
+      background-color: #00AAFF;
+      height: 34px;
+      font-size: 12px;
+      }
+      .vignette-img {
+      display: block;
+      margin-right: 20px;
+      float: left;
+      width: 300px;
+      } 
+      .separator{
+      margin-top:40px;
+      }
+      .vignette {
+      padding: 20px;
+      }
+      .home-buttons {
+      text-align: center;
+      list-style: none;
+      margin-top:0px;
+      }
+      .home-buttons>li>a {
+      margin-top: 0px;
+      margin-bottom: 20px;
+      }
+      .greyP langNe {
+      text-align: center;
+      color: #5b5b5b;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 18px;
+      padding: 0;
+      }
+      @media (min-width: 1200px) {
+      .container {
+  
+      }
+      }
+      @media (min-width: 992px) and (max-width: 1200px) {
+      .container {
+  
+      }
+      }
+      @media (min-width: 0px) and (max-width: 992px) {
+      .mediaQS{display:none}
+	  .mask {
+	  width: 100% !important;
+    background-color: #0f0f0f73;
+    margin: 0 auto;
+        margin-top: 0px;
+    padding: 0;
+    margin-top: 30px;
+}
+      }
+      .surplomber{
+      height: auto;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      margin-top: 0px;
+      margin-top: 50px;
+      width: 23%;
+      text-align: center;}
+      .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+      display: block;
+      max-width: 50%;
+      height: auto;
+      }
+	  
+	  .paddle{padding:5%}
+	  .gret{background: #d5d2ce;}
+	  .whie{background: white;}
+	.caption {
+    text-align: center;
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+}
+
+.pTIle{
+font-size:200% !important;
+}
+
+.fit-picture{
+width: 43px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+	cursor:pointer;
+	z-index: 9999;
+
+}
+
+.fit-picture:hover{
+   border : 2px solid black;
+}
+</style>
+
+   <body>
+   
+   <img id="switchFr"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/france.png" style="right: 115px;">
+   <img id="switchEn"class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/eng.png" style="right: 65px;">
+   <img id="switchNl" class="fit-picture" src="/media/microsite/engie-ntp-mooc/assets/img/flag/netherland.png">
+
+   <!-- DEBUT FRANCAIS -->
+      <div id = "containerFr"class="container-fluid">
+         <section id="section1" class="container-fluid">
+            <div class="row">
+               <div class="col-lg-10 col-md-10 col-xs-12 head_nav">
+				
+                  <div class ="mask" >
+                     <div class="surplomber"style="background-image: url('/media/microsite/engie-ntp-mooc/assets/img/logo.png');height:180px;">
+                     </div>
+                     <div class="surplomber" style="margin-bottom:5%;width:auto;color:white">
+                        <p class ="pTIle langFr" style="color:white;">PERFECTIONNEZ-VOUS AVEC 
+                        </p>
+                        <p class ="pTIle langFr" style="color:#00AAFF;font-weight:bold">L’ENVIRONNEMENT NUCLÉAIRE
+                        </p>
+                     </div>
+                     <ul class="home-buttons pager">
+                        <li class="separator">
+                           <p class ="langFr" >Vous voulez suivre le MOOC ?</p>
+                           <!--<a href="/register?course-v1:engie-ntp-mooc+1+2019+1&enrollment_action=enroll">Inscrivez-vous</a>-->
+                           <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u">Pré-inscrivez-vous</a>
+                        </li>
+                        <li>
+                           <p class ="langFr" >Déjà inscrit ?</p>
+                           <a class ="langFr" href="/login">Connectez-vous</a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="mediaQS">
+                  <p class="scroll langFr" style="width:100%">Pour découvrir le contenu de la formation, voir ci-dessous</p>
+                  <a href="#section2" style="text-align:center;display:inherit;" class="smooth-scroll"><img id="srcoll_button"
+                     src="/media/microsite/engie-ntp-mooc/assets/img/white_arrow.png"></a>
+               </div>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+         </section>
+         <section id="section2" class="container-fluid">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12 text_section2">
+                     <div class="border_section2"></div>
+                     <h2 class="title_section_2 langFr"> <span class="title_section_2 langFr" style="text-align: left!important;">découvrez</span><span
+                        class="title_section_2 langFr" style="text-align: left!important;"> la formation</span></h2>
+                     <h2><span class="title_section_2 langFr"></span><span class="blackP langFr"></span><span id="boder_span_section2">
+                        </span>
+                     </h2>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-6 col-md-6 col-xs-12 text-center">
+                     <iframe src="https://player.vimeo.com/video/325239222?color=ffffff&title=0&byline=0&portrait=0" width="100%" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-xs-12 mooc_degrade1" style="min-height:45vh;padding:50px;padding-top:0px;">
+                     <!--<div class="border_section2"></div>-->
+                     <p class='blackP langFr' style="font-size:24px">Vous voulez comprendre l'environnement nucléaire?</p>
+                     <p class="blackP langFr" style="font-size:24px">Vous souhaitez connaître les enjeux énergétiques et écologiques du nucléaire?</p>
+                     <p class="blackP langFr" style="font-size:24px">Vous voulez comprendre sur quelles bases ont été établies les réglementations et les politiques de protection de la population ?</p>
+                     <br>
+                     <p class="blackP langFr" style="font-weight:bold;font-size:28px">Ce MOOC est fait pour vous !</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langFr'>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3" class="container-fluid" >
+            <div class="col-lg-6 col-md-6 col-xs-12 mooc_title">
+               <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">qu'est ce qu'un mooc ? <span class ="langFr" > </span></h2>
+            </div>
+            <div class="picto_content" style="width:auto">
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito1.png">
+                  <h4> <span class ="langFr" >massive</span></h4>
+                  <p class ="langFr" >Des cours pour tous</p>
+                  <p class ="langFr" >les professionnels</p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito2.png">
+                  <h4> <span class ="langFr" >Open </span></h4>
+                  <p class ="langFr" >Accédez librement à </p>
+                  <p class ="langFr" >un ensemble de ressources </p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito3.png">
+                  <h4> <span class ="langFr" >online </span></h4>
+                  <p class ="langFr" >Connectez-vous à tout </p>
+                  <p class ="langFr" >moment et où que vous soyez </p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito4.png">
+                  <h4> <span class ="langFr" >course </span></h4>
+                  <p class ="langFr" >Suivez un parcours pédagogique</p>
+                  <p class ="langFr" >innovant vous permettant l'aquisition </p>
+                  <p class ="langFr" >de connaissances </p>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">A propos du Mooc<span class ="langFr" > </span>
+					 </h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langFr'>
+                           L’objectif de la formation est la sensibilisation des apprenants à l’environnement nucléaire et aux aspects et exigences en Sûreté Nucléaire, en particulier il s’agit pour les apprenants de :
+                        </p>
+                        </br>
+                        <p class='greyP langFr'>
+                           -	Situer son travail par rapport aux activités nucléaires du Groupe 
+                        </p>
+                        <p class='greyP langFr'>
+                           -	Connaitre et comprendre l’environnement nucléaire, notamment les systèmes mis en place pour garantir la sûreté nucléaire ;
+                        </p>
+                        <p class='greyP langFr'>
+                           -	Comprendre ce qui est attendu des personnes intervenant dans le domaine nucléaire en matière de rigueur, d'attitude interrogative, de communication et de travail en équipe.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langFr'>
+						</p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+            
+         </section>
+         <section id="section3-2b" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">A qui s’adresse ce Mooc<span class ="langFr" > </span></h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langFr'>
+                           Tout intervenant d’ENGIE travaillant sur ou pour une installation nucléaire de base et en particulier les nouveaux embauchés ayant peu d’expérience dans le domaine du nucléaire.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langFr'></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2c" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">Format du Mooc<span class ="langFr" > </span></h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langFr'>
+                           Ce Mooc se compose de 4 modules. Chaque module comporte 4 séquences.
+                        </p>
+                        </br>
+                        <p class='greyP langFr'>
+                           Une séquence se compose de vidéos, d’activités ludiques, d’un quiz et de documents pour approfondir, ainsi que d'une discussion pour échanger sur le sujet.
+                        </p>
+                        <p class='greyP langFr'>
+                           Vous avancez dans les modules à votre rythme durant le temps prévu pour la session du cours.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langFr'></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2e" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">Evaluation <span class ="langFr" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langFr'>
+                        Un quiz, sous forme de questions à choix multiples, évaluera les connaissances acquises. Une attestation de suivi du MOOC sera délivrée à chaque étudiant obtenant plus de 75% de réussite au quiz.
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langFr'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2f" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">Durée hebdomadaire<span class ="langFr" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langFr'>
+                        Regarder les vidéos, répondre aux questions et participer au forum ne devrait pas vous prendre plus d'une heure par semaine.
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langFr'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2g" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langFr" style="color: #00AAFF!important;">Equipe pédagogique<span class ="langFr" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langFr'>
+                        L'objectif principal du département DOP Talent consiste en le développement des talents pour les activités nucléaires et les projets industriels:
+                     </p>
+                     <p class='greyP langFr'>
+                        <br>Connaissance, développement et gestion des talents actifs dans ces domaines , soutien au recrutement pour les projets nucléaires et industriels. Renforcement de la mobilité interne (inter-BU et métiers) pour les talents du secteur nucléaire et les managers de projets industriels pour toutes les BUs du Groupe.
+                     </p>
+                     <p class='greyP langFr'>
+                        <br>       Pour toutes les entités nucléaires du Groupe: gestion des campagnes de recrutement des ingénieurs nucléaires, développement et gestion des programmes de formation nucléaire du Groupe
+                     </p>
+                     <p class='greyP langFr'>
+                        <br>       Parrainage et animation de programmes de formation liés aux projets industriels et à leur exécution (business developers, chefs de projet et autres disciplines concernées)
+                     </p>
+                     <p class='greyP langFr'>
+                        <br>       Déploiement de programmes de formation Groupe sur le management de projet en collaboration avec ENGIE University et l’équipe DOP PMO
+                     </p>
+                     <br>
+                     <p class='greyP langFr'>
+                        Les principales responsabilités de l’équipe DOP-Talent sont:
+                        <br><br>
+                        1. Identification des talent<br>
+                        2. Développer et fidéliser les talents<br>
+                        3. Recrutement des équipes de projet et à la fin du projet repositionnement des talents sur d’autres projets<br>
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langFr'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-3" style="margin-top:5%">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+                  <div class="col-md-2 mdgSeqFr"></div>
+               </div>
 
-          </div>
+            </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+      </section>
+      <section id="section4">
+         <div class="container">
+            <div class="col-lg-12 col-md-12 col-xs-12 head_nav_4">
+               <h1 style="padding-bottom:0px;margin-top:5%">Découvrez la formation</h1>
+               <ul class="pager">
+                  <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u" target="_blank" style="margin-top:0px;">Pré-Inscription</a></li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <div class="row" style="margin:0">
+         <footer class="col-lg-12 col-md-12 col-xs-12" style="height:100%">
+            <a href="#">The MOOC Agency
+            </a><span class ="langFr" > - 2018 </span>
+         </footer>
+      </div>
+      </div>
 
-      </header>
-      <%include file="${courses_list}" />
+      <!-- FIN FRANCAIS -->
 
-    </section>
-</main>
+      <!-- DEBUT ANGLAIS -->
+      <div id = "containerEn"class="container-fluid" style="display:none">
+         <section id="section1" class="container-fluid">
+            <div class="row">
+               <div class="col-lg-10 col-md-10 col-xs-12 head_nav">
+            
+                  <div class ="mask" >
+                     <div class="surplomber"style="background-image: url('/media/microsite/engie-ntp-mooc/assets/img/logo.png');height:180px;">
+                     </div>
+                     <div class="surplomber" style="margin-bottom:5%;width:auto;color:white">
+                        <p class ="pTIle langEn" style="color:white;">SHARPEN YOUR SKILLS IN
+                        </p>
+                        <p class ="pTIle langEn" style="color:#00AAFF;font-weight:bold">THE NUCLEAR ENVIRONMENT
+                        </p>
+                     </div>
+                     <ul class="home-buttons pager">
+                        <li class="separator">
+                           <p class ="langEn" >Do you want to take the MOOC?</p>
+                           <!--<a href="/register?course-v1:engie-ntp-mooc+1+2019+1&enrollment_action=enroll">Inscrivez-vous</a>-->
+                           <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u">Sign up</a>
+                        </li>
+                        <li>
+                           <p class ="langEn" >Already registered?</p>
+                           <a class ="langEn" href="/login">Sign in</a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="mediaQS">
+                  <p class="scroll langEn" style="width:100%">To discover the content of the training, see below</p>
+                  <a href="#section2" style="text-align:center;display:inherit;" class="smooth-scroll"><img id="srcoll_button"
+                     src="/media/microsite/engie-ntp-mooc/assets/img/white_arrow.png"></a>
+               </div>
+            </div>
+         </section>
+         <section id="section2" class="container-fluid">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12 text_section2">
+                     <div class="border_section2"></div>
+                     <h2 class="title_section_2 langEn"> <span class="title_section_2 langEn" style="text-align: left!important;">discover</span><span
+                        class="title_section_2 langEn" style="text-align: left!important;"> the training</span></h2>
+                     <h2><span class="title_section_2 langEn"></span><span class="blackP langEn"></span><span id="boder_span_section2">
+                        </span>
+                     </h2>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-6 col-md-6 col-xs-12 text-center">
+                     <iframe src="https://player.vimeo.com/video/325239222?color=ffffff&title=0&byline=0&portrait=0" width="100%" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-xs-12 mooc_degrade1" style="min-height:45vh;padding:50px;padding-top:0px;">
+                     <!--<div class="border_section2"></div>-->
+                     <p class='blackP langEn' style="font-size:24px">Do you want to understand the nuclear environment?</p>
+                     <p class="blackP langEn" style="font-size:24px">Do you want to find out about the energy and ecological challenges of nuclear power?</p>
+                     <p class="blackP langEn" style="font-size:24px">Do you want to understand on what basis regulations and public protection policies have been established?</p>
+                     <br>
+                     <p class="blackP langEn" style="font-weight:bold;font-size:28px">Then this MOOC is for you!</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langEn'>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3" class="container-fluid" >
+            <div class="col-lg-6 col-md-6 col-xs-12 mooc_title">
+               <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">What is a mooc?<span class ="langEn" > </span></h2>
+            </div>
+            <div class="picto_content" style="width:auto">
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito1.png">
+                  <h4> <span class ="langEn" >broad</span></h4>
+                  <p class ="langEn" >Courses for all</p>
+                  <p class ="langEn" >professionals</p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito2.png">
+                  <h4> <span class ="langEn" >Open </span></h4>
+                  <p class ="langEn" >Access a collection </p>
+                  <p class ="langEn" >of resources free of charge </p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito3.png">
+                  <h4> <span class ="langEn" >online </span></h4>
+                  <p class ="langEn" >Log in any time </p>
+                  <p class ="langEn" >anywhere </p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito4.png">
+                  <h4> <span class ="langEn" >course </span></h4>
+                  <p class ="langEn" >Follow an innovative training</p>
+                  <p class ="langEn" >course and acquire </p>
+                  <p class ="langEn" >knowledge </p>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">About the MOOC<span class ="langEn" > </span>
+                  </h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langEn'>
+                              The goal of the training is to raise the awareness of trainees with regard to the nuclear environment and to the aspects and requirements of Nuclear Safety. In particular, it is for trainees to:
+                        </p>
+                        </br>
+                        <p class='greyP langEn'>
+                           -	Position their work with respect to the nuclear activities of the Group;
+                        </p>
+                        <p class='greyP langEn'>
+                           -	Know and understand the nuclear environment and in particular the systems put in place for guaranteeing nuclear safety;
+                        </p>
+                        <p class='greyP langEn'>
+                           -	Understand what is expected of persons working in the nuclear sector in terms of strictness, a questioning attitude, communication and team work.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langEn'>
+                  </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+            
+         </section>
+         <section id="section3-2b" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">Who is the MOOC for?<span class ="langEn" > </span></h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langEn'>
+                              Any ENGIE employees working on or for a basic nuclear installation, and especially new hires with little experience in the nuclear sector.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langEn'></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2c" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">Format of the MOOC<span class ="langEn" > </span></h2>
+                     <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                        <p class='greyP langEn'>
+                              The MOOC is broken down into 4 modules. Each module has 4 sessions.
+                        </p>
+                        </br>
+                        <p class='greyP langEn'>
+                              A session is comprised of videos, fun activities, a quiz and documents for deepening your knowledge, as well as a discussion on the subject.
+                        </p>
+                        <p class='greyP langEn'>
+                              You can follow the modules at your own pace during the time provided for the course sessions.
+                        </p>
+                     </div>
+                     <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                        <p class='greyP langEn'></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2e" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">Evaluation <span class ="langEn" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langEn'>
+                              There is a quiz in the form of multiple choice questions to evaluate the knowledge you have acquired. A MOOC completion certificate will be issued to each student obtaining more than 75% correct answers in the quiz.
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langEn'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2f" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">Weekly commitment<span class ="langEn" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langEn'>
+                              Watching the videos, replying to the questions and taking part in the forum should not take you more than one hour per week.
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langEn'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2g" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2 langEn" style="color: #00AAFF!important;">Teaching team<span class ="langEn" > </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langEn'>
+                              The main aim of the DOP Talent department is to develop talent for nuclear activities and industrial projects:
+                     </p>
+                     <p class='greyP langEn'>
+                        <br>Knowledge, development and management of active talent in these fields, help with recruitment for nuclear and industrial projects. Reinforcement of internal mobility (inter-BU and departments) for talent in the nuclear sector and industrial project managers for all of the Group’s BUs.
+                     </p>
+                     <p class='greyP langEn'>
+                        <br>       For all of the Group’s nuclear entities: Management of nuclear engineer recruitment campaigns, development and management of the Group's nuclear training programmes
+                     </p>
+                     <p class='greyP langEn'>
+                        <br>       Sponsorship and organisation of training programmes related to industrial projects and their fulfilment (business developers, project managers and other disciplines)
+                     </p>
+                     <p class='greyP langEn'>
+                        <br>       Deployment of Group training programmes on project management in partnership with ENGIE University and the DOP PMO team
+                     </p>
+                     <br>
+                     <p class='greyP langEn'>
+                           The main responsibilities of the DOP-Talent team are:
+                        <br><br>
+                        1. Identification of talent<br>
+                        2. Development of talent and loyalty<br>
+                        3. Recruitment of project teams and, at the end of the project, reposting of talent to other projects<br>
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langEn'></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3-3" style="margin-top:5%">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+                  <div class="col-md-2 mdgSeqEn"></div>
+               </div>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+            </div>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
+      </section>
+      <section id="section4">
+         <div class="container">
+            <div class="col-lg-12 col-md-12 col-xs-12 head_nav_4">
+               <h1 style="padding-bottom:0px;margin-top:5%">Discover the training</h1>
+               <ul class="pager">
+                  <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u" target="_blank" style="margin-top:0px;">Registration</a></li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <div class="row" style="margin:0">
+         <footer class="col-lg-12 col-md-12 col-xs-12" style="height:100%">
+            <a href="#">The MOOC Agency
+            </a><span class ="langEn" > - 2018 </span>
+         </footer>
+      </div>
+      </div>
+      <!-- FIN ANGLAIS -->
+        
+      <!-- DEBUT NEERLANDAIS -->
+	    <div id = "containerNl" class="container-fluid" style="display:none">
+         <section id="section1" class="container-fluid">
+            <div class="row">
+               <div class="col-lg-10 col-md-10 col-xs-12 head_nav">
+				
+                  <div class ="mask" >
+                     <div class="surplomber"style="background-image: url('/media/microsite/engie-ntp-mooc/assets/img/logo.png');height:180px;">
+                     </div>
+                     <div class="surplomber" style="margin-bottom:5%;width:auto;color:white">
+                        <p class ="pTIle langNe" style="color:white;">PERFECT MET
+                        </p>
+                        <p class ="pTIle langNe" style="color:#00AAFF;font-weight:bold">HET NUCLEAIRE LANDSCHAP BIJ
+                        </p>
+                     </div>
+                     <ul class="home-buttons pager">
+                        <li class="separator">
+                           <p class ="langNe">Wilt u de MOOC volgen?</p>
+                           <!--<a href="/register?course-v1:engie-ntp-mooc+1+2019+1&enrollment_action=enroll">Inscrivez-vous</a>-->
+                           <a  class ="langNe" href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u">Schrijf u in</a>
+                        </li>
+                        <li>
+                           <p class ="langNe">Al ingeschreven?</p>
+                           <a  class ="langNe" href="/login">Meld u aan</a>
+                        </li>
+                      
+                     </ul>
+                  </div>
+               </div>
+               <div class="mediaQS">
+                  <p class="scroll langNe" style="width:100%">scroll naar beneden</p>
+                  <a href="#section2" style="text-align:center;display:inherit;" class="smooth-scroll"><img id="srcoll_button"
+                     src="/media/microsite/engie-ntp-mooc/assets/img/white_arrow.png"></a>
+               </div>
+            </div>
+         </section>
+         <section id="section2" class="container-fluid">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12 text_section2">
+                     <div class="border_section2"></div>
+                     <h2 class="title_section_2  langNe langNe"> <span class="title_section_2  langNe langNe" style="text-align: left!important;">ONTDEK</span><span
+                        class="title_section_2  langNe langNe" style="text-align: left!important;">DE OPLEIDING</span></h2>
+                     <h2><span class="title_section_2  langNe"></span><span class="blackP langNe"></span><span id="boder_span_section2">
+                        </span>
+                     </h2>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-6 col-md-6 col-xs-12 text-center">
+                     <iframe src="https://player.vimeo.com/video/325239222?color=ffffff&title=0&byline=0&portrait=0" width="100%" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-xs-12 mooc_degrade1" style="min-height:45vh;padding:50px;padding-top:0px;">
+                     <!--<div class="border_section2"></div>-->
+                     <p class='blackP langNe' style="font-size:24px">Wilt u inzicht krijgen in het nucleaire landschap?</p>
+                     <p class="blackP langNe" style="font-size:24px">Wilt u de energieproblematiek en de ecologische problematiek van de kernenergiesector kennen?</p>
+                     <p class="blackP langNe" style="font-size:24px">Wilt u te weten komen op welke basis de regelgeving en het beleid ter bescherming van de bevolking zijn vastgesteld?</p>
+                     <br>
+                     <p class="blackP langNe" style="font-weight:bold;font-size:28px">Dan is deze MOOC u op het lijf geschreven!</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="section3" class="container-fluid" >
+            <div class="col-lg-6 col-md-6 col-xs-12 mooc_title">
+               <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">WAT IS EEN MOOC?<span class ="langNe"> </span></h2>
+            </div>
+            <div class="picto_content" style="width:auto">
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito1.png">
+                  <h4> <span class ="langNe">Grootschalig</span></h4>
+                  <p class ="langNe">Lessen voor alle</p>
+                  <p class ="langNe">professionals</p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito2.png">
+                  <h4> <span class ="langNe">Open </span></h4>
+                  <p class ="langNe">Gratis toegang tot</p>
+                  <p class ="langNe">tal van bronnen</p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito3.png">
+                  <h4> <span class ="langNe">Online</span></h4>
+                  <p class ="langNe">Log u in wanneer</p>
+                  <p class ="langNe">en waar u maar wilt</p>
+               </div>
+               <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+                  <img src="/media/microsite/engie-ntp-mooc/assets/img/zito4.png">
+                  <h4> <span class ="langNe">Cursus</span></h4>
+                  <p class ="langNe">Leg een vernieuwend pedagogisc</p>
+                  <p class ="langNe">parcours af waarbij u</p>
+                  <p class ="langNe">kennis vergaart</p>
+               </div>
+            </div>
+         </section>
+         <section id="section3-2" class="paddle gret">
+            <div class="container">
+               <div class="row">
+        <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">OVER DE MOOC<span class ="langNe"> </span></h2>
+               
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+                        De opleiding is erop gericht cursisten bewust te maken van het nucleaire landschap en de aspecten en eisen op het gebied van nucleaire veiligheid. Met deze opleiding kunnen cursisten met name:
+
+
+                     </p>
+					 </br>
+                     <p class='greyP langNe'>
+                        -	Hun werk in perspectief plaatsen ten opzichte van de nucleaire activiteiten van de Groep
+                     </p>
+					 <p class='greyP langNe'>
+                        -	Het nucleaire landschap en in het bijzonder de systemen om nucleaire veiligheid te garanderen kennen en begrijpen
+                     </p>
+					 <p class='greyP langNe'>
+                        -	Begrijpen wat er verwacht wordt van de personen die actief zijn in de kernenergiesector op het gebied van zorgvuldigheid, een vragende houding, communicatie en teamwork
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </section>
+		 <section id="section3-2b" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">VOOR WIE IS DEZE MOOC BEDOELD?<span class ="langNe"> </span></h2>
+                
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+                       Voor elke interveniënt van ENGIE die in of voor een basiskerninstallatie werkt en in het bijzonder voor nieuwe werknemers die weinig ervaring hebben in de kernenergiesector.
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </section>
+		 <section id="section3-2c" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">INDELING VAN DE MOOC<span class ="langNe"> </span></h2>
+            
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+                      Deze MOOC bestaat uit 4 modules. Elke module bestaat uit 4 delen.
+                     </p>
+					 </br>
+                     <p class='greyP langNe'>
+                    Een deel bevat video's, ludieke activiteiten, een quiz, leerrijke documenten en een discussie om kennis over het onderwerp uit te wisselen.
+                     </p>
+					 <p class='greyP langNe'>
+                      Tijdens de tijdspanne die voor de sessie van de cursus is voorzien, legt u de modules op uw eigen tempo af.
+					  </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </section>
+	
+		 <section id="section3-2e" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">BEOORDELING<span class ="langNe"> </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+        Een quiz met meerkeuzevragen beoordeelt de verworven kennis. Elke cursist die een score van meer dan 75% op de quiz behaalt, krijgt een bewijs voor zijn deelname aan de MOOC.
+
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+		 
+		  <section id="section3-2f" class="paddle gret">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">WEKELIJKSE DUUR<span class ="langNe"> </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+   Wekelijks mag het bekijken van de video's, het beantwoorden van de vragen en het deelnemen aan het forum niet meer dan een uur in beslag nemen.
+
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+		  <section id="section3-2g" class="paddle whie">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-6 col-xs-12 mooc_title">
+                     <h2 class="title_section_2  langNe" style="color: #00AAFF!important;">PEDAGOGISCH TEAM<span class ="langNe"> </span></h2>
+                  </div>
+                  <div class="col" style="padding-left:15%;padding-right:15%;margin-top:10px;margin-bottom:10px">
+                     <p class='greyP langNe'>
+   De primaire doelstelling van de afdeling DOP Talent is de ontwikkeling van talent voor nucleaire activiteiten en industriële projecten:
+	  </p>
+					   <p class='greyP langNe'>
+<br>Kennis, ontwikkeling en beheer van talent dat in deze domeinen actief is, ondersteuning bij aanwerving voor nucleaire en industriële projecten. Versterking van de interne mobiliteit (inter-BU en functies) voor talenten van de kernenergiesector en de managers van industriële projecten voor alle BU's van de Groep.
+ </p>
+					   <p class='greyP langNe'>
+<br>       Voor alle nucleaire entiteiten van de Groep: beheer van campagnes voor de aanwerving van nucleair ingenieurs, ontwikkeling en beheer van de nucleaire opleidingsprogramma's van de Groep
+ </p>
+					   <p class='greyP langNe'>
+<br>      Sponsoren en sturen van opleidingsprogramma's met betrekking tot industriële projecten en de uitvoering ervan (businessdevelopers, projectmanagers en andere relevante disciplines)
+ </p>
+					   <p class='greyP langNe'>
+<br>       Uitrol van groepsopleidingen over projectmanagement in samenwerking met ENGIE University en het DOP PMO-team
+  </p><br>
+					   <p class='greyP langNe'>
+Dit zijn de belangrijkste verantwoordelijkheden van het DOP Talent-team:
+<br><br>
+1. Vaststellen van talent<br>
+2. Ontwikkelen en binden van talent<br>
+3. Aanwerven van projectteams en aan het einde van het project inzetten van talent op andere projecten<br>
+ 
+
+
+                     </p>
+                  </div>
+                  <div class="col" style="padding-left:15px;padding-right:15px;margin-top:30px;margin-bottom:30px">
+                     <p class='greyP langNe'> </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+		 
+         <section id="section3-3" style="margin-top:5%">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-2 col-md-offset-1 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+                  <div class="col-md-2 mdgSeqNl"></div>
+               </div>
+            
+            </div>
+  
+      </section>
+      <section id="section4">
+         <div class="container">
+            <div class="col-lg-12 col-md-12 col-xs-12 head_nav_4">
+               <h1 style="padding-bottom:0px;margin-top:5%" class='langNe'>Ontdek de opleiding</h1>
+               <ul class="pager">
+                  <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=FJ0TJCzGR0yL3c5x6h1Qz16Vx9dt7DRKiWBUf-HrzQxUNkRWVjJMNldBV1RVNFFUUFNFQlpMMEZKNS4u" target="_blank" style="margin-top:0px;" class='langNe'>•	INSCHRIJVEN</a></li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <div class="row" style="margin:0">
+         <footer class="col-lg-12 col-md-12 col-xs-12" style="height:100%">
+            <a href="#">The MOOC Agency
+            </a><span class ="langNe"> - 2018 </span>
+         </footer>
+      </div>
+      </div>
+      <!-- FIN NEERLANDAIS -->
+ <script>
+ 
+ 
+ 
+ 
+                  var mdgCOl5= $(".mdgSeq")
+                  
+                  
+                  var largoFr = ["L'industrie nucléaire chez ENGIE"," L'industrie nucléaire en France"," L'industrie nucléaire en Belgique"," Le phénomène de la radioactivité"," La radioprotection","Les applications du nucléaire"," La production d’électricité à partir de l’énergie nucléaire"," La maintenance d'une centrale nucléaire"," Le cycle du combustible"," Les déchets nucléaires"," Le démantèlement","  La sûreté nucléaire"," La sécurité nucléaire"," Plan d'urgence"," PFI - HP Tools"]	 
+                  
+                  var largoNl = ["De kernenergiesector bij ENGIE"," De kernenergiesector in Frankrijk"," De kernenergiesector in België","Het fenomeen van de radioactiviteit","Stralingsbescherming ","Toepassingen van kernenergie"," Productie van elektriciteit uit kernenergie"," Onderhoud van een kerncentrale"," Splijtstofcyclus","Kernafval"," Ontmanteling","Nucleaire veiligheid","Nucleaire beveiliging","Noodplan","PFI - HP Tools"]	
+
+                  var largoEn = ["The nuclear industry at ENGIE"," The nuclear industry in France"," The nuclear industry in Belgium"," The radioactivity phenomenon"," Radiological protection"," Applications of nuclear power"," Power generation from nuclear energy"," Maintenance of a nuclear power plant"," The fuel cycle","Nuclear waste"," Decommissioning","Nuclear safety","Nuclear security","Emergency plan","Job reliability practices (PFI) - HP Tools"]
+                  
+                  
+                  function setStyleMdg(flag){
+                  
+                  
+                  
+                  var mdgCss={"font-size": "50%"}
+                  
+                  var largo ="largo"+flag
+				  
+				  largo=window[largo]
+				  
+				  var composeClass = ".mdgSeq"+flag
+
+                  mdgCOl5= $(composeClass)
+                  
+                  for(i=0;i<mdgCOl5.length;i++)
+                  {
+				  $(mdgCOl5[i]).html("");
+				  $(mdgCOl5[i]).css(mdgCss);
+                  var pictos = "<div class='thumbnail' > <img src='/media/microsite/engie-ntp-mooc/assets/img/thumbnail/stock"+(i+1)+".png'"+"alt=''> <div class='caption'> <h4 style='height: 100px;'>"+largo[i]+"</h4>   </div></div>"
+                  $(mdgCOl5[i]).append(pictos)
+				  
+				 
+                  }
+                  
+                  
+                  
+                  
+
+                  }
+                  
+                  setStyleMdg("Fr")
+				  
+				  
+				  
+				  function showNl(){ $("#containerFr").hide();$("#containerEn").hide();$("#containerNl").show();}
+				  function showFr(){ $("#containerNl").hide();$("#containerEn").hide();$("#containerFr").show();}
+              function showEn(){ $("#containerNl").hide();$("#containerFr").hide();$("#containerEn").show();}
+				
+				  
+				  
+				  function switchLanguage(lang){
+				  
+				  if(lang=="FR"){
+				   setStyleMdg("Fr");
+				   showFr();
+				  
+				  }
+				  
+				  if(lang=="NL"){
+				   setStyleMdg("Nl")
+				   showNl();
+				  
+				  }
+				  
+				  if(lang=="EN"){
+				   setStyleMdg("En")
+				   showEn();
+				  
+				  }
+				  
+				  }
+				  
+				  
+				   $("#switchNl").click(function(){
+					   switchLanguage('NL')
+				   });
+				  
+				  
+				   $("#switchFr").click(function(){
+					   switchLanguage('FR')
+				   });
+
+               $("#switchEn").click(function(){
+					   switchLanguage('EN')
+				   });
+                  
+            </script>
+	  
+	  
+      <script src="/media/microsite/engie-ntp-mooc/assets/js/jquery.min.js"></script>
+      <script src="/media/microsite/engie-ntp-mooc/assets/bootstrap/js/bootstrap.min.js"></script>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+      <script>
+         var element = $('#video-teaser')
+         var config = {
+             height: 422,
+             width: 750
          }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+         var videoPlayer = new Vimeo.Player(element, config);
+         videoPlayer.on('play', function() {
+             console.log('Played the video');
+         });
+         $('iframe').width('750').height('422')
+      </script>
+   </body>
+</html>

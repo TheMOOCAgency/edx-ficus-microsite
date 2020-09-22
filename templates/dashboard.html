@@ -20,7 +20,6 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
-from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -32,9 +31,8 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/dashboard.css'.format(org_static)
 css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
-cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_static)
 %>
-<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
@@ -215,98 +213,6 @@ endfor
   % endfor
   </div>
 
-  <!-- TMA Ficus Redesign -->
-  <%
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-  if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-    if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-      custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
-    else:
-      custom_color = str(configuration_helpers.get_value('primary_color'))
-    endif
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-  if configuration_helpers.get_value('third_color'):
-    third_color = str(configuration_helpers.get_value('third_color'))
-  else:
-    third_color = "#fff"
-  endif
-  if configuration_helpers.get_value('dark_theme'):
-    color_font_custom = "#fff"
-  else:
-    color_font_custom = "#3c3c3c"
-  %>
-
-<style>
-  #dashboard_profile_up{
-    background-color: ${custom_color}!important;
-  }
-  #course_start{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  @keyframes anim {
-    0% {
-  background: ${color_font_custom}!important;;
-    }
-    100% {
-    background: ${color_font_custom}!important;;
-  }
-}
-  #dashboard_profile_up h3, #dashboard_profile_up h4 {
-    color : ${color_font_custom}!important;
-  }
-  .up_cell {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #list_multi_title h1 {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_title {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_action{
-    background-color: ${custom_color};
-  }
-  #title_dashboard_course h1 {
-    color : ${color_font_custom}!important;
-  }
-  #title_dashboard_course h1:hover {
-    color : ${color_font_custom}!important;
-  }
-  .course_cell h2{
-    margin-bottom: 0px!important;
-    color : ${color_font_custom}!important;
-  }
-
-  #profile_bottom_multi h3{
-     color : ${color_font_custom}!important;
-  }
-  #title_dashboard_course h1{
-     color : ${color_font_custom}!important;
-  }
-  .course_nav{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #course_nav a:hover{
-    background-color: ${custom_color} !important;
-  }
-  #course_start span, .course_nav span{
-    color : ${color_font_custom}!important;
-  }
-  #course_nav .svg path{
-    fill : ${color_font_custom}!important;
-  }
-  #course_nav .svg{
-    fill : ${color_font_custom}!important;
-  }
-
-</style>
 %if course.no_grade:
  <style>
   #dashboard_profile_bottom{
@@ -339,14 +245,14 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-
+  
 </script>
 % elif len(course_enrollments) > 1:
-<!--  <div class="dashboard_profile" id="profile_bottom_multi">
+  <div class="dashboard_profile" id="profile_bottom_multi">
     % if course_end < 2:
-      <h3>${course_end} Parcours<br>terminé</h3>
+      <h3>${course_end} cours<br>terminé</h3>
     % else:
-      <h3>${course_end} Parcours<br>terminés</h3>
+      <h3>${course_end} cours<br>terminés</h3>
     % endif
     % for n in course_name:
         <div class="course_name_profile_list">
@@ -354,7 +260,6 @@ else{
         </div>
     % endfor
   </div>
--->
 % endif
   </div>
   <div id="dashboard_course_content">
