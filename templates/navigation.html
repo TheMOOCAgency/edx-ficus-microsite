@@ -235,6 +235,7 @@ site_status_msg = get_site_status_msg(course_id)
       </ol>
     % endif
     <% languages = static.get_released_languages() %>
+    % if False:
     <ol class="user">
       <li class="primary" style="margin-top:5px">
         <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
@@ -266,6 +267,7 @@ site_status_msg = get_site_status_msg(course_id)
         </form>
       </li>
     </ol>
+    %endif
     </nav>
 </header>
 % if course:
