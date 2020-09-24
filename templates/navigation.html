@@ -57,6 +57,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
+      <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
