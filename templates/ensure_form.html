@@ -61,17 +61,17 @@ if certificate_only:
  display: none !important;
 }
 #main {
-height: 1200px;
+height: 100%;
 overflow: hidden;
 }
 % if register_only is not None:
 #main {
-height: 600px;
+height: 100%;
 overflow: hidden;
 }
 % elif certificate_only is not None:
 #main {
-height: 500px;
+height: 100%;
 overflow: hidden;
 }
 % endif
@@ -93,7 +93,7 @@ body footer.global {
 </style>
 
 <p id="SeqProgression" style="color: rgb(0,51,160);background-color:#fff;">
-  <strong>Veuillez completer le formulaire suivant pour accèder à votre attestation de réussite.</strong>
+  <strong>Veuillez compléter le formulaire suivant pour postuler à la formation FOIP.</strong>
 </p>
 
 
@@ -297,7 +297,7 @@ $.ajax({
   type:'GET',
   dataType:'json',
   success: function(data) {
-    if(data[0].passed  && data[0]['Quiz Séquence 1']>=0.695 && data[0]['Quiz Séquence 2']>=0.695 && data[0]['Quiz Séquence 3']>=0.695 && data[0]['Quiz Séquence 4']>0.5 && data[0]['Evaluation finale']>=0.695){
+    if(data[0].passed  && data[0]['Quiz Séquence 1']>=0.795 && data[0]['Quiz Séquence 2']>=0.795 && data[0]['Quiz Séquence 3']>=0.795 && data[0]['Quiz Séquence 4']>0.5 && data[0]['Evaluation finale']>=0.795){
           name=data[0]['name'];
           percent=data[0]['percent']*100;
           hash=data[0]['hash'];
@@ -354,7 +354,6 @@ $('.my_form').change(function(){
               }
 % elif certificate_only is not None:
               if(data.check_certificate_form_extra.status) {
-                console.log('je suis la');
                 localStorage.setItem("ensure_form_certificate", "True");
               }
 % endif
