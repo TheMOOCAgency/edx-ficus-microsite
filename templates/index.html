@@ -1,179 +1,568 @@
 <!DOCTYPE html>
-<html style="color:#00006b;">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html style="color: #00006b">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>agea</title>
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chango">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chau+Philomene+One">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=GFS+Neohellenic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hind+Vadodara">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lalezar">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Palanquin+Dark">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/4-Columns-Info-Icons.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/user.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/Footer-Basic.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/html5-video.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/Logo.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/Navigation-with-Button1.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/thumbnails1.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/Video-Responsive-1.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/Video-Responsive.css">
-    <link rel="stylesheet" href="/media/microsite/mooc-agea/hp/assets/css/custom-home.css">
-</head>
-<style>
-.filtre{background-color:rgba(0,0,0,0.2);top:0;left:0;z-index:-1;position:fixed;width:100vw;height:100vh;}
-.bg_class{z-index:-2 !important;}
-</style>
-<body style="color:#00006b;">
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/bootstrap/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Chango"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Chau+Philomene+One"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=GFS+Neohellenic"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Hind+Vadodara"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lalezar"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Palanquin+Dark"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/4-Columns-Info-Icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/user.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/Footer-Basic.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/html5-video.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/Logo.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/Navigation-with-Button1.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/thumbnails1.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/Video-Responsive-1.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/Video-Responsive.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/media/microsite/mooc-agea/hp/assets/css/custom-home.css"
+    />
+  </head>
+  <style>
+    .filtre {
+      background-color: rgba(0, 0, 0, 0.2);
+      top: 0;
+      left: 0;
+      z-index: -1;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+    }
+    .bg_class {
+      z-index: -2 !important;
+    }
+  </style>
+  <body style="color: #00006b">
     <div class="filtre"></div>
     <div class="bg_class"></div>
     <div class="jumbotron hero">
-        <div style="position:absolute;margin-top:5%;right: 2%;text-align: center;width:15%;">
-            <img id="logo2" src="/media/microsite/mooc-agea/hp/assets/img/logo_DDA.png" alt="dda" style="width:100%">
-            <span style="display:block;">Cette formation vous permettra d’obtenir une attestation de suivi de 4h de formation DDA compatible</span>
+      <div
+        style="
+          position: absolute;
+          margin-top: 5%;
+          right: 2%;
+          text-align: center;
+          width: 15%;
+        "
+      >
+        <img
+          id="logo2"
+          src="/media/microsite/mooc-agea/hp/assets/img/logo_DDA.png"
+          alt="dda"
+          style="width: 100%"
+        />
+        <span style="display: block"
+          >Cette formation vous permettra d’obtenir une attestation de suivi de
+          4h de formation DDA compatible</span
+        >
+      </div>
+      <nav class="navbar navbar-default navigation-clean-button">
+        <div class="container" id="nav_custom">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/"
+              ><img
+                src="/media/microsite/mooc-agea/hp/assets/img/agea-formation.png"
+                style="height: 49px; margin: -5px"
+            /></a>
+            <button
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navcol-1"
+            >
+              <span class="sr-only">Toggle navigation</span
+              ><span class="icon-bar"></span><span class="icon-bar"></span
+              ><span class="icon-bar"></span>
+            </button>
+          </div>
+          <div
+            class="collapse navbar-collapse"
+            id="navcol-1"
+            style="margin-top: 8px"
+          >
+            <ul class="nav navbar-nav">
+              <li role="presentation">
+                <a href="#" style="color: rgb(252, 252, 252)"> </a>
+              </li>
+              <li class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                  style="color: rgb(243, 243, 244)"
+                >
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation"><a href="#">First Item</a></li>
+                  <li role="presentation"><a href="#">Second Item</a></li>
+                  <li role="presentation"><a href="#">Third Item</a></li>
+                </ul>
+              </li>
+            </ul>
+            <p class="navbar-text navbar-right actions">
+              <a
+                class="navbar-link login"
+                href="/login?course_id=course-v1:mooc-agea+COURS3-3+2020_T2&enrollment_action=enroll"
+                style="color: rgb(254, 254, 254); font-size: 19px"
+                >Connexion
+              </a>
+              <a
+                class="btn btn-default action-button"
+                role="button"
+                href="/register?course_id=course-v1:mooc-agea+COURS3-3+2020_T2/&enrollment_action=enroll"
+                >inscription
+              </a>
+            </p>
+          </div>
         </div>
-        <nav class="navbar navbar-default navigation-clean-button">
-            <div class="container" id="nav_custom">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><img src="/media/microsite/mooc-agea/hp/assets/img/agea-formation.png" style="height:49px;margin:-5px;"></a>
-                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                </div>
-                <div class="collapse navbar-collapse" id="navcol-1" style="margin-top:8px;">
-                    <ul class="nav navbar-nav">
-                        <li role="presentation">
-                            <a href="#" style="color:rgb(252,252,252);"> </a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" style="color:rgb(243,243,244);"> </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a href="#">First Item</a></li>
-                                <li role="presentation"><a href="#">Second Item</a></li>
-                                <li role="presentation"><a href="#">Third Item</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p class="navbar-text navbar-right actions"><a class="navbar-link login" href="/login?course_id=course-v1:mooc-agea+COURS3-2+2020_T1&enrollment_action=enroll" style="color:rgb(254,254,254);font-size:19px;">Connexion </a> <a class="btn btn-default action-button" role="button" href="/register?course_id=course-v1:mooc-agea+COURS3-2+2020_T1&enrollment_action=enroll">inscription </a></p>
-                </div>
-            </div>
-        </nav>
-        <div class="col-md-5 center_s1">
-            <div class="inline_s1">
-                <h1>Le client au cœur de l’agence</h1>
-                <!--<p>Ouverture le 15 janvier 2018 </p>-->
-                <!--<h2 style="color: white; font-weight:bold">Boostez votre business grâce à une expérience client réussie</h2>-->
-                <p>Le MOOC est disponible gratuitement jusqu’au 30 juin 2020 pour les agents et leurs collaborateurs</p>
-                <div style="margin:0 auto;text-align:center;height:69px;margin-top:15px;"><a class="btn btn-primary btn-lg" role="button" href="/register?course_id=course-v1:mooc-agea+COURS3-2+2020_T1&enrollment_action=enroll" style="/*margin-left:17px;*//*margin-right:5px;*/margin-top:10px;background-color:rgba(0,0,0,0.5);font-size:17px;/*text-align:center;*//*margin:0 auto;*/margin:10px;/*border-color:black;*/border:0px solid;width:165px;padding:10px 10px;border:1px solid white;font-family:'Carrois Gothic', sans-serif;height:35px;color:#9EBF43;">INSCRIPTION</a></div>
-            </div>
+      </nav>
+      <div class="col-md-5 center_s1">
+        <div class="inline_s1">
+          <h1>Le client au cœur de l’agence</h1>
+          <!--<p>Ouverture le 15 janvier 2018 </p>-->
+          <!--<h2 style="color: white; font-weight:bold">Boostez votre business grâce à une expérience client réussie</h2>-->
+          <p>
+            La troisième session du MOOC est disponible gratuitement du 30
+            octobre au 31 décembre 2020 pour les agents et leurs collaborateurs
+          </p>
+          <div
+            style="
+              margin: 0 auto;
+              text-align: center;
+              height: 69px;
+              margin-top: 15px;
+            "
+          >
+            <a
+              class="btn btn-primary btn-lg"
+              role="button"
+              href="/register?course_id=/course-v1:mooc-agea+COURS3-3+2020_T2/&enrollment_action=enroll"
+              style="
+                /*margin-left:17px;*/ /*margin-right:5px;*/
+                margin-top: 10px;
+                background-color: rgba(0, 0, 0, 0.5);
+                font-size: 17px; /*text-align:center;*/ /*margin:0 auto;*/
+                margin: 10px; /*border-color:black;*/
+                border: 0px solid;
+                width: 165px;
+                padding: 10px 10px;
+                border: 1px solid white;
+                font-family: 'Carrois Gothic', sans-serif;
+                height: 35px;
+                color: #9ebf43;
+              "
+              >INSCRIPTION</a
+            >
+          </div>
         </div>
+      </div>
     </div>
-    <section class="testimonials" style="background-color:#ffffff;padding:20px;margin:0px;color:#164052;font-size:19px;">
-        <h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-weight:bold;color:#1d1f1f;">Découvrez en quatre séquences comment perfectionner l’expérience de vos clients et booster la satisfaction.&nbsp; </h2>
-        <!--<h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;/*text-transform:uppercase;*/font-weight:bold;color:#616669;font-size:19px;">Armez-vous pour partir à la conquête de ce nouveau marché ! </h2>-->
+    <section
+      class="testimonials"
+      style="
+        background-color: #ffffff;
+        padding: 20px;
+        margin: 0px;
+        color: #164052;
+        font-size: 19px;
+      "
+    >
+      <h2
+        class="text-center"
+        style="
+          font-family: 'Hind Vadodara', sans-serif;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #1d1f1f;
+        "
+      >
+        Découvrez en quatre séquences comment perfectionner l’expérience de vos
+        clients et booster la satisfaction.&nbsp;
+      </h2>
+      <!--<h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;/*text-transform:uppercase;*/font-weight:bold;color:#616669;font-size:19px;">Armez-vous pour partir à la conquête de ce nouveau marché ! </h2>-->
     </section>
-    <div style="background-color:#fff;">
-        <div class="container">
-            <div class="row row-eq-height">
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail">
-                        <h3> <span>Séquence 1 : </span><span>Définir sa stratégie agence : bonnes pratiques et outils adaptés</span></h3>
-                        <p>Analyser mon agence</p>
-                        <p>Comment travailler mon portefeuille clients ?</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail">
-                        <h3> <span>Séquence 2 : </span><span>Être efficace dès l’entrée en relation avec son client / prospect</span></h3>
-                        <p>Le Rendez-vous client/prospect : la présentation&nbsp; </p>
-                        <p>Intérêt et mode opératoire de la découverte client et du suivi</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail">
-                        <h3> <span>Séquence 3 : </span><span>Accentuer l’efficacité de ses contacts commerciaux</span></h3>
-                        <p>Agence omnicanale : comment transformer le flux en opportunités ?</p>
-                        <p>Comment rendre le client plus autonome ?</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail">
-                        <h3> <span>Séquence 4 : </span><span>Entretenir et enrichir son portefeuille clients</span></h3>
-                        <p>Fidéliser grâce à des actions ciblées</p>
-                        <p>Comment se faire recommander par ses clients ?</p>
-                    </div>
-                </div>
+    <div style="background-color: #fff">
+      <div class="container">
+        <div class="row row-eq-height">
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <h3>
+                <span>Séquence 1 : </span
+                ><span
+                  >Définir sa stratégie agence : bonnes pratiques et outils
+                  adaptés</span
+                >
+              </h3>
+              <p>Analyser mon agence</p>
+              <p>Comment travailler mon portefeuille clients ?</p>
             </div>
-        </div>
-    </div>
-    <div class="video-container" style="height:240px;width:100%;text-align:center;display:block;margin:0 auto;color:#004368;background-color:#ffffff;">
-        <iframe allowfullscreen="" frameborder="0" src="https://player.vimeo.com/external/360526915.hd.mp4?s=246ada4bcd4c113d517cb52859465e116e3cc309&profile_id=174" style="height:86%;width:55%;margin:0 auto;text-align:center;display:block;left:23%;"></iframe>
-    </div>
-    <section class="testimonials" style="margin:0;padding:50px 0;background-color:#fff;">
-        <h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-weight:bold;color:#9EBF43;font-size:38px;">Et au fait… qu’est-ce qu’un MOOC ? </h2>
-        <h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;/*text-transform:uppercase;*/font-weight:bold;color:#9EBF43;font-size:15px;">Un vrai parcours pédagogique, pour vous permettre d’acquérir des compétences et d'obtenir une attestation de formation DDA compatible.</h2></section>
-    <div style="background-color:#fff;padding-bottom:25px;">
-        <div class="container">
-            <div class="row row-eq-height">
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail"><img src="/media/microsite/mooc-agea/hp/assets/img/picto-1.png" style="width:110px;height:110px;">
-                        <div class="caption" style="text-align:center;">
-                            <h3 style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-size:18px;font-weight:bold;color:#55616e;">Massive </h3>
-                            <p style="font-family:'Hind Vadodara', sans-serif;color:#55616e;font-weight:bold;">un contenu disponible et autour duquel vous pouvez échanger, directement sur cette plateforme.&nbsp; </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail"><img src="/media/microsite/mooc-agea/hp/assets/img/picto-2.png" style="width:110px;height:110px;">
-                        <div class="caption" style="text-align:center;">
-                            <h3 style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-size:18px;font-weight:bold;color:#55616e;">OPEN </h3>
-                            <p style="font-family:'Hind Vadodara', sans-serif;color:#55616e;font-weight:bold;">Un accès libre à toutes les ressources. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail"><img src="/media/microsite/mooc-agea/hp/assets/img/picto-3.png" style="width:110px;height:110px;">
-                        <div class="caption" style="text-align:center;">
-                            <h3 style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-size:18px;font-weight:bold;color:#55616e;">ONLINE </h3>
-                            <p style="font-family:'Hind Vadodara', sans-serif;color:#55616e;font-weight:bold;">Disponible en ligne, tout le temps, où que vous soyez. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="thumbnail"><img src="/media/microsite/mooc-agea/hp/assets/img/picto-4.png" style="width:110px;height:110px;">
-                        <div class="caption" style="text-align:center;">
-                            <h3 style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-size:18px;font-weight:bold;color:#55616e;">COURSE </h3>
-                            <p style="font-family:'Hind Vadodara', sans-serif;color:#55616e;font-weight:bold;">Un vrai parcours pédagogique, pour vous permettre d’acquérir des compétences et d'obtenir une certification ! </p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <h3>
+                <span>Séquence 2 : </span
+                ><span
+                  >Être efficace dès l’entrée en relation avec son client /
+                  prospect</span
+                >
+              </h3>
+              <p>Le Rendez-vous client/prospect : la présentation&nbsp;</p>
+              <p>
+                Intérêt et mode opératoire de la découverte client et du suivi
+              </p>
             </div>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <h3>
+                <span>Séquence 3 : </span
+                ><span>Accentuer l’efficacité de ses contacts commerciaux</span>
+              </h3>
+              <p>
+                Agence omnicanale : comment transformer le flux en opportunités
+                ?
+              </p>
+              <p>Comment rendre le client plus autonome ?</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <h3>
+                <span>Séquence 4 : </span
+                ><span>Entretenir et enrichir son portefeuille clients</span>
+              </h3>
+              <p>Fidéliser grâce à des actions ciblées</p>
+              <p>Comment se faire recommander par ses clients ?</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <section class="testimonials" style="background-color:transparent;padding:20px;text-align:center;color:#9EBF43;">
-        <h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;font-weight:bold;color:#f2f5f8;">découvrir le mooc </h2>
-        <h2 class="text-center" style="font-family:'Hind Vadodara', sans-serif;text-transform:uppercase;/*font-weight:bold;*/color:#f2f5f8;font-size:22px;">Le MOOC est disponible gratuitement jusqu’au 30 juin 2020 pour les agents et leurs collaborateurs</h2><a class="btn btn-primary btn-lg" role="button" href="/register?course_id=course-v1:mooc-agea+COURS3-2+2020_T1&enrollment_action=enroll" style="/*margin-left:17px;*//*margin-right:5px;*/margin-top:10px;background-color:rgba(0,0,0,0.04);font-size:21px;/*text-align:center;*//*margin:0 auto;*/margin:10px;/*border-color:black;*/border:0px solid;width:260px;padding:10px 10px;border:1px solid white;font-family:'Carrois Gothic', sans-serif;height:35px;color:#f2f5f8;">INSCRIPTION</a></section>
     <div
-    class="footer-basic" style="background-color:white;padding:0;">
-        <footer>
-            <div class="container">
-                <div class="row _partenaires">
-                    <div class="partenaire">
-                        <a href="https://www.fifpl.fr/"><img src="/media/microsite/mooc-agea/hp/assets/img/fifpl.png" class="_img"></a>
-                    </div>
-                    <div class="partenaire">
-                        <a href="https://www.opcabaia.fr/home.do"><img src="/media/microsite/mooc-agea/hp/assets/img/opcabaia.png" class="_img"></a>
-                    </div>
-                    <div class="partenaire">
-                        <a href="http://www.agea.fr/"><img src="/media/microsite/mooc-agea/hp/assets/img/agea_formation_logo.png" class="_img"></a>
-                    </div>
-                </div>
+      class="video-container"
+      style="
+        height: 240px;
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        color: #004368;
+        background-color: #ffffff;
+      "
+    >
+      <iframe
+        allowfullscreen=""
+        frameborder="0"
+        src="https://player.vimeo.com/external/360526915.hd.mp4?s=246ada4bcd4c113d517cb52859465e116e3cc309&profile_id=174"
+        style="
+          height: 86%;
+          width: 55%;
+          margin: 0 auto;
+          text-align: center;
+          display: block;
+          left: 23%;
+        "
+      ></iframe>
+    </div>
+    <section
+      class="testimonials"
+      style="margin: 0; padding: 50px 0; background-color: #fff"
+    >
+      <h2
+        class="text-center"
+        style="
+          font-family: 'Hind Vadodara', sans-serif;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #9ebf43;
+          font-size: 38px;
+        "
+      >
+        Et au fait… qu’est-ce qu’un MOOC ?
+      </h2>
+      <h2
+        class="text-center"
+        style="
+          font-family: 'Hind Vadodara', sans-serif; /*text-transform:uppercase;*/
+          font-weight: bold;
+          color: #9ebf43;
+          font-size: 15px;
+        "
+      >
+        Un vrai parcours pédagogique, pour vous permettre d’acquérir des
+        compétences et d'obtenir une attestation de formation DDA compatible.
+      </h2>
+    </section>
+    <div style="background-color: #fff; padding-bottom: 25px">
+      <div class="container">
+        <div class="row row-eq-height">
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <img
+                src="/media/microsite/mooc-agea/hp/assets/img/picto-1.png"
+                style="width: 110px; height: 110px"
+              />
+              <div class="caption" style="text-align: center">
+                <h3
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #55616e;
+                  "
+                >
+                  Massive
+                </h3>
+                <p
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    color: #55616e;
+                    font-weight: bold;
+                  "
+                >
+                  un contenu disponible et autour duquel vous pouvez échanger,
+                  directement sur cette plateforme.&nbsp;
+                </p>
+              </div>
             </div>
-        </footer>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <img
+                src="/media/microsite/mooc-agea/hp/assets/img/picto-2.png"
+                style="width: 110px; height: 110px"
+              />
+              <div class="caption" style="text-align: center">
+                <h3
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #55616e;
+                  "
+                >
+                  OPEN
+                </h3>
+                <p
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    color: #55616e;
+                    font-weight: bold;
+                  "
+                >
+                  Un accès libre à toutes les ressources.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <img
+                src="/media/microsite/mooc-agea/hp/assets/img/picto-3.png"
+                style="width: 110px; height: 110px"
+              />
+              <div class="caption" style="text-align: center">
+                <h3
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #55616e;
+                  "
+                >
+                  ONLINE
+                </h3>
+                <p
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    color: #55616e;
+                    font-weight: bold;
+                  "
+                >
+                  Disponible en ligne, tout le temps, où que vous soyez.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="thumbnail">
+              <img
+                src="/media/microsite/mooc-agea/hp/assets/img/picto-4.png"
+                style="width: 110px; height: 110px"
+              />
+              <div class="caption" style="text-align: center">
+                <h3
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #55616e;
+                  "
+                >
+                  COURSE
+                </h3>
+                <p
+                  style="
+                    font-family: 'Hind Vadodara', sans-serif;
+                    color: #55616e;
+                    font-weight: bold;
+                  "
+                >
+                  Un vrai parcours pédagogique, pour vous permettre d’acquérir
+                  des compétences et d'obtenir une certification !
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <script src="/media/microsite/mooc-agea/hp/assets/js/jquery.min.js"></script>
-        <script src="/media/microsite/mooc-agea/hp/assets/bootstrap/js/bootstrap.min.js"></script>
-</body>
+      </div>
+    </div>
+    <section
+      class="testimonials"
+      style="
+        background-color: transparent;
+        padding: 20px;
+        text-align: center;
+        color: #9ebf43;
+      "
+    >
+      <h2
+        class="text-center"
+        style="
+          font-family: 'Hind Vadodara', sans-serif;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #f2f5f8;
+        "
+      >
+        découvrir le mooc
+      </h2>
+      <h2
+        class="text-center"
+        style="
+          font-family: 'Hind Vadodara', sans-serif;
+          text-transform: uppercase; /*font-weight:bold;*/
+          color: #f2f5f8;
+          font-size: 22px;
+        "
+      >
+        La troisième session du MOOC est disponible gratuitement du 30 octobre
+        au 31 décembre 2020 pour les agents et leurs collaborateurs
+      </h2>
+      <a
+        class="btn btn-primary btn-lg"
+        role="button"
+        href="/register?course_id=/course-v1:mooc-agea+COURS3-3+2020_T2/&enrollment_action=enroll"
+        style="
+          /*margin-left:17px;*/ /*margin-right:5px;*/
+          margin-top: 10px;
+          background-color: rgba(0, 0, 0, 0.04);
+          font-size: 21px; /*text-align:center;*/ /*margin:0 auto;*/
+          margin: 10px; /*border-color:black;*/
+          border: 0px solid;
+          width: 260px;
+          padding: 10px 10px;
+          border: 1px solid white;
+          font-family: 'Carrois Gothic', sans-serif;
+          height: 35px;
+          color: #f2f5f8;
+        "
+        >INSCRIPTION</a
+      >
+    </section>
+    <div class="footer-basic" style="background-color: white; padding: 0">
+      <footer>
+        <div class="container">
+          <div class="row _partenaires">
+            <div class="partenaire">
+              <a href="https://www.fifpl.fr/"
+                ><img
+                  src="/media/microsite/mooc-agea/hp/assets/img/fifpl.png"
+                  class="_img"
+              /></a>
+            </div>
+            <div class="partenaire">
+              <a href="https://www.opcabaia.fr/home.do"
+                ><img
+                  src="/media/microsite/mooc-agea/hp/assets/img/opcabaia.png"
+                  class="_img"
+              /></a>
+            </div>
+            <div class="partenaire">
+              <a href="http://www.agea.fr/"
+                ><img
+                  src="/media/microsite/mooc-agea/hp/assets/img/agea_formation_logo.png"
+                  class="_img"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="/media/microsite/mooc-agea/hp/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/mooc-agea/hp/assets/bootstrap/js/bootstrap.min.js"></script>
+  </body>
 </html>
