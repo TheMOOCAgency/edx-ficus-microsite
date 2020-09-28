@@ -115,12 +115,12 @@ site_status_msg = get_site_status_msg(course_id)
     display: none;
   }
   #lang-content {
-    width: 60px;
+    width: auto;
     height: 24px;
   }
-  
+
   .noDecimal{list-style: none}
-  
+
   .ilEnd{
   float: inline-end;
   }
@@ -260,10 +260,12 @@ site_status_msg = get_site_status_msg(course_id)
               <!--LANGUAGE FLAGS-->
               <div id="lang-content">
                 <img src="/media/microsite/nature-for-city-life/img/us.png" id="us" style="width: 23px;">
-                <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/es.png" id="es" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/de.png" id="de" style="width: 23px;">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="4" >
                   % for language in languages:
-                   % if language[0] =="en" or language[0] =="fr":
+                   % if language[0] =="en" or language[0] =="fr" or language[0] =="es-419" or language[0] =="de-de":
                     % if language[0] == LANGUAGE_CODE:
                       <option value="${language[0]}" selected="selected">${language[0]}</option>
                     % else:
@@ -299,9 +301,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 
 <script>
   //LANGUAGE FLAGS
-  
+
   var setLanguage = true
-  
+
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -318,39 +320,33 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 };
 
 function getLangUrl(){
-if(setLanguage = true){
-var lang = getUrlParameter('lang');
+  if(setLanguage = true){
+    var lang = getUrlParameter('lang');
+    if(lang=="en" && ($('#settings-language-value > option[value="en"]').attr('selected')) !='selected'){
+      $( "#us" ).trigger( "click" );
+    }
+    if(lang=="es-419" && ($('#settings-language-value > option[value="es-419"]').attr('selected')) !='selected'){
+      $( "#es" ).trigger( "click" );
+    }
 
-if(lang=="en" && ($('#settings-language-value > option[value="en"]').attr('selected')) !='selected'){
-$( "#us" ).trigger( "click" );
-}
+    if(lang=="de-de" && ($('#settings-language-value > option[value="de-de"]').attr('selected')) !='selected'){
+      $( "#de" ).trigger( "click" );
+    }
 
-if(lang=="fr" && ($('#settings-language-value > option[value="fr"]').attr('selected')) !='selected'){
-$( "#fr" ).trigger( "click" );
-}
-
-}
-}
-  $('#us').on('click', function() {
-    $('#settings-language-value > option[value="en"]').attr('selected','selected');
-    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-  }
-  );
-  $('#fr').on('click', function() {
-    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+    if(lang=="fr" && ($('#settings-language-value > option[value="fr"]').attr('selected')) !='selected'){
+      $( "#fr" ).trigger( "click" );
+    }
 
   }
+};
 
-  );
-  
 
 
 $( document ).ready(function() {
   getLangUrl();
   setLanguage = false
   if ($('#settings-language-value').val() == "fr") {
-    var dirtyTranslate = setInterval(function(){ 
+    var dirtyTranslate = setInterval(function(){
       $('.forum-nav-filter-main-control > option[value = "unread"]').text('Non lus')
       $('.forum-nav-filter-main-control > option[value = "unanswered"]').text('Non répondus')
       if ($('.forum-nav-filter-main-control > option[value = "unread"]').text() === 'Non lus') {
@@ -407,7 +403,31 @@ $( document ).ready(function() {
       }
     }
   }
-}); 
+  $('#us').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    });
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+  });
+  $('#es').on('click', function() {
+    $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+  });
+  $('#de').on('click', function() {
+    $('#settings-language-value > option[value="de-de"]').attr('selected','selected');
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  })
+});
 </script>
 
 <!-- superglobale js username and course_enrollment -->
