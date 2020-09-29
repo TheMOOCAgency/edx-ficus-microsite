@@ -371,8 +371,93 @@ $(".inner-wrapper section h2").click(function() {
   }
 });
 </script>
+<script>
+
+$(".enroll-button").on("click", function() {
+  $(".popup-overlay, .popup-content").addClass("active");
+  $(".closepopup").on("click", function() {
+      console.log("fsdf sdf klsdjh sdifhsdkjf sdkjgfj ")
+    $(".popup-overlay, .popup-content").removeClass("active");
+  });
+});
+
+
+</script>
 <style>
 .btn-login {
   color: #fff !important;
+}
+</style>
+<div class="popup-overlay">
+  <div class="popup-content">
+    <p> Les formations proposées sur cette plateforme sont réservées aux salariés d’entreprises ferroviaires.
+    <br>Vous êtes salarié d’une entreprise ferroviaire et disposez déjà d’un compte sur la plateforme e-ferro ? Cliquez sur le bouton connexion pour vous accéder à votre compte.
+    <br>Vous pourrez alors réinitialiser votre mot de passe si nécessaire.
+    <br>Si vous n’êtes pas inscrit, merci de contacter votre employeur ou adressez-nous un mail à l’adresse <a href="mailto:e-ferro@ciffco.com">e-ferro@ciffco.com</a>
+    </p>
+    <button class="closepopup">Fermer</button> </div>
+</div>
+<style>
+.popup-overlay {
+  visibility: hidden;
+  position: absolute;
+  background: #ffffff;
+  border: 3px solid #666666;
+  width: 50%;
+  height: auto;
+  left: 25%;
+  top: 10%;
+  padding: 50px 50px 10px 50px;
+}
+
+.popup-overlay.active {
+  visibility: visible;
+  text-align: center;
+  z-index : 10000;
+}
+.popup-content {
+
+  visibility: hidden;
+}
+.popup-content.active {
+  visibility: visible;
+}
+.popup-overlay button {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 30px;
+  margin: .20rem;
+  font-size: 1rem;
+  color: #666666;
+  margin-top: 40px;
+  background: none;
+  border: 1px solid rgba(8,80,164,1)!important;
+  text-shadow: none;
+  color : rgba(8,80,164,1)!important
+}
+.popup-overlay button:hover {
+  background: none!important;
+  border: 1px solid rgba(8,80,164,1)!important
+  text-shadow: none!important;
+  color : rgba(8,80,164,1)!important
+}
+.popup-overlay button:active {
+  background: none!important;
+  border: 1px solid black!important;
+  text-shadow: none!important;
+
+}
+@media screen and (max-width: 800px) {
+  .container, section.outside-app, .view-profile .profile-self .wrapper-profile-field-account-privacy .u-field-account_privacy, .view-profile .wrapper-profile-sections, .view-profile .badge-set-display{
+    min-width: initial!important;
+  }
+  .course-info .course-sidebar {
+    float: none;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .popup-overlay {
+    left : 15%;
+  }
 }
 </style>
