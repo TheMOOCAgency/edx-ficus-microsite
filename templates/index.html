@@ -6,7 +6,6 @@ from courseware.courses import get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 from openedx.core.lib.courses import course_image_url
-from tma_apps.home_course_about.home_about import course_about_display
 %>
 
 
@@ -14,458 +13,101 @@ from tma_apps.home_course_about.home_about import course_about_display
 <%inherit file="main.html" />
 
 <script>
-  $('.nav-global-04').html('MOOC QUALITÉ DES ALIMENTS');
   $('title').html('Qualité des aliments  | actia');
 </script>
 
-  <%
-  course_id="course-v1:actia+qualitedesaliments+2020"
-  data_mooc=course_about_display(user, course_id)
-
-  course=data_mooc.get('course')
-  course_details=data_mooc.get('course_details')
-  staff_access=data_mooc.get('staff_access')
-  studio_url=data_mooc.get('studio_url')
-  registered=data_mooc.get('registered')
-  course_target=data_mooc.get('course_target')
-  is_cosmetic_price_enabled=data_mooc.get('is_cosmetic_price_enabled')
-  course_price=data_mooc.get('course_price')
-  in_cart=data_mooc.get('in_cart')
-  ecommerce_checkout=data_mooc.get('ecommerce_checkout')
-  ecommerce_checkout_link=data_mooc.get('ecommerce_checkout_link')
-  ecommerce_bulk_checkout_link=data_mooc.get('ecommerce_bulk_checkout_link')
-  professional_mode=data_mooc.get('professional_mode')
-  reg_then_add_to_cart_link=data_mooc.get('reg_then_add_to_cart_link')
-  show_courseware_link=data_mooc.get('show_courseware_link')
-  is_course_full=data_mooc.get('is_course_full')
-  can_enroll=data_mooc.get('can_enroll')
-  invitation_only=data_mooc.get('invitation_only')
-  active_reg_button=data_mooc.get('active_reg_button')
-  is_shib_course=data_mooc.get('is_shib_course')
-  disable_courseware_header=data_mooc.get('disable_courseware_header')
-  can_add_course_to_cart=data_mooc.get('can_add_course_to_cart')
-  cart_link=data_mooc.get('cart_link')
-  pre_requisite_courses=data_mooc.get('pre_requisite_courses')
-  course_image_urls=data_mooc.get('course_image_urls')
-  %>
-
-  <style>
-    section.course-info{
-      background-image:url('/media/microsite/actia/auto/images/bg_img.jpg')!important;
-      background-size: cover;
-       background-attachment: fixed;
-    }
-    #date-start{
-      margin-top: 18px;
-    }
-  </style>
-
-  ## OG (Open Graph) title and description added below to give social media info to display
-  ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
-  <meta property="og:title" content="${course.display_name_with_default_escaped}" />
-  <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
-
-  ## CourseTalk widget js script
-  % if show_coursetalk_widget:
-      <script src="//d3q6qq2zt8nhwv.cloudfront.net/s/js/widgets/coursetalk-read-reviews.js"></script>
-  % endif
-  <script type="text/javascript">
-  (function() {
-    $(".register").click(function(event) {
-      $("#class_enroll_form").submit();
-      event.preventDefault();
-    });
-
-    % if can_add_course_to_cart:
-      add_course_complete_handler = function(jqXHR, textStatus) {
-        if (jqXHR.status == 200) {
-          location.href = "${cart_link}";
-        }
-        if (jqXHR.status == 400) {
-          $("#register_error")
-            .html(jqXHR.responseText ? jqXHR.responseText : "${_("An error occurred. Please try again later.")}")
-            .css("display", "block");
-        }
-        else if (jqXHR.status == 403) {
-            location.href = "${reg_then_add_to_cart_link}";
-        }
-      };
-
-      $("#add_to_cart_post").click(function(event){
-        $.ajax({
-          url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}",
-          type: "POST",
-          /* Rant: HAD TO USE COMPLETE B/C PROMISE.DONE FOR SOME REASON DOES NOT WORK ON THIS PAGE. */
-          complete: add_course_complete_handler
-        })
-        event.preventDefault();
-      });
-    % endif
-
-    ## making the conditional around this entire JS block for sanity
-    %if settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-      <%
-        perms_error = _('The currently logged-in user account does not have permission to enroll in this course. '
-                        'You may need to {start_logout_tag}log out{end_tag} then try the enroll button again. '
-                        'Please visit the {start_help_tag}help page{end_tag} for a possible solution.').format(
-                          start_help_tag="<a href='{url}'>".format(url=marketing_link('FAQ')), end_tag='</a>',
-                          start_logout_tag="<a href='{url}'>".format(url=reverse('logout'))
-                          )
-      %>
-    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
-      if(xhr.status == 200) {
-        location.href = "${reverse('dashboard')}";
-      } else if (xhr.status == 403) {
-        location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id | u}&enrollment_action=enroll";
-      } else if (xhr.status == 400) { //This means the user did not have permission
-        $('#register_error').html("${perms_error}").css("display", "block");
-      } else {
-        $('#register_error').html(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
-        ).css("display", "block");
-      }
-    });
-
-    %else:
-
-    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
-      if(xhr.status == 200) {
-        if (xhr.responseText == "") {
-          location.href = "${reverse('dashboard')}";
-        }
-        else {
-          location.href = xhr.responseText;
-        }
-      } else if (xhr.status == 403) {
-          location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
-      } else {
-        $('#register_error').html(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
-        ).css("display", "block");
-      }
-    });
-
-    %endif
-
-  })(this)
-  </script>
-
-  <script src="${static.url('js/course_info.js')}"></script>
-
-
-
-<%
-org_static = static.get_value('domain_prefix')
-css = org_static+'/css/course_about.css'
-%>
-
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-
+<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-actia/css/lightslider.css" />
+<script src="/media/microsite/mooc-actia/js/lightslider.js"></script>
 <section class="course-info">
   <header class="course-profile">
+    <ul id="lightSlider">
+      <li>
+          <div id="galleria-item-1" style="height : 100vh;" > </div>
+        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/1.jpg" /> -->
+      </li>
+      <li>
+          <div id="galleria-item-2" style="height : 100vh;"> </div>
+        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/2.jpg" /> -->
+      </li>
+      <li>
+          <div id="galleria-item-3" style="height : 100vh;"> </div>
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/3.jpg" /> -->
+      </li>
+      <li>
+          <div id="galleria-item-4" style="height : 100vh;"> </div>
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/4.jpg" /> -->
+      </li>
+      <li>
+          <div id="galleria-item-5" style="height : 100vh;"> </div>
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/5.jpg" /> -->
+      </li>
+      <li>
+          <div id="galleria-item-6" style="height : 100vh;"> </div>
+          <!--<img style="width : 100%" src="/media/microsite/mooc-actia/img/6.jpg" />-->
+      </li>
+    </ul>
     <div class="intro-inner-wrapper">
-      <div class="table">
-      <section class="intro">
-        <div class="heading-group">
-          <h1>
-            ${course.display_name_with_default_escaped}
-            <button type="button">${course.display_org_with_default | h}</button>
-          </h1>
-        </div>
-
-        <div class="main-cta">
-        %if user.is_authenticated() and registered:
-          %if show_courseware_link:
-            <a href="${course_target}">
-          %endif
-
-          <span class="register disabled">${_("You are enrolled in this course")}</span>
-
-          %if show_courseware_link:
-            <strong>${_("View Course")}</strong>
-            </a>
-          %endif
-
-        %elif in_cart:
-          <span class="add-to-cart">
-            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
-          </span>
-        % elif is_course_full:
-          <span class="register disabled">
-            ${_("Course is full")}
-          </span>
-        % elif invitation_only and not can_enroll:
-          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
-        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
-        ## so that they can register and become a real user that can enroll.
-        % elif not is_shib_course and not can_enroll:
-          <span class="register disabled">${_("Enrollment is Closed")}</span>
-        %elif can_add_course_to_cart:
-          <%
-          if user.is_authenticated():
-            reg_href = "#"
-            reg_element_id = "add_to_cart_post"
-          else:
-            reg_href = reg_then_add_to_cart_link
-            reg_element_id = "reg_then_add_to_cart"
-          %>
-          <% if ecommerce_checkout:
-              reg_href = ecommerce_checkout_link
-              reg_element_id = ""
-          %>
-          <a href="${reg_href}" class="add-to-cart" id="${reg_element_id}">
-            ${_("Add {course_name} to Cart <span>({price} USD)</span>")\
-              .format(course_name=course.display_number_with_default, price=course_price)}
-          </a>
-          <div id="register_error"></div>
-        %else:
-          <%
-            if ecommerce_checkout:
-              reg_href = ecommerce_checkout_link
-            else:
-              reg_href="#"
-            if professional_mode:
-              href_class = "add-to-cart"
-            else:
-              href_class = "register"
-          %>
-          <a href="${reg_href}" class="${href_class}">
-            ${_("Enroll in {course_name}").format(course_name=course.display_number_with_default) | h}
-          </a>
-          <div id="register_error"></div>
-        %endif
-        </div>
-
-      </section>
-      % if get_course_about_section(request, course, "video"):
-      <a href="#video-modal" class="media" rel="leanModal">
-        <div class="hero">
-          <img src="${course_image_urls['large']}" alt="" />
-          <div class="play-intro"></div>
-        </div>
-      </a>
-      %else:
-      <div class="media">
-        <div class="hero">
-          <img src="${course_image_urls['large']}" alt="" />
-        </div>
+      <div id="panel">
+        <img src="/media/microsite/mooc-actia/img/logo_two.png" />
+        <p>LE RÉSEAU FRANÇAIS DES INSTITUTS TECHNIQUES DE L’AGRO-ALIMENTAIRE</p>
       </div>
-      % endif
+      <h2>DÉVELOPPEZ VOS COMPÉTENCES AVEC L'ACTIA</h2>
     </div>
-      </div>
   </header>
 
   <div class="container">
-    <div class="details">
-      % if staff_access and studio_url is not None:
-        <div class="wrap-instructor-info studio-view">
-          <a class="instructor-info-action" href="${studio_url}">${_("View About Page in studio")}</a>
-        </div>
-      % endif
-
-      <div class="inner-wrapper">
-        ${get_course_about_section(request, course, "overview")}
-      </div>
-  </div>
-
-    <div class="course-sidebar">
-      <div class="course-summary">
-
-        <header>
-          <div class="course-about-image">
-            <img src="${course_image_urls['large']}" alt="">
-          </div>
-          % if user.is_authenticated() and registered:
-        	<div class="enroll-button">
-            % if user.is_active:
-        <!--           <span>Votre inscription a été prise en compte !
-                   <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
-                   <span id="time"></span>-->
-        <script type="text/javascript">
-        $(document).ready(function(){
-                $("#time").countdown({
-                    "date" : "2017/09/07 14:30:00",
-                    "template": "%d j  %h h  %i min  %s s",
-                });
-        });
-        </script>
-                   <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-                   &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
-
-            % else:
-                   Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
-            % endif
-                </div>
-          % else:
-                <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-                   Je m'inscris !
-                </div>
-
-          % endif
-          </div>
-          % if static.get_value('course_about_show_social_links', True):
-          <div class="social-sharing">
-            ## TODO: this should probably be an overrideable block,
-            ##       or something allowing themes to do whatever they
-            ##       want here (and on this whole page, really).
-              <%
-                site_domain = static.get_value('site_domain', settings.SITE_NAME)
-                platform_name = static.get_platform_name()
-
-                ## Translators: This text will be automatically posted to the student's
-                ## Twitter account. {url} should appear at the end of the text.
-                tweet_text = _("I just enrolled in {number} {title} through {account}: {url}").format(
-                    number=course.number,
-                    title=course.display_name_with_default_escaped,
-                    account=static.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
-                    url=u"http://{domain}{path}".format(
-                        domain=site_domain,
-                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
-                    )
-                ).replace(u" ", u"+")
-                tweet_text=str("Je me suis inscrit au MOOC Experience Gaz %23MOOCExperienceGaz mooc-experiencegaz.fr").replace(u" ", u"+")
-                tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
-
-                facebook_link = static.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
-
-                email_subject = u"mailto:?subject={subject}&body={body}".format(
-                    subject=_("Take a course with {platform} online").format(platform=platform_name),
-                    body=_("I just enrolled in {number} {title} through {platform} {url}").format(
-                        number=course.number,
-                        title=course.display_name_with_default_escaped,
-                        platform=platform_name,
-                        url=u"http://{domain}{path}".format(
-                            domain=site_domain,
-                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
-                        )
-                    )
-                ).replace(u" ", u"%20")
-                email_subject = str(str("mailto:?subject=MOOC Experience Gaz&body=")+str("Je me suis inscrit au MOOC Experience Gaz. Je pense que cela peut t'interesser ! Clique ici : https://mooc-experiencegaz.fr")).replace(u" ", u"%20")
-              %>
-              <a href="${tweet_action}" class="share" target="_blank">
-                <span class="icon fa fa-twitter" aria-hidden="true"></span><span class="sr">${_("Tweet that you've enrolled in this course")}</span>
-              </a>
-                <span class="icon fa fa-facebook" aria-hidden="true"></span><span class="sr">${_("Post a Facebook message to say you've enrolled in this course")}</span>
-            <a href="https://www.yammer.com" class="share" target="_blank">
-                <span class="icon fa socicon-yammer" aria-hidden="true"></span><span class="sr">Postez sur Yammer</span>
-            </a>
-             <a href="${email_subject}" class="share" target="_blank">
-                <span class="icon fa fa-envelope" aria-hidden="true"></span><span class="sr">${_("Email someone to say you've enrolled in this course")}</span>
-             </a>
-          </div>
-          % endif
-        </header>
-
-
-        <ol class="important-dates">
-          <li class="important-dates-item"><span class="icon fa fa-info-circle" aria-hidden="true"></span><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default | h}</span></li>
-          % if not course.start_date_is_still_default:
-              <%
-                  course_start_date = course.start
-              %>
-            <li class="important-dates-item" id="date-start">
-              <span class="icon fa fa-calendar" aria-hidden="true"></span>
-              <p class="important-dates-item-title">Début du MOOC</p>
-              % if isinstance(course_start_date, str):
-                  <span class="important-dates-item-text start-date">${course_start_date}</span>
-              % else:
-                  <%
-                      if LANGUAGE_CODE == 'fr':
-                        course_date_string = course_start_date.strftime('%d %b, %Y')
-                      else :
-                        course_date_string = course_start_date.strftime('%b %d, %Y')
-                  %>
-                  <span class="important-dates-item-text start-date localized_datetime">${course_date_string}</span>
-              % endif
-            </li>
-          % endif
-            ## We plan to ditch end_date (which is not stored in course metadata),
-            ## but for backwards compatibility, show about/end_date blob if it exists.
-            % if get_course_about_section(request, course, "end_date") or course.end:
-                <%
-                    course_end_date = course.end
-                %>
-
-            <li class="important-dates-item">
-                <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                <p class="important-dates-item-title">Fin du MOOC</p>
-                  % if isinstance(course_end_date, str):
-                      <span class="important-dates-item-text final-date">${course_end_date}</span>
-                  % else:
-                    <%
-                        if LANGUAGE_CODE == 'fr':
-                          course_date_string = course_end_date.strftime('%d %b, %Y')
-                        else :
-                          course_date_string = course_end_date.strftime('%b %d, %Y')
-                    %>
-                    <span class="important-dates-item-text final-date localized_datetime">${course_date_string}</span>
-                  % endif
-            </li>
-            % endif
-
-          % if get_course_about_section(request, course, "effort"):
-            <li class="important-dates-item"><span class="icon fa fa-pencil" aria-hidden="true"></span><p class="important-dates-item-title">Temps estimé</p><span class="important-dates-item-text effort">${get_course_about_section(request, course, "effort")}</span></li>
-          % endif
-
-          ##<li class="important-dates-item"><span class="icon fa fa-clock-o" aria-hidden="true"></span><p class="important-dates-item-title">${_('Course Length')}</p><span class="important-dates-item-text course-length">${_('{number} weeks').format(number=15)}</span></li>
-
-          %if course_price and (can_add_course_to_cart or is_cosmetic_price_enabled):
-            <li class="important-dates-item">
-              <span class="icon fa fa-money" aria-hidden="true"></span>
-              <p class="important-dates-item-title">${_("Price")}</p>
-              <span class="important-dates-item-text">${course_price}</span>
-            </li>
-          %endif
-
-          % if pre_requisite_courses:
-          <% prc_target = reverse('about_course', args=[unicode(pre_requisite_courses[0]['key'])]) %>
-          <li class="prerequisite-course important-dates-item">
-            <span class="icon fa fa-list-ul" aria-hidden="true"></span>
-            <p class="important-dates-item-title">${_("Prerequisites")}</p>
-            ## Multiple pre-requisite courses are not supported on frontend that's why we are pulling first element
-            <span class="important-dates-item-text pre-requisite"><a href="${prc_target}">${pre_requisite_courses[0]['display']}</a></span>
-            <p class="tip">
-            ${_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.").format(
-              link_start='<a href="{}">'.format(prc_target),
-              link_end='</a>',
-              prc_display=pre_requisite_courses[0]['display'],
-            )}
-            </p>
-          </li>
-          % endif
-          % if get_course_about_section(request, course, "prerequisites"):
-            <li class="important-dates-item"><span class="icon fa fa-book" aria-hidden="true"></span><p class="important-dates-item-title">${_("Requirements")}</p><span class="important-dates-item-text prerequisites">${get_course_about_section(request, course, "prerequisites")}</span></li>
-          % endif
-        </ol>
+    <div id="intro">
+      <p>
+        Structure nationale de coordination, l’ACTIA fédère les activités des Instituts techniques de l’agro-alimentaire, ainsi que des Centres
+partenaires, interface et techniques, dont les 1 000 chercheurs, ingénieurs et techniciens accompagnent quotidiennement
+les entreprises, en particulier les PME. Avec plus de 80 implantations en France, les Centres Actia interviennent dans tous les secteurs
+alimentaires, ainsi que sur des valorisations non alimentaires des produits agricoles.<br>
+Véritables professionnels au savoir-faire actualisé régulièrement par leur participation à des projets de recherche nationaux et
+européens, les experts de l’ACTIA mettent à disposition leur expérience via ces formations en ligne.
+      </p>
     </div>
-
-      ## CourseTalk widget
-      % if show_coursetalk_widget:
-      <div class="coursetalk-read-reviews">
-          <div id="ct-custom-read-review-widget" data-provider="${platform_key}" data-course="${course_review_key}"></div>
-      </div>
-      % endif
-
-      ## For now, ocw links are the only thing that goes in additional resources
-      % if get_course_about_section(request, course, "ocw_links"):
-      <div class="additional-resources">
-        <header>
-          <h1>${_("Additional Resources")}</h1>
-      </div>
-
-        <div>
-          ## "MITOpenCourseware" should *not* be translated
-          <h2 class="opencourseware">MITOpenCourseware</h2>
-             ${get_course_about_section(request, course, "ocw_links")}
+    <h3 class="section-title">Nos formations</h3>
+    <div id="formations">
+        <div class="formation-wrapper">
+          <div class="formation-tullet">
+            <div>
+            <img src="/media/microsite/mooc-actia/img/formation1.png" />
+            </div>
+            <p>Avec ce MOOC de quatre semaines illustré d'exemples
+concrets, découvrez les qualités microbiologiques,
+nutritionnelles, sensorielles et environnementales d'un
+aliment et la manière dont elles interagissent.</p>
+          <div>
+            <p>GRATUIT</p>
+            <p>ATTESTATION DE RÉUSSITE</p>
+            <p>ACTUELLEMENT FERMÉ</p>
+            <p>QUATRIÈME SESSION À VENIR</p>
+            <i>MOOC (Massive open online course) : cours en ligne ouvert à tous.</i>
+            <a href="https://mooc.actia-asso.eu/courses/course-v1:actia+qualitedesaliments+2020/about" class="button-register">En savoir plus</a>
+          </div>
+          </div>
+          <div class="formation-tullet">
+            <div>
+            <img src="/media/microsite/mooc-actia/img/formation2.png" />
+            </div>
+              <p>Ce SPOC, constitué de sept séquences, présente les
+    outils dont dispose le professionnel pour valider et
+    vérifier la durée de vie microbiologique des aliments.
+    Découvrez leurs spécificités et leurs complémentarités
+    en fonction des situations rencontrées.</p>
+            <div>
+              <p>PAYANT</p>
+              <p>ATTESTATION DE RÉUSSITE</p>
+              <p>ACTUELLEMENT FERMÉ</p>
+              <p>PREMIÈRE SESSION EN OCTOBRE 2020</p>
+              <i>SPOC (Small private online course) : cours en ligne privé en petit groupe.</i>
+              <a href="https://mooc.actia-asso.eu/courses/course-v1:actia+SPOC+2020/about" class="button-register">En savoir plus</a>
+            </div>
+          </div>
         </div>
     </div>
-      %endif
+    </div>
 
-  </div>
-
-  </div>
-</div>
 
 ## Need to put this hidden form on the page so that the registration button works.
 ## Since it's no harm to display a hidden form, we display it with the most permissive conditional
@@ -486,7 +128,21 @@ css = org_static+'/css/course_about.css'
 %endif
 
 
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#lightSlider").lightSlider({
+      loop : true,
+      auto: true,
+      keyPress: false,
+      controls: false,
+      mode: "slide",
+      autoWidth: true,
+      pause : 3000,
+      slideEndAnimation: false,
+      slideMargin: 0,
+    });
+  });
+</script>
 <script>
 $(".inner-wrapper section h2").click(function() {
   if($(this).parent().find('div.about_section').hasClass("folded_tma")){
@@ -503,13 +159,6 @@ $(".inner-wrapper section h2").click(function() {
   }
 });
 </script>
-<style>
-.btn-login {
-  color: #fff !important;
-}
-</style>
-<!-- Fix js contenu barre nav -->
-
 
 <!-- Fix traduction -->
 <script src="/media/traductions/fix-trad-fr.js" charset="utf-8"></script>
