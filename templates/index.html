@@ -41,15 +41,42 @@ org = static.get_value('domain_prefix')
    </head>
 
    <style>
+      #wrapper-fit-picture{
+        position: fixed;
+        top: 20px;
+        right: 15px;
+        z-index: 99999999;
+        border: 1px solid #C2CC38;
+        border-radius: 10px;
+        background-color: white;
+        cursor: pointer;
+      }
       .fit-picture{
-         position: fixed;
-         top: 30px;
-         right: 15px;
-         cursor:pointer;
-         z-index: 99999999;
+        cursor: pointer;
+        background-color: white;
+        display: inline-flex;
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 10px;
+        width: 60px;
+      }
+      i.fa.fa-caret-down,i.fa.fa-caret-up{
+        position: absolute;
+        top: 18px;
+        right: 1px;
       }
       .fit-picture>img{
-        height: 23px;
+        height: 25px;
+        margin-bottom: 3px;
+        padding: 2px;
+        box-sizing: content-box;
+      }
+      .fit-picture>img:nth-child(1):hover{
+        background-color: none;
+      }
+      .fit-picture>img:hover{
+        background-color: #dce552d1;
+        border-radius: 5px;
       }
 
       #section1 > .col-md-5 {
@@ -72,12 +99,15 @@ org = static.get_value('domain_prefix')
       }
    </style>
    <body>
-  <div id="switch-lang-wrapper" class="fit-picture">
+     <div id="wrapper-fit-picture" onclick="dropDownCountry()">
+  <div id="switch-lang-wrapper" class="fit-picture" >
      <img  id="switchfr" data-lang="fr" src="/media/microsite/nature-for-city-life/img/fr.png" style="display:none">
-     <img  id="switchit" data-lang="it" src="/media/microsite/nature-for-city-life/img/it.png" >
-     <img  id="switches" data-lang="es" src="/media/microsite/nature-for-city-life/img/es.png" >
-     <img  id="switchde" data-lang="de" src="/media/microsite/nature-for-city-life/img/de.png" >
-     <img  id="switcheng" data-lang="en" src="/media/microsite/nature-for-city-life/img/us.png">
+     <img  id="switches" data-lang="es" src="/media/microsite/nature-for-city-life/img/es.png" style="display:none">
+     <img  id="switchde" data-lang="de" src="/media/microsite/nature-for-city-life/img/de.png" style="display:none">
+     <img  id="switchit" data-lang="it" src="/media/microsite/nature-for-city-life/img/it.png" style="display:none">
+     <img  id="switcheng" data-lang="en" src="/media/microsite/nature-for-city-life/img/us.png" style="display:none">
+   </div>
+   <i class="fa fa-caret-down"></i>
    </div>
 	<div id="frNode" class="section-main-language">
       <nav class="navbar navbar-default" id="nav_header">
@@ -1275,37 +1305,58 @@ org = static.get_value('domain_prefix')
 				bindMyLanButton(registerBindElm, composeHrefRegister)
 				bindMyLanButton(connectionBindBindElm, composeHrefConnection)
 			}
-      function switchflag (lang){
-        $('#switch-lang-wrapper>img').show()
+      function switchflag (lang,upd){
+        console.log("sxitch",upd)
+        $('#switch-lang-wrapper>img').css('display','block')
+        $('#switch-lang-wrapper>img').hide()
         if(lang == "en"){
-          $('#switcheng').hide()
+          $('#switcheng').css('display','block')
+            $('#switcheng').detach().insertBefore('#switch-lang-wrapper>img:first');
         }else{
-          $('#switch'+lang).hide()
+          $('#switch'+lang).css('display','block')
+          $('#switch'+lang).detach().insertBefore('#switch-lang-wrapper>img:first');
+        }
+        if(upd){
+          dropDownCountry()
         }
       }
-			function showSection(lang) {
-        switchflag(lang)
+			function showSection(lang,upd) {
+        switchflag(lang,upd)
 				$('.section-main-language').hide()
         $('#'+lang+'Node').show()
 			}
+      function dropDownCountry() {
+        if($("#switch-lang-wrapper>img:last").is(":hidden")){
+          $("#wrapper-fit-picture>i").removeClass("fa-caret-down")
+          $("#wrapper-fit-picture>i").addClass("fa-caret-up")
+          $("#switch-lang-wrapper>img").show()
+        }else{
+          $("#switch-lang-wrapper>img").hide()
+          $("#wrapper-fit-picture>i").removeClass("fa-caret-up")
+          $("#wrapper-fit-picture>i").addClass("fa-caret-down")
+          $("#switch-lang-wrapper>img:first").show()
+        }
+      }
 
-			function switchLanguage(lang) {
-        showSection(lang);
+			function switchLanguage(lang,upd) {
+        showSection(lang,upd);
         addArglang(lang);
 			}
+
       $("#switch-lang-wrapper>img").click(function(el){
-        switchLanguage(el.target.dataset.lang)
-        setCookie('language', el.target.dataset.lang, 10)
+        if($("#switch-lang-wrapper>img:last").is(":visible")){
+          switchLanguage(el.target.dataset.lang,true)
+          setCookie('language', el.target.dataset.lang, 10)
+        }
       })
 
 			function getLanguageBrowser(){
   			var userLang = navigator.language || navigator.userLanguage;
         switchLanguage(userLang)
       }
-      getLanguageBrowser()
 
 			$( document ).ready(function(){
-            // SWITCH TO ENGLISH MODE
+        //getLanguageBrowser()
         if (getCookie('language') !== '' && supportedLang.indexOf(getCookie('language')) ) {
           switchLanguage(getCookie('language'))
         }else{
