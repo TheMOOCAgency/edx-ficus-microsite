@@ -1,0 +1,14 @@
+Bonjour {full_name},
+
+N’oubliez pas de réserver votre place en formation présentielle :
+{map_link}
+Cette formation vous permettra d’approfondir les connaissances théoriques du e-learning pour être capable de financer vous-même vos projets d’efficacité énergétique et bas-carbone. Vous pourrez également bénéficier d’un accompagnement individuel par un expert sur un projet dans votre entreprise. 
+
+Si vous avez la moindre question, je suis à votre disposition pour y répondre.
+
+Bonne journée
+
+Camille 
+
+Vous ne souhaitez plus recevoir de mail de la plateforme e-learning INVEEST ? Cliquez ici :
+{opted_out_link}

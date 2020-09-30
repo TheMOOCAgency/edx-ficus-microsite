@@ -1,0 +1,17 @@
+Bonjour {full_name},
+
+Pourquoi les énergies bas-carbone se développent lentement ? 
+
+Il existe pourtant des offres de financement adaptées aux projets bas-carbone qui évitent d'avoir recours aux fonds propres ! On pourrait citer par exemple le leasing ou le mécanisme des SPV.
+Il est également possible d'obtenir des subventions telles que le Fonds chaleur ou les CEE pour financer tout ou partie d’un projet.
+
+Tous ces sujets sont évoqués dans le e-learning. Rendez-vous sur votre dashboard pour accéder facilement à l’ensemble des chapitres :
+{dashboard_link}
+
+N’oubliez pas, chaque jour est une occasion d’acquérir de nouvelles compétences !
+
+Bonne journée,
+
+Camille 
+Vous ne souhaitez plus recevoir de mail de la plateforme e-learning INVEEST ? Cliquez ici :
+{opted_out_link}

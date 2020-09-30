@@ -1,0 +1,19 @@
+Bonjour {full_name},
+
+Cela fait maintenant 2 semaines que vous avez rejoint INVEEST, et vous avez bien avancé dans le e-learning !
+
+Vous pouvez toujours vous inscrire au parcours Expert pour approfondir vos connaissances avec une formation présentielle et, pourquoi pas, avec un accompagnement individuel en situation de travail. 
+
+Le parcours peut être totalement gratuit: au lieu de 1077€ HT, INVEEST prend en effet en charge jusqu'à 100% du prix pour les décideurs, conseillers et financeurs dans l’industrie. Les places sont limitées, alors n'attendez plus ! Complétez dès aujourd'hui votre demande de prise en charge ici :
+{cost_link}
+
+Chaque jour est une occasion d’apprendre de nouvelles choses, et aujourd’hui j’aimerais en savoir un peu plus vous et sur les raisons qui vous ont poussé à suivre la 1ère étape du parcours INVEEST. Ce questionnaire ne devrait pas vous prendre plus de 5 minutes. 
+
+Je reste à votre disposition,
+
+Bonne journée,
+
+Camille
+
+Vous ne souhaitez plus recevoir de mail de la plateforme e-learning INVEEST ? Cliquez ici.
+{opted_out_link}
