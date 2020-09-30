@@ -164,8 +164,7 @@ def send_greenflex_email(message_type,user):
     subject = 'GreenFlex'
     message = ''
     from_email = 'Inveest <inveest@themoocagency.com>'
-    # recipient_list = [user.email]
-    recipient_list = ['yoann.mroz@weuplearning.com']
+    recipient_list = [user.email]
     subject_template = None
     message_template = None
 
