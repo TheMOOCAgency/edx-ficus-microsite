@@ -1,4 +1,18 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
-
-Activez votre compte
+<%! from student.models import UserProfile%>
+<%! import json %>
+<%
+expert = False
+userprofile = UserProfile.objects.get(user=user)
+try:
+    custom_field = json.loads(UserProfile.objects.get(user=user).custom_field)
+except:
+    custom_field = {}
+if 'expert' in custom_field:
+    expert = custom_field['expert']
+%>
+% if expert:
+INVEEST - Vous avez bien postulé au parcours Expert
+% else:
+Vous êtes bien inscrit à INVEEST

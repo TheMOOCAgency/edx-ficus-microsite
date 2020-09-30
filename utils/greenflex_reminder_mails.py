@@ -156,7 +156,7 @@ email_params={
     'cost_link' : microsite_base_url+'courses/course-v1%3Ainveest%2Bexpert%2B2020/courseware/d0e4d2b906d14d1b873fc5604f5677bb/',
     'skill_link' : microsite_base_url+'courses/'+course_id+'/courseware/3eba27b96a744bbc80b66541fdaaaa54/f687c6d4357942d4927b017bd55000af/',
     'start_module_link' : microsite_base_url+'dashboard/'+course_id+'/',
-    'questionnaire_link' : '',
+    'questionnaire_link' : 'https://apollineabauzit.typeform.com/to/UtEw12',
     'siret_siren_link' : microsite_base_url+'courses/course-v1:inveest+expert+2020/courseware/d0e4d2b906d14d1b873fc5604f5677bb/'
 }
 

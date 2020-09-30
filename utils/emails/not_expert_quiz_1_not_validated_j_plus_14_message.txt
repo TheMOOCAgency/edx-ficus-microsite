@@ -5,7 +5,7 @@ Cela fait maintenant 2 semaines que vous avez rejoint INVEEST.
 Vous pouvez à tout moment de la journée démarrer un module et y revenir plus tard, votre progression est automatiquement enregistrée :
 {start_module_link}
 
-Chaque jour est une occasion d’apprendre de nouvelles choses ! Et aujourd’hui j’aimerais en savoir un peu plus vous et sur les raisons qui vous ont poussé à suivre la 1ère partie du parcours INVEEST. Ce questionnaire ne devrait pas vous prendre plus de 5 minutes :
+Afin de nous aider à mieux comprendre vos motivations, pourriez-vous remplir ce rapide questionnaire sur les raisons qui vous ont poussé à vous inscrire au eLearning INVEEST ? Cela vous demandera moins de 5mn !
 {questionnaire_link}
 
 Je reste à votre disposition,

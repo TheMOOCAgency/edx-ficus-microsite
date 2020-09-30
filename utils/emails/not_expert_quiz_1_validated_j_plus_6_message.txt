@@ -2,7 +2,7 @@ Bonjour {full_name},
 
 Je vois que vous avez progressé dans le e-learning. C’est le socle de connaissances nécessaire pour aborder sereinement les projets d’efficacité énergétique et bas-carbone.
 
-Le plus important reste que vous puissiez mettre très vite en pratique ces enseignements. C’est pour cela que dans le cadre du parcours Expert INVEEST, nous organisons notamment des formations en présentiel, en petit groupe, partout en France. Il y en a sûrement une proche de chez vous :
+Le plus important reste que vous puissiez mettre très vite en pratique ces enseignements. C’est pour cela que dans le cadre du parcours Expert INVEEST, nous organisons des formations en ligne ou présentiel partout en France, il y en a sûrement une proche de chez vous :
 {map_link}
 
 Retrouvez tous les autres avantages du parcours Expert ici :

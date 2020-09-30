@@ -2,10 +2,10 @@ Bonjour {full_name},
 
 Cela fait deux semaines ou plus que vous avez démarré le e-learning, je sens que vous êtes prêt à passer à la vitesse supérieure !
 
-Comme je vous l’expliquais lors de mon dernier mail, vous pouvez valider l’acquis de vos nouvelles compétences lors d’une formation de 2 jours en petit groupe avec le parcours Expert INVEEST. Les coûts pédagogiques de ce parcours sont à 1077€ HT mais peuvent être pris en charge jusqu’à 100%, selon votre fonction et les places disponibles. Postulez ici pour connaître le taux de prise en charge auquel vous pouvez prétendre :
+Vous pouvez valider l’acquis de vos nouvelles compétences lors d’une formation en petit groupe avec le parcours Expert INVEEST. Les coûts pédagogiques de ce parcours s’élèvent à 1077€ HT mais peuvent être pris en charge jusqu’à 100%, selon votre fonction et les places disponibles. Postulez ici pour connaître le taux de prise en charge auquel vous pouvez prétendre :
 {cost_link}
 
-Le parcours Expert est prévu pour que vous puissiez très vite mettre vos nouvelles compétences en pratique dans votre entreprise. Vous pourrez également vous faire profiter d’un accompagnement individuel sur un projet concret dans votre entreprise. Vous avez encore un doute ? Retrouvez tous les bénéfices du parcours Expert ici :
+Le parcours Expert est prévu pour que vous puissiez très vite mettre vos nouvelles compétences en pratique dans votre entreprise. Vous pourrez également profiter d’un accompagnement individuel sur un projet concret dans votre entreprise. Vous avez encore un doute ? Retrouvez tous les bénéfices du parcours Expert ici :
 {expert_link}
 
 Je suis disponible pour répondre à vos questions. N’hésitez donc pas à m’envoyer un mail !

@@ -2,7 +2,7 @@ Bonjour {full_name},
 
 Comment allez-vous ? Je suis Camille, en charge de vous accompagner le long de votre parcours INVEEST. 
 
-Je souhaitais m’assurer que vous avez bien démarré le e-learning. Je conseille souvent à nos participants de consacrer 30 minutes pour découvrir un chapitre. 
+Je souhaitais m’assurer que vous aviez bien démarré le e-learning. Je conseille souvent à nos participants de consacrer 30 minutes pour découvrir un chapitre. 
 Il est assez simple de bloquer une demi-heure dans son agenda et cela permet d’être vraiment concentré. 
 
 Vous pouvez reprendre là où vous vous êtes arrêté depuis votre dashboard :
