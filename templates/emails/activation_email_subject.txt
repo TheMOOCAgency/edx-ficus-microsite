@@ -16,3 +16,4 @@ if 'expert' in custom_field:
 INVEEST - Vous avez bien postulé au parcours Expert
 % else:
 Vous êtes bien inscrit à INVEEST
+% endif
