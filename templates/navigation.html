@@ -126,7 +126,7 @@ div.course-material{
 
 
         %>
-          % if user.username in authorized_stats_bo:
+          % if user.username in authorized_stats_bo or user.email in authorized_stats_bo:
             <li class="item nav-global-01">
               <a href="/tma_apps/platform_stats">
                 % if request.LANGUAGE_CODE=="fr":
@@ -137,7 +137,6 @@ div.course-material{
               </a>
             </li>
           % endif
-
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
 <!--            <li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
