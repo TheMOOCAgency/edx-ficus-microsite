@@ -361,6 +361,18 @@ return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3
 $('div[id*=module-]:visible > div > div > a > p.accordion-display-name:not(:containsIN(Sous-thème))').each(function() {
     $(this).css("font-weight", "normal").css("font-style", "italic")
 });
+
+setInterval(() => {
+  if ($('.submission-feedback').text().includes('Vous avez utilisé 0 essais sur 2')) {
+    $('.submission-feedback').text('Vous avez utilisé 0 essai sur 2') 
+  }
+  if ($('.submission-feedback').text().includes('Vous avez utilisé 1 essais sur 2')) {
+    $('.submission-feedback').text('Vous avez utilisé 1 essai sur 2') 
+  }
+  if ($('.submission-feedback').text().includes('Vous avez utilisé 2 essai sur 2')) {
+    $('.submission-feedback').text('Vous avez utilisé 2 essais sur 2') 
+  }
+}, 500);
 </script>
   
   <!--TMA TIME TRACKING-->
