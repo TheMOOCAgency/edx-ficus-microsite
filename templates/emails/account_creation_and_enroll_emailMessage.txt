@@ -1,42 +1,4 @@
 <%! from django.utils.translation import ugettext as _ %>
-Bonjour ${first_name},
-
-Bienvenue dans votre parcours de formation digital "${course_name}".
-
-Votre compte personnel sur notre plateforme de formation est accessible à partir de la page :
-${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
-
-Vos codes d'accès personnels :
-Login : ${email_address}
-Mot de passe : ${password}
-
-Il est recommandé de personnaliser votre mot de passe lors de la première connexion en cliquant sur " mot de passe oublié " sur votre page de connexion.
-
-Bonne formation et à bientôt !
-
-L'équipe de "${course_name}".
-
------------------------------------
-
-Beste Voornaam,
-
-Welkom bij deze digitale opleiding "${course_name}".
-
-Uw persoonlijke account op ons trainingsplatform is toegankelijk via de volgende link :
-${_("https://{site_name}/login .").format(site_name=site_name.replace(' ',''))}
-
-Uw persoonlijke toegangscodes :
-Login : ${email_address}
-Paswoord : ${password}
-
-Het is aangewezen om uw wachtwoord te veranderen bij de eerste aanmelding door op de login-pagina te klikken op "wachtwoord vergeten".
-
-Wij wensen u een leerrijke opleiding en tot snel !
-
-Het team van "${course_name}".
-
------------------------------------
-
 Hello ${first_name},
 
 Welcome to your digital training course "${course_name}".
@@ -52,4 +14,4 @@ It is recommended to personalise your password during the first connection by cl
 
 Good training and see you soon!
 
-The "${course_name}" team.
+The DOP - Talent Development & Learning team.
