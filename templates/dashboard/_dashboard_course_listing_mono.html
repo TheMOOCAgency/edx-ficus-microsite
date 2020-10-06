@@ -45,11 +45,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
-  <h1>${course_overview.display_name_with_default}</h1>
+  <h1 class="title-dashboard_course-h1">${course_overview.display_name_with_default}</h1>
 </div>
 
 %if cours_ouv:
-<div id="course_nav">
+<div id="course_nav" style="display: none;">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
@@ -83,7 +83,7 @@ $.ajax({
 %else:
 
 <div id="title_dashboard_course">
-  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+  <h1 class="title_dashboard_course-h1">Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
 </div>
 
 
@@ -103,3 +103,12 @@ $.ajax({
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");
 </%static:require_module_async>
+
+
+<style>
+  #title-dashboard_course-h1 {
+    padding: 15px;
+    text-align: left;
+    background-color: #54C0CF;
+}
+</style>

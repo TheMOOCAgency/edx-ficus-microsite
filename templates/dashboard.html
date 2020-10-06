@@ -76,6 +76,7 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
   % endif
 </%block>
 <link rel="stylesheet" type="text/css" href="${css_bis}" />
+
 <div class="dashboard-notifications" tabindex="-1">
     %if message:
         <div class="dashboard-banner">
@@ -95,6 +96,8 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
 -->
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="./"/>
+
 
 <!-- DASHBOARD MONO -->
 <!-- DASHBOARD MONO -->
@@ -103,7 +106,7 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 
 <div id="voile"></div>
 <div class="content_tma">
-  <!-- profil -->
+  <!-- profil --> 
   <div id="dashboard_profile">
   <div id="profile_button">p r o f i l </div>
     <!-- image profil -->
@@ -158,7 +161,8 @@ endfor
     %>
 
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <!-- <div class="dashboard_profile" id="dashboard_profile_middle" style="display:none;"> -->
+           <div class="dashboard_profile" id="dashboard_profile_middle"> 
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
@@ -184,7 +188,7 @@ endfor
       </div>
     </div>
     <!-- block bottom profil -->
-    <div class="dashboard_profile" id="dashboard_profile_bottom">
+    <div class="dashboard_profile" id="dashboard_profile_bottom" >
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
         <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
@@ -550,3 +554,15 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+
+<style>
+  #dashboard_profile_up {
+    display: none;
+}
+  #dashboard_profile_middle {
+    display: none;
+}
+  #dashboard_profile_bottom {
+    margin-top: 25%;
+}
+</style>
