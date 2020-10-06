@@ -81,37 +81,26 @@ cours_ouv = show_courseware_link and not is_course_blocked
       <div class="info_date">
         <div class="info_date_info">
 <span></span>
-% if insc_ouv:
-  <span>${_("Enrollments are open")} </span>
-% else:
-  <span>${_("Enrollments are closed")} </span>
-% endif
-<span>${_('and')}</span>
 % if cours_ouv:
   <span> ${_("Course is open")}</span>
 % else:
-  <span> ${_("Course is closed")}</span>
+  <span>Course is not yet opened</span>
 % endif
 <span></span>
       </div>
     </div>
     <div class="dates">
-<!--
-% if course_overview.start is not None:
-  ${_("start")} ${course_overview.start.strftime("%d/%b/%Y")}
-% endif
--->
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
-    Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
+    Available since ${course_overview.start.strftime("%d/%b/%Y")}
   % else:
-    ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
+    Starts on ${course_overview.start.strftime("%d/%b/%Y")}
   % endif
 % endif
 
 % if course_overview.end is not None:
   <span></span>
-  ${_("end")}  ${course_overview.end.strftime("%d/%b/%Y")}
+  Ends on ${course_overview.end.strftime("%d/%b/%Y")}
 % endif
       </div>
     </div>

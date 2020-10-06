@@ -133,17 +133,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     course_mono_id = enrollment.course_id
     course_module = modulestore().get_course(enrollment.course_id, depth=0)
     course_details = course_module._field_data_cache['grading_policy']['GRADER']
-  """
-  elif len(course_enrollments) > 1:
-    get_persisted = CourseGradeFactory().get_persisted(request.user, course)
-    if get_persisted is None:
-      get_persisted = CourseGradeFactory().create(request.user, course)
-    if get_persisted.passed:
-      course_finished = course_finished + 1
-      course_name.append(enrollment.course_overview.display_name_with_default)
-    endif
   endif
-  """
 endfor
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
@@ -213,13 +203,13 @@ endfor
   % endfor
   </div>
 
-%if course.no_grade:
- <style>
-  #dashboard_profile_bottom{
-    visibility:hidden;
-  }
- </style>
-%endif
+ %if course.no_grade:
+  <style>
+   #dashboard_profile_bottom{
+     visibility:hidden;
+   }
+  </style>
+ %endif
 
 
 <script type="text/javascript">
@@ -247,20 +237,69 @@ else{
 }
   
 </script>
-% elif len(course_enrollments) > 1:
-  <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_end < 2:
-      <h3>${course_end} cours<br>terminé</h3>
-    % else:
-      <h3>${course_end} cours<br>terminés</h3>
-    % endif
-    % for n in course_name:
-        <div class="course_name_profile_list">
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
-        </div>
-    % endfor
-  </div>
-% endif
+%else:
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<style>
+#profile_bottom_multi{
+ font-size:18px;
+ text-align: center;
+ background-color:white;
+ padding: 10px 0px;
+}
+a.modallink{
+ color:rgba(0,170,255,0.8) !important;
+}
+a.modallink:hover{
+ text-decoration-line:none !important;
+ cursor:pointer;
+}
+</style>
+
+<!-- Modal HTML embedded directly into document -->
+<div id="ex1" class="modal" style="left:0px !important">
+  <p>We will include here your calendar</p>
+  <a class="modallink" href="#" rel="modal:close">Close</a>
+</div>
+<div class="dashboard_profile" id="profile_bottom_multi">
+
+<a class="modallink" href="#ex1" rel="modal:open">
+    <div>   
+         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="36.447px" height="36.447px" viewBox="0 0 36.447 36.447" style="enable-background:new 0 0 36.447 36.447;"
+	 xml:space="preserve">
+         <g><g>
+         <path fill="rgb(0,170,255)" d="M30.224,3.948h-1.098V2.75c0-1.517-1.197-2.75-2.67-2.75c-1.474,0-2.67,1.233-2.67,2.75v1.197h-2.74V2.75
+			c0-1.517-1.197-2.75-2.67-2.75c-1.473,0-2.67,1.233-2.67,2.75v1.197h-2.74V2.75c0-1.517-1.197-2.75-2.67-2.75
+			c-1.473,0-2.67,1.233-2.67,2.75v1.197H6.224c-2.343,0-4.25,1.907-4.25,4.25v24c0,2.343,1.907,4.25,4.25,4.25h24
+			c2.344,0,4.25-1.907,4.25-4.25v-24C34.474,5.855,32.567,3.948,30.224,3.948z M25.286,2.75c0-0.689,0.525-1.25,1.17-1.25
+			c0.646,0,1.17,0.561,1.17,1.25v4.896c0,0.689-0.524,1.25-1.17,1.25c-0.645,0-1.17-0.561-1.17-1.25V2.75z M17.206,2.75
+			c0-0.689,0.525-1.25,1.17-1.25s1.17,0.561,1.17,1.25v4.896c0,0.689-0.525,1.25-1.17,1.25s-1.17-0.561-1.17-1.25V2.75z M9.125,2.75
+			c0-0.689,0.525-1.25,1.17-1.25s1.17,0.561,1.17,1.25v4.896c0,0.689-0.525,1.25-1.17,1.25s-1.17-0.561-1.17-1.25V2.75z
+			 M31.974,32.198c0,0.965-0.785,1.75-1.75,1.75h-24c-0.965,0-1.75-0.785-1.75-1.75v-22h27.5V32.198z"/>
+		<rect x="6.724" y="14.626" width="4.595" height="4.089" fill="rgb(0,170,255)"/>
+		<rect x="12.857" y="14.626" width="4.596" height="4.089" fill="rgb(0,170,255)"/>
+		<rect x="18.995" y="14.626" width="4.595" height="4.089" fill="rgb(0,170,255)"/>
+		<rect x="25.128" y="14.626" width="4.596" height="4.089" fill="rgb(0,170,255)"/>
+		<rect x="6.724" y="20.084" width="4.595" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="12.857" y="20.084" width="4.596" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="18.995" y="20.084" width="4.595" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="25.128" y="20.084" width="4.596" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="6.724" y="25.54" width="4.595" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="12.857" y="25.54" width="4.596" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="18.995" y="25.54" width="4.595" height="4.086" fill="rgb(0,170,255)"/>
+		<rect x="25.128" y="25.54" width="4.596" height="4.086" fill="rgb(0,170,255)"/>
+          </g></g>
+          </svg> 
+     </div>
+<!-- Link to open the modal -->
+ <span>View calendar</span>
+</a>
+</div>
+
+%endif
+
+
   </div>
   <div id="dashboard_course_content">
 % if len(course_enrollments) == 1:
@@ -306,7 +345,7 @@ else{
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
+<h1><span id="span_1">My online trainings</span></h1>
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
