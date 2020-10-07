@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse
 % if static.get_value('course_id') is not None:
   <p><a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
 % else:
-  <p><a href="/register">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
+  <p><a href="/register?course_id=course-v1:onco-occitanie+OO-02+2020&enrollment_action=enroll">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
 % endif
   ## Disable help unless the FAQ marketing link is enabled
   % if settings.MKTG_URL_LINK_MAP.get('FAQ'):
