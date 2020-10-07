@@ -350,12 +350,12 @@ else{
 }
 </style>
   <div class="empty-dashboard-message">
-    <p>${_("You are not enrolled in any courses yet.")}</p>
-
+    <!-- <p>${_("You are not enrolled in any courses yet.")}</p> -->
+    <p>Ouverture de la 2e session au 2 novembre 2020</p>
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-      <a href="${marketing_link('COURSES')}">
+      <!-- <a href="${marketing_link('COURSES')}">
         ${_("Explore courses")}
-      </a>
+      </a> -->
 
     %endif
 </div>
