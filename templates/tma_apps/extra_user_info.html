@@ -18,23 +18,25 @@ from openedx.core.djangolib.markup import HTML, Text
 
 <main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
   % if user.is_authenticated():
-  <div id="languageChoiceContainer">
-    <h1 id="welcome-title"><p style="font-size: 24px; text-align: center;">Welcome!</p><br/>Choose the language for course content. *<br/>Choisissez la langue dans laquelle les parcours seront diffusés.<br/>Wählen Sie die Sprache, in der die Kurse ausgestrahlt werden.<br/>Elija el idioma en el que se transmitirán los cursos.</h1>
-    <div id="language-selector" style='display:block'>
-        <a data-value="en" data-course="course-v1:netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN">
-          <img height="100px" src="/media/microsite/netexplo/images/uk.png" alt="uk">
-        </a>
-        <a data-value="fr" data-course="course-v1:netexplo+Netexplo_passeport+2018_T2_passeport">
-          <img height="100px" src="/media/microsite/netexplo/images/fr.png" alt="fr">
-        </a>
-        <a data-value="de-de" data-course="course-v1:netexplo+13+DE">
-          <img height="100px" src="/media/microsite/netexplo/images/de.png" alt="de">
-        </a>
-        <a data-value="es-es" data-course="course-v1:netexplo+12+ES">
-          <img height="100px" src="/media/microsite/netexplo/images/es.png" alt="es">
-        </a>
-    </div>
-    <h1 id="welcome-subtitle">*Subtitles in other languages are available for most courses. To display them, please select the English audio version.</h1>
+
+    <div id="languageChoiceContainer">
+      <h1 id="welcome-title"><p style="font-size: 24px; text-align: center; font-weight: 700;">Welcome!</p><br/>Choose the language for course content. *<br/>Choisissez la langue dans laquelle les parcours seront diffusés.<br/>Wählen Sie die Sprache, in der die Kurse ausgestrahlt werden.<br/>Elija el idioma en el que se transmitirán los cursos.</h1>
+      <div id="language-selector" style='display:block'>
+          <a data-value="en" data-course="course-v1:netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN">
+            <img height="80px" src="/media/microsite/netexplo/images/uk.png" alt="uk" style="margin: 40px 5px;">
+          </a>
+          <a data-value="fr" data-course="course-v1:netexplo+Netexplo_passeport+2018_T2_passeport">
+            <img height="80px" src="/media/microsite/netexplo/images/fr.png" alt="fr" style="margin: 40px 5px;">
+          </a>
+          <a data-value="de-de" data-course="course-v1:netexplo+13+DE">
+            <img height="80px" src="/media/microsite/netexplo/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
+          </a>
+          <a data-value="es-es" data-course="course-v1:netexplo+12+ES">
+            <img height="82px" src="/media/microsite/netexplo/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
+          </a>
+      </div>
+
+    <h1 id="welcome-subtitle" style="font-style: italic;">*Subtitles in other languages are available for most courses. To display them, please select the English audio version.</h1>
   </div>
   % endif
 </main>
