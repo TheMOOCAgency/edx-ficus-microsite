@@ -20,6 +20,7 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+import datetime
 %>
 
 <%
@@ -348,8 +349,19 @@ a.modallink:hover{
 <h1><span id="span_1">My online trainings</span></h1>
 </span>
 <ul id="list_multi">
+
+<%
+def comparator(x, y): 
+  return cmp(int(x.course_overview.enrollment_start.strftime("%s")), int(y.course_overview.enrollment_start.strftime("%s")))
+course_enrollments.sort(cmp=comparator,reverse=False)
+
+_current = time.time()
+%>
+
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % if int(enrollment.course_overview.enrollment_start.strftime("%s")) < _current and enrollment.course_overview.enrollment_end.strftime("%s") > _current:
+    <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % endif
 % endfor
 </ul>
 <!-- multi site css -->
