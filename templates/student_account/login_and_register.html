@@ -64,6 +64,18 @@
         <div id="login-and-registration-container" class="login-register" />
     </main>
 </div>
+<style>
+    .swal2-close,.swal2-close:hover:focus:active {
+        border: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        text-shadow: none !important;
+        color: #80CFF5 !important;
+        outline: none !important;
+        ;
+    }
+</style>
 <script>
 var options_given = ${data | n, dump_js_escaped_json}
 var is_third_party_on = options_given['third_party_auth']["autoSubmitRegForm"];
@@ -88,14 +100,23 @@ function usessorather(page){
       '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_transitions.jpg" alt="logo TO" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod\'">'+
       '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_safran.jpg" alt="logo Safran" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod\'">'+
       '</div>',
-    showCloseButton: true,
     showCancelButton: false,
     showCloseButton: false,
     focusConfirm: true,
     showConfirmButton: false,
   });
   clearInterval(adaptifssoornot);
- }
+ } else if($("#register-email").val().indexOf("edf") > -1){
+    let language = '${LANGUAGE_CODE}'
+    Swal.fire({
+      html: language === 'fr' ? '<h3 style="margin-top:30px">Veillez à ne pas utiliser le même mot de passe que pour vos autres comptes</h3>' + '<br><br>' : '<h3 style="margin-top:30px">Please make sure you don\'t reuse the same password across different accounts</h3>' + '<br><br>',
+      showCloseButton: true,
+      showCancelButton: false,
+      focusConfirm: true,
+      showConfirmButton: false,
+    });
+    clearInterval(adaptifssoornot);
+   }
 }
 
 registeremailfield = document.getElementById("register-email");
