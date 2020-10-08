@@ -352,7 +352,16 @@ a.modallink:hover{
 
 <%
 def comparator(x, y): 
-  return cmp(int(x.course_overview.enrollment_start.strftime("%s")), int(y.course_overview.enrollment_start.strftime("%s")))
+  x_date = 0  
+  y_date = 0
+
+  if x.course_overview.enrollment_start != None:
+    x_date = int(x.course_overview.enrollment_start.strftime("%s"))
+  
+  if y.course_overview.enrollment_start != None:
+    y_date = int(x.course_overview.enrollment_start.strftime("%s"))
+  
+  return cmp(x_date, y_date)
 course_enrollments.sort(cmp=comparator,reverse=False)
 
 _current = time.time()
