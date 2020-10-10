@@ -113,6 +113,16 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 %>
 
+<style>
+#content{
+visibility:hidden !important;
+}
+</style>
+<script>
+$( document ).ready(function() {
+   $("#class_enroll_form").submit();
+});
+</script>
 <link rel="stylesheet" type="text/css" href="${css}" />
 
 <section class="course-info">
