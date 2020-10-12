@@ -38,6 +38,7 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
 %>
 
 <%block name="pagetitle">${_("Courses")}</%block>
+%if False:
 <link rel="stylesheet" type="text/css" href="${css}" />
 
 <main id="main" aria-label="Content" tabindex="-1">
@@ -87,3 +88,8 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
       </section>
     </section>
 </main>
+%endif
+<!-- USELESS PAGE, REDIRECTION TO DASHBOARD -->
+<script>
+  window.location.href='/dashboard'
+</script>
