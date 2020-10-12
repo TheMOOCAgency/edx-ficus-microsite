@@ -13,6 +13,7 @@ from django.utils.translation import ugettext as _
          <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Open Sans&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
       </head>
       <body style="display: none">
@@ -159,7 +160,7 @@ from django.utils.translation import ugettext as _
                      var tbText
                      var pathRegister = "/register"
                      var pathLogin = "/login"
-                     var course_id = ""
+                     var course_id = "course-v1:kangae+01+01"
                      var enrollment_action = ""
                      var connectLink = ""
                      var pathMedia = "media/microsite/"
@@ -382,6 +383,43 @@ from django.utils.translation import ugettext as _
                 useDelay: 'onload',
                 distance: '150px'
             })
+
+            $('#se3 > div > div > .module_1').click(function(){
+               Swal.fire({
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours1.png',
+                  imageAlt: 'schéma parcours 1',
+                  width: 600,
+                  height: 600,
+               })
+            })
+
+            $('#se3 > div > div > .module_2').click(function(){
+               Swal.fire({
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours2.png',
+                  imageAlt: 'schéma parcours 2',
+                  width: 600,
+                  height: 600,
+               })
+            })
+
+            $('#se3 > div > div > .module_3').click(function(){
+               Swal.fire({
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours3.png',
+                  imageAlt: 'schéma parcours 3',
+                  width: 600,
+                  height: 600,
+               })
+            })
+
+            $('#se3 > div > div > .module_4').click(function(){
+               Swal.fire({
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours4.png',
+                  imageAlt: 'schéma parcours 4',
+                  width: 600,
+                  height: 600,
+               })
+            })
+
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
