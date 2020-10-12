@@ -1,97 +1,391 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
+## mako
 <%namespace name='static' file='static_content.html'/>
 <%!
-from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-
-from openedx.core.djangolib.markup import HTML, Text
+from django.utils.translation import ugettext as _
 %>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+<!DOCTYPE html> 
+<html>
+      <head>
+     <meta charset='utf-8'>
+         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+         <title id='masterTitle'></title>
+         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Open Sans&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+      </head>
+      <body style="display: none">
+         <nav id = "nav"class="navbar navbar-default">
+            <div class="container-fluid">
+               <!-- <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="" id="loginLink1">Connexion</a></li>
+                        <li><a href="" id="registerLink1">Inscription</a></li>
+                     </ul>
                   </button>
-                </form>
-              </div>
-            % endif
+               </div> -->
+               <!-- <div id="navbar" class="navbar-collapse collapse" style="display: none;"> -->
+                  <ul id="logoBPI-container" class="nav navbar-nav m-auto reveal">
+                     <li>
+                        <a class="navbar-brand "><img id="logoBPI" src="media/microsite/kangae/pagebuilder/assets/img/Logo-Bpifrance.png"></img></a>
+                     </li>
+                  </ul>
+               <!-- </div>        -->
+            </div>
+            <div class="row vertical-center" id="nav_container_butns">
+               <div class="col-md-12 text-center" style="position:absolute;top:30px;">
+                  <div class="container-fluid" id="containerTitleBand">
+                     <div class="col text-center" style="width:300px;float:right;">              
+                        <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
+                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
+                     </div>
+                  </div>
+               </div>
+            </div> 
+         </nav>
 
+         <section id="se1">
+            <!-- <div class="video_container">
+               <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+                 <source src="https://player.vimeo.com/external/455818234.sd.mp4?s=0f0a6dd2618419be6f7a5c5d9018f0285ffcb7a6&profile_id=165" type="video/mp4">
+                 Your browser does not support the video tag.
+               </video>
+            </div> -->
+            <div id="titleBand">
+              <h1 id="mainTitle1"></h1>
+              <h1 pre id="mainTitle2"></h1>
+            </div>
+         </section>
+
+         <section id="se2">
+         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+               <h2 class="sectionTitle"></h2>
+               <p class="text_1"></p>
+               <p class="text_2"></p>
+            </div>
+         </div>
+         </div>          
+         </section>
+
+         <div class='separatorContainer'>
+          <h2 class="surligner inline"></h2>
+       </div>
+
+       <section id="se3">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+            <h2 class="sectionTitle"></h2>
+            <div class="reveal">
+               <div class="module module_1 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+               <div class="module module_2 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+               <div class="module module_3 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+               <div class="module module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+            </div>
+         </div>
+     </section>
+
+     <div class='separatorContainer'>
+          <h2 class="surligner inline"></h2>
+       </div>
+
+         <section id="se4">
+          <div class="row">
+             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+                <h2 class="sectionTitle"></h2>
+                <p class="text_1"></p>
+             </div>
           </div>
+          </div>          
+          </section>
+            
+         <div class='separatorContainer'>
+            <h2 class="surligner inline"></h2>
+         </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+         <section id="se5">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+               <h2 class="sectionTitle"></h2>
+               <div class="reveal">
+                  <div class="module_dark module_1 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+                  <div class="module_dark module_2 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+                  <div class="module_dark module_3 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+                  <div class="module_dark module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
+               </div>
+            </div>
+       </section>
 
-      </header>
-      <%include file="${courses_list}" />
+       <div class='separatorContainer'>
+         <h2 class="surligner inline"></h2>
+      </div>
 
-    </section>
-</main>
+         <section id="se6">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+               <h2 class="sectionTitle"></h2>
+               <div id="markMoock"></div>
+            </div>
+         </section>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+         <div class='separatorContainer'>
+            <h2 class="surligner inline"></h2>
+         </div>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+         <footer id="footer">
+            <div class="row" style="display: block">
+               <div class="col text-center">
+                  <button class="btn btn-default butn" id="subscribeButn2">
+                  JE M’INSCRIS !</button> 
+               </div>
+            </div>
+            <div class="row footerBottom">
+               <div id="footerIcons" class="reveal">
+                  <img class="footerIcons" src='media/microsite/kangae/pagebuilder/assets/img/logo-kangae.png'></img>
+                  <img class="footerIcons" src='media/microsite/kangae/pagebuilder/assets/img/logo-caisse-depot.png'></img>
+                  <img class="footerIcons" src='media/microsite/kangae/pagebuilder/assets/img/Logo-investir-lavenir.png'></img>
+                  <img class="footerIcons onRight" src='media/microsite/kangae/pagebuilder/assets/img/logo_TMA.png'></img>
+               </div>
+            </div>
+            </div>          
+         </footer>
+         <script>   
+       
+				 var envDefault = "developement"
+					 var organisation = "kangae"
+					 	var urlCompose
+					 var i 
+                     var iter
+                     var tbTitle
+                     var tbText
+                     var pathRegister = "/register"
+                     var pathLogin = "/login"
+                     var course_id = ""
+                     var enrollment_action = ""
+                     var connectLink = ""
+                     var pathMedia = "media/microsite/"
+                     var micrositeName 
+                     var folderPb = "/pagebuilder"
+                     var imgSrc = "/assets/img/"
+                     var thumbnailStr = "thumbnailStr"
+                     var contentImg = "contentImg"
+                     var thumbnailObj
+                     var thumbnailObjObj
+                     var composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
+                     var composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
+                     var termPng = ".png"
+                     var termJpg = ".jpg"
+                     var vNone = 'none'
+                     var thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>"
+                     
+                     
+                     var thumbnailImgSrc
+                     var titleThumbnail
+                     var titleWeeks
+                     var iconoImgSrc
+                     
+                     var thumbnailChap =  "<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><img class='tbImg'src="+thumbnailImgSrc+"><div class='caption'> <h3 >"+titleThumbnail+"</h3><img class='tbIc' src="+iconoImgSrc+"> <p class='weekSp'>"+titleWeeks+"</p><p class='under_s2'></p></div> </div></div>"
+            
+                     var titleThumb
+                     var imgThumbSrcIcon
+                     var imgThumbSrc
+                     var pWeeksTitle
+                     var pWeeksContent
+            
+                     var thumbnailChapEsc =  "<div class='col-md-4 noflex'><div class='thumbnail'>  <img src="+imgThumbSrc+ "class='thumbMg'> <div class='caption'> <h3 class='h3Thumb'  " + titleThumb + "</h3><img src="+imgThumbSrcIcon+" class='thumbMg'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
+            
+                        var swapDisplay = function(elm){
+                              var elmt = elm
+                              elmt.style.display = 'none'
+                        }
+                     var getInfo= function(){
+					 micrositeName  = organisation
+					 if (envDefault=='developement'){pathMedia =  "media/microsite/"}
+					 else{pathMedia =  "/media/microsite/"}
+					 composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
+                    composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
+					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
+                     }
+			
+					var scriptLinkGenerator =  function(){
+		
+						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
+						var script = document.createElement('script');
+						var script2 = document.createElement('script');
+						var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
+						script.id = 'Sid1';
+						script.src = mainPathB+scriptSrcArr[0];
+						script2.id = 'Sid2';
+						script2.src = mainPathB+scriptSrcArr[1];
+						document.head.appendChild(script);
+						document.head.appendChild(script2);
+				
+						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
+						var link1 = document.createElement('link');
+						link1.id = 'id1';
+						link1.rel = 'stylesheet';
+						link1.href = pathMedia+ micrositeName + lsSrcArr[0];
+						var link2 = document.createElement('link');
+						link2.id = 'id2';
+						link2.rel = 'stylesheet';
+						link2.href = pathMedia+ micrositeName + lsSrcArr[1];
+						var link3 = document.createElement('link');
+						link3.id = 'id3';
+						link3.rel = 'stylesheet';
+						link3.href = pathMedia+ micrositeName + lsSrcArr[2];
+						document.head.appendChild(link1);
+						document.head.appendChild(link2);
+                  document.head.appendChild(link3);
+                  
+                  $("#loginLink1").attr("href",pathLogin)
+                  $("#registerLink1").attr("href",pathRegister + connectLink)
+                  $("#loginLink2").attr("href",pathLogin)
+                  $("#registerLink2").attr("href",pathRegister + connectLink)
+                  $("#loginButn").click(function(){window.location.href = pathLogin})
+                  $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
+                  $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+                  // texts
+                  $("#subscribeButn2").text(objJson.page.imIn)
+                  $("#loginLink1").text(objJson.page.login)
+                  $("#loginLink2").text(objJson.page.login)
+                  $("#loginButn").text(objJson.page.login)
+                  $("#registerLink1").text(objJson.page.register)
+                  $("#registerLink2").text(objJson.page.register)
+                  $("#subscribeButn").text(objJson.page.register)
+		         }
+			
+            var bindindFunctionNav = function(){
+               var logoSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo.png"
+               var logo_entrepriseSrc  = pathMedia + micrositeName + folderPb + imgSrc +"logo_entrNav.jpg"
+					$(".logoNav").attr("src",logoSrc)
+               $(".logo_entrNav").attr("src",logo_entrepriseSrc)
+            }
+                     
+            var bindindFunctionSection1= function(){
+               var mainTitleContentTitle1 = objJson.container.section1.title.title1
+               var mainTitleContentTitle2 = objJson.container.section1.title.title2
+               $('#mainTitle1').text(mainTitleContentTitle1)
+               $('#mainTitle2').html(mainTitleContentTitle2)
+            }
 
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
+            var bindindFunctionSection2= function(){
+              var mainTitleContent = objJson.container.section2.title
+              var text_1 = objJson.container.section2.text_1
+              var text_2 = objJson.container.section2.text_2
+         	    $('#se2').find(".sectionTitle").html(mainTitleContent)
+              $('#se2').find(".text_1").html(text_1)
+              $('#se2').find(".text_2").html(text_2)
+            }
 
-</script>
-% endif
+            var bindindFunctionSection3= function(){
+              var mainTitleContent = objJson.container.section3.title
+              var module_1 = objJson.container.section3.modules[0]
+              var module_2 = objJson.container.section3.modules[1]
+              var module_3 = objJson.container.section3.modules[2]
+              var module_4 = objJson.container.section3.modules[3]
+              $('#se3').find(".sectionTitle").html(mainTitleContent)
+              $('#se3 > div > div > .module_1 > .module_title').html('Parcours 1')
+              $('#se3 > div > div > .module_2 > .module_title').html('Parcours 2')
+              $('#se3 > div > div > .module_3 > .module_title').html('Parcours 3')
+              $('#se3 > div > div > .module_4 > .module_title').html('Parcours 4')
+              $('#se3 > div > div > .module_1 > .module_text').html(module_1)
+              $('#se3 > div > div > .module_2 > .module_text').html(module_2)
+              $('#se3 > div > div > .module_3 > .module_text').html(module_3)
+              $('#se3 > div > div > .module_4 > .module_text').html(module_4)
+            }
+
+            var bindindFunctionSection4= function(){
+              var mainTitleContent = objJson.container.section4.title
+              var text_1 = "<ul>"
+              for (let i = 0; i < objJson.container.section4.texts.length; i++) {
+                text_1 += "<li>"+objJson.container.section4.texts[i]+"</li>"
+              }
+              text_1 += "</ul>"
+         	    $('#se4').find(".sectionTitle").html(mainTitleContent)
+              $('#se4').find(".text_1").html(text_1)
+            }
+
+            var bindindFunctionSection5= function(){
+              var mainTitleContent = objJson.container.section5.title
+              var module_1 = objJson.container.section5.modules[0]
+              var module_2 = objJson.container.section5.modules[1]
+              var module_3 = objJson.container.section5.modules[2]
+              var module_4 = objJson.container.section5.modules[3]
+              $('#se5').find(".sectionTitle").html(mainTitleContent)
+              $('#se5 > div > div > .module_1 > .module_text').html(module_1)
+              $('#se5 > div > div > .module_2 > .module_text').html(module_2)
+              $('#se5 > div > div > .module_3 > .module_text').html(module_3)
+              $('#se5 > div > div > .module_4 > .module_text').html(module_4)
+            }
+
+            var bindindFunctionSection6= function(){
+              iter =  objJson.container.section6.thumbnail.length
+            	for (i = 0; i < iter ; i++ ){
+            		thumbnailObj = objJson.container.section6.thumbnail[i]
+            		tbTitle = thumbnailObj.title
+            		tbText = thumbnailObj.text
+            		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
+            		$('#markMoock').append(thumbnailMOOC)
+            	} 
+              
+              var mainTitleContent = objJson.container.section6.title
+            	$('#se6').find(".sectionTitle").text(mainTitleContent)
+            }
+                     
+            var bindindFunctionMeta = function(){
+            	var mainTitleContent = objJson.page.title
+            	$("#masterTitle").text(mainTitleContent)
+            }
+            
+            var masterBind= function(){
+				      scriptLinkGenerator(objJson);
+            	bindindFunctionNav();
+            	bindindFunctionSection1();
+              bindindFunctionSection2();
+              bindindFunctionSection3();
+              bindindFunctionSection4();
+              bindindFunctionSection5();
+              bindindFunctionSection6();
+              bindindFunctionMeta ();
+             }
+            
+            var objJson
+            
+            getInfo();
+            var a = new XMLHttpRequest();
+
+            a.open("GET",urlCompose,true);
+            a.onreadystatechange = function() {
+              if( this.readyState == 4) {
+            	if( this.status == 200) {
+                var response= JSON.parse(this.response)
+                objJson = response
+                course_id = ""
+                enrollment_action = "enroll"
+                connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
+                masterBind();
+            	}
+            	else alert("HTTP error "+this.status+" "+this.statusText);
+              }
+            }
+            a.send();
+            a.addEventListener('loadend', $("body").css({"display":"inherit"}));
+            
+            $(".scroll").click(function() {
+            	$('html, body').animate({
+            		scrollTop: $("#se2").offset().top
+            	}, 2000);
+            });
+
+            ScrollReveal().reveal('.reveal', {
+                delay: 500,
+                useDelay: 'onload',
+                distance: '150px'
+            })
+          </script>
+         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      </body>
+   </html>
+
