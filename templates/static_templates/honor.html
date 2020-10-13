@@ -60,10 +60,17 @@ if _template is None:
   $( document ).ready(function(){
     if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
       $('.main-content-fr').hide();
+      $('.main-content-jp').hide();
       $('.main-content-en').show();
       window.document.title= "Credit"
-    } else{
+    } else if ($('#settings-language-value > option[value="jp"]')[0].hasAttribute("selected")) {
+      $('.main-content-fr').hide();
+      $('.main-content-jp').show();
+      $('.main-content-en').hide();
+      window.document.title= "著作権情報"
+    } else {
       $('.main-content-fr').show();
+      $('.main-content-jp').hide();
       $('.main-content-en').hide();
       window.document.title= "Crédit"
     }
