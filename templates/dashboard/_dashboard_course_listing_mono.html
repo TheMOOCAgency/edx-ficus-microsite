@@ -54,7 +54,7 @@ locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
-  <a href="https://www.facebook.com/groups/439016493425586" class="course_nav"><img src="/media/microsite/connexions-citoyennes/assets/facebook_icon.png" style="width: 38px;padding: 5px 5px 5px 22px;"/><span>Facebook</span></a>
+  <a href="https://www.facebook.com/groups/439016493425586" target="_blank" class="course_nav"><img src="/media/microsite/connexions-citoyennes/assets/facebook_icon.png" style="width: 38px;padding: 5px 5px 5px 22px;"/><span>Facebook</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
