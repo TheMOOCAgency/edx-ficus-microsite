@@ -183,7 +183,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register?course_id=course-v1:hug+hug01+2020_S1&enrollment_action=enroll">${_("Register")}</a>
                 % endif
               </li>
             % endif
@@ -200,7 +200,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login?course_id=course-v1:hug+hug01+2020_S1&enrollment_action=enroll">${_("Sign in")}</a>
                 % endif
               % endif
             % endif
