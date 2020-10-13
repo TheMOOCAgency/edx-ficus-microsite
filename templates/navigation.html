@@ -264,9 +264,9 @@ site_status_msg = get_site_status_msg(course_id)
              <div id="lang-content">
                <img src="/media/microsite/champagne-mooc/home/en.png" id="en">
                <img src="/media/microsite/champagne-mooc/home/fr.png" id="fr">
-               <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+               <select class="input select language-selector" id="settings-language-value" name="language" size="3" >
                  % for language in languages:
-                  % if language[0] =="en" or language[0] =="fr":
+                  % if language[0] =="en" or language[0] =="fr" or language[0] =="ja-jp":
                    % if language[0] == LANGUAGE_CODE:
                      <option value="${language[0]}" selected="selected">${language[0]}</option>
                    % else:
