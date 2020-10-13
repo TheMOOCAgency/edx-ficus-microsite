@@ -71,7 +71,11 @@ site_status_msg = get_site_status_msg(course_id)
   <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
-      <a href="https://www.cfi.fr/fr" target="_blank">
+    % if "/login" in request.path or "/register" in request.path:
+      <a href="/">
+    % else:
+      <a href="#" style="cursor:default">
+    % endif
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
@@ -82,24 +86,6 @@ site_status_msg = get_site_status_msg(course_id)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
         </%block>
       </a>
     </h1>
