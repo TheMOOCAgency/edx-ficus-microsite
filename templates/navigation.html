@@ -264,6 +264,7 @@ site_status_msg = get_site_status_msg(course_id)
              <div id="lang-content">
                <img src="/media/microsite/champagne-mooc/home/en.png" id="en">
                <img src="/media/microsite/champagne-mooc/home/fr.png" id="fr">
+               <img src="/media/microsite/champagne-mooc/home/jp.jpg" id="jp" style="display: none;">
                <select class="input select language-selector" id="settings-language-value" name="language" size="3" >
                  % for language in languages:
                   % if language[0] =="en" or language[0] =="fr" or language[0] =="ja-jp":
@@ -291,6 +292,9 @@ site_status_msg = get_site_status_msg(course_id)
      }
      #lang-content img{
        width: 25px;
+     }
+     #jp {
+      border: 1px solid #ccc5c5;
      }
       @media screen and (max-width: 680px) {
         .wmd-prompt-dialog {
@@ -326,6 +330,7 @@ site_status_msg = get_site_status_msg(course_id)
           }
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
           $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          $('#settings-language-value > option[value="ja-jp"]').removeAttr('selected').trigger( "change");
           lang = 'en'
         });
         $('#fr').on('click', function() {
@@ -335,7 +340,18 @@ site_status_msg = get_site_status_msg(course_id)
           }
           $('#settings-language-value > option[value="fr"]').attr('selected','selected');
           $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          $('#settings-language-value > option[value="ja-jp"]').removeAttr('selected').trigger( "change");
           lang = 'fr'
+        });
+        $('#jp').on('click', function() {
+          var urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('lang') && urlParams.get('lang') === 'fr') {
+            window.history.pushState({}, document.title, location.href.replace("lang=fr&", ""));
+          }
+          $('#settings-language-value > option[value="ja-jp"]').attr('selected','selected');
+          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+          lang = 'ja-jp'
         });
       });
     </script>

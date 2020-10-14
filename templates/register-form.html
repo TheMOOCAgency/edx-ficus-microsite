@@ -113,7 +113,78 @@ $( document ).ready(function(){
     $("<optgroup label=\" Others : \">").insertBefore($("#tell_us_more option[value='journalisme']"))
     $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
 
-  } else{
+  } else if($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
+    $("#field-email > label").text('メールアドレスを入力してください')
+    $("#field-last_name > label").text('「姓」を入力してください')
+    $("#field-first_name > label").text('「名」を入力してください')
+    $("#field-username > label").text("ユーザー名を入力してください")
+    $("#field-password > span").text('パスワードを設定してください')
+    $("#username-custom-champagne").text('')
+    $("#email").attr('placeholder','メールアドレスを入力してください')
+    $("#username").attr('placeholder','ユーザー名を入力してください')
+    $("#last_name").attr('placeholder','「姓」を入力してください')
+    $("#first_name").attr('placeholder','「名」を入力してください')
+
+    $("#field-country>label").text('国/地域')
+
+    $("#country>option[value='MO']").text('マカオ')
+    $("#country>option[value='TW']").text('台湾')
+    $("#country>option[value='HK']").text('香港')
+
+    $("#field-is_pro label").text('Are you working or studying in the wine-related industry ?');
+
+    $("#field-activity_or_formation label").text('「ステータス＊」 ');
+
+    $("#field-tell_us_more label").text('「分野を選択＊」');
+    $("#field-tell_us_more_again label").text('「分野を選択＊」');
+
+
+    $("#field-is_pro option[value='oui']").text('はい');
+    $("#field-is_pro option[value='no']").text('番号');
+
+    $("#field-activity_or_formation option[value='formation']").text('「学習・研修中」');
+    $("#field-activity_or_formation option[value='activity']").text('「業界での職歴あり」');
+
+
+
+    $("#tell_us_more option[value='grossiste']").text('「卸売業」');
+    $("#tell_us_more option[value='acheteur']").text('「バイヤー」');
+    $("#tell_us_more option[value='commercial']").text(' 「営業・代理店」');
+    $("#tell_us_more option[value='caviste']").text('「ワイン小売業」');
+    $("#tell_us_more option[value='autre_distribution']").text('「その他流通業」');
+    $("#tell_us_more option[value='gerant']").text('「支配人・マネージャー」');
+    $("#tell_us_more option[value='chef']").text('「シェフ」');
+    $("#tell_us_more option[value='trateur']").text('「ケータリング」');
+    $("#tell_us_more option[value='autre_Restauration']").text('「その他外食産業」');
+    $("#tell_us_more option[value='visite']").text('「見学・レセプション」');
+    $("#tell_us_more option[value='autre_viticole']").text('「その他のワイン醸造関連産業」');
+    $("#tell_us_more option[value='journalisme']").text('「報道関連」');
+    $("#tell_us_more option[value='tourisme']").text('「観光業」');
+    $("#tell_us_more option[value='formation']").text('「研修・教育」');
+    $("#tell_us_more option[value='eonology']").text('「ワイン醸造業」');
+    $("#tell_us_more option[value='autre']").text('「その他」');
+
+    $("#tell_us_more_again option[value='hotellerie']").text('「ホテル業・ソムリエ業」');
+    $("#tell_us_more_again option[value='commerce']").text('「営業・販売業」');
+    $("#tell_us_more_again option[value='viticulture']").text('「ブドウ栽培・ワイン醸造」');
+    $("#tell_us_more_again option[value='marketing']").text('「マーケティング・広報」 ');
+    $("#tell_us_more_again option[value='droit']").text('「法務関連」');
+    $("#tell_us_more_again option[value='journalisme']").text('「報道関連」');
+    $("#tell_us_more_again option[value='tourisme']").text('「観光業」');
+    $("#tell_us_more_again option[value='autre']").text('「その他」 ');
+
+
+
+    $("<optgroup label=\" Sales :\">").insertBefore($("#tell_us_more option[value='importexport']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_distribution']"))
+    $("<optgroup label=\" Hospitality & Gastronomy : \">").insertBefore($("#tell_us_more option[value='gerant']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_Restauration']"))
+    $("<optgroup label=\" Wine-making industry : \">").insertBefore($("#tell_us_more option[value='Viticulture']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre_viticole']"))
+    $("<optgroup label=\" Others : \">").insertBefore($("#tell_us_more option[value='journalisme']"))
+    $("</optgroup>").insertAfter($("#tell_us_more option[value='autre']"))
+
+  } else {
     $("#last_name").attr('placeholder','exemple: Dupont')
     $("#first_name").attr('placeholder','exemple: Jean')
     $("#field-password > span").text('Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.')

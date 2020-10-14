@@ -14,7 +14,12 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 
 <script>
 $( document ).ready(function(){
-  if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+  if($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
+    $('#general-conditions').text('規約と条件')
+    $('#credits').text('クレジット')
+    $('#faq').text('よくある質問')
+    $('#help').text('助けて')
+  } else if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
     $('#general-conditions').text('General conditions')
     $('#credits').text('Credits')
   } else{
@@ -32,13 +37,13 @@ $( document ).ready(function(){
         <a id="general-conditions" href="${marketing_link('TOS')}">Conditions générales</a>
       </li>
       <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
+        <a id="faq" href="${marketing_link('FAQ')}">FAQ</a>
       </li>
 	  <li>
         <a id="credits" href="/honor">Cr&eacute;dits</a>
       </li>
       <li >
-        <a  target="_blank" href="/media/microsite/champagne-mooc/home/CHAMPAGNE_MOOC_TUTORIAL.pdf">Help</a>
+        <a id="help" target="_blank" href="/media/microsite/champagne-mooc/home/CHAMPAGNE_MOOC_TUTORIAL.pdf">Help</a>
       </li>
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
