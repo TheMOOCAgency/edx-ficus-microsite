@@ -409,6 +409,15 @@ const url = '/media/microsite/onco-occitanie/pagebuilder/json/departements.json'
       $('#profession_add').val('');
     }
   })
+  $('#pays').on('change', function() {
+      if(this.value === "France"){
+        $('#departement').parent().show()
+        $("input[id='Code postal']").parent().show()
+      }else{
+        $('#departement').parent().hide()
+        $("input[id='Code postal']").parent().hide()
+      }
+  });
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
