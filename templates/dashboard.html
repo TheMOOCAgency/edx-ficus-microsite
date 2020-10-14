@@ -262,7 +262,7 @@ else{
     <% is_course_blocked = (enrollment.course_id in block_courses) %>
     <% 
       if str(enrollment.course_id) in custom_fields.keys() :
-        timed_out = custom_fields[str(enrollment.course_id)] + 1000*60*60*24*30 < timestamp
+        timed_out = int(custom_fields[str(enrollment.course_id)]) + 1000*60*60*24*30 < timestamp
       else :
         timed_out = False
     %>
