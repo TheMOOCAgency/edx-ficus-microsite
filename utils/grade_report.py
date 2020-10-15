@@ -246,7 +246,6 @@ for j in range(len(course_ids)):
     i = 0
     for i in range(len(enrollments)):
         user = enrollments[i].user
-
         #As the user is enrolled in something remove it from potentially non enrolled users
         if user.id in potentially_non_enrolled_user_ids:
             potentially_non_enrolled_user_ids.remove(user.id)
@@ -269,7 +268,8 @@ for j in range(len(course_ids)):
             pass
 
         # Final grade
-        diff = len(HEADER) - len(course_ids)*2 + j - len(users_data[user.id])
+        diff = len(HEADER) - len(course_ids)*2 + j*2 - len(users_data[user.id])
+        # diff = len(HEADER) - len(course_ids) + j - len(users_data[user.id])
 
         if diff > 0 :
             users_data[user.id].extend([None] * diff)
