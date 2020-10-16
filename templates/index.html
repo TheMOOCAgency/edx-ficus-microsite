@@ -9,14 +9,18 @@
         <link href="https://fonts.googleapis.com/css?family=Open Sans&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
        <link rel="stylesheet" href="/media/microsite/connexions-citoyennes/css/index.css">
-    <link href="/media/microsite/amcsti/hp/css/cookies.css" rel="stylesheet">
+    <link href="/media/microsite/connexions-citoyennes/css/cookies.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176863659-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 1000,
+  });
   gtag('js', new Date());
- 
   gtag('config', 'UA-176863659-1');
 </script>
 
@@ -27,10 +31,11 @@
     <body>
     <section id="cookies">
       <p>
-        En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites et le dépôt de cookies tiers destinés à vous proposer des vidéos.
+        En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites.
       </p>
       <p>
         <a href="/honor">En savoir plus</a>
+        <button id="cookie_nok">Refuser</button>
         <button id="cookie_ok">OK</button>
       </p>
      </section>

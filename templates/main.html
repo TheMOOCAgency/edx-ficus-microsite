@@ -113,8 +113,12 @@ from pipeline_mako import render_require_js_path_overrides
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 1000,
+  });
   gtag('js', new Date());
- 
   gtag('config', 'UA-176863659-1');
 </script>
 
@@ -180,6 +184,16 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 </head>
 
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
+    <section id="cookies">
+      <p>
+        En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites.
+      </p>
+      <p>
+        <a href="/honor">En savoir plus</a>
+        <button id="cookie_nok">Refuser</button>
+        <button id="cookie_ok">OK</button>
+      </p>
+     </section>
 <span id="tma_background_font"></span>
 <%static:optional_include_mako file="body-initial.html" is_theming_enabled="True" />
 <div id="page-prompt"></div>
@@ -327,3 +341,5 @@ setInterval(function(){
  content: "Solution:";
 }
 </style>
+<link href="/media/microsite/connexions-citoyennes/css/cookies.css" rel="stylesheet">
+
