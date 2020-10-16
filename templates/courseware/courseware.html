@@ -378,6 +378,14 @@ setInterval(function () {
         $(this).hide()
       }
     });
+    $("div.xblock.xblock-student_view > p").filter(function () {
+      if (regex.test($(this).children("a").attr('href'))) {
+        //$(this).children("a").closest("p").hide();
+        $(this).children("a").closest("p").html("<span style='color:rgba(200,175,130,1) !important'>Coming soon through our app !</span>");
+        //$(this).children("a").closest("p").show();
+      }
+    });
+
   }
 }, 250);
 </script>
