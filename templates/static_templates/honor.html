@@ -63,7 +63,7 @@ if _template is None:
       $('.main-content-jp').hide();
       $('.main-content-en').show();
       window.document.title= "Credit"
-    } else if ($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")) {
+    } else if ($('#settings-language-value > option[value="ja-jp"]').length > 0 && $('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")) {
       $('.main-content-fr').hide();
       $('.main-content-jp').show();
       $('.main-content-en').hide();
