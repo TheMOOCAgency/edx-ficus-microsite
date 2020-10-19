@@ -352,12 +352,6 @@ else{
   <div class="empty-dashboard-message">
     <!-- <p>${_("You are not enrolled in any courses yet.")}</p> -->
     <p>Ouverture de la 2e session au 2 novembre 2020</p>
-    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-      <!-- <a href="${marketing_link('COURSES')}">
-        ${_("Explore courses")}
-      </a> -->
-
-    %endif
     <video controls width="550">
       <source src="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/video/teaser.mp4"
               type="video/mp4">
@@ -373,6 +367,12 @@ else{
       <li style="margin-bottom: 10px;line-height: 18px;">Module 4, La Maison des Canaux : L’exemple d’une rénovation exemplaire, à la fois inclusive et circulaire</li style="margin-bottom: 10px;">
     </ul>
     <p style="font-size: 18px;padding: 20px;line-height: 22px;">Bonne formation !</p>
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+      <!-- <a href="${marketing_link('COURSES')}">
+        ${_("Explore courses")}
+      </a> -->
+
+    %endif
 </div>
 % endif
 <!-- FIN DASHBOARD MULTI -->
