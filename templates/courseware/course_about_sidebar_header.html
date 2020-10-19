@@ -11,7 +11,7 @@ from django.conf import settings
   <div class="course-about-image">
     <img src="${course_image_urls['large']}" alt="">
   </div>
-  % if user.is_authenticated() and registered:
+  % if user.is_authenticated() and registered and str(course.id) != "course-v1:en3s+DRIEEF+2020":
 	<div class="enroll-button">
     % if user.is_active:
 <!--           <span>Votre inscription a été prise en compte !
@@ -24,6 +24,9 @@ $(document).ready(function(){
             "template": "%d j  %h h  %i min  %s s",
         });
 });
+if ("${str(course.id)}" === "course-v1:en3s+DRIEEF+2020") {
+  window.location.href = "/"
+}
 </script> 
            <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
            &nbsp;<br/> 
