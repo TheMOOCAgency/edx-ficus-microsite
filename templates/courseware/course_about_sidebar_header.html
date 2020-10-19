@@ -7,6 +7,11 @@ from django.conf import settings
 <!--
 <script type="text/javascript" src="${static.url('js/jquery.jcountdown.js')}"></script>
 -->
+<script>
+if ("${str(course.id)}" === "course-v1:en3s+DRIEEF+2020") {
+  window.location.href = "/"
+}
+</script> 
 <header>
   <div class="course-about-image">
     <img src="${course_image_urls['large']}" alt="">
@@ -24,9 +29,6 @@ $(document).ready(function(){
             "template": "%d j  %h h  %i min  %s s",
         });
 });
-if ("${str(course.id)}" === "course-v1:en3s+DRIEEF+2020") {
-  window.location.href = "/"
-}
 </script> 
            <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
            &nbsp;<br/> 
@@ -41,7 +43,7 @@ if ("${str(course.id)}" === "course-v1:en3s+DRIEEF+2020") {
            Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
     % endif
         </div>
-  % else:
+  % elif str(course.id) != "course-v1:en3s+DRIEEF+2020":
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
            Je m'inscris !
         </div>
