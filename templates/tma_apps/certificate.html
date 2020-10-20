@@ -26,21 +26,39 @@ background_url = configuration_helpers.get_value('bg_img')
   h1,h2,h3,h4,h5,p{
     font-family: inherit
   }
-  p{
-    padding:10px
+
+      .paragraph{
+    font-size: 0.9rem;
   }
-  h4{
-    font-size: 1.5rem;
-  }
-  h3{
-    font-size: 1.7rem
-  }
+  .title_h1 {
+        font-size: 2.3rem;
+        color: ${primary_color};
+        font-weight: bold;
+        margin-bottom: 10px !important;
+      }
+      .title_h2 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: ${primary_color};
+        margin: 10px 0 !important;
+      }
+      .title_h3 {
+        font-size: 0.9rem;
+        color: ${primary_color};
+        font-weight: 400;
+      }
+
+      .title_h4 {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: ${primary_color};
+      }
   #certificate-wrapper{
     background: white;
   }
   .certificate-border{
     border:2px solid ${primary_color};
-    border-radius:5px;
+
   }
   #custom-btn{
     background: ${primary_color};
@@ -70,8 +88,8 @@ background_url = configuration_helpers.get_value('bg_img')
     width:854px;
     height:500px;
     margin: 0 auto;
-    padding: 20px;
-    background-image: url('${background_url}')
+    padding: 2px;
+        border: 4px solid #283278;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -87,6 +105,31 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
     flex-direction: column;
   }
+  #external-container {
+          padding: 2px;
+      }
+  #container-image {
+        width: 50%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+      }
+      #container-text {
+        margin-bottom: 45px;
+      }
+      .logo-afd {
+        width: 160px;
+      }
+      .logo-cfi {
+        width: 160px;
+      }
+      #place_and_date{
+        margin: 20px;
+      }
+      .signature {
+        width: 135px;
+      }
+
 </style>
 
 <!-- CUSTOM STYLE -->
@@ -98,9 +141,10 @@ background_url = configuration_helpers.get_value('bg_img')
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
+  <div id="external-container" class="certificate-border">
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+          <!-- <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
           <div>
             <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
             <h3>${first_name} ${last_name}</h3>
@@ -108,8 +152,26 @@ background_url = configuration_helpers.get_value('bg_img')
             <h4>${int(grades['grade']*100)}%</h4>
             <p>au cours</p>
             <h4>${course_name}</h4>
+          </div> -->
+          <div id="container-image">
+            <img class="logo-cfi" src="/media/microsite/connexions-citoyennes/assets/Logo_CFI_2018.jpg" alt="logo" />
+            <img class="logo-afd" src="/media/microsite/connexions-citoyennes/assets/Logo-AFD.jpg" alt="logo" />
+          </div>
+          <div id="container-text">
+            <h1 id="certificate-title" class="title_h1">Attestation de réussite</h1>
+            <p class="paragraph">${first_name} ${last_name}</p>
+            <p class="paragraph">a suivi et réussi la formation du</p>
+            <h2 class="title_h2">MOOC ${course_name}</h2>
+            <!-- <h2 class="title_h2">un nom de cours très long qui va entrainer un retour à la ligne</h2> -->
+            <p class="paragraph">du 19 octobre 2020 au 27 novembre 2020</p>
+            <p class="paragraph">Note finale : ${int(grades['grade']*100)} %</p>
+            <h3 id="place_and_date" class="title_h3">Fait à Issy les Moulineaux, le 27 novembre 2020</h3>
+            <h4 id="name" class="title_h4">Alan DREANIC</h4>
+            <h4 class="title_h4">Directeur général adjoint</h4>
+            <img class="signature" src="/media/microsite/connexions-citoyennes/assets/signature2.png" alt="signature" />
           </div>
           <div>
+          </div>
           </div>
       </div>
   </div>
