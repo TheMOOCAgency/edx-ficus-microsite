@@ -41,11 +41,11 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
       <section class="courses-container">
         % if course_discovery_enabled:
         <div id="discovery-form" role="search" aria-label="course" class="wrapper-search-context">
-          <div id="discovery-message" class="search-status-label"></div>
+          <div id="discovery-message" style="background-color:  rgba(155, 231, 216, 1) !important ;" class="search-status-label"></div>
           <form class="wrapper-search-input">
             <label for="discovery-input" class="sr">${_('Search for a course')}</label>
             <input id="discovery-input" class="discovery-input" placeholder="${_('Search for a course')}" type="text"/>
-            <button type="submit" class="button postfix discovery-submit" title="${_('Search')}">
+            <button type="submit" class="button postfix discovery-submit" style="background-color: rgba(155, 231, 216, 1) !important; border: 1px solid rgba(155, 231, 216, 1) !important; " title="${_('Search')}">
               <span class="icon fa fa-search" aria-hidden="true"></span>
               <div aria-live="polite" aria-relevant="all">
                 <div id="loading-indicator" class="loading-spinner hidden">
