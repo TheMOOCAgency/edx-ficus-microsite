@@ -165,7 +165,7 @@ background_url = configuration_helpers.get_value('bg_img')
             <!-- <h2 class="title_h2">un nom de cours très long qui va entrainer un retour à la ligne</h2> -->
             <p class="paragraph">du 19 octobre 2020 au 27 novembre 2020</p>
             <p class="paragraph">Note finale : ${int(grades['grade']*100)} %</p>
-            <h3 id="place_and_date" class="title_h3">Fait à Issy les Moulineaux, le 27 novembre 2020</h3>
+            <h3 id="place_and_date" class="title_h3">Fait à Issy les Moulineaux, le ${date.today().strftime("%d %B %Y") }</h3>
             <h4 id="name" class="title_h4">Alan DREANIC</h4>
             <h4 class="title_h4">Directeur général adjoint</h4>
             <img class="signature" src="/media/microsite/connexions-citoyennes/assets/signature2.png" alt="signature" />
@@ -182,6 +182,7 @@ background_url = configuration_helpers.get_value('bg_img')
       <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
 %endif
+
 
 <!-- PDF CREATOR-->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
