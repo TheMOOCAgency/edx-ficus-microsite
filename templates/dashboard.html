@@ -146,7 +146,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   """
 endfor
 %>
-    <div class="dashboard_profile" id="dashboard_profile_up" style="background-color:  rgba(155, 231, 216, 1) !important ;">
+    <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
       <h4>${user.email}</h4>
@@ -186,8 +186,8 @@ endfor
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
-      <div id="dashboard_profile_bottom_up" >
-        <span style="color:rgba(155, 231, 216, 1) !important">${_("Your final grade")}</span><span style="color:rgba(155, 231, 216, 1) !important" id="score_tma">${score}%</span>
+      <div id="dashboard_profile_bottom_up">
+        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
       </div>
   <%
   course_details_len = len(course_details)
@@ -300,7 +300,7 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1" style="background-color:  rgba(155, 231, 216, 1) !important ;">Mes formations</span></h1>
+  <h1><span id="span_1">Mes formations</span></h1>
 </span>
 <ul id="list_multi">
 
@@ -565,13 +565,9 @@ $(window).initialize(function(){
   }
   #title_dashboard_course h1 {
     color: #000;
-    background-color:  rgba(155, 231, 216, 1);
   }
   #course_start span, .course_nav span {
     color: #000;
-  }
-  #course_start, .course_nav {
-    background-color:  rgba(155, 231, 216, 1) !important;
   }
   #list_multi_title h1 span:last-child {
     color: #000!important;

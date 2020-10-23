@@ -46,7 +46,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
 <li class="course_cell_multi">
-  <div class="up_cell" style="background-color:  rgba(155, 231, 216, 1) !important ;">
+  <div class="up_cell">
     <div class="options">
       <span class="list_params">
 
@@ -117,7 +117,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
     </div>
     <div class="dashboard_button">
 % if cours_ouv:
-      <a style="background-color: #FFF;" href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+<a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
 % endif
     </div>
     <span style="display:block;clear:left"></span>
