@@ -16,7 +16,7 @@ if ("${str(course.id)}" === "course-v1:en3s+DRIEEF+2020" || "${str(course.id)}" 
   <div class="course-about-image">
     <img src="${course_image_urls['large']}" alt="">
   </div>
-  % if user.is_authenticated() and registered and str(course.id) != "course-v1:en3s+DRIEEF+2020":
+  % if user.is_authenticated() and registered and str(course.id) != "course-v1:en3s+DRIEEF+2020" and str(course.id) != "course-v1:en3s+1+2020":
 	<div class="enroll-button">
     % if user.is_active:
 <!--           <span>Votre inscription a été prise en compte !
