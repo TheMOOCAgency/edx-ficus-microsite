@@ -21,43 +21,34 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <!-- COMMON STYLE-->
 <style>
+
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    /* font-family: inherit; */
+    font-family: "Quicksand" !important;
+    font-weight: 700;
   }
   p{
-    padding:10px
+    padding:10px;
   }
   h4{
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   h3{
-    font-size: 1.7rem
+    font-size: 1.6rem;
+
   }
   #certificate-wrapper{
     background: white;
-  }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
   }
   #custom-btn{
     background: ${primary_color};
     border: none;
     box-shadow: none;
     text-shadow: none;
-  }
-  #internal-border{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -67,12 +58,39 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    background-image: url('/media/microsite/mooc-entreprise-harcelementsexuel/certificate/certificat_fond-FR.jpg');
+    background-size: contain;
     width:854px;
     height:500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-image: url('${background_url}')
   }
+
+  #certificate-container-text{
+    margin-top: 155px
+  }
+
+  #certificate-container-text-course{
+    margin-top: 10px
+  }
+  #certificate-container-text-course_name{
+    color: #AE216A;
+  }
+  #certificate-container-text_org{
+    margin-top: 10px
+  }
+  #certificate-container-text_date{
+    margin-top: 40px;
+    font-size: 0.8em;
+  }
+
   #pdf-btn-wrapper{
     padding: 15px
   }
@@ -99,26 +117,44 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
+    %if request.LANGUAGE_CODE == 'fr':
+          <div id="certificate-container-text">
             <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+            <h3 id="certificate-container-text-course">a suivi avec succés le MOOC Entreprise</h3>
+            <h3 id="certificate-container-text-course_name">"${course_name}"</h3>
+            <h4 id="certificate-container-text_org">proposé par le Mouvement Egalité Femmes Hommes et Psytel</h4>
+            <h4>dans le cadre d'un projet européen du programme REC</h4>
+            <p id="certificate-container-text_date">Paris, le ${date.today().strftime("%d/%m/%Y") }</p>
           </div>
           <div>
           </div>
-      </div>
+    %else:
+        <div id="certificate-container-text">
+          <h3>${first_name} ${last_name}</h3>
+          <h3 id="certificate-container-text-course">Has successfully completed the MOOC</h3>
+          <h3 id="certificate-container-text-course_name">"${course_name}"</h3>
+          <h4 id="certificate-container-text_org">Prdoduced by the Mouvement Egalité Femmes Hommes and Psytel</h4>
+          <h4>fir the European peoject of the Rights Equality Citizenship programme (REC)</h4>
+          <p id="certificate-container-text_date">Paris, ${date.today().strftime("%d/%m/%Y") }</p>
+        </div>
+        <div>
+        </div>
+    %endif
+
   </div>
 </div>
 %else:
-  <div id="noCertificateMessage">
-      <h3>Certificat Non Disponible</h3>
+    %if request.LANGUAGE_CODE == 'fr':
+      <div id="noCertificateMessage">
+          <h3>Certificat Non Disponible</h3>
+          <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+      </div>
+    %else:
+    <div id="noCertificateMessage">
+      <h3>Certificat not available</h3>
       <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
+    %endif
 %endif
 
 <!-- PDF CREATOR-->
