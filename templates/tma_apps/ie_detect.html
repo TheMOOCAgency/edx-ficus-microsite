@@ -25,7 +25,7 @@ from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
         "fr":{
             "title":"Navigateur Web",
             "text":"Nous recommandons l'usage de Mozilla Firefox ou Google Chrome pour consulter cette interface.",
-            "btn":"continuer"
+            "btn":"OK"
         },
         "en":{
             "title":"Web Browser",
@@ -42,7 +42,7 @@ from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
             type: 'warning',
             title: ieWarning[language]['title'],
             text: ieWarning[language]['text'],
-            confirmButtonText: ieWarning[language]['btn'],
+            cancelButtonText: ieWarning[language]['btn'],
             }
         );
     }
