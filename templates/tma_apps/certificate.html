@@ -120,8 +120,8 @@ background_url = configuration_helpers.get_value('bg_img')
     %if request.LANGUAGE_CODE == 'fr':
           <div id="certificate-container-text">
             <h3>${first_name} ${last_name}</h3>
-            <h3 id="certificate-container-text-course">a suivi avec succés le MOOC Entreprise</h3>
-            <h3 id="certificate-container-text-course_name">"${course_name}"</h3>
+            <h3 id="certificate-container-text-course">a suivi avec succès le MOOC Entreprise</h3>
+            <h3 id="certificate-container-text-course_name">"VIOLENCES SEXISTES ET SEXUELLES AU TRAVAIL"</h3>
             <h4 id="certificate-container-text_org">proposé par le Mouvement Egalité Femmes Hommes et Psytel</h4>
             <h4>dans le cadre d'un projet européen du programme REC</h4>
             <p id="certificate-container-text_date">Paris, le ${date.today().strftime("%d/%m/%Y") }</p>
@@ -132,7 +132,7 @@ background_url = configuration_helpers.get_value('bg_img')
         <div id="certificate-container-text">
           <h3>${first_name} ${last_name}</h3>
           <h3 id="certificate-container-text-course">Has successfully completed the MOOC</h3>
-          <h3 id="certificate-container-text-course_name">"${course_name}"</h3>
+          <h3 id="certificate-container-text-course_name">"SEXIST AND SEXUAL VIOLENCE IN THE WORKPLACE"</h3>
           <h4 id="certificate-container-text_org">Produced by the Mouvement Egalité Femmes Hommes and Psytel</h4>
           <h4>for the European peoject of the Rights Equality Citizenship programme (REC)</h4>
           <p id="certificate-container-text_date">Paris, ${date.today().strftime("%d/%m/%Y") }</p>
@@ -144,17 +144,10 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
 </div>
 %else:
-    %if request.LANGUAGE_CODE == 'fr':
       <div id="noCertificateMessage">
           <h3>Certificat Non Disponible</h3>
           <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
       </div>
-    %else:
-    <div id="noCertificateMessage">
-      <h3>Certificat not available</h3>
-      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
-  </div>
-    %endif
 %endif
 
 <!-- PDF CREATOR-->
