@@ -19,7 +19,7 @@ from django.utils.translation import ugettext as _
                <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" id="loginLink1">Connexion</a></li>
+                        <li><a href="" id="loginLink1">ログイン</a></li>
                         <li><a href="" id="registerLink1">Inscription</a></li>
                      </ul>
                   </button>
@@ -29,8 +29,10 @@ from django.utils.translation import ugettext as _
                      <li>
                         <a class="navbar-brand "><img style="height: 237%;" src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/croppedLogo.jpg"></a>
                         <a class="navbar-brand "><img class="logoNav"></a>
+                        <a class="navbar-brand "><img style="height: 237%;" src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/amazone.png"></a>
                      </li>
                      <div class="navbar-brand "  style ="margin-left: calc(50% - 121px);position: absolute;"><img class="logo_entrNav"></div>
+                     <div class="navbar-brand "  style ="margin-left: calc(50% + 100px);position: absolute;top: 8px;height: 62px;"><img src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/UE.png"></div>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                      <li><a href="" id="switchToEn"><img style="margin-top: 5px;height: 35px;" src="/media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/gb.png"></a></li>
@@ -125,9 +127,11 @@ from django.utils.translation import ugettext as _
             </div>
             <div class="row footerBottom">
                <div id="footerIcons" >
-                  <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/logo_entrNav.jpg'></img>
                   <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/croppedLogo.jpg'></img>
                   <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/logo.png'></img>
+                  <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/amazone.png'></img>
+                  <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/logo_entrNav.jpg'></img>
+                  <img class="footerIcons" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/UE.png'></img>                  
                   <img class="footerIcons onRight" src='media/microsite/mooc-entreprise-harcelementsexuel/pagebuilder/assets/img/logo_sombre.png'></img>
                </div>
             </div>
@@ -146,7 +150,6 @@ from django.utils.translation import ugettext as _
                      var pathLogin = "/login"
                      var course_id = ""
                      var enrollment_action = ""
-                     var connectLink = ""
                      var pathMedia = "media/microsite/"
                      var micrositeName 
                      var folderPb = "/pagebuilder"
@@ -221,13 +224,13 @@ from django.utils.translation import ugettext as _
 						document.head.appendChild(link2);
                   document.head.appendChild(link3);
                   
-                  $("#loginLink1").attr("href","/login?next=%2Ftma_apps%2Fuser_info")
-                  $("#registerLink1").attr("href","/register?next=%2Ftma_apps%2Fuser_info")
-                  $("#loginLink2").attr("href","/login?next=%2Ftma_apps%2Fuser_info")
-                  $("#registerLink2").attr("href","/register?next=%2Ftma_apps%2Fuser_info")
-                  $("#loginButn").click(function(){window.location.href = "/login?next=%2Ftma_apps%2Fuser_info"})
-                  $("#subscribeButn").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info"})
-                  $("#subscribeButn2").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info"})
+                  $("#loginLink1").attr("href","/login?next=%2Ftma_apps%2Fuser_info&lang=" + lang)
+                  $("#registerLink1").attr("href","/register?next=%2Ftma_apps%2Fuser_info&lang=" + lang)
+                  $("#loginLink2").attr("href","/login?next=%2Ftma_apps%2Fuser_info&lang=" + lang)
+                  $("#registerLink2").attr("href","/register?next=%2Ftma_apps%2Fuser_info&lang=" + lang)
+                  $("#loginButn").click(function(){window.location.href = "/login?next=%2Ftma_apps%2Fuser_info&lang=" + lang})
+                  $("#subscribeButn").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info&lang=" + lang})
+                  $("#subscribeButn2").click(function(){window.location.href = "/register?next=%2Ftma_apps%2Fuser_info&lang=" + lang})
 
                   // texts
                   $("#subscribeButn2").text(objJson.page.imIn)
@@ -327,6 +330,7 @@ from django.utils.translation import ugettext as _
             
             var response
             var objJson
+            var lang
             
             getInfo();
             var a = new XMLHttpRequest();
@@ -338,13 +342,12 @@ from django.utils.translation import ugettext as _
                   response= JSON.parse(this.response)
                   if ("${LANGUAGE_CODE}" === "fr") {
                      objJson = response.fr
-                     course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME"
+                     lang = "fr"
                   } else {
                      objJson = response.en
-                     course_id = "course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME"
+                     lang = "en"
                   }
                   enrollment_action = "enroll"
-                  connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
                   masterBind();
             	}
             	else alert("HTTP error "+this.status+" "+this.statusText);
@@ -362,6 +365,7 @@ from django.utils.translation import ugettext as _
             $('#switchToEn').click( function( event ) {
                event.preventDefault();
                objJson = response.en
+               lang = "en"
                $('#markMoock').empty()
                $('#markWeeks').empty()
                masterBind();
@@ -370,6 +374,7 @@ from django.utils.translation import ugettext as _
             $('#switchToFr').click( function( event ) {
                event.preventDefault();
                objJson = response.fr
+               lang = "fr"
                $('#markMoock').empty()
                $('#markWeeks').empty()
                masterBind();
