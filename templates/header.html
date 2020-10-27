@@ -2,3 +2,13 @@
 <%page expression_filter="h" args="online_help_token"/>
 <%namespace name='static' file='static_content.html'/>
 <%include file="${static.get_template_path(relative_path='navigation.html')}"  args="online_help_token=online_help_token"  />
+
+
+<script>
+$(".btn-neutral").each(function(){
+ $(this).attr('href','/register?course_id=course-v1:mobilitips+01+2019&enrollment_action=enroll');
+});
+$(".btn-login").each(function(){
+ $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F$course-v1:mobilitips+01+2019%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
+});
+</script>
