@@ -21,19 +21,21 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> 
+
 <!-- COMMON STYLE-->
 <style>
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: "Roboto" !important;
   }
   p{
     padding:10px
   }
   h4{
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
   h3{
-    font-size: 1.7rem
+    font-size: 1.6rem
   }
   #certificate-wrapper{
     background: white;
@@ -48,7 +50,17 @@ background_url = configuration_helpers.get_value('bg_img')
     box-shadow: none;
     text-shadow: none;
   }
-  #internal-border{
+  #certificate-wrapper{
+    min-height: calc(100vh - 133px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* width: 1909.5px;
+    height: 843px; */
+    margin-right: 400px;
+  }
+  #certificate-container{
     height: 100%;
     display: flex;
     align-items: center;
@@ -58,20 +70,18 @@ background_url = configuration_helpers.get_value('bg_img')
     padding: 20px;
     box-sizing: border-box;
     background: white;
+    background-image: url('/media/microsite/mobilitips/certificate/fond.jpg');
+    background-size: contain;
+    width:641px;
+    height:481px;
+
   }
-  #certificate-wrapper{
-    min-height: calc(100vh - 133px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  #certificate-container-text{
+    margin-top: 195px;
   }
-  #certificate-container{
-    width:854px;
-    height:500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-image: url('${background_url}')
+  #certificate-container-text_name{
+    margin: 20px;
+    font-weight: bold;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -99,19 +109,14 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+          <div id="certificate-container-text">
+            <h3 id="certificate-container-text_title">Félicitations ! </h3>
+            <h3 id="certificate-container-text_name">${first_name} ${last_name}</h3>
+            <h4 id="certificate-container-text_message">a suivi avec succès l'ensemble</h4>
+            <h4>du glossaire Mobtips</h4>
           </div>
           <div>
           </div>
-      </div>
   </div>
 </div>
 %else:
@@ -131,7 +136,8 @@ background_url = configuration_helpers.get_value('bg_img')
       onrendered : function (canvas){
        var img=canvas.toDataURL("image/png");
        var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
+      //  doc.addImage(img, "PNG", 30, 35);
+       doc.addImage(img, "PNG", 70, 35);
        doc.save("certificat.pdf");
       }
     })
