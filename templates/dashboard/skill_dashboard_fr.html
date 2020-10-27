@@ -40,9 +40,12 @@ course_state = user_course_state[str(enrollment.course_id)]
     </div>
     <div class="col-md-6">
       <div class="gray-bg rounded pad-25 mb-20">
-        <h2 class="text-center" id="course_title">
+        <div style="text-align:center">
+                <img src="/media/microsite/psa-netexplo/images/logo_digimapper.png" style="height: 60px">
+        </div>
+        <!-- <h2 class="text-center" id="course_title">
           ${course_overview.display_name}
-        </h2>
+        </h2> -->
         <p class="text-center" id="trial_name">
           Évaluation ${associated_courses.get('step_number',1)}
         </p>
