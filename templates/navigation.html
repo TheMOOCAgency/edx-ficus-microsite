@@ -427,6 +427,36 @@ $( document ).ready(function() {
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
   })
+  var currentCourseId = "${course.id}".slice(6)
+  var frCourseId = '-v1:nature-for-city-life+NFCL+Parcours2'
+  var prefixeBase = ['https://studio.the-mooc-agency.com/asset','+type@asset+block@']
+  var frPrefixe = prefixeBase[0] + frCourseId + prefixeBase[1]
+  var currentLangPrefixe = prefixeBase[0] + currentCourseId + prefixeBase[1]
+  
+  var assetsList = [
+    ['intervenants','.png'],
+    ['ressource_compl%C3%A9mentaires','.png'],
+    ['QUIZ_EVALUATION','.png'],
+    ['video_1','.png'],
+    ['pr%C3%A9sentation','.png'],
+    ['QVAR','.png'],
+    ['objectif_p%C3%A9dagogique_1','.png'],
+  ]
+  var langInitiales
+  if ("${language_preference}" === 'it') {
+    langInitiales = '_it'
+  } else if ("${language_preference}" === 'en') {
+    langInitiales = '_en'
+  } else if ("${language_preference}" === 'es-419') {
+    langInitiales = '_esp'
+  } else if ("${language_preference}" === 'de-de') {
+    langInitiales = '_deuch'
+  } 
+  for (let i = 0; i < assetsList.length; i++) {
+    var frSuffixe = assetsList[i][0]+assetsList[i][1]
+    var currentLangSuffixe = assetsList[i][0]+langInitiales+assetsList[i][1]
+    $("img[src$='"+frPrefixe+frSuffixe+"']").attr('src',currentLangPrefixe+currentLangSuffixe)
+  }
 });
 </script>
 
