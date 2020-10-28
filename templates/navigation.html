@@ -213,22 +213,22 @@ site_status_msg = get_site_status_msg(course_id)
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
                 % if LANGUAGE_CODE == "en":
-                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                 % else :
-                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                 % endif
               % else:
                 % if static.get_value('course_id') is not None:
                   % if LANGUAGE_CODE == "en":
-                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                   % else :
-                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                   % endif
                 % else:
                   % if LANGUAGE_CODE == "en":
-                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01GB+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                   % else :
-                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Register")}</a>
+                  <a class="btn-neutral" href="/login?course_id=course-v1:mooc-entreprise-harcelementsexuel+ME01+2020_ME&enrollment_action=enroll">${_("Sign in")}</a>
                   % endif
                 % endif
               % endif
