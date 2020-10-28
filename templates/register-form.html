@@ -99,7 +99,6 @@ import datetime
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
-      <span class="tip tip-input" id="name-tip">Le nom d'utilisateur ne doit pas contenir d'espace, ni de chiffres ou de symboles spéciaux. Par exemple, pour <b>jean.dupond@gmail.com</b>, le nom d'utilisateur pourrait être <b>jeandupond</b> ou <b>jean.dupond ou jean_dupond. Il ne pourra pas être modifié ultérieurement.</b></span>
     </li>
 
 
@@ -112,7 +111,7 @@ import datetime
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
       <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
-      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <span class="tip tip-input" id="name-tip">Le nom d'utilisateur ne doit pas contenir d'espace, ni de chiffres ou de symboles spéciaux. Par exemple, pour <b>jean.dupond@gmail.com</b>, le nom d'utilisateur pourrait être <b>jeandupond</b> ou <b>jean.dupond ou jean_dupond. Il ne pourra pas être modifié ultérieurement.</b></span>
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
