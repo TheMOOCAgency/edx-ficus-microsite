@@ -99,6 +99,7 @@ import datetime
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+      <span class="tip tip-input" id="name-tip">Le nom d'utilisateur ne doit pas contenir d'espace, ni de chiffres ou de symboles spéciaux. Par exemple, pour <b>jean.dupond@gmail.com</b>, le nom d'utilisateur pourrait être <b>jeandupond</b> ou <b>jean.dupond ou jean_dupond. Il ne pourra pas être modifié ultérieurement.</b></span>
     </li>
 
 
@@ -119,6 +120,7 @@ import datetime
     <li class="is-disabled field optional password" id="field-password" hidden>
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
+      <span class="tip tip-input" id="name-tip" style="position: initial;">Votre mot de passe doit être composé au minimum de 8 caractères et contenir au moins une minuscule, une majuscule et un chiffre.</span>
     </li>
 
     % else:
@@ -126,6 +128,7 @@ import datetime
     <li class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <span class="tip tip-input" id="name-tip" style="position: initial;">Votre mot de passe doit être composé au minimum de 8 caractères et contenir au moins une minuscule, une majuscule et un chiffre.</span>
     </li>
 
     % endif
