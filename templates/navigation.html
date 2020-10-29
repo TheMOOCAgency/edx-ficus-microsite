@@ -263,9 +263,10 @@ site_status_msg = get_site_status_msg(course_id)
                 <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr" style="width: 23px;">
                 <img src="/media/microsite/nature-for-city-life/img/es.png" id="es" style="width: 23px;">
                 <img src="/media/microsite/nature-for-city-life/img/de.png" id="de" style="width: 23px;">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="4" >
+                <img src="/media/microsite/nature-for-city-life/img/it.png" id="it" style="width: 23px;">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="5" >
                   % for language in languages:
-                   % if language[0] =="en" or language[0] =="fr" or language[0] =="es-419" or language[0] =="de-de":
+                   % if language[0] =="en" or language[0] =="fr" or language[0] =="es-419" or language[0] =="it-it" or language[0] =="de-de":
                     % if language[0] == LANGUAGE_CODE:
                       <option value="${language[0]}" selected="selected">${language[0]}</option>
                     % else:
@@ -337,6 +338,9 @@ function getLangUrl(){
       $( "#fr" ).trigger( "click" );
     }
 
+    if(lang=="it-it" && ($('#settings-language-value > option[value="it-it"]').attr('selected')) !='selected'){
+      $( "#it" ).trigger( "click" );
+    }
   }
 };
 
@@ -408,55 +412,36 @@ $( document ).ready(function() {
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
     });
   $('#fr').on('click', function() {
     $('#settings-language-value > option[value="fr"]').attr('selected','selected');
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
   });
   $('#es').on('click', function() {
     $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
   });
   $('#de').on('click', function() {
     $('#settings-language-value > option[value="de-de"]').attr('selected','selected');
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
   })
-  var currentCourseId = "${course.id}".slice(6)
-  var frCourseId = '-v1:nature-for-city-life+NFCL+Parcours2'
-  var prefixeBase = ['https://studio.the-mooc-agency.com/asset','+type@asset+block@']
-  var frPrefixe = prefixeBase[0] + frCourseId + prefixeBase[1]
-  var currentLangPrefixe = prefixeBase[0] + currentCourseId + prefixeBase[1]
-  
-  var assetsList = [
-    ['intervenants','.png'],
-    ['ressource_compl%C3%A9mentaires','.png'],
-    ['QUIZ_EVALUATION','.png'],
-    ['video_1','.png'],
-    ['pr%C3%A9sentation','.png'],
-    ['QVAR','.png'],
-    ['objectif_p%C3%A9dagogique_1','.png'],
-  ]
-  var langInitiales
-  if ("${language_preference}" === 'it') {
-    langInitiales = '_it'
-  } else if ("${language_preference}" === 'en') {
-    langInitiales = '_en'
-  } else if ("${language_preference}" === 'es-419') {
-    langInitiales = '_esp'
-  } else if ("${language_preference}" === 'de-de') {
-    langInitiales = '_deuch'
-  } 
-  for (let i = 0; i < assetsList.length; i++) {
-    var frSuffixe = assetsList[i][0]+assetsList[i][1]
-    var currentLangSuffixe = assetsList[i][0]+langInitiales+assetsList[i][1]
-    $("img[src$='"+frPrefixe+frSuffixe+"']").attr('src',currentLangPrefixe+currentLangSuffixe)
-  }
+  $('#it').on('click', function() {
+    $('#settings-language-value > option[value="it-it"]').attr('selected','selected');
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  })
 });
 </script>
 

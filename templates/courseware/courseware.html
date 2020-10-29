@@ -351,4 +351,40 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+
+$( document ).ready(function() {
+  var currentCourseId = "${course.id}".slice(6)
+  var frCourseId = '-v1:nature-for-city-life+NFCL+Parcours2'
+  var prefixeBase = ['https://studio.the-mooc-agency.com/asset','+type@asset+block@']
+  var frPrefixe = prefixeBase[0] + frCourseId + prefixeBase[1]
+  var currentLangPrefixe = prefixeBase[0] + currentCourseId + prefixeBase[1]
+  
+  var assetsList = [
+    ['intervenants','.png'],
+    ['ressource_compl%C3%A9mentaires','.png'],
+    ['QUIZ_EVALUATION','.png'],
+    ['video_1','.png'],
+    ['pr%C3%A9sentation','.png'],
+    ['QVAR','.png'],
+    ['objectif_p%C3%A9dagogique_1','.png'],
+  ]
+  var langInitiales
+  if ("${language_preference}" === 'it') {
+    langInitiales = '_it'
+  } else if ("${language_preference}" === 'en') {
+    langInitiales = '_en'
+  } else if ("${language_preference}" === 'es-419') {
+    langInitiales = '_esp'
+  } else if ("${language_preference}" === 'de-de') {
+    langInitiales = '_deuch'
+  }
+  setInterval(function(){
+    for (let i = 0; i < assetsList.length; i++) {
+      console.log('interval')
+      var frSuffixe = assetsList[i][0]+assetsList[i][1]
+      var currentLangSuffixe = assetsList[i][0]+langInitiales+assetsList[i][1]
+      $("img[src$='"+frPrefixe+frSuffixe+"']").attr('src',currentLangPrefixe+currentLangSuffixe)
+    }
+  }, 500);
+});
 </script>
