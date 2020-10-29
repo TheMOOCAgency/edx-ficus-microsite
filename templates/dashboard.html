@@ -14,6 +14,8 @@ from openedx.core.djangolib.markup import HTML, Text
 from courseware.courses import get_course_info_section, get_course_date_blocks
 from courseware.courses import get_course_by_id
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
 #from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from xmodule.modulestore.django import modulestore
@@ -99,7 +101,7 @@ if is_ov:
   if request.user.last_login < timezone.now() - timedelta(seconds=10):
     is_ov = False
 
-test_users=["lucie.ory@themoocagency.com"]
+test_users=["agathe.raymond-carlo@themoocagency.com"]
 if request.user.email in test_users:
   is_ov=True
 %>
@@ -182,7 +184,7 @@ if request.user.email in test_users:
   <!-- DASHBOARD MONO QUIZ ORIENTED --------------------------------------------------------------------------------------------------------------------------->
   <%
     authorized_users =['gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com']
-    authorized_users+=['aurelien.croq@themoocagency.com','lucie.ory@themoocagency.com','nicola.bonaccorso@themoocagency.com']
+    authorized_users+=['aurelien.croq@themoocagency.com','agathe.raymond-carlo@themoocagency.com','nicola.bonaccorso@themoocagency.com']
     authorized_users+=['vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
     authorized_users+=['alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com']
     authorized_users+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
@@ -210,7 +212,7 @@ if request.user.email in test_users:
     authorized_users_usernames.extend(data['allowed_usernames'])
 
     authorized_admins=['nathalie.heuze@mpsa.com','laetitia.albenque@peugeot.com','valerie.roch@mpsa.com','cedric.clement@ext.mpsa.com','gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com','vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
-    authorized_admins+=['aurelien.croq@themoocagency.com','lucie.ory@themoocagency.com','nicola.bonaccorso@themoocagency.com','alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com','tom.douce@themoocagency.com']
+    authorized_admins+=['aurelien.croq@themoocagency.com','yoann.mroz@themoocagency.com','nicola.bonaccorso@themoocagency.com','alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com','tom.douce@themoocagency.com']
     authorized_admins+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
     authorized_admins+=['fr_review1@yopmail.com','fr_review2@yopmail.com','fr_review3@yopmail.com']
     authorized_admins+=['psareview_fr1@yopmail.com']
@@ -244,11 +246,6 @@ if request.user.email in test_users:
 
   %>
 
-  <script>
-    $('#course_continue, #course_start, #see_answers, #course_results, #last_score').live('click', function(){
-      $('#overlay').removeClass('hide-loader');
-    })
-  </script>
   <style>
     .gray-bg{
       background-color: #E2E4E1;
@@ -377,8 +374,6 @@ if request.user.email in test_users:
 
     </div>
   </div>
-  <!-- TMA IMPORT LOADER -->
-  <%include file="/tma_apps/loader.html" args="language=course.language, primary_color=primary_color"/>
 
   <script>
     //Mark course as started
@@ -792,3 +787,11 @@ $(window).initialize(function(){
   </div>
 </div>
 
+  <!-- TMA IMPORT LOADER -->
+  <%include file="/tma_apps/loader.html" args="language=get_user_preference(request.user, LANGUAGE_KEY), primary_color=primary_color"/>
+
+  <script>
+    $('#course_continue, #course_start, #see_answers, #course_results, #last_score, #skill-bo').live('click', function(){
+      $('#overlay').removeClass('hide-loader');
+    })
+  </script>

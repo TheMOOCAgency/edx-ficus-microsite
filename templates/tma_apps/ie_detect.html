@@ -1,0 +1,60 @@
+<%!
+from django.utils.translation import ungettext, ugettext as _
+from openedx.core.djangolib.markup import HTML
+
+from openedx.core.djangoapps.user_api.preferences.api import get_user_preference
+from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
+
+%>
+
+<%page args="is_auth" expression_filter="h"/>
+
+<%
+    language = ""
+    if is_auth:
+        language = get_user_preference(request.user, LANGUAGE_KEY)
+    else:
+        language = LANGUAGE_CODE
+%>
+
+<script src="https://unpkg.com/promise-polyfill"></script>
+<script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+
+<script>
+    var ieWarning={
+        "fr":{
+            "title":"Navigateur Web",
+            "text":"Nous recommandons l'usage de Mozilla Firefox ou Google Chrome pour consulter cette interface.",
+            "btn":"OK"
+        },
+        "en":{
+            "title":"Web Browser",
+            "text":"We recommend using Mozilla Firefox or Google Chrome to view this page.",
+            "btn":"ok"
+        }
+    }
+
+    function iePopUp(language){
+        if(!ieWarning[language]){
+            language="en"
+        }
+        swal.fire({
+            type: 'warning',
+            title: ieWarning[language]['title'],
+            text: ieWarning[language]['text'],
+            cancelButtonText: ieWarning[language]['btn'],
+            }
+        );
+    }
+    var webbrowser = navigator.userAgent.toLocaleLowerCase()
+
+    $(document).ready(function(){
+        $('#skill-bo').on('click', function(){
+            if (webbrowser.indexOf("firefox")<0 && webbrowser.indexOf("chrome")<0 && webbrowser.indexOf("safari")<0) {
+                iePopUp("${language}");
+            } else {
+                console.log('Not on IE')
+            }
+        });
+    });
+</script>
