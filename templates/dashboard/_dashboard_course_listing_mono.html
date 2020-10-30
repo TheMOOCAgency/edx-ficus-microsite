@@ -45,7 +45,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
-  <h1>${course_overview.display_name_with_default}
+  <h1 style="color: white !important;">${course_overview.display_name_with_default}
     % if show_email_settings:
       <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height:21px;width:24px;display:inline-block;float:right;margin:7px 7px 0px 0px;"></a>
     % endif
@@ -79,7 +79,7 @@ $.ajax({
             contentType: "application/json; charset=utf-8",
             success: function (chapter_list) {
                 for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2 style='color:white !important'>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
                 }
              }
 });
@@ -103,6 +103,24 @@ $.ajax({
                }
            });
 </script>
+
+<style>
+  .course_cells_title{
+    border-radius: 30px;
+  }
+  .course_cell:hover .course_cells_action {
+    border-radius: 30px;
+}
+
+  #course_start span, .course_nav span {
+    color: #ffffff!important;
+}
+#course_nav .svg path {
+    fill: white !important;
+}
+
+
+</style>
 
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");

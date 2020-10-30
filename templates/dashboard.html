@@ -150,8 +150,8 @@ endfor
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
-      <h3>${user.profile.name}</h3>
-      <h4>${user.email}</h4>
+      <h3 style="color: white !important;">${user.profile.name}</h3>
+      <h4 style="color: white !important;">${user.email}</h4>
     </div>
 % if len(course_enrollments) == 1:
     <%
