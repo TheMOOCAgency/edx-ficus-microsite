@@ -239,6 +239,9 @@ expert = request.GET.get('expert')
         % endif
         </select>
     % elif n.get('type') == 'checkbox':
+      % if n.get('name') == 'sollicitations_ademe':
+        <p>Vos données personnelles à caractère professionnel peuvent être également communiquées à l'ADEME afin que celle-ci puisse vous adresser des emails d'information sur les activités la concernant</p>
+      % endif
       <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
       <label for="${n.get('name')}">${_(n.get('label'))}</label>
     % endif
