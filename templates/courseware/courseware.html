@@ -111,6 +111,9 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 ${HTML(fragment.foot_html())}
 
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />
+
 </%block>
 <%
 org_static = static.get_value('domain_prefix')

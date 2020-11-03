@@ -11,163 +11,321 @@ from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_j
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
 import json
+from tma_apps.tma_support_functions import tma_verify_access
 
+primary_color = configuration_helpers.get_value('primary_color')
+background_url = configuration_helpers.get_value('bg_img')
 %>
 
 
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
+<!-- COMMON STYLE-->
 <style>
-/* General */
-#global-navigation,.wrapper-footer,#tma_background_font {
-  display: none !important;
-}
-body{
-  text-align:center;
-}
-.container{
-  margin-top:80px;
-  width:854px;
-  height:480px;
-  margin-left: 70px;
-  padding: 0;
-  border: 1px solid lightgray;
-}
-#main {
-  background-image:url('${bg}');
-  background-size:cover;
-  background-position:center;
-}
-.main-color{
-  background-color:#C1CF33;
-}
-.second-color{
-  background-color: #4d4d4d;
-}
-.texte-gras{
-  font-weight: 600;
-}
+  #certificate-wrapper{
+    background: white;
+  }
 
-/* Premier bandeau */
-.bandeau-top{
-  padding: 10px;
-}
-.bandeau-top p{
-  font-weight: 600;
-  color: white;
-  margin-top: 15px;
-}
-.title-attestation{
-  width: 80%;
-  float: left;
-}
-.logo-attestation{
-  width: 20%;
-  float: left;
-  text-align: right;
-}
-.logo-attestation img{
-  max-height: 40px;
-}
+  #certificate-btn{
+    background: rgba(203,0,63,1);
+    color:white;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+  }
+ 
+  #certificate-wrapper{
+    min-height: calc(100vh - 133px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #certificate-container{
+    width:1000px;
+    margin: 0 auto;
+    border: 1px solid lightgray;
+    color:black;
+  }
+  #pdf-btn-wrapper{
+    padding: 15px
+  }
+  #certificate-title{
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
 
-/* Deuxième bandeau */
-.bandeau-middle{
-  color: white;
-  margin-top: 100px;
-  padding: 30px 10px;
-}
-#course-title{
-  font-size: 20px;
-}
-#nom-user{
-  font-size: 30px;
-  margin-bottom: 30px;
-}
-#score, #course-title{
-  margin-top: 10px;
-}
+  #certificate-subtitle{
+    font-weight: 300;
+  }
 
-/* Footer */
-.footer-right, .footer-left{
-  float: left;
-}
-.footer-right img{
-  max-height: 80px;
-}
-.footer-right{
-  text-align: right;
-  width: 20%;
-}
-.footer-left{
-  width: 80%;
-}
-.footer{
-  padding: 10px;
-  margin-top: 44px;
-}
-.footer p{
-  margin-top: 74px;
-  font-size: 12px;
-  text-align: left;
-  background-color: white;
-}
+  #certificate-header {
+    width: 100%;
+    height:90px;
+    -webkit-box-shadow: 0px 7px 11px 0px rgba(0,0,0,0.07);
+    -moz-box-shadow: 0px 7px 11px 0px rgba(0,0,0,0.07);
+    box-shadow: 0px 7px 11px 0px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 
+  #certificate-header img {
+    position: absolute;
+    height: 40px;
+    top: 30px;
+    left: 30px;
+  }
+
+  #certificate-content {
+    padding: 20px;
+    font-weight: 300;
+    font-size:12px;
+  }
+
+  #certificate-footer {
+    height: 50px;
+    -webkit-box-shadow: 0px -7px 11px 0px rgba(0,0,0,0.07);
+    -moz-box-shadow: 0px -7px 11px 0px rgba(0,0,0,0.07);
+    box-shadow: 0px -7px 11px 0px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    font-size: 12px;
+    font-style: italic;
+    position: relative;
+  }
+
+  #certificate-footer img {
+    position: absolute;
+    right: 0px;
+    bottom: 15px;
+    height: 150px;
+  }
+
+  #course-name {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  #course-goals {
+    font-size: 14px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+
+  #course-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #course-content > div {
+    width: 48%;
+  }
+
+  #noCertificateMessage{
+    background: white;
+    height: calc(100vh - 133px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .red-bg {
+    background-color: rgba(203,0,63,1);
+    color: white;
+    width: calc(100%-14px);
+    padding: 7px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+  
+  .m-8 {
+    margin: 8px;
+  }
+  
+  .course-chapters {
+    list-style: none;
+    padding-left: 20px;
+  }
+  
+  .course-chapters li::before {
+    content: "\2022";
+    color: rgba(203,0,63,1);
+    font-weight: bold;
+    display: inline-block;
+    width: 15px;
+    margin-left: -10px;
+    font-size: 30px;
+    vertical-align: -40%;
+  }
+</style>
+
+<!-- CUSTOM STYLE -->
+<style>
 
 </style>
-% if grades.get('passed'):
-<div class="container" id="main">
-  <div class="bandeau-top main-color">
-    <div class="title-attestation">
-       <p>ATTESTATION DE SUIVI ET DE R&Eacute;USSITE</p>
-    </div>
-    <div class="logo-attestation">
-      <img id="certificate_logo" src="${configuration_helpers.get_value('logo_image_url')}"/>
-    </div>
-    <div style="clear:both;"></div>
+% if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
+<div id="certificate-wrapper">
+  <div id="pdf-btn-wrapper">
+    <button id="certificate-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-
-  <div class="bandeau-middle second-color">
-    <p id="nom-user">${last_name} ${first_name}</p>
-    <p>a suivi et réussi la formation</p>
-    <p class="texte-gras" id="course-title">${course_name}</p>
-    <p id="score">avec un score de ${grades.get('grade')*100}%</p>
-  </div>
-
-  <div class="footer">
-      <div class="footer-left">
-          <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
+  <div id="certificate-container">
+    <div id="certificate-header">
+      <img src="/media/microsite/qualis-formation/auto/images/logo.png"/>
+      <div id="certificate-title">Attestation de fin de formation</div>
+      <div id="certificate-subtitle">(L6353-1 du code du travail)</div>
+    </div>
+    <div id="certificate-content">
+      <div>
+        Je soussigné <span class="bold">Alexandre Manoïlov</span>, agissant en qualité de gérant de la société Qualis Formation, 
+        certifie par la présente attestation que la personne ci-dessous dénommée a bien suivi la formation décrite conformément 
+        aux dispositions de l’article L6353-1 du code du travail.
       </div>
-      <div class="footer-right">
-          <img src="${signature}"/>
+      <div id="course-name" class="bold">
+        Formation continue 7h00 sur la Distribution Assurance
       </div>
-      <div style="clear:both;"></div>
+      <div>
+        Directive 2016/97 du 20 janvier 2016 sur la distribution des assurances
+      </div>
+      <div id="course-goals" class="bold">
+        Objectif: acquérir et actualiser les connaissances sur la distribution de produits d’assurance
+      </div>
+      <div id="course-content">
+        <div id="left-block">
+          <div class="red-bg bold">
+            Les pratiques commerciales en Assurance: rôle et attentes de l’ACPR
+          </div>
+          <ul class="course-chapters">
+            <li>Adopter une pratique commerciale respectueuse de la réglementation</li>
+            <li>Comprendre les mécanismes de protection de la clientèle</li>
+            <li>Connaître l’environnement réglementaire</li>
+            <li>Savoir définir le rôle et les attentes de l’ACPR</li>
+          </ul>
+          <div class="red-bg bold">
+            Les règles de gouvernance et de surveillance des produits
+          </div>
+          <ul class="course-chapters">
+            <li>Comprendre les principales avancées de la Directive Distribution Assurance</li>
+            <li>Analyser les dispositions pratiques de DDA</li>
+            <li>Appréhender la déclinaison en droit français de ces différentes mesures</li>
+          </ul>
+          <div class="red-bg bold">
+            Prévoyance collective: les règles de droit du travail, fiscal et social
+          </div>
+          <ul class="course-chapters">
+            <li>Appréhender différentes facettes du droit du travail avec la prévoyance</li>
+            <li>Connaître les obligations d'un contrat collectif</li>
+            <li>Maîtriser l'inversion des normes accord de branche / accord d'entreprise</li>
+          </ul>
+          <div>
+            <span class="bold">Nature de la formation :</span> cette action de formation entre dans l’une 
+            des catégories prévues par l’article L6313-1 du code du travail, à savoir actions d'acquisition,
+            d'entretien ou de  perfectionnement des connaissances des salariés.
+          </div>
+          <div class="mt-10">
+            <span class="bold">Modalité :</span> formation à distance en e-learning
+          </div>       
+        </div>
+        <div id="right-block">
+          <div class="red-bg bold">
+            Les pratiques commerciales en Assurance : rôle et attentes de l’ACPR
+          </div>
+          <ul class="course-chapters">
+            <li>Adopter une pratique commerciale respectueuse de la réglementation</li>
+            <li>Comprendre les mécanismes de protection de la clientèle</li>
+            <li>Connaître l’environnement réglementaire</li>
+            <li>Savoir définir le rôle et les attentes de l’ACPR</li>
+          </ul>
+          <div class="red-bg bold">
+            Les règles de gouvernance et de surveillance des produits
+          </div>
+          <ul class="course-chapters">
+            <li>Comprendre les principales avancées de la Directive Distribution Assurance</li>
+            <li>Analyser les dispositions pratiques de DDA</li>
+            <li>Appréhender la déclinaison en droit français de ces différentes mesures</li>
+          </ul>
+          <div class="red-bg">
+            <div class="m-8"><span class="bold">Nom de l'apprenant(e) : </span> ${first_name} ${last_name}</div>
+            <div class="m-8"><span class="bold">Salarié(e)</span> de la Banque Michel Inchauspé</div>
+            <div class="m-8"><span class="bold">Temps passé en formation :</span> 7 heures</div>
+            <div class="m-8"><span class="bold">Evaluation des acquis</span> de la formation à l’aide d’un questionnaire</div>
+            <div class="m-8 bold">Résultat obtenu en pourcentage de bonnes réponses : ${int(grades['grade']*100)}%</div>
+            <div class="m-8 bold">Fait à Paris, le <span id="download-date"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="certificate-footer">
+      <div>
+        Qualis Formation - SARL au capital de 10.000€ - RCS Paris B 477 659 023
+      </div>
+      <div>
+        Siège social: 320, rue Saint-Honoré 75001 Paris - 0800 400 151 - www.qualis-formation.fr
+      </div>
+      <img src="/media/microsite/qualis-formation/images/certificate_stamp.png"/>
+    </div>
+          
+          <!-- <div>
+            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
+            <h3>${first_name} ${last_name}</h3>
+            <p>a obtenu la note de</p>
+            <h4>${int(grades['grade']*100)}%</h4>
+            <p>au cours</p>
+            <h4>${course_name}</h4>
+          </div> -->
   </div>
 </div>
+%else:
+  <div id="noCertificateMessage">
+      <h3>Certificat Non Disponible</h3>
+      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+  </div>
+%endif
 
-<script type="text/javascript">
+<!-- PDF CREATOR-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script>
+  var date = new Date();
+  var day = date.getDate();
+  var month = date.getMonth() +1;
+  var year = date.getFullYear();
+  $('#download-date').text(day + "/" + month + "/" + year)
 </script>
-  %if pdf:
-  <script
-    src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-  <script type="text/javascript">
-  function printpage(){
-     html2canvas(document.body, {
+<script>
+  function CertificateToPdf(){
+     html2canvas(document.getElementById("certificate-container"), {
       onrendered : function (canvas){
        var img=canvas.toDataURL("image/png");
        var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 20, 20);
+       doc.addImage(img, "PNG", 16, 8);
        doc.save("certificat.pdf");
       }
     })
   }
-  document.addEventListener('DOMContentLoaded', function() {
-     printpage();
-  });
-  </script>
-  %endif
-% endif
+  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
+  $(document).ready(function(){
+    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+    }
+  })
+</script>
+
