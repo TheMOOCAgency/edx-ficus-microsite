@@ -1,0 +1,151 @@
+# -*- coding: utf-8 -*-
+<%page expression_filter="h"/>
+<%namespace name='static' file='/static_content.html'/>
+
+<%inherit file="../main.html" />
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+%>
+
+<%block name="pagetitle">${_("Choose language")}</%block>
+
+<!-- <link rel="stylesheet" href="/media/microsite/digimapper-data/css/digimap.css"> -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
+  % if user.is_authenticated():
+
+    <div id="languageChoiceContainer">
+      <!-- <h1 id="welcome-title"><p style="font-size: 24px; text-align: center; font-weight: 700;">Welcome!</p><br/>Choose the language for course content. *<br/>Choisissez la langue dans laquelle les parcours seront diffusés. -->
+      <div id="language-selector" style='display:block; padding-top: 25px;'>
+          <!-- <a data-value="en" data-course="course-v1:champagne-mooc+002+002">
+            <img height="80px" src="/media/microsite/champagne-mooc/images/uk.png" alt="uk" style="margin: 40px 5px;">
+          </a>
+            <a data-value="fr" data-course="course-v1:champagne-mooc+001+001">
+            <img height="80px" src="/media/microsite/champagne-mooc/images/fr.png" alt="fr" style="margin: 40px 5px;">
+          </a> -->
+          %if request.LANGUAGE_CODE == 'fr':
+            <p class="course_text">Pour vous inscrire au cours Classique en français, <a class="course_link" data-pricing="free" data-value="fr" data-course="course-v1:champagne-mooc+001+001">cliquez ici</a></p>
+            <p class="course_text">Pour vous inscrire au cours Premium en français, <a class="course_link" data-pricing="premium" data-value="fr" data-course="course-v1:champagne-mooc+003+003">cliquez ici</a></p>
+            <p class="course_text">Pour vous inscrire au cours Classique en anglais, <a class="course_link" data-pricing="free" data-value="fr" data-course="course-v1:champagne-mooc+002+002">cliquez ici</a></p>
+            <p class="course_text">Pour vous inscrire au cours Premium en anglais, <a class="course_link" data-pricing="premium" data-value="fr" data-course="course-v1:champagne-mooc+004+004">cliquez ici</a></p>
+          %else:
+            <p class="course_text">To register for the Classic course in French, <a class="course_link" data-pricing="free" data-value="en" data-course="course-v1:champagne-mooc+001+001">click here</a></p>
+            <p class="course_text">To register for the Premium course in French, <a class="course_link" data-pricing="premium" data-value="en" data-course="course-v1:champagne-mooc+003+003">click here</a></p>
+            <p class="course_text">To register for the Classic course in English, <a class="course_link" data-pricing="free" data-value="en" data-course="course-v1:champagne-mooc+002+002">click here</a></p>
+            <p class="course_text">To register for the Premium course in English, <a class="course_link" data-pricing="premium" data-value="en" data-course="course-v1:champagne-mooc+004+004">click here</a></p>
+          %endif
+      </div>
+
+    <!-- <h1 id="welcome-subtitle" style="font-style: italic;">*Subtitles in other languages are available for most courses. To display them, please select the English audio version.</h1> -->
+  </div>
+  % endif
+</main>
+<script>
+  // Values for current microsite & alert messages
+  var microsite = "${configuration_helpers.get_value('course_org_filter')}";
+  var alertMessages = {
+    message: {
+      "fr": "Ce choix ne pourra pas être modifié par la suite.\nVeuillez confirmer ce choix.",
+      "en": "This setting cannot be changed later.\nPlease confirm.",
+    },
+    button: {
+      "fr": "Confirmer",
+      "en": "Confirm",
+
+    },
+    cancel: {
+      "fr": "Annuler",
+      "en": "Cancel",
+
+    }
+  };
+
+  // Trigger confirmation alert then send info
+  function alertAndSendInfo(element) {
+    swal(alertMessages.message[element.data('value')], {
+        icon: "warning",
+        buttons: {
+          cancel: alertMessages.cancel[element.data('value')],
+          catch: {
+            text: alertMessages.button[element.data('value')],
+            value: "catch",
+          }
+        },
+    }).then(function(value) {
+      if (value) {
+        let dataPricing = element.data('pricing');
+        let courseId = element.data('course');
+        let cohortName = element.data('cohort');
+        let language = element.data('value')
+        if (dataPricing === 'free') {
+          $.ajax({
+          url: 'check_enrollment',
+          type: 'POST',
+          data: { 
+            language,
+            course_id: courseId,
+            cohort_name: cohortName,
+            microsite: microsite
+          }, 
+          success: function(data){
+            window.location.replace(data.redirect_url)
+
+          }
+        });
+        } else if (dataPricing === 'premium') {
+            // window.location = "/login?course_id=" + courseId + "&enrollment_action=enroll"
+            window.location = "https://www.wikipedia.org/"
+
+        }
+
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $('#language-selector > p > a').on('click', function(e){
+      alertAndSendInfo($(this));
+    });
+  });
+</script>
+<style>
+.swal-button--cancel {
+color:white !important;
+}
+#languageChoiceContainer {
+  width: 50%;
+  margin: auto;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 20px;
+  padding: 20px;
+}
+#welcome-title, #welcome-subtitle {
+  color: black;
+  font-size: 20px;
+  text-align: left;
+  width: 70%;
+  margin: auto;
+}
+#language-selector > a > img:hover {
+  cursor: pointer;
+}
+
+.course_link{
+  cursor: pointer;
+  color: #C8AF82;
+}
+.course_link:hover{
+  cursor: pointer;
+  color: #a07935
+}
+
+.course_text{
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+</style>
