@@ -1,21 +1,20 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
-
-Bonjour,
+Bonjour, 
 
 Vous avez décidé de rejoindre le MOOC Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins, bienvenue dans l’aventure !
 
 Vous serez un membre actif de la communauté des MOOCers et vivrez cette nouvelle expérience d’apprentissage avec les experts qui ont construit le MOOC et qui partageront leur savoir avec vous.
+ 
 
-
-Vous devez maintenant activer votre compte, avec le lien suivant :
+Vous devez maintenant activer votre compte, avec le lien suivant : 
 
 https://${ site }/activate/${ key }
 
-
+ 
 Le MOOC vit grâce à vous tous : vous êtes également invité à échanger et contribuer aux différents forums !
 
-Au menu de la première semaine qui débutera le vendredi 6 mars, nous vous proposerons une introduction générale sur le cancer et les sujets âgés.
+Au menu de la première semaine qui débutera le vendredi 6 novembre, nous vous proposerons une introduction générale sur le cancer et les sujets âgés.
 
 Nous vous donnerons rendez-vous chaque semaine sur la plateforme dédiée afin que vous découvriez les 6 sessions de la formation :
 
@@ -23,7 +22,7 @@ www.mooc-oncogeriatrie.the-mooc-agency.com
 
 N’oubliez pas de vous munir d’un cahier, d’un stylo et de vos écouteurs…
 
-Les inscriptions sont ouvertes jusqu’au 6 mai ! N’hésitez pas à le faire savoir autour de vous.
+Les inscriptions sont ouvertes jusqu’au 1er janvier ! N’hésitez pas à le faire savoir autour de vous.
 
 A très vite sur le MOOC Cancer chez les personnes âgées : mieux comprendre ses spécificités pour mieux prendre en soins !
 
