@@ -21,43 +21,54 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
+
+ 
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <!-- COMMON STYLE-->
 <style>
+
+/* font call  */
+@font-face {
+  font-family: 'custom_font';
+  src: url("/media/microsite/mooc-economie-circulaire/font/GothamBook.ttf");
+  font-weight: normal;
+ }
+
+ @font-face {
+  font-family: 'custom_font_bold';
+  src: url("/media/microsite/mooc-economie-circulaire/font/Gotham-Bold.otf");
+  font-weight: normal;
+ }
+
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    /* font-family: inherit; */
+    /* font-weight: 700; */
+    color: #1F1D74
   }
   p{
-    padding:10px
+    font-size:1.1em ;
+    margin-top:20px;
+    font-family:"custom_font" !important;
   }
-  h4{
-    font-size: 1.5rem;
+  h2{
+    font-size: 1.2rem;
+    font-family:"custom_font_bold" !important;
   }
+
   h3{
-    font-size: 1.7rem
+    font-size: 1.2rem;
+    font-family:"custom_font" !important;
   }
   #certificate-wrapper{
     background: white;
-  }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
   }
   #custom-btn{
     background: ${primary_color};
     border: none;
     box-shadow: none;
     text-shadow: none;
-  }
-  #internal-border{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -67,12 +78,37 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width:854px;
-    height:500px;
-    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
     padding: 20px;
-    background-image: url('${background_url}')
+    box-sizing: border-box;
+    background: white;
+    background-image: url('/media/microsite/mooc-economie-circulaire/certificate/certificat_fond.jpg');
+    background-size: contain;
+    width:854px;
+    height:481px;
   }
+
+  #certificate-container-text{
+    position: absolute;
+    left: 584px;
+    top: 463px;
+  }
+
+  #certificate-container-text-course{
+    margin-top: 10px
+  }
+  .certificate-container-text-course_name{
+    text-transform: uppercase;
+  }
+  .certificate-container-text-name{
+    text-transform: uppercase;
+    /* font-weight: bold; */
+  }
+
   #pdf-btn-wrapper{
     padding: 15px
   }
@@ -99,26 +135,26 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+
+          <div id="certificate-container-text">
+            <h2 class="certificate-container-text-name">${first_name} ${last_name}</h2>
+            <h3 id="certificate-container-text-course">a suivi avec succès le MOOC</h3>
+            <h3 class="certificate-container-text-course_name">"L'économie circulaire"</h3>
+            <h3 class="certificate-container-text-course_name">appliquée au bâtiment,</h3>
+            <h3 class="certificate-container-text-course_name">au design et au mobilier"</h3>
+            <h3 id="certificate-container-text_org">proposé par Les Canaux</h3>
+            <p id="certificate-container-text_date">Attestation délivrée à Paris, le ${date.today().strftime("%d/%m/%Y") }</p>
           </div>
           <div>
           </div>
-      </div>
+
   </div>
 </div>
 %else:
-  <div id="noCertificateMessage">
-      <h3>Certificat Non Disponible</h3>
-      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
-  </div>
+      <div id="noCertificateMessage">
+          <h3>Certificat Non Disponible</h3>
+          <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+      </div>
 %endif
 
 <!-- PDF CREATOR-->
