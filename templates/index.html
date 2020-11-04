@@ -1,97 +1,175 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Aiguilleur(e) du rail</title>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+    <!-- Bootstrap -->
+    <link href="/media/microsite/aiguilleur-du-rail/hp/style.css" rel="stylesheet">
+    <link href="/media/microsite/aiguilleur-du-rail/hp/cookies.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    /*
+      #video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -2;
+        overflow: hidden;
+        background-position: center center;
+        background-size: contain;
+      }
+      */
+      #video {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        overflow:hidden;
+        top: 0;
+        left: 0;
+        background-size:cover;
+        object-fit: cover;
+        z-index: -2;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+  <div id="player"><span id="close">X</span><iframe id="iframe_teaser" src="" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+  <div id="voile"></div>
+  <section id="cookies">
+    <p>
+      En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites et le dépôt de cookies tiers destinés à vous proposer des vidéos.
+    </p>
+    <p>
+      <a href="">En savoir plus</a>
+      <button id="cookie_ok">OK</button>
+    </p>
+  </section>
+  <section id="nav">
+    <div class="contenant">
+      <div id="logo">
+        <img src="/media/microsite/aiguilleur-du-rail/hp/logo_sncf.png" />
+      </div>
+      <div id="nav_title">Aiguilleur(e) du rail</div>
+      <div id="menu">
+        <button id="button_low"></button>
+        <span>
+          <a href="/register?course_id=course-v1:aiguilleur-du-rail+SNCFR2017+2017_T1&enrollment_action=enroll">Inscription</a>
+          <a href="/login?course_id=course-v1:aiguilleur-du-rail+SNCFR2017+2017_T1&enrollment_action=enroll">Connexion</a>
+        </span>
+      </div>
+      <span style="float: none;"></span>
     </div>
   </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
+  <section id="header">
+    <video id="video" style="width: 100%;" autoplay="autoplay" loop="loop" width="300" height="150" muted><br><source src="/media/microsite/aiguilleur-du-rail/hp/video.mp4" type="video/mp4"></video>
+    <div id="menu_header">
+      <h1>devenez aiguilleur(e) du rail</h1>
+          <p>&nbsp;<br/>SNCF recrute en Ile de France</p>
+      <!--<p>&nbsp;<br/>ouverture le 12/04/2017</p>-->
+      <div id="bouton_header">
+        <button id="teaser_play">Lancer le teaser</button>
+        <a href="/register?course_id=course-v1:aiguilleur-du-rail+SNCFR2017+2017_T1&enrollment_action=enroll">Inscription</a>
+      </div>
+    </div>
+    <div id="scroll">
+      <img src="/media/microsite/aiguilleur-du-rail/hp/scroll.png" id="scroll_button_action" />
+    </div>
+  </section>
+  <section id="unit1">
+    <div class="contenant">
+      <img src="/media/microsite/aiguilleur-du-rail/hp/logo_plateforme_mobile.png" id="unit1_img_desktop"/>
+      <img src="/media/microsite/aiguilleur-du-rail/hp/logo_plateforme_mobile.png" id="unit1_img_mobile"/>
+    </div>
+  </section>
+  <section id="unit2">
+    <span id="unit_2_desk">
+      <h2>VOUS AIMEZ ÊTRE AU CŒUR DES OPÉRATIONS ?</h2>
+      <h2 id="unit2_h2">VOUS VOULEZ DÉCOUVRIR L'ENVERS DU DÉCOR DE LA CIRCULATION DES TRAINS ?</h2>
+    </span>
+    <span id="unit2_mob">
+      <h2>LE MÉTIER D’AIGUILLEUR(E)</h2>
+      <h2 style="color:#cd0037;margin-bottom: 50px;">DU RAIL VOUS INTÉRESSE ?</h2>
+    </span>
+    <p>Vous aimez être au cœur de opérations et avez le sens des responsabilités ? Vous aimez l’idée de rejoindre une entreprise</p>
+    <p>qui est une grande famille ? Inscrivez-vous au MOOC et rejoignez SNCF Réseau au poste d’Aiguilleur(e) du Rail !</p>
+    <p id="unit2_p" style="margin-bottom:50px;">Au fil des 3 séquences proposées, nous vous ferons découvrir le monde du ferroviaire :</p>
+    <img src="/media/microsite/aiguilleur-du-rail/hp/bloc_sequence.png" id="unit2_img1"/>
+    <img src="/media/microsite/aiguilleur-du-rail/hp/bloc_sequence_mobile.png" id="unit2_img2"/>
+  </section>
+  <section id="unit3" stylee="display:none">
+    <div class="contenant">
+      <a href="">en savoir plus sur les cours ></a>
+    </div>
+  </section>
+  <section id="footer">
+    <span>Site réalisé par <a href="https://www.themoocagency.com">The MOOC Agency</a> - 2016</span>
+  </section>
+  </body>
+  <script src="/media/microsite/aiguilleur-du-rail/hp/jquery.js"></script>
+  <script src="/media/microsite/aiguilleur-du-rail/hp/cookie.js"></script>
+  <script>
+  function menu_nav() {
+    var width = $(window).width();
+    width = parseInt(width);
+    if(width <= 500) {
+      $('#button_low').click(function(){
+        console.log('coin');
+        $('#menu').find('span').toggle();
       })
-   </script>
-</%block>
+    }else{
+      $('#menu').find('span').attr('style','');
+    }
+  }
+  function scroll_to() {
+    $('#scroll_button_action').on('click', function() {
+      var speed = 750;
+      $('html, body').animate( { scrollTop: $('#unit1').offset().top }, speed );
+      return false;
+    });
+  }
+  function teaser_play() {
+    $('#teaser_play').click(function(){
+      console.log('test');
+      $('#iframe_teaser').attr('src','https://player.vimeo.com/external/208845174.hd.mp4?s=2446afd8603374a8230b137af63f1b56193e5f66&profile_id=174');
+      $('#voile').show();
+      $('#player').show();
+    })
+    $('#voile').click(function(){
+      $('#voile').hide();
+      $('#player').hide();
+      $('#iframe_teaser').attr('src','');
+    })
+    $('#close').click(function(){
+      $('#voile').hide();
+      $('#player').hide();
+      $('#iframe_teaser').attr('src','');
+    })
+  }
+  $(document).ready(function(){
+    menu_nav();
+    teaser_play();
+    scroll_to();
+  })
+  $(window).resize(function(){
+    menu_nav();
+  })
+  </script>
+</html>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
