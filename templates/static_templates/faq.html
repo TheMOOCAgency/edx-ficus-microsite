@@ -1,38 +1,132 @@
 <%page expression_filter="h"/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from openedx.core.djangolib.markup import HTML
-%>
+<%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
-<%namespace name='static' file='../static_content.html'/>
 <%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'faq'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>Faq</p>"
+css = '/media/microsite/sncf/faq/css/main.1e7e7ccd.chunk.css'
+js = '/media/microsite/sncf/faq/js/2.763880e3.chunk.js'
+jsMain = '/media/microsite/sncf/faq/js/main.9945de1e.chunk.js'
 %>
 <%block name="pagetitle">${_("FAQ")}</%block>
 <style>
-main {
- background-color: #fff;
-}
+  .container{
+    background-color: #fff
+  }
+  .menuTab{
+  display: none;
+  }
+  .MuiExpansionPanelSummary-root{
+    background-color: #e2e2e27a!important;
+  }
+  .question{
+    font-size: 1.1em!important;
+  }
+  .questionRow{
+    margin : 5px 0px;
+  }
+  .subTopicRow{
+    margin-top: 40px;
+  }
+  .searchBar>form>input{
+    float: right;
+  }
+  body.view-in-course .wrapper-footer{
+    margin-top: 0px!important;
+  }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
     <section class="container about">
-        <h1>${_("FAQ")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
+      <div style="width: 80%; height: 1px; border-bottom: 2px solid #cd0037; margin: 20px auto;"></div>
+      <p></p>
+      <h4 style="text-align: center;"><span><strong>Si vous avez une question, prenez d'abord connaissance de la FAQ ci-dessous.</strong></span></h4>
+<!--
+      <h4 style="text-align: center;"><span><strong>Au besoin, vous pouvez &eacute;galement nous contacter via les r&eacute;seaux sociaux :</strong></span></h4>
+      <p style="text-align: center;"><strong><a href="https://www.facebook.com/SNCFrecrutement/"> <img src="/media/microsite/sncf/images/facebook.png" alt="facebook sncf recrutement" width="35&quot;" height="35" type="saveimage" target="[object Object]" preventdefault="function(){r.isDefaultPrevented=n}" stoppropagation="function(){r.isPropagationStopped=n}" stopimmediatepropagation="function(){r.isImmediatePropagationStopped=n}" isdefaultprevented="function t(){return!1}" ispropagationstopped="function t(){return!1}" isimmediatepropagationstopped="function t(){return!1}" /></a><a href="https://twitter.com/SNCF_Recrute">&nbsp;<img src="/media/microsite/sncf/images/twitter.png" alt="twitter sncf recrutement" width="35" height="35" type="saveimage" target="[object Object]" preventdefault="function(){r.isDefaultPrevented=n}" stoppropagation="function(){r.isPropagationStopped=n}" stopimmediatepropagation="function(){r.isImmediatePropagationStopped=n}" isdefaultprevented="function t(){return!1}" ispropagationstopped="function t(){return!1}" isimmediatepropagationstopped="function t(){return!1}" /></a></strong></p>
 -->
-<section class="static-container faq">
-${_template | n}
-</section>
+      <div style="width: 80%; height: 1px; border-bottom: 2px solid #cd0037; margin: 20px auto;"></div>
+    <div id="root"></div>
+    </section>
+    <script>
+        ! function(l) {
+            function e(e) {
+                for (var r, t, n = e[0], o = e[1], u = e[2], f = 0, i = []; f < n.length; f++) t = n[f], p[t] && i.push(p[t][0]), p[t] = 0;
+                for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (l[r] = o[r]);
+                for (s && s(e); i.length;) i.shift()();
+                return c.push.apply(c, u || []), a()
+            }
+
+            function a() {
+                for (var e, r = 0; r < c.length; r++) {
+                    for (var t = c[r], n = !0, o = 1; o < t.length; o++) {
+                        var u = t[o];
+                        0 !== p[u] && (n = !1)
+                    }
+                    n && (c.splice(r--, 1), e = f(f.s = t[0]))
+                }
+                return e
+            }
+            var t = {},
+                p = {
+                    1: 0
+                },
+                c = [];
+
+            function f(e) {
+                if (t[e]) return t[e].exports;
+                var r = t[e] = {
+                    i: e,
+                    l: !1,
+                    exports: {}
+                };
+                return l[e].call(r.exports, r, r.exports, f), r.l = !0, r.exports
+            }
+            f.m = l, f.c = t, f.d = function(e, r, t) {
+                f.o(e, r) || Object.defineProperty(e, r, {
+                    enumerable: !0,
+                    get: t
+                })
+            }, f.r = function(e) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                    value: "Module"
+                }), Object.defineProperty(e, "__esModule", {
+                    value: !0
+                })
+            }, f.t = function(r, e) {
+                if (1 & e && (r = f(r)), 8 & e) return r;
+                if (4 & e && "object" == typeof r && r && r.__esModule) return r;
+                var t = Object.create(null);
+                if (f.r(t), Object.defineProperty(t, "default", {
+                        enumerable: !0,
+                        value: r
+                    }), 2 & e && "string" != typeof r)
+                    for (var n in r) f.d(t, n, function(e) {
+                        return r[e]
+                    }.bind(null, n));
+                return t
+            }, f.n = function(e) {
+                var r = e && e.__esModule ? function() {
+                    return e.default
+                } : function() {
+                    return e
+                };
+                return f.d(r, "a", r), r
+            }, f.o = function(e, r) {
+                return Object.prototype.hasOwnProperty.call(e, r)
+            }, f.p = "./";
+            var r = window.webpackJsonp = window.webpackJsonp || [],
+                n = r.push.bind(r);
+            r.push = e, r = r.slice();
+            for (var o = 0; o < r.length; o++) e(r[o]);
+            var s = n;
+            a()
+        }([])
+    </script>
+    <script>
+        window.props = {
+            "en": []
+        }
+        window.lang ="en"
+    </script>
+    <script src="${js}"></script>
+    <script src="${jsMain}"></script>
 </main>
+
