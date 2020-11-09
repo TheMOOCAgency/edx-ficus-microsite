@@ -97,7 +97,7 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
         <div class="course-material">
             <%
             tab_list = get_course_tab_list(request, course)
-            tabs_tmpl = static.get_template_path('/courseware/tabs.html')
+            tabs_tmpl = static.get_template_path('./tabs.html')
             %>
             <ol class="tabs course-tabs">
               <li class="tab">

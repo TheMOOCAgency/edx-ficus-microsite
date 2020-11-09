@@ -13,6 +13,8 @@ def url_class(is_active):
     return "active"
   return ""
 %>
+
+<!--TODO, add a tab in tablist if message received-->
 % for tab in tab_list:
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
@@ -21,12 +23,18 @@ def url_class(is_active):
   <li class="tab">
   %if tab.name=="Home":
   <a href="/dashboard" class="${tab_class}">
+  %elif tab.name=="Instructor":
+  <a href="/tma_apps/static_page/message_box.html" class="${tab_class}">
   %else:
   <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
-
+ %if tab.name=="Instructor":
+  Messagerie
+ %else:
   ${_(tab.name)}
+ %endif
+
   % if tab_is_active:
       <span class="sr">, current location</span>
   %endif
