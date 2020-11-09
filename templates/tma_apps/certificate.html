@@ -12,9 +12,9 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 from datetime import datetime, date
 import json
 %>
-
-
-
+ 
+ 
+ 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 <%
 if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
@@ -22,7 +22,7 @@ if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.i
 else :
   is_tma_team=False
 %>
-
+ 
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
 <style>
 #global-navigation,.wrapper-footer,#tma_background_font {
@@ -49,8 +49,8 @@ h3{
 h4 {
   font-size: 1.2rem;
 }
-
-
+ 
+ 
 /*CHANGE IMAGE */
 #main{
   background-color: white;
@@ -148,17 +148,17 @@ h4 {
 </style>
 <!-- IMPORT FONT -->
 <link href="https://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet">
-
-
+ 
+ 
 % if grades.get('passed') or is_tma_team:
-
+ 
 <div id="main">
 
-% if "course-v1:nature-for-city-life+NFCL+session3" in request.path:
+% if request.GET.get('language') == 'fr':
 
   <div id="fr" class="container">
     <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
+ 
     <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
       <div class="w-100">
         <div class="row white_bg m-0 p-20 pt-0 pb-0">
@@ -167,17 +167,17 @@ h4 {
             <h4 class="main-color">Aix-Marseille Université et la Région Sud-Provence-Alpes-Côte d’Azur attestent que :</h3>
             <h3 class="main-color"><span>${first_name} ${last_name}</h3>
             <h4 class="main-color">a suivi avec succès le MOOC Nature for City LIFE – ${course_name}</h3>
-            <h4 class="main-color">du 6 avril 2020 au 4 mai 2020.</h4>
+            <h4 class="main-color">du 2 novembre 2020 au 15 décembre 2020.</h4>
             <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
           </div>
         </div>
       </div>
     </div>
-
-
+ 
+ 
     <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
-
+          <div class="col-3">
+ 
           </div>
           <div class="col-4" style="font-size:12px">
             <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature1.gif" alt="">
@@ -185,24 +185,24 @@ h4 {
                 Responsable pédagogique Mooc
                 </p>
           </div>
-          <div class="col-4" style="font-size:12px">
+          <div class="col-5" style="font-size:12px">
               <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
               <p>Valérie Raimondino<br/>
                 Directrice de la Biodiversité
                 et de la Mer<br/>
                 Région Sud Provence-Alpes-Côte d’Azur
-
+                  
                 </p>
           </div>
     </div>
-
+ 
   </div>
 
-  % elif "course-v1:nature-for-city-life+NFCL_EN+session3" in request.path:
+  % elif request.GET.get('language') == 'en':
 
   <div id="en" class="container">
     <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
+ 
     <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
       <div class="w-100">
         <div class="row white_bg m-0 p-20 pt-0 pb-0">
@@ -211,15 +211,15 @@ h4 {
             <h4 class="main-color">Aix-Marseille University and the Région Sud-Provence-Alpes-Côte d'Azur attest that:</h3>
             <h3 class="main-color"><span>${first_name} ${last_name}</h3>
             <h4 class="main-color">Successfully completed the MOOC Nature for City LIFE - ${course_name}</h3>
-            <h4 class="main-color">From April 6, 2020 to May 4, 2020.</h4>
+            <h4 class="main-color">From November 2, 2020 to December 15, 2020.</h4>
             <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
           </div>
         </div>
       </div>
-    </div>
-
+    </div> 
+ 
     <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
+          <div class="col-3">
 
           </div>
           <div class="col-4" style="font-size:12px">
@@ -228,197 +228,30 @@ h4 {
                 Mooc Pedagogical Manager
                 </p>
           </div>
-          <div class="col-4" style="font-size:12px">
+          <div class="col-5" style="font-size:12px">
               <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
               <p>Valérie Raimondino<br/>
                 Director of Biodiversity
                 and the Sea<br/>
                 Région Sud Provence-Alpes-Côte d’Azur
-
+                  
                 </p>
           </div>
     </div>
-
-  </div>
-  % elif "course-v1:nature-for-city-life+NFCL_DEUCH+session1" in request.path:
-
-  <div id="en" class="container">
-    <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
-    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
-      <div class="w-100">
-        <div class="row white_bg m-0 p-20 pt-0 pb-0">
-          <div class="col-12 text-left">
-            <h1 class="main-color">ZERTIFIKAT ÜBER DEN ERFOLGREICHEN ABSCHLUSS</h1>
-            <h4 class="main-color">Die Universität Aix-Marseille und die Region Sud-Provence-Alpes-Côte d'Azur bescheinigen, dass :</h3>
-            <h3 class="main-color"><span>${first_name} ${last_name}</h3>
-            <h4 class="main-color">Erfolgreicher Abschluss des MOOC - ${course_name}</h3>
-            <h4 class="main-color">2. November bis 15. Dezember 2020</h4>
-            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
-
-          </div>
-          <div class="col-4" style="font-size:12px">
-            <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature1.gif" alt="">
-              <p>Valérie Bertaudière-Montès<br/>
-                Mooc Pedagogical Manager
-                </p>
-          </div>
-          <div class="col-4" style="font-size:12px">
-              <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
-              <p>Valérie Raimondino<br/>
-                Director of Biodiversity
-                and the Sea<br/>
-                Région Sud Provence-Alpes-Côte d’Azur
-
-                </p>
-          </div>
-    </div>
-
-  </div>
-  % elif "course-v1:nature-for-city-life+NFCL_ESP+session1" in request.path:
-
-  <div id="en" class="container">
-    <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
-    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
-      <div class="w-100">
-        <div class="row white_bg m-0 p-20 pt-0 pb-0">
-          <div class="col-12 text-left">
-            <h1 class="main-color">CERTIFICADO DE FINALIZACIÓN CON ÉXITO</h1>
-            <h4 class="main-color">La Universidad de Aix-Marsella y la Región Sud-Provence-Alpes-Côte d'Azur atestiguan que :</h3>
-            <h3 class="main-color"><span>${first_name} ${last_name}</h3>
-            <h4 class="main-color">Completó con éxito el MOOC - ${course_name}</h3>
-            <h4 class="main-color">2 de noviembre al 15 de diciembre de 2020</h4>
-            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
-
-          </div>
-          <div class="col-4" style="font-size:12px">
-            <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature1.gif" alt="">
-              <p>Valérie Bertaudière-Montès<br/>
-                Mooc Pedagogical Manager
-                </p>
-          </div>
-          <div class="col-4" style="font-size:12px">
-              <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
-              <p>Valérie Raimondino<br/>
-                Director of Biodiversity
-                and the Sea<br/>
-                Région Sud Provence-Alpes-Côte d’Azur
-
-                </p>
-          </div>
-    </div>
-
-  </div>
-  % elif "course-v1:nature-for-city-life+NFCL_ITL+session1" in request.path:
-
-  <div id="en" class="container">
-    <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
-    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
-      <div class="w-100">
-        <div class="row white_bg m-0 p-20 pt-0 pb-0">
-          <div class="col-12 text-left">
-            <h1 class="main-color">CERTIFICATO DI COMPLETAMENTO POSITIVO</h1>
-            <h4 class="main-color">L'Università di Aix-Marsiglia e la Regione Sud-Provence-Alpes-Côte d’Azur attestano che :</h3>
-            <h3 class="main-color"><span>${first_name} ${last_name}</h3>
-            <h4 class="main-color">Completato con successo il  MOOC - ${course_name}</h3>
-            <h4 class="main-color">Dal 2 novembre al 15 dicembre 2020</h4>
-            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
-
-          </div>
-          <div class="col-4" style="font-size:12px">
-            <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature1.gif" alt="">
-              <p>Valérie Bertaudière-Montès<br/>
-                Mooc Pedagogical Manager
-                </p>
-          </div>
-          <div class="col-4" style="font-size:12px">
-              <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
-              <p>Valérie Raimondino<br/>
-                Director of Biodiversity
-                and the Sea<br/>
-                Région Sud Provence-Alpes-Côte d’Azur
-
-                </p>
-          </div>
-    </div>
-
-  </div>
-  % else:
-  <div id="en" class="container">
-    <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
-
-    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
-      <div class="w-100">
-        <div class="row white_bg m-0 p-20 pt-0 pb-0">
-          <div class="col-12 text-left">
-            <h1 class="main-color">SUCCESSFUL FOLLOW-UP CERTIFICATE</h1>
-            <h4 class="main-color">Aix-Marseille University and the Région Sud-Provence-Alpes-Côte d'Azur attest that:</h3>
-            <h3 class="main-color"><span>${first_name} ${last_name}</h3>
-            <h4 class="main-color">Successfully completed the MOOC Nature for City LIFE - ${course_name}</h3>
-            <h4 class="main-color">From April 6, 2020 to May 4, 2020.</h4>
-            <!--<h3 style="display:none">avec un score de ${grades.get('grade')*100}% </h3>-->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row reset-bandeaux p-0 main-color" style="height:115px;">
-          <div class="col-4">
-
-          </div>
-          <div class="col-4" style="font-size:12px">
-            <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature1.gif" alt="">
-              <p>Valérie Bertaudière-Montès<br/>
-                Mooc Pedagogical Manager
-                </p>
-          </div>
-          <div class="col-4" style="font-size:12px">
-              <img style="height:50px" src="/media/microsite/nature-for-city-life/auto/images/signature2.jpg" alt="">
-              <p>Valérie Raimondino<br/>
-                Director of Biodiversity
-                and the Sea<br/>
-                Région Sud Provence-Alpes-Côte d’Azur
-
-                </p>
-          </div>
-    </div>
-
+ 
   </div>
   % endif
 </div>
 
-
+ 
 <div style='margin-top:200px;'>
   <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
 </div>
-
+ 
 <script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 </script>
-
+ 
 <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -438,5 +271,7 @@ function printpage(){
   })
 }
 </script>
-
+ 
 % endif
+ 
+
