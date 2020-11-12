@@ -20,7 +20,6 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
-from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
 <%
@@ -32,9 +31,8 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/dashboard.css'.format(org_static)
 css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
-cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_static)
 %>
-<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
@@ -164,11 +162,24 @@ endfor
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">
+            %if request.LANGUAGE_CODE == 'de-de' :
+              Training nicht validiert
+            % else :
+              ${_("Training not validated")}
+            % endif
+          </span>
         % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
+            %if request.LANGUAGE_CODE == 'de-de' :
+              Training nicht validiert
+            % else :
+              ${_("Training not validated")}
+            % endif
+          </a>
+        </span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
         % endif
       </div>
       <!-- border middle -->
@@ -179,9 +190,21 @@ endfor
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">
+            %if request.LANGUAGE_CODE == 'de-de' :
+              Poste deine erste Nachricht
+            % else :
+              ${_("Post your first message ! ")}
+            % endif
+          </a></span>
         % else:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">
+            %if request.LANGUAGE_CODE == 'de-de' :
+              Poste deine erste Nachricht
+            % else :
+              ${_("Post your first message ! ")}
+            % endif
+          </span>
         % endif
       </div>
     </div>
@@ -189,7 +212,12 @@ endfor
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+        %if request.LANGUAGE_CODE == 'de-de' :
+          <span>Abschlussnote</span>
+        % else :
+          <span>${_("Your final grade")}</span>
+        % endif
+        <span id="score_tma">${score}%</span>
       </div>
   <%
   course_details_len = len(course_details)
@@ -203,7 +231,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
+          poids: ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
@@ -215,98 +243,6 @@ endfor
   % endfor
   </div>
 
-  <!-- TMA Ficus Redesign -->
-  <%
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-  if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-    if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-      custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
-    else:
-      custom_color = str(configuration_helpers.get_value('primary_color'))
-    endif
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-  if configuration_helpers.get_value('third_color'):
-    third_color = str(configuration_helpers.get_value('third_color'))
-  else:
-    third_color = "#fff"
-  endif
-  if configuration_helpers.get_value('dark_theme'):
-    color_font_custom = "#fff"
-  else:
-    color_font_custom = "#3c3c3c"
-  %>
-
-<style>
-  #dashboard_profile_up{
-    background-color: ${custom_color}!important;
-  }
-  #course_start{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  @keyframes anim {
-    0% {
-  background: ${color_font_custom}!important;;
-    }
-    100% {
-    background: ${color_font_custom}!important;;
-  }
-}
-  #dashboard_profile_up h3, #dashboard_profile_up h4 {
-    color : ${color_font_custom}!important;
-  }
-  .up_cell {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #list_multi_title h1 {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_title {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_action{
-    background-color: ${custom_color};
-  }
-  #title_dashboard_course h1 {
-    color : ${color_font_custom}!important;
-  }
-  #title_dashboard_course h1:hover {
-    color : ${color_font_custom}!important;
-  }
-  .course_cell h2{
-    margin-bottom: 0px!important;
-    color : ${color_font_custom}!important;
-  }
-
-  #profile_bottom_multi h3{
-     color : ${color_font_custom}!important;
-  }
-  #title_dashboard_course h1{
-     color : ${color_font_custom}!important;
-  }
-  .course_nav{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #course_nav a:hover{
-    background-color: ${custom_color} !important;
-  }
-  #course_start span, .course_nav span{
-    color : ${color_font_custom}!important;
-  }
-  #course_nav .svg path{
-    fill : ${color_font_custom}!important;
-  }
-  #course_nav .svg{
-    fill : ${color_font_custom}!important;
-  }
-
-</style>
 %if course.no_grade:
  <style>
   #dashboard_profile_bottom{
@@ -330,31 +266,46 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
   j=j+1;
  }
 }
-
-/*Score rounded */
-score_user=grade_summary['percent']*100
-if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
-  $("#score_tma").html(Math.round(score_user,1)+" %");
-}
-else{
-  $("#score_tma").html(score_user+" %");
-}
-
+$("#score_tma").html(grade_summary['percent']*100+" %");
 </script>
 % elif len(course_enrollments) > 1:
-<!--  <div class="dashboard_profile" id="profile_bottom_multi">
+  <div class="dashboard_profile" id="profile_bottom_multi">
     % if course_end < 2:
-      <h3>${course_end} Parcours<br>terminé</h3>
+        %if request.LANGUAGE_CODE == 'en':
+          <h3>${course_end} course<br>completed</h3>
+
+        %elif request.LANGUAGE_CODE == 'es-419':
+          <h3>${course_end} courso<br>terminado</h3>
+
+        %elif request.LANGUAGE_CODE == 'de-de':
+          <h3>${course_end} Kurse<br>abgeschlossen</h3>
+
+        %else:
+          <h3>${course_end} cours<br>terminé</h3>
+        % endif
+
+
     % else:
-      <h3>${course_end} Parcours<br>terminés</h3>
+        %if request.LANGUAGE_CODE == 'en':
+          <h3>${course_end} courses<br>completed</h3>
+
+        %elif request.LANGUAGE_CODE == 'es-419':
+          <h3>${course_end} coursos<br>terminados</h3>
+
+        %elif request.LANGUAGE_CODE == 'de-de':
+          <h3>${course_end} Kurse<br>abgeschlossen</h3>
+
+        %else:
+          <h3>${course_end} cours<br>terminés</h3>
+        % endif
     % endif
+
     % for n in course_name:
         <div class="course_name_profile_list">
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
         </div>
     % endfor
   </div>
--->
 % endif
   </div>
   <div id="dashboard_course_content">
@@ -394,6 +345,9 @@ else{
   <!-- DASHBOARD MULTI -->
 % elif len(course_enrollments) > 1:
 <style>
+#tma_background_font {
+  background-image: url(/media/microsite/netexplo/fond.png);
+}
 #dashboard_course_content {
   width: calc(100% - 470px);
   margin-left: 53px;
@@ -401,9 +355,23 @@ else{
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
+  %if request.LANGUAGE_CODE == 'en':
+    <h1><span id="span_1">My courses</span></h1>
+
+  %elif request.LANGUAGE_CODE == 'es-419':
+  <h1><span id="span_1">Mis cursos</span></h1>
+
+  %elif request.LANGUAGE_CODE == 'de-de':
+  <h1><span id="span_1">Meine kurse</span></h1>
+
+  %else:
+  <h1><span id="span_1">Mes formations</span></h1>
+  % endif
 </span>
 <ul id="list_multi">
+
+
+
 % for dashboard_index, enrollment in enumerate(course_enrollments):
   <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
 % endfor
@@ -645,3 +613,45 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+<style>
+  #dashboard_profile_middle_up .not_svg_passed path {
+    fill : #FF5000!important;
+  }
+  #dashboard_profile_middle_bottom > #Capa_1 > g > path{
+    fill : #FF5000!important;
+  }
+  #course_nav .svg path {
+    fill: #FF5000;
+  }
+  #course_nav a:hover {
+    border-bottom-color: #FF5000!important;
+  }
+  #dashboard_profile_up h3, #dashboard_profile_up h4 {
+    color: #000!important;
+  }
+  #title_dashboard_course h1 {
+    color: #000;
+  }
+  #course_start span, .course_nav span {
+    color: #000;
+  }
+  #list_multi_title h1 span:last-child {
+    color: #000!important;
+  }
+  .multi_course_title h2 a, .multi_course_title h2 a:hover, .multi_course_title h2 a:focus {
+    color: #000 !important;
+  }
+  .down_cell {
+    background-color: #9BE7D8;
+  }
+  .dashboard_button a {
+    background-color:rgb(180, 232, 222);
+    transition: all 0.1s linear 0s;
+  }
+  .dashboard_button a:hover {
+    border: 1px solid #FF5000;
+    color:black!important;
+    box-sizing: border-box;
+    transition: all 0.1s linear 0s;
+  }
+ </style>

@@ -13,62 +13,49 @@ from django.utils.translation import ugettext as _
 
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
 %>
-<style>
-.full-width-button{
-  list-style-type: none;
-  cursor : pointer;
-  text-decoration : none!important;
-  height: 0px!important;
-  margin: 0px!important;
-  padding: 0px!important;
-}
-a.dropdown.full-width-button.active{
-  height: 0px!important;
-  margin: 0px!important;
-  padding: 0px!important;
-}
-</style>
+
 % if uses_pattern_library:
-  <a type="button" class="menu-button button-more has-dropdown js-dropdown-button" aria-expanded="false" aria-controls="${_("Usermenu")}" style="width: auto;">
-    <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu" style="padding-top : 16px; margin-top: -30px;">
+    <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu">
+        <a href="${reverse('dashboard')}" class="menu-title">
             <span class="sr-only">${_("Dashboard for:")}</span>
             <%
             username = self.real_user.username
             profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
             %>
             <img class="menu-image" src="${profile_image_url}" alt="">
-            <div class="label-username" style="display: flex;justify-content: center;flex-direction: column;">${username}</div>
+            ${username}
+        </a>
         <div role="group" aria-label="User menu" class="user-menu">
-          <span class="icon fa fa-caret-down" aria-hidden="true"></span>
-          <span class="sr-only">${_("Usermenu dropdown")}</span>
-          <ul class="dropdown-menu list-divided is-hidden" id="${_("Usermenu")}" tabindex="-1">
-              <%block name="navigation_dropdown_menu_links" >
-                  <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
-                  <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
+            <button type="button" class="menu-button button-more has-dropdown js-dropdown-button" aria-expanded="false" aria-controls="${_("Usermenu")}">
+                  <span class="icon fa fa-caret-down" aria-hidden="true"></span>
+                  <span class="sr-only">${_("Usermenu dropdown")}</span>
+            </button>
+            <ul class="dropdown-menu list-divided is-hidden" id="${_("Usermenu")}" tabindex="-1">
+                <%block name="navigation_dropdown_menu_links" >
+                    <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
+                    <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
 <!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
-              </%block>
-              <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
-          </ul>
+                </%block>
+                <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
+            </ul>
         </div>
     </div>
-    </a>
 % else:
-    <a class="dropdown full-width-button" aria-expanded="false">
-    <ol class="user" style="height: 70%;margin-top: 10px;">
+    <ol class="user">
         <li class="primary">
-            <span style="display: flex;justify-content: center;align-content: center;">
+            <a href="${reverse('dashboard')}" class="user-link">
                 <span class="sr">${_("Dashboard for:")}</span>
                 <%
                 username = self.real_user.username
                 profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
                 %>
                 <img class="user-image-frame" src="${profile_image_url}" alt="">
-                <div class="label-username" style="display: flex;justify-content: center;flex-direction: column;"><p>${self.real_user.profile.name}</p></div>
-            </span>
+                <div class="label-username">${self.real_user.profile.name}</div>
+            </a>
         </li>
         <li class="primary">
-            <div role="group" aria-label="User menu" class="user-menu" style="margin-top :0px;">
-                <span class="sr">${_("More options dropdown")}</span><span class="fa fa-sort-desc" aria-hidden="true"></span>
+            <div role="group" aria-label="User menu" class="user-menu">
+                <button class="dropdown" aria-expanded="false"><span class="sr">${_("More options dropdown")}</span><span class="fa fa-sort-desc" aria-hidden="true"></span></button>
                 <ul class="dropdown-menu" aria-label="More Options" role="menu">
                     ${navigation_dropdown_menu_links()}
                     <li class="item"><a href="${reverse('logout')}" role="menuitem" class="dropdown-menuitem">${_("Sign Out")}</a></li>
@@ -76,5 +63,4 @@ a.dropdown.full-width-button.active{
             </div>
         </li>
     </ol>
-    </a>
 % endif

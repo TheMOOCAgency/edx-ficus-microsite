@@ -50,9 +50,9 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <div class="options">
       <span class="list_params">
 
-        % if show_email_settings:
-        <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height: 18px;width: 18px;display: inline-block;margin: 0px 5px 0px 5px;background-size: contain;"></a>
-      % endif
+% if show_email_settings:
+      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}"><img src="${static.url('images/close-envelope.png')}" title="Ne plus recevoir de mail"/></a>
+% endif
         <a href="#unenroll-modal" class="unenroll_multi" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-course-name="${course_overview.display_name_with_default}" data-dashboard-index="${dashboard_index}"
            data-track-info="${_("Are you sure you want to unenroll from the purchased course %(course_name)s (%(course_number)s)?")}"
            data-refund-info="${_("You will be refunded the amount you paid.")}">
@@ -78,19 +78,19 @@ cours_ouv = show_courseware_link and not is_course_blocked
   </div>
   <div class="down_cell">
     <div class="all_dates">
-      <div class="info_date">
+      <div class="info_date" style="display: none;">
         <div class="info_date_info">
 <span></span>
 % if insc_ouv:
   <span>${_("Enrollments are open")} </span>
 % else:
-  <span>${_("Enrollments are closed")} </span>
+  <span>${_("Enrollments are close")} </span>
 % endif
 <span>${_('and')}</span>
 % if cours_ouv:
   <span> ${_("Course is open")}</span>
 % else:
-  <span> ${_("Course is closed")}</span>
+  <span> ${_("Course is close")}</span>
 % endif
 <span></span>
       </div>
@@ -117,9 +117,35 @@ cours_ouv = show_courseware_link and not is_course_blocked
     </div>
     <div class="dashboard_button">
 % if cours_ouv:
+    %if request.LANGUAGE_CODE == 'de-de':
+      <a href="/dashboard/${course_overview.id}/">Dashboard anzeigen</a>
+    %else:
       <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+    % endif
 % endif
     </div>
     <span style="display:block;clear:left"></span>
   </div>
 </li>
+
+<style>
+  .dashboard_button {
+    margin-top: -58px;
+    right: 50px;
+    width: 200px;
+  }
+  .dashboard_button a {
+    background-color: rgb(180, 232, 222);
+    transition: all 0.1s linear 0s;
+    border: 1px solid #FF5000;
+    box-sizing: border-box;
+    width: 180px;
+  }
+  .dates {
+    display: none;
+  }
+  .dashboard_button a:hover {
+    background-color: rgb(213, 230, 226);
+    transition: all 0.1s linear 0s;
+  }
+</style>
