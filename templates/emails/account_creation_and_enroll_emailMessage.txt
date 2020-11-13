@@ -1,7 +1,7 @@
 <%! from django.utils.translation import ugettext as _ %>
-<div style="text-align:center"><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_1.jpg" style="height:100px;margin-bottom:20px"/></div>
+<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_1.jpg" style="height:100px;margin-bottom:50px"/></div>
 
-<p>${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}</p>
+<p><br />${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}</p>
 
 <p>${_("Pour commencer, rendez-vous sur https://{site_name}. Les informations d'identification pour votre compte sont les suivantes :").format(site_name=site_name)}</p>
 
@@ -16,6 +16,6 @@
 
 <p>${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}</p>
 
-<p>${_("Cordialement")}</p>
+<p>${_("Cordialement")}<br /><br /><br /></p>
 
-<div style="text-align:center"><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_2.jpg" style="height:100px;margin-top:20px"/></div>
+<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_2.jpg" style="height:100px;margin-top:50px"/></div>
