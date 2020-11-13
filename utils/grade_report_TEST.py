@@ -313,7 +313,8 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr"]
+    # toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr"]
+    toaddr = ["yoann.mroz@weuplearning.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
