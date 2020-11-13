@@ -1641,7 +1641,7 @@ function clean_maj(csv_users){
     var new_user_obj={}
     while (n--) {
       key = keys[n];
-      if (key=="email"){
+      if (typeof user_obj[key] === "string"){
         new_user_obj[key.toLowerCase()] = user_obj[key].trim();
       }
       else{
@@ -1654,16 +1654,17 @@ function clean_maj(csv_users){
   return csv_users;
 }
 function delete_empty_rows(csv_users){
+  newCsvUsers = []
   for (user in csv_users){
-    if(is_obj_empty(csv_users[user])){
-      csv_users.splice(user,1);
-    }
+    if(!is_obj_empty(csv_users[user])){
+      newCsvUsers.push(csv_users[user])
+    } 
   }
-  return csv_users;
+  return newCsvUsers;
 }
 function is_obj_empty(obj){
   for (var key in obj) {
-    if (obj[key] !== null && obj[key] != "")
+    if (obj[key])
         return false;
   }
   return true;
