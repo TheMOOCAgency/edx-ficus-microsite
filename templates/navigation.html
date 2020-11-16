@@ -378,7 +378,6 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="/media/microsite/champagne-mooc/css/responsive_top_layer.css" type="text/css" media="screen" />
-<script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
@@ -457,6 +456,9 @@ if user.is_authenticated():
   except:
     pass
 %>
+% if tma_lang == "fr":
+<script src="${static.url('js/translate.js')}"></script>
+% endif
 <script>
   var changeVideoProvider;
   var useVimeo;
