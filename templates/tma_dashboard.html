@@ -1592,6 +1592,7 @@ function ManageCsvFile(evt) {
     else{
       encoding_type="utf-8"
     }
+
     Papa.parse(csv_file, {
       header: true,
       dynamicTyping: true,
@@ -1636,7 +1637,7 @@ function clean_maj(csv_users){
       if (typeof user_obj[key] === "string"){
         new_user_obj[key.toLowerCase()] = user_obj[key].trim();
       }
-      else{
+      else {
         new_user_obj[key.toLowerCase()] = user_obj[key];
       }
     }
@@ -1645,6 +1646,7 @@ function clean_maj(csv_users){
   }
   return csv_users;
 }
+
 function delete_empty_rows(csv_users){
   newCsvUsers = []
   for (user in csv_users){
@@ -1654,6 +1656,7 @@ function delete_empty_rows(csv_users){
   }
   return newCsvUsers;
 }
+
 function is_obj_empty(obj){
   for (var key in obj) {
     if (obj[key])
