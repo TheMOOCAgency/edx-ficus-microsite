@@ -46,7 +46,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
 
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
-  <h1>${course_overview.display_name_with_default}</h1>
+  <h1>${course_overview.display_name_with_default}
+    % if show_email_settings:
+      <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height:21px;width:24px;display:inline-block;float:right;margin:7px 7px 0px 0px;"></a>
+    % endif
+  </h1>
 </div>
 
 %if cours_ouv:
@@ -55,7 +59,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
   % if user and tma_verify_access(user).has_dashboard_access(str(enrollment.course_id)):
-  <a href="/tma/${str(enrollment.course_id)}/dashboard" class="course_nav"><img class="svg" src="/media/microsite/5aconseil-mooc/wrench.svg"><span>${_('ADMIN')}</span></a>
+  <a href="/tma/${str(enrollment.course_id)}/dashboard" class="course_nav"><img class="svg" src="/media/microsite/amazon/assets/wrench.svg"><span>${_('ADMIN')}</span></a>
   % endif
 
   % if return_social is not None:

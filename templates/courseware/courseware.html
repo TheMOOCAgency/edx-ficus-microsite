@@ -139,7 +139,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   endif
 %>
 
-<!-- Custom style for 5aconseil -->
+<!-- Custom style for amazon -->
 <style>
 body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
   background-color: ${custom_color} !important;
@@ -211,7 +211,7 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 
 </style>
 
-<link rel="stylesheet" href="/media/microsite/5aconseil/css/responsive_top_layer.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/amazon/css/responsive_top_layer.css" type="text/css" media="screen" />
 
 <div class="container">
   <div class="course-wrapper" role="presentation">
@@ -447,17 +447,24 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 %endif
 <script>
 $(document).ready(function(){
+setTimeout($('.menu-accordion').show(), 1000);
+$('.ui-accordion-content:not(.active)>.custom_unit').on('click',function(e){
+    window.location.href=$(e.target).attr('href');
+})
   var highlightCustomUnit = function(){
     $('.nav-item').each(function(indexnav,elementnav){
+      $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).on('click',function(){
+        $($('.nav-item')[indexnav]).trigger( "click" )
+      })
+
         if($(elementnav).hasClass('active')){
-          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).addClass('active')
         }else{
-          $($('.menu-item.active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
+          $($('.ui-accordion-content-active>.custom_unit')[$(elementnav).attr('data-element') - 1]).removeClass('active')
         }
       })
     }
   highlightCustomUnit()
-
 
 $('.sequence-nav>nav>ol>li').each(function(index){
     $(this).click(function(){
@@ -470,8 +477,12 @@ $('.button-next').live('click',function(e){
 $('.button-previous').live('click',function(e){
    highlightCustomUnit()
 })
+setInterval(function(){
+    $('#field_help_post_type').text('Utilisez les \'Questions\' si vous attendez une réponse. Les \'Discussions\' servent à lancer des conversations.') ;
+    $('#field_help_title').text('Ajoutez un titre clair et descriptif pour favoriser la participation') ;
+    $('#new-post-editor-description').text('Votre question ou idée') ;
+}, 2000);
 })
-
 </script>
 <style>
   .wrapper-course-material>.menu-responsive{
@@ -508,4 +519,60 @@ $('.button-previous').live('click',function(e){
   .wrapper-header>.nav-global>li.nav-global-01:hover>a{
       color :#fff!important;
   }
+</style>
+<!-- TMA Ficus Redesign -->
+<%
+custom_color = str(configuration_helpers.get_value('primary_color'))
+if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+  else:
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+  endif
+else:
+  custom_color = str(configuration_helpers.get_value('primary_color'))
+endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
+%>
+
+<!-- Custom style for amazon -->
+<style>
+body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
+  background-color: ${custom_color} !important;
+}
+.bookmarks-list-button:hover, .bookmarks-list-button.is-active:hover{
+  color : ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol{
+  background-color: ${custom_color} !important;
+}
+.xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
+  background-color: ${custom_color} !important;
+}
+.btn.btn-link.bookmark-button{
+  color: ${custom_color} !important;
+}
+ .custom_unit.active{
+   color :  ${custom_color} !important;
+   font-weight : 600!important;
+ }
+ .custom_unit{
+   color :  ${custom_color} !important;
+   font-weight : 400!important;
+ }
+ .menu-item.active>.accordion-nav>.accordion-display-name{
+    color :  ${custom_color} !important;
+ }
+ #global-navigation .burger{
+    color :  ${color_custom} !important;
+ }
+
 </style>

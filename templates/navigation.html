@@ -337,6 +337,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <!-- End Piwik Code -->
 % endif
 
+
+
+<!-- TMA Ficus Redesign -->
 <%
 custom_color = str(configuration_helpers.get_value('primary_color'))
 if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
@@ -348,6 +351,15 @@ if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
 else:
   custom_color = str(configuration_helpers.get_value('primary_color'))
 endif
+if configuration_helpers.get_value('third_color'):
+  third_color = str(configuration_helpers.get_value('third_color'))
+else:
+  third_color = "#fff"
+endif
+if configuration_helpers.get_value('dark_theme'):
+  color_custom = "#fff"
+else:
+  color_custom = "#3c3c3c"
 %>
 <script>
   $(document).ready(function(i){
@@ -449,13 +461,16 @@ body.view-in-course .header-global .wrapper-header, body.view-in-course .header-
   align-items: center;
   height : 74%;
 }
+.header-global{
+  background-color: ${third_color}!important;
+}
 body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
   background-color:  ${custom_color} !important;
 }
 .user-menu{
   margin-top : 5px;
 }
-/*Custom 5a */
+/*Custom Amazon */
 #global-navigation{
   display: flex!important;
   justify-content: space-around;
@@ -486,9 +501,6 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
     display: flex!important;
     justify-content : space-around!important;
 }
-.header-global .nav-global li a, .header-global .nav-global div a{
-  color : #3c3c3c!important;
-}
 .bookmark-button-wrapper{
   display : none!important;
 }
@@ -498,4 +510,29 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 .logo{
   margin-left: 10px!important;
 }
+.header-global .nav-global li a, .header-global .nav-global div a{
+  color : #3c3c3c!important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
+  color : ${color_custom}!important;
+  text-shadow : none!important;
+}
+.label-username p, .label-username:hover p{
+color : ${color_custom}!important;
+}
+.fa-sort-down::before, .fa-sort-desc::before {
+    color:   ${color_custom}!important;
+}
+#global-navigation .burger{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
+#global-navigation .burger::before{
+  color: ${color_custom}!important;
+}
 </style>
+<!-- TMA Ficus Redesign -->
