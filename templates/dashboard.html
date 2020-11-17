@@ -31,6 +31,11 @@ from django.core.urlresolvers import reverse
 import json
 import csv
 %>
+% if not course_enrollments:
+<script>
+  window.location.replace("/tma_apps/user_info")
+</script>
+% endif
 <%
 cert_name_short = settings.CERT_NAME_SHORT
 cert_name_long = settings.CERT_NAME_LONG
