@@ -1,291 +1,589 @@
-## mako
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
 <%namespace name='static' file='static_content.html'/>
 <%!
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
+from openedx.core.djangolib.markup import HTML, Text
 %>
-<!DOCTYPE html> 
-<html>
-      <head>
-     <meta charset='utf-8'>
-         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-         <title id='masterTitle'></title>
-         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Open Sans&display=swap" rel="stylesheet">
-        <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-      </head>
-      <body style="display: none">
-         <nav id = "nav"class="navbar navbar-default">
-            <div class="container-fluid">
-                  <ul id="logo-container" class="nav navbar-nav m-auto reveal">
-                     <li>
-                        <a class="navbar-brand "><img id="logoMicrosite" src="media/microsite/myjugaad/pagebuilder/assets/img/logo.png"></img></a>
-                     </li>
-                  </ul>
-            </div>
-            <div class="row vertical-center" id="nav_container_butns">
-               <div class="col-md-12 text-center" style="position:absolute;top:30px;">
-                  <div class="container-fluid" id="containerTitleBand">
-                     <div class="col text-center">              
-                        <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn"> inscription </button>
-                        <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn">connexion</button>  
-                     </div>
-                  </div>
-               </div>
-            </div> 
-         </nav>
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/auto/css/index.css'.format(org)
+%>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
 
-         <section id="se1">
-            <div id="titleBand">
-              <h1 id="mainTitle1"></h1>
-              <div id="titleSeparator"></div>
-              <div class="col text-center">              
-                 <button class="btn btn-default butn jbo rg registerJumbo" href="" id="subscribeButn2"> inscription </button>
-                 <button class="btn btn-default butn jbo cx connexJumbo" href="" id="loginButn2">connexion</button>  
-              </div>
-            </div>
-         </section>
+   .description{
+      font-size: 0.8em;
+      width: 65%;
+      padding-bottom: 3em;
+      text-align: center;
+   }
+  #global-navigation {
+    width: 100vw !important;
+  }
 
-         <div class='separatorContainer'>
-            <h2 class="surligner inline"></h2>
+  footer {
+    width: 100vw;
+  }
+
+  .home {
+    position: relative;
+    width:100vw !important;
+    /* background-color: transparent; */
+    /* background-image:     url("/media/microsite/${org}/assets/wave.png"); */
+    /* background-image: url("/media/microsite/${org}/assets/fond_index.png"); */
+    background-size: cover;
+    --primary-color: #0F056B;
+    --secondary-color:#E75C0F;
+    --text-grey:#313437;
+    --text-light-grey:#8E8C8C;
+  }
+
+  .home button:nth-child(odd) {
+    text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: rgb(135, 75, 255);
+    border: 3px solid rgb(135, 75, 255);
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+  }
+
+  .home button:nth-child(even) {
+    text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: var(--primary-color) !important;
+    border: 3px solid var(--primary-color) !important;
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+  }
+
+  .home button a {
+    text-shadow: inherit !important;
+    font-weight: inherit;
+    color: inherit !important;
+  }
+
+  .home .small_separator {
+    width: 60%;
+  }
+
+  .home .large_separator {
+    width: 300px;
+    margin: 40px 0 30px 0;
+  }
+
+  /* VIDEO BLOCK */ 
+  .home #homepage_banner {
+     background: transparent;
+   /* background-image:     url("/media/microsite/${org}/assets/wave.png"); */
+   /* background-attachment: fixed;
+   background-size: cover;
+   margin-top: -200px;
+   background-size: cover; */
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
+  .home #videoHeader {
+    position:fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width:100vw;
+    min-height: 100vh;
+    z-index: 0;
+  }
+
+
+  .home #login_or_register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2em;
+  }
+
+  /* CONTENT BLOCK */
+  .home #main-content {
+    background-color: white;
+    z-index:0;
+    /* background-image: url("/media/microsite/${org}/assets/fond_index.png"); */
+    background-image: url("/media/microsite/${org}/assets/fond_index.png");
+    background-size: cover;
+    position: absolute;
+  }
+
+  .home #main-content #home_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    width:1200px;
+    /* background-image: url("/media/microsite/${org}/assets/fond_index.png"); */
+  }
+
+  /* THUMBNAILS */
+
+  .home #main-content #discover_title {
+    text-align: center;
+    margin: 40px 0;
+    color:var(--primary-color);
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  .home #main-content #home_thumbnails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:30%;
+    padding-bottom: 20px;
+    border:1px solid var(--text-light-grey);
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .title {
+    text-align: center;
+    color:var(--primary-color);
+    font-weight: 900;
+    margin: 20px 0;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .module_number {
+    color:var(--secondary-color);
+    font-weight: 500;
+    margin: 20px 0;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail ul {
+    color:var(--text-grey) !important;
+    padding-left:20px;
+    margin: 0;
+    width:80%;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail li {
+    color:inherit !important;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+    height:220px;
+    width: 100%;
+    overflow: hidden;
+    object-fit: contain;
+  }
+
+  .home #main-content #home_thumbnails .thumbnail .thumbnail_pic img {
+    width: 100%;
+  }
+
+  /* MOOC DEFINITION */
+
+  .home #main-content #mooc_definition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_title {
+    text-align: center;
+    text-transform: uppercase;
+    color:var(--primary-color);
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_subtitle {
+    text-align: center;
+    color:var(--text-light-grey);
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    width:20%;   
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_logo {
+    height: 170px;  
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_title {
+    margin:15px 0;
+    font-weight: 700;
+    text-align: center;  
+    font-size: var(--text-grey);
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+
+  .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+    text-align: justify;
+    font-size: 12px;
+    color: var(--text-light-grey);
+  }
+
+  /* BOTTOM BANNER */ 
+
+  .home #bottom_banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .home #bottom_banner .left_side {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .home #bottom_banner .banner_logo {
+    width: 120px;
+    margin: 20px;
+  }
+
+  @media only screen and (max-width: 1200px){
+    .home #main-content #home_container{
+      width:100vw;
+    }
+
+    .home #bottom_banner .banner_logo {
+      width: 80px;
+    }
+
+    .home #main-content #home_thumbnails {
+      width: 90%;
+    }
+
+  }
+
+  @media only screen and (max-width: 1024px){
+    #global-navigation {
+      display: none !important;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail li {
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 768px){
+    .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+      height:120px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps {
+      flex-wrap: wrap;
+    }
+  
+    .home #main-content #mooc_definition #mooc_definition_steps .step { 
+      width:40%;   
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(1),.home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(2) { 
+      margin-bottom: 30px; 
+   }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_logo {
+      height: 60px;  
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .title {
+      font-size: 12px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+      width: 60%;
+    }
+  }
+
+  @media only screen and (max-width: 414px) {
+    .home #main-content #mooc_definition #mooc_definition_steps {
+      flex-wrap: nowrap;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step { 
+      width:60%;   
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step:nth-child(3) { 
+      margin-bottom: 30px; 
+    }
+
+    .home #main-content #home_thumbnails {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 80%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail {
+      width:100%;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_subtitle {
+      width: 80%;
+      font-size: 12px;
+    }
+    #mooc_definition {
+padding-top: 2em;
+    }
+
+    .home #bottom_banner {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #bottom_banner .left_side {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .home #main-content #discover_title {
+      font-size: 16px;
+      width:70%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail:nth-child(2) {
+      margin: 30px 0;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
+      height:210px;
+    }
+
+    .home .small_separator {
+      width: 40%;
+    }
+  
+    .home .large_separator {
+      width: 50%;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .title {
+      font-size: 16px;
+    }
+
+    .home #main-content #home_thumbnails .thumbnail .module_number {
+      font-size: 14px;
+    }
+
+    .home #login_or_register {
+      display: flex;
+      flex-direction: column ;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 2em;
+    }
+
+    .home button {
+      padding: 8px 20px;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
+      width:100%;
+    }
+
+    .home #main-content #mooc_definition #mooc_definition_title {
+      font-size: 14px;
+    }
+  }
+
+
+
+    .home #main-content #mooc_definition #mooc_definition_subtitle {
+      font-size: 11px;
+    }
+  
+
+  .footer_logo{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     padding-top: 3em;
+  }
+
+  .mooc_description_text{
+     font-size: 1.8em;
+     color: rgb(135, 75, 255)
+  }
+
+  .step{
+     margin:20px
+
+  }
+
+  .header-global .nav-global li a, .header-global .nav-global div a {
+    color: white !important;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.btn-login {
+   text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: rgb(135, 75, 255);
+    border: 3px solid rgb(135, 75, 255);
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+}
+
+.btn-neutral{
+   text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: #0F056B !important;
+    border: 3px solid #0F056B !important;
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+}
+
+</style>
+<main id="main" aria-label="Content" tabindex="-1">
+   <section class="home">
+
+
+
+     <div id="homepage_banner">
+       <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+         <source src="/media/microsite/${org}/assets/video.mp4" type="video/mp4">
+         Your browser does not support the video tag.
+       </video>
+
+     </div>
+     <div id="main-content">
+       <div id="home_container">
+         <div id="discover_title">Bienvenue sur le MOOC aide au déménagement</div>
+         <p class="description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+         
+         <div id="login_or_register">
+            <button>
+              <a class="home-register" href="/register">Inscription</a>
+            </button>
+            <button>
+              <a class="home-login" href="/login">Connexion</a>
+            </button>
+         </div> 
+
+         <div id="mooc_definition">
+           <div id="mooc_definition_title">Et  au fait...  C'est quoi un MOOC ?</div>
+           <div id="mooc_definition_subtitle"><p class="mooc_description_text">Une formation gratuite, ouverte à tous, disponible et accessible où que vous soyez !</p></div>
+           <div id="mooc_definition_steps">
+             <div class="step">
+               <img class="step_logo" src="/media/microsite/${org}/assets/M.png"/>
+             </div>
+             <div class="step">
+               <img class="step_logo" src="/media/microsite/${org}/assets/O1.png"/>
+             </div>
+             <div class="step">
+               <img class="step_logo" src="/media/microsite/${org}/assets/O2.png"/>
+             </div>
+             <div class="step">
+               <img class="step_logo" src="/media/microsite/${org}/assets/C.png"/>
+             </div>
+           </div>
          </div>
 
-         <section id="se2">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
-               <h2 class="sectionTitle"></h2>
-               <div class="reveal">
-                  <div class="module module_1 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module module_2 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module module_3 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-               </div>
-            </div>
-         </section>
-
-         <div class='separatorContainer'>
-            <h2 class="surligner inline"></h2>
+       </div>
+       <div class="footer_logo" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 3em;">
+          <h2 style="color: var(--primary-color);"> Nos partenaires</h2>
+           <img src="/media/microsite/${org}/assets/partner.png" style="width: 60%; margin-top: -50px;" alt="Logos partenaires" class="banner_logo" />
          </div>
+     </div>
+   </section>
+</main>
+<%block name="js_extra">
+   <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+              $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
 
-         <section id="se3">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
-               <h2 class="sectionTitle"></h2>
-               <div id="markMoock"></div>
-            </div>
-         </section>
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
 
-         <div class='separatorContainer'>
-            <h2 class="surligner inline"></h2>
-         </div>
-
-         <footer id="footer">
-            <div class="row" style="display: block">
-               <div class="col text-center">
-                  <button class="btn btn-default butn" id="subscribeButn3">
-                  JE M’INSCRIS !</button> 
-               </div>
-            </div>
-            <div class="row footerBottom">
-               <div id="footerIcons" class="reveal">
-                  <!-- <img class="footerIcons" src='media/microsite/myjugaad/pagebuilder/assets/img/logo-myjugaad.png'></img>
-                  <img class="footerIcons" src='media/microsite/myjugaad/pagebuilder/assets/img/logo-caisse-depot.png'></img>
-                  <img class="footerIcons" src='media/microsite/myjugaad/pagebuilder/assets/img/Logo-investir-lavenir.png'></img>
-                  <img class="footerIcons onRight" src='media/microsite/myjugaad/pagebuilder/assets/img/logo_TMA.png'></img> -->
-               </div>
-            </div>
-            </div>          
-         </footer>
-         <script>   
-       
-				 var envDefault = "developement"
-					 var organisation = "myjugaad"
-					 	var urlCompose
-					 var i 
-                     var iter
-                     var tbTitle
-                     var tbText
-                     var pathRegister = "/register"
-                     var pathLogin = "/login"
-                     var course_id = "course-v1:myjugaad+aad20+2020"
-                     var enrollment_action = ""
-                     var connectLink = ""
-                     var pathMedia = "media/microsite/"
-                     var micrositeName 
-                     var folderPb = "/pagebuilder"
-                     var imgSrc = "/assets/img/"
-                     var thumbnailStr = "thumbnailStr"
-                     var contentImg = "contentImg"
-                     var thumbnailObj
-                     var thumbnailObjObj
-                     var composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
-                     var composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
-                     var termPng = ".png"
-                     var termJpg = ".jpg"
-                     var vNone = 'none'
-                     var thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>"
-                     
-                     
-                     var thumbnailImgSrc
-                     var titleThumbnail
-                     var titleWeeks
-                     var iconoImgSrc
-                     
-                     var thumbnailChap =  "<div class='col-md-4 thumbnailImg'> <div class='thumbnail'><img class='tbImg'src="+thumbnailImgSrc+"><div class='caption'> <h3 >"+titleThumbnail+"</h3><img class='tbIc' src="+iconoImgSrc+"> <p class='weekSp'>"+titleWeeks+"</p><p class='under_s2'></p></div> </div></div>"
-            
-                     var titleThumb
-                     var imgThumbSrcIcon
-                     var imgThumbSrc
-                     var pWeeksTitle
-                     var pWeeksContent
-            
-                     var thumbnailChapEsc =  "<div class='col-md-4 noflex'><div class='thumbnail'>  <img src="+imgThumbSrc+ "class='thumbMg'> <div class='caption'> <h3 class='h3Thumb'  " + titleThumb + "</h3><img src="+imgThumbSrcIcon+" class='thumbMg'><p class='pWeeksTitle'>"+pWeeksTitle+"</p> <p class='pWeeksContent'>"+pWeeksContent+"</p></div>  </div>  </div>"
-            
-                        var swapDisplay = function(elm){
-                              var elmt = elm
-                              elmt.style.display = 'none'
-                        }
-                     var getInfo= function(){
-					 micrositeName  = organisation
-					 if (envDefault=='developement'){pathMedia =  "media/microsite/"}
-					 else{pathMedia =  "/media/microsite/"}
-					 composeurUrlSrc = pathMedia + micrositeName + folderPb + imgSrc +thumbnailStr
-                    composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
-					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
-                     }
-			
-					var scriptLinkGenerator =  function(){
-		
-						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
-						var script = document.createElement('script');
-						var script2 = document.createElement('script');
-						var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
-						script.id = 'Sid1';
-						script.src = mainPathB+scriptSrcArr[0];
-						script2.id = 'Sid2';
-						script2.src = mainPathB+scriptSrcArr[1];
-						document.head.appendChild(script);
-						document.head.appendChild(script2);
-				
-						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
-						var link1 = document.createElement('link');
-						link1.id = 'id1';
-						link1.rel = 'stylesheet';
-						link1.href = pathMedia+ micrositeName + lsSrcArr[0];
-						var link2 = document.createElement('link');
-						link2.id = 'id2';
-						link2.rel = 'stylesheet';
-						link2.href = pathMedia+ micrositeName + lsSrcArr[1];
-						var link3 = document.createElement('link');
-						link3.id = 'id3';
-						link3.rel = 'stylesheet';
-						link3.href = pathMedia+ micrositeName + lsSrcArr[2];
-						document.head.appendChild(link1);
-						document.head.appendChild(link2);
-                  document.head.appendChild(link3);
-                  
-                  $("#loginLink1").attr("href",pathLogin)
-                  $("#registerLink1").attr("href",pathRegister + connectLink)
-                  $("#loginLink2").attr("href",pathLogin)
-                  $("#registerLink2").attr("href",pathRegister + connectLink)
-                  $("#loginButn").click(function(){window.location.href = pathLogin + connectLink})
-                  $("#loginButn2").click(function(){window.location.href = pathLogin + connectLink})
-                  $("#subscribeButn").click(function(){window.location.href = pathRegister + connectLink})
-                  $("#subscribeButn2").click(function(){window.location.href = pathRegister + connectLink})
-                  $("#subscribeButn3").click(function(){window.location.href = pathRegister + connectLink})
-
-                  // texts
-                  $("#subscribeButn3").text(objJson.page.imIn)
-                  $("#loginLink1").text(objJson.page.login)
-                  $("#loginLink2").text(objJson.page.login)
-                  $("#loginButn").text(objJson.page.login)
-                  $("#loginButn2").text(objJson.page.login)
-                  $("#registerLink1").text(objJson.page.register)
-                  $("#registerLink2").text(objJson.page.register)
-                  $("#subscribeButn").text(objJson.page.register)
-		         }
-                     
-            var bindindFunctionSection1= function(){
-               var mainTitleContentTitle1 = objJson.container.section1.title.title1
-               $('#mainTitle1').text(mainTitleContentTitle1)
-            }
-
-            var bindindFunctionSection2= function(){
-              var mainTitleContent = objJson.container.section3.title
-              var module_1 = objJson.container.section2.modules[0]
-              var module_2 = objJson.container.section2.modules[1]
-              var module_3 = objJson.container.section2.modules[2]
-              var module_4 = objJson.container.section2.modules[3]
-              $('#se3').find(".sectionTitle").html(mainTitleContent)
-              $('#se3 > div > div > .module_1 > .module_text').html(module_1)
-              $('#se3 > div > div > .module_2 > .module_text').html(module_2)
-              $('#se3 > div > div > .module_3 > .module_text').html(module_3)
-              $('#se3 > div > div > .module_4 > .module_text').html(module_4)
-            }
-
-            var bindindFunctionSection3= function(){
-              iter =  objJson.container.section3.thumbnail.length
-            	for (i = 0; i < iter ; i++ ){
-            		thumbnailObj = objJson.container.section3.thumbnail[i]
-            		tbTitle = thumbnailObj.title
-            		tbText = thumbnailObj.text
-            		thumbnailMOOC =  "<div class='col-md-3 col-sm-6 item col-xs-12'><div class='box'><img class='img-rounded moocIco' src="+composeurUrlSrc+i+termPng+"><h3 class='name' >"+tbTitle+"</h3> <p class='description' >"+tbText+"</p></div> </div>";
-            		$('#markMoock').append(thumbnailMOOC)
-            	} 
-              
-              var mainTitleContent = objJson.container.section6.title
-            	$('#se6').find(".sectionTitle").text(mainTitleContent)
-            }
-                     
-            var bindindFunctionMeta = function(){
-            	var mainTitleContent = objJson.page.title
-            	$("#masterTitle").text(mainTitleContent)
-            }
-            
-            var masterBind= function(){
-				   scriptLinkGenerator(objJson);
-            	bindindFunctionSection1();
-               bindindFunctionSection2();
-               bindindFunctionSection3();
-               bindindFunctionMeta ();
-            }
-            
-            var objJson
-            
-            getInfo();
-            var a = new XMLHttpRequest();
-
-            a.open("GET",urlCompose,true);
-            a.onreadystatechange = function() {
-              if( this.readyState == 4) {
-            	if( this.status == 200) {
-                var response= JSON.parse(this.response)
-                objJson = response
-                course_id = "course-v1:myjugaad+aad20+2020"
-                enrollment_action = "enroll"
-                connectLink = "?course_id=" + course_id + "&enrollment_action=" + enrollment_action
-                masterBind();
-            	}
-            	else alert("HTTP error "+this.status+" "+this.statusText);
-              }
-            }
-            a.send();
-            a.addEventListener('loadend', $("body").css({"display":"inherit"}));
-            
-            $(".scroll").click(function() {
-            	$('html, body').animate({
-            		scrollTop: $("#se2").offset().top
-            	}, 2000);
-            });
-
-            ScrollReveal().reveal('.reveal', {
-                delay: 500,
-                useDelay: 'onload',
-                distance: '150px'
-            })
-          </script>
-         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      </body>
-   </html>
-
+% if register_course_id is not None:
+<script>
+$(".home-register").each(function(){
+ $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+});
+$(".home-login").each(function(){
+ $(this).attr('href','login?course_id=${register_course_id}&enrollment_action=enroll');
+});
+$("#bottom_register").attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
+</script>
+% endif
+ <script>
+    console.log('refresh')
+ </script>

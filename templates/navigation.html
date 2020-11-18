@@ -177,7 +177,7 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+              <li class="item nav-global-05" style="display: none !important;">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
               </li>
             %endif
@@ -401,11 +401,7 @@ div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary 
 body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
   background-color:  ${custom_color} !important;
 }
-.header-global .nav-global li a, .header-global .nav-global div a{
-  color : ${color_custom}!important;
-  font-weight: 600;
-  text-transform: uppercase;
-}
+
 .header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
   color : ${color_custom}!important;
   text-shadow : none!important;
@@ -424,6 +420,12 @@ color : ${color_custom}!important;
 }
 #global-navigation .burger::before{
   color: ${color_custom}!important;
+}
+.header-global .nav-global li a, .header-global .nav-global div a{
+  color: white !important;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+  padding: 10px 20px;
 }
 </style>
 <!-- TMA Ficus Redesign -->
