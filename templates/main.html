@@ -39,12 +39,12 @@ if request.user.is_authenticated() :
 else:
   banker = False
 %>
+<!DOCTYPE html>
 
 <script>
   var is_banker = "${banker}"
 </script>
 
-<!DOCTYPE html>
 <!--[if lte IE 9]><html class="ie ie9 lte9" lang="${LANGUAGE_CODE}"><![endif]-->
 <!--[if !IE]><!--><html lang="${LANGUAGE_CODE}"><!--<![endif]-->
 <head dir="${static.dir_rtl()}">
