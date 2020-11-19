@@ -8,6 +8,11 @@ from edxmako.shortcuts import marketing_link
 from openedx.core.lib.courses import course_image_url
 %>
 
+<%
+register_course_id = static.get_value('course_id')
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/auto/css/index.css'.format(org)
+%>
 
 
 <%inherit file="main.html" />
@@ -16,42 +21,42 @@ from openedx.core.lib.courses import course_image_url
   $('title').html('Qualité des aliments  | actia');
 </script>
 
-<link rel="stylesheet" type="text/css" href="/media/microsite/mooc-actia/css/lightslider.css" />
-<script src="/media/microsite/mooc-actia/js/lightslider.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/microsite/${org}/css/lightslider.css" />
+<script src="/media/microsite/${org}/js/lightslider.js"></script>
 <section class="course-info">
   <header class="course-profile">
     <ul id="lightSlider">
       <li>
           <div id="galleria-item-1" style="height : 100vh;" > </div>
-        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/1.png" /> -->
+        <!--  <img  style="width : 100%" src="/media/microsite/${org}/img/1.png" /> -->
       </li>
       <li>
           <div id="galleria-item-2" style="height : 100vh;"> </div>
-        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/2.png" /> -->
+        <!--  <img  style="width : 100%" src="/media/microsite/${org}/img/2.png" /> -->
       </li>
       <li>
           <div id="galleria-item-3" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/3.png" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/${org}/img/3.png" /> -->
       </li>
       <li>
           <div id="galleria-item-4" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/4.png" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/${org}/img/4.png" /> -->
       </li>
       <li>
           <div id="galleria-item-5" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/5.png" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/${org}/img/5.png" /> -->
       </li>
       <li>
           <div id="galleria-item-6" style="height : 100vh;"> </div>
-          <!--<img style="width : 100%" src="/media/microsite/mooc-actia/img/6.png" />-->
+          <!--<img style="width : 100%" src="/media/microsite/${org}/img/6.png" />-->
       </li>
     </ul>
     <div class="intro-inner-wrapper">
       <div id="panel-wrapper">
-        <img id="panel" src="/media/microsite/mooc-actia/img/logo_hp.png" />
+        <img id="panel" src="/media/microsite/${org}/img/logo_hp.png" />
       </div>
       <div id="dev_comp-wrapper">
-        <img id="dev_comp" src="/media/microsite/mooc-actia/img/Developpez_Competences.png" />
+        <img id="dev_comp" src="/media/microsite/${org}/img/Developpez_Competences.png" />
       </div>
     </div>
   </header>
@@ -72,7 +77,7 @@ européens, les experts de l’ACTIA mettent à disposition leur expérience via
         <div class="formation-wrapper">
           <div class="formation-tullet">
             <div>
-            <img src="/media/microsite/mooc-actia/img/formation1.png" />
+            <img src="/media/microsite/${org}/img/formation1.png" />
             </div>
             <p>Avec ce MOOC de quatre semaines illustré d'exemples
 concrets, découvrez les qualités microbiologiques,
@@ -89,7 +94,7 @@ aliment et la manière dont elles interagissent.</p>
           </div>
           <div class="formation-tullet">
             <div>
-            <img src="/media/microsite/mooc-actia/img/formation2.png" />
+            <img src="/media/microsite/${org}/img/formation2.png" />
             </div>
               <p>Ce SPOC, constitué de sept séquences, présente les
     outils dont dispose le professionnel pour valider et

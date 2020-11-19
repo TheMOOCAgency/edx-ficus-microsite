@@ -121,7 +121,6 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
       <div class="table">
       <section class="intro">
         <div class="heading-group">
-          <h1> TEST TEST</h1>
           <h1>
             ${course.display_name_with_default_escaped}
             <button type="button">${course.display_org_with_default | h}</button>
@@ -268,7 +267,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
                   % else:
                     <%
                         if LANGUAGE_CODE == 'fr':
-                          course_date_string = course_end_date.strftime('%d %b, %Y')
+                          course_date_string = course_end_date.strftime('%d %b %Y')
                         else :
                           course_date_string = course_end_date.strftime('%b %d, %Y')
                     %>
