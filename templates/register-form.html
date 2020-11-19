@@ -343,6 +343,17 @@ import datetime
   <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
 </div>
 <style>
+    .nav_title{
+    font-weight: 600;
+    margin-right: 29%;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-left: -5%;
+  }
+.left.list-inline.nav-global {
+    margin-top: 5px;
+    display: none;
+}
 #login_link_up {
  margin-top: 10px;
 }
@@ -358,6 +369,15 @@ import datetime
 #login_link:hover,#login_link:focus,#login_link:visited {
  color: rgba(98,181,207,0.8);
  border: none;
+}
+
+.header-global .nav-global li, .header-global .nav-global div {
+    display: inline-block;
+    margin: 0px -100px 0 0;
+    font-size: 0.875em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0 !important;
 }
 </style>
 <script>

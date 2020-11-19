@@ -23,35 +23,36 @@ from openedx.core.lib.courses import course_image_url
     <ul id="lightSlider">
       <li>
           <div id="galleria-item-1" style="height : 100vh;" > </div>
-        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/1.jpg" /> -->
+        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/1.png" /> -->
       </li>
       <li>
           <div id="galleria-item-2" style="height : 100vh;"> </div>
-        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/2.jpg" /> -->
+        <!--  <img  style="width : 100%" src="/media/microsite/mooc-actia/img/2.png" /> -->
       </li>
       <li>
           <div id="galleria-item-3" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/3.jpg" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/3.png" /> -->
       </li>
       <li>
           <div id="galleria-item-4" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/4.jpg" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/4.png" /> -->
       </li>
       <li>
           <div id="galleria-item-5" style="height : 100vh;"> </div>
-        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/5.jpg" /> -->
+        <!--  <img style="width : 100%" src="/media/microsite/mooc-actia/img/5.png" /> -->
       </li>
       <li>
           <div id="galleria-item-6" style="height : 100vh;"> </div>
-          <!--<img style="width : 100%" src="/media/microsite/mooc-actia/img/6.jpg" />-->
+          <!--<img style="width : 100%" src="/media/microsite/mooc-actia/img/6.png" />-->
       </li>
     </ul>
     <div class="intro-inner-wrapper">
-      <div id="panel">
-        <img src="/media/microsite/mooc-actia/img/logo_two.png" />
-        <p>LE RÉSEAU FRANÇAIS DES INSTITUTS TECHNIQUES DE L’AGRO-ALIMENTAIRE</p>
+      <div id="panel-wrapper">
+        <img id="panel" src="/media/microsite/mooc-actia/img/logo_hp.png" />
       </div>
-      <h2>DÉVELOPPEZ VOS COMPÉTENCES AVEC L'ACTIA</h2>
+      <div id="dev_comp-wrapper">
+        <img id="dev_comp" src="/media/microsite/mooc-actia/img/Developpez_Competences.png" />
+      </div>
     </div>
   </header>
 
@@ -127,6 +128,47 @@ aliment et la manière dont elles interagissent.</p>
   </div>
 %endif
 
+<style>
+  .intro-inner-wrapper{
+    border: none !important;
+  }
+  #global-navigation{
+    border:none !important;
+  }
+  .button-register{
+    background-color:rgba(0,131,169,1) !important;
+  }
+  .course-info header.course-profile {
+    border-bottom-width: 0px !important;
+}
+/* @media screen and (max-width: 1350px) {
+  .course-info .container {
+    padding-right: 4% !important; 
+    padding-left: 4% !important; 
+    width: 70% !important;
+}  */
+}
+
+
+
+@media screen and (max-width: 1050px) {
+  .nav_title {
+    margin-right: 0;
+
+} 
+.course-info .container {
+    width: 70% !important;
+    padding: 30px;
+    min-width: initial;
+  }
+  .nav_title{
+
+    margin-left: -5% !important;
+  }
+
+
+
+</style>
 
 <script type="text/javascript">
   $(document).ready(function() {

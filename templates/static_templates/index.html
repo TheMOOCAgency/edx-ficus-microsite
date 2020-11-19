@@ -6,18 +6,65 @@ from courseware.courses import get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 from openedx.core.lib.courses import course_image_url
+from tma_apps.home_course_about.home_about import course_about_display
 %>
+
+
 
 <%inherit file="../main.html" />
 
-<%block name="headextra">
+<script>
+  $('.nav-global-04').html('MOOC QUALITÉ DES ALIMENTS');
+  $('title').html('Qualité des aliments  | actia');
+</script>
+
+  <%
+  course_id="course-v1:mooc-actia+qualitedesaliments+2020"
+  data_mooc=course_about_display(user, course_id)
+
+  course=data_mooc.get('course')
+  course_details=data_mooc.get('course_details')
+  staff_access=data_mooc.get('staff_access')
+  studio_url=data_mooc.get('studio_url')
+  registered=data_mooc.get('registered')
+  course_target=data_mooc.get('course_target')
+  is_cosmetic_price_enabled=data_mooc.get('is_cosmetic_price_enabled')
+  course_price=data_mooc.get('course_price')
+  in_cart=data_mooc.get('in_cart')
+  ecommerce_checkout=data_mooc.get('ecommerce_checkout')
+  ecommerce_checkout_link=data_mooc.get('ecommerce_checkout_link')
+  ecommerce_bulk_checkout_link=data_mooc.get('ecommerce_bulk_checkout_link')
+  professional_mode=data_mooc.get('professional_mode')
+  reg_then_add_to_cart_link=data_mooc.get('reg_then_add_to_cart_link')
+  show_courseware_link=data_mooc.get('show_courseware_link')
+  is_course_full=data_mooc.get('is_course_full')
+  can_enroll=data_mooc.get('can_enroll')
+  invitation_only=data_mooc.get('invitation_only')
+  active_reg_button=data_mooc.get('active_reg_button')
+  is_shib_course=data_mooc.get('is_shib_course')
+  disable_courseware_header=data_mooc.get('disable_courseware_header')
+  can_add_course_to_cart=data_mooc.get('can_add_course_to_cart')
+  cart_link=data_mooc.get('cart_link')
+  pre_requisite_courses=data_mooc.get('pre_requisite_courses')
+  course_image_urls=data_mooc.get('course_image_urls')
+  %>
+
+  <style>
+    section.course-info{
+      background-image:url('/media/microsite/actia/auto/images/bg_img.jpg')!important;
+      background-size: cover;
+       background-attachment: fixed;
+    }
+    #date-start{
+      margin-top: 18px;
+    }
+  </style>
+
   ## OG (Open Graph) title and description added below to give social media info to display
   ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
   <meta property="og:title" content="${course.display_name_with_default_escaped}" />
   <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
-</%block>
 
-<%block name="js_extra">
   ## CourseTalk widget js script
   % if show_coursetalk_widget:
       <script src="//d3q6qq2zt8nhwv.cloudfront.net/s/js/widgets/coursetalk-read-reviews.js"></script>
@@ -104,16 +151,15 @@ from openedx.core.lib.courses import course_image_url
   </script>
 
   <script src="${static.url('js/course_info.js')}"></script>
-</%block>
 
-<%block name="pagetitle">${course.display_name_with_default_escaped}</%block>
+
 
 <%
 org_static = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
+css = org_static+'/css/course_about.css'
 %>
 
-<link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 
 <section class="course-info">
   <header class="course-profile">
@@ -121,7 +167,6 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
       <div class="table">
       <section class="intro">
         <div class="heading-group">
-          <h1> TEST TEST</h1>
           <h1>
             ${course.display_name_with_default_escaped}
             <button type="button">${course.display_org_with_default | h}</button>
@@ -227,7 +272,91 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
     <div class="course-sidebar">
       <div class="course-summary">
 
-        <%include file="course_about_sidebar_header.html" />
+        <header>
+          <div class="course-about-image">
+            <img src="${course_image_urls['large']}" alt="">
+          </div>
+          % if user.is_authenticated() and registered:
+        	<div class="enroll-button">
+            % if user.is_active:
+        <!--           <span>Votre inscription a été prise en compte !
+                   <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
+                   <span id="time"></span>-->
+        <script type="text/javascript">
+        $(document).ready(function(){
+                $("#time").countdown({
+                    "date" : "2017/09/07 14:30:00",
+                    "template": "%d j  %h h  %i min  %s s",
+                });
+        });
+        </script>
+                   <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
+                   &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
+
+            % else:
+                   Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
+            % endif
+                </div>
+          % else:
+                <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+                   Je m'inscris !
+                </div>
+
+          % endif
+          </div>
+          % if static.get_value('course_about_show_social_links', True):
+          <div class="social-sharing">
+            ## TODO: this should probably be an overrideable block,
+            ##       or something allowing themes to do whatever they
+            ##       want here (and on this whole page, really).
+              <%
+                site_domain = static.get_value('site_domain', settings.SITE_NAME)
+                platform_name = static.get_platform_name()
+
+                ## Translators: This text will be automatically posted to the student's
+                ## Twitter account. {url} should appear at the end of the text.
+                tweet_text = _("I just enrolled in {number} {title} through {account}: {url}").format(
+                    number=course.number,
+                    title=course.display_name_with_default_escaped,
+                    account=static.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
+                    url=u"http://{domain}{path}".format(
+                        domain=site_domain,
+                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
+                    )
+                ).replace(u" ", u"+")
+                tweet_text=str("Je me suis inscrit au MOOC Experience Gaz %23MOOCExperienceGaz mooc-experiencegaz.fr").replace(u" ", u"+")
+                tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
+
+                facebook_link = static.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
+
+                email_subject = u"mailto:?subject={subject}&body={body}".format(
+                    subject=_("Take a course with {platform} online").format(platform=platform_name),
+                    body=_("I just enrolled in {number} {title} through {platform} {url}").format(
+                        number=course.number,
+                        title=course.display_name_with_default_escaped,
+                        platform=platform_name,
+                        url=u"http://{domain}{path}".format(
+                            domain=site_domain,
+                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
+                        )
+                    )
+                ).replace(u" ", u"%20")
+                email_subject = str(str("mailto:?subject=MOOC Experience Gaz&body=")+str("Je me suis inscrit au MOOC Experience Gaz. Je pense que cela peut t'interesser ! Clique ici : https://mooc-experiencegaz.fr")).replace(u" ", u"%20")
+              %>
+              <a href="${tweet_action}" class="share" target="_blank">
+                <span class="icon fa fa-twitter" aria-hidden="true"></span><span class="sr">${_("Tweet that you've enrolled in this course")}</span>
+              </a>
+                <span class="icon fa fa-facebook" aria-hidden="true"></span><span class="sr">${_("Post a Facebook message to say you've enrolled in this course")}</span>
+            <a href="https://www.yammer.com" class="share" target="_blank">
+                <span class="icon fa socicon-yammer" aria-hidden="true"></span><span class="sr">Postez sur Yammer</span>
+            </a>
+             <a href="${email_subject}" class="share" target="_blank">
+                <span class="icon fa fa-envelope" aria-hidden="true"></span><span class="sr">${_("Email someone to say you've enrolled in this course")}</span>
+             </a>
+          </div>
+          % endif
+        </header>
+
 
         <ol class="important-dates">
           <li class="important-dates-item"><span class="icon fa fa-info-circle" aria-hidden="true"></span><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default | h}</span></li>
@@ -235,20 +364,19 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
               <%
                   course_start_date = course.start
               %>
-            <li class="important-dates-item">
+            <li class="important-dates-item" id="date-start">
               <span class="icon fa fa-calendar" aria-hidden="true"></span>
-              <p class="important-dates-item-title">Début du SPOC</p>
+              <p class="important-dates-item-title">Début du MOOC</p>
               % if isinstance(course_start_date, str):
                   <span class="important-dates-item-text start-date">${course_start_date}</span>
               % else:
                   <%
                       if LANGUAGE_CODE == 'fr':
-                        course_date_string = course_start_date.strftime('%d %b %Y')
+                        course_date_string = course_start_date.strftime('%d %b, %Y')
                       else :
                         course_date_string = course_start_date.strftime('%b %d, %Y')
                   %>
-                  <span class="important-dates-item-text start-date localized_datetime" data-format="shortDate">${course_date_string}</span>
-                  <p></p>
+                  <span class="important-dates-item-text start-date localized_datetime">${course_date_string}</span>
               % endif
             </li>
           % endif
@@ -261,8 +389,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
             <li class="important-dates-item">
                 <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                <p class="important-dates-item-title">Fin du SPOC</p>
-
+                <p class="important-dates-item-title">Fin du MOOC</p>
                   % if isinstance(course_end_date, str):
                       <span class="important-dates-item-text final-date">${course_end_date}</span>
                   % else:
@@ -272,7 +399,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
                         else :
                           course_date_string = course_end_date.strftime('%b %d, %Y')
                     %>
-                    <span class="important-dates-item-text final-date localized_datetime" data-format="shortDate">${course_date_string}</span>
+                    <span class="important-dates-item-text final-date localized_datetime">${course_date_string}</span>
                   % endif
             </li>
             % endif
@@ -358,11 +485,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
   </div>
 %endif
 
-<%include file="../video_modal.html" />
 
-<%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
-    DateUtilFactory.transform(iterationKey=".localized_datetime");
-</%static:require_module_async>
 
 <script>
 $(".inner-wrapper section h2").click(function() {
@@ -384,6 +507,9 @@ $(".inner-wrapper section h2").click(function() {
 .btn-login {
   color: #fff !important;
 }
-
-back
 </style>
+<!-- Fix js contenu barre nav -->
+
+
+<!-- Fix traduction -->
+<script src="/media/traductions/fix-trad-fr.js" charset="utf-8"></script>
