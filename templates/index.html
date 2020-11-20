@@ -32,6 +32,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
   footer {
     width: 100vw;
+    position: fixed;
+    bottom: 0;
   }
 
   .home {
@@ -115,9 +117,10 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     bottom: 0;
     left: 0;
     right: 0;
-    min-width:100vw;
-    min-height: 100vh;
+    /* min-width:100vw;
+    min-height: 100vh; */
     z-index: 0;
+    width: 100%;
   }
 
 
@@ -304,6 +307,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     .home #main-content #home_thumbnails {
       width: 90%;
     }
+    .home #homepage_banner{
+      height: 66vh;
+    }
 
   }
 
@@ -315,9 +321,18 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     .home #main-content #home_thumbnails .thumbnail li {
       font-size: 12px;
     }
+
   }
 
   @media only screen and (max-width: 768px){
+    #mute{
+      height: 30px !important;
+      width: 30px !important;
+    }
+
+    .home #homepage_banner{
+      height: 48vh;
+    }
     .home #main-content #home_thumbnails .thumbnail .thumbnail_pic {
       height:120px;
     }
@@ -346,8 +361,23 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       width: 60%;
     }
   }
+  .step{
+     margin:0
+
+  }
+  .partenaires{
+    margin-bottom: 2em;
+  }
+
 
   @media only screen and (max-width: 414px) {
+    .btn-neutral{
+    margin-bottom: 1em;
+  }
+
+    .home #homepage_banner{
+      height: 27vh;
+    }
     .home #main-content #mooc_definition #mooc_definition_steps {
       flex-wrap: nowrap;
       flex-direction: column;
@@ -379,7 +409,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       font-size: 12px;
     }
     #mooc_definition {
-padding-top: 2em;
+      padding-top: 2em;
     }
 
     .home #bottom_banner {
@@ -398,6 +428,7 @@ padding-top: 2em;
     .home #main-content #discover_title {
       font-size: 16px;
       width:70%;
+      line-height: 1em;
     }
 
     .home #main-content #home_thumbnails .thumbnail:nth-child(2) {
@@ -434,6 +465,7 @@ padding-top: 2em;
 
     .home button {
       padding: 8px 20px;
+      margin-bottom: 1em !important;
     }
 
     .home #main-content #mooc_definition #mooc_definition_steps .step .step_content {
@@ -477,22 +509,7 @@ padding-top: 2em;
 }
 
 .btn-login {
-   text-transform: none;
-    text-shadow: none !important;
-    background-image: none !important;
-    box-shadow: none !important;
-    background-color: none !important;
-    background-color: rgb(135, 75, 255);
-    border: 3px solid rgb(135, 75, 255);
-    border-radius: 25px !important;
-    color: white !important;
-    font-weight:700;
-    margin:0 10px;
-    padding:12px 20px;
-}
-
-.btn-neutral{
-   text-transform: none;
+   text-transform: capitalize;
     text-shadow: none !important;
     background-image: none !important;
     box-shadow: none !important;
@@ -506,6 +523,38 @@ padding-top: 2em;
     padding:12px 20px;
 }
 
+.btn-neutral{
+   text-transform: none;
+    text-shadow: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: none !important;
+    background-color: rgb(135, 75, 255);
+    border: 3px solid rgb(135, 75, 255);
+    border-radius: 25px !important;
+    color: white !important;
+    font-weight:700;
+    margin:0 10px;
+    padding:12px 20px;
+}
+.header-global .wrapper-header .list-inline.nav-global {
+  justify-content: flex-end !important;
+}
+.header-global .nav-global li a, .header-global .nav-global div a {
+    text-transform: Capitalize;
+}
+#mute{
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  border: none !important;
+  background-size: cover;
+  z-index: 3;
+}
+
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
    <section class="home">
@@ -517,29 +566,30 @@ padding-top: 2em;
          <source src="/media/microsite/${org}/assets/video.mp4" type="video/mp4">
          Your browser does not support the video tag.
        </video>
-
      </div>
+     <div id="mute" class="btn"></div>
      <div id="main-content">
        <div id="home_container">
-         <div id="discover_title">Bienvenue sur le MOOC aide au déménagement</div>
-         <p class="description">Bienvenue sur le MOOC « Devenir accompagnateur pour les publics fragiles ».</p>
 
-         <p class="description">Ce MOOC, c’est une formation à distance 100% digitale qui vous permettra acquérir les savoirs faires logistiques et administratifs nécessaires au métier de la mobilité résidentielle mais également à l’accompagnement des publics spécifiques.
+         <div id="discover_title" style="line-height: 1em;"> sur le MOOC aide au déménagement</div>
+         <p class="description">Bienvenue sur le MOOC « Devenir accompagnateur pour les publics fragiles  ».</p>
+
+         <p class="description">Ce MOOC, c’est une formation à distance 100% digitale qui vous permettra acquérir les savoirs faires logistiques et administratifs nécessaires aux métiers de la mobilité résidentielle mais également à l’accompagnement des publics spécifiques.
             L’objectif de cette formation sera de vous former sur la posture d’accompagnateur terrain.</p>
 
             <p class="description" >C’est à travers une série de 9 modules, composés de vidéos, quiz, activités et ressources complémentaires que vous pourrez découvrir les tenants et les aboutissants de ces métiers.
             Une fois pas la formation terminée, chaque professionnel recevra un certificat d’habilitation sous la forme d’un label, qui vous permettra de certifier l’aqcuision de ces compétences.</p>
             
-            <p class="description"> Il devra par la suite faire un auto-diagnostic et entretien téléphonique pour valider définitivement sa formation afin d'être reconnu comme accompagnateur pour les personnes fragiles.</p>
+            <p class="description"> Vous devrez par la suite effectuer un auto-diagnostic et un entretien téléphonique pour valider définitivement votre formation afin d'être reconnu comme accompagnateur pour les personnes fragiles.</p>
             
             <p class="description_bottom"> A vos marques, prêts, partez !</p>
          
          <div id="login_or_register">
             <button>
-              <a class="home-register" href="/register">Inscription</a>
+              <a class="home-register" href="/register?course_id=course-v1:myjugaad+aad20+2020&enrollment_action=enroll">Inscription</a>
             </button>
             <button>
-              <a class="home-login" href="/login">Connexion</a>
+              <a class="home-login" href="/login?course_id=course-v1:myjugaad+aad20+2020&enrollment_action=enroll">Connexion</a>
             </button>
          </div> 
 
@@ -564,12 +614,13 @@ padding-top: 2em;
 
        </div>
        <div class="footer_logo" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 3em;">
-          <h2 style="color: var(--primary-color);"> Nos partenaires</h2>
-           <img src="/media/microsite/${org}/assets/partner.png" style="width: 60%; margin-top: -50px;" alt="Logos partenaires" class="banner_logo" />
+          <h2 class="pertenaires" style="color: var(--primary-color);"> Nos partenaires</h2>
+           <img src="/media/microsite/${org}/assets/partner.png" style="width: 60%; margin-top: -20px; margin-bottom: 90px;" alt="Logos partenaires" class="banner_logo" />
          </div>
      </div>
    </section>
 </main>
+
 <%block name="js_extra">
    <script type="text/javascript">
       $(window).load(function() {
@@ -599,6 +650,24 @@ $(".home-login").each(function(){
 $("#bottom_register").attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 </script>
 % endif
- <script>
-    console.log('refresh')
- </script>
+
+
+<!-- mute or unmute the video -->
+
+<script>
+  $(document).ready(function() {
+  	if ($("video").prop('muted', true)){
+      $("#mute").css("background-image","url(http://image.flaticon.com/icons/svg/10/10430.svg)");
+    }
+
+  $("#mute").click( function (){
+    if( $("video").prop('muted') ) {
+      $("video").prop('muted', false);
+      $("#mute").css("background-image","url(http://image.flaticon.com/icons/svg/10/10776.svg)");
+    } else {
+      $("video").prop('muted', true);
+      $("#mute").css("background-image","url(http://image.flaticon.com/icons/svg/10/10430.svg)");
+    }
+  });
+  });
+</script>
