@@ -7,6 +7,9 @@ from django.conf import settings
 from edxmako.shortcuts import marketing_link
 from openedx.core.lib.courses import course_image_url
 %>
+<%
+path = request.path
+%>
 
 <%inherit file="../main.html" />
 
@@ -236,7 +239,11 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
               %>
             <li class="important-dates-item">
               <span class="icon fa fa-calendar" aria-hidden="true"></span>
-              <p class="important-dates-item-title">Début du cours</p>
+              % if path == '/courses/course-v1:actia+SPOC+2020/about' :
+                <p class="important-dates-item-title">Début du SPOC</p>
+              % else :
+                <p class="important-dates-item-title">Début du MOOC</p>
+              % endif
               <!-- if request.get_full_path = '/courses/course-v1:actia+SPOC+2020/about' :
                 <p class="important-dates-item-title">Début du SPOC</p>
               else :
@@ -266,7 +273,11 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
             <li class="important-dates-item">
                 <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                <p class="important-dates-item-title">Fin du cours</p>
+                % if path == '/courses/course-v1:actia+SPOC+2020/about' :
+                  <p class="important-dates-item-title">Fin du SPOC</p>
+                % else :
+                  <p class="important-dates-item-title">Fin du MOOC</p>
+                % endif
 
                   % if isinstance(course_end_date, str):
                       <span class="important-dates-item-text final-date">${course_end_date}</span>

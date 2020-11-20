@@ -4,6 +4,9 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 %>
+<%
+path = request.path
+%>
 <!--
 <script type="text/javascript" src="${static.url('js/jquery.jcountdown.js')}"></script>
 -->
@@ -32,9 +35,15 @@ $(document).ready(function(){
     % endif
         </div>
   % else:
+    % if path == '/courses/course-v1:actia+SPOC+2020/about' :
           <div class="enroll-button" onclick="window.location.href='https:\/\/docs.google.com/forms/d/e/1FAIpQLSdwku7swDx9u1pbTa1oDI_ailmkrrYrT6MN5W5Vi_FZKr_GFA/viewform?usp=sf_link'">
             M'inscrire
          </div>
+    % else :
+          <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+            M'inscrire
+          </div>
+    % endif
   % endif
         <div style="border-top:1px solid white" class="enroll-button" onclick="window.location.href='/login?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
            Me connecter
@@ -95,3 +104,6 @@ $(document).ready(function(){
 </header>
 
 
+<script>
+  console.log('test')
+</script>
