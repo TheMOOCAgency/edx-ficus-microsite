@@ -39,6 +39,12 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
 <%block name="header_extras">
+<!--
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+-->
 % for template_name in ["donation"]:
 <script type="text/template" id="${template_name}-tpl">
   <%static:include path="dashboard/${template_name}.underscore" />
@@ -50,7 +56,6 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
     <%static:include path="search/${template_name}.underscore" />
 </script>
 % endfor
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </%block>
 
 <%block name="js_extra">
@@ -107,7 +112,7 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 <div id="voile"></div>
 <div class="content_tma">
   <!-- profil -->
-  <div id="dashboard_profile" class="animate__fadeInLeftBig">
+  <div id="dashboard_profile">
   <div id="profile_button">p r o f i l </div>
     <!-- image profil -->
 
@@ -242,6 +247,10 @@ endfor
 <style>
   #dashboard_profile_up{
     background-color: ${custom_color}!important;
+  }
+  #dashboard_profile_up,#dashboard_profile_middle,#dashboard_profile_bottom{
+    animation: fadeInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
   }
   #course_start{
     background: ${custom_color}!important;
