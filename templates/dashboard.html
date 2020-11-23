@@ -39,12 +39,10 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
 
 <%block name="header_extras">
-<!--
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
--->
 % for template_name in ["donation"]:
 <script type="text/template" id="${template_name}-tpl">
   <%static:include path="dashboard/${template_name}.underscore" />
