@@ -36,8 +36,12 @@ from status.status import get_site_status_msg
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 css_custom = '/media/microsite/{}/auto/css/customizer.css'.format(org_static)
-
 %>
+
+<%
+path = request.path
+%>
+
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${css_custom}" />
@@ -107,10 +111,28 @@ site_status_msg = get_site_status_msg(course_id)
         <span class="course-name">${display_name}</span></h2>
       % endif
 
-        <span class="nav_title">
-          <!--              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>-->
-            Formations en ligne
+
+      % if user.is_authenticated():
+        <span class="nav_title" id="navigation_for_hover">
+          <a class="explore" href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
         </span>
+      % else :
+        % if path == '/courses/course-v1:actia+qualitedesaliments+2020/about' :
+          <span class="nav_title" >
+            Qualité des aliments actia
+          </span>
+        % elif path == '/courses/course-v1:actia+SPOC+2020/about' :
+          <span class="nav_title">
+            Durée de vie microbio Actia
+          </span>
+        % else :
+          <span class="nav_title" >
+            Formations en ligne Actia
+          </span>
+        % endif
+      % endif
+        
+
       % if user.is_authenticated():
 
         <%block name="navigation_global_links_authenticated">
@@ -261,6 +283,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="${css}" />
 
 <style>
+
   .nav_title{
     font-weight: 600;
     margin-right: 29%;
@@ -297,6 +320,16 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 }
 li .nav-global-05{
   display: none;
+}
+.explore:hover {
+    color: red !important;
+  }
+
+a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
+    color: red !important;
+}
+#navigation_for_hover a:hover {
+  color: red !important
 }
 
 </style>
