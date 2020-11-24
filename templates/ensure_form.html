@@ -173,7 +173,7 @@ footer, header{
 <script>
 
 var urls_api = [
-  "/tma/api/ensure_profile_form",
+  "/tma/api/ensure_profile_form/",
   "/tma/api/profile_form"
 ];
 
@@ -196,7 +196,7 @@ $('#validate_button').click(function(){
       $.ajax({
         type: 'post',
         dataType:'json',
-        data: JSON.stringify(data),
+        data: data,
         url: urls_api[0],
         success: function(data) {
           var fields = data.fields;
