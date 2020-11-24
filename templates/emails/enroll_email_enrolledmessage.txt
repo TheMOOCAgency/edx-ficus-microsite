@@ -2,7 +2,7 @@
 
 Bienvenue dans la première étape de votre formation Data for Managers avec HEC Paris !
 
-En amont des journées des 24 et 25 novembre, nous vous invitons à tester vos connaissances Data en répondant à 32 questions (comptez 35 minutes).
+En amont des journées des 1 et 2 décembre, nous vous invitons à tester vos connaissances Data en répondant à 32 questions (comptez 35 minutes).
 
 Pour commencer le test, rendez-vous sur ${_("{site_name}").format(site_name=site_name)} avec vos identifiant habituels. Nous vous rappelons que votre login est composé de votre adresse mail. 
 
