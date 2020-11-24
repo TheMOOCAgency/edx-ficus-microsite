@@ -17,7 +17,9 @@ primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
 %>
 
-
+<% 
+company = json.loads(request.user.profile.custom_field).get('company')
+%>
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
@@ -263,7 +265,7 @@ background_url = configuration_helpers.get_value('bg_img')
           </ul>
           <div class="red-bg">
             <div class="m-8"><span class="bold">Nom de l'apprenant(e) : </span> ${first_name} ${last_name}</div>
-            <div class="m-8"><span class="bold">Salarié(e)</span> de la Banque Michel Inchauspé</div>
+            <div class="m-8"><span class="bold">Salarié(e) de l'entreprise : </span> ${company} </div>
             <div class="m-8"><span class="bold">Temps passé en formation :</span> 7 heures</div>
             <div class="m-8"><span class="bold">Evaluation des acquis</span> de la formation à l’aide d’un questionnaire</div>
             <div class="m-8 bold">Résultat obtenu en pourcentage de bonnes réponses : ${int(grades['grade']*100)}%</div>
