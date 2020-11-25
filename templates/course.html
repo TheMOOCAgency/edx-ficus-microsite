@@ -7,6 +7,9 @@ from django.core.urlresolvers import reverse
 <%page args="course" expression_filter="h"/>
 <article class="course" id="${course.id}" role="region" aria-label="${course.display_name_with_default}">
   <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+    <h2 class="course-name">
+      <span class="course-title">${course.display_name_with_default}</span>
+    </h2>
     <header class="course-image">
       <div class="cover-image">
         <img src="${course.course_image_url}" alt="${course.display_name_with_default} ${course.display_number_with_default}" />
@@ -14,11 +17,7 @@ from django.core.urlresolvers import reverse
       </div>
     </header>
     <div class="course-info" aria-hidden="true">
-      <h2 class="course-name">
-        <span class="course-organization">${course.display_org_with_default}</span>
-        <span class="course-code">${course.display_number_with_default}</span>
-        <span class="course-title">${course.display_name_with_default}</span>
-      </h2>
+
       <%
       if course.start is not None:
           course_date_string = course.start.strftime('%Y-%m-%dT%H:%M:%S%z')
@@ -47,3 +46,35 @@ from django.core.urlresolvers import reverse
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized_datetime");
 </%static:require_module_async>
+
+<style>
+
+  .course-name{
+    background-color: rgba(28, 114, 138, 0.8);
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin-bottom: 0;
+    height: 2.5em;
+    padding: 0.5em;
+  }
+
+  .courses-listing-item{
+    max-height: 500px;
+}
+  .course{
+    border: 1px solid rgba(28, 114, 138, 0.8) !important;
+  }
+  .course-info {
+    height: 50px !important;
+  }
+  
+  .course-date{
+    color: rgba(28, 114, 138, 0.8) !important;
+    text-align: center;
+    padding: 1em !important;
+    font-size: 1em !important;
+    font-weight: 500;
+  }
+</style>

@@ -13,48 +13,117 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
+
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+
+
+      <div id="header">
+        <nav id="navigation">
+          <ol id="navigation_list">
+            <li class="navigation_list_element"><a href="#">MOOC Partenaires</a></li>
+            <li class="navigation_list_element"><a href="#">Certificat</a></li>
+            <li class="navigation_list_element"><a href="#">F.A.Q</a></li>
+            <li class="navigation_list_element nav_button register_button"><a href="#">Créer un compte</a></li>
+            <li class="navigation_list_element nav_button login_button"><a href="#">Se connecter</a></li>
+          </ol>
+        </nav>
+      </div>
+      <div id="course_container">
+        <div class="course_list">
+          <div class="course_list_intro">
+            <h2 class="course_list_title">
+              Nos MOOC Conservation
+            </h2>
+            <p class="course_list_text">
+              Un MOOC (Massive Open Online Course) est une formation en ligne, gratuite et ouverte à tous. Pour suivre un MOOC, l’étudiant aura simplement besoin d’une connexion Internet et d’un accès à un ordinateur ou à un smartphone. Nos MOOC sont composés de courtes vidéos thématiques, de quiz, d’examens, de lectures recommandées, etc
+            </p>
+          </div>
+          <div id="course_list_elements">
+            <%include file="${courses_list}" />
+          </div>
+
+        </div>
+
+        <div class="course_list">
+          <div class="course_list_intro">
+            <h2 class="course_list_title">
+              Nos essentiels
+            </h2>
+            <p class="course_list_text">
+              Les Essentiels sont un condensé de nos MOOC Conservation. Chaque Essentiel regroupe 50 vidéos destinées à un profil d’acteur de la conservation des aires protégées : les gardes/rangers, les gestionnaires/managers (ceux qui font plutôt de la recherche R ou ceux qui se concentrent sur l’application des lois L) et enfin les décideurs/leaders. Choisissez l’Essentiel adapté à vos besoins...
+            </p>
+          </div>
+          <div id="course_list_elements">
+            <%include file="${courses_list}" />
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="footer_container" >
+          <div class="footer_about_and_icon footer_div">
+            <div class="footer_about">
+              <p class="footer_title">
+                A propos de MOOC Conservation
+              </p>
+              <p class="footer_text">
+                MOOC Conservation est un site dédié aux cours en ligne sur la conservation de la nature, développés par l’UICN-PAPACO (Programme aires protégées d’Afrique et conservation, de l’Union internationale pour la conservation de la nature) et ses partenaires. Ces cours sont entièrement gratuits et tout le monde peut s’inscrire et participer.
+              </p>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
+            <img class="footer_icon" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo">
+          </div>
+
+          <div class="footer_menu_and_sm footer_div">
+            <div class="footer_menu">
+              <p class="footer_title"> Menu </p>
+              <div class="footer_list">
+                <ol class="footer_list_nav"></ol>
+                  <li class="footer_list_element"><a href="#">Nos MOOC</a></li>
+                  <li class="footer_list_element"><a href="#">MOOC partenaires</a></li>
+                  <li class="footer_list_element"><a href="#">Certificat</a></li>
+                  <li class="footer_list_element"><a href="#">F.A.Q</a></li>
+                  <li class="footer_list_element"><a href="#">Site en anglais</a></li>
+                </ol>
               </div>
-            % endif
+            </div>
+            
+            <div class="footer_sm">
+              <p class="footer_title"> Suivez-nous</p>
+              <div class="footer_list"> 
+                <ol class="footer_list_nav">
+                  <li class="footer_list_element"><a href="#">Page Facebook de l'UICN Papaco</a></li>
+                  <li class="footer_list_element"><a href="#">Groupe Facebook francophone des MOOC</a></li>
+                  <li class="footer_list_element"><a href="#">Groupe Facebook anglophone des MOOC</a></li>
+                  <li class="footer_list_element"><a href="#">Twitter @Papaco_IUCN</a></li>
+                  <li class="footer_list_element"><a href="#">Instagram @mooc-conservation</a></li>
+                  <li class="footer_list_element"><a href="#">Site de l'UICN-PAPACO</a></li>
+                </ol>
+              </div>
+            </div>
 
           </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+          <div class="footer_mooc_list footer_div">
+            <p class="footer_title"> Liste des MOOC</p>
+            <div class="footer_list"> 
+              <ol class="footer_list_nav">
+                <li class="footer_list_element"><a href="#">MOOC Gestion des aires protégées</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Suivi écologique</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Application des lois</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Conservation des espèces</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Valorisation des ressources & tourisme durable</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Nouvelles technologies</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Développement durable</a></li>
+                <li class="footer_list_element"><a href="#">MOOC Aires marines protégées</a></li>
+              </ol>
+            </div>
+
+          </div>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
+      </div>
     </section>
 </main>
 
