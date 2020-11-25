@@ -122,7 +122,11 @@ from django.core.urlresolvers import reverse
         %if page["previous_offset"] is not None:
           <a href="${page_url}?offset=${page['previous_offset']}"
              class="sequence-nav-button button-previous">
-            <span class="icon fa fa-chevron-left" aria-hidden="true"></span><span class="sr">${_('previous page')}</span>
+             % if LANGUAGE_CODE == "ja-jp":
+             <span class="icon fa fa-chevron-left" aria-hidden="true"></span><span class="sr">前</span>
+              % else:
+              <span class="icon fa fa-chevron-left" aria-hidden="true"></span><span class="sr">${_('previous page')}</span>
+            % endif
           </a>
         %endif
 
@@ -131,7 +135,11 @@ from django.core.urlresolvers import reverse
         %if page["next_offset"] is not None:
           <a href="${page_url}?offset=${page['next_offset']}"
              class="sequence-nav-button button-next">
-            <span class="icon fa fa-chevron-right" aria-hidden="true"></span><span class="sr">${_('next page')}</span>
+             % if LANGUAGE_CODE == "ja-jp":
+             <span class="icon fa fa-chevron-right" aria-hidden="true"></span><span class="sr">次</span>
+            % else:
+              <span class="icon fa fa-chevron-right" aria-hidden="true"></span><span class="sr">${_('next page')}</span>
+            % endif
           </a>
         %endif
     </span>

@@ -71,6 +71,10 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="courses_cells">
 </div>
 <script>
+var startStr = '${_("Start")}'
+% if LANGUAGE_CODE == "ja-jp":
+  startStr = 'スタート'
+% endif
 $.ajax({
             type: "GET", //rest Type
             dataType: 'json', //mispelled
@@ -79,7 +83,7 @@ $.ajax({
             contentType: "application/json; charset=utf-8",
             success: function (chapter_list) {
                 for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>"+startStr+"</a></div></div>");
                 }
              }
 });

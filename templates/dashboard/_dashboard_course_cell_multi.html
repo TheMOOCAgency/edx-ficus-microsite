@@ -81,16 +81,30 @@ cours_ouv = show_courseware_link and not is_course_blocked
       <div class="info_date">
         <div class="info_date_info">
 <span></span>
-% if insc_ouv:
-  <span>${_("Enrollments are open")} </span>
-% else:
+% if LANGUAGE_CODE == "ja-jp":
+  % if insc_ouv:
+  <span>コースは開いています</span>
+  % else:
   <span>${_("Enrollments are closed")} </span>
-% endif
-<span>${_('and')}</span>
-% if cours_ouv:
-  <span> ${_("Course is open")}</span>
-% else:
+  % endif
+  <span>${_('and')}</span>
+  % if cours_ouv:
+  <span>コースは開いています</span>
+  % else:
   <span> ${_("Course is closed")}</span>
+  % endif
+%else :
+  % if insc_ouv:
+    <span>${_("Enrollments are open")} </span>
+  % else:
+    <span>${_("Enrollments are closed")} </span>
+  % endif
+  <span>${_('and')}</span>
+  % if cours_ouv:
+    <span> ${_("Course is open")}</span>
+  % else:
+    <span> ${_("Course is closed")}</span>
+  % endif
 % endif
 <span></span>
       </div>
@@ -103,7 +117,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
 -->
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
-    Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
+    % if LANGUAGE_CODE == "ja-jp":
+      以来 ${course_overview.start.strftime("%d/%b/%Y")}
+    % else:
+      Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
+    % endif
   % else:
     ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
   % endif
@@ -117,7 +135,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
     </div>
     <div class="dashboard_button">
 % if cours_ouv:
+      % if LANGUAGE_CODE == "ja-jp":
+      <a href="/dashboard/${course_overview.id}/">コースを見る</a>
+      % else:
       <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+      % endif
 % endif
     </div>
     <span style="display:block;clear:left"></span>

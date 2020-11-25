@@ -56,7 +56,11 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                 </div>
                 % endif
                 <h3 class="hd hd-3 progress-certificates-title">
+                    % if LANGUAGE_CODE == "ja-jp":
+                    ${"進捗 '{username}' ({email})".format(username=student.username, email=student.email)}
+                    % else:
                     ${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}
+                    % endif
                 </h3>
 
                 %if certificate_data:

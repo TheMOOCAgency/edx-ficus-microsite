@@ -265,7 +265,9 @@ else{
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_end < 2:
+    % if LANGUAGE_CODE == "ja-jp":
+      <h3>${course_end} 完了したコース</h3>
+    % elif course_end < 2:
       <h3>${course_end} ${_('course completed')}</h3>
     % else:
       <h3>${course_end} ${_('courses completed')}</h3>
@@ -325,7 +327,11 @@ else{
 }
 </style>
 <span id="list_multi_title">
+% if LANGUAGE_CODE == "ja-jp":
+<h1><span id="span_1">私のコース</span></h1>
+% else:
 <h1><span id="span_1">${_('My courses')}</span></h1>
+% endif
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
@@ -615,10 +621,17 @@ $(window).initialize(function(){
 <script>
 $( document ).ready(function(){
   if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
-      $("#name-form>p").text('Please enter your name as it will appear on the certificate (Attention, your name will not be modifiable thereafter).')
-      $("#label_first_name").text('Your first name :')
-      $("#label_last_name").text('Your last name :')
-      $(".training-not-validated>a").text('Follow your progress')
+    $("#name-form>p").text('Please enter your name as it will appear on the certificate (Attention, your name will not be modifiable thereafter).')
+    $("#label_first_name").text('Your first name :')
+    $("#label_last_name").text('Your last name :')
+    $(".training-not-validated>a").text('Follow your progress')
+  }
+  if($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
+    $("#course_start > span:contains(Démarrer)").text('スタート')  
+    $("#forum_button > span").text('')
+    $(".course_nav > span:contains(info)").text('')
+    $(".course_nav > span:contains(Retour)").text('')
+    $(".training-not-validated>a").text('あなたの進歩に従ってください')
   }
 });
 </script>
