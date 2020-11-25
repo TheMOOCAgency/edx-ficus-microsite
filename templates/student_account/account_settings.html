@@ -37,6 +37,13 @@ css = static.get_value('css_overrides_account_settings')
 
 <%block name="headextra">
     <%static:css group='style-course'/>
+    <style>
+       #accounts-tab, #about-tab, #aboutTabSections-tabpanel{
+           display: none !important;
+           width:0px !important;
+           visibility : hidden !important;
+       }
+    </style>
 </%block>
 
 <%block name="js_extra">
@@ -57,3 +64,12 @@ css = static.get_value('css_overrides_account_settings')
     );
 </%static:require_module>
 </%block>
+    <script>
+      clicker_order = setInterval(function(){
+          if($("#orders-tab").length > 0) {
+             $("#orders-tab").click();
+             clearInterval(clicker_order);
+          }
+      },100);
+    </script>
+
