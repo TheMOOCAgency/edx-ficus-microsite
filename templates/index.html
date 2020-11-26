@@ -4,6 +4,7 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.utils.translation import get_language_bidi
 
 from openedx.core.djangolib.markup import HTML, Text
 %>
@@ -18,17 +19,47 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
 
 <main id="main" aria-label="Content" tabindex="-1">
+  <header class="page_header">
+
+
+    <!-- burger menu -->
+    <div id="menuToggle">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu_burger">
+        <a href="#"><li class="navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+        <a href="/about"><li class="navigation_list_element nav_button login_button" >Certificat</li></a>
+        <a href="${marketing_link('FAQ')}"><li class="navigation_list_element nav_button register_button">F.A.Q</li></a>
+        <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+        <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
+      </ul>
+    </div>
+
+
+    <div class="page_header_logo"> 
+      <img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo">
+      <img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/afrique_logo.png" alt="MOOC Afrique logo">
+      <img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo">
+
+    </div>
+    <div class="page_header_flag">
+      <img class="page_header_flag_item" src="/media/microsite/mooc-conservation/extra/images/french_flag.png" alt="french flag">
+      <img id="english_flag" class="page_header_flag_item" src="/media/microsite/mooc-conservation/extra/images/english_flag.png" alt="english flag">
+
+    </div>
+  </header>
     <section class="home">
-
-
+      
       <div id="header">
         <nav id="navigation">
           <ol id="navigation_list">
             <li class="navigation_list_element"><a href="#">MOOC Partenaires</a></li>
-            <li class="navigation_list_element"><a href="#">Certificat</a></li>
-            <li class="navigation_list_element"><a href="#">F.A.Q</a></li>
-            <li class="navigation_list_element nav_button register_button"><a href="#">Créer un compte</a></li>
-            <li class="navigation_list_element nav_button login_button"><a href="#">Se connecter</a></li>
+            <li class="navigation_list_element"><a href="/about">Certificat</a></li>
+            <li class="navigation_list_element"><a href="${marketing_link('FAQ')}">F.A.Q</a></li>
+            <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a href="/register">Créer un compte</a></li>
+            <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
         </nav>
       </div>
@@ -48,7 +79,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
         </div>
 
-        <div class="course_list">
+        <div class="course_list essentiels">
           <div class="course_list_intro">
             <h2 class="course_list_title">
               Nos essentiels
@@ -57,10 +88,93 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               Les Essentiels sont un condensé de nos MOOC Conservation. Chaque Essentiel regroupe 50 vidéos destinées à un profil d’acteur de la conservation des aires protégées : les gardes/rangers, les gestionnaires/managers (ceux qui font plutôt de la recherche R ou ceux qui se concentrent sur l’application des lois L) et enfin les décideurs/leaders. Choisissez l’Essentiel adapté à vos besoins...
             </p>
           </div>
+
           <div id="course_list_elements">
-            <%include file="${courses_list}" />
+
+          <section class="courses-container">
+            <section class="highlighted-courses">
+
+                <section class="courses">
+                  <ul class="courses-listing">
+                    <li class="courses-listing-item">
+                      <article class="course">
+                        <a href="#">
+                          <h2 class="course-name">
+                            <span class="course-title">Essentiel Ranger</span>
+                          </h2>
+                          <header class="course-image">
+                            <div class="cover-image">
+                              <img src="/media/microsite/mooc-conservation/extra/images/ranger.png" alt="Essential Ranger course image" />
+                              <div class="learn-more" aria-hidden="true">En savoir plus</div>
+                            </div>
+                          </header>
+                          <div class="course-info" aria-hidden="true">
+                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                          </div>
+                        </a>
+                      </article>
+                    </li>
+                    <li class="courses-listing-item">
+                      <article class="course">
+                        <a href="#">
+                          <h2 class="course-name">
+                            <span class="course-title">Essentiel Manager - loi</span>
+                          </h2>
+                          <header class="course-image">
+                            <div class="cover-image">
+                              <img src="/media/microsite/mooc-conservation/extra/images/manager_loi.png" alt="Essential Ranger course image" />
+                              <div class="learn-more" aria-hidden="true">En savoir plus</div>
+                            </div>
+                          </header>
+                          <div class="course-info" aria-hidden="true">
+                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                          </div>
+                        </a>
+                      </article>
+                    </li>
+                    <li class="courses-listing-item">
+                      <article class="course">
+                        <a href="#">
+                          <h2 class="course-name">
+                            <span class="course-title">Essentiel Manager - recherche</span>
+                          </h2>
+                          <header class="course-image">
+                            <div class="cover-image">
+                              <img src="/media/microsite/mooc-conservation/extra/images/manager_recherche.png" alt="Essential Ranger course image" />
+                              <div class="learn-more" aria-hidden="true">En savoir plus</div>
+                            </div>
+                          </header>
+                          <div class="course-info" aria-hidden="true">
+                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                          </div>
+                        </a>
+                      </article>
+                    </li>
+                    <li class="courses-listing-item">
+                      <article class="course">
+                        <a href="#">
+                          <h2 class="course-name">
+                            <span class="course-title">Essentiel Leader</span>
+                          </h2>
+                          <header class="course-image">
+                            <div class="cover-image">
+                              <img src="/media/microsite/mooc-conservation/extra/images/leader.png" alt="Essential Ranger course image" />
+                              <div class="learn-more" aria-hidden="true">En savoir plus</div>
+                            </div>
+                          </header>
+                          <div class="course-info" aria-hidden="true">
+                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                          </div>
+                        </a>
+                      </article>
+                    </li>
+                  </ul>
+                </section>
+              </section>
+            </section>
           </div>
         </div>
+      </div>
       </div>
       <div id="footer">
         <div id="footer_container" >
@@ -83,22 +197,22 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                 <ol class="footer_list_nav"></ol>
                   <li class="footer_list_element"><a href="#">Nos MOOC</a></li>
                   <li class="footer_list_element"><a href="#">MOOC partenaires</a></li>
-                  <li class="footer_list_element"><a href="#">Certificat</a></li>
-                  <li class="footer_list_element"><a href="#">F.A.Q</a></li>
+                  <li class="footer_list_element"><a href="/about">Certificat</a></li>
+                  <li class="footer_list_element"><a href="${marketing_link('FAQ')}">F.A.Q</a></li>
                   <li class="footer_list_element"><a href="#">Site en anglais</a></li>
                 </ol>
               </div>
             </div>
-            
+
             <div class="footer_sm">
               <p class="footer_title"> Suivez-nous</p>
               <div class="footer_list"> 
                 <ol class="footer_list_nav">
-                  <li class="footer_list_element"><a href="#">Page Facebook de l'UICN Papaco</a></li>
+                  <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/">Page Facebook de l'UICN Papaco</a></li>
                   <li class="footer_list_element"><a href="#">Groupe Facebook francophone des MOOC</a></li>
                   <li class="footer_list_element"><a href="#">Groupe Facebook anglophone des MOOC</a></li>
-                  <li class="footer_list_element"><a href="#">Twitter @Papaco_IUCN</a></li>
-                  <li class="footer_list_element"><a href="#">Instagram @mooc-conservation</a></li>
+                  <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr">Twitter @Papaco_IUCN</a></li>
+                  <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/">Instagram @mooc-conservation</a></li>
                   <li class="footer_list_element"><a href="#">Site de l'UICN-PAPACO</a></li>
                 </ol>
               </div>
@@ -110,11 +224,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             <p class="footer_title"> Liste des MOOC</p>
             <div class="footer_list"> 
               <ol class="footer_list_nav">
-                <li class="footer_list_element"><a href="#">MOOC Gestion des aires protégées</a></li>
-                <li class="footer_list_element"><a href="#">MOOC Suivi écologique</a></li>
-                <li class="footer_list_element"><a href="#">MOOC Application des lois</a></li>
-                <li class="footer_list_element"><a href="#">MOOC Conservation des espèces</a></li>
-                <li class="footer_list_element"><a href="#">MOOC Valorisation des ressources & tourisme durable</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-protegees+2021_T1/about">MOOC Gestion des aires protégées</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+suivi-eco+2021_T1/about">MOOC Suivi écologique</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+application-loi+2021_T1/about">MOOC Application des lois</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+conservations-especes+2021_T1/about">MOOC Conservation des espèces</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+valorisation-aires+2021_T1/about">MOOC Valorisation des ressources & tourisme durable</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Nouvelles technologies</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Développement durable</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Aires marines protégées</a></li>
@@ -122,8 +236,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             </div>
 
           </div>
+          <img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo">
         </div>
-      </div>
+
     </section>
 </main>
 
@@ -164,3 +279,35 @@ $(".btn-login").each(function(){
 
 </script>
 % endif
+
+<style>
+  /*LANGUAGE FLAGS*/
+  .language-selector {
+    display: none;
+  }
+  #lang-content {
+    width: 60px;
+    height: 24px;
+  }
+  #lang-content img{
+    width: 25px;
+  }
+</style>
+
+
+
+<script>
+  //LANGUAGE FLAGS
+  $('#us').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+  }
+  );
+  $('#es').on('click', function() {
+    $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+
+  }
+
+  );
+</script>

@@ -21,18 +21,45 @@ if _template is None:
 %>
 <%block name="pagetitle">${_("FAQ")}</%block>
 <style>
-main {
- background-color: #fff;
-}
-</style>
-<main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("FAQ")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-<section class="static-container faq">
-${_template | n}
-</section>
-</main>
+  main { 
+   background-color: #fff;
+  }
+  #header {
+    background-image: url("/media/microsite/mooc-conservation/extra/images/faq_visuel.png");
+    height: 671px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+  justify-content: center;
+  align-items: end;
+  }
+  .header_navigation {
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .static-container-text-title{
+    font-weight: bold;
+    color:  rgba(28, 114, 138, 1);
+  };
+  .note{
+    font-weight: bold;
+  }
+  
+  </style>
+  <main id="main" aria-label="Content" tabindex="-1">
+    <div id="header">
+      <h1 class="header_navigation">Foire aux questions (F.A.Q)</h1>
+    </div>
+  <section class="static-container about">
+  <div class="static-container-text">
+    <h2 class="static-container-text-title">Qui peut s'inscrire aux MOOC</h2>
+    <p class="static-container-text-paragraphe">
+      Omnia duntibusanda volupta simustrum si ipid ut od unt, sum doloribus nesequi quias aut eveles ali-quiae. Esint eum volorunt verci quae nullita pe estibus, quatur aut aut ventian tiorepr orrovitatat aut qui alit quo quis sinus.Adic te sedi optibus apidem vendent.Xera dolupta tiumqui ullatiunt aciatur?Itae cum et res et autem et et esto dis volor aut quibus volupist, tem arunt harunt eume nulparundi om-moluptae niam est, od miliqui ducipsa cus pero berita dolupta tessimus, eum fugia soluptatus ut officat iorehenis sed moluptatium quaeribus asi nus aut a dunt etusci dolenitior aut eos eosa dolupta tatur?
+    </p>
+    <h2 class="static-container-text-title">Quelles sont les conditions pour faire un MOOC ?</h2>
+  
+  </div>
+  </section>
+  
+  </main>

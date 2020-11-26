@@ -25,16 +25,64 @@ if _template is None:
 main { 
  background-color: #fff;
 }
+#header {
+  background-image: url("/media/microsite/mooc-conservation/extra/images/faq_visuel.png");
+  height: 671px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+justify-content: center;
+align-items: end;
+}
+.header_navigation {
+  font-weight: bold;
+  color: #fff;
+}
+
+.static-container-text-title{
+  font-weight: bold;
+  color:  rgba(28, 114, 138, 1);
+};
+.note{
+  font-weight: bold;
+}
+body footer.global ul.links li a, body footer.global ul.links li a:hover {
+  color:rgba(28, 114, 138, 1) !important;
+}
+
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("About")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
+  <div id="header">
+    <h1 class="header_navigation">Certificat en ligne sur la Conservation des aires protégées</h1>
+  </div>
 <section class="static-container about">
-${_template | n}
+<div class="static-container-text">
+  <h2 class="static-container-text-title">Qu'est ce c'est ?</h2>
+  <p class="static-container-text-paragraphe">
+    Les étudiants obtenant une moyenne supérieure à 75% aux MOOC obtiennent une attestation de réus-site. Pour permettre une reconnaissance officielle du niveau des étudiants, l’UICN-PAPACO et l’université Senghor ont mis en place un Certificat en ligne sur la Conservation des aires protégées.
+  </p>
+  <p class="static-container-text-paragraphe">
+    Ainsi, les étudiants qui remplissent les critères d’éligibilité suivants peuvent passer un examen surveillé (une seule tentative est autorisée) et, en cas de réussite, obtenir ledit Certificat de l’Université Senghor :
+  </p>
+  <p class="static-container-text-paragraphe">
+    - Avoir validé tous des MOOC du PAPACO (attestation de réussite à l’appui) ;
+  </p>
+  <p class="static-container-text-paragraphe">
+    - Avoir validé l’un des trois MOOC de l’IFDD en page d’accueil de ce site (Développement durable, Droit et protection de l’environnement OU Économie et gestion de l’environnement et des ressources natu-relles), attestation de réussite à l’appui
+  </p>
+  <p class="static-container-text-paragraphe">
+    <span class="note">Note 1 :</span> les MOOC de l’IFDD sont organisés sous forme de sessions annuelles, ouvertes seulement quelques mois par an
+  </p>
+  <p class="static-container-text-paragraphe">
+    <span class="note">Note 2 :</span>  pour le moment, l’examen a strictement lieu en ligne, il faut donc vous assurer d’avoir accès à un ordinateur (PC), une connexion internet stable ainsi qu’une caméra (webcam).
+  </p>
+  <p class="static-container-text-paragraphe">
+    Les prochaines dates d’examen et appels à candidatures seront communiquées sur cette page ainsi que sur nos différents réseaux. En attendant, si vous êtes intéressés, assurez-vous d’avoir validé les MOOC en question, et d’avoir reçu votre attestation.
+  </p>
+
+  <h2 class="static-container-text-title">AFFICHAGE DU FORMULAIRE GOOGLE FORM</h2>
+
+</div>
 </section>
 
 </main>
