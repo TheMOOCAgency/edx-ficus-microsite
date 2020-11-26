@@ -121,23 +121,29 @@ background_url = configuration_helpers.get_value('bg_img')
 <!-- CUSTOM STYLE -->
 <link rel="stylesheet" type="text/css" href="/media/microsite/gen/css/certificate.css" />
 
-% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
-<div id="certificate-wrapper">
-  <div id="pdf-btn-wrapper">
-    <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
-  </div>
-</div>
+% if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
+
   % if int(grades['grade']*100) < 70 :
-  <div id="certificate-container" class=" certificate-border">
-    <h3 id="nameDatas">${first_name} ${last_name}</h3>
-    <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
-  </div>
-  % else : 
-  <div id="certificate-container-passed" class=" certificate-border">
-    <h3 id="nameDatas">${first_name} ${last_name}</h3>
-    <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
-  </div>
-  % endif
+    <div id="certificate-wrapper">
+      <div id="pdf-btn-wrapper">
+        <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+      </div>
+      <div id="certificate-container" class=" certificate-border">
+        <h3 id="nameDatas">${first_name} ${last_name}</h3>
+        <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
+      </div>
+    </div>
+  % else :
+    <div id="certificate-wrapper">
+      <div id="pdf-btn-wrapper">
+        <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+      </div>
+      <div id="certificate-container" class=" certificate-border">
+        <h3 id="nameDatas">${first_name} ${last_name}</h3>
+        <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
+      </div>
+    </div>
+  %endif
 
 %else:
   <div id="noCertificateMessage">
@@ -145,7 +151,6 @@ background_url = configuration_helpers.get_value('bg_img')
       <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
 %endif
-
 <!-- PDF CREATOR-->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
