@@ -1,97 +1,276 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>PENELOPE</title>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+    <!-- Bootstrap -->
+    <link href="/media/microsite/mooc-penelope/hp/css/font.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/bootstrap.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/nav.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/up_page.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/video_text.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/picto_4.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/vign_to_slider.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/inscription_bandeau.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/footer.css" rel="stylesheet">
+    <link href="/media/microsite/mooc-penelope/hp/css/cookies.css" rel="stylesheet">
 
-          </div>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .ui-loader {
+      display: none;
+    }
+    /* TEASER */
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
+    #player {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 101;
+      margin-left: -350px;
+      margin-top: -210px;
+      display: none;
+      padding: 30px;
+    }
+    #player iframe {
+      width:640px;
+      height: 360px;
+    }
+    #close {
+      position: absolute;
+      z-index: 102;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.4);
+    }
+    #voile {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+    }
+    @media(max-width:640px) {
+     #player {
+      left: 0;
+      margin-left: 0;
+      width:100vw;
+     }
+     #player iframe {
+      width: 100%;
+      height:50.625vw;
+      margin-left: auto;
+      margin-right: auto;
+     }
+    }
+    </style>
+  </head>
+  <body>
+    <div id="player"><span id="close">X</span><iframe id="iframe_teaser" src=""  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+    <div id="voile"></div>
+    <section id="cookies">
+      <p>
+        En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites et le dépôt de cookies tiers destinés à vous proposer des vidéos.
+      </p>
+      <p>
+        <a href="">En savoir plus</a>
+        <button id="cookie_ok">OK</button>
+      </p>
     </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
+    <section id="nav">
+      <div id="inside_nav">
+        <div id="logo_full"><img src="/media/microsite/mooc-penelope/hp/images/logo_penelope.png" /></div>
+        <div id="logo_mobile"><img src="/media/microsite/mooc-penelope/hp/images/logo_penelope_mobil.png" /></div>
+      </div>
+    </section>
+    <section id="up_page">
+      <div id="menu_up_page">
+        <h1>DONNEZ-VOUS TOUTES LES CHANCES DE NOUS REJOINDRE</h1>
+        <div id="menu_bouton_up_page">
+          <a href="/login?course_id=course-v1%3Amooc-penelope%2Bpenelope%2BSP&enrollment_action=enroll" data-ajax="false">connexion</a>
+          <a href="/register?course_id=course-v1%3Amooc-penelope%2Bpenelope%2BSP&enrollment_action=enroll" data-ajax="false">inscription</a>
+        </div>
+      </div>
+    </section>
+    <section id="video_text">
+      <div id="video_text_content">
+        <h1>
+          <span><span class="inside_video_h1_left"></span>DEVENIR HÔTE<span class="inside_video_h1_right"></span></span>
+          <span>OU HÔTESSE D’ACCUEIL</span>
+        </h1>
+        <div id="video_text_video">
+          <img src="/media/microsite/mooc-penelope/hp/images/bouton_play_1.png" id="play_video_full"/>
+          <img src="/media/microsite/mooc-penelope/hp/images/bouton_play_mobile.png" id="play_video_mobile" />
+        </div>
+        <div id="video_text_text">
+          <p>
+            Vous souhaitez vous aussi intégrer une entreprise
+            dynamique et tout savoir sur le métier d’hôte et
+            d’hôtesse d’accueil afin d’améliorer vos chances
+            de recrutement ? Alors le MOOC du groupe Pénélope est fait pour vous !
+          </p>
+          <div style="clear:left"></div>
+        </div>
+        <div style="clear:left;"></div>
+      </div>
+    </section>
+    <section id="picto_4">
+      <div id="inside_picto_4">
+        <div class="picto_4">
+          <img src="/media/microsite/mooc-penelope/hp/images/picto_01.png" />
+          <h4>massive</h4>
+          <p>Un grand nombre de participants</p>
+        </div>
+        <div class="picto_4">
+          <img src="/media/microsite/mooc-penelope/hp/images/picto_02.png" />
+          <h4>open</h4>
+          <p>Ouverts à tous et gratuit</p>
+        </div>
+        <div class="picto_4">
+          <img src="/media/microsite/mooc-penelope/hp/images/picto_03.png" />
+          <h4>online</h4>
+          <p>Disponible 24h/24, 7j/7</p>
+        </div>
+        <div class="picto_4">
+          <img src="/media/microsite/mooc-penelope/hp/images/picto_04.png" />
+          <h4>course</h4>
+          <p>Un ensemble de ressources de formation</p>
+        </div>
+        <div style="clear:left"></div>
+      </div>
+    </section>
+    <section id="vign_to_slider">
+      <div id="inside_vign_to_slider">
+        <h1>
+          <span><span class="inside_video_h1_left"></span>ACTUALITÉS<span class="inside_video_h1_right"></span></span>
+        </h1>
+        <div id="vign_to_slider_vign">
+          <div class="vign_to_slider_vign" id="vign_to_slider_1">
+            <img src="/media/microsite/mooc-penelope/hp/images/image_01.png">
+            <p>Pour Pénélope, l’accueil, qu’il soit en face à face ou par téléphone est un moment de contact privilégié avec l’entreprise.</p>
+	    <p>Parce que l’on n'a jamais une seconde chance de faire une bonne première impression, Pénélope recherche toute l’année les hôtes et hôtesses qui accompagneront son développement.</p>
+          </div>
+          <div class="vign_to_slider_vign" id="vign_to_slider_2">
+            <img src="/media/microsite/mooc-penelope/hp/images/image_02.png">
+            <p>Le groupe Pénélope s’engage aux côtés de ses hôtes et hôtesses comme de l’ensemble de ses collaborateurs. Notre politique RH volontariste nous permet de vous offrir :</p>
+            <p>-Une expérience humaine unique et enrichissant</p>
+            <p>-Une formation continue à nos métiers</p>
+            <p>-Une proximité géographique entre lieu de travail et domicile.</p>
+          </div>
+          <div style="clear:left"></div>
+        </div>
+        <div id="vign_to_slider_bouton">
+          <button id="vign_to_slider_bouton_1"></button>
+          <button id="vign_to_slider_bouton_2"></button>
+        </div>
+      </div>
+    </section>
+    <section id="inscription_bandeau">
+      <h2>s'inscrire au mooc</h2>
+      <a href="/register?course_id=course-v1%3Amooc-penelope%2Bpenelope%2BSP&enrollment_action=enroll" data-ajax="false">inscription</a>
+    </section>
+    <section id="footer">
+      <div id="footer_2">
+        Site réalisé par <a href="https://themoocagency.com" target="_blank" data-ajax="false">The MOOC Agency</a> - 2017
+      </div>
+    </section>
+    <script src="/media/microsite/mooc-penelope/hp/js/jquery.js"></script>
+    <script src="/media/microsite/mooc-penelope/hp/js/jquery-mobile.js"></script>
+    <script src="/media/microsite/mooc-penelope/hp/js/vign_to_slider.js"></script>
+    <script src="/media/microsite/mooc-penelope/hp/js/cookie.js"></script>
+    <script>
+    function align_text() {
+      var width = $(window).width();
+      width = parseInt(width);
+      var height = $('#video_text_text').height();
+      height = parseInt(height);
+      var heightP = $('#video_text_text').find('p').height();
+      heightP = parseInt(heightP);
+      var marge = height - heightP;
+      marge = marge / 2;
+      if(width > 1051) {
+        $('#video_text_text').find('p').css('margin-top',marge+'px');
+        $('#video_text_text').find('p').css('margin-bottom',marge+'px');
+      }else{
+        $('#video_text_text').find('p').attr('style','');
+        $('#video_text_text').find('p').attr('style','');
+      }
+    }
+    function teaser_play() {
+      $('#video_text_video').click(function(){
+        console.log('test');
+        $('#iframe_teaser').attr('src','https://player.vimeo.com/external/209715832.hd.mp4?s=380f5f70dbdc7f0e963a59d43d77b704a1ecbc18&profile_id=119');
+        $('#voile').show();
+        $('#player').show();
       })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+      $('#voile').click(function(){
+        $('#voile').hide();
+        $('#player').hide();
+        $('#iframe_teaser').attr('src','');
+      })
+      $('#close').click(function(){
+        $('#voile').hide();
+        $('#player').hide();
+        $('#iframe_teaser').attr('src','');
+      })
+    }
+    function alignePicto() {
+    var height = 0;
+    $('.picto_4').attr('style','');
+    $('.picto_4').each(function(){
+     var i = $(this).height();
+     if(i > height) {
+      height = i;
+     }
+    })
+    $('.picto_4').css('height',height+'px');
+    console.log(height);
+    }
+    align_text();
+    teaser_play();
+    alignePicto();
+    $(window).resize(function(){
+      align_text();
+      alignePicto();
+    })
+    function imgHeight(){
+    $('.vign_to_slider_vign').each(function(){
+	var This = $(this);
+	var img = This.find('img');
+	var height = This.height();
+	height = parseInt(height);
+	imgH = img.height();
+	imgH = parseInt(imgH);
+	marge = height - imgH
+	if(height > imgH){
+	 img.css('margin-bottom',marge+'px');
+	}
+    })
+    }
+    $(window).resize(function(){
+	imgHeight();
+    })
+    $(document).ready(function(){
+        imgHeight();
+    })
+    </script>
+  </body>
+</html>
