@@ -166,7 +166,7 @@
           <div class="vign_to_slider_vign" id="vign_to_slider_1">
             <img src="/media/microsite/mooc-penelope/hp/images/image_01.png">
             <p>Pour Pénélope, l’accueil, qu’il soit en face à face ou par téléphone est un moment de contact privilégié avec l’entreprise.</p>
-	    <p>Parce que l’on n'a jamais une seconde chance de faire une bonne première impression, Pénélope recherche toute l’année les hôtes et hôtesses qui accompagneront son développement.</p>
+            <p>Parce que l’on n'a jamais une seconde chance de faire une bonne première impression, Pénélope recherche toute l’année les hôtes et hôtesses qui accompagneront son développement.</p>
           </div>
           <div class="vign_to_slider_vign" id="vign_to_slider_2">
             <img src="/media/microsite/mooc-penelope/hp/images/image_02.png">
@@ -253,20 +253,20 @@
     })
     function imgHeight(){
     $('.vign_to_slider_vign').each(function(){
-	var This = $(this);
-	var img = This.find('img');
-	var height = This.height();
-	height = parseInt(height);
-	imgH = img.height();
-	imgH = parseInt(imgH);
-	marge = height - imgH
-	if(height > imgH){
-	 img.css('margin-bottom',marge+'px');
-	}
+        var This = $(this);
+        var img = This.find('img');
+        var height = This.height();
+        height = parseInt(height);
+        imgH = img.height();
+        imgH = parseInt(imgH);
+        marge = height - imgH
+        if(height > imgH){
+         img.css('margin-bottom',marge+'px');
+        }
     })
     }
     $(window).resize(function(){
-	imgHeight();
+        imgHeight();
     })
     $(document).ready(function(){
         imgHeight();
@@ -274,3 +274,4 @@
     </script>
   </body>
 </html>
+

@@ -62,7 +62,7 @@ a.dropdown.full-width-button.active{
                 username = self.real_user.username
                 profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
                 %>
-                <img class="user-image-frame" src="${profile_image_url}" alt="">
+                <img class="user-image-frame" style="height:30px!important" src="${profile_image_url}" alt="">
                 <div class="label-username" style="display: flex;justify-content: center;flex-direction: column;"><p>${self.real_user.profile.name}</p></div>
             </span>
         </li>
