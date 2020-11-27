@@ -94,19 +94,23 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="courses_cells">
 </div>
 <script>
-$.ajax({
-            type: "GET", //rest Type
-            dataType: 'json', //mispelled
-            url: "/courses/${enrollment.course_id}/courseware_api",
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (chapter_list) {
-                for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
-                }
-             }
-});
-</script>
+  $.ajax({
+              type: "GET", //rest Type
+              dataType: 'json', //mispelled
+              url: "/courses/${enrollment.course_id}/courseware_api",
+              async: false,
+              contentType: "application/json; charset=utf-8",
+              success: function (chapter_list) {
+                  for (var i = 0; i < chapter_list.length; i++) {
+  if(chapter_list[i].sections.length > 0){
+    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"/"+chapter_list[i].sections[0].url_name+"'>${_("Start")}</a></div></div>");
+  }else{
+    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+  }
+                  }
+               }
+  });
+  </script>
 %else:
 
 <div id="title_dashboard_course">
