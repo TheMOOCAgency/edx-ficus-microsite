@@ -30,6 +30,7 @@ from tma_apps.tma_support_functions import tma_randomization
 from django.core.urlresolvers import reverse
 import json
 import csv
+
 %>
 <%
 cert_name_short = settings.CERT_NAME_SHORT
@@ -86,10 +87,14 @@ secondary_color=configuration_helpers.get_value("secondary_color") or "#2e85d1"
 user_file = open("/edx/var/edxapp/secret/microsite/psa-netexplo/culture_digitale_export.csv", "rb")
 psa_users = csv.DictReader(user_file, delimiter=";")
 is_ov = False
+authorized_users_usernames=[]
 for psa_user in psa_users:
   if psa_user["Uid"].lower() == request.user.username.lower() and  psa_user["struct_org1"].lower() == "ov":
       is_ov = True
       break
+  if psa_user["email"].lower() == request.user.email.lower():
+      authorized_users_usernames += [request.user.username]
+
 if request.user.username == "P052342":
   is_ov = True
 
@@ -183,7 +188,7 @@ if request.user.email in test_users:
 <div class="content_tma">
   <!-- DASHBOARD MONO QUIZ ORIENTED --------------------------------------------------------------------------------------------------------------------------->
   <%
-    authorized_users =['gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com']
+    authorized_users=['gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com']
     authorized_users+=['aurelien.croq@themoocagency.com','agathe.raymond-carlo@themoocagency.com','nicola.bonaccorso@themoocagency.com']
     authorized_users+=['vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
     authorized_users+=['alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com']
@@ -192,7 +197,7 @@ if request.user.email in test_users:
     authorized_users+=['psa_choix_langue_1@yopmail.com','psa_choix_langue_2@yopmail.com','psa_choix_langue_3@yopmail.com','psa_choix_langue_4@yopmail.com']
     
     #Filtrage par username
-    authorized_users_usernames = ["MZPCUD03","P052702","J110213","J489942","U188717","U291755","J628437","C022945","J534906","C028462","P063018","J488571","J628083","J589703","P052708","J519947","P927190","U022328","J535054","J612901","J494798","J488740","U083151","U203567","C087292","U023936","U356506","J516127","U164220","U235410","J534553","U228669","U210690","U391017","U328679","U318506","U526640","U505657","U397198","P066764","J509328","J111201","U182112","J563187","J589943","C059882","P927690","J544921","U220268","P964969","J530412","U424768","U335310","C011895","U220398","U164275","J504676","U410849","U228361","J509308","U207926","J431023","J488641","P065826","J128712","U385476","U467971","P052012","CA01890","U180991","P051704","U488191","J564574","U411194","ODZKFJD","U244555","U535037","U182539","U174418","U258226","U216494","J597169","J506129","J539438","U384534","C090286","U509859","U297167","J486072","U352746","U173754","J520730","U372745","U304756","U054908","U062391","U385717","C002453","J123649","P745229","U214023","P065721","J512052","J518675","U125615","J369133","C032214","P052342","J400131","J545654","P927574","U561814","U175546","P756321","U027805","U542310","J612468","U539001","U238915","J527011","J400060","J142204","U421262","U555831","U397922","U551454","U504192","U161516","U084676","J629234","J589571","U238454","U560794","U236127","U248066","U524320","U413686","U150889","U113954","U473562","U542013","P051985","P053654","U517046","U439010","U389693","U104623","U532677","U557148","C068722","J502650","J563179","U538705","U536315","J537618","U099458","J539805","J552237","J103215","C081055","U204981","J510898","U391002","J118658","P722834","U551440","P052789","U396497","U557341","U499313","J507622","C032321","P927653","C036746","C039891","CV15281","U220024","U507604","U205829","J526076","U151579","U390648","C040214","P086082","P525507","P523469","P522831","J626055","P964963","J485763","U209983","J540428","P964807","P052059","P723542","J491121","J561231","U504726","U007279","U560733","J587665","U064663","J504058","U530137","U531215","U403686","U254149","J488582","U552333","J517430","P965002","J549472","U231721","J589688","J601209","J495800","J385995","J567423","U068015","U056945","U467872","J560959","P064840","U217020","U311042"]
+    authorized_users_usernames += ["MZPCUD03","P052702","J110213","J489942","U188717","U291755","J628437","C022945","J534906","C028462","P063018","J488571","J628083","J589703","P052708","J519947","P927190","U022328","J535054","J612901","J494798","J488740","U083151","U203567","C087292","U023936","U356506","J516127","U164220","U235410","J534553","U228669","U210690","U391017","U328679","U318506","U526640","U505657","U397198","P066764","J509328","J111201","U182112","J563187","J589943","C059882","P927690","J544921","U220268","P964969","J530412","U424768","U335310","C011895","U220398","U164275","J504676","U410849","U228361","J509308","U207926","J431023","J488641","P065826","J128712","U385476","U467971","P052012","CA01890","U180991","P051704","U488191","J564574","U411194","ODZKFJD","U244555","U535037","U182539","U174418","U258226","U216494","J597169","J506129","J539438","U384534","C090286","U509859","U297167","J486072","U352746","U173754","J520730","U372745","U304756","U054908","U062391","U385717","C002453","J123649","P745229","U214023","P065721","J512052","J518675","U125615","J369133","C032214","P052342","J400131","J545654","P927574","U561814","U175546","P756321","U027805","U542310","J612468","U539001","U238915","J527011","J400060","J142204","U421262","U555831","U397922","U551454","U504192","U161516","U084676","J629234","J589571","U238454","U560794","U236127","U248066","U524320","U413686","U150889","U113954","U473562","U542013","P051985","P053654","U517046","U439010","U389693","U104623","U532677","U557148","C068722","J502650","J563179","U538705","U536315","J537618","U099458","J539805","J552237","J103215","C081055","U204981","J510898","U391002","J118658","P722834","U551440","P052789","U396497","U557341","U499313","J507622","C032321","P927653","C036746","C039891","CV15281","U220024","U507604","U205829","J526076","U151579","U390648","C040214","P086082","P525507","P523469","P522831","J626055","P964963","J485763","U209983","J540428","P964807","P052059","P723542","J491121","J561231","U504726","U007279","U560733","J587665","U064663","J504058","U530137","U531215","U403686","U254149","J488582","U552333","J517430","P965002","J549472","U231721","J589688","J601209","J495800","J385995","J567423","U068015","U056945","U467872","J560959","P064840","U217020","U311042"]
     authorized_users_usernames += ["J137592","P761321","C015083","P084402","C013320"]
     authorized_users_usernames += ["U412455","P067306","J510006","J130806","J604320","U304756","J555906","U388506","P723648","P743577","J595447","J611022"]
 
