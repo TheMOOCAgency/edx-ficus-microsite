@@ -1,0 +1,159 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/message_box/css/main.d1bc7639.chunk.css'.format(org)
+js = '/media/microsite/{}/message_box/js/2.bad5074d.chunk.js'.format(org)
+jsMain = '/media/microsite/{}/message_box/js/main.0e2f6012.chunk.js'.format(org)
+%>
+<%
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from tma_apps.tma_support_functions import tma_verify_access
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+%>
+<%inherit file="../main.html" />
+<link href="${css}" rel="stylesheet">
+
+<!-- Normalize EDX style-->
+<%
+  custom_color = configuration_helpers.get_value('primary_color')
+  if configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+    if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+      custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+    else:
+      custom_color = configuration_helpers.get_value('primary_color')
+    endif
+  endif
+%>
+<style>
+.fullHeight>div>div:first-child{
+  height : calc(100% - 100px)!important;
+}
+.chatWrapper .fullHeight textarea{
+  height : 197px!important;
+  font-family: inherit!important;
+}
+.container .about{
+  max-width: 80%!important;
+}
+*{padding : 0,margin : 0;}
+#root{
+  height: 100%!important;
+}
+.container-mess-app{
+  height: 100%!important;
+}
+#root>div{
+  background-color: white;
+}
+textarea{
+  height: initial;
+}
+#warning-message{
+  background-color: #ffffff;
+  /* width: 75%;
+  float: right; */
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #cccccc;
+  color :gray;
+  font-size : 16px;
+}
+.container.about, section.about.outside-app, .view-profile .profile-self .wrapper-profile-field-account-privacy .about.u-field-account_privacy, .view-profile .about.wrapper-profile-sections, .view-profile .about.badge-set-display{
+    padding : 35px!important;
+    height: calc(100vh - 160px)!important;
+}
+.MuiAppBar-colorPrimary{
+    background-color: ${custom_color} !important;
+}
+.rn-ysccxm{
+    background-color: ${custom_color} !important;
+}
+.chat, .chat_onload {
+
+    max-height: calc(100% - 64px)!important;
+}
+input[type="submit"], input[type="button"], button, .button {
+    border-radius: None;
+    border: None;
+    border-bottom: None;
+    border-radius: None;
+    box-shadow: None;
+    color: None;
+    display: None;
+    font-size: None;
+    font-weight: None;
+    background-color: None;
+    background-image: None;
+    padding: None;
+    text-align: None;
+    text-decoration: none;
+    text-shadow: None;
+    font: None;
+    letter-spacing: None;
+    padding: None;
+    text-transform: None;
+    vertical-align: None;
+    -webkit-font-smoothing: None;
+}
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta>a.find-courses:hover:not(:disabled), .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register:hover:not(:disabled), .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-cart:hover:not(:disabled), input[type="submit"]:hover:not(:disabled), input[type="button"]:hover:not(:disabled), button:hover:not(:disabled), .button:hover:not(:disabled) {
+    background-color: initial;
+    background-image: None;
+    color: initial;
+}
+.wrapper-footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+input[type="submit"]:active:not(:disabled), input[type="submit"]:focus:not(:disabled), input[type="button"]:active:not(:disabled), input[type="button"]:focus:not(:disabled), button:active:not(:disabled), button:focus:not(:disabled), .button:active:not(:disabled), .button:focus:not(:disabled) {
+    box-shadow: None;
+}
+.home>header .title>.heading-group p, section.outside-app h5, h6{
+  color : #fff;
+}
+@media screen and (max-width: 840px) {
+    #warning-message{
+  font-size : 12px;
+}
+}
+
+@media screen and (max-width: 640px) {
+    #warning-message{
+  font-size : 9px;
+}
+}
+</style>
+<!-- Normalize EDX style-->
+<main id="main" aria-label="Content" tabindex="-1">
+  % if user.is_authenticated():
+    <section class="container about">
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <div id="root"></div>
+      <div id="warning-message"><i>
+        Ceci n'est pas une messagerie instantanée, votre correspondant n'est peut-être pas derrière son clavier.<br>
+        Vous serez notifié par mail de tout nouveau message qui vous est destiné.<br>
+        Cliquez sur le bouton de rafraîchissement en haut à droite de l'écran pour actualiser la conversation.<br>
+      </i></div>
+          <script>!function(e){function t(t){for(var n,l,a=t[0],f=t[1],i=t[2],p=0,s=[];p<a.length;p++)l=a[p],Object.prototype.hasOwnProperty.call(o,l)&&o[l]&&s.push(o[l][0]),o[l]=0;for(n in f)Object.prototype.hasOwnProperty.call(f,n)&&(e[n]=f[n]);for(c&&c(t);s.length;)s.shift()();return u.push.apply(u,i||[]),r()}function r(){for(var e,t=0;t<u.length;t++){for(var r=u[t],n=!0,a=1;a<r.length;a++){var f=r[a];0!==o[f]&&(n=!1)}n&&(u.splice(t--,1),e=l(l.s=r[0]))}return e}var n={},o={1:0},u=[];function l(t){if(n[t])return n[t].exports;var r=n[t]={i:t,l:!1,exports:{}};return e[t].call(r.exports,r,r.exports,l),r.l=!0,r.exports}l.m=e,l.c=n,l.d=function(e,t,r){l.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,t){if(1&t&&(e=l(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(l.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var n in e)l.d(r,n,function(t){return e[t]}.bind(null,n));return r},l.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(t,"a",t),t},l.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},l.p="/";var a=this.webpackJsonpchat=this.webpackJsonpchat||[],f=a.push.bind(a);a.push=t,a=a.slice();for(var i=0;i<a.length;i++)t(a[i]);var c=f;r()}([])</script>
+          <script>
+            window.CSRF_TOKEN = "${js_escaped_string(csrf_token) | n, decode.utf8}"
+            window.username = "${js_escaped_string(user.username) | n, decode.utf8}"
+            window.user_is_instructor = false
+          </script>
+          % if tma_verify_access(user).has_dashboard_access(course_id=None):
+            <script type="text/javascript">
+              main_color : "${custom_color}";
+              window.user_is_instructor = true;
+            </script>
+          %endif
+        <script src="${js}"></script>
+        <script src="${jsMain}"></script>
+    </section>
+  %else:
+    <script>
+    window.location = "/login?next="+window.location.pathname;
+    </script>
+  %endif
+</main>
