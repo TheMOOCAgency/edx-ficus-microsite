@@ -26,13 +26,671 @@ main {
 }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("FAQ")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
+
 <section class="static-container faq">
-${_template | n}
+
+  % if request.LANGUAGE_CODE == 'en':
+
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><strong>NEW ACADEMY FAQs</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">NETEXPLO ACADEMY</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>What is Netexplo Academy and what does it consist of?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The Netexplo Academy is a platform that helps people with understanding and getting used to digital transformation.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">It has 6 programmes:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The Digital Passport, made up of 20 videos that introduce you to all things digital and 1 assessment quiz. Length: 20 minutes</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Journeys, a programme that decodes the 24 digital application fields through a snapshot of uses and benefits and an analysis of the issues of transformation, made up of 24 modules totalling 288 videos exploring the digital world and 24 assessment quizzes. Length: 15 minutes per module</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The Expeditions, made up of 6 professions, each introduced via 8 videos and an assessment quiz, a total of 48 videos and 6 quizzes. Length: 25 minutes per profession</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The Social School, a programme to help you understand and master social media, made up of 5 chapters. Length: 75 minutes</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The &ldquo;Managing Today&rdquo; programme, made up of 4 chapters and 12 challenges to help develop managerial skills and thinking. Length: 30 min (+ optional challenges)</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The Data and AI Passport, to ensure a common foundation and minimum knowledge level on data &amp; AI, made up of 5 chapters and 1 quiz. Length: 40 minutes</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How do I sign up and log in?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you are registered in your company's staff database you are automatically signed up.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To log in, you should use your work username and password. If you are at your own workstation you will usually be logged in automatically.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If this is not the case, please check your username and password on your company's login page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>What should I do if I can't log in? </strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you cannot log in, your username and password may not have been passed on to us, so you are not recognised by our Academy.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Contact the person in charge of this service at your company and explain your problem.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>What languages are available?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The platform and its contents are available in 4 languages:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image.png" alt="" width="218" height="37" name="Image 4" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">English/French/German/Spanish</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you opt for the English version, other languages are available as subtitles for some courses:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: large;"><em>Chinese, Czech, English, German, Hungarian, Italian, Japanese, Polish, Portuguese, Romanian, Slovakian, Spanish, Turkish, Ukrainian.</em></span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Which browser should I use?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The Netexplo Academy works on Firefox, Chrome, Safari and Internet Explorer. For Internet Explorer, you need at least the IE8 version. Using this version can slightly alter the platform's design and functions.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">COURSE DISCUSSION/FORUMS</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The 'course discussion'/forums give you the chance to discussion with other learners and to ask questions for other learners or our course team members to respond to.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Where can I find the course discussion?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">In your course, click on the Forum or Discussion tab, depending on which page you are on.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image2.png" alt="" name="Image 1" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image3.png" alt="" name="Image 2" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How is the Discussion page organised?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">On the left side of the Discussion page, the navigation column displays all the subjects and posts in the course discussion. All subjects, both at course level and specific to the content can be read and posted from your navigation column.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image4.png" alt="" width="204" height="280" name="Image 6" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Posts on the navigation column show the role of the person who published them.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">In the main area of the Discussion page, if you haven't selected a subject or message, you will see a &ldquo;How to use BNP Discussion&rdquo; help screen. The help screen shows the basic actions you can use for the course discussion. Tick the box &ldquo;Receive updates&rdquo; to get a daily summary of new activity and posts on your course via email.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image5.png" alt="" width="604" height="353" name="Image 7" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How can I join the discussion for my course?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">You can ask a question or start a conversation on a subject or reply to a message that someone else has posted.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Follow the messages</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To follow messages in your course discussion, open the message then hover your cursor over the grey star icon in the top right-hand corner. Click on &ldquo;Follow&rdquo;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The Follow option is found in the top right-hand side of each message.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image6.png" alt="" width="341" height="71" name="Image 8" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The star icon turns blue to show that you are now following the message. When you post this message in the discussion navigation column it will also appear with a &ldquo;Followed&rdquo; marker.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image7.png" alt="" width="204" height="280" name="Image 9" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How can I add a post?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Click on Add a post on the top right-hand side of the page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image8.png" alt="" width="604" name="Image 11" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">When you add a new message in a course discussion, you choose:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The subject of the post</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">The type of message: question or discussion</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Where to post: on the Discussion page or (for specific subjects regarding content only) in the course unit.</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How do I add a post on the discussion page?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">You can add a post for discussion subjects at course level or specific to the content on the Discussion page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">On the Discussion page, select Add a message. If the &ldquo;Add a post&rdquo; button is not available, check if the course is archived.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Work out the type of post you want to make and then select Question or Discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Work out the most appropriate subject for your message and select it from the subject field list.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">In the Title field, enter a short, descriptive title. The title is part of your message that others will see when they are browsing the discussion page or scrolling one of the content specific subjects.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Enter your message. To format the text or add links or images, use the formatting options above the text area.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How can I add a post in a course unit?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you find a discussion while you are working on one of your course units, or if you know where in the course a particular discussion comes from, you can add a post for this discussion from your course unit.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The following steps only apply to specific content discussions.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">In your course, open the unit that corresponds to the discussion subject where you want to add a post, then scroll until you reach the discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The title and the first line of each post are shown in the list of posts.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To read a full message and post your responses and comments, select any area of the message preview.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To add a new message to the discussion, select Add a message and follow the same steps that you would to add a message on the discussion page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To reply to an existing message or comment on an existing reply, follow the steps described in Add replies or comments on a discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">QUIZZES AND VALIDATING MY TRAINING</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How can I validate a quiz?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">To validate the quizzes you must reply to the questions that are asked in each course. The questions are multiple choice with a single correct answer. Click on the right answer and confirm.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The minimum pass mark for the test is 70%. If, at the end of the series of questions you have not achieved 70%, you can try again.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">You can try as many times as you like to get the right answer!</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Are my scores passed on to HR?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">The confirmation that you have passed a quiz is sent to HR. Scores are not.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How can I download my certificates?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">A download button will appear on the course validation page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>I have not received email confirmation of passing the quiz</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you have not received and email in your inbox, check your Spam/Junk folder.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">If you can't find it, don't worry, you can check that the course has been validated from the homepage.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>How do I take the test again if I haven't scored 70% or over?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">By answering the questions again.</p>
+  <p>&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  
+  % elif request.LANGUAGE_CODE == 'de-de':
+  
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><strong>FAQ NEW ACADEMY</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">NETEXPLO ACADEMY</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Was ist die Netexplo Academy und was beinhaltet sie?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Netexplo Academy ist eine Plattform f&uuml;r die Akkulturation und Sensibilisierung f&uuml;r die digitale Transformation.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sie umfasst 6 Programme:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Den Digitalpass, bestehend aus 20 Einf&uuml;hrungsvideos in die Digitalisierung und 1 Bewertungstest Dauer: 20 Minuten</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Les Voyages (Die Reisen), ein Programm zur Entschl&uuml;sselung von 24 Anwendungsbereichen der Digitalisierung anhand einer &Uuml;bersicht der Einsatzm&ouml;glichkeiten und Vorteile sowie einer Analyse der Herausforderungen der Transformation, bestehend aus 24 Kursen, d.h. insgesamt 288 Videos f&uuml;r die Erkundung der Digitalisierung und 24 Bewertungstests. Dauer: 15 Minuten pro Kurs</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Les Exp&eacute;ditions (Die Expeditionen), bestehend aus 6 T&auml;tigkeitsfeldern, die jeweils aus 8 Videos und 1 Bewertungstest bestehen, d.h. insgesamt 48 Videos und 6 Bewertungstests. Dauer: 25 Minuten pro T&auml;tigkeitsfeld</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Die Social School, ein Programm zum Verstehen und Beherrschen sozialer Netzwerke, das 5 Kapitel umfasst. Dauer: 75 Minuten</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Das &bdquo;Manager Today&ldquo;-Programm besteht aus 4 Kapiteln und 12 Challenges, die zur Entwicklung der F&auml;higkeiten und K&ouml;rperhaltungen eines Managers beitragen. Dauer: 30 min (+ optionale Challenges)</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Der Passeport Data &amp; IA (Daten- und KI-Pass), der eine gemeinsame Basis und ein Minimum an Kenntnissen &uuml;ber Daten und KI gew&auml;hrleistet, besteht aus 5 Kapiteln und 1 Test. Dauer: 40 Minuten</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie registriere ich mich und melde mich an?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Ihre Registrierung erfolgt automatisch, wenn Sie in der Mitarbeiterdatenbank Ihres Unternehmens registriert sind.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">F&uuml;r die Anmeldung m&uuml;ssen Sie Ihre Unternehmensanmeldedaten verwenden. Die Anmeldung erfolgt normalerweise automatisch &uuml;ber Ihren Arbeitsplatz.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Andernfalls geben Sie Ihre Anmeldedaten auf der Anmeldeseite Ihres Unternehmens ein.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Was ist, wenn ich mich nicht anmelden kann? </strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie sich nicht anmelden k&ouml;nnen, wurden Ihre Anmeldedaten m&ouml;glicherweise nicht gesendet und Sie sind in unserer Academy nicht bekannt.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenden Sie sich an die f&uuml;r diese Dienstleistung verantwortliche Person in Ihrem Unternehmen und erl&auml;utern Sie Ihr Problem.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Welche Sprachen stehen zur Verf&uuml;gung?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Plattform und die Inhalte sind in 4 Sprachen verf&uuml;gbar:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image.png" alt="" width="218" height="37" name="Image 4" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Englisch / Franz&ouml;sisch / Deutsch / Spanisch</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie die englische Version w&auml;hlen, sind f&uuml;r bestimmte Kurse andere Sprachen mit Untertiteln verf&uuml;gbar:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: large;"><em>Deutsch, Englisch, Chinesisch, Spanisch, Italienisch, Japanisch, Ungarisch, Polnisch, Portugiesisch, Rum&auml;nisch, Slowakisch, Tschechisch, T&uuml;rkisch, Ukrainisch</em></span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Welchen Browser soll ich verwenden?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Netexplo Academy Plattform kann mit Firefox, Google Chrome, Safari und Internet Explorer verwendet werden. F&uuml;r den Internet Explorer ist die Mindestversion IE8. Die Verwendung dieser Version kann das Design und die Funktionalit&auml;t der Plattform geringf&uuml;gig beeintr&auml;chtigen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">KURSDISKUSSIONEN / FOREN</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&bdquo;Kursdiskussionen&ldquo; / Foren bieten Ihnen die M&ouml;glichkeit, Gespr&auml;che mit anderen Lernenden zu beginnen und Fragen zu stellen, die andere Lernende oder Mitglieder des Kursteams beantworten k&ouml;nnen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wo finde ich die Kursdiskussionen?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Klicken Sie in Ihrem Kurs auf die Registerkarte Forum oder Diskussion &ndash; je nachdem, auf welcher Seite Sie sich befinden.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image2.png" alt=""  name="Image 1" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image3.png" alt=""  name="Image 2" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie ist die Diskussionsseite organisiert?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Links auf der Diskussionsseite werden im Navigationsbereich alle Themen und Beitr&auml;ge aus den Kursdiskussionen angezeigt. Alle Themen, sowohl im Zusammenhang mit dem Kurs als auch speziell zum betrachteten Inhalt, k&ouml;nnen im Navigationsbereich gelesen und ver&ouml;ffentlicht werden.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image4.png" alt="" width="204" height="280" name="Image 6" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Beitr&auml;ge im Navigationsbereich zeigen die Rolle der Person an, die das Thema gepostet hat.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie im Hauptbereich der Diskussionsseite kein Thema oder keine Nachricht ausgew&auml;hlt haben, wird das Feld &bdquo;Verwendung von BNP-Diskussionen&ldquo; angezeigt. Das Feld zeigt die grundlegenden Aktionen, die Sie w&auml;hrend der Kursdiskussionen ausf&uuml;hren k&ouml;nnen. Aktivieren Sie die Option &bdquo;Updates erhalten&ldquo;, damit Sie eine t&auml;gliche Zusammenfassung der neuen Aktivit&auml;ten aus Ihren Kursdiskussionen per E-Mail erhalten.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image5.png" alt="" width="604" height="353" name="Image 7" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie nehme ich an Diskussionen meines Kurses teil?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sie k&ouml;nnen eine Frage stellen, ein Gespr&auml;ch zu einem Thema beginnen oder auf die Nachricht eines anderen antworten.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Nachrichten folgen</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Um Nachrichten in Ihren Klassendiskussionen zu folgen, &ouml;ffnen Sie die Nachricht und bewegen Sie den Mauszeiger &uuml;ber das graue Sternsymbol in der oberen rechten Ecke. Klicken Sie auf &bdquo;Folgen&ldquo;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Option Folgen befindet sich in der oberen rechten Ecke jeder Nachricht.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image6.png" alt="" width="341" height="71" name="Image 8" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Das Sternsymbol wird blau und zeigt so an, dass Sie dieser Nachricht jetzt folgen. Wenn Sie diese Nachricht im Navigationsbereich der Diskussion anzeigen, wird sie mit der Anzeige &bdquo;Wird verfolgt&ldquo; angezeigt.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image7.png" alt="" width="204" height="280" name="Image 9" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie f&uuml;ge ich einen Beitrag hinzu?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Klicken Sie oben rechts auf der Seite auf Beitrag hinzuf&uuml;gen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image8.png" alt="" width="604" name="Image 11" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie in einer Kursdiskussion eine neue Nachricht hinzuf&uuml;gen, w&auml;hlen Sie:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Das Thema des Beitrags</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Die Art der Nachricht: Frage oder Diskussion</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Wo wird gepostet: auf der Seite &bdquo;Diskussionen&ldquo; oder (nur f&uuml;r inhaltsspezifische Themen) in der Kurseinheit.</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie f&uuml;ge ich auf der Diskussionsseite einen Beitrag hinzu?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sie k&ouml;nnen auf der Diskussionsseite einen Beitrag f&uuml;r kurs- oder inhaltsspezifische Diskussionsthemen hinzuf&uuml;gen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">W&auml;hlen Sie auf der Diskussionsseite die Option Nachricht hinzuf&uuml;gen aus. Wenn die Schaltfl&auml;che &bdquo;Publikation hinzuf&uuml;gen&ldquo; nicht verf&uuml;gbar ist, &uuml;berpr&uuml;fen Sie, ob der Kurs archiviert ist.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Legen Sie die Art des Beitrags fest, den Sie ver&ouml;ffentlichen m&ouml;chten, und w&auml;hlen Sie Frage oder Diskussion aus.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Bestimmen Sie den am besten geeigneten Betreff, um Ihren Beitrag hinzuzuf&uuml;gen, und w&auml;hlen Sie ihn aus der Liste Betreffbereich aus.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Geben Sie im Feld Titel einen kurzen, beschreibenden Titel ein. Der Titel ist der Teil Ihres Beitrags, den andere sehen, wenn sie auf der Diskussionsseite navigieren oder durch eines der inhaltsspezifischen Themen scrollen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Geben Sie den Text Ihrer Nachricht ein. Verwenden Sie die Formatierungsoptionen &uuml;ber dem Textfeld, um den Text zu formatieren oder Links oder Bilder hinzuzuf&uuml;gen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie f&uuml;ge ich einen Beitrag zu einer Kurseinheit hinzu?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie zu einer Diskussion hinzukommen, w&auml;hrend Sie an Ihren Kurseinheiten arbeiten, oder wenn Sie wissen, woher aus dem Kurs eine bestimmte Diskussion stammt, k&ouml;nnen Sie einen Beitrag f&uuml;r diese Diskussion aus Ihrer Kurseinheit hinzuf&uuml;gen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die folgenden Schritte gelten nur f&uuml;r inhaltsspezifische Diskussionen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&Ouml;ffnen Sie in Ihrem Kurs die Einheit, die das Diskussionsthema enth&auml;lt, zu dem Sie einen Beitrag hinzuf&uuml;gen m&ouml;chten, und scrollen Sie dann zur Diskussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Der Titel und die erste Zeile jedes Beitrags werden in der Beitragsliste angezeigt.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Um den ganzen Beitrag zu lesen und die dazugeh&ouml;rigen Antworten und Kommentare anzuzeigen, w&auml;hlen Sie einen beliebigen Teil der Beitragsvorschau aus.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Um der Diskussion eine neue Nachricht hinzuzuf&uuml;gen, w&auml;hlen Sie Nachricht hinzuf&uuml;gen und f&uuml;hren Sie die gleichen Schritte aus wie beim Hinzuf&uuml;gen einer Nachricht zur Diskussionsseite.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Befolgen Sie die Schritte unter Hinzuf&uuml;gen von Antworten oder Kommentaren zu einer Diskussion, um auf eine vorhandene Nachricht oder einen Kommentar zu einer vorhandenen Antwort zu antworten.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">TEST UND BEST&Auml;TIGUNG MEINER SCHULUNGEN</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie bestehe ich den Test?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Um die Tests zu bestehen, m&uuml;ssen Sie die Fragen beantworten, die Ihnen in jedem Kurs gestellt wurden. Die Fragen werden in Form eines Single-Choice-MCQ gestellt. Klicken Sie auf die richtige Antwort und best&auml;tigen Sie.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Die Mindestpunktzahl f&uuml;r das Bestehen des Tests betr&auml;gt 70 %. Wenn Sie am Ende der Fragenrunde diese Punktzahl nicht erreichen, k&ouml;nnen Sie Ihr Gl&uuml;ck erneut versuchen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sie haben so viele Versuche, wie Sie m&ouml;chten, um die richtige Antwort zu finden!</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Werden die Noten an meine Personalabteilung gesendet?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Das Bestehen der Tests wird an Ihre Personalabteilung gesendet. Die Noten nicht.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie lade ich meine Zertifikate herunter?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Auf der Best&auml;tigungsseite f&uuml;r den Kurs erscheint eine Download-Schaltfl&auml;che.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Ich habe keine E-Mail f&uuml;r den bestandenen Test erhalten</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn Sie keine E-Mail in Ihrem Posteingang erhalten haben, &uuml;berpr&uuml;fen Sie bitte Ihren Spam- / Junk-Mail-Ordner.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Ist dies nicht der Fall, k&ouml;nnen Sie auf der Startseite &uuml;berpr&uuml;fen, ob der Kurs bestanden wurde.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie kann ich die Tests wiederholen, wenn ich 70 % nicht erreicht habe?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Durch erneutes Beantworten der Fragen.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">TECHNISCHE PROBLEME</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Wie gehe ich vor, wenn eine Fehlerseite angezeigt wird?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Aktualisieren Sie zuerst die Seite und &uuml;berpr&uuml;fen Sie Ihre Internetverbindung.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn das Problem weiterhin besteht, wenden Sie sich an die f&uuml;r diese Dienstleistung verantwortliche Person in Ihrem Unternehmen und erl&auml;utern Sie die Situation und beschreiben Sie das Problem. Machen Sie wenn m&ouml;glich einen Screenshot.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Was tue ich, wenn ich keinen Ton habe?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Aktualisieren Sie zuerst die Seite und &uuml;berpr&uuml;fen Sie Ihre Internetverbindung.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&Uuml;berpr&uuml;fen Sie auch, dass der Ton unseres Computers nicht abgeschaltet ist.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn das Problem weiterhin besteht, wenden Sie sich an die f&uuml;r diese Dienstleistung verantwortliche Person in Ihrem Unternehmen und erl&auml;utern Sie die Situation und beschreiben Sie das Problem.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Was tue ich, wenn das Video nicht startet?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Aktualisieren Sie zuerst die Seite und &uuml;berpr&uuml;fen Sie Ihre Internetverbindung.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Wenn das Problem weiterhin besteht, wenden Sie sich an die f&uuml;r diese Dienstleistung verantwortliche Person in Ihrem Unternehmen und erl&auml;utern Sie die Situation und beschreiben Sie das Problem. Machen Sie wenn m&ouml;glich einen Screenshot.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p>&nbsp;</p>
+  
+  % elif request.LANGUAGE_CODE == 'es-419':
+  
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><strong>FAQ NEW ACADEMY</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">LA NETEXPLO ACADEMY </span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; es la Netexplo Academy y de qu&eacute; se compone?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La Netexplo Academy es una plataforma de aculturaci&oacute;n y de sensibilizaci&oacute;n sobre la transformaci&oacute;n digital.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Contiene 6 programas:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">El Pasaporte Digital, compuesto por 20 v&iacute;deos de iniciaci&oacute;n a la tecnolog&iacute;a digital y 1 test de evaluaci&oacute;n. Duraci&oacute;n: 20 minutos</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Los Viajes, un programa para descifrar 24 &aacute;mbitos de aplicaci&oacute;n de la tecnolog&iacute;a digital a trav&eacute;s de un panorama de usos y beneficios, y de un an&aacute;lisis de los desaf&iacute;os de transformaci&oacute;n compuesto por 24 itinerarios con un total de 288 v&iacute;deos de exploraci&oacute;n de la tecnolog&iacute;a digital y 24 tests de evaluaci&oacute;n. Duraci&oacute;n: 15 minutos por itinerario</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Las Expediciones, programa compuesto por 6 profesiones, cada una de las cuales se presenta a trav&eacute;s de 8 v&iacute;deos y 1 test de evaluaci&oacute;n, es decir, un total de 48 v&iacute;deos y 6 tests de evaluaci&oacute;n. Duraci&oacute;n: 25 minutos por profesi&oacute;n</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">La Social School, un programa para entender y dominar las redes sociales, compuesto por 5 cap&iacute;tulos. Duraci&oacute;n: 75 minutos</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">El programa &laquo;Managing Today&raquo; se compone de 4 cap&iacute;tulos y 12 desaf&iacute;os para contribuir a desarrollar las competencias y posturas del m&aacute;nager. Duraci&oacute;n: 30 minutos (+ los desaf&iacute;os opcionales)</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">El Pasaporte Data &amp; IA, para garantizar una base com&uacute;n y un m&iacute;nimo de conocimientos sobre los datos y la IA, compuesto por 5 cap&iacute;tulos y 1 test. Duraci&oacute;n: 40 minutos</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo me inscribo y me conecto?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Tu inscripci&oacute;n es autom&aacute;tica si est&aacute;s registrado en la base de colaboradores de tu empresa.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para conectarte, debes usar tus credenciales de empresa. La conexi&oacute;n se realiza normalmente de forma autom&aacute;tica desde tu puesto de trabajo.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si no es as&iacute;, introduce tus credenciales en la p&aacute;gina de conexi&oacute;n de tu empresa.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; hago si no consigo conectarme? </strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si no consigues conectarte, es posible que tus credenciales no hayan sido enviadas y que seas un desconocido para nuestra Academy.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Ponte en contacto con la persona de referencia de este servicio en tu empresa para exponerle tu problema.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Cu&aacute;les son los idiomas disponibles?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La plataforma y los contenidos est&aacute;n disponibles en 4 idiomas:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image.png" alt="" width="218" height="37" name="Image 4" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Ingl&eacute;s / Franc&eacute;s / Alem&aacute;n / Espa&ntilde;ol</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si eliges la versi&oacute;n en ingl&eacute;s, los subt&iacute;tulos est&aacute;n disponibles en otros idiomas para algunos itinerarios:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: large;"><em>Alem&aacute;n, Ingl&eacute;s, Chino, Espa&ntilde;ol, Italiano, Japon&eacute;s, H&uacute;ngaro, Polaco, Portugu&eacute;s, Rumano, Eslovaco, Checo, Turco, Ucraniano</em></span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; navegador debo usar?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La plataforma Netexplo Academy funciona en Firefox, Google Chrome, Safari e Internet Explorer. Para Internet Explorer la versi&oacute;n m&iacute;nima es IE8. El uso de esta versi&oacute;n puede afectar ligeramente en el dise&ntilde;o y las funcionalidades de la plataforma.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">DISCUSI&Oacute;N DEL CURSO / FOROS</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Las &laquo;discusiones del curso&raquo; / foros te dan la posibilidad de iniciar conversaciones con otros alumnos, hacer preguntas a otros alumnos o miembros del equipo del curso que pueden responder.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;D&oacute;nde puedo encontrar las discusiones del curso?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En tu curso, haz clic en la pesta&ntilde;a Foro o Discusi&oacute;n seg&uacute;n la p&aacute;gina donde te encuentres.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image2.png" alt=""  name="Image 1" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image3.png" alt=""  name="Image 2" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo est&aacute; organizada la p&aacute;gina Discusi&oacute;n?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En el lado izquierdo de la p&aacute;gina Discusi&oacute;n, el panel de navegaci&oacute;n muestra todos los temas y publicaciones de las discusiones del curso. Todos los temas, tanto en materia del curso como relacionados con el contenido consultado, se pueden leer y publicar desde el panel de navegaci&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image4.png" alt="" width="204" height="280" name="Image 6" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Las publicaciones del panel de navegaci&oacute;n muestran la funci&oacute;n de la persona que public&oacute; el tema.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En la parte principal de la p&aacute;gina Discusi&oacute;n, cuando no has seleccionado ning&uacute;n tema o mensaje, aparece un recuadro &laquo;C&oacute;mo usar las discusiones BNP&raquo;. El recuadro muestra las acciones b&aacute;sicas que puedes efectuar en las discusiones del curso. Selecciona la opci&oacute;n &laquo;Recibir actualizaciones&raquo; para recibir un resumen diario por correo electr&oacute;nico de las nuevas actividades derivadas de las discusiones de tu curso.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image5.png" alt="" width="604" height="353" name="Image 7" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo participo en las discusiones de mi curso?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Puedes hacer una pregunta o iniciar una conversaci&oacute;n sobre un tema, o responder el mensaje de otra persona.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Seguir los mensajes</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para seguir los mensajes en tus discusiones del curso, abre el mensaje y, despu&eacute;s, mueve tu cursor sobre el icono en forma de estrella gris en la esquina superior derecha. Haz clic en &laquo;Seguir&raquo;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La opci&oacute;n Seguir se encuentra en la esquina superior derecha de cada mensaje.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image6.png" alt="" width="341" height="71" name="Image 8" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">El icono de estrella se vuelve azul para indicar que desde ese momento sigues ese mensaje. Cuando ves este mensaje en el panel de navegaci&oacute;n de discusi&oacute;n, tambi&eacute;n aparece con un indicador &laquo;Seguido&raquo;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image7.png" alt="" width="204" height="280" name="Image 9" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo a&ntilde;ado una publicaci&oacute;n?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Haz clic en A&ntilde;adir una publicaci&oacute;n en la parte superior derecha de la p&aacute;gina.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image8.png" alt="" width="604" name="Image 11" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Cuando a&ntilde;ades un nuevo mensaje en una discusi&oacute;n del curso, eliges:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">El tema de la publicaci&oacute;n</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">El tipo de mensaje: pregunta o discusi&oacute;n</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">D&oacute;nde publicar: en la p&aacute;gina Discusiones o (solo para los temas relacionados con el contenido) en la unidad del curso.</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo a&ntilde;ado una publicaci&oacute;n en la p&aacute;gina de discusi&oacute;n?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Puedes a&ntilde;adir una publicaci&oacute;n para temas de discusi&oacute;n en materia del curso o relacionados con el contenido en la p&aacute;gina Discusi&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En la p&aacute;gina Discusi&oacute;n, selecciona A&ntilde;adir un mensaje. Si el bot&oacute;n &laquo;A&ntilde;adir una publicaci&oacute;n&raquo; no est&aacute; disponible, comprueba si el curso est&aacute; archivado.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Determina el tipo de publicaci&oacute;n que quieres publicar y selecciona Pregunta o Discusi&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Determina el tema m&aacute;s apropiado para a&ntilde;adir tu mensaje y selecci&oacute;nalo en la lista &Aacute;rea tem&aacute;tica.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En el &aacute;rea T&iacute;tulo, introduce un t&iacute;tulo corto y descriptivo. El t&iacute;tulo es la parte de tu mensaje que los dem&aacute;s ven cuando navegan por la p&aacute;gina de discusi&oacute;n o consultan uno de los temas relacionados con el contenido.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Introduce el texto de tu mensaje. Para formatear el texto o para a&ntilde;adir enlaces o im&aacute;genes, usa las opciones de formato sobre la zona de texto.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo a&ntilde;ado una publicaci&oacute;n en una unidad del curso?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si llegas a una discusi&oacute;n mientras trabajas en las unidades de tu curso, o si sabes de qu&eacute; parte del curso procede una discusi&oacute;n en particular, puedes a&ntilde;adir una publicaci&oacute;n para esta discusi&oacute;n desde la unidad de tu curso.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Los siguientes pasos se aplican &uacute;nicamente a las discusiones relacionadas con el contenido.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En tu curso, abre la unidad que abarca el tema de discusi&oacute;n en el que quieres a&ntilde;adir una publicaci&oacute;n y, despu&eacute;s, despl&aacute;zate hasta la discusi&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">El t&iacute;tulo y la primera l&iacute;nea de cada publicaci&oacute;n se muestran en la lista de publicaciones.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para leer una publicaci&oacute;n entera y mostrar sus respuestas y comentarios, selecciona cualquier parte de la vista previa de la publicaci&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para a&ntilde;adir un nuevo mensaje a la discusi&oacute;n, selecciona A&ntilde;adir un mensaje y sigue los mismos pasos que usas para a&ntilde;adir un mensaje a la p&aacute;gina de discusi&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para responder a un mensaje existente o a un comentario en una respuesta existente, sigue los pasos descritos en A&ntilde;adir respuestas o comentarios en una discusi&oacute;n.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">TESTS Y VALIDACI&Oacute;N DE MIS FORMACIONES</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo apruebo los tests?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para aprobar los tests, debes responder a las preguntas que se te realizan en cada uno de los itinerarios. Las preguntas se presentan en formato de opci&oacute;n m&uacute;ltiple de respuesta &uacute;nica. Haz clic en la respuesta correcta y, despu&eacute;s, valida.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La puntuaci&oacute;n m&iacute;nima para aprobar el test es de 70 %. Si al final de la serie de preguntas, no consigues esta puntuaci&oacute;n, puedes volver a intentarlo.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&iexcl;Tienes tantos intentos como quieras para encontrar la respuesta correcta!</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Las notas se env&iacute;an a mis servicios de RR. HH.?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La validaci&oacute;n de los tests se env&iacute;a a tu servicio de RR. HH. Las notas, no.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo descargo mis certificados?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Un bot&oacute;n de descarga aparece en la p&aacute;gina de validaci&oacute;n del itinerario.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>No he recibido ning&uacute;n correo electr&oacute;nico de validaci&oacute;n del test</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si no has recibido ning&uacute;n correo electr&oacute;nico en tu bandeja de entrada, revisa tu carpeta de Spam / Correo no deseado.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si este no es el caso, no pasa nada, puedes comprobar si el curso est&aacute; bien validado desde la p&aacute;gina de inicio.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;C&oacute;mo repito los tests si no he alcanzado el 70 %?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Respondiendo de nuevo a las preguntas.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">PROBLEMAS T&Eacute;CNICOS</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; hago si se muestra una p&aacute;gina de error?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para empezar, actualiza la p&aacute;gina y comprueba tu conexi&oacute;n a internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si el problema persiste, ponte en contacto con la persona de referencia de este servicio en tu empresa y exponle la situaci&oacute;n describiendo el problema. Si es posible, haz una captura de pantalla.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; hago si el sonido no funciona?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para empezar, actualiza la p&aacute;gina y comprueba tu conexi&oacute;n a internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Comprueba tambi&eacute;n que el sonido de nuestro ordenador no est&eacute; desconectado.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si el problema persiste, ponte en contacto con la persona de referencia de este servicio en tu empresa y exponle la situaci&oacute;n describiendo el problema.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>&iquest;Qu&eacute; debo hacer si el v&iacute;deo no arranca?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Para empezar, actualiza la p&aacute;gina y comprueba tu conexi&oacute;n a internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si el problema persiste, ponte en contacto con la persona de referencia de este servicio en tu empresa y exponle la situaci&oacute;n describiendo el problema. Si es posible, haz una captura de pantalla.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p>&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  
+  % else :
+  
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><strong>FAQ NEW ACADEMY</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">L&rsquo;ACADEMY NETEXPLO</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Qu&rsquo;est-ce que l&rsquo;Academy Netexplo et de quoi est-elle compos&eacute;e&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">L&rsquo;Academy Netexplo est une plateforme d&rsquo;acculturation et de sensibilisation au sujet de la transformation digitale.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Elle contient 6 programmes :</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Le Passeport Num&eacute;rique, compos&eacute; de 20 vid&eacute;os d&rsquo;initiation au num&eacute;rique et 1 quiz d&rsquo;&eacute;valuation. Dur&eacute;e&nbsp;: 20 minutes</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Les Voyages, un programme pour d&eacute;crypter 24 champs d&rsquo;application du digital &agrave; travers un panorama des usages et des b&eacute;n&eacute;fices et une analyse des enjeux de transformation compos&eacute;e de 24 parcours pour un total de 288 vid&eacute;os d&rsquo;exploration du num&eacute;rique et 24 quiz d&rsquo;&eacute;valuation. Dur&eacute;e&nbsp;: 15 minutes par parcours</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Les Exp&eacute;ditions, compos&eacute;e de 6 m&eacute;tiers pr&eacute;sent&eacute;s chacun au travers de 8 vid&eacute;os et 1 quiz d&rsquo;&eacute;valuation, soit un total de 48 vid&eacute;os et 6 quiz d&rsquo;&eacute;valuation. Dur&eacute;e&nbsp;: 25 minutes par m&eacute;tier</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">La Social School, un programme pour comprendre et ma&icirc;triser les r&eacute;seaux sociaux, compos&eacute;e de 5 chapitres. Dur&eacute;e&nbsp;: 75 minutes</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Le programme &laquo; Manager Aujourd&rsquo;hui &raquo; compos&eacute;e de 4 chapitres et de 12 challenges, pour aider &agrave; d&eacute;velopper les comp&eacute;tences et les postures du manager. Dur&eacute;e&nbsp;: 30 min (+ les challenges optionnels)</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Le Passeport Data &amp; IA, pour assurer un socle commun et minimum de connaissances sur la data &amp; l&rsquo;IA, compos&eacute;e de 5 chapitres et 1 quiz. Dur&eacute;e&nbsp;: 40 minutes</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment m&rsquo;inscrire et me connecter&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Votre inscription est automatique si vous &ecirc;tes enregistr&eacute; dans la base de collaborateurs de votre entreprise.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour vous connecter, vous devez utiliser vos identifiants d&rsquo;entreprise. La connexion se fait normalement automatiquement depuis votre poste de travail.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si ce n&rsquo;est pas le cas, veuillez renseigner vos identifiants sur la page de connexion de votre entreprise.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Que faire si je n&rsquo;arrive pas &agrave; me connecter&nbsp;? </strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si vous n&rsquo;arrivez pas &agrave; vous connecter, il se peut que vos identifiants n&rsquo;aient pas &eacute;t&eacute; transmis et que vous soyez inconnu pour notre Academy.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Contactez la personne r&eacute;f&eacute;rente de ce service dans votre entreprise pour lui exposer votre probl&egrave;me.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Quelles sont les langues disponibles&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La plateforme et les contenus sont disponibles en 4 langues&nbsp;:</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image.png" alt="" width="218" height="37" name="Image 4" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Anglais / Fran&ccedil;ais / Allemand / Espagnol</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si vous choisissez la version anglaise, d&rsquo;autres langues sont disponibles en sous-titrage, pour certains parcours :</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: large;"><em>Allemand, Anglais, Chinois, Espagnol, Italien, Japonais, Hongrois, Polonais, Portugais, Roumain, Slovaque, Tch&egrave;que, Turc, Ukrainien</em></span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Quel navigateur dois-je utiliser&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La plateforme Netexplo Academy fonctionne sur Firefox, Google Chrome, Safari et Internet Explorer. Pour Internet Explorer la version minimale est IE8. L&rsquo;utilisation de cette version peut l&eacute;g&egrave;rement affecter le design et les fonctionnalit&eacute;s de la plateforme.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">DISCUSSION DE COURS / FORUMS</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Les &laquo;&nbsp;discussions de cours&nbsp;&raquo; / forums vous donnent la possibilit&eacute; d'entamer des conversations avec d'autres apprenants, de poser des questions auxquelles d'autres apprenants ou membres de l'&eacute;quipe de cours peuvent r&eacute;pondre.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>O&ugrave; puis-je trouver les discussions de cours ?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans votre cours, cliquez sur l'onglet Forum ou Discussion selon la page o&ugrave; vous vous trouvez.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image2.png" alt=""  name="Image 1" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image3.png" alt=""  name="Image 2" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment est organis&eacute; la page Discussion&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sur le c&ocirc;t&eacute; gauche de la page Discussion, le volet de navigation affiche tous les sujets et publications des discussions du cours. Tous les sujets, &agrave; la fois au niveau du cours et sp&eacute;cifiques au contenu regard&eacute;, peuvent &ecirc;tre lus et publi&eacute;s &agrave; partir du volet de navigation.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image4.png" alt="" width="204" height="280" name="Image 6" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Les publications du volet de navigation affichent le r&ocirc;le de la personne qui a publi&eacute; le sujet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans la zone principale de la page Discussion, lorsque vous n'avez s&eacute;lectionn&eacute; aucun sujet ou message, vous voyez un encadr&eacute; &laquo; Comment utiliser les discussions BNP &raquo;. L&rsquo;encadr&eacute; montre les actions de base que vous pouvez effectuer lors des discussions de cours. Cochez l'option &laquo; Recevoir des mises &agrave; jour &raquo; pour recevoir un r&eacute;sum&eacute; quotidien par e-mail des nouvelles activit&eacute;s issues des discussions de votre cours.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image5.png" alt="" width="604" height="353" name="Image 7" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment rejoindre les discussions de mon cours ?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Vous pouvez poser une question ou d&eacute;marrer une conversation sur un sujet, ou r&eacute;pondre au message de quelqu'un d'autre.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Suivre les messages</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour suivre les messages dans vos discussions de cours, ouvrez le message, puis d&eacute;placez votre curseur sur l'ic&ocirc;ne en forme d'&eacute;toile grise dans le coin sup&eacute;rieur droit. Cliquez sur "Suivre".</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">L'option Suivre se trouve dans le coin sup&eacute;rieur droit de chaque message.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image6.png" alt="" width="341" height="71" name="Image 8" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">L'ic&ocirc;ne &eacute;toile devient bleue pour indiquer que vous suivez maintenant ce message. Lorsque vous affichez ce message dans le volet de navigation de discussion, il appara&icirc;t &eacute;galement avec un indicateur &laquo; Suivi &raquo;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image7.png" alt="" width="204" height="280" name="Image 9" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment ajouter un post&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Cliquez sur Ajouter un post en haut &agrave; droite de la page.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><img src="/media/microsite/netexplo/images/faq/image8.png" alt="" width="604" name="Image 11" align="bottom" border="0" /></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Lorsque vous ajoutez un nouveau message dans une discussion de cours, vous choisissez :</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <ul>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Le sujet du post</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">Le type de message : question ou discussion</span></span></p>
+  </li>
+  <li>
+  <p style="margin-bottom: 0cm; line-height: 100%;"><span style="font-family: Calibri, serif;"><span style="font-family: Times New Roman, serif;">O&ugrave; publier : sur la page Discussions ou (pour les sujets sp&eacute;cifiques au contenu uniquement) dans l'unit&eacute; de cours.</span></span></p>
+  </li>
+  </ul>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment ajouter un post sur la page de discussion&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Vous pouvez ajouter une publication pour des sujets de discussion au niveau du cours ou sp&eacute;cifiques au contenu sur la page Discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Sur la page Discussion, s&eacute;lectionnez Ajouter un message. Si le bouton &laquo;&nbsp;Ajouter une publication&nbsp;&raquo; n'est pas disponible, v&eacute;rifiez si le cours est archiv&eacute;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">D&eacute;terminez le type de publication que vous souhaitez publier et s&eacute;lectionnez Question ou Discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">D&eacute;terminez le sujet le plus appropri&eacute; pour ajouter votre message et s&eacute;lectionnez-le dans la liste Zone de sujet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans la zone Titre, entrez un titre court et descriptif. Le titre est la partie de votre message que les autres voient lorsqu'ils naviguent sur la page de discussion ou font d&eacute;filer l'un des sujets sp&eacute;cifiques au contenu.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Saisissez le texte de votre message. Pour formater le texte ou pour ajouter des liens ou des images, utilisez les options de mise en forme au-dessus de la zone de texte.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment ajouter un post dans une unit&eacute; de cours&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si vous arrivez &agrave; une discussion pendant que vous travaillez sur les unit&eacute;s de votre cours, ou si vous savez o&ugrave; dans le cours une discussion particuli&egrave;re provient, vous pouvez ajouter un post pour cette discussion &agrave; partir de l'unit&eacute; de votre cours.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Les &eacute;tapes suivantes s'appliquent uniquement aux discussions sp&eacute;cifiques au contenu.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans votre cours, ouvrez l'unit&eacute; qui comprend le sujet de discussion auquel vous souhaitez ajouter un post, puis faites d&eacute;filer jusqu'&agrave; la discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Le titre et la premi&egrave;re ligne de chaque post sont affich&eacute;s dans la liste des posts.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour lire une publication enti&egrave;re et afficher ses r&eacute;ponses et commentaires, s&eacute;lectionnez n'importe quelle partie de l'aper&ccedil;u de la publication.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour ajouter un nouveau message &agrave; la discussion, s&eacute;lectionnez Ajouter un message et suivez les m&ecirc;mes &eacute;tapes que vous utilisez pour ajouter un message &agrave; la page de discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour r&eacute;pondre &agrave; un message existant ou &agrave; un commentaire sur une r&eacute;ponse existante, suivez les &eacute;tapes d&eacute;crites dans Ajout de r&eacute;ponses ou de commentaires dans une discussion.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">QUIZ ET VALIDATION DE MES FORMATIONS</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment valider les quiz&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Pour valider les quiz, vous devez r&eacute;pondre aux questions qui vous sont pos&eacute;es dans chacun des parcours. Les questions sont sous forme de QCM &agrave; choix unique. Cliquez sur la bonne r&eacute;ponse puis validez.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Le score minimum pour valider le quiz est de 70%. Si &agrave; la fin de la s&eacute;rie de questions, vous n&rsquo;atteignez pas ce score, vous pouvez retenter votre chance.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Vous disposez d&rsquo;autant de tentatives que vous souhaitez pour trouver la bonne r&eacute;ponse&nbsp;!</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Les notes sont-elles transmises &agrave; mes services RH&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">La validation des quiz est transmise &agrave; votre service RH. Les notes ne le sont pas.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment t&eacute;l&eacute;charger mes certificats&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Un bouton de t&eacute;l&eacute;chargement apparait sur la page de validation du parcours.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Je n&rsquo;ai pas re&ccedil;u d&rsquo;email de validation de quiz</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si vous n&rsquo;avez pas re&ccedil;u d&rsquo;email dans votre bo&icirc;te, veuillez v&eacute;rifier votre dossier Spams / Courrier ind&eacute;sirable.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si ce n&rsquo;est pas le cas, ce n&rsquo;est pas grave vous pouvez v&eacute;rifier que le cours est bien valid&eacute; depuis la page d&rsquo;accueil.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Comment repasser les quiz si je n&rsquo;ai pas atteint 70%&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">En r&eacute;pondant de nouveau aux questions.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="color: #ffffff; background-color: grey;">PROBL&Egrave;MES TECHNIQUES</span></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Que faire si une page d&rsquo;erreur s&rsquo;affiche&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans un premier temps, rafraichissez la page et v&eacute;rifiez votre connexion internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si le probl&egrave;me persiste, contactez la personne r&eacute;f&eacute;rente de ce service dans votre entreprise et exposez-lui la situation en d&eacute;crivant le probl&egrave;me. Si possible faites une capture d&rsquo;&eacute;cran.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Que faire si je n&rsquo;ai pas de son&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans un premier temps, rafraichissez la page et v&eacute;rifiez votre connexion internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">V&eacute;rifiez &eacute;galement que le son de notre ordinateur n&rsquo;est pas coup&eacute;.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si le probl&egrave;me persiste, contactez la personne r&eacute;f&eacute;rente de ce service dans votre entreprise et exposez-lui la situation en d&eacute;crivant le probl&egrave;me.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><strong>Que faire si la vid&eacute;o ne se lance pas&nbsp;?</strong></p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Dans un premier temps, rafraichissez la page et v&eacute;rifiez votre connexion internet.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">Si le probl&egrave;me persiste, contactez la personne r&eacute;f&eacute;rente de ce service dans votre entreprise et exposez-lui la situation en d&eacute;crivant le probl&egrave;me. Si possible faites une capture d&rsquo;&eacute;cran.</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+  
+  % endif
 </section>
 </main>
