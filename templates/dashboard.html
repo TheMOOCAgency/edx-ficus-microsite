@@ -228,11 +228,19 @@ endfor
     <!-- assignement type -->
     <div class="dashboard_profile_bottom_middle">
       <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-       %if n.get('weight')==0:
-          optionnel
-       %else:
-          poids: ${int(n.get('weight') * 100)}%
-       %endif
+        %if n.get('weight')==0:
+        optionnel
+      %else:
+        %if request.LANGUAGE_CODE == 'de-de' :
+          Gewicht: ${int(n.get('weight') * 100)}%
+        % elif request.LANGUAGE_CODE == 'es-419' :
+          Peso: ${int(n.get('weight') * 100)}%
+        % elif request.LANGUAGE_CODE == 'en' :
+          Weight: ${int(n.get('weight') * 100)}%
+        else:
+          Poids: ${int(n.get('weight') * 100)}%
+        %endif
+      %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
     % if mark < course_details_len:
