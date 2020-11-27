@@ -105,7 +105,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
   % else:
+    %if request.LANGUAGE_CODE == 'de-de':
+    Start  ${course_overview.start.strftime("%d/%b/%Y")}
+    %else:
     ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
+    % endif
   % endif
 % endif
 
@@ -117,7 +121,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
     </div>
     <div class="dashboard_button">
 % if cours_ouv:
-      <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+  %if request.LANGUAGE_CODE == 'de-de':
+  <a href="/dashboard/${course_overview.id}/">Dashboard anzeigen</a>
+  %else:
+  <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
+  % endif
 % endif
     </div>
     <span style="display:block;clear:left"></span>

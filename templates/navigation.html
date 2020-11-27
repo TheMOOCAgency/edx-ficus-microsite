@@ -253,7 +253,9 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+%if LANGUAGE_CODE != 'de-de' :
 <script src="${static.url('js/translate.js')}"></script>
+%endif
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():
   <%
