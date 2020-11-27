@@ -169,7 +169,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
         </nav>
       </div>
     </div>
-    <div class="addthis_inline_share_toolbox"></div>
+    <!-- <div class="addthis_inline_share_toolbox"></div> -->
     </div>
 
 % endif
@@ -485,8 +485,15 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
    color :  ${custom_color} !important;
    font-weight : 400!important;
  }
+ .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover {
+  background-color: rgba(128,159,241,0.5) !important;
+  transition-duration: 0.3s
+ }
+ .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a {
+  background-color: rgba(128,159,241,1) !important;
+ }
  .menu-item.active>.accordion-nav>.accordion-display-name{
-    color :  ${custom_color} !important;
+    color :  rgb(255, 255, 255) !important;
  }
  #global-navigation .burger{
     color :  ${color_custom} !important;

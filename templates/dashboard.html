@@ -159,62 +159,6 @@ endfor
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     %>
 
-    <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
-      <!-- formation validé -->
-      <div id="dashboard_profile_middle_up">
-        % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-        % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
-        % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-        % endif
-      </div>
-      <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
-      </div>
-      <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
-        % if forum_tma:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
-        % elif cours_ouv:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
-        % else:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
-        % endif
-      </div>
-    </div>
-    <!-- block bottom profil -->
-    <div class="dashboard_profile" id="dashboard_profile_bottom">
-      <!-- note totale -->
-      <div id="dashboard_profile_bottom_up">
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
-      </div>
-  <%
-  course_details_len = len(course_details)
-  mark = 0
-  %>
-  % for n in course_details:
-    <% mark = mark + 1 %>
-    <!-- assignement type -->
-    <div class="dashboard_profile_bottom_middle">
-      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-       %if n.get('weight')==0:
-          optionnel
-       %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
-       %endif
-      )</span></span><span id="assignment_grade_${mark}">0%</span>
-    </div>
-    % if mark < course_details_len:
-    <!-- border middle -->
-    <div class="dashboard_profile_bottom_middle_border">
-    </div>
-    % endif
-  % endfor
-  </div>
-
   <!-- TMA Ficus Redesign -->
   <%
   custom_color = str(configuration_helpers.get_value('primary_color'))
