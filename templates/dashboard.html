@@ -146,11 +146,28 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   """
 endfor
 %>
-    <div class="dashboard_profile" id="dashboard_profile_up">
+
+
+% if request.path == '/dashboard' :
+  <% 
+  profile_class = 'profile_class'
+  %>
+% else :
+  <% 
+  profile_class = 'none'
+  %>
+% endif
+
+<p>${profile_class}</p>
+
+    <div class="dashboard_profile ${profile_class}" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
       <h4>${user.email}</h4>
     </div>
+
+
+
 % if len(course_enrollments) == 1:
     <%
     for enrollment in course_enrollments:
@@ -654,4 +671,20 @@ $(window).initialize(function(){
     box-sizing: border-box;
     transition: all 0.1s linear 0s;
   }
+
+  #title_dashboard_course h1{
+    background-color: #fff !important;
+  }
+  #course_nav a {
+    background-color: white !important;
+  }
+
+  .none{
+    background-color: #fff !important;
+  }
+
+  #profile_bottom_multi h3 {
+    background-color:rgb(180, 232, 222);
+}
+
  </style>

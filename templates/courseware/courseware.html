@@ -117,6 +117,7 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" href="/media/microsite/bnpp-netexplo/css/courseware.css">
 <div class="message-banner" aria-live="polite"></div>
 
 % if default_tab:
@@ -363,6 +364,7 @@ $(".bookmarks-empty-detail-title").initialize(function(){
   } 
   .course-index .accordion .course-navigation .button-chapter.active .group-heading {
     color: #000;
+    background-color: white !important;
   }
   .fa-caret-right:before, .fa-caret-down:before {
     color: #000 !important;
@@ -403,4 +405,5 @@ $(".bookmarks-empty-detail-title").initialize(function(){
   .xmodule_display.xmodule_SequenceModule .sequence-nav ol {
     background-color: rgb(206, 206, 206)!important;
   }
+
 </style>
