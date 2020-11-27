@@ -158,8 +158,6 @@ endfor
   %>
 % endif
 
-<p>${profile_class}</p>
-
     <div class="dashboard_profile ${profile_class}" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
@@ -684,7 +682,7 @@ $(window).initialize(function(){
   }
 
   #profile_bottom_multi h3 {
-    background-color:rgb(180, 232, 222);
+    background-color:#9be7d8
 }
 
  </style>
