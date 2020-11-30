@@ -21,7 +21,6 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
   <header class="page_header">
 
-
     <!-- burger menu -->
     <div id="menuToggle">
       <input type="checkbox" />
@@ -280,34 +279,9 @@ $(".btn-login").each(function(){
 </script>
 % endif
 
-<style>
-  /*LANGUAGE FLAGS*/
-  .language-selector {
-    display: none;
-  }
-  #lang-content {
-    width: 60px;
-    height: 24px;
-  }
-  #lang-content img{
-    width: 25px;
-  }
-</style>
 
 
 
-<script>
-  //LANGUAGE FLAGS
-  $('#us').on('click', function() {
-    $('#settings-language-value > option[value="en"]').attr('selected','selected');
-    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
-  }
-  );
-  $('#es').on('click', function() {
-    $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
 
-  }
 
-  );
-</script>
+
