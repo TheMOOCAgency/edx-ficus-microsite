@@ -102,15 +102,15 @@ cours_ouv = show_courseware_link and not is_course_blocked
 -->
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
-    Disponible depuis le ${course_overview.start.strftime("%d/%d/%Y")}
+    Commence le ${course_overview.start.strftime("%d/%m/%Y")}
   % else:
-    ${_("start")}  ${course_overview.start.strftime("%d/%d/%Y")}
+    ${_("start")}  ${course_overview.start.strftime("%d/%m/%Y")}
   % endif
 % endif
 
 % if course_overview.end is not None:
   <span></span>
-  ${_("end")}  ${course_overview.end.strftime("%d/%d/%Y")}
+  ${_("end")}  ${course_overview.end.strftime("%d/%m/%Y")}
 % endif
       </div>
     </div>
