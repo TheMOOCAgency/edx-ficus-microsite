@@ -237,7 +237,7 @@ endfor
             Peso: ${int(n.get('weight') * 100)}%
           % elif request.LANGUAGE_CODE == 'en' :
             Weight: ${int(n.get('weight') * 100)}%
-          else:
+          % else:
             Poids: ${int(n.get('weight') * 100)}%
           %endif
         %endif
