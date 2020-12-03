@@ -63,25 +63,25 @@ background_url = configuration_helpers.get_value('bg_img')
   }
 
   .certificate-container_manager{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/manager_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/manager_fr.png');
   }
   .certificate-container_socialschool{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/socialschool_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/socialschool_fr.png');
   }
 
   .certificate-container_data-ia{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/data_ia_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/data_ia_fr.png');
   }
 
   .certificate-container_expedition{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/expeditions_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/expeditions_fr.png');
   }
   .certificate-container_passeport{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/passeportnumerique_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/passeportnumerique_fr.png');
   }
 
   .certificate-container_voyages{
-    background-image: url('/media/microsite/edf-netexploacademy/images/certificate/voyages_fr.png');
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/voyages_fr.png');
   }
 
   #pdf-btn-wrapper{
@@ -127,8 +127,8 @@ background_url = configuration_helpers.get_value('bg_img')
 
   .logo_company_voyages{
     position: relative;
-    top: 81px;
-    left: 679px;
+    top: 67px;
+    left: 39px;
     width: 130px;
   }
 
@@ -139,7 +139,7 @@ background_url = configuration_helpers.get_value('bg_img')
     width: 130px;
   }
 
-  .user_name{
+  #user_name{
     position: relative;
     top: 75px;
     left: 329px;
@@ -182,8 +182,8 @@ background_url = configuration_helpers.get_value('bg_img')
     position: relative;
     font-size: 0.9em;
     font-weight: bold;
-    top: 307px;
-    left: 201px;
+    top: 282px;
+    left: 216px;
   }
 
   .date_today_expedition{
@@ -207,48 +207,48 @@ background_url = configuration_helpers.get_value('bg_img')
   % if request.path == '/tma_apps/course-v1:netexplo+Netexplo_passeport+2018_T2_passeport/certificate/render' : 
     <div id="certificate-container" class=" certificate-container_passeport">
       <div>
-          <img class="logo_company" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+parcours-manager-fr+parcours-manager-fr/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager">
       <div>
-          <img class="logo_company_manager" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company_manager" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today_manager">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+FR+V1/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia">
       <div>
-          <img class="logo_company_data-ia" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company_data-ia" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today_data-ia">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_expedition+2018_T2_expedition/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition">
       <div>
-          <img class="logo_company_expedition" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company_expedition" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today_expedition">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_voyages+2018_T2_voyages/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages">
       <div>
-          <img class="logo_company_voyages" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company_voyages" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today_voyages">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+socialschoolfr+SSFR/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool">
       <div>
-          <img class="logo_company_socialschool" src="/media/microsite/edf-netexploacademy/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
+          <img class="logo_company_socialschool" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 id="user_name">${first_name} ${last_name}</h3>
         <h4 class= "date_today_socialschool">${date.today().strftime("%d %B %Y")}</h4>
       </div>
     </div>
