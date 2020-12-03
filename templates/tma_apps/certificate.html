@@ -38,47 +38,56 @@ background_url = configuration_helpers.get_value('bg_img')
   #certificate-wrapper{
     background: white;
   }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
-  }
+
+
   #custom-btn{
     background: ${primary_color};
     border: none;
     box-shadow: none;
     text-shadow: none;
   }
-  #internal-border{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background: white;
-  }
+
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: contain;
   }
-  #certificate-container{
+  #certificate-container {
     width:854px;
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-size: contain;
   }
+
+  .certificate-container_manager{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/manager_fr.png');
+  }
+  .certificate-container_socialschool{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/socialschool_fr.png');
+  }
+
+  .certificate-container_data-ia{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/data_ia_fr.png');
+  }
+
+  .certificate-container_expedition{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/expeditions_fr.png');
+  }
+  .certificate-container_passeport{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/passeportnumerique_fr.png');
+  }
+
+  .certificate-container_voyages{
+    background-image: url('/media/microsite/edf-netexplo/images/certificate/voyages_fr.png');
+  }
+
   #pdf-btn-wrapper{
     padding: 15px
   }
-  #certificate-title{
-    text-transform: uppercase;
-  }
+
   #noCertificateMessage{
     background: white;
     height: calc(100vh - 133px);
@@ -86,6 +95,103 @@ background_url = configuration_helpers.get_value('bg_img')
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+
+  .logo_company{
+    position: relative;
+    top: 48px;
+    left: 682px;
+    width: 130px;
+  }
+
+  .logo_company_manager{
+    position: relative;
+    top: 69px;
+    left: 674px;
+    width: 130px;
+  }
+
+  .logo_company_socialschool{
+    position: relative;
+    top: 99px;
+    left: 673px;
+    width: 130px;
+  }
+
+  .logo_company_data-ia{
+    position: relative;
+    top: 81px;
+    left: 679px;
+    width: 130px;
+  }
+
+  .logo_company_voyages{
+    position: relative;
+    top: 81px;
+    left: 679px;
+    width: 130px;
+  }
+
+  .logo_company_expedition{
+    position: relative;
+    top: 90px;
+    left: 46px;
+    width: 130px;
+  }
+
+  .user_name{
+    position: relative;
+    top: 75px;
+    left: 329px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+  .date_today{
+    position: relative;
+    top: 287px;
+    left: 194px;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  .date_today_manager{
+    position: relative;
+    font-size: 0.9em;
+    font-weight: bold;
+    top: 274px;
+    left: 228px;
+  }
+
+  .date_today_socialschool{
+    position: relative;
+    font-size: 0.9em;
+    font-weight: bold;
+    top: 286px;
+    left: 201px;
+  }
+
+  .date_today_data-ia{
+    position: relative;
+    font-size: 0.9em;
+    font-weight: bold;
+    top: 284px;
+    left: 201px;
+  }
+
+  .date_today_voyages{
+    position: relative;
+    font-size: 0.9em;
+    font-weight: bold;
+    top: 307px;
+    left: 201px;
+  }
+
+  .date_today_expedition{
+    position: relative;
+    font-size: 0.9em;
+    font-weight: bold;
+    top: 283px;
+    left: 216px;
   }
 </style>
 
@@ -98,21 +204,55 @@ background_url = configuration_helpers.get_value('bg_img')
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-  <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
-          </div>
-          <div>
-          </div>
+  % if request.path == '/tma_apps/course-v1:netexplo+Netexplo_passeport+2018_T2_passeport/certificate/render' : 
+    <div id="certificate-container" class=" certificate-container_passeport">
+      <div>
+          <img class="logo_company" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today">${date.today().strftime("%d %B %Y")}</h4>
       </div>
-  </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+parcours-manager-fr+parcours-manager-fr/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_manager">
+      <div>
+          <img class="logo_company_manager" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_manager">${date.today().strftime("%d %B %Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+FR+V1/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_data-ia">
+      <div>
+          <img class="logo_company_data-ia" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_data-ia">${date.today().strftime("%d %B %Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_expedition+2018_T2_expedition/certificate/render' :
+    <div id="certificate-container" class="certificate-container_expedition">
+      <div>
+          <img class="logo_company_expedition" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_expedition">${date.today().strftime("%d %B %Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_voyages+2018_T2_voyages/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_voyages">
+      <div>
+          <img class="logo_company_voyages" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_voyages">${date.today().strftime("%d %B %Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+socialschoolfr+SSFR/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_socialschool">
+      <div>
+          <img class="logo_company_socialschool" src="/media/microsite/edf-netexplo/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_socialschool">${date.today().strftime("%d %B %Y")}</h4>
+      </div>
+    </div>
+  % endif
 </div>
 %else:
   <div id="noCertificateMessage">
