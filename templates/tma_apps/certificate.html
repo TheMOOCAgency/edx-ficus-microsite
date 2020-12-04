@@ -24,9 +24,19 @@ org = static.get_value('domain_prefix')
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
 <!-- COMMON STYLE-->
+
 <style>
+
+@font-face {
+      font-family: inteloFamilyMedium;
+      src: url("/media/microsite/${org}/fonts/inteloAltMedium.otf");
+    }
+    @font-face {
+      font-family: inteloFamilyLight;
+      src: url("/media/microsite/${org}/fonts/inteloLight.otf");
+    }
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: "inteloFamilyMedium"
   }
   p{
     padding:10px
@@ -108,6 +118,51 @@ org = static.get_value('domain_prefix')
     background-image: url('/media/microsite/${org}/images/certificate/voyages_en.png');
   }
 
+  /* spanish background */
+  .certificate-container_manager_es{
+    background-image: url('/media/microsite/${org}/images/certificate/manager_es.png');
+  }
+  .certificate-container_socialschool_es{
+    background-image: url('/media/microsite/${org}/images/certificate/socialschool_es.png');
+  }
+
+  .certificate-container_data-ia_es{
+    background-image: url('/media/microsite/${org}/images/certificate/data_ia_es.png');
+  }
+
+  .certificate-container_expedition_es{
+    background-image: url('/media/microsite/${org}/images/certificate/expeditions_es.png');
+  }
+  .certificate-container_passeport_es{
+    background-image: url('/media/microsite/${org}/images/certificate/passeportnumerique_es.png');
+  }
+  .certificate-container_voyages_es{
+    background-image: url('/media/microsite/${org}/images/certificate/voyages_es.png');
+  }
+
+    /* german background */
+    .certificate-container_manager_de{
+    background-image: url('/media/microsite/${org}/images/certificate/manager_de.png');
+  }
+  .certificate-container_socialschool_de{
+    background-image: url('/media/microsite/${org}/images/certificate/socialschool_de.png');
+  }
+
+  .certificate-container_data-ia_de{
+    background-image: url('/media/microsite/${org}/images/certificate/data_ia_de.png');
+  }
+
+  .certificate-container_expedition_de{
+    background-image: url('/media/microsite/${org}/images/certificate/expeditions_de.png');
+  }
+  .certificate-container_passeport_de{
+    background-image: url('/media/microsite/${org}/images/certificate/passeportnumerique_de.png');
+  }
+  .certificate-container_voyages_de{
+    background-image: url('/media/microsite/${org}/images/certificate/voyages_de.png');
+  }
+
+
   #pdf-btn-wrapper{
     padding: 15px
   }
@@ -163,17 +218,66 @@ org = static.get_value('domain_prefix')
     width: 130px;
   }
 
-  #user_name{
+  .user_name{
     position: relative;
-    top: 75px;
-    left: 329px;
+    top: 55px;
+    left: 315px;
     font-size: 1.5em;
     text-transform: uppercase;
     text-decoration: underline;
   }
+
+  .user_name_voyages{
+    position: relative;
+    top: 52px;
+    left: 312px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .user_name_data-ia{
+    position: relative;
+    top: 85px;
+    left: 316px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .user_name_manager{
+    position: relative;
+    top: 56px;
+    left: 314px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .user_name_expedition{
+    position: relative;
+    top: 55px;
+    left: 316px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .user_name_socialschool{
+    position: relative;
+    top: 56px;
+    left: 316px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+
+
+  
   .date_today{
     position: relative;
-    top: 287px;
+    top: 286px;
     left: 194px;
     font-size: 0.9em;
     font-weight: bold;
@@ -198,7 +302,7 @@ org = static.get_value('domain_prefix')
     position: relative;
     font-size: 0.9em;
     font-weight: bold;
-    top: 284px;
+    top: 283px;
     left: 201px;
   }
 
@@ -214,7 +318,7 @@ org = static.get_value('domain_prefix')
     position: relative;
     font-size: 0.9em;
     font-weight: bold;
-    top: 283px;
+    top: 282px;
     left: 216px;
   }
 </style>
@@ -232,48 +336,48 @@ org = static.get_value('domain_prefix')
     <div id="certificate-container" class=" certificate-container_passeport">
       <div>
           <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name">${first_name} ${last_name}</h3>
+        <h4 class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+parcours-manager-fr+parcours-manager-fr/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_manager">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_manager">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+FR+V1/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_data-ia">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_manager">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_data-ia">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_expedition+2018_T2_expedition/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_expedition">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_expedition">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_expedition">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+Netexplo_voyages+2018_T2_voyages/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_voyages">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_voyages">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_voyages">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+socialschoolfr+SSFR/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 id="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_socialschool">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_socialschool">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_socialschool">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
 
@@ -284,23 +388,23 @@ org = static.get_value('domain_prefix')
     <div>
         <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
       <h3 class="user_name">${first_name} ${last_name}</h3>
-      <h4 class= "date_today">${date.today().strftime("%d %B %Y")}</h4>
+      <h4 style="left: 200px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
     </div>
   </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+manager+manager-en/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager_en">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_manager">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_manager">${first_name} ${last_name}</h3>
+        <h4 style="left: 231px;" class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
   % elif request.path == '/tma_apps/course-v1:netexplo+EN+V1/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia_en">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_data-ia">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 style="top: 66px;" class="user_name_data-ia">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_data-ia">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
 
@@ -308,8 +412,8 @@ org = static.get_value('domain_prefix')
     <div id="certificate-container" class="certificate-container_expedition_en">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_expedition">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_expedition">${first_name} ${last_name}</h3>
+        <h4 style="left: 223px;" class= "date_today_expedition">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
 
@@ -317,8 +421,8 @@ org = static.get_value('domain_prefix')
     <div id="certificate-container" class=" certificate-container_voyages_en">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_voyages">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_voyages">${first_name} ${last_name}</h3>
+        <h4 style="left: 224px;" class= "date_today_voyages">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
 
@@ -326,10 +430,119 @@ org = static.get_value('domain_prefix')
     <div id="certificate-container" class=" certificate-container_socialschool_en">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
-        <h3 class="user_name">${first_name} ${last_name}</h3>
-        <h4 class= "date_today_socialschool">${date.today().strftime("%d %B %Y")}</h4>
+        <h3 class="user_name_socialschool">${first_name} ${last_name}</h3>
+        <h4 style="left: 210px;" class= "date_today_socialschool">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
+
+        <!-- spanish section -->
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+12+ES/certificate/render' :
+  <div id="certificate-container" class=" certificate-container_passeport_es">
+    <div>
+        <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+      <h3 class="user_name">${first_name} ${last_name}</h3>
+      <h4 style="top: 287px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
+    </div>
+  </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+manager+manager-es/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_manager_es">
+      <div>
+          <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_manager">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+data_ia+2020_ES/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_data-ia_es">
+      <div>
+          <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 style="top: 65px;" class="user_name_data-ia">${first_name} ${last_name}</h3>
+        <h4 style="top: 284px;" class= "date_today_data-ia">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+expeditions+2020_es/certificate/render' :
+    <div id="certificate-container" class="certificate-container_expedition_es">
+      <div>
+          <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_expedition">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_expedition">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+travel+2020_es/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_voyages_es">
+      <div>
+          <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_voyages">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_voyages">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+socialschooles+SSES/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_socialschool_es">
+      <div>
+          <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_socialschool">${first_name} ${last_name}</h3>
+        <h4 class= "date_today_socialschool">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+      <!-- german section -->
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+13+DE/certificate/render' :
+  <div id="certificate-container" class=" certificate-container_passeport_de">
+    <div>
+        <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+      <h3 class="user_name">${first_name} ${last_name}</h3>
+      <h4 style="top: 289px;left: 175px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
+    </div>
+  </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+manager+manager-de/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_manager_de">
+      <div>
+          <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_manager">${first_name} ${last_name}</h3>
+        <h4 style="top: 259px;left: 242px;" class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+  % elif request.path == '/tma_apps/course-v1:netexplo+data_ia+2020_DE/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_data-ia_de">
+      <div>
+          <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_data-ia">${first_name} ${last_name}</h3>
+        <h4 style="left: 178px;top: 285px;" class= "date_today_data-ia">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+expeditions+2020_de/certificate/render' :
+    <div id="certificate-container" class="certificate-container_expedition_de">
+      <div>
+          <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_expedition">${first_name} ${last_name}</h3>
+        <h4 style="left: 196px;" class= "date_today_expedition">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+travel+2020_de/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_voyages_de">
+      <div>
+          <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_voyages">${first_name} ${last_name}</h3>
+        <h4 style="top: 285px;left: 199px;" class= "date_today_voyages">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
+  % elif request.path == '/tma_apps/course-v1:netexplo+socialschoolde+SSDE/certificate/render' :
+    <div id="certificate-container" class=" certificate-container_socialschool_de">
+      <div>
+          <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
+        <h3 class="user_name_socialschool">${first_name} ${last_name}</h3>
+        <h4 style="left: 184px;" class= "date_today_socialschool">${date.today().strftime("%d/%m/%Y")}</h4>
+      </div>
+    </div>
+
   % endif
 </div>
 %else:
