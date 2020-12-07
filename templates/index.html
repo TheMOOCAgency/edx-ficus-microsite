@@ -28,9 +28,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <span></span>
       <span></span>
       <ul id="menu_burger">
-        <a href="#"><li class="navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
-        <a href="/about"><li class="navigation_list_element nav_button login_button" >Certificat</li></a>
-        <a href="${marketing_link('FAQ')}"><li class="navigation_list_element nav_button register_button">F.A.Q</li></a>
+        <a class="nav_list_buttons" href="#"><li class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+        <a class="nav_list_buttons" href="/about"><li class=" navigation_list_element nav_button login_button" >Certificat</li></a>
+        <a class="nav_list_buttons" href="${marketing_link('FAQ')}"><li class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
         <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
         <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
       </ul>
@@ -40,8 +40,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
     <div class="page_header_logo"> 
       <img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo">
-      <img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/afrique_logo.png" alt="MOOC Afrique logo">
-      <img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo">
+      <a href="https://moocs-afrique.epfl.ch/"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.jpg" alt="MOOC Afrique logo"></a>
+      <a href="http://www.usenghor-francophonie.org/"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
 
     </div>
     <div class="page_header_flag">
@@ -58,7 +58,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             <li class="navigation_list_element"><a href="#">MOOC Partenaires</a></li>
             <li class="navigation_list_element"><a href="/about">Certificat</a></li>
             <li class="navigation_list_element"><a href="${marketing_link('FAQ')}">F.A.Q</a></li>
-            <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a href="/register">Créer un compte</a></li>
+            <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
             <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
         </nav>
@@ -92,7 +92,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           <div id="course_list_elements">
 
           <section class="courses-container">
-            <section class="highlighted-courses">
+            <section class="highlighted-courses highlighted-courses-essentials">
 
                 <section class="courses">
                   <ul class="courses-listing">
@@ -187,7 +187,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                 MOOC Conservation est un site dédié aux cours en ligne sur la conservation de la nature, développés par l’UICN-PAPACO (Programme aires protégées d’Afrique et conservation, de l’Union internationale pour la conservation de la nature) et ses partenaires. Ces cours sont entièrement gratuits et tout le monde peut s’inscrire et participer.
               </p>
             </div>
-            <img class="footer_icon" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo">
+            <a href="https://papaco.org/fr/"><img class="footer_icon" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
           </div>
 
           <div class="footer_menu_and_sm footer_div">
@@ -195,8 +195,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               <p class="footer_title"> Menu </p>
               <div class="footer_list">
                 <ol class="footer_list_nav"></ol>
-                  <li class="footer_list_element"><a href="#">Nos MOOC</a></li>
-                  <li class="footer_list_element"><a href="#">MOOC partenaires</a></li>
+                  <li class="footer_list_element"><a href="/#course_container">Nos MOOC</a></li>
+                  <li class="footer_list_element"><a href="/tos">MOOC partenaires</a></li>
                   <li class="footer_list_element"><a href="/about">Certificat</a></li>
                   <li class="footer_list_element"><a href="${marketing_link('FAQ')}">F.A.Q</a></li>
                   <li class="footer_list_element"><a href="#">Site en anglais</a></li>
@@ -229,14 +229,14 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+application-loi+2021_T1/about">MOOC Application des lois</a></li>
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+conservations-especes+2021_T1/about">MOOC Conservation des espèces</a></li>
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+valorisation-aires+2021_T1/about">MOOC Valorisation des ressources & tourisme durable</a></li>
-                <li class="footer_list_element"><a href="#">MOOC Nouvelles technologies</a></li>
+                <li class="footer_list_element"><a href="/course-v1:mooc-conservation+nouvelles-technologies+2021_T1">MOOC Nouvelles technologies</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Développement durable</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Aires marines protégées</a></li>
               </ol>
             </div>
 
           </div>
-          <img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo">
+          <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
         </div>
 
     </section>
