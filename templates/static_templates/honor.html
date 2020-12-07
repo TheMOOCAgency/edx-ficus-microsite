@@ -26,15 +26,90 @@ main {
  background-color: #fff;
 }
 </style>
-<main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("Honor Code")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-  <section class="static-container honor">
-  ${_template | n}
-  </section>
-
-</main>
+ <main id="main" aria-label="Content" tabindex="-1">
+ 
+   % if request.LANGUAGE_CODE == 'en':
+ 
+     <section class="static-container honor">
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><span style="font-size: medium;"><strong>Academy Netexplo Terms and Conditions</strong></span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">netexplo.academy publisher</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">HAPPENINGCO<br /> The simplified joint-stock company with a capital of 148, 092,60 euros</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Head office: 264, rue de Faubourg Saint-Honor&eacute;, 75008 Paris<br /> RCS Paris (Companies Register): 447 906 000 33<br /> Tel: 01 45 01 60 00</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">VAT number: FR11447906165</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Publishing Manager: Thierry HAPPE<br /> Website Editor: Flore SEGALEN</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Host: OVH, 19, place Fran&ccedil;oise Dorin, 75017 Paris</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Tel:&nbsp;: </span><span style="color: #0000ff;"><u><a href="https://www.google.com/search?q=adresse+OVH&amp;oq=adresse+OVH&amp;aqs=chrome..69i57j0l7.3334j1j4&amp;sourceid=chrome&amp;ie=UTF-8"><span style="color: #660099;"><span style="font-family: Arial, serif;"><span style="font-size: medium;"><span style="background: #ffffff;">09 55 00 66 33</span></span></span></span></a></u></span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Date created: 1st January 2016</span></p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+       <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Updated: 6th November 2020</span></p>
+     </section>
+ 
+   % elif request.LANGUAGE_CODE == 'es-419':
+ 
+   <section class="static-container honor"> 
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><span style="font-size: medium;"><strong>Aviso legal de Academy Netexplo</strong></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">La sociedad editora del sitio netexplo.academy </span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">HAPPENINGCO<br /> Sociedad por Acciones Simplificada con capital de 148.092,60 euros</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Sede social: 264, rue du Faubourg Saint-Honor&eacute;, 75008 Par&iacute;s<br /> RM de Par&iacute;s: 447&nbsp;906&nbsp;165&nbsp;000 33<br /> Tel.: 01 45 01 60 00</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">N&uacute;mero de IVA intracomunitario: FR11447906165</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Director de la publicaci&oacute;n: Thierry HAPPE<br /> Editora del sitio web: Flore SEGALEN</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Proveedor de alojamiento: OVH, 19, place Fran&ccedil;oise Dorin, 75017 Par&iacute;s</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Tel.&nbsp;: </span><span style="color: #0000ff;"><u><a href="https://www.google.com/search?q=adresse+OVH&amp;oq=adresse+OVH&amp;aqs=chrome..69i57j0l7.3334j1j4&amp;sourceid=chrome&amp;ie=UTF-8"><span style="color: #660099;"><span style="font-family: Arial, serif;"><span style="font-size: medium;"><span style="background: #ffffff;">09 55 00 66 33</span></span></span></span></a></u></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Fecha de creaci&oacute;n: 1 de enero de 2016</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Actualizaci&oacute;n: 6 de noviembre de 2020</span></p>
+ 
+   </section>
+ 
+   #% elif request.LANGUAGE_CODE == 'de-de':
+ 
+   <section class="static-container honor"> 
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><span style="font-size: medium;"><strong>Impressum Academy Netexplo</strong></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Herausgeber der Website netexplo.academy</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">HAPPENINGCO<br /> Vereinfachte Aktiengesellschaft mit einem Kapital von 148.092,60 Euro</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Hauptsitz: 264, rue du Faubourg Saint-Honor&eacute;, 75008 Paris<br /> RCS Paris: 447&nbsp;906&nbsp;165&nbsp;000 33<br /> Tel: 01 45 01 60 00</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Umsatzsteuer-Identifikationsnummer: FR11447906165</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Herausgeber: Thierry HAPPE<br /> Betreiber der Website: Flore SEGALEN</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Host: OVH, 19, place Fran&ccedil;oise Dorin, 75017 Paris</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Tel.&nbsp;: </span><span style="color: #0000ff;"><u><a href="https://www.google.com/search?q=adresse+OVH&amp;oq=adresse+OVH&amp;aqs=chrome..69i57j0l7.3334j1j4&amp;sourceid=chrome&amp;ie=UTF-8"><span style="color: #660099;"><span style="font-family: Arial, serif;"><span style="font-size: medium;"><span style="background: #ffffff;">09 55 00 66 33</span></span></span></span></a></u></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Erstellungsdatum: 01. Januar 2016</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Aktualisierung: 6. November 2020</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+   </section>
+ 
+   % else :
+   
+   <section class="static-container honor"> 
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;" align="center"><span style="font-size: medium;"><strong>Mentions L&eacute;gales Academy Netexplo</strong></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">La soci&eacute;t&eacute; &eacute;ditrice du site netexplo.academy&nbsp;</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">HAPPENINGCO<br /> Soci&eacute;t&eacute; par Actions Simplifi&eacute;e au capital de 148&nbsp;092,60 euros</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Si&egrave;ge social&nbsp;: 264, rue du Faubourg Saint-Honor&eacute;, 75008 Paris<br /> RCS Paris&nbsp;: 447&nbsp;906&nbsp;165&nbsp;000 33<br /> T&eacute;l&nbsp;: 01 45 01 60 00</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Num&eacute;ro individuel d&rsquo;identification de TVA&nbsp;: FR11447906165</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Directeur de la Publication : Thierry HAPPE<br /> Editrice du Site web&nbsp;: Flore SEGALEN</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">H&eacute;bergeur : OVH, 19, place Fran&ccedil;oise Dorin, 75017 Paris</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">T&eacute;l.&nbsp;: </span><span style="color: #0000ff;"><u><a href="https://www.google.com/search?q=adresse+OVH&amp;oq=adresse+OVH&amp;aqs=chrome..69i57j0l7.3334j1j4&amp;sourceid=chrome&amp;ie=UTF-8"><span style="color: #660099;"><span style="font-family: Arial, serif;"><span style="font-size: medium;"><span style="background: #ffffff;">09 55 00 66 33</span></span></span></span></a></u></span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Date de cr&eacute;ation : 1er janvier 2016</span></p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;">&nbsp;</p>
+     <p class="western" style="margin-bottom: 0cm; line-height: 100%;"><span style="font-size: medium;">Mise &agrave; jour&nbsp;: 6 novembre 2020</span></p>
+   </section>
+ 
+   % endif
+ 
+ </main>
