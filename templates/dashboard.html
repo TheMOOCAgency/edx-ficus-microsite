@@ -240,8 +240,9 @@ endfor
 
 
 <script type="text/javascript">
-grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
+var grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
 j=1;
+var grade_to_show
 for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
  if(grade_summary['section_breakdown'][i].prominent){
   grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
@@ -253,7 +254,8 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
   j=j+1;
  }
 }
-$("#score_tma").html(grade_summary['percent']*100+" %");
+grade_to_show = parseInt(grade_summary['percent']*100);
+$("#score_tma").html(grade_to_show+" %");
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
