@@ -102,43 +102,158 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
     }
 </style>
 <!--===== Footer ====-->
+% if request.LANGUAGE_CODE == 'en':
+
 <footer class="global">
     <div class="footer-container">
         <div class="footer-about">
-            <h5 class="about_fa">&nbsp;&nbsp;À propos</h5>
-            <ul><il>Un tour du monde digital via l’Academy, une plateforme dédiée multi niveaux, c’est la solution culture numérique
-                pour toutes et tous dans l’entreprise. Essentiel pour sa vie professionnelle. Et aussi pour sa culture perso
-                ;)</li></ul>
+            <h5 class="about_fa">&nbsp;&nbsp;About</h5>
+            <ul><li>The Academy is a digital trip around the world through a series of educational videos that explore new technologies and their uses. This learning experience is aimed at all employees, and is key to building an invaluable digital culture both at work and in our personal lives.</li></ul>
         </div>
 
         <div class="footer-faq">
-            <h5 class="faq_fa">&nbsp;&nbsp;Foire aux questions</h5>
+            <h5 class="faq_fa"><a style="margin-left: 7px;" href="/faq">&nbsp;&nbsp;Frequently asked questions</a></h5>
             <ul>
                 <li>
-                    <a href="/pages/faq">Comment m’inscrire et me connecter ?</a>
+                    <a href="/faq">What is Netexplo Academy and what does it consist of?</a>
                 </li>
                 <li>
-                    <a href="/pages/faq">Comment obtenir mon passeport ?</a>
+                    <a href="/faq">How do I sign up and log in?</a>
                 </li>
                 <li>
-                    <a href="/pages/faq">Comment obtenir un visa ?</a>
+                    <a href="/faq">What should I do if I can't log in?  </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-legal">
+            <h5 class="legal_fa">&nbsp;&nbsp;Legal</h5>
+            <ul> 
+                <li><a href="/tos">TCU</a></li>
+                <li><a href="/privacy">Privacy policiy</a></li>
+                <li><a href="/honor">Terms and conditions</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="links">
+    © 2018 Netexplo <br class="mobilOnly" />
+    </div>
+</footer>
+
+% elif request.LANGUAGE_CODE == 'de-de':
+
+<footer class="global">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h5 class="about_fa">&nbsp;&nbsp;Über uns</h5>
+            <ul><li>Eine digitale Weltreise durch die Académie, eine spezifische Plattform mit unterschiedlichen Stufen, es ist die digitale Kultur-Lösung für alle in der Firma. Notwendig für das professionelle Leben. Und auch für das persönliche Wissen ;)</li></ul>
+        </div>
+
+        <div class="footer-faq">
+            <h5 class="faq_fa"><a style="margin-left: 7px;" href="/faq">&nbsp;&nbsp;Häufig gestellte Fragen</a></h5>
+            <ul>
+                <li>
+                    <a href="/faq">Was ist die Netexplo Academy und was beinhaltet sie?</a>
                 </li>
                 <li>
-                    <a href="/pages/faq">Puis-je changer de langue/sous-titres ?</a>
+                    <a href="/faq">Wie registriere ich mich und melde mich an?</a>
+                </li>
+                <li>
+                    <a href="/faq">Was ist, wenn ich mich nicht anmelden kann? </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-legal">
+            <h5 class="legal_fa">&nbsp;&nbsp;Legal</h5>
+            <ul> 
+                <li><a href="/tos">ALLGEMEINE NUTZUNGSBEDINGUNGEN</a></li>
+                <li><a href="/privacy">Datenschutzrichtlinie</a></li>
+                <li><a href="/honor">Impressum</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="links">
+    © 2018 Netexplo <br class="mobilOnly" />
+    </div>
+</footer>
+
+% elif request.LANGUAGE_CODE == 'es-419':
+
+<footer class="global">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h5 class="about_fa">&nbsp;&nbsp;Acerca de</h5>
+            <ul><li>Una recorrido digital por el mundo a través de la Academia, una plataforma dedicada con diferentes niveles y la solución para aportar una cultura digital para todos en las empresas. Esencial para la vida profesional, y también para la personal ;)</li></ul>
+        </div>
+
+        <div class="footer-faq">
+            <h5 class="faq_fa"><a style="margin-left: 7px;" href="/faq">&nbsp;&nbsp;Preguntas frecuentas</a></h5>
+            <ul>
+                <li>
+                    <a href="/faq">¿Qué es la Netexplo Academy y de qué se compone?</a>
+                </li>
+                <li>
+                    <a href="/faq">¿Cómo me inscribo y me conecto?</a>
+                </li>
+                <li>
+                    <a href="/faq">¿Qué hago si no consigo conectarme? </a>
                 </li>
             </ul>
         </div>
         <div class="footer-legal">
             <h5 class="legal_fa">&nbsp;&nbsp;Légal</h5>
             <ul> 
-                <li><a href="/pages/rules">Charte d&#039;utilisation</a></li>
-                <li><a href="/pages/legal">Mentions légales</a></li>
-                <li><a href="mailto:admin@netexploacademy.com?subject=">Contact</a></li>
+                <li><a href="/tos">CONDICIONES GENERALES DE USO</a></li>
+                <li><a href="/privacy">Política de privacidad</a></li>
+                <li><a href="/honor">Aviso legal</a></li>
             </ul>
         </div>
 
     </div>
-      <div class="links">
+    <div class="links">
     © 2018 Netexplo <br class="mobilOnly" />
-      </div>
+    </div>
 </footer>
+
+% else :
+
+    <footer class="global">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h5 class="about_fa">&nbsp;&nbsp;À propos</h5>
+                <ul><li>Un tour du monde digital via l’Academy, une plateforme dédiée multi niveaux, c’est la solution culture numérique
+                    pour toutes et tous dans l’entreprise. Essentiel pour sa vie professionnelle. Et aussi pour sa culture perso
+                    ;)</li></ul>
+            </div>
+
+            <div class="footer-faq">
+                <h5 class="faq_fa"><a style="margin-left: 7px;" href="/faq">&nbsp;&nbsp;Foire aux questions</a></h5>
+                <ul>
+                    <li>
+                        <a href="/faq">Qu’est-ce que l’Academy Netexplo et de quoi est-elle composée ?</a>
+                    </li>
+                    <li>
+                        <a href="/faq">Comment m’inscrire et me connecter ?</a>
+                    </li>
+                    <li>
+                        <a href="/faq">Que faire si je n’arrive pas à me connecter ? </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h5 class="legal_fa">&nbsp;&nbsp;Légal</h5>
+                <ul> 
+                    <li><a href="/tos">CGU</a></li>
+                    <li><a href="/privacy">Politique de confidentialité</a></li>
+                    <li><a href="/honor">Mentions légales</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="links">
+        © 2018 Netexplo <br class="mobilOnly" />
+        </div>
+    </footer>
+
+% endif
