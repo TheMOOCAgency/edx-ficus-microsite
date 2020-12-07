@@ -4,7 +4,11 @@
 <%def name="online_help_token()"><% return "courseware" %></%def>
 <%!
 from django.utils.translation import ugettext as _
-from time import localtime
+
+import locale
+locale.setlocale(locale.LC_TIME,'fr_FR.UTF-8')
+import time
+
 from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
@@ -20,8 +24,6 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <%
 org = static.get_value('domain_prefix')
-month_index = int(date.today().strftime("%m")) - 1
-mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembtre", "Octobre", "Novembre", "Décembre"]
 %>
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
@@ -56,7 +58,7 @@ mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août
   }
   #certificate-container{
     height: 100%;
-padding: 40px;
+  padding: 40px;
     box-sizing: border-box;
     background: white;
     background-image: url('/media/microsite/${org}/certificate/certificate.png');
@@ -115,8 +117,7 @@ margin-top: 12px;
     <h2 class="course">a suivi et réussi la formation en ligne SPOC ACTIA</h2>
     <h2 class="course">&laquo; ${course_name} &raquo;</h2>
     <h3 class="details">Durée totale de 7 heures minimum</h3>
-    <!-- <h3 class="details">Note finale : <span style="margin-left: 1em;">${grades.get('grade')*100} %</span> - Attestation délivrée le ${date.today().strftime("%d %B %Y")} </h3> -->
-    <h3 class="details">Note finale : <span style="margin-left: 1em;">${grades.get('grade')*100} %</span> - Attestation délivrée le ${date.today().strftime("%d")} ${mois[month_index]} ${date.today().strftime("%Y")} </h3>
+    <h3 class="details">Note finale : <span style="margin-left: 1em;">${grades.get('grade')*100} %</span> - Attestation délivrée le ${date.today().strftime("%d %B %Y")} </h3>
   </div>
 </div>
 %else:
