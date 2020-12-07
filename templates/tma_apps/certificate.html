@@ -330,7 +330,10 @@ org = static.get_value('domain_prefix')
 <style>
 
 </style>
-% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+<%
+posted_aware_list = ['/tma_apps/course-v1:netexplo+parcours-manager-fr+parcours-manager-fr/certificate/render','/tma_apps/course-v1:netexplo+manager+manager-en/certificate/render','/tma_apps/course-v1:netexplo+manager+manager-es/certificate/render','/tma_apps/course-v1:netexplo+manager+manager-de/certificate/render']
+%>
+% if grades.get('passed') or tma_verify_access(request.user).is_tma_team() or (request.path in posted_aware_list and grades.get('forum_posts_validated')):
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
