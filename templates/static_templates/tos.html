@@ -11,25 +11,99 @@ from cms.djangoapps.microsite_manager.mongo_model import staticFiles
 from cms.djangoapps.microsite_manager.models import Microsite
 _key = static.get_value('domain_prefix')
 _microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'cgu'
+_collection = 'about'
 _values = {
   "microsite_id":_microsite_id
 }
 _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
-  _template = "<p>Cgu</p>"
+  _template = "<p>About</p>"
 %>
-<%block name="pagetitle">${_("Terms of Service")}</%block>
-<%
-static.get_value('domain_prefix')
-%>
+
+<%block name="pagetitle">${_("About")}</%block>
 <style>
-main {
+main { 
  background-color: #fff;
 }
+#header {
+  background-image: url("/media/microsite/mooc-conservation/extra/images/banner_faq.jpg");
+  height: 580px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+justify-content: center;
+align-items: end;
+}
+.header_navigation {
+  font-weight: bold;
+  color: #fff;
+}
+.static-container-text{
+  line-height: 1.2em;
+  margin: 0 1em;
+}
+.static-container-text-paragraphe{
+  line-height: 1.2em;
+  margin: 0 1em 1em 1em;
+  font-weight: bold;
+}
+
+.static-container-text-title{
+  font-weight: bold;
+  color:  rgba(28, 114, 138, 1);
+};
+.note{
+  font-weight: bold;
+}
+body footer.global ul.links li a, body footer.global ul.links li a:hover {
+  color:rgba(28, 114, 138, 1) !important;
+}
+
+a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
+    color: #065683 !important;
+}
+
+.static-container-partners{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.static-container-image{
+width: 540px;
+}
+
+.img_block{
+  margin: 1em;
+}
+
+@media screen and (max-width: 1150px) {
+  .static-container-partners {
+    justify-content: center;
+  }
+
+}
+
+
+
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-      ${_template | n}
-    </section>
+  <div id="header">
+    <h1 class="header_navigation">MOOC Partenaires</h1>
+  </div>
+<section class="static-container about">
+  <p class="static-container-text-paragraphe">
+    Cette page contient des MOOC de nos partenaires sur des sujets qui pourraient vous intéresser. Ils ne sont pas gérés par l’équipe MOOC Conservation (seuls les MOOC en page d’accueil du site le sont). Si vous avez des questions, merci de contacter les équipes concernées. 
+  </p>
+  <div class="static-container-partners">
+    <div class="img_block"><a href="https://www.objectif2030.org/mooc/devdur/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png" alt="MOOC developpement durable"></a></div>
+    <div class="img_block"><a href="https://www.objectif2030.org/mooc/denv/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png" alt="MOOC droit et protection de l'environnement"></a></div>
+    <div class="img_block"><a href="https://www.objectif2030.org/mooc/eco/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png" alt="MOOC économie et gestion"></a></div>
+    
+  </div>
+
+</div>
+</section>
+
 </main>
