@@ -25,9 +25,28 @@ if _template is None:
 main {
  background-color: #fff;
 }
+.hidden{
+display : none;
+}
+#button{
+  cursor: pointer;
+}
+.button{
+  cursor: pointer;
+}
 
 </style>
 
+ <!--if you want  by default hidden then add class .hidden in new post -->
+ <h2 class="button" onclick="showhide('newpost')">Click Me</h2>
+ <div id="newpost"  class="hidden">
+  <p>This div will be show and hide on button click</p>
+ </div>
+
+ <h2 class="button" onclick="showhide('newpost2')">Click Me</h2>
+ <div id="newpost2"  class="hidden">
+  <p>This div will be show and hide on button click</p>
+ </div>
 
 
 
@@ -64,4 +83,14 @@ main {
          divPrecedent=document.getElementById(divId);
          divPrecedent.style.display='';
      }
+
+
+  function showhide(div_id) {
+  var div = document.getElementById(div_id);
+  div.classList.toggle('hidden'); 
+  }
+  function showhide2() {
+  var div = document.getElementById("newpost2");
+  div.classList.toggle('hidden'); 
+}
  </script>

@@ -20,6 +20,7 @@ if _template is None:
   _template = "<p>Faq</p>"
 %>
 <%block name="pagetitle">${_("FAQ")}</%block>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
 <style>
   main { 
    background-color: #fff;
@@ -34,13 +35,14 @@ if _template is None:
   align-items: end;
   }
   .header_navigation {
-    font-weight: bold;
+    font-weight: 700;
     color: #fff;
   }
   
   .static-container-text-title{
     font-weight: bold;
     color:  rgba(28, 114, 138, 1);
+    cursor: pointer;
   };
 
   .static-container-text{
@@ -53,7 +55,11 @@ if _template is None:
   .note{
     font-weight: bold;
   }
-  
+  .hidden{
+display : none;
+}
+
+
   </style>
   <main id="main" aria-label="Content" tabindex="-1">
     <div id="header">
@@ -61,73 +67,83 @@ if _template is None:
     </div>
   <section class="static-container about">
   <div class="static-container-text">
-    <h2 class="static-container-text-title">Comment s'inscrire à un MOOC ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p1')">Comment s'inscrire à un MOOC ?</h2>
+    <p id="p1" class="static-container-text-paragraphe hidden">
       Pour s’inscrire à un cours, il faut d’abord créer un compte. Pour cela, cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site [partie soulignée avec lien mooc-conservation.org]. Une fois inscrit, cliquez sur le cours qui vous intéresse et, sur la nouvelle page, cliquez sur « Je m’inscris ! ». 
     </p>
 
-    <h2 class="static-container-text-title">Comment créer un compte ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p2')">Comment créer un compte ?</h2>
+    <p id= "p2" class="static-container-text-paragraphe hidden">
       Cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site ou suivez ce lien [lien vers page register]. Remplissez le formulaire avec toutes les informations demandées, et cliquez sur le bouton « Créer mon compte mooc-conservation ». Un mail de confirmation vous sera envoyé à l’adresse mail renseignée dans le formulaire. Rendez-vous donc dans votre boîte de réception, ouvrez le mail et cliquez sur le lien qu’il contient. Ca y est, vous avez un compte, vous pouvez maintenant vous inscrire aux MOOC.
-    </p>
-    <p class="static-container-text-paragraphe">
+    <br>
+    <br>
       NB 1 : Il faut mettre le nom et prénom que vous souhaitez voir figurer sur vos attestations. Ces dernières seront générées automatiquement à partir des informations fournies dans ce formulaire.
-    </p>
-    <p class="static-container-text-paragraphe">
+    <br>
+    <br>  
       NB 2 : Il faut utiliser une adresse mail existante, et ne pas en inventer une nouvelle. 
     </p>
 
-    <h2 class="static-container-text-title">Je n’ai pas reçu mon mail de confirmation. Que faire ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p3')">Je n’ai pas reçu mon mail de confirmation. Que faire ?</h2>
+    <p id= "p3" class="static-container-text-paragraphe hidden">
       Regardez dans vos spams/pourriels/courrier indésirable. Ce mail est envoyé automatiquement, et il est donc forcément envoyé à l’adresse renseignée dans le formulaire d’inscription. Vérifiez donc bien que ce mail ne se trouve pas dans votre mail, ou que vous avez entré la bonne adresse mail.
     </p>
 
 
-    <h2 class="static-container-text-title">J’ai oublié mon mot de passe</h2>
-    <p class="static-container-text-paragraphe">
+
+    <h2 class="static-container-text-title" onclick="showhide('p4')">J’ai oublié mon mot de passe</h2>
+    <p id= "p4" class="static-container-text-paragraphe hidden">
       Dans le formulaire de connexion, au-dessus du champs « mot de passe », cliquez sur « Mot de passe oublié ? ». Un nouveau formulaire s’affiche (pop-up), entrez votre adresse mail (la même utilisée lors de l’inscription), et suivez les instructions du mail qui vient de vous être envoyé. Si vous n’avez pas reçu le mail, vérifier vos spams/pourriels/courrier indésirable.
     </p>
 
-    <h2 class="static-container-text-title">Mon mot de passe ne fonctionne pas</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p5')">Mon mot de passe ne fonctionne pas</h2>
+    <p id= "p5" class="static-container-text-paragraphe hidden">
       C’est que le mot de passe que vous avez entré est incorrect. Procédez comme pour l’oubli de mot de passe
     </p>
 
-    <h2 class="static-container-text-title">J’ai déjà été inscrit lors de la session précédente, faut-il que je recrée un compte ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p6')">J’ai déjà été inscrit lors de la session précédente, faut-il que je recrée un compte ?</h2>
+    <p id= "p6" class="static-container-text-paragraphe hidden">
       Si vous avez participé à des MOOC avant janvier 2021, il faudra recréer un compte puisque nous avons changé de plateforme. 
-    </p>
-    <p class="static-container-text-paragraphe">
+      <br>
+      <br>
       Pour toute inscription effectuée à partir janvier 2021, vous n’avez pas à recréer de compte à chaque session, il suffit de vous connecter avec votre compte existant, « Explorer les cours » et vous inscrire aux MOOC qui vous intéressent.
     </p>
 
-    <h2 class="static-container-text-title">Comment faire pour recevoir mon attestation de réussite ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p7')">Comment faire pour recevoir mon attestation de réussite ?</h2>
+    <p id= "p7" class="static-container-text-paragraphe hidden">
       Sur cette nouvelle plateforme, les attestations de réussite sont générées automatiquement à partir des informations fournies lors de votre inscription. Donc si vous avez obtenu une moyenne supérieure à 75% aux examens, vous pourrez télécharger votre attestation tout de suite après validation [paragraphe à détailler après finalisation de la plateforme]. 
     </p>
 
-    <h2 class="static-container-text-title">Où ont lieu les examens ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p8')">Où ont lieu les examens ?</h2>
+    <p id= "p8" class="static-container-text-paragraphe hidden">
       Tous les examens des MOOC se font en ligne. 
     </p>
 
-    <h2 class="static-container-text-title">Est-ce que je peux m’inscrire en cours de session ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p9')">Est-ce que je peux m’inscrire en cours de session ?</h2>
+    <p id= "p9" class="static-container-text-paragraphe hidden">
       Oui, chacun s’organise à son rythme, et a jusqu’à la date butoir de chaque session pour passer les examens.
     </p>
 
-    <h2 class="static-container-text-title">Les MOOC sont-ils gratuits ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p10')">Les MOOC sont-ils gratuits ?</h2>
+    <p id= "p10" class="static-container-text-paragraphe hidden">
       Oui.
     </p>
 
-    <h2 class="static-container-text-title">Mon compte est bloqué après plusieurs tentatives de connexion infructueuses, que faire ?</h2>
-    <p class="static-container-text-paragraphe">
+    <h2 class="static-container-text-title" onclick="showhide('p11')">Mon compte est bloqué après plusieurs tentatives de connexion infructueuses, que faire ?</h2>
+    <p id= "p11" class="static-container-text-paragraphe hidden">
       Vous avez tenté de vous connecter trop souvent avec un mauvais mot de passe. Attendez que votre compte soit débloqué (24h ?) puis tentez de vous connecter avec le bon mot de passe. Si vous ne vous souvenez plus de votre mot de passe reportez-vous à la question 4 « J’ai oublié mon mot de passe ». 
     </p>
 
-  
   </div>
   </section>
   
   </main>
+
+
+  <!-- script to display / undisplay element -->
+<script>
+  function showhide(div_id) {
+    var div = document.getElementById(div_id);
+    div.classList.toggle('hidden'); 
+    }
+</script>
+  <!-- script to display / undisplay element -->
