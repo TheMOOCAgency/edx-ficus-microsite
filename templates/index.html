@@ -111,6 +111,7 @@
             display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 1em;
         }
       @media screen and (max-width: 680px) {
         .navbar-header{
@@ -133,7 +134,46 @@
           min-width: auto!important;
         }
       }
-
+      /* modifications 09/12/2020  */
+      .text-course{
+          text-align: left;
+          font-size: 20px;
+          color: #000 !important;
+          margin-bottom: 1em !important;
+      }
+      .text-course-description{
+        min-height: 90px;
+        text-align: left;
+          font-size: 20px;
+          color: #000 !important;
+          margin-bottom: 1em !important;
+      }
+      .text-title{
+        min-height: 80px;
+      }
+      .list-course{
+        text-align: left;
+        font-size: 20px;
+      }
+      .list{
+        margin-bottom: 1em;
+      }
+      .partenariat{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+        min-height: 100px;
+      }
+      .container{
+          min-width: 500px;
+      }
+      @media screen and (max-width: 1100px) {
+        .team-boxed{
+            display: flex;
+            flex-direction: column;
+        }
+      }
 
     </style>
 
@@ -157,7 +197,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li role="presentation"><a href="/register?course-v1:gen+02+2020_T4&enrollment_action=enroll" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li>
+                    <!-- <li role="presentation"><a href="/register?course-v1:gen+02+2020_T4&enrollment_action=enroll" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li> -->
                     <li role="presentation"><a href="/login?course-v1:gen+02+2020_T4&enrollment_action=enroll" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
                 </ul>
             </div>
@@ -165,21 +205,23 @@
     </nav>
     <div class="container" id="section1">
         <video  autoplay="true" loop="loop" preload="metadata" muted="muted">
-            <source src="https://player.vimeo.com/external/369286281.hd.mp4?s=1bb8fad355c11d0c96e2882d2e37915285ffe760&profile_id=175" type="video/mp4">
+            <!-- <source src="https://player.vimeo.com/external/369286281.hd.mp4?s=1bb8fad355c11d0c96e2882d2e37915285ffe760&profile_id=175" type="video/mp4"> -->
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-young-team-brainstorms-ideas-with-sticky-notes-8813-large.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
         <div class="col-md-7 col-xs-12" style="color:white;float:none;margin-top:0;vertical-align:middle;z-index:10000;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-            <h1 style="font-size:3em;color:#ebeff1;width:100%;text-transform:unset">Bienvenue sur la plateforme de MOOC de La Grande Ecole du Numérique</h1>
+            <h1 style="font-size:3em;color:#ebeff1;width:100%;text-transform:unset;">Bienvenue sur notre plateforme de MOOC dédiée aux formations</h1>
             <img src="/media/microsite/gen/assets/img/barre_blanc.png" width="30%">
             <p style="font-size:24px;color:#bcd4f9;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
             <div style="margin:0 auto;text-align:center;">
-                <a class="btn btn-primary btn-lg link_header" role="button" href="/register?course_id=course-v1:gen+02+2020_T4&enrollment_action=enroll" id="register_link">Inscription</a>
+                <!-- <a class="btn btn-primary btn-lg link_header" role="button" href="/register?course_id=course-v1:gen+02+2020_T4&enrollment_action=enroll" id="register_link">Inscription</a> -->
                 <a class="btn btn-primary btn-lg link_header" role="button" href="/login?course_id=course-v1:gen+02+2020_T4&enrollment_action=enroll" id="login_link">Connexion </a>
             </div>
-            <p style="font-size:1.3em;color:white;margin-top:10px;">Il n’y a actuellement pas de session active du MOOC de la Grande Ecole du Numérique.<br />Vous pouvez vous inscrire pour la prochaine session qui se tiendra à la rentrée : nous vous tiendrons informés par mail !</p>
+            <h2 style="font-size:2.6em;color:#ebeff1;width:100%;text-transform:unset;">Découvrez les 2 MOOCs disponibles ci-dessous</h2>
+            <a href="#team-boxed"><img class="arrow_img" src="/media/microsite/gen/assets/img/arrow-down-navigation.gif" alt="flèche vers le bas"></a>
         </div>
     </div>
-    <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+    <!-- <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
@@ -264,27 +306,65 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> -->
   <!-- CHANGE HERE-->
-    <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;padding: 0px 50px 0px 50px;">
+    <div id="team-boxed" class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;padding: 0px 50px 50px 50px;">
+
         <div class="container" style="background-color:white;margin-top:0px;">
             <div class="intro" style="margin-top:80px;padding-top:0px;">
-                <h2 class="text-center" style="margin-bottom:30px;color:#011447;padding-top:0px;font-size: 30px;">Pourquoi un MOOC pour les formateurs du réseau GEN ?</h2>
-                <p class="text-center" style="font-size: 20px;">Les formations du réseau GEN ont toujours été innovantes. L’excellente insertion professionnelle des apprenants GEN témoigne de l’adéquation des approches pédagogiques et de la qualité de l’accompagnement socio-professionnel mises en œuvre par les formations.</p><br />
-                <p class="text-center" style="font-size: 20px;">Tout formateur, expert dans les technologies qu’il enseigne, peut être amené à s’intéresser à des méthodes d’enseignement complétant l’acquisition des compétences techniques :</p><br/>
-                <p class="text-center" style="font-size: 20px;">- Comment développer des compétences collaboratives, créatives ?
+                <h2 class="text-title" style="margin-bottom:30px;color:#011447;padding-top:0px;font-size: 30px;">Propulser les femmes dans le numérique : les 5 étapes clés</h2>
+                <div class="partenariat">
+                    <p class="text-course">En partenariat avec</p>
+                    <img style="width: 150px; margin: 0 0 1em 1em;" class="logo_img" src="/media/microsite/gen/assets/img/logo_social.png" alt="logo social builder">
+                </div>
+                <p class="text-course-description">5 séquences de x minutes pour accompagner la formation de manière pragmatique à chaque période crutiales de la relation formation/apprenant :</p>
+                    <ul class="list">
+                        <li class="list-course">Sourcing</li>
+                        <li class="list-course">Sélection</li>
+                        <li class="list-course">Ingénierie et animation</li>
+                        <li class="list-course">Culture et processus</li>
+                        <li class="list-course">Insertion</li>
+                    </ul>
+                <div id="video-teaser" data-vimeo-url="https://vimeo.com/369296646" data-vimeo-height="400"></div>
+                <!-- <div class="future_video_container" style="height: 400px; width: 100%;">
+                    <div class="future_video" style="width: 711px;">teaser à venir</div>
+                </div> -->
+                <p class="text-course">L’objectif de ce MOOC est de donner les clés aux formations pour attirer et accueillir plus de femmes dans le numériques : tous les exemples sont concrets et issus de l’expérience de Social Builder qui a formé, à date, plus de 28 000 femmes aux métiers du numérique !
                 </p>
-                <p class="text-center" style="font-size: 20px;">- Comment maintenir une exigence de qualité dans l'inclusion et la bienveillance ?
-                </p><br/>
-                <p class="text-center" style="font-size: 20px;">À travers ce MOOC, la GEN propose aux formateurs des outils et des idées pour les aider à mettre en place les approches pédagogiques les plus adaptées.
+                <p class="text-course">Durée approximative : 2h
                 </p>
-                <p style="text-align:right;font-size:14px;margin-top:20px;">*Source : Chiffres-clés 2018</p>
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/register?course_id=course-v1:gen+02+2020_T4&enrollment_action=enroll" id="register_link">Je m'inscris</a>
             </div>
-            <div id="video-teaser" data-vimeo-url="https://vimeo.com/369296646" data-vimeo-height="400"></div>
         </div>
+
+        <div class="container" style="background-color:white;margin-top:0px;">
+            <div class="intro" style="margin-top:80px;padding-top:0px;">
+                <h2 class="text-title" style="margin-bottom:30px;color:#011447;padding-top:0px;font-size: 30px;">L'évaluation dans l'acquisition des compétences</h2>
+                <div class="partenariat">
+                    <p class="text-course">En partenariat avec</p>
+                    <img style="width: 200px;" class="logo_img" src="/media/microsite/gen/assets/img/logo_lille_transparent.png" alt="logo université lille">
+                    </div>
+                <p class="text-course-description">Un parcours en 4 séquences et une évaluation finale qui permet d’obtenir des OPEN BADGE et un diplôme :</p>
+                <ul class="list">
+                    <li class="list-course">Pédago ? Go !</li>
+                    <li class="list-course">Parce qu'il faut bien évaluer</li>
+                    <li class="list-course">ePortfolio et compétences</li>
+                    <li class="list-course">Badges, reconnaissance et exposition</li>
+                    <li class="list-course">Evaluation finale</li>
+                </ul>
+                </p>
+                <div id="video-teaser" data-vimeo-url="https://vimeo.com/369296646" data-vimeo-height="400"></div>
+                <p class="text-course">À travers ce MOOC, la GEN propose aux formateurs et équipes pédagogiques des outils et des idées pour les aider à mettre en place les approches pédagogiques les plus adaptées pour évaluer des publics hétérogènes et qui ont parfois rencontré des difficultés dans la cadre scolaire classique
+                </p>
+                <p class="text-course">Durée approximative : 10h
+                </p>
+                <a class="btn btn-primary btn-lg link_header" role="button" href="/register?course_id=course-v1:gen+01+2019_T1&enrollment_action=enroll" id="register_link">Je m'inscris</a>
+            </div>
+        </div>
+
     </div>
-    <div class="dh-highlight-text" style="background-color:white;padding:0 0 50px 0;height:100%;position:relative;z-index:1;">
+    <!-- <div class="dh-highlight-text" style="background-color:white;padding:0 0 50px 0;height:100%;position:relative;z-index:1;">
         <div class="container">
             <div style="margin-top: 50px;"><a class="btn btn-primary btn-lg register-btn" role="button" href="/register?course_id=course-v1:gen+02+2020_T4&enrollment_action=enroll" data-toggle="modal" style="background-color:#011447;font-size:23px;border-radius:60px;border:0px solid;text-transform:unset!important">Je m'inscris !</a>
                 <div class="modal fade"
@@ -306,7 +386,7 @@
                 </div>
             </div>
             <h1></h1></div>
-    </div>
+    </div> -->
     <footer class="site-footer">
         <div class="container">
             <div class="row">
@@ -316,7 +396,7 @@
                 <div class="col-md-4 col-xs-12 col-sm-4" style="border-left: 5px solid #00F3A7;">
                     <p class="footer-separator">
 
-                        © Grande Ecole du numérique 2017-2019 <span style="padding:5px 5px;">|</span> <a href="/tos">Mentions légales</a>
+                        © Grande Ecole du numérique 2017-2020 <span style="padding:5px 5px;">|</span> <a href="/tos">Mentions légales</a>
                     </p>
                 </div>
             </div>
