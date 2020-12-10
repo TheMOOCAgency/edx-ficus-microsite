@@ -249,11 +249,19 @@ else{
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_end < 2:
+  % if course_end < 2:
+    %if request.LANGUAGE_CODE == 'en':
+      <h3>${course_end} course<br>completed</h3>
+    %else:
       <h3>${course_end} cours<br>terminé</h3>
-    % else:
-      <h3>${course_end} cours<br>terminés</h3>
     % endif
+  % else:
+      %if request.LANGUAGE_CODE == 'en':
+        <h3>${course_end} courses<br>completed</h3>
+      %else:
+        <h3>${course_end} cours<br>terminés</h3>
+      % endif
+  % endif
     % for n in course_name:
         <div class="course_name_profile_list">
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
@@ -306,7 +314,11 @@ else{
 }
 </style>
 <span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
+  %if request.LANGUAGE_CODE == 'en':
+    <h1><span id="span_1">My courses</span></h1>
+  %else:
+    <h1><span id="span_1">Mes formations</span></h1>
+  % endif
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
