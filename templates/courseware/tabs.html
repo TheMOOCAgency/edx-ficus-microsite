@@ -9,13 +9,15 @@
 <%page args="tab_list, active_page, default_tab, tab_image" expression_filter="h" />
 
 <%
+no_forum_list = ["course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2", "course-v1:nature-for-city-life+NFCL+Parcours2", "course-v1:nature-for-city-life+NFCL+session3", "course-v1:nature-for-city-life+NFCL_EN+session3", "course-v1:nature-for-city-life+NFCL_DEUCH+session1", "course-v1:nature-for-city-life+NFCL_ESP+session1", "course-v1:nature-for-city-life+NFCL_ITL+session1"]
+
 def url_class(is_active):
   if is_active:
     return "active"
   return ""
 
 def is_forum_not_expired():
-  if (str(course.id) != "course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2" and str(course.id) != "course-v1:nature-for-city-life+NFCL+Parcours2") or timestamp < 1594512000:
+  if str(course.id) not in no_forum_list or timestamp < 1594512000:
     return True
   return False
 
