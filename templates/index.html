@@ -13,49 +13,152 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" href="/media/microsite/${org}/extra/css/index.css">
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
 
-          </div>
+  <section class="banner">
+    <div class="banner_top_left_pictos">
+    </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+    <div class="banner_text">
+      <h1 class="banner_text_title">
+        SNCF recrute ses talents de la maintenance
+      </h1>
+      <h2 class="banner_text_subtitle">
+        La maintenance des trains recouvrent des métiers nombreux et variés qui garantissent la sécurité et le confort des voyageurs au quotidien.
+      </h2>
+    </div>
+
+    <div class="banner_bottom_right_pictos">
+      <div class="banner_bottom_right_pictos_img">
+        <div class="banner_bottom_right_picto_text_container">
+        <p class="banner_bottom_right_picto_text_top">
+          Cette année, nous embauchons plus de 300 personnes dans le matériel
+        </p>
+        <p class="banner_bottom_right_picto_text_bottom">
+          Vous êtes intéressés à l'idée de rejoindre nos équipes ? Vous êtes au bon endroit, la première étape du recrutement est ici !
+        </p>
         </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom"> 
+              <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-      </header>
-      <%include file="${courses_list}" />
+  <section class="courses">
+    <h2 class="courses_title">
+      Nous vous proposons un parcours découverte et 4 parcours découverte et 4 parcours métiers
+    </h2>
 
-    </section>
+    <div class="courses_course course1">
+      <div class="courses_course_container">
+        <div class="courses_course_container_texte">
+          <div class="courses_course_container_border border1"></div>
+          <h3 class="courses_course_container_texte_title">Parcours découverte</h3>
+          <p class="courses_course_container_texte_content">Découvrez le ferroviaire et la SNCF</p>
+          <p class="courses_course_container_texte_content">Découvrez un technicentre et le matériel</p>
+          <p class="courses_course_container_texte_content">Travailler dans un technicentre : les spécificités de l'environnement</p>
+        </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom" style="margin-left:0;"> 
+            <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="courses_course course2">
+      <div class="courses_course_container container_left_side">
+        <div class="courses_course_container_border border2 border_left_side"></div>
+        <div class="courses_course_container_texte">
+          <h3 class="courses_course_container_texte_title">Les métiers de l'énergie électrique</h3>
+          <p class="courses_course_container_texte_content">Quelles missions ? Le rôle d'électricien dans le cycle de maintenance</p>
+          <p class="courses_course_container_texte_content">Les fondamentaux de ces métiers</p>
+          <p class="courses_course_container_texte_content">Le quotidien d'un électricien</p>
+        </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom" style="margin-left:0;"> 
+            <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="courses_course course3">
+      <div class="courses_course_container">
+        <div class="courses_course_container_texte">
+          <div class="courses_course_container_border border3"></div>
+          <h3 class="courses_course_container_texte_title">Les métiers de la mécanique</h3>
+          <p class="courses_course_container_texte_content">Quelles missions ? Le rôle d'électro-mécanicien dans le cycle de maintenance</p>
+          <p class="courses_course_container_texte_content">Les fondamentaux de ces métiers</p>
+          <p class="courses_course_container_texte_content">Le quotidien d'un électro-mécanicien</p>
+        </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom" style="margin-left:0;"> 
+            <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="courses_course course4">
+      <div class="courses_course_container container_left_side">
+        <div class="courses_course_container_border border4 border_left_side"></div>
+        <div class="courses_course_container_texte">
+          <h3 class="courses_course_container_texte_title">Les métiers d'agent de manoeuvre</h3>
+          <p class="courses_course_container_texte_content">Quelles missions ? Le rôle d'agent de manoeuvre</p>
+          <p class="courses_course_container_texte_content">Les fondamentaux de ces métiers</p>
+          <p class="courses_course_container_texte_content">Le quotidient d'un agent de manoeuvre</p>
+        </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom" style="margin-left:0;"> 
+            <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="courses_course course5">
+      <div class="courses_course_container">
+        <div class="courses_course_container_texte">
+          <div class="courses_course_container_border border5"></div>
+          <h3 class="courses_course_container_texte_title">Les métiers de dépannage </h3>
+          <p class="courses_course_container_texte_content">Quelles missions ? Le rôle de dépanneur dans le cycle de maintenance</p>
+          <p class="courses_course_container_texte_content">Les fondamentaux de ces métiers</p>
+          <p class="courses_course_container_texte_content">Le quotidien d'un dépanneur</p>
+        </div>
+        <a href="#" class="link_about">
+          <div class="banner_bottom_right_picto_right_bottom" style="margin-left:0;"> 
+            <span class="span_button" style="padding-bottom: 11px;">en savoir plus</span> 
+            <div class="banner_bottom_right_picto_right_bottom_circle">
+              <span style="padding: 8px;">+</span> 
+            </div>
+        </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
 </main>
 
 % if show_homepage_promo_video:
