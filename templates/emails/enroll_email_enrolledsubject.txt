@@ -1,1 +1,5 @@
+% if course_key == "course-v1:complete-data+FR+v1" :
 Votre confirmation d’inscription / Data For Managers Netexplo/HEC Paris
+% else :
+Your registration confirmation / Data For Managers Netexplo / HEC Paris
+% endif
