@@ -28,7 +28,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <span></span>
       <span></span>
       <ul id="menu_burger">
-        <a class="nav_list_buttons" href="#"><li class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+        <a class="nav_list_buttons" href="/tos"><li class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
         <a class="nav_list_buttons" href="/about"><li class=" navigation_list_element nav_button login_button" >Certificat</li></a>
         <a class="nav_list_buttons" href="${marketing_link('FAQ')}"><li class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
         <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
@@ -39,7 +39,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
 
     <div class="page_header_logo"> 
-      <img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo">
+      <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
       <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
       <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
 
@@ -55,6 +55,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <div id="header">
         <nav id="navigation">
           <ol id="navigation_list">
+            <li class="navigation_list_element nav_list"><a target="_blank" href="/#course_container">Nos Mooc</a></li>
+            <li class="navigation_list_element nav_list"><a target="_blank" href="#container_essentiels">Nos essentiels</a></li>
             <li class="navigation_list_element nav_list"><a target="_blank" href="/tos">MOOC Partenaires</a></li>
             <li class="navigation_list_element nav_list"><a target="_blank" href="/about">Certificat</a></li>
             <li class="navigation_list_element nav_list"><a target="_blank" href="${marketing_link('FAQ')}">F.A.Q</a></li>
@@ -70,7 +72,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               Nos MOOC Conservation
             </h2>
             <p class="course_list_text">
-              Un MOOC (Massive Open Online Course) est une formation en ligne, gratuite et ouverte à tous. Pour suivre un MOOC, l’étudiant aura simplement besoin d’une connexion Internet et d’un accès à un ordinateur ou à un smartphone. Nos MOOC sont composés de courtes vidéos thématiques, de quiz, d’examens, de lectures recommandées, etc
+              Un MOOC (Massive Open Online Course) est une formation en ligne, gratuite et ouverte à tous. Pour suivre un MOOC, l’étudiant aura simplement besoin d’une connexion Internet et d’un accès à un ordinateur ou à un smartphone. Nos MOOC sont composés de courtes vidéos thématiques, de quiz, d’examens, de lectures recommandées, etc.
             </p>
           </div>
           <div id="course_list_elements">
@@ -79,7 +81,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
         </div>
 
-        <div class="course_list essentiels">
+        <div id="container_essentiels" class="course_list essentiels">
           <div class="course_list_intro">
             <h2 class="course_list_title">
               Nos essentiels
@@ -109,7 +111,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                                <div class="course-date" aria-hidden="true">Lancement : 1 février 2021</div>
                           </div>
                         </a>
                       </article>
@@ -127,7 +129,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                            <div class="course-date" aria-hidden="true">Lancement : 1 février 2021</div>
                           </div>
                         </a>
                       </article>
@@ -145,7 +147,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                            <div class="course-date" aria-hidden="true">Lancement : 1 février 2021</div>
                           </div>
                         </a>
                       </article>
@@ -163,7 +165,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">14 septembre au 13 décembre 2020</div>
+                            <div class="course-date" aria-hidden="true">Lancement : 1 février 2021</div>
                           </div>
                         </a>
                       </article>
@@ -208,8 +210,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               <div class="footer_list"> 
                 <ol class="footer_list_nav">
                   <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" target="_blank">Page Facebook de l'UICN Papaco</a></li>
-                  <li class="footer_list_element"><a href="#">Groupe Facebook francophone des MOOC</a></li>
-                  <li class="footer_list_element"><a href="#">Groupe Facebook anglophone des MOOC</a></li>
+                  <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/">Groupe Facebook francophone des MOOC</a></li>
+                  <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190">Groupe Facebook anglophone des MOOC</a></li>
                   <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">Twitter @Papaco_IUCN</a></li>
                   <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
                   <li class="footer_list_element"><a href="#">Site de l'UICN-PAPACO</a></li>
@@ -220,7 +222,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           </div>
 
           <div class="footer_mooc_list footer_div">
-            <p class="footer_title"> Liste des MOOC</p>
+            <p class="footer_title"> Nos MOOC</p>
             <div class="footer_list"> 
               <ol class="footer_list_nav">
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-protegees+2021_T1/about" target="_blank">MOOC Gestion des aires protégées</a></li>
@@ -231,6 +233,16 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                 <li class="footer_list_element"><a href="/course-v1:mooc-conservation+nouvelles-technologies+2021_T1/about" target="_blank">MOOC Nouvelles technologies</a></li>
                 <!-- <li class="footer_list_element"><a href="#">MOOC Développement durable</a></li>
                 <li class="footer_list_element"><a href="#">MOOC Aires marines protégées</a></li> -->
+              </ol>
+            </div>
+
+            <p class="footer_title"> Nos essentiels</p>
+            <div class="footer_list"> 
+              <ol class="footer_list_nav">
+                <li class="footer_list_element"><a href="#" target="_blank"> Essentiel Ranger</a></li>
+                <li class="footer_list_element"><a href="#" target="_blank">Essentiel Manager - Loi </a></li>
+                <li class="footer_list_element"><a href="#" target="_blank">Essentiel Manager - Recherche</a></li>
+                <li class="footer_list_element"><a href="#" target="_blank">Essentiel Leader</a></li>
               </ol>
             </div>
 
