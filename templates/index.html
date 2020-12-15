@@ -1,97 +1,161 @@
 <%page expression_filter="h"/>
-<%inherit file="main.html" />
 <%namespace name='static' file='static_content.html'/>
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.utils.translation import get_language_bidi
 
 from openedx.core.djangolib.markup import HTML, Text
+
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from courseware.courses import get_courses, sort_by_announcement, sort_by_start_date  # pylint: disable=import-error
+from django.contrib.auth.models import AnonymousUser
 %>
 <%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
+courses = get_courses(AnonymousUser())
+courses = sort_by_announcement(courses)
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+<!DOCTYPE html> 
+<html>
+   <head>
+     <meta charset='utf-8'>
+         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+         <title id='masterTitle'></title>
+         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+         <script src='/media/microsite/rtm/pagebuilder/assets/bootstrap/js/bootstrap.min.js'></script>
+         <script src='/media/microsite/rtm/pagebuilder/assets/bootstrap/js/jquery.scrollify.js'></script>
+         <script src='/media/microsite/rtm/pagebuilder/js/script.js'></script>
+         <link rel="stylesheet" href="/media/microsite/rtm/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
+         <link rel="stylesheet" href="/media/microsite/rtm/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+         <link rel="stylesheet" href="/media/microsite/rtm/pagebuilder/css/style.css">
+   </head>
+   <body>
+      <nav id = "nav"class="navbar navbar-default">
+         <div class="container-fluid">
+            <div id="navbar">
+               <ul class="nav navbar-nav">
+                  <li>
+                     <a class="navbar-brand "><img class="logoNav" src="/media/microsite/rtm/pagebuilder/assets/img/logo.png"></a>
+                  </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/register" class="registerLink" class="rg">Inscription</a></li>
+                  <li><a href="/login" class="loginLink" class="cx">Connexion</a></li>       
+               </ul>
+            </div>             
+         </div>       
+      </nav>
+      <div id="titleBand">
+         <h1 id="mainTitle1">Bienvenue sur la plateforme</h1>
+         <h1 id="mainTitle2">de MOOC de la RTM</h1>
+         <div id="titleUnderline"></div>
+         <div class="row vertical-center">
+            <div class="col-md-12 text-center">
+               <div class="container-fluid" id="containerTitleBand">
+                  <div class="col text-center">                  
+                     <a href="/register" class="registerLink">Inscription </a>
+                     <a href="/login" class="loginLink">Connexion</a>                  
+                  </div>
+               </div>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+         </div>
+      </div>
 
-          </div>
+      <section id="se1">
+         <div class="video_container"></div>
+      </section>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+      <section id="se2">
+      <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
+            <h2 class="text-center sectionTitle">HEADER TITRE OBJECTIFS DU MOOC</h2>
+            <h3 class="sectionSubTitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
+            <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div id="course_list_elements">
+               % for course in courses :
+               <li class="courses-listing-item flip-container col-xl-3 col-lg-4 col-md-6 col-sm-6 item col-xs-12" ontouchstart="this.classList.toggle('hover')">
+                  <div class="flipper">
+                     <article class="course front" id="${course.id}" role="region" aria-label="${course.display_name_with_default}">
+                        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+                           <header class="course-image" style="background-image: url('${course.course_image_url}')"></header>
+                           <div class="course-info" aria-hidden="true">
+                              <h2 class="course-name">
+                                 <span class="course-organization">${course.display_org_with_default}</span>
+                                 <span class="course-code">${course.display_number_with_default}</span>
+                                 <span class="course-title">${course.display_name_with_default}</span>
+                              </h2>
+                              <%
+                              if course.start is not None:
+                                 course_date_string = course.start.strftime('%d/%m/%Y à %H:%M')
+                              else:
+                                 course_date_string = ''
+                              %>
+                              % if course.advertised_start is not None:
+                                 <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+                              % else:
+                                 <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}">${_("Starts")}: ${course_date_string}</div>
+                              % endif
+                           </div>
+                        </a>
+                     </article>
+                     <article class="back">
+                        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+                           EN SAVOIR PLUS
+                        </a>
+                     </article>  
+                  </div>        
+               </li>
+               % endfor
+            </div>
+         </div>
+      </div>
+      </div>          
+      </section>
+      <section id="se3">
+         <h2 class="text-center sectionTitle">ET AU FAIT... C'est QUOI UN MOOC?</h2>
+         <h3 class="sectionSubTitle">Une formation gratuite, ouverte à tous, disponible et accessible où que vous soyez !</h3>
+         <div id="markMoock">
+            <div class='col-md-3 col-sm-6 item col-xs-12'>
+               <div class='box'><img class='img-rounded moocIco' src="/media/microsite/rtm/pagebuilder/assets/img/thumbnailStr0.png">
+                  <h3 class='name'>massive</h3>
+                  <p class='description'>Un contenu disponible gratuitement</p>
+               </div>
+            </div>
+            <div class='col-md-3 col-sm-6 item col-xs-12'>
+               <div class='box'><img class='img-rounded moocIco' src="/media/microsite/rtm/pagebuilder/assets/img/thumbnailStr1.png">
+                  <h3 class='name'>open</h3>
+                  <p class='description'>Accédez librement à toutes les ressources</p>
+               </div>
+            </div>
+            <div class='col-md-3 col-sm-6 item col-xs-12'>
+               <div class='box'><img class='img-rounded moocIco' src="/media/microsite/rtm/pagebuilder/assets/img/thumbnailStr2.png">
+                  <h3 class='name'>online</h3>
+                  <p class='description'>Disponible en ligne, à tout moment où que vous soyez</p>
+               </div>
+            </div>
+            <div class='col-md-3 col-sm-6 item col-xs-12'>
+               <div class='box'><img class='img-rounded moocIco' src="/media/microsite/rtm/pagebuilder/assets/img/thumbnailStr3.png">
+                  <h3 class='name'>course</h3>
+                  <p class='description'>Suivez un parcours pédagogique innovant vous permettant l’aquisition de connaissances</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <footer class="global">
+         <div class="footer-container">
+           <ul class="links">
+             <li>
+               <a href="/tos">Conditions générales</a>
+             </li>
+             <li>
+               <a href="/faq">FAQ</a>
+             </li>
+            <li>
+               <a href="/about">Cr&eacute;dits</a>
+             </li>
+           </ul>
+         </div>
+       </footer>
+   </body>
+</html>

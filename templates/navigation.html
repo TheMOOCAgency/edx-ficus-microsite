@@ -46,7 +46,7 @@ cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
-<link rel="stylesheet" type="text/css" href="${cssoverride}" />
+<!-- <link rel="stylesheet" type="text/css" href="${cssoverride}" /> -->
 <link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
@@ -69,7 +69,7 @@ site_status_msg = get_site_status_msg(course_id)
 </%block>
   <header id="global-navigation" class="header-global" >
   <input class="burger" type="checkbox">
-    <nav class="wrapper-header" aria-label="${_('Global')}">
+    <nav class="wrapper-header" aria-label="${_('Global')}" style="display: inline-block;margin-top: 10px;">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
@@ -149,7 +149,7 @@ site_status_msg = get_site_status_msg(course_id)
 
       % if should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()): # see shoppingcart.context_processor.user_has_cart_context_processor
         <ol class="user">
-          <li class="primary">
+          <li class="primary" style="bottom:50px;left:135px">
             <a class="shopping-cart" href="${reverse('shoppingcart.views.show_cart')}">
               <span class="icon fa fa-shopping-cart" aria-hidden="true"></span> ${_("Shopping Cart")}
             </a>
@@ -218,8 +218,8 @@ site_status_msg = get_site_status_msg(course_id)
     % if static.show_language_selector():
      <% languages = static.get_released_languages() %>
       % if len(languages) > 1:
-      <ol class="user">
-        <li class="primary">
+      <ol class="user" style="margin-right:25px">
+        <li class="primary" style="bottom:50px;left:135px">
           <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
             <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">
             % if user.is_authenticated():
@@ -366,6 +366,18 @@ else:
 </script>
 
 <style>
+#return_dashboard {
+  display:none!important;
+}
+.logo {
+  margin-top: 15px !important;
+  margin-left: 15px !important;
+}
+
+.logo > a > img {
+  height: 40px!important;
+}
+
 .discussion.wrapper-course-material{
   background-color: ${custom_color} !important;
 }

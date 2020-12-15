@@ -46,11 +46,6 @@ import calendar
       $('#register-form').on('submit', function() {
         toggleSubmitButton(false);
       });
-      /*
-      $('#register-form').on('ajax:error', function() {
-        toggleSubmitButton(true);
-      });
-      */
       $('#register-form').on('ajax:success', function(event, json, xhr) {
         var nextUrl = "${login_redirect_url}";
         if (json.redirect_url) {
@@ -122,16 +117,4 @@ import calendar
       <%include file="${registration_form}" />
     </form>
   </section>
-<!--
-  <aside role="complementary">
-
-<%
-  # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
-  sidebar_file = static.get_template_path('register-sidebar.html')
-%>
-
-    <%include file="${sidebar_file}" />
-
-  </aside>
--->
 </section>

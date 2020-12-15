@@ -146,7 +146,7 @@ from third_party_auth import provider, pipeline
       <div role="alert" class="status message submission-error" tabindex="-1">
         <h3 class="message-title">${_("We couldn't log you in.")} </h3>
         <ul class="message-copy">
-          <li>${_("Your email or password is incorrect")}</li>
+          <li>Votre identifiant ou votre mot de passe est incorrect</li>
         </ul>
       </div>
 
@@ -171,11 +171,25 @@ from third_party_auth import provider, pipeline
         <h2 class="sr">${_('Required Information')}</h2>
 
         <ol class="list-input">
-          <li class="field required text" id="field-email">
+          <li class="field required text" id="field-email" style="display:none;">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
             <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
           </li>
+          <li class="field required text" id="field-rtmUsername">
+            <label for="email">Identifiant</label>
+            <input class="" id="rtmUsername" type="email" name="rtmUsername" value="" placeholder="Exemple: GDUPONT" required aria-required="true" aria-described-by="rtmUsername-tip" />
+            <span class="tip tip-input" id="rtmUsername-tip">Votre matricule ou votre email</span>
+          </li>
+          <script>
+            $("#rtmUsername").on("change paste keyup", function() {
+              if ($("#rtmUsername").val().indexOf('@') === -1) {
+                $("#email").val($(this).val()+"_rtm@yopmail.com");
+              } else {
+                $("#email").val($(this).val());
+              }
+            });
+          </script>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
