@@ -1,4 +1,4 @@
-<%page expression_filter="h"/>
+c<%page expression_filter="h"/>
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
@@ -11,86 +11,225 @@ from cms.djangoapps.microsite_manager.mongo_model import staticFiles
 from cms.djangoapps.microsite_manager.models import Microsite
 _key = static.get_value('domain_prefix')
 _microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'honor'
+_collection = 'about'
 _values = {
   "microsite_id":_microsite_id
 }
 _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
-  _template = "<p>Honor</p>"
+  _template = "<p>About</p>"
 %>
-<%block name="pagetitle">${_("Honor Code")}</%block>
 
+<%block name="pagetitle">${_("About")}</%block>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
 <style>
-main {
+main { 
  background-color: #fff;
 }
-.hidden{
-display : none;
+#header {
+  background-image: url("/media/microsite/mooc-conservation/extra/images/banner_faq.jpg");
+  height: 580px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+justify-content: center;
+align-items: flex-end;
 }
-#button{
-  cursor: pointer;
+.header_navigation {
+  font-weight: 700;
+  color: #fff;
 }
-.button{
-  cursor: pointer;
+.static-container-text{
+  line-height: 1.2em;
+  margin: 0 1em;
 }
+.static-container-text-paragraphe{
+  line-height: 1.2em;
+  margin: 0 1em 1em 1em;
+  font-weight: bold;
+}
+
+.static-container-text-title{
+  font-weight: bold;
+  color:  rgba(28, 114, 138, 1);
+};
+.note{
+  font-weight: bold;
+}
+body footer.global ul.links li a, body footer.global ul.links li a:hover {
+  color:rgba(28, 114, 138, 1) !important;
+}
+
+a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
+    color: #065683 !important;
+}
+
+.static-container-partners{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.static-container-image{
+width: 540px;
+}
+
+.img_block{
+  margin: 1em;
+}
+
+@media screen and (max-width: 1150px) {
+  .static-container-partners {
+    justify-content: center;
+  }
+}
+
+/* over */
+
+*, *:before, *:after{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  box-sizing: border-box;
+}
+
+
+
+.content {
+  position: relative;
+  width: 44%;
+  margin: 2em;
+}
+
+.content .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 99%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-bottom{
+  top: 80%;
+}
+
+.fadeIn-top{
+  top: 20%;
+}
+
+.fadeIn-left{
+  left: 20%;
+}
+
+.fadeIn-right{
+  left: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
-
- <!--if you want  by default hidden then add class .hidden in new post -->
- <h2 class="button" onclick="showhide('newpost')">Click Me</h2>
- <div id="newpost"  class="hidden">
-  <p>This div will be show and hide on button click</p>
- </div>
-
- <h2 class="button" onclick="showhide('newpost2')">Click Me</h2>
- <div id="newpost2"  class="hidden">
-  <p>This div will be show and hide on button click</p>
- </div>
-
-
-
-
-<a href="javascript:visibilite('container_french');">  <img class="page_header_flag_item" src="/media/microsite/mooc-conservation/extra/images/french_flag.png" alt="french flag"></a>
-<a href="javascript:visibilite('container_english');"><img id="english_flag" class="page_header_flag_item" src="/media/microsite/mooc-conservation/extra/images/english_flag.png" alt="english flag"></a>
-
-
-              
- <div id="container_french" style="display:block;">         
+<main id="main" aria-label="Content" tabindex="-1">
   <div id="header">
-    <nav id="navigation">
-      <ol id="navigation_list">
-        <li class="navigation_list_element"><a href="#">MOOC Partenaires</a></li>
-        <li class="navigation_list_element"><a href="/about">Certificat</a></li>
-        <li class="navigation_list_element"><a href="${marketing_link('FAQ')}">F.A.Q</a></li>
-        <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a href="/register">Créer un compte</a></li>
-        <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
-      </ol>
-    </nav>
+    <h1 class="header_navigation">MOOC Partenaires</h1>
   </div>
- </div>       
-          
- <div id="container_english" style="display:none;">
-  <p>anglais</p>
- </div>       
+<section class="static-container about">
+  <p class="static-container-text-paragraphe">
+    Cette page contient des MOOC de nos partenaires sur des sujets qui pourraient vous intéresser. Ils ne sont pas gérés par l’équipe MOOC Conservation (seuls les MOOC en page d’accueil du site le sont). Si vous avez des questions, merci de contacter les équipes concernées. 
+  </p>
+  <div class="static-container-partners">
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/devdur/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/denv/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/eco/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
+  </div>
 
+</div>
+</section>
 
- <script>
-     let divPrecedent=document.getElementById('container_french');
-     function visibilite(divId)
-     {
-         divPrecedent.style.display='none';
-         divPrecedent=document.getElementById(divId);
-         divPrecedent.style.display='';
-     }
+</main>
 
-
-  function showhide(div_id) {
-  var div = document.getElementById(div_id);
-  div.classList.toggle('hidden'); 
-  }
-  function showhide2() {
-  var div = document.getElementById("newpost2");
-  div.classList.toggle('hidden'); 
-}
- </script>

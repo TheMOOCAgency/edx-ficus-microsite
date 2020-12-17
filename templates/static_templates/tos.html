@@ -87,6 +87,98 @@ width: 540px;
 }
 
 
+/* over */
+
+*, *:before, *:after{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  box-sizing: border-box;
+}
+
+
+
+.content {
+  position: relative;
+  width: 44%;
+  margin: 2em;
+}
+
+.content .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 99%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-bottom{
+  top: 80%;
+}
+
+.fadeIn-top{
+  top: 20%;
+}
+
+.fadeIn-left{
+  left: 20%;
+}
+
+.fadeIn-right{
+  left: 80%;
+}
 
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
@@ -98,10 +190,33 @@ width: 540px;
     Cette page contient des MOOC de nos partenaires sur des sujets qui pourraient vous intéresser. Ils ne sont pas gérés par l’équipe MOOC Conservation (seuls les MOOC en page d’accueil du site le sont). Si vous avez des questions, merci de contacter les équipes concernées. 
   </p>
   <div class="static-container-partners">
-    <div class="img_block"><a href="https://www.objectif2030.org/mooc/devdur/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png" alt="MOOC developpement durable"></a></div>
-    <div class="img_block"><a href="https://www.objectif2030.org/mooc/denv/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png" alt="MOOC droit et protection de l'environnement"></a></div>
-    <div class="img_block"><a href="https://www.objectif2030.org/mooc/eco/"><img class="static-container-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png" alt="MOOC économie et gestion"></a></div>
-    
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/devdur/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/denv/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
+    <div class="content">
+      <a href="https://www.objectif2030.org/mooc/eco/" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png">
+        <div class="content-details fadeIn-bottom">
+          <h3 class="content-title">En savoir plus</h3>
+        </div>
+      </a>
+    </div>
   </div>
 
 </div>
