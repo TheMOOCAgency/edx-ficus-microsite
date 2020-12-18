@@ -43,11 +43,12 @@ $(document).ready(function(){
           <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
             M'inscrire
           </div>
+          <div style="border-top:1px solid white" class="enroll-button" onclick="window.location.href='/login?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+            Me Connecter
+         </div>
     % endif
   % endif
-        <div style="border-top:1px solid white" class="enroll-button" onclick="window.location.href='/login?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Me connecter
-        </div>
+
 
   </div>
   % if static.get_value('course_about_show_social_links', True):
