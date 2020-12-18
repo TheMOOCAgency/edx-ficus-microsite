@@ -100,8 +100,8 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
             tabs_tmpl = static.get_template_path('/courseware/tabs.html')
             %>
             <ol class="tabs course-tabs">
-              <li class="tab" style="color: #3c3c3c !important">
-                  <a href="/dashboard" id="tma_return_dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
+              <li class="tab">
+                  <a href="/dashboard" id="tma_return_dashboard" style="color: #3c3c3c !important"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
               </li>
                 <%include file="${tabs_tmpl}" args="tab_list=tab_list,active_page=active_page,default_tab=default_tab,tab_image=tab_image" />
                 <%block name="extratabs" />
