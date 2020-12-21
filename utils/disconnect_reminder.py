@@ -30,6 +30,9 @@ startup = importlib.import_module("lms.startup")
 startup.run()
 
 from django.core.management import execute_from_command_line
+from django.core.urlresolvers import reverse
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import int_to_base36
 import django
 import smtplib
 from courseware.courses import get_course_by_id
@@ -42,6 +45,8 @@ from xmodule.mongo_utils import connect_to_mongodb
 from django.conf import settings
 from pprint import pformat
 from opaque_keys.edx.keys import CourseKey
+from student.views import password_reset_confirm_wrapper
+from student.models import *
 log = logging.getLogger()
 
 course_id = sys.argv[1]
@@ -49,53 +54,34 @@ course_id = sys.argv[1]
 course_key = CourseKey.from_string(course_id)
 course=get_course_by_id(course_key)
 org = course.org
+TO_EMAILS = []
 
-def _connect_to_forum_mongo_db():
-    """
-    Create & open the connection, authenticate, and provide pointers to the collection
-    """
-    db_settings = settings.DOC_STORE_CONFIG
-    database = connect_to_mongodb(
-    host=db_settings["host"],
-    port=db_settings["port"],
-    db="cs_comments_service_development",
-    user=None,
-    password=None,
-    connectTimeoutMS=db_settings["connectTimeoutMS"],
-    socketTimeoutMS=db_settings["socketTimeoutMS"]
-    )
-    return database
+#get course enrolls
+course_enrollment=CourseEnrollment.objects.filter(course_id=course_key)
 
-def get_nb_of_forum_posts(course_id):
-    database = _connect_to_forum_mongo_db()
-    collection = database["contents"]
-    ini_time_for_now = datetime.now()
-    number_of_posts = 0
+#get users that has never been connected
+for i in range(len(course_enrollment)):
+    user=course_enrollment[i].user
+    if user.last_login is None:
+        TO_EMAILS.append(user)
 
-    for doc in collection.find({"course_id" : course_id}):
-        created_at = doc['created_at'].replace(tzinfo=None)
-        date_1day_ago = ini_time_for_now - timedelta(days = 1) 
-        if created_at >= date_1day_ago:
-            number_of_posts += 1
-
-    database.connection.close()
-    return number_of_posts
-
-posts = get_nb_of_forum_posts(course_id)
-
-if posts >= 1:
+if len(TO_EMAILS) >= 1:
     # SEND MAILS
-    html = "<html><head></head><body><p>Bonjour,<br />il y a "+str(posts)+" message(s) qui a/ont été posté(s) sur le forum du cours '"+course.display_name_with_default+"' depuis le dernier rapport<br /><br/>https://digital-campus-en3s.fr/courses/"+course_id+"/discussion/forum/</p></body></html>"
-
-    part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
-
     for i in range(len(TO_EMAILS)):
+        user=TO_EMAILS[i]
+        uid=int_to_base36(user.id)
+        token = default_token_generator.make_token(user)
+        reset_password_link = str(reverse(password_reset_confirm_wrapper, args=(uid, token)))
+
+        html = "<html><head></head><body><p>Bonjour,<br /><br />Vous êtes inscrit au cours « Comprendre les enjeux de la sécurité sociale ».<br /><br />Nous avons constaté que vous n’avez pas encore pris le temps de découvrir les contenus.<br /><br />De nombreuses vidéos, textes, activités et quiz sont à votre disposition, 24h/24, n’hésitez pas à les consulter !<br /><br />Et si vous rencontrez des difficultés de connexion, vous pouvez réinitialiser votre mot de passe en cliquant ici :<br /><a href=https://digital-campus-en3s.fr"+reset_password_link+">https://digital-campus-en3s.fr"+reset_password_link+"</a><br /><br />L’équipe pédagogique</p></body></html>"
+        part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
+
         fromaddr = "EN3S <ne-pas-repondre@themoocagency.com>"
-        toaddr = str(TO_EMAILS[i])
+        toaddr = str(user.email)
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        msg['Subject'] = "Notification des mails '"+course.display_name_with_default+"' - " + time.strftime("%d.%m.%Y")
+        msg['Subject'] = "Venez découvrir les enjeux de la sécurité sociale"
         part = MIMEBase('application', 'octet-stream')
         server = smtplib.SMTP('mail3.themoocagency.com', 25)
         server.starttls()
@@ -104,4 +90,4 @@ if posts >= 1:
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         server.quit()
-        log.info('Email sent to '+toaddr)
+        log.info("[WUL] Email sent to : {}  (id : {})".format(user.email, str(user.id)))
