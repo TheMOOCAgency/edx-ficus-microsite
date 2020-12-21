@@ -35,7 +35,14 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   cursor : pointer;
   }
 
+  .navigation_list_element .nav_list > a{
+    color: rgba(28,114,138,1)!important;
+  }
+  .navigation_list_element .nav_list > a:active, .navigation_list_element .nav_list > a:visited, .navigation_list_element .nav_list > a:link{
+    color: rgba(28,114,138,1)!important;
+  }
   </style>
+  <script>console.log('test 10')</script>
 
 <main id="main" aria-label="Content" tabindex="-1">
   <header class="page_header">
@@ -128,11 +135,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <div id="header">
         <nav id="navigation">
           <ol id="navigation_list">
-            <li class="navigation_list_element nav_list"><a target="_blank" href="/#course_container">Nos Mooc</a></li>
-            <li class="navigation_list_element nav_list"><a target="_blank" href="#container_essentiels">Nos essentiels</a></li>
-            <li class="navigation_list_element nav_list"><a target="_blank" href="/tos">MOOC Partenaires</a></li>
-            <li class="navigation_list_element nav_list"><a target="_blank" href="/about">Certificat</a></li>
-            <li class="navigation_list_element nav_list"><a target="_blank" href="${marketing_link('FAQ')}">F.A.Q</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/#course_container">Nos Mooc</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="#container_essentiels">Nos essentiels</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/tos">MOOC Partenaires</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/about">Certificat</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="${marketing_link('FAQ')}">F.A.Q</a></li>
             <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
             <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
@@ -304,6 +311,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+conservations-especes+2021_T1/about" target="_blank">MOOC Conservation des espèces</a></li>
                 <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+valorisation-aires+2021_T1/about" target="_blank">MOOC Valorisation des ressources & tourisme durable</a></li>
                 <li class="footer_list_element"><a href="/course-v1:mooc-conservation+nouvelles-technologies+2021_T1/about" target="_blank">MOOC Nouvelles technologies</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-marines+2021_T1/about" target="_blank">MOOC Aires marines protégées</a></li>
               </ol>
             </div>
 
@@ -335,11 +343,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <div id="header">
         <nav id="navigation">
         <ol id="navigation_list">
-          <li class="navigation_list_element nav_list"><a target="_blank" href="/#course_container">Our MOOCs</a></li>
-          <li class="navigation_list_element nav_list"><a target="_blank" href="#container_essentiels">The essentials</a></li>
-          <li class="navigation_list_element nav_list"><a href="/tos" target="_blank">Other MOOCs</a></li>
-          <li class="navigation_list_element nav_list"><a href="/about" target="_blank">Certificate</a></li>
-          <li class="navigation_list_element nav_list"><a href="${marketing_link('FAQ')}" target="_blank">F.A.Q</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/#course_container">Our MOOCs</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="#container_essentiels">The essentials</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos" target="_blank">Other MOOCs</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about" target="_blank">Certificate</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="${marketing_link('FAQ')}" target="_blank">F.A.Q</a></li>
           <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">If this is your first visit, click here to create an account</span><a class="test" href="/register">Create an account</a></li>
           <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">If you already have an account, go to your courses</span><a href="/login">Sign in</a></li>
         </ol>
@@ -503,13 +511,13 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             <p class="footer_title"> Our MOOCs</p>
             <div class="footer_list"> 
               <ol class="footer_list_nav">
-                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-protegees+2021_T1/about" target="_blank">Protected area management</a></li>
-                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+suivi-eco+2021_T1/about" target="_blank">Ecological monitoring</a></li>
-                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+application-loi+2021_T1/about" target="_blank">Law enforcement</a></li>
-                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+conservations-especes+2021_T1/about" target="_blank">Species conservation</a></li>
-                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+valorisation-aires+2021_T1/about" target="_blank">Valorisation of resources</a></li>
-                <li class="footer_list_element"><a href="/course-v1:mooc-conservation+nouvelles-technologies+2021_T1/about" target="_blank">New technologies</a></li>
-                <li class="footer_list_element"><a href="#" target="_blank">Marine protected areas</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+protected-areas+2021_T1_EN/about" target="_blank">Protected area management</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+eco-monitoring+2021_T1_EN/about" target="_blank">Ecological monitoring</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+law-enforcement+2021_T1_EN/about" target="_blank">Law enforcement</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+species-conservation+2021_T1_EN/about" target="_blank">Species conservation</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+areas-valorisation+2021_T1_EN/about" target="_blank">Valorisation of resources</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+new-techs+2021_T1_EN/about" target="_blank">New technologies</a></li>
+                <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+marine-areas+2021_T1_EN/about" target="_blank">Marine protected areas</a></li>
               </ol>
             </div>
 
