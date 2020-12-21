@@ -1,0 +1,240 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from django_countries import countries
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string
+import datetime
+%>
+
+<%block name="title"><title>ensure form</title></%block>
+
+<%block name="header_extras">
+
+<style>
+.section {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.field {
+  position: relative;
+}
+.picto_status {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  right: -50px;
+}
+.wrapper-account-settings .wrapper-header {
+  height: auto;
+}
+.required {
+  font-weight: bold !important;
+}
+#global-navigation,.wrapper-footer {
+ display: none !important;
+}
+#main {
+height: 2250px;
+overflow: hidden;
+}
+#tma_background_font {
+ background-image: none !important;
+ background-color: #fff !important;
+}
+</style>
+
+<p id="SeqProgression" style="color: red;background-color:#fff;">
+  <strong>Veuillez completer le formulaire suivant pour accèder à votre attestation de réussite.</strong>
+</p>
+
+<div class="wrapper-account-settings">
+  <main id="main" aria-label="Content" tabindex="-1">
+    <div class="account-settings-container">
+      <div class="wrapper-header">
+        <div id="aboutTabSections-tabpanel" class="account-settings-tabpanels " aria-label="Information du compte" role="tabpanel">
+          <div class="section">
+          <!-- FORMS -->
+          <section class="register container">
+            <section role="main" class="content">
+              <form role="form" novalidate>
+                <div class="group group-form">
+                  <ol class="list-input">
+                  % for n in fields:
+                    <li class="field ${n.get('type')}" id="place_${n.get('name')}">
+
+                    % if (user_fields[n.get('name')] is None) or (user_fields[n.get('name')] == ''):
+                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/cross-remove-sign.png" /></div>
+                    % else:
+                      <div class="picto_status" data-name="${n.get('name')}"><img src="/media/dev/images/checked.png" /></div>
+                    % endif
+
+                    <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+                    % if n.get('type') == 'email':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields[n.get('name')])}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                    % elif n.get('type') == 'text':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="${_(user_fields[n.get('name')])}" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip"  class="my_form"/>
+                    % elif n.get('type') == 'select':
+                    <label for="${n.get('name')}" class="${'required' if n.get('required') else ''}">${_(n.get('label'))} ${'*' if n.get('required') else ''}</label>
+                    <select id="${n.get('name')}" name="${n.get('name')}" class="my_form">
+                      % if n.get('name') == 'country':
+                        % if not user_fields['country']:
+                          <option value="" selected="selected">--</option>
+                        % else:
+                          <option value="" >--</option>
+                        % endif
+                        <%
+                        _countries = list(countries)
+                        %>
+                        % for f in _countries:
+                          % if f[0] == user_fields['country']:
+                           <option value="${f[0]}" selected="selected">${f[1]}</option>
+                          % else:
+                           <option value="${f[0]}">${f[1]}</option>
+                          % endif
+                        %endfor
+                      % endif
+                      % if n.get('name') == 'year_of_birth':
+                        % if not user_fields['year_of_birth']:
+                          <option value="" selected="selected">--</option>
+                        % else:
+                          <option value="" >--</option>
+                        % endif
+                  	<%
+                  	year = datetime.datetime.today().year
+                  	YEARS = [year - i for i in range(100)]
+                  	%>
+                          % for y in YEARS:
+                              % if str(y) == user_fields['year_of_birth']:
+                  	           <option value="${y}" selected="selected">${y}</option>
+                              % else:
+                               <option value="${y}">${y}</option>
+                              % endif
+                  	% endfor
+                      % else:
+                          % for j in n.get('options'):
+                            % if j.get('value') == user_fields[n.get('name')]:
+                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''} selected="selected">${j.get('name')}</option>
+                            % else:
+                              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+                            % endif
+                          %endfor
+                      % endif
+                    </select>
+                    % elif n.get('type') == 'checkbox':
+                    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" class="my_form"/>
+                    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+                    % endif
+                    </div>
+                    </li>
+                  % endfor
+                  </ol>
+                  <p class="required">* champs obligatoires</p>
+                </div>
+              </form>
+            </section>
+          </section>
+          <!-- END FORMS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+<script>
+console.log('ensure_form_status : '+localStorage.getItem("ensure_form"));
+function go_to_certificate(){
+$.ajax({
+  url:'/api/grades/v0/course_grade/course-v1:sncf+1+2017Q3/users/?username='+get_current_username,
+  type:'GET',
+  dataType:'json',
+  success: function(data) {
+    if(data[0].passed  && data[0]['Quiz Séquence 1']>=0.695 && data[0]['Quiz Séquence 2']>=0.695 && data[0]['Quiz Séquence 3']>=0.695 && data[0]['Quiz Séquence 4']>0.5 && data[0]['Evaluation finale']>=0.695){
+          name=data[0]['name'];
+          percent=data[0]['percent']*100;
+          hash=data[0]['hash'];
+          course_display_name=data[0]['course_display_name'];
+          course_key=data[0]['course_key'];
+    }else{
+          $('#SeqProgression').show();
+    }
+  }
+});
+}
+
+var urls_api = [
+  "/tma/api/ensure_profile_form/",
+  "/tma/api/profile_form"
+];
+
+$('.my_form').change(function(){
+  var This = $(this);
+  var data = {};
+  var type = This.attr('type');
+  var value = This.val();
+  var name = This.attr('name');
+  if(type == "checkbox") {
+    if(This.is(':checked')) {
+      value = true;
+    }else {
+      value = false;
+    }
+  }
+  if(name && value) {
+    data[name] = value;
+    $.ajax({
+      type: 'post',
+      dataType:'json',
+      data: JSON.stringify(data),
+      url: urls_api[0],
+      success: function(data) {
+        var fields = data.fields;
+        for (var i = 0;i < fields.length; i++) {
+          if (fields[i][name] == value ) {
+            $('.picto_status').each(function(){
+              var data_name = $(this).data('name');
+              if(data_name == name) {
+                $(this).find('img').attr('src','/media/dev/images/checked.png');
+              }
+              if(data.check_form_extra.status && data.check_certificate_form_extra.status) {
+                localStorage.setItem("ensure_form", "True");
+              }
+            })
+          }
+        }
+      }
+    })
+  }
+})
+var title_f = "<li id='title_f'>Etes-vous mobile en : </li>";
+$('#place_is_france_entiere').before(title_f);
+</script>
+<style>
+#title_f {
+ font-weight: bold;
+ transition: color 0.15s ease-in-out 0s;
+ margin: 0 0 5px 0;
+ color: #333;
+ margin-bottom: 40px; 
+}
+#place_is_paca {
+ margin-bottom: 40px;
+}
+#place_is_france_entiere,#place_is_ile_de_france,#place_is_auvergne,#place_is_bourgogne,#place_is_bretagne,#place_is_centre,#place_is_corse,#place_is_grand_est,#place_is_haut_de_france,#place_is_normandie,#place_is_nouvelle_aquitaine,#place_is_occitanie,#place_is_pays_de_loire,#place_is_paca{
+  width: 95%;
+  margin-left: 5%;
+}
+</style>
+<!-- end fields generation -->
+</%block>
