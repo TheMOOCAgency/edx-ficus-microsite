@@ -133,18 +133,6 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   enrollment_end = enrollment.course_overview.enrollment_end
   today = date.today()
   closed_courses = []
-  log.info('***************')
-  log.info(enrollment.course_overview)
-  log.info(enrollment_end.date())
-  log.info(enrollment_end.date() < today)
-  log.info(enrollment_start.date())
-  log.info(enrollment_start.date() > today)
-  log.info('***************')
-  if enrollment_end.date() < today or enrollment_start.date() > today:
-    #closed_courses.append(enrollment.course_id)
-    log.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    log.info(closed_courses)
-    log.info('****************************')
   if len(course_enrollments) == 1:
     course_tma = str(enrollment.course_id)
     user_tma = user.id
@@ -165,6 +153,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   endif
   """
 endfor
+no_forum_list = ["course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2", "course-v1:nature-for-city-life+NFCL+Parcours2", "course-v1:nature-for-city-life+NFCL+session3", "course-v1:nature-for-city-life+NFCL_EN+session3", "course-v1:nature-for-city-life+NFCL_DEUCH+session1", "course-v1:nature-for-city-life+NFCL_ESP+session1", "course-v1:nature-for-city-life+NFCL_ITL+session1"]
 
 def url_class(is_active):
   if is_active:
@@ -172,7 +161,7 @@ def url_class(is_active):
   return ""
 
 def is_forum_not_expired(course_id):
-  if (str(course_id) != "course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2" and str(course_id) != "course-v1:nature-for-city-life+NFCL+Parcours2") or timestamp < 1594512000:
+  if str(course.id) not in no_forum_list or timestamp < 1594512000:
     return True
   return False
 
