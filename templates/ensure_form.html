@@ -311,7 +311,7 @@ $.ajax({
 }
 
 var urls_api = [
-  "/tma/api/ensure_profile_form",
+  "/tma/api/ensure_profile_form/",
   "/tma/api/profile_form"
 ];
 
@@ -330,12 +330,14 @@ $('.my_form').change(function(){
   }
   if(name && value) {
     data[name] = value;
+    console.log(data)
     $.ajax({
       type: 'post',
       dataType:'json',
       data: JSON.stringify(data),
       url: urls_api[0],
       success: function(data) {
+        console.log(data)
         var fields = data.fields;
         for (var i = 0;i < fields.length; i++) {
           if (fields[i][name] == value ) {
