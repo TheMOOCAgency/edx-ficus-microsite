@@ -332,8 +332,19 @@ import datetime
  color: rgba(98,181,207,0.8);
  border: none;
 }
+#field-name {
+ display: none !important;
+}
 </style>
+<script>
+$('#first_name,#last_name').change(function(){
+  var first_name = $('#first_name').attr('value');
+  var last_name = $('#last_name').attr('value');
+  var name = first_name+' '+last_name;
+  $('#name').attr('value',name);
+})
+</script>
 <div class="form-actions" id="login_link_up">
-  <a id="login_link" href="/login?course_id=course-v1:AXABANQUE+COMPTEBANCAIREAXA+FEVRIER2017&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login?course_id=course-v1:sncf+1+2017Q3&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
 </div>
 

@@ -7,12 +7,28 @@
 %>
 <% footer = get_footer(is_secure=is_secure) %>
 <%namespace name='static' file='static_content.html'/>
-<%
-org = static.get_value('domain_prefix')
-css = org+'/css/footer.css'
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+.wrapper-footer footer#footer-openedx .footer-about-openedx:last-child,.wrapper-footer footer#footer-openedx .wrapper-logo,.wrapper-footer footer#footer-openedx .copyright,.wrapper-footer footer#footer-openedx .nav-legal {
+  display: none;
+}
+.wrapper-footer {
+  padding: 0px;
+  line-height: 35px;
+  vertical-align: middle;
+  text-align: center;
+  font-family:"avenir-sncf";
+  background-color: #4d4d4d;
+  border-top: 4px solid #cd0037;
+  color: #fff;
+}
+.wrapper-footer p {
+  text-align: center;
+}
+</style>
 <div class="wrapper wrapper-footer">
+  <!-- <p>Site réalisé par <a href="http://www.themoocagency.com" target="_blank">The MOOC Agency</a> - 2016 - <a href="/tos" target="_blank">CGU et Mentions légales</a> - <a href="/faq" target="_blank">FAQ</a></p> -->
+  
+<!--
   <footer id="footer-openedx" class="grid-container"
     ## When rendering the footer through the branding API,
     ## the direction may not be set on the parent element,
@@ -23,6 +39,7 @@ css = org+'/css/footer.css'
   >
     <div class="colophon">
       <nav class="nav-colophon" aria-label="${_('About')}">
+      <!--
         <ol>
             % for item_num, link in enumerate(footer['navigation_links'], start=1):
             <li class="nav-colophon-0${item_num}">
@@ -30,9 +47,17 @@ css = org+'/css/footer.css'
             </li>
             % endfor
         </ol>
+      -->
+<!--
+      <ol>
+        <li class="nav-colophon-01"><a href="#">Contact</a></li>
+        <li class="nav-colophon-02"><a href="#">FAQ</a></li>
+        <li class="nav-colophon-03"><a href="#">A propos</a></li>
+        <li class="nav-colophon-04"><a href="#">Mentions Légales</a></li>
+      </ol>
       </nav>
 
-      <div class="wrapper-logo">
+      <div class="wrapper-logo"> 
         <p>
           <a href="/">
             ## The default logo is a placeholder.
@@ -42,7 +67,7 @@ css = org+'/css/footer.css'
             ## can be included in the footer on other sites
             ## (e.g. a blog or marketing front-end) to provide a consistent
             ## user experience.  See the branding app for details.
-<!--            <img alt="organization logo" src="${footer['logo_image']}">-->
+            <img alt="organization logo" src="${static.url('sncf/images/logo.png')}">
           </a>
         </p>
       </div>
@@ -68,13 +93,14 @@ css = org+'/css/footer.css'
     % if not hide_openedx_link:
     <div class="footer-about-openedx">
       <p>
-        <a href="http://themoocagency.com/">
-          <img src="${static.url(org+'/images/logo_tma.png')}" alt="" width="140" />
+        <a href="${footer['openedx_link']['url']}">
+          <img src="${footer['openedx_link']['image']}" alt="${footer['openedx_link']['title']}" width="140" />
         </a>
       </p>
     </div>
     % endif
   </footer>
+-->
 </div>
 % if include_dependencies:
   <%static:js group='base_vendor'/>
@@ -87,3 +113,23 @@ css = org+'/css/footer.css'
     <link rel="stylesheet" type="text/css" href="${url}"></link>
   % endfor
 % endif
+<script>
+function footer_down() {
+  var url = window.location.href;
+  console.log(url);
+  if(url == 'https://sncf-mooc.fr/dashboard') {
+    var This = $('.wrapper-footer');
+    This.css('left','0');
+    This.css('bottom','0');
+    This.css('width','100%');
+    This.css('margin','0');
+    This.css('padding','0');
+    This.css('position','absolute');
+    This.css('z-index','100000');
+  }
+}
+$(document).ready(function(){
+  footer_down();
+})
+</script>
+

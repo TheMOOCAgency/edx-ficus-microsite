@@ -2,7 +2,8 @@
 
 <%!
 import urllib
-
+import time
+import datetime
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext
 from django.core.urlresolvers import reverse
@@ -19,11 +20,6 @@ from student.helpers import (
   VERIFY_STATUS_NEED_TO_REVERIFY,
   DISABLE_UNENROLL_CERT_STATES,
 )
-#TMA DASHBOARD
-from course_api.blocks.api import get_blocks
-from opaque_keys.edx.keys import CourseKey
-from opaque_keys.edx.locations import SlashSeparatedCourseKey
-from xmodule.modulestore.django import modulestore
 %>
 
 <%
@@ -42,45 +38,54 @@ from xmodule.modulestore.django import modulestore
 org_static = static.get_value('domain_prefix')
 %>
 
+<%
+cours_ouv = show_courseware_link and not is_course_blocked
+%>
+
+
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
   <h1>${course_overview.display_name_with_default}</h1>
 </div>
+
+%if cours_ouv:
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url(org_static+'/images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
-  <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
+  <!--<a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>-->
+  <a href="/faq" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/forum_blanc.svg')}"/><span>${_("FAQ")}</span></a>
   <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/info_blanc.svg')}"/><span>${_('info')}</span></a>
-  <a href="https://twitter.com/hashtag/MOOCExperienceGaz?src=hash" class="course_nav" target="_blank"><img class="svg" src="${static.url(org_static+'/images/Twitter_Bird.svg')}"/><span>Twitter</span></a>
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url(org_static+'/images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <a href="https://www.facebook.com/SNCFrecrutement/videos/827974073994378/" class="course_nav" target="_blank"><img class="svg" src="/media/microsite/afpa/images/facebook.svg"/><span>Facebook</span></a>
+  <a href="/dashboard" class="course_nav"><img class="svg" src="/media/microsite/afpa/images/left-arrow.svg"/><span>${_('Retour')}</span></a>
   <span style="clear:left;display:block;"></span>
 </div>
 <div id="course_dashboard_border"></div>
 <div id="courses_cells">
-<%
-course_usage_key = modulestore().make_course_usage_key(course_overview.id)
-blocks = get_blocks(request,course_usage_key,depth='all',requested_fields=['display_name','children'])
-root = blocks['root']
-children = blocks['blocks'][root]['children']
-%>
-% for n in children:
-    <div class="course_cell" style="">
-      <div class="course_cells_title">
-<h2>
-<!--${blocks['blocks'][n]['display_name'].replace("-","-")}-->
-%if len(blocks['blocks'][n]['display_name'].split('-',1)) > 1:
-${blocks['blocks'][n]['display_name'].split('-',1)[0]}<br/><br/>${blocks['blocks'][n]['display_name'].split('-',1)[1]}
-%else:
-${blocks['blocks'][n]['display_name'].split('-',1)[0]}
-%endif
-</h2>
-      </div>
-      <div class="course_cells_action">
-        <a href="/courses/${enrollment.course_id}/courseware/${blocks['blocks'][n]['block_id']}">${_("Start")}</a>
-      </div>
-    </div>
-% endfor
-<span style="display:block;clear:left;"></span>
 </div>
+<script>
+$.ajax({
+            type: "GET", //rest Type
+            dataType: 'json', //mispelled
+            url: "/courses/${enrollment.course_id}/courseware_api",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (chapter_list) {
+                for (var i = 0; i < chapter_list.length; i++) {
+                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+                }
+             }
+});
+</script>
+%else:
+
+<div id="title_dashboard_course">
+  <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
+</div>
+<div id="title_dashboard_course" style="margin-bottom:350px">
+<center>
+<div class="embed-container" style="font-family: avenir-sncf;"><iframe src="https://player.vimeo.com/video/233717397?wmode=transparent&amp;title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="300px" frameborder="0" width="500px" kwframeid="1"></iframe></div>
+</center></div>
+%endif
+
 <script>
            $( document ).ready(function() {
 

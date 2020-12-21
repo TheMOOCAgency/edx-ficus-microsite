@@ -8,48 +8,345 @@ from django.core.urlresolvers import reverse
 from openedx.core.djangolib.markup import HTML, Text
 %>
 
+<%
+org_static = static.get_value('domain_prefix')
+%>
+
+<style>
+.home>header {
+    margin: 0;
+    width: 100%;
+    height: calc(100vh - 120px);
+    padding: 0;
+    background: url("/media/sncf/images/baniere.jpg") no-repeat center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.home>header .title:last-child {
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  box-shadow: none;
+}
+.home>header .outer-wrapper {
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  height: 180px;
+  margin-top: 150px;
+}
+.home>header .title>.heading-group h1 {
+  text-shadow: none;
+  color: #fff;
+  text-align: center;
+  text-transform:uppercase;
+  font-size: 32px;
+}
+#subtitlehp{
+  text-shadow: none;
+  color: #fff;
+  text-align: center;
+  text-transform:uppercase;
+  font-size: 24px;
+  margin-top:10px;
+}
+.home>header .title>.heading-group button {
+  width: 226px;
+  height: 70px;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0px;
+  box-shadow: none;
+  background-color: transparent;
+  outline:none;
+  background-image: url("/media/sncf/images/bouton_teaser.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#register_2 {
+  width: 226px;
+  height: 70px;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0px;
+  box-shadow: none;
+  background-color: transparent;
+  outline:none;
+  background-image: url("/media/sncf/images/bouton_inscrire.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#scroll {
+  height: 54px;
+  line-height: 54px;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 45px;
+}
+#scroll img {
+  cursor: pointer;
+}
+#background_color_1 {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-color: #efefef;
+  padding-bottom: 150px;
+  position: relative;
+}
+#destination_image {
+  width: 100%;
+  text-align: center;
+  height: 139px;
+  margin-bottom: 120px;
+  background-color: transparent;
+}
+#absolute_img {
+  display: block;
+  position: absolute;
+  width: 1025px;
+  height: 117px;
+  margin-left: -521.5px;
+  left: 50%;
+  bottom: -62.5px;
+}
+#destination_text_title {
+  width: 1400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  margin-bottom: 50px;
+}
+#destination_text_title p {
+  font-size: 32px;
+  line-height: 32px;
+  height: auto;
+  color: #4d4d4d;
+  text-align: center;
+  margin: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+#destination_text_title #text_color_tma {
+  color: #cd0037;
+}
+#destination_image img {
+  height: 139px;
+  width: 683px;
+}
+#destination_text_para {
+  width: 1400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+#destination_text_para p {
+  margin: 0;
+  text-align: center;
+  color: #4d4d4d;
+  font-size: 22px;
+  height: auto;
+  line-height: 22px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+#destination_text_para #type_on {
+  margin-bottom: 25px;
+}
+#background_color_2 {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  padding-top: 150px;
+  padding-bottom: 90px;
+}
+#en_savoir_plus {
+  width: 1400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+#en_savoir_plus p {
+  width: 100%;
+  font-size: 16px;
+  height: auto;
+  color: #cd0037;
+  line-height: 16px;
+  text-align: right;
+  text-transform: uppercase;
+}
+#player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 101;
+  margin-left: -350px;
+  margin-top: -210px;
+  display: none;
+  padding: 30px;
+}
+#close {
+  position: absolute;
+  z-index: 102;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.4);
+}
+#voile {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+#absolute_img_mobile {
+  margin-top: 50px;
+  display: none;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+}
+@media(max-width:400px) {
+  #absolute_img_mobile {
+    display: block;
+  }
+  #absolute_img {
+    display: none;
+  }
+}
+@media(max-width:400px) {
+  .home>header .outer-wrapper {
+    margin-top: 15px;
+  }
+  .home>header .title>.heading-group h1 {
+    font-size: 30px;
+  }
+  .home>header .title>.heading-group button {
+    margin-top: 4px;
+  }
+}
+@media(max-height:414px) {
+  .home>header .outer-wrapper {
+    margin-top: 10px;
+  }
+  .home>header .title>.heading-group h1 {
+    font-size: 25px;
+  }
+  .home>header .title>.heading-group button {
+    margin-top: 4px;
+  }
+}
+.title {
+ width: 50% !important;
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ float: left;
+}
+.home>header .title {
+ background: transparent;
+ box-shadow: none;
+}
+.iframe {
+ width: 50%;
+ height: auto;
+ float: left;
+}
+.iframe iframe{
+ width: 100%;
+ height: 337.5px;
+ border: 0;
+ padding: 0;
+}
+.home>header .outer-wrapper {
+ margin-top: 10%;
+}
+.home>header .title>.heading-group h1 {text-align: left;}
+#subtitlehp {text-align:left;}
+#teaser_play {display: none;}
+@media(max-width:1200px) {
+ .home>header .title>.heading-group h1{text-align:center;}
+ .iframe{display:none;}
+ #subtitlehp {text-align:center;}
+ #teaser_play {display: block;}
+ .title {
+  width: 65.88078% !important;
+  margin-left: 17.05961% !important;
+  margin-right: 2.35765% !important;
+  float: none;
+ }
+}
+</style>
+<div id="player"><span id="close">X</span><iframe id="iframe_teaser" src="" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+<div id="voile"></div>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+                  <h1>Bienvenue sur <br>LE MOOC DESTINATIONS CONDUITE</h1>
+<center><h2 id="subtitlehp">Un MOOC d’avance sur votre recrutement</h2></center>
+                  <a href="/register?course_id=course-v1:sncf+1+2017Q3&enrollment_action=enroll" id="register_2"></a>
+                  <button id="teaser_play"></button>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+          <div class="iframe">
+           <iframe src="https://player.vimeo.com/video/233717397?autoplay=0"></iframe>
+          </div>
         </div>
 
       </header>
-      <%include file="${courses_list}" />
-
+      <section id="background_color_1">
+        <section id="scroll">
+          <img id="scroll_img" src="/media/sncf/images/boutonscroll.png" class="#destination_image"/>
+        </section>
+        <section id="destination_image">
+          <img src="/media/sncf/images/logo_plateforme.png" />
+        </section>
+        <section id="destination_text_title">
+          <p>Le métier de conductrice ou conducteur de train vous intéresse ?</p>
+          <!--
+          <p id="text_color_tma">vous vous êtes toujours demandé comment fonctionnait un engin monteur ?</p>
+        -->
+        </section>
+        <section id="destination_text_para">
+          <p>SNCF vous propose son premier MOOC consacré aux métiers de la conduite ! Que vous soyez néophyte ou expert, futur candidat ou simple</p>
+          <p id="type_on">curieux, ce cours vous enseignera tout ce que vous devez savoir du métier de conductrice ou conducteur de train.</p>
+          <p>Au fil des quatre séquences proposées, nous vous ferons découvrir le monde du ferroviaire :</p>
+        </section>
+        <img src="/media/sncf/images/bloc_sbquence.png" id="absolute_img"/>
+        <img src="/media/sncf/images/bloc_sbquence_mobile.png" id="absolute_img_mobile"/>
+      </section>
+      <section id="background_color_2">
+        <section id="en_savoir_plus">
+          <a href="/register?course_id=course-v1:sncf+1+2017Q3&enrollment_action=enroll">
+          <p>S'inscrire au MOOC <img src="/media/sncf/images/picto_ en_savoir _plus.png" /></p>
+          </a>
+        </section>
+      </section>
     </section>
 </main>
 
@@ -78,3 +375,94 @@ from openedx.core.djangolib.markup import HTML, Text
   $(window).load(function() {$('#signup_action').trigger("click");});
 </script>
 % endif
+<script>
+function scroll_to() {
+  $('#scroll_img').on('click', function() {
+    var page = $(this).attr('class');
+    var speed = 750;
+    $('html, body').animate( { scrollTop: $(page).offset().top }, speed );
+    return false;
+  });
+}
+function teaser_play() {
+  $('#teaser_play').click(function(){
+    console.log('test');
+    $('#iframe_teaser').attr('src','https://player.vimeo.com/video/233717397?autoplay=1');
+    $('#voile').show();
+    $('#player').show();
+  })
+  $('#voile').click(function(){
+    $('#voile').hide();
+    $('#player').hide();
+    $('#iframe_teaser').attr('src','');
+  })
+  $('#close').click(function(){
+    $('#voile').hide();
+    $('#player').hide();
+    $('#iframe_teaser').attr('src','');
+  })
+}
+function img_responsive() {
+  var width = $(window).width();
+  width = parseInt(width);
+  var This = $('#absolute_img');
+  var height = This.height();
+  height = parseInt(height);
+  var newHeight = 0;
+  if(width < 1025) {
+    newHeight = (height / 2) + 4;
+    This.css('bottom','-'+newHeight+'px');
+  }else{
+    This.attr('style','');
+  }
+}
+/*
+function onpen_link() {
+  $('#en_savoir_plus').click(function(){
+    var a = document.createElement('a');
+    a.href = '/register?course_id=course-v1:sncf+1+2017Q3&enrollment_action=enroll';
+    a.target = '_self'; // now it will open new tab/window and bypass any popup blocker!
+    a.click();
+  })
+}
+*/
+$(document).ready(function(){
+  scroll_to();
+  teaser_play();
+  //onpen_link();
+  //img_responsive();
+})
+$(window).resize(function(){
+  //img_responsive();
+})
+</script>
+<style>
+@media(max-width:1400px) {
+  #destination_text_title,#destination_text_para,#en_savoir_plus {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media(max-width:1025px) {
+  #absolute_img {
+    width: 100%;
+    left: 0;
+    height: auto;
+    margin-left: 0;
+    bottom: -6.1vw;
+  }
+}
+@media(max-height:500px) {
+  .home>header .outer-wrapper {
+    margin-top: calc(40vh - 106px);
+  }
+}
+@media(max-width:639px) {
+  #destination_image img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+

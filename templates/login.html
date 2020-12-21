@@ -98,15 +98,15 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          removeClass('is-disabled').
-          attr('aria-disabled', false).
-          removeProp('disabled').
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          
+          
+          
+          html("${_('Log into My {platform_name} Account').format(platform_name='SNCF')}");
       }
       else {
         $submitButton.
-          addClass('is-disabled').
-          prop('disabled', true).
+          
+          
           text("${_(u'Processing your account information')}");
       }
     }
@@ -162,7 +162,7 @@ from third_party_auth import provider, pipeline
 
       % if third_party_auth_error:
         <div role="alert" class="status message third-party-auth-error is-shown" tabindex="-1">
-          <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name=platform_name)} </h3>
+          <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name='SNCF')} </h3>
           <ul class="message-copy">
             <li>${third_party_auth_error}</li>
           </ul>
@@ -247,3 +247,10 @@ from third_party_auth import provider, pipeline
 
   </aside>
   </section>
+<style>
+.wrapper.wrapper-footer{
+    bottom: 0px !important;
+    position: absolute !important;
+    width: 100% !important;
+}
+</style>

@@ -14,11 +14,10 @@ from django.core.urlresolvers import reverse
   <a class="action action-login-openid" href="#">${_("Login via OpenID")}</a>
 </div> -->
 % endif
-
 <div class="cta cta-help">
   <h3>${_("Not Enrolled?")}</h3>
-  <p><a href="${reverse('register_user')}">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
-
+  <p><a href="/register?course_id=course-v1:sncf+1+2017Q3&enrollment_action=enroll">Inscrivez-vous au MOOC !</a></p>
+<!--
   ## Disable help unless the FAQ marketing link is enabled
   % if settings.MKTG_URL_LINK_MAP.get('FAQ'):
     <h3>${_("Need Help?")}</h3>
@@ -27,4 +26,5 @@ from django.core.urlresolvers import reverse
         ${_("View our help section for answers to commonly asked questions.")}
     </a></p>
   % endif
+-->
 </div>

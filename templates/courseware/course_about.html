@@ -258,12 +258,20 @@ css = org_static+'/css/course_about.css'
                 <span class="icon fa fa-calendar" aria-hidden="true"></span>
                 <p class="important-dates-item-title">Fin du MOOC</p>
                   % if isinstance(course_end_date, str):
+		      <!--
                       <span class="important-dates-item-text final-date">${course_end_date}</span>
+		      -->
+		      <!--	
+	 	      <span class="important-dates-item-text">06 Juin 2017</span>
+		      -->
                   % else:
                     <%
                         course_date_string = course_end_date.strftime('%Y-%m-%dT%H:%M:%S%z')
                     %>
+		    <span class="important-dates-item-text">n/a</span>
+		    <!--
                     <span class="important-dates-item-text final-date localized_datetime" data-format="shortDate" data-datetime="${course_date_string}"></span>
+		    -->
                   % endif
             </li>
             % endif
