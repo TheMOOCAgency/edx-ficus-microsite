@@ -12,7 +12,7 @@
         <ul class="courses-listing">
           ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
           % if request.LANGUAGE_CODE == 'en':
-            %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+            %for course in courses:
               %if str(course).endswith("_EN"):
                 <li class="courses-listing-item">        
                   <%include file="course.html" args="course=course" />
@@ -20,7 +20,7 @@
               %endif
             %endfor
           %elif request.LANGUAGE_CODE == 'fr' :
-            %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+            %for course in courses:
               %if not str(course).endswith("_EN"):
                 <li class="courses-listing-item">        
                   <%include file="course.html" args="course=course" />
