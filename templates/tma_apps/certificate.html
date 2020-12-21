@@ -1,0 +1,176 @@
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name='static' file='/static_content.html'/>
+<%def name="online_help_token()"><% return "courseware" %></%def>
+<%!
+from django.utils.translation import ugettext as _
+from django.conf import settings
+from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from datetime import datetime, date
+import json
+
+%>
+
+<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+
+<style>
+/* General */
+#global-navigation,.wrapper-footer,#tma_background_font {
+  display: none !important;
+}
+body{
+  text-align:center;
+}
+.container{
+  margin-top:80px;
+  width:854px;
+  height:522px;
+  margin-left: 70px;
+  padding: 0;
+}
+.frame {
+  width:830px;
+  height:498px;
+  padding:0;
+  border: 6px solid #0099A9;
+}
+#main {
+  background-image:url('${bg}');
+  background-size:cover;
+  background-position:center;
+}
+.main-color{
+  background-color: #0099A9;
+}
+
+.texte-gras{
+  font-weight: 600;
+}
+
+.bandeau-top{
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#certificate_logo {
+  width: 280px;
+}
+
+.title-attestation > p {
+  margin-bottom: 40px;
+  color: #23AA8C;
+  font-size: 2.5em
+}
+
+.bandeau-middle {
+  margin-top: 40px;
+}
+
+.bandeau-middle > img {
+  position: absolute;
+  width: 170px;
+  margin-left: 220px;
+}
+
+#course-title{
+  font-size: 20px;
+}
+
+#nom-user{
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+#score, #course-title{
+  margin-top: 10px;
+}
+
+/* Footer */
+.footer-left{
+  float: left;
+}
+.footer-right img{
+  width: 200px;
+  margin-top: 21px;
+}
+.footer-right{
+  float: right;
+  margin-top: -14px;
+  margin-left: -130px;
+}
+.footer-left{
+  width: 80%;
+}
+.footer{
+  margin-top: 0;
+}
+.footer p{
+  margin-top: 100px;
+  margin-left: 10px;
+  font-size: 12px;
+  text-align: left;
+}
+
+</style>
+% if grades.get('passed'):
+<div class="container" id="main">
+  <div class="frame">
+    <div class="bandeau-top">
+      <div class="logo-attestation">
+        <img id="certificate_logo" src="/media/microsite/nautisme-durable/images/mooc-nautismedurable.png"/>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+
+    <div class="bandeau-middle">
+      <img src="/media/microsite/nautisme-durable/images/icon.png">
+      <div class="title-attestation">
+        <p>ATTESTATION DE R&Eacute;USSITE</p>
+      </div>
+      <p>La Fédération des Industries Nautiques</p>
+      <p>atteste que :</p>
+      <p id="nom-user">${first_name} ${last_name}</p>
+      <p>a suivi et réussi le MOOC ${course_name}</p>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+          <p>Code de vérification : <span id="security_hash">${hash}</span> – A vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
+        </div>
+        <div class="footer-right">
+          <img src="/media/microsite/nautisme-durable/images/logo-fdin.png"/>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+</script>
+  %if pdf:
+  <script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+  <script type="text/javascript">
+  function printpage(){
+     html2canvas(document.body, {
+      onrendered : function (canvas){
+       var img=canvas.toDataURL("image/png");
+       var doc = new jsPDF({orientation: 'landscape'});
+       doc.addImage(img, "PNG", 20, 20);
+       doc.save("certificat.pdf");
+      }
+    })
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+     printpage();
+  });
+  </script>
+  %endif
+% endif

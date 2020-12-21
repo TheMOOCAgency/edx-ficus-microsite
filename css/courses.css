@@ -1,17 +1,17 @@
 .btn-login,.btn-login:hover,.btn-login:visited,.btn-login:focus {
   color: #fff !important;
-  background-color: tma_primary_color !important;
+  background-color: rgba(0,67,104,1) !important;
 }
 span.icon.fa {
   color: #fff !important;
 }
 .find-courses .discovery-submit {
-  border-color: tma_primary_color !important;
-  background-color: tma_primary_color !important;
+  border-color: rgba(0,67,104,1) !important;
+  background-color: rgba(0,67,104,1) !important;
 }
 #discovery-message {
   color: #fff !important;
-  background-color: tma_primary_color !important;
+  background-color: rgba(0,67,104,1) !important;
 }
 .find-courses, .university-profile {
   background-color: transparent !important;
@@ -21,12 +21,12 @@ span.icon.fa {
   padding-left: 3% !important;
 }
 .courses-container .courses .course .course-image .cover-image .learn-more {
-  border-color: tma_primary_color !important;
-  background: tma_primary_color !important;
+  border-color: rgba(0,67,104,1) !important;
+  background: rgba(0,67,104,1) !important;
 }
 .courses-container .courses .course {
-  border-bottom: 3px solid tma_primary_color !important;
+  border-bottom: 3px solid rgba(0,67,104,1) !important;
 }
 .find-courses .search-facets .facet-option:hover, .find-courses .search-facets .facet-option:focus {
-  background: tma_primary_color !important;
+  background: rgba(0,67,104,1) !important;
 }

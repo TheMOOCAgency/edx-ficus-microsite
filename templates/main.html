@@ -117,6 +117,21 @@ from pipeline_mako import render_require_js_path_overrides
     </script>
 % endif
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108400250-1"></script>
+
+<script>
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108400250-1');
+</script>
+
+
+
 <!--
 <link rel="stylesheet" type="text/css" href="/media/css/customizer.css">
 <script type="text/javascript" src="/media/assets/js/customize.js"></script>
@@ -324,7 +339,22 @@ setInterval(function(){
       $(this).css('display','none');
     });
   }
-},500);
+  if(window.location.href.indexOf('/register')>-1){
+    $(".message-copy").each(function() {
+      if($(this).html().indexOf("De plus, ils ne peuvent pas inclure d’espaces.")==-1){
+        $(this).html($(this).html().replace("et des tirets (-).","et des tirets (-). De plus, ils ne peuvent pas inclure d’espaces. Exemple de nom d’utilisateur valide : « marin_a-29 »."));
+      }
+    });
+  }
+  if(window.location.href.indexOf('/activate')>-1){
+    $("h1.valid").each(function() {
+      $(this).html($(this).html().replace("Account Activated","Compte activé"));
+    });
+    $("h1").each(function() {
+      $(this).html($(this).html().replace("Account already active","Compte déjà activé"));
+    });
+  }
+},100);
 </script>
 
 <style>

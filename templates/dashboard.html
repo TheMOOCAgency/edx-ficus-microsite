@@ -356,6 +356,19 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 </div>
 <span style="display:block;clear:left;"></span>
 <script>
+
+var cellme= $(".course_cells_title")
+
+for (i=0;i<cellme.length;i++){
+
+var STrindf= $(cellme[i]).find("h2").text();
+var n = STrindf.search("Nouveau");
+console.log(n)
+if(n>-1){$(cellme[i]).css("background-color","rgb(0, 67, 104)");$(cellme[i]).find("h2").css("color","white")}
+
+}
+
+
 // SVG ACTION
 jQuery('img.svg').each(function(){
     var $img = jQuery(this);

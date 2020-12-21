@@ -1,5 +1,5 @@
  input[type="submit"], input[type="button"]{
-  background-color: tma_primary_color !important;
+  background-color: rgba(0,67,104,1) !important;
   background-image: none;
   text-shadow: none;
   box-shadow: none;
@@ -7,7 +7,7 @@
 
 }
 .content_tma {
-  min-height: calc(100vh - 153px) !important;
+  min-height: calc(100vh - 137px) !important;
 }
 .empty-dashboard-message a {
   color: #fff !important;

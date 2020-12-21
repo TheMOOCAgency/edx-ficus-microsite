@@ -83,7 +83,7 @@ import datetime
   <h2 class="sr">${_('Required Information')}</h2>
 
   % if has_extauth_info is UNDEFINED:
-
+  <!--
   <ol class="list-input">
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
@@ -93,6 +93,7 @@ import datetime
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
     </li>
+    -->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
