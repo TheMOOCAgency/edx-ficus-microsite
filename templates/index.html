@@ -42,7 +42,6 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     color: rgba(28,114,138,1)!important;
   }
   </style>
-  <script>console.log('test 10')</script>
 
 <main id="main" aria-label="Content" tabindex="-1">
   <header class="page_header">
@@ -54,9 +53,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
       <span></span>
       <span></span>
       <ul id="menu_burger">
-        <a class="nav_list_buttons" href="/tos"><li class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+        <a class="nav_list_buttons" href="/tos?lang=fr"><li class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
         <a class="nav_list_buttons" href="/about"><li class=" navigation_list_element nav_button login_button" >Certificat</li></a>
-        <a class="nav_list_buttons" href="${marketing_link('FAQ')}"><li class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
+        <a class="nav_list_buttons" href="/faq?lang=fr"><li class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
         <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
         <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
       </ul>
@@ -137,9 +136,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           <ol id="navigation_list">
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/#course_container">Nos Mooc</a></li>
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="#container_essentiels">Nos essentiels</a></li>
-            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/tos">MOOC Partenaires</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/tos?lang=fr">MOOC Partenaires</a></li>
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/about">Certificat</a></li>
-            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="${marketing_link('FAQ')}">F.A.Q</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/faq?lang=fr">F.A.Q</a></li>
             <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
             <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
@@ -277,10 +276,10 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               <div class="footer_list">
                 <ol class="footer_list_nav"></ol>
                   <li class="footer_list_element"><a href="/#course_container">Nos MOOC</a></li>
-                  <li class="footer_list_element"><a href="/tos" target="_blank">MOOC partenaires</a></li>
+                  <li class="footer_list_element"><a href="/tos?lang=fr" target="_blank">MOOC partenaires</a></li>
                   <li class="footer_list_element"><a href="/about" target="_blank">Certificat</a></li>
-                  <li class="footer_list_element"><a href="${marketing_link('FAQ')}" target="_blank">F.A.Q</a></li>
-                  <li class="footer_list_element"><a href="javascript:visibilite('container_english');">Site en anglais</a></li>
+                  <li class="footer_list_element"><a href="/faq?lang=fr" target="_blank">F.A.Q</a></li>
+                  <li class="footer_list_element en"><a href="javascript:visibilite('container_english');">Site en anglais</a></li>
                 </ol>
               </div>
             </div>
@@ -294,7 +293,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                   <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190">Groupe Facebook anglophone des MOOC</a></li>
                   <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">Twitter @Papaco_IUCN</a></li>
                   <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
-                  <li class="footer_list_element"><a href="#">Site de l'UICN-PAPACO</a></li>
+                  <li class="footer_list_element"><a href="https://papaco.org/fr/">Site de l'UICN-PAPACO</a></li>
                 </ol>
               </div>
             </div>
@@ -344,10 +343,10 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
         <nav id="navigation">
         <ol id="navigation_list">
           <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="/#course_container">Our MOOCs</a></li>
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="#container_essentiels">The essentials</a></li>
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos" target="_blank">Other MOOCs</a></li>
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about" target="_blank">Certificate</a></li>
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="${marketing_link('FAQ')}" target="_blank">F.A.Q</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" target="_blank" href="#container_essentiels">Our Essentials</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=en" target="_blank">Other MOOCs</a></li>
+          <!-- <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about" target="_blank">Certificate</a></li> -->
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/faq?lang=en" target="_blank">F.A.Q</a></li>
           <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">If this is your first visit, click here to create an account</span><a class="test" href="/register">Create an account</a></li>
           <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">If you already have an account, go to your courses</span><a href="/login">Sign in</a></li>
         </ol>
@@ -372,10 +371,10 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
         <div id="container_essentiels" class="course_list essentiels">
           <div class="course_list_intro">
             <h2 class="course_list_title">
-              The Essentials
+              Our Essentials
             </h2>
             <p class="course_list_text">
-              The Essentials are a short version of our Conservation MOOCs. Each Essential is made up of 50 videos that are geared to a specific profile of protected area conservation actors: Rangers, Managers (involved in Research R or in Law enforcement L) and Leaders. To get started, select the Essential that suits your needs.
+              Our Essentials are a short version of our Conservation MOOCs. Each Essential is made up of 50 videos that are geared to a specific profile of protected area conservation actors: Rangers, Managers (involved in Research R or in Law enforcement L) and Leaders. To get started, select the Essential that suits your needs.
             </p>
           </div>
 
@@ -483,10 +482,10 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               <div class="footer_list">
                 <ol class="footer_list_nav"></ol>
                   <li class="footer_list_element"><a href="/#course_container">Our MOOCs</a></li>
-                  <li class="footer_list_element"><a href="/tos" target="_blank">Other MOOCs</a></li>
-                  <li class="footer_list_element"><a href="/about" target="_blank">Certificate</a></li>
-                  <li class="footer_list_element"><a href="${marketing_link('FAQ')}" target="_blank">F.A.Q</a></li>
-                  <li class="footer_list_element"><a href="#">French site</a></li>
+                  <li class="footer_list_element"><a href="/tos?lang=en" target="_blank">Other MOOCs</a></li>
+                  <!-- <li class="footer_list_element"><a href="/about" target="_blank">Certificate</a></li> -->
+                  <li class="footer_list_element"><a href="/faq?lang=en" target="_blank">F.A.Q</a></li>
+                  <li class="footer_list_element fr"><a href="#">French site</a></li>
                 </ol>
               </div>
             </div>
@@ -500,7 +499,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                   <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190">French-speaking MOOCs Facebook group</a></li>
                   <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">IUCN-PAPACO website</a></li>
                   <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
-                  <li class="footer_list_element"><a href="#">IUCN-PAPACO website</a></li>
+                  <li class="footer_list_element"><a href="https://papaco.org/">IUCN-PAPACO website</a></li>
                 </ol>
               </div>
             </div>
@@ -521,7 +520,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               </ol>
             </div>
 
-            <p class="footer_title"> Nos essentiels</p>
+            <p class="footer_title"> Our Essentials</p>
             <div class="footer_list"> 
               <ol class="footer_list_nav">
                 <li class="footer_list_element"><a href="#" target="_blank">Essential Ranger</a></li>

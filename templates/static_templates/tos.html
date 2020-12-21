@@ -26,7 +26,7 @@ if _template is None:
 main { 
  background-color: #fff;
 }
-#header {
+.header {
   background-image: url("/media/microsite/mooc-conservation/extra/images/banner_faq.jpg");
   height: 580px;
   background-repeat: no-repeat;
@@ -181,45 +181,109 @@ width: 540px;
 }
 
 </style>
-<main id="main" aria-label="Content" tabindex="-1">
-  <div id="header">
-    <h1 class="header_navigation">MOOC Partenaires</h1>
+<main class="main" aria-label="Content" tabindex="-1">
+  <div id="fr">
+    <div class="header">
+      <h1 class="header_navigation">MOOC Partenaires</h1>
+    </div>
+  <section class="static-container about">
+    <p class="static-container-text-paragraphe">
+      Cette page contient des MOOC de nos partenaires sur des sujets qui pourraient vous intéresser. Ils ne sont pas gérés par l’équipe MOOC Conservation (seuls les MOOC en page d’accueil du site le sont). Si vous avez des questions, merci de contacter les équipes concernées. 
+    </p>
+    <div class="static-container-partners">
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/devdur/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">En savoir plus</h3>
+          </div>
+        </a>
+      </div>
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/denv/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">En savoir plus</h3>
+          </div>
+        </a>
+      </div>
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/eco/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">En savoir plus</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
   </div>
-<section class="static-container about">
-  <p class="static-container-text-paragraphe">
-    Cette page contient des MOOC de nos partenaires sur des sujets qui pourraient vous intéresser. Ils ne sont pas gérés par l’équipe MOOC Conservation (seuls les MOOC en page d’accueil du site le sont). Si vous avez des questions, merci de contacter les équipes concernées. 
-  </p>
-  <div class="static-container-partners">
-    <div class="content">
-      <a href="https://www.objectif2030.org/mooc/devdur/" target="_blank">
-        <div class="content-overlay"></div>
-        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png">
-        <div class="content-details fadeIn-bottom">
-          <h3 class="content-title">En savoir plus</h3>
-        </div>
-      </a>
+  <div id="en">
+    <div class="header">
+      <h1 class="header_navigation">Other MOOCs from our partners</h1>
     </div>
-    <div class="content">
-      <a href="https://www.objectif2030.org/mooc/denv/" target="_blank">
-        <div class="content-overlay"></div>
-        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png">
-        <div class="content-details fadeIn-bottom">
-          <h3 class="content-title">En savoir plus</h3>
-        </div>
-      </a>
+  <section class="static-container about">
+    <p class="static-container-text-paragraphe">
+      This page contains MOOCs from our partners on topics that could be of interest to you. They aren’t managed by the MOOC Conservation team (only the MOOCs on the homepage are). If you have any further questions related to these courses, please contact the relevant teams.
+    </p>
+    <div class="static-container-partners">
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/devdur/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette1.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">Learn more</h3>
+          </div>
+        </a>
+      </div>
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/denv/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette2.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">Learn more</h3>
+          </div>
+        </a>
+      </div>
+      <div class="content">
+        <a href="https://www.objectif2030.org/mooc/eco/" target="_blank">
+          <div class="content-overlay"></div>
+          <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png">
+          <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">Learn more</h3>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="content">
-      <a href="https://www.objectif2030.org/mooc/eco/" target="_blank">
-        <div class="content-overlay"></div>
-        <img class="content-image" src="/media/microsite/mooc-conservation/extra/images/vignettes/vignette3.png">
-        <div class="content-details fadeIn-bottom">
-          <h3 class="content-title">En savoir plus</h3>
-        </div>
-      </a>
-    </div>
+  </section>
   </div>
-
-</div>
-</section>
-
 </main>
+
+<script>
+  $( document ).ready(function() {
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+      }
+    };
+
+    var lang = getUrlParameter('lang');
+    if (lang === "en") {
+      $('#fr').hide();
+    } else {
+      $('#en').hide();
+    }
+  });
+</script>

@@ -25,7 +25,7 @@ if _template is None:
   main { 
    background-color: #fff;
   }
-  #header {
+  .header {
     background-image: url("/media/microsite/mooc-conservation/extra/images/banner_faq.jpg");
     height: 580px;
     background-repeat: no-repeat;
@@ -61,81 +61,152 @@ display : none;
 
 
   </style>
-  <main id="main" aria-label="Content" tabindex="-1">
-    <div id="header">
-      <h1 class="header_navigation">Foire aux questions (F.A.Q)</h1>
+  <main class="main" aria-label="Content" tabindex="-1">
+    <div id="fr">
+      <div class="header">
+        <h1 class="header_navigation">Foire aux questions (F.A.Q)</h1>
+      </div>
+    <section class="static-container about">
+    <div class="static-container-text">
+      <h2 class="static-container-text-title" onclick="showhide('p1')">Comment s'inscrire à un MOOC ?</h2>
+      <p id="p1" class="static-container-text-paragraphe hidden">
+        Pour s’inscrire à un cours, il faut d’abord créer un compte. Pour cela, cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site [partie soulignée avec lien mooc-conservation.org]. Une fois inscrit, cliquez sur le cours qui vous intéresse et, sur la nouvelle page, cliquez sur « Je m’inscris ! ». 
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p2')">Comment créer un compte ?</h2>
+      <p id= "p2" class="static-container-text-paragraphe hidden">
+        Cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site ou suivez ce lien [lien vers page register]. Remplissez le formulaire avec toutes les informations demandées, et cliquez sur le bouton « Créer mon compte mooc-conservation ». Un mail de confirmation vous sera envoyé à l’adresse mail renseignée dans le formulaire. Rendez-vous donc dans votre boîte de réception, ouvrez le mail et cliquez sur le lien qu’il contient. Ca y est, vous avez un compte, vous pouvez maintenant vous inscrire aux MOOC.
+      <br>
+      <br>
+        NB 1 : Il faut mettre le nom et prénom que vous souhaitez voir figurer sur vos attestations. Ces dernières seront générées automatiquement à partir des informations fournies dans ce formulaire.
+      <br>
+      <br>  
+        NB 2 : Il faut utiliser une adresse mail existante, et ne pas en inventer une nouvelle. 
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p3')">Je n’ai pas reçu mon mail de confirmation. Que faire ?</h2>
+      <p id= "p3" class="static-container-text-paragraphe hidden">
+        Regardez dans vos spams/pourriels/courrier indésirable. Ce mail est envoyé automatiquement, et il est donc forcément envoyé à l’adresse renseignée dans le formulaire d’inscription. Vérifiez donc bien que ce mail ne se trouve pas dans votre mail, ou que vous avez entré la bonne adresse mail.
+      </p>
+
+
+
+      <h2 class="static-container-text-title" onclick="showhide('p4')">J’ai oublié mon mot de passe</h2>
+      <p id= "p4" class="static-container-text-paragraphe hidden">
+        Dans le formulaire de connexion, au-dessus du champs « mot de passe », cliquez sur « Mot de passe oublié ? ». Un nouveau formulaire s’affiche (pop-up), entrez votre adresse mail (la même utilisée lors de l’inscription), et suivez les instructions du mail qui vient de vous être envoyé. Si vous n’avez pas reçu le mail, vérifier vos spams/pourriels/courrier indésirable.
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p5')">Mon mot de passe ne fonctionne pas</h2>
+      <p id= "p5" class="static-container-text-paragraphe hidden">
+        C’est que le mot de passe que vous avez entré est incorrect. Procédez comme pour l’oubli de mot de passe
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p6')">J’ai déjà été inscrit lors de la session précédente, faut-il que je recrée un compte ?</h2>
+      <p id= "p6" class="static-container-text-paragraphe hidden">
+        Si vous avez participé à des MOOC avant janvier 2021, il faudra recréer un compte puisque nous avons changé de plateforme. 
+        <br>
+        <br>
+        Pour toute inscription effectuée à partir janvier 2021, vous n’avez pas à recréer de compte à chaque session, il suffit de vous connecter avec votre compte existant, « Explorer les cours » et vous inscrire aux MOOC qui vous intéressent.
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p7')">Comment faire pour recevoir mon attestation de réussite ?</h2>
+      <p id= "p7" class="static-container-text-paragraphe hidden">
+        Sur cette nouvelle plateforme, les attestations de réussite sont générées automatiquement à partir des informations fournies lors de votre inscription. Donc si vous avez obtenu une moyenne supérieure à 75% aux examens, vous pourrez télécharger votre attestation tout de suite après validation [paragraphe à détailler après finalisation de la plateforme]. 
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p8')">Où ont lieu les examens ?</h2>
+      <p id= "p8" class="static-container-text-paragraphe hidden">
+        Tous les examens des MOOC se font en ligne. 
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p9')">Est-ce que je peux m’inscrire en cours de session ?</h2>
+      <p id= "p9" class="static-container-text-paragraphe hidden">
+        Oui, chacun s’organise à son rythme, et a jusqu’à la date butoir de chaque session pour passer les examens.
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p10')">Les MOOC sont-ils gratuits ?</h2>
+      <p id= "p10" class="static-container-text-paragraphe hidden">
+        Oui.
+      </p>
+
+      <h2 class="static-container-text-title" onclick="showhide('p11')">Mon compte est bloqué après plusieurs tentatives de connexion infructueuses, que faire ?</h2>
+      <p id= "p11" class="static-container-text-paragraphe hidden">
+        Vous avez tenté de vous connecter trop souvent avec un mauvais mot de passe. Attendez que votre compte soit débloqué (24h ?) puis tentez de vous connecter avec le bon mot de passe. Si vous ne vous souvenez plus de votre mot de passe reportez-vous à la question 4 « J’ai oublié mon mot de passe ». 
+      </p>
+
+      </div>
+      </section>
     </div>
-  <section class="static-container about">
-  <div class="static-container-text">
-    <h2 class="static-container-text-title" onclick="showhide('p1')">Comment s'inscrire à un MOOC ?</h2>
-    <p id="p1" class="static-container-text-paragraphe hidden">
-      Pour s’inscrire à un cours, il faut d’abord créer un compte. Pour cela, cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site [partie soulignée avec lien mooc-conservation.org]. Une fois inscrit, cliquez sur le cours qui vous intéresse et, sur la nouvelle page, cliquez sur « Je m’inscris ! ». 
-    </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p2')">Comment créer un compte ?</h2>
-    <p id= "p2" class="static-container-text-paragraphe hidden">
-      Cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site ou suivez ce lien [lien vers page register]. Remplissez le formulaire avec toutes les informations demandées, et cliquez sur le bouton « Créer mon compte mooc-conservation ». Un mail de confirmation vous sera envoyé à l’adresse mail renseignée dans le formulaire. Rendez-vous donc dans votre boîte de réception, ouvrez le mail et cliquez sur le lien qu’il contient. Ca y est, vous avez un compte, vous pouvez maintenant vous inscrire aux MOOC.
-    <br>
-    <br>
-      NB 1 : Il faut mettre le nom et prénom que vous souhaitez voir figurer sur vos attestations. Ces dernières seront générées automatiquement à partir des informations fournies dans ce formulaire.
-    <br>
-    <br>  
-      NB 2 : Il faut utiliser une adresse mail existante, et ne pas en inventer une nouvelle. 
-    </p>
+    <div id="en">
+      <div class="header">
+        <h1 class="header_navigation">F.A.Q</h1>
+      </div>
+    <section class="static-container about">
+    <div class="static-container-text">
+      <h2 class="static-container-text-title" onclick="showhide('p1_en')">How to enrol in a MOOC?</h2>
+      <p id="p1_en" class="static-container-text-paragraphe hidden">
+        To enrol in a course, you first need to create an account. To do so, click on the “Create an account” button on the homepage. Once your account is created, click on the course you would like to follow.  A new page will load, and click on “Enrol now”.
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p3')">Je n’ai pas reçu mon mail de confirmation. Que faire ?</h2>
-    <p id= "p3" class="static-container-text-paragraphe hidden">
-      Regardez dans vos spams/pourriels/courrier indésirable. Ce mail est envoyé automatiquement, et il est donc forcément envoyé à l’adresse renseignée dans le formulaire d’inscription. Vérifiez donc bien que ce mail ne se trouve pas dans votre mail, ou que vous avez entré la bonne adresse mail.
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p2_en')">How to create an account?</h2>
+      <p id= "p2_en" class="static-container-text-paragraphe hidden">
+        Click on the “Create an account” button on the homepage, or lick on this link [lien vers page register]. Fill out the form with the required information, and click on the “Create a mooc-conservation account” button. You will receive a confirmation email (sent to the address you used to create your account). Go to your inbox, open the email and click on the link within. And that’s it, you now have an account and can enrol in the MOOCs you’d like to follow. 
+        <br>
+        <br>NB 1: use the name and surname you would like to have on your attestations, as these are generated automatically based on the information you provided.
+        <br>NB 2: use an existing email address, do not make up a new one. 
+      </p>
 
+      <h2 class="static-container-text-title" onclick="showhide('p3_en')">I did not reveive my confirmation email. What should I do?</h2>
+      <p id= "p3_en" class="static-container-text-paragraphe hidden">
+        Have a look at your Spam. The confirmation email is sent automatically based on the email address you provided. If you do not find the email in your mailbox, make sure you entered the correct email address.
+      </p>
 
+      <h2 class="static-container-text-title" onclick="showhide('p4_en')">I forgot my password.</h2>
+      <p id= "p4_en" class="static-container-text-paragraphe hidden">
+        In the login form, above the ‘password’ field, click on ‘Forgot password?’. A new form will appear (pop-up), enter your email address (the same one used when creating an account), and follow the instructions of the email you just received. If you haven’t received an email, check you spam.
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p4')">J’ai oublié mon mot de passe</h2>
-    <p id= "p4" class="static-container-text-paragraphe hidden">
-      Dans le formulaire de connexion, au-dessus du champs « mot de passe », cliquez sur « Mot de passe oublié ? ». Un nouveau formulaire s’affiche (pop-up), entrez votre adresse mail (la même utilisée lors de l’inscription), et suivez les instructions du mail qui vient de vous être envoyé. Si vous n’avez pas reçu le mail, vérifier vos spams/pourriels/courrier indésirable.
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p5_en')">My password doesn’t work.</h2>
+      <p id= "p5_en" class="static-container-text-paragraphe hidden">
+        This means you entered the wrong password. If you do not remember it, proceed as above (Forgotten password).
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p5')">Mon mot de passe ne fonctionne pas</h2>
-    <p id= "p5" class="static-container-text-paragraphe hidden">
-      C’est que le mot de passe que vous avez entré est incorrect. Procédez comme pour l’oubli de mot de passe
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p6_en')">I already took part in MOOC Conservation MOOCs during a previous session, should create a new account?</h2>
+      <p id= "p6_en" class="static-container-text-paragraphe hidden">
+        If you participated in MOOCs before January 2021, you would need to recreate an account because we changed platforms. 	
+        <br>
+        <br>If you created an account from January 2021 on, you do not need to recreate an account at every session. Simply log in with your existing account and enrol in the courses you want to follow.
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p6')">J’ai déjà été inscrit lors de la session précédente, faut-il que je recrée un compte ?</h2>
-    <p id= "p6" class="static-container-text-paragraphe hidden">
-      Si vous avez participé à des MOOC avant janvier 2021, il faudra recréer un compte puisque nous avons changé de plateforme. 
-      <br>
-      <br>
-      Pour toute inscription effectuée à partir janvier 2021, vous n’avez pas à recréer de compte à chaque session, il suffit de vous connecter avec votre compte existant, « Explorer les cours » et vous inscrire aux MOOC qui vous intéressent.
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p7_en')">How can I receive my attestation of success?</h2>
+      <p id= "p7_en" class="static-container-text-paragraphe hidden">
+        On this new platform, attestations of success are generated automatically based on the information you provided when you created your account. So if your average score is 75% or higher, you can download your attestation right after completing a course. 
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p7')">Comment faire pour recevoir mon attestation de réussite ?</h2>
-    <p id= "p7" class="static-container-text-paragraphe hidden">
-      Sur cette nouvelle plateforme, les attestations de réussite sont générées automatiquement à partir des informations fournies lors de votre inscription. Donc si vous avez obtenu une moyenne supérieure à 75% aux examens, vous pourrez télécharger votre attestation tout de suite après validation [paragraphe à détailler après finalisation de la plateforme]. 
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p8_en')">Where do exams take place?</h2>
+      <p id= "p8_en" class="static-container-text-paragraphe hidden">
+        All exams take place online. 
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p8')">Où ont lieu les examens ?</h2>
-    <p id= "p8" class="static-container-text-paragraphe hidden">
-      Tous les examens des MOOC se font en ligne. 
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p9_en')">Can I enrol after the session has started?</h2>
+      <p id= "p9_en" class="static-container-text-paragraphe hidden">
+        Yes, every student follows the courses at their own pace, and you have until the session deadline to finish the exams.
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p9')">Est-ce que je peux m’inscrire en cours de session ?</h2>
-    <p id= "p9" class="static-container-text-paragraphe hidden">
-      Oui, chacun s’organise à son rythme, et a jusqu’à la date butoir de chaque session pour passer les examens.
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p10_en')">Are MOOCs free?</h2>
+      <p id= "p10_en" class="static-container-text-paragraphe hidden">
+        Yes.
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p10')">Les MOOC sont-ils gratuits ?</h2>
-    <p id= "p10" class="static-container-text-paragraphe hidden">
-      Oui.
-    </p>
+      <h2 class="static-container-text-title" onclick="showhide('p11_en')">11. My account is blocked after several log in attempts, what should I do?</h2>
+      <p id= "p11_en" class="static-container-text-paragraphe hidden">
+        This means you tried logging in too many times with the wrong username or password. Wait until your account is unblocked (24 hours), and try again with the correct username and password. If you do not remember your password, follow the instructions mentioned above about forgotten passwords. 
+      </p>
 
-    <h2 class="static-container-text-title" onclick="showhide('p11')">Mon compte est bloqué après plusieurs tentatives de connexion infructueuses, que faire ?</h2>
-    <p id= "p11" class="static-container-text-paragraphe hidden">
-      Vous avez tenté de vous connecter trop souvent avec un mauvais mot de passe. Attendez que votre compte soit débloqué (24h ?) puis tentez de vous connecter avec le bon mot de passe. Si vous ne vous souvenez plus de votre mot de passe reportez-vous à la question 4 « J’ai oublié mon mot de passe ». 
-    </p>
-
-  </div>
-  </section>
-  
+      </div>
+      </section>
+    </div>
   </main>
 
 
@@ -145,5 +216,29 @@ display : none;
     var div = document.getElementById(div_id);
     div.classList.toggle('hidden'); 
     }
+
+  $( document ).ready(function() {
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+      }
+    };
+
+    var lang = getUrlParameter('lang');
+    if (lang === "en") {
+      $('#fr').hide();
+    } else {
+      $('#en').hide();
+    }
+  });
 </script>
   <!-- script to display / undisplay element -->
