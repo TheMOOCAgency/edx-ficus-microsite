@@ -9,11 +9,14 @@ import json
 import logging
 from opaque_keys.edx.keys import CourseKey
 from student.models import CourseEnrollment, UserProfile
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+from courseware.courses import get_course_by_id
 
 log = logging.getLogger()
 
 alumni_courses_list = ['course-v1:champagne-mooc+003+003','course-v1:champagne-mooc+004+004']
-course_enrollments, first_name, last_name, email, city, country = [], [], [], [], [], []
+course_enrollments, first_name, last_name, email, city, country, tell_us_more_again, profile_image_url, mention = [], [], [], [], [], [], [], [], []
 json_alumni_users = ''
 user_is_alumni_registered = False
 country_codes = {}
@@ -43,6 +46,7 @@ if request.user.is_authenticated():
 
     for course_id in alumni_courses_list :
         course_key=CourseKey.from_string(course_id)
+        course = get_course_by_id(course_key)
         current_course_enrollments = CourseEnrollment.objects.filter(course_id=course_key)
         for _ce in current_course_enrollments:
             is_new = True
@@ -65,10 +69,21 @@ if request.user.is_authenticated():
                 last_name.append(get_custom_field_value(custom_field, 'last_name'))
                 city.append(get_custom_field_value(custom_field, 'city'))
                 country.append(get_custom_field_value(custom_field, 'country'))
+                tell_us_more_again.append(get_custom_field_value(custom_field, 'tell_us_more_again'))
+                profile_image_url.append(get_profile_image_urls_for_user(self.real_user)['medium'])
         except:
             pass
+        
+        percent = 0
+        try:
+            course_grade = CourseGradeFactory().create(user, course)
+            percent = course_grade.percent
+        except:
+            pass
+        mention.append(percent)
+
     if len(first_name) > 0:
-        alumni_users = [{'first_name': f, 'last_name': l, 'email': e, 'city': ci, 'country': co} for f, l, e, ci, co in zip(first_name, last_name, email, city, country)]
+        alumni_users = [{'first_name': f, 'last_name': l, 'email': e, 'city': ci, 'country': co, 'tell_us_more_again': t, 'profile_image_url' : p, 'mention' : m} for f, l, e, ci, co, t, p, m in zip(first_name, last_name, email, city, country, tell_us_more_again, profile_image_url, mention)]
         json_alumni_users = json.dumps(alumni_users)
 %>
 
@@ -89,7 +104,7 @@ if request.user.is_authenticated():
         });    
     </script>
 
-    <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title>React App</title><link href="/media/microsite/champagne-mooc/alumni/static/css/main.1b601e14.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></script><script>!function(e){function r(r){for(var n,l,a=r[0],i=r[1],p=r[2],c=0,s=[];c<a.length;c++)l=a[c],Object.prototype.hasOwnProperty.call(o,l)&&o[l]&&s.push(o[l][0]),o[l]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,a=1;a<t.length;a++){var i=t[a];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=l(l.s=t[0]))}return e}var n={},o={1:0},u=[];function l(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,l),t.l=!0,t.exports}l.m=e,l.c=n,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,r){if(1&r&&(e=l(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)l.d(t,n,function(r){return e[r]}.bind(null,n));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="/";var a=this.webpackJsonpesapce_alumni=this.webpackJsonpesapce_alumni||[],i=a.push.bind(a);a.push=r,a=a.slice();for(var p=0;p<a.length;p++)r(a[p]);var f=i;t()}([])</script><script src="/media/microsite/champagne-mooc/alumni/static/js/2.dccfcf79.chunk.js"></script><script src="/media/microsite/champagne-mooc/alumni/static/js/main.dcb225ea.chunk.js"></script></body></html>
+    <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title>React App</title><link href="/media/microsite/champagne-mooc/alumni/static/css/main.dbdf6b81.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></script><script>!function(e){function r(r){for(var n,l,a=r[0],i=r[1],p=r[2],c=0,s=[];c<a.length;c++)l=a[c],Object.prototype.hasOwnProperty.call(o,l)&&o[l]&&s.push(o[l][0]),o[l]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,a=1;a<t.length;a++){var i=t[a];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=l(l.s=t[0]))}return e}var n={},o={1:0},u=[];function l(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,l),t.l=!0,t.exports}l.m=e,l.c=n,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,r){if(1&r&&(e=l(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)l.d(t,n,function(r){return e[r]}.bind(null,n));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="/";var a=this.webpackJsonpesapce_alumni=this.webpackJsonpesapce_alumni||[],i=a.push.bind(a);a.push=r,a=a.slice();for(var p=0;p<a.length;p++)r(a[p]);var f=i;t()}([])</script><script src="/media/microsite/champagne-mooc/alumni/static/js/2.f1e92e13.chunk.js"></script><script src="/media/microsite/champagne-mooc/alumni/static/js/main.827cbdfa.chunk.js"></script></body></html>
     % else :
     <main id="main" aria-label="Content" tabindex="-1">
         <section class="container about">
@@ -106,7 +121,5 @@ if request.user.is_authenticated():
 % endif
 
 <style>
-    #tma_background_font {
-        background-image: none !important;
-    }
+    
 </style>
