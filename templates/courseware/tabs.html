@@ -43,24 +43,28 @@ def url_class(is_active):
         successfull_usernames = JSON.parse(successfull_usernames);
         setInterval(function () {
           $("a.username").each(function () {
-            if (successfull_usernames["course-v1:champagne-mooc+003+003"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+004+004"].includes($(this).html())) {
+            if (successfull_usernames["course-v1:champagne-mooc+003+003"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+004+004"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+006+006"].includes($(this).html()) ){
               $(this).css("color", "rgba(200,175,130,1) !important");
               $(this).addClass("succeeded");
               if ("${str(course.id)}" == "course-v1:champagne-mooc+001+001" || "${str(course.id)}" == "course-v1:champagne-mooc+003+003") {
                 $(this).attr('title', 'A obtenu le certificat');
-              } else {
+              } else if("${str(course.id)}" == "course-v1:champagne-mooc+002+002" || "${str(course.id)}" == "course-v1:champagne-mooc+004+004"){
                 $(this).attr('title', 'Obtained the certificate');
+              }else if("${str(course.id)}" == "course-v1:champagne-mooc+005+005" || "${str(course.id)}" == "course-v1:champagne-mooc+006+006"){
+                $(this).attr('title', '証明書をもらった');
               }
             }
           });
           $(".discussion-user-profile-board .user-name>a").each(function () {
-            if (successfull_usernames["course-v1:champagne-mooc+003+003"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+004+004"].includes($(this).html())) {
+            if (successfull_usernames["course-v1:champagne-mooc+003+003"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+004+004"].includes($(this).html()) || successfull_usernames["course-v1:champagne-mooc+006+006"].includes($(this).html()) ) {
               $(this).css("color", "rgba(200,175,130,1) !important");
               $(this).addClass("succeeded");
               if ("${str(course.id)}" == "course-v1:champagne-mooc+001+001" || "${str(course.id)}" == "course-v1:champagne-mooc+003+003") {
                 $(this).attr('title', 'A obtenu le certificat');
-              } else {
+              } else if("${str(course.id)}" == "course-v1:champagne-mooc+002+002" || "${str(course.id)}" == "course-v1:champagne-mooc+004+004"){
                 $(this).attr('title', 'Obtained the certificate');
+              }else if("${str(course.id)}" == "course-v1:champagne-mooc+005+005" || "${str(course.id)}" == "course-v1:champagne-mooc+006+006"){
+                $(this).attr('title', '証明書をもらった');
               }
             }
           });
