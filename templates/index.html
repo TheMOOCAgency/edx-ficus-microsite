@@ -6,7 +6,12 @@
      <meta charset='utf-8'>
          <meta name='viewport' content='width=device-width, initial-scale=1.0'>
          <title id='masterTitle'></title>
-		 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+          <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+          <script src='/media/microsite/osac-mooc/pagebuilder/assets/bootstrap/js/bootstrap.min.js'></script>
+         <script src='/media/microsite/osac-mooc/pagebuilder/assets/bootstrap/js/jquery.scrollify.js'></script>
+         <link rel="stylesheet" href="/media/microsite/osac-mooc/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css">
+         <link rel="stylesheet" href="/media/microsite/osac-mooc/pagebuilder/assets/bootstrap/css/bootstrap.min.css">
+         <link rel="stylesheet" href="/media/microsite/osac-mooc/pagebuilder/css/style.css">
       </head>
       <!-- url API polyfill -->
       <script>
@@ -243,37 +248,6 @@
                     composeurUrlSrc2 = pathMedia + micrositeName + folderPb + imgSrc +contentImg
 					urlCompose =pathMedia + micrositeName + "/pagebuilder/json/info.json"
                      }
-			
-					var scriptLinkGenerator =  function(){
-		
-						var scriptSrcArr = ["bootstrap.min.js","jquery.scrollify.js"]
-						var script = document.createElement('script');
-						var script2 = document.createElement('script');
-						var mainPathB= pathMedia + micrositeName + folderPb + "/assets//bootstrap/js/"
-						script.id = 'Sid1';
-						script.src = mainPathB+scriptSrcArr[0];
-						script2.id = 'Sid2';
-						script2.src = mainPathB+scriptSrcArr[1];
-						document.head.appendChild(script);
-						document.head.appendChild(script2);
-				
-						var lsSrcArr = ["/pagebuilder/assets/bootstrap/css/bootstrap-theme.min.css","/pagebuilder/assets/bootstrap/css/bootstrap.min.css","/pagebuilder/css/style.css"]
-						var link1 = document.createElement('link');
-						link1.id = 'id1';
-						link1.rel = 'stylesheet';
-						link1.href = pathMedia+ micrositeName + lsSrcArr[0];
-						var link2 = document.createElement('link');
-						link2.id = 'id2';
-						link2.rel = 'stylesheet';
-						link2.href = pathMedia+ micrositeName + lsSrcArr[1];
-						var link3 = document.createElement('link');
-						link3.id = 'id3';
-						link3.rel = 'stylesheet';
-						link3.href = pathMedia+ micrositeName + lsSrcArr[2];
-						document.head.appendChild(link1);
-						document.head.appendChild(link2);
-                  document.head.appendChild(link3);
-               }
                
                var setRegisterAndLoginLinks = function () {
                   $("#loginLink1").attr("href",pathLogin+"?"+paramLang+"&"+userInfo)
@@ -394,8 +368,6 @@
             }
             
             var masterBind= function(){
-				
-				scriptLinkGenerator();
             	bindindFunctionA();
             	bindindFunctionB();
             	bindindFunctionNav();
