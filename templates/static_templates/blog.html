@@ -77,14 +77,13 @@ if request.user.is_authenticated():
         except:
             pass
         
-        # percent = 0
-        # try:
-        #     course_grade = CourseGradeFactory().create(user, course)
-        #     percent = course_grade.percent
-        # except:
-        #     pass
-        # mention.append(percent)
-        mention.append(0.9)
+        percent = 0
+        try:
+            course_grade = CourseGradeFactory().create(user, course)
+            percent = course_grade.percent
+        except:
+            pass
+        mention.append(percent)
 
     if len(email) > 0:
         alumni_users = [{'first_name': f, 'last_name': la, 'email': e, 'city': ci, 'country': co, 'tell_us_more_again': t, 'profile_image_url' : p, 'mention' : m, 'linkedin': li} for f, la, e, ci, co, t, p, m, li in zip(first_name, last_name, email, city, country, tell_us_more_again, profile_image_url, mention, linkedin)]
