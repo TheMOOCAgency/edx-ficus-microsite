@@ -315,7 +315,7 @@ for recipient in recipients_geography:
                     sheet.write(j, i, user_data[i])
                 except:
                     pass
-                j = j + 1
+            j = j + 1
 
     # SEND MAILS
     output = BytesIO()
