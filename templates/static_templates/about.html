@@ -21,7 +21,8 @@ if _template is None:
 %>
 
 <%block name="pagetitle">${_("About")}</%block>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
 <style>
 main { 
  background-color: #fff;
@@ -62,6 +63,17 @@ a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.inf
 
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
+    <nav id="navigation">
+      <ol id="navigation_list">
+        <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Nos Mooc</a></li>
+        <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels">Nos essentiels</a></li>
+        <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=fr">MOOC Partenaires</a></li>
+        <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about">Certificat</a></li>
+        <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/faq?lang=fr">F.A.Q</a></li>
+        <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
+        <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
+      </ol>
+    </nav>
   <div id="header">
     <h1 class="header_navigation">Certificat en ligne sur la Conservation des aires protégées</h1>
   </div>

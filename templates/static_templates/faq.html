@@ -21,6 +21,7 @@ if _template is None:
 %>
 <%block name="pagetitle">${_("FAQ")}</%block>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
 <style>
   main { 
    background-color: #fff;
@@ -63,6 +64,17 @@ display : none;
   </style>
   <main class="main" aria-label="Content" tabindex="-1">
     <div id="fr">
+      <nav id="navigation">
+        <ol id="navigation_list">
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Nos Mooc</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels">Nos essentiels</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=fr">MOOC Partenaires</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about">Certificat</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/faq?lang=fr">F.A.Q</a></li>
+          <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
+          <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
+        </ol>
+      </nav>
       <div class="header">
         <h1 class="header_navigation">Foire aux questions (F.A.Q)</h1>
       </div>
@@ -139,6 +151,17 @@ display : none;
     </div>
 
     <div id="en">
+        <nav id="navigation">
+        <ol id="navigation_list">
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Our MOOCs</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels">Our Essentials</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=en">Other MOOCs</a></li>
+          <!-- <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about">Certificate</a></li> -->
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/faq?lang=en">F.A.Q</a></li>
+          <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">If this is your first visit, click here to create an account</span><a class="test" href="/register">Create an account</a></li>
+          <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">If you already have an account, go to your courses</span><a href="/login">Sign in</a></li>
+        </ol>
+        </nav>
       <div class="header">
         <h1 class="header_navigation">F.A.Q</h1>
       </div>
