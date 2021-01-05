@@ -104,7 +104,7 @@ HEADERS_USER.extend(NICE_HEADER)
 
 HEADER = HEADERS_USER
 
-print HEADER
+print TECHNICAL_HEADER
 
 
 course_ids=[
@@ -298,10 +298,24 @@ for recipient in recipients_geography:
     for user in users_data:
         user_data = users_data[user]
         # unidecode and avoid spaces and dashes
-        if unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","") == unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") or recipients_geography[recipient].lower() == "tout":
+        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
+        unidecoded_user_field =  ""
+        try:
+            unidecoded_user_field = unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        unidecoded_recipient_geo = ""
+        try:
+            unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") 
+        except:
+            pass
+        if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
             for i in range(len(user_data)):
-                sheet.write(j, i, user_data[i])
-            j = j + 1
+                try:
+                    sheet.write(j, i, user_data[i])
+                except:
+                    pass
+                j = j + 1
 
     # SEND MAILS
     output = BytesIO()
