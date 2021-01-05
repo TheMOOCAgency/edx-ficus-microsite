@@ -711,9 +711,8 @@ $(".btn-login").each(function(){
         })
       }
     })
-
     /* HIDE ESSENTIELS COURSES IN "OUR MOOC CONSERVATION" */
-    toHideCourses = ["essentiel-ranger+2021_T1","essentiel-manager-loi+2021_T1","essentiel-manager-recherche+2021_T1","essentiel-leader+2021_T1","essential-ranger+2021_T1_EN","essential-manager-loi+2021_T1_EN","essential-manager-recherche+2021_T1_EN","essential-leader+2021_T1_EN","essential-manager-law+2021_T1_EN"]
+    toHideCourses = ["essentiel-ranger+2021_T1","essentiel-manager-loi+2021_T1","essentiel-manager-recherche+2021_T1","essentiel-leader+2021_T1","essential-ranger+2021_T1_EN","essential-manager-law+2021_T1_EN","essential-manager-research+2021_T1_EN","essential-leader+2021_T1_EN"]
     for (let i = 0; i < toHideCourses.length; i++) {
       $( "article[id='course-v1:mooc-conservation+"+toHideCourses[i]+"']" ).parent().hide()
     }
