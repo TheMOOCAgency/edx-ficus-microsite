@@ -170,11 +170,13 @@ endfor
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Course not completed</a></span>
           % else:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          %endif
         % else:
           % if request.LANGUAGE_CODE == 'en':
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Course not completed</span>
           % else:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          % endif
         % endif
       </div>
       <!-- border middle -->
