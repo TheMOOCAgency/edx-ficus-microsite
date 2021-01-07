@@ -43,7 +43,10 @@ else:
 
 
 cours_ouv = show_courseware_link and not is_course_blocked
-
+if course_overview.end and int(course_overview.end.strftime("%s")) < _current:
+  cours_ouv = False
+if course_overview.start and int(course_overview.start.strftime("%s")) > _current:
+  cours_ouv = False
 %>
 <li class="course_cell_multi">
   <div class="up_cell">
