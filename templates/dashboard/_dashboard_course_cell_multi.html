@@ -88,8 +88,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % endif
 <span>${_('and')}</span>
 % if cours_ouv:
-  <!-- <span> ${_("Course is open")}</span> -->
-  <span>${_("Course is closed")}</span>
+  <span> ${_("Course is open")}</span>
 % else:
   <span> ${_("Course is closed")}</span>
 % endif
