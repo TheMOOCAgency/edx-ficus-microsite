@@ -181,9 +181,9 @@ site_status_msg = get_site_status_msg(course_id)
             % else:
               <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" style="display: none;" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" style="display: none;" href="/register">${_("Register")} </a>
                 % endif
               </li>
             % endif

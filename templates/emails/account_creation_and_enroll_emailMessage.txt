@@ -1,55 +1,32 @@
-% if course_key == "course-v1:complete-data+FR+v1" :
-Bonjour, 
+Dear Participant,
 
-Nous vous confirmons votre inscription à la formation Data For Managers d’HEC Paris.
+I am very happy to welcome you to the HEC MBA Course Data for Managers.
+This course has been originally developed as an Executive Short Certificate by the Netexplo Observatory and HEC, and it has been attended by almost 1000 managers in 2020.
 
-Pour accéder au programme et démarrer la formation, nous vous invitons à vous rendre sur le lien suivant avec vos identifiants ci-dessous, 
+It is composed of asynchronic lectures, testimonials, workshops and quiz, as well as two synchronic meetings over Zoom.
+- a 1-hour Q/A meeting Wednesday, January 27 at 4:20 PM Paris time
+- a 3-hour workshop: on Thursday, February 11 (9:00-12:10 PM Paris time) for half the cohort and Wednesday, February 17 (9:00-12:10 PM Paris time) for the other half.
 
-lien URL : https://${site_name}
+You can already register at one of these two workshop sessions there: https://docs.google.com/spreadsheets/d/10V9soz4Ln7YP8-1p_HrJsZJ6uOUG-BVJUOTWPQFB5Y4/edit?usp=sharing.
 
-Pour vous connecter, renseignez votre identifiant, ainsi que votre mot de passe. 
+As you are 44, we will have 5 groups of 4 to 5 students for each of the two cohorts.
+We have already registered you on the online platform, but there is a formal process to follow.
 
-Identifiant: ${email_address}
-Mot de passe: ${password}
-
-En cas de difficulté de connexion, merci de contacter Claire Lescop par email clescop-ext@netexplo.org
-
-La formation prévoit deux sessions animées à distance :
-
-- en fin de module 2 : synthèse et Q/A avec Julien Lévy, Directeur du centre digital d’HEC Paris (facultative)
-
-- en module 5 : workshop business case (obligatoire)
-
-Nous allons prendre contact avec vous dans les prochains jours par email pour vous proposer des créneaux.
-
-Bien à vous,
-
-Netexplo/HEC Paris
-% else :
-Hello,
-
-You are now registered to the Data For Managers training program of HEC Paris.
-
-To start the program please follow the link below:
-
-URL: https://${site_name}
+Please click on the link below:
+https://formationadistance.dataformanagers.com/login?next=/tma_apps/user_info
 
 Then type in your email address and the following password:
-
 Login: ${email_address}
 Password: ${password}
 
-If you encounter any issues please contact Claire Lescop at clescop-ext@netexplo.org
+When connected, you will have to select between two languages: French or English. If you are French speaking, select French, otherwise select English: It is the exact same content and the lectures have been recorded in both languages (testimonials are sub-titled). The synchronous sessions will be of course in English.
 
-The training program also includes two remote live sessions:
+If you encounter any tech issues, please contact Claire Lescop at clescop-ext@netexplo.org
 
-- at the end of module 2: Q&A with Julien Lévy, Directeur du centre digital d’HEC Paris (optional)
-
-- during module 5: workshop business case (mandatory)
-
-We will email you very soon to schedule these sessions.
+Do not hesitate to contact me for any further question,
 
 Best regards,
 
-Netexplo/HEC Paris
-% endif
+Julien Lévy
+Associate Professor
+Scientific director of the HEC IDEA Center
