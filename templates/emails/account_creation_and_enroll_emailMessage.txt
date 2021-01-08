@@ -3,7 +3,7 @@
 
 <p><br />${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}</p>
 
-<p>Les informations d'identification pour votre compte sont les suivantes :</p>
+<p>${_("Pour commencer, rendez-vous sur https://{site_name}. Les informations d'identification pour votre compte sont les suivantes :").format(site_name=site_name)}</p>
 
 <p>${_("email: {email}").format(email=email_address)}
 <br />${_("password: {password}").format(password=password)}</p>
