@@ -196,7 +196,7 @@ $('#validate_button').click(function(){
       $.ajax({
         type: 'post',
         dataType:'json',
-        data: data,
+        data: JSON.stringify(data),
         url: urls_api[0],
         success: function(data) {
           var fields = data.fields;
