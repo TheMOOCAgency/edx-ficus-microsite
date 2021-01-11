@@ -32,6 +32,35 @@ Julien Lévy
 Associate Professor
 Scientific director of the HEC IDEA Center
 
+% elif course_key == "course-v1:complete-data+FR+v1"  :
+
+Bonjour, 
+
+Nous vous confirmons votre inscription à la formation Data For Managers d’HEC Paris.
+
+Pour accéder au programme et démarrer la formation, nous vous invitons à vous rendre sur le lien suivant avec vos identifiants ci-dessous, 
+
+lien URL : https://${site_name}
+
+Pour vous connecter, renseignez votre identifiant, ainsi que votre mot de passe. 
+
+Identifiant: ${email_address}
+Mot de passe: ${password}
+
+En cas de difficulté de connexion, merci de contacter Claire Lescop par email clescop-ext@netexplo.org
+
+La formation prévoit deux sessions animées à distance :
+
+- en fin de module 2 : synthèse et Q/A avec Julien Lévy, Directeur du centre digital d’HEC Paris (facultative)
+
+- en module 5 : workshop business case (obligatoire)
+
+Nous allons prendre contact avec vous dans les prochains jours par email pour vous proposer des créneaux.
+
+Bien à vous,
+
+Netexplo/HEC Paris
+
 % else :
 
 Hello,
