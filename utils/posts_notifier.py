@@ -48,11 +48,12 @@ log = logging.getLogger()
 string_emails = sys.argv[1]
 TO_EMAILS = string_emails.split(';')
 course_id = sys.argv[2]
+frequence = int(sys.argv[3])
 
 course_key = CourseKey.from_string(course_id)
 course=get_course_by_id(course_key)
 org = course.org
-site_name = configuration_helpers.get_value("SITE_NAME")
+site_name=configuration_helpers.get_value_for_org(org, "SITE_NAME", None)
 
 def _connect_to_forum_mongo_db():
     """
@@ -78,24 +79,24 @@ def get_nb_of_forum_posts(course_id):
 
     for doc in collection.find({"course_id" : course_id}):
         created_at = doc['created_at'].replace(tzinfo=None)
-        date_1day_ago = ini_time_for_now - timedelta(days = 1) 
-        if created_at >= date_1day_ago:
+        date_since_last = ini_time_for_now - timedelta(days = frequence) 
+        if created_at >= date_since_last:
             number_of_posts += 1
 
     database.connection.close()
     return number_of_posts
 
 posts = get_nb_of_forum_posts(course_id)
-forum_link = "https://digital-campus-en3s.fr/courses/"+course_id+"/discussion/forum/"
+forum_link = "https://{}/courses/{}/discussion/forum/".format(site_name,course_id)
 
 if posts >= 1:
     # SEND MAILS
-    html = "<html><head></head><body><p>Bonjour,<br />il y a "+str(posts)+" message(s) qui a/ont été posté(s) sur le forum du cours '"+course.display_name_with_default+"' depuis le dernier rapport<br /><br/>Voici le <a href="+forum_link+">lien du forum</a> concerné</p></body></html>"
+    html = "<html><head></head><body><p>Bonjour,<br />il y a {posts} message(s) qui a/ont été posté(s) sur le forum du cours '{course_name}' depuis le dernier rapport<br /><br/>Voici le <a href={forum_link}>lien du forum</a> concerné</p></body></html>".format(posts=str(posts),course_name=course.display_name_with_default,forum_link=forum_link)
 
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     for i in range(len(TO_EMAILS)):
-        fromaddr = "EN3S <ne-pas-repondre@themoocagency.com>"
+        fromaddr = "{} <ne-pas-repondre@themoocagency.com>".format(org)
         toaddr = str(TO_EMAILS[i])
         msg = MIMEMultipart()
         msg['From'] = fromaddr
@@ -109,4 +110,4 @@ if posts >= 1:
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         server.quit()
-        log.info('Email sent to '+toaddr)
+        log.info('[WUL] : Email sent to '+toaddr)
