@@ -25,6 +25,22 @@ if _template is None:
 main {
  background-color: #fff;
 }
+.section{
+  height: calc(100vh - 138px);
+  padding: 10%;
+}
+
+p{
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  line-height: 1.2em;
+  margin-top: 25px;
+}
+
+span{
+  color: rgb(65, 108, 122);
+  text-decoration: underline
+}
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
 <!--
@@ -33,8 +49,20 @@ main {
         <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
     </section>
 -->
-  <section class="static-container honor">
+  <!-- <section class="static-container honor">
   ${_template | n}
+  </section> -->
+
+  <section class="section">
+
+    <p>Les formations sont ouvertes en accès libre et gratuit.</p>
+
+    <p>Un email contenant vos codes d'accès personnels va vous être adressé provenant des expéditeurs <span> ne-pas-repondre@themoocagency.com</span> et ou <span>@themoocagency.com</span> (attention à l'éviction de ces adresses en indésirables)</p>
+
+    <p>Compte tenu de la gratuité, nous ne transmettons pas de statistiques de suivi.</p>
+
+    <p>Les personnes qui font les formations jusqu’au bout et réussissent le quizz (50% minimum de bonnes réponses) peuvent télécharger automatiquement une attestation de réussite au quizz, qui peut servir d’attestation de suivi.</p>
+
   </section>
 
 </main>

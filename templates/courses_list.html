@@ -1,6 +1,7 @@
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
 <%! from django.utils.translation import ugettext as _ %>
+<%not_displayed_courses = ["course-v1:en3s+3+SG", "course-v1:en3s+t-001+2019"]%>
 
 <section class="courses-container">
   <section class="highlighted-courses">
@@ -10,7 +11,8 @@
         <ul class="courses-listing">
           ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
           %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-            % if str(course.id) != 'course-v1:en3s+3+SG':
+            
+            % if str(course.id) not in not_displayed_courses :
             <li class="courses-listing-item">
                 <%include file="course.html" args="course=course" />
             </li>

@@ -165,24 +165,31 @@ import datetime
     % endif
 
   </ol>
-
   % endif
 </div>
+
 <!-- EXTRA_FORM GENERATION -->
 <div class="group group-form group-form-requiredinformation">
 <ol class="list-input">
+
 % for n in extra_form:
+  % if n.get('name') == 'fonction':
+  <p style="font-weight: bold;margin-bottom: 10px;"> Vous êtes :</p>
+  % endif
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
+
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
   % elif n.get('type') == 'text':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
   % elif n.get('type') == 'select':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
+
   <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
+
     % if n.get('name') == 'country':
       <option value="" data-isdefault="true">--</option>
       <%
@@ -216,6 +223,7 @@ import datetime
 % endfor
 </ol>
 </div>
+
 <!-- end extraform generation -->
 <div class="group group-form group-form-secondary group-form-personalinformation">
   <h2 class="sr">${_("Additional Personal Information")}</h2>
@@ -371,3 +379,33 @@ $('#first_name,#last_name').change(function(){
   <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
 </div>
+
+<script>
+  $( document ).ready(function(){
+    $('#fonction_autre').parent().hide()
+    $('#objectif_autre').parent().hide()
+    $('#organisme_details').parent().hide()
+    $('#fonction').on('change', function() {
+        if(this.value === "autre" ){
+          $('#fonction_autre').parent().show()
+        }else{
+          $('#fonction_autre').parent().hide()
+        }
+    });
+    $('#objectif').on('change', function() {
+        if(this.value === "autre" ){
+          $('#objectif_autre').parent().show()
+        }else{
+          $('#objectif_autre').parent().hide()
+        }
+    });
+    $('#organisme').on('change', function() {
+        if(this.value === "securite_sociale" || this.value == "autre_organisme" ){
+          $('#organisme_details').parent().show()
+        }else{
+          $('#organisme_details').parent().hide()
+        }
+    });   
+  
+  });
+  </script>
