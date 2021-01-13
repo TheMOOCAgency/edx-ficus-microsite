@@ -48,6 +48,7 @@ cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
 <link rel="stylesheet" type="text/css" href="${cssresponsive}" />
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/nav_burger_menu.css">
 <%
 try:
     course_id = course.id
@@ -68,7 +69,19 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
-  <input class="burger" type="checkbox">
+  <!-- <input class="burger" type="checkbox"> -->
+    <!-- burger menu -->
+    <div id="menuToggle">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu_burger">
+        <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+        <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
+      </ul>
+    </div>
+    <!-- burger menu -->
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -418,13 +431,14 @@ color : ${color_custom}!important;
     color:   ${color_custom}!important;
 }
 #global-navigation .burger{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
+  border: none;
 }
 #global-navigation .burger::before{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
 }
 #global-navigation .burger::before{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
 }
 
 .btn-login {

@@ -23,6 +23,8 @@ if _template is None:
 <%block name="pagetitle">${_("About")}</%block>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/navigation.css">
+<!-- <link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/nav_burger_menu.css"> -->
 <style>
 main { 
  background-color: #fff;
@@ -42,6 +44,7 @@ align-items: flex-end;
 }
 .static-container-text{
   line-height: 1.2em;
+  padding: 0 5%;
 }
 
 .static-container-text-title{
@@ -59,9 +62,41 @@ a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.inf
     color: #065683 !important;
 }
 
-
-
 </style>
+<header class="page_header">
+    <!-- burger menu -->
+    <div id="menuToggle">
+      <!-- <h1>burger</h1> -->
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu_burger">
+        <a  class="nav_list_buttons" href="/tos?lang=fr"><li id="burger-text-partner" class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+        <a id="burger-text-certificat" class="nav_list_buttons" href="/about"><li  class=" navigation_list_element nav_button login_button" >Certificat</li></a>
+        <a  class="nav_list_buttons" href="/faq?lang=fr"><li id="burger-text-faq" class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
+        <a  href="/register"><li id="burger-text-register" class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+        <a  href="/login"><li id="burger-text-login" class="navigation_list_element nav_button register_button">Se connecter</li></a>
+      </ul>
+    </div>
+
+  <!-- burger menu -->
+
+  <div class="page_header_logo"> 
+    <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+    <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+    <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+  </div>
+
+  <div class="page_header_logo_mobile"> 
+    <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+    <div class="page_header_logo_mobile_bottom">
+      <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+      <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+    </div>
+  </div>
+</header>
+
 <main id="main" aria-label="Content" tabindex="-1">
     <nav id="navigation">
       <ol id="navigation_list">
@@ -79,9 +114,9 @@ a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.inf
   </div>
 <section class="static-container about">
 <div class="static-container-text">
-  <h2 class="static-container-text-title">Qu'est ce c'est ?</h2>
+  <h2 class="static-container-text-title">Qu'est ce que c'est ?</h2>
   <p class="static-container-text-paragraphe">
-    Les étudiants obtenant une moyenne supérieure à 75% aux MOOC obtiennent une attestation de réus-site. Pour permettre une reconnaissance officielle du niveau des étudiants, l’UICN-PAPACO et l’université Senghor ont mis en place un Certificat en ligne sur la Conservation des aires protégées.
+    Les étudiants obtenant une moyenne supérieure à 75% aux MOOC obtiennent une attestation de réussite. Pour permettre une reconnaissance officielle du niveau des étudiants, l’UICN-PAPACO et l’université Senghor ont mis en place un Certificat en ligne sur la Conservation des aires protégées.
   </p>
   <p class="static-container-text-paragraphe">
     Ainsi, les étudiants qui remplissent les critères d’éligibilité suivants peuvent passer un examen surveillé (une seule tentative est autorisée) et, en cas de réussite, obtenir ledit Certificat de l’Université Senghor :

@@ -22,6 +22,7 @@ if _template is None:
 <%block name="pagetitle">${_("FAQ")}</%block>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/navigation.css">
 <style>
   main { 
    background-color: #fff;
@@ -48,6 +49,7 @@ if _template is None:
 
   .static-container-text{
   line-height: 1.2em;
+  padding: 0 5%;
 }
 
 .static-container{
@@ -59,9 +61,42 @@ if _template is None:
   .hidden{
 display : none;
 }
-
-
   </style>
+
+<header class="page_header">
+  <!-- burger menu -->
+  <div id="menuToggle">
+    <!-- <h1>burger</h1> -->
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu_burger">
+      <a  class="nav_list_buttons" href="/tos?lang=fr"><li id="burger-text-partner" class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+      <a id="burger-text-certificat" class="nav_list_buttons" href="/about"><li  class=" navigation_list_element nav_button login_button" >Certificat</li></a>
+      <a  class="nav_list_buttons" href="/faq?lang=fr"><li id="burger-text-faq" class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
+      <a  href="/register"><li id="burger-text-register" class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+      <a  href="/login"><li id="burger-text-login" class="navigation_list_element nav_button register_button">Se connecter</li></a>
+    </ul>
+  </div>
+
+<!-- burger menu -->
+
+<div class="page_header_logo"> 
+  <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+  <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+  <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+</div>
+
+<div class="page_header_logo_mobile"> 
+  <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+  <div class="page_header_logo_mobile_bottom">
+    <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+    <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+  </div>
+</div>
+</header>
+
   <main class="main" aria-label="Content" tabindex="-1">
     <div id="fr">
       <nav id="navigation">
@@ -79,7 +114,7 @@ display : none;
         <h1 class="header_navigation">Foire aux questions (F.A.Q)</h1>
       </div>
     <section class="static-container about">
-    <div class="static-container-text">
+    <div class="static-container-text" style="padding: 0 5%;">
       <h2 class="static-container-text-title" onclick="showhide('p1')">Comment s'inscrire à un MOOC ?</h2>
       <p id="p1" class="static-container-text-paragraphe hidden">
         Pour s’inscrire à un cours, il faut d’abord créer un compte. Pour cela, cliquez sur le bouton « Créer un compte » de la page d’accueil de ce site [partie soulignée avec lien mooc-conservation.org]. Une fois inscrit, cliquez sur le cours qui vous intéresse et, sur la nouvelle page, cliquez sur « Je m’inscris ! ». 
@@ -166,7 +201,7 @@ display : none;
         <h1 class="header_navigation">F.A.Q</h1>
       </div>
     <section class="static-container about">
-    <div class="static-container-text">
+    <div class="static-container-text" style="padding: 0 5%;">
       <h2 class="static-container-text-title" onclick="showhide('p1_en')">How to enrol in a MOOC?</h2>
       <p id="p1_en" class="static-container-text-paragraphe hidden">
         To enrol in a course, you first need to create an account. To do so, click on the “Create an account” button on the homepage. Once your account is created, click on the course you would like to follow.  A new page will load, and click on “Enrol now”.

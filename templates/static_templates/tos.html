@@ -23,6 +23,7 @@ if _template is None:
 <%block name="pagetitle">${_("About")}</%block>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/navigation.css">
 <style>
 main { 
  background-color: #fff;
@@ -198,6 +199,40 @@ width: 540px;
 }
 
 </style>
+
+<header class="page_header">
+  <!-- burger menu -->
+  <div id="menuToggle">
+    <!-- <h1>burger</h1> -->
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu_burger">
+      <a  class="nav_list_buttons" href="/tos?lang=fr"><li id="burger-text-partner" class=" navigation_list_element nav_button register_button">MOOC Partenaires</li></a>
+      <a id="burger-text-certificat" class="nav_list_buttons" href="/about"><li  class=" navigation_list_element nav_button login_button" >Certificat</li></a>
+      <a  class="nav_list_buttons" href="/faq?lang=fr"><li id="burger-text-faq" class="  navigation_list_element nav_button register_button">F.A.Q</li></a>
+      <a  href="/register"><li id="burger-text-register" class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+      <a  href="/login"><li id="burger-text-login" class="navigation_list_element nav_button register_button">Se connecter</li></a>
+    </ul>
+  </div>
+
+<!-- burger menu -->
+
+<div class="page_header_logo"> 
+  <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+  <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+  <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+</div>
+
+<div class="page_header_logo_mobile"> 
+  <a href="/"><img id="site_logo" class="page_header_logo_item" src="/media/microsite/mooc-conservation/extra/images/site_logo.png" alt="site logo"></a>
+  <div class="page_header_logo_mobile_bottom">
+    <a href="https://moocs-afrique.epfl.ch/" target="_blank"><img class="page_header_logo_item afrique" src="/media/microsite/mooc-conservation/extra/images/epfl.png" alt="MOOC Afrique logo"></a>
+    <a href="http://www.usenghor-francophonie.org/" target="_blank"><img class="page_header_logo_item senghor" src="/media/microsite/mooc-conservation/extra/images/senghor_logo.png" alt="Senghor university logo"></a>
+  </div>
+</div>
+</header>
 <main class="main" aria-label="Content" tabindex="-1">
   <div id="fr">
       <nav id="navigation">
