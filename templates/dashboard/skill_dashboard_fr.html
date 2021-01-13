@@ -156,6 +156,16 @@ except:
   background-color: #808080cf !important;
   color: #5a6c73 !important;
 }
+.text-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.text-info-quiz{
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #000;
+}
 </style>
 <div class="container">
   <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
@@ -184,6 +194,7 @@ except:
           Reprendre
         </button>
       </a>
+      <p class="text-info-quiz">35 questions / durée estimée : 45 minutes</p>
       %else:
       <button class="text-align-center dashboard-btn" id="course_start">
         <i class="fa fa-play-circle"></i>
@@ -192,6 +203,7 @@ except:
           l'évaluation ${associated_courses.get('step_number')}
         %endif
       </button>
+      <p class="text-info-quiz">35 questions / durée estimée : 45 minutes</p>
       %endif
     %endif 
     </div>
@@ -226,13 +238,13 @@ except:
         <div class="text-center">
           %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
             <a style="color:inherit;" href="https://learning.netexplodigimapper.com/register?course_id=course-v1%3Adigimapper-ressources%2BFR%2B1&enrollment_action=enroll&next=%2Fcourses%2Fcourse-v1%3Adigimapper-ressources%2BFR%2B1%2Fcourseware%2Faa71569bfe8640e7bb58b4da04689ff3%2F8cdb686a44404bbc9e9318752f93149b%2F" target="_blank">
-              <button class="sub-btn blue-btn" id="last_score">
-                Accès direct au learning   
+              <button class="sub-btn blue-btn" id="last_score" style="background-color: #FFAA16 !important;">
+                Accès direct au Learning   
               </button>     
             </a>
           %else :
           <button class="text-align-center blue-btn deactivated" disabled>
-            Accès direct au learning
+            Accès direct au Learning
           </button>
           %endif
         </div>
