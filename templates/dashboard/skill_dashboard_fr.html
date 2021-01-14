@@ -163,7 +163,6 @@ except:
 }
 .text-info-quiz{
   font-size: 1.1em;
-  font-weight: bold;
   color: #000;
 }
 </style>
@@ -194,7 +193,7 @@ except:
           Reprendre
         </button>
       </a>
-      <p class="text-info-quiz">35 questions / durée estimée : 45 minutes</p>
+      <p class="text-info-quiz">35 questions / 45 minutes</p>
       %else:
       <button class="text-align-center dashboard-btn" id="course_start">
         <i class="fa fa-play-circle"></i>
@@ -203,7 +202,7 @@ except:
           l'évaluation ${associated_courses.get('step_number')}
         %endif
       </button>
-      <p class="text-info-quiz">35 questions / durée estimée : 45 minutes</p>
+      <p class="text-info-quiz">35 questions / 45 minutes</p>
       %endif
     %endif 
     </div>
