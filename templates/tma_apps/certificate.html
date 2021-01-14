@@ -17,48 +17,55 @@ primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
 %>
 
-
-
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
+
+<!-- FONT CALL -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> 
 
 <!-- COMMON STYLE-->
 <style>
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: inherit;
+    text-align: center;
+    line-height: 0.1em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
   }
-  p{
-    padding:10px
+  .text{
+    font-weight: 300;
   }
-  h4{
-    font-size: 1.5rem;
-  }
-  h3{
-    font-size: 1.7rem
-  }
+
+.text-bold{
+font-weight: 400;
+}
+.name{
+  font-size: 2em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: ${primary_color};
+  margin:1.5em;
+}
+.text-date{
+margin-top: 4em;
+margin-right: 24%;
+font-weight: 300;
+}
+
+#certificate-container-text{
+  margin-top: 20%;
+}
   #certificate-wrapper{
     background: white;
   }
-  .certificate-border{
-    border:2px solid ${primary_color};
-    border-radius:5px;
-  }
+
   #custom-btn{
-    background: ${primary_color};
+    background: #336166;
     border: none;
     box-shadow: none;
     text-shadow: none;
   }
-  #internal-border{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background: white;
-  }
+
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
     display: flex;
@@ -67,18 +74,17 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width:854px;
+    width:918px;
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/background_aires_protegees.png');
+    background-size: contain;
   }
   #pdf-btn-wrapper{
     padding: 15px
   }
-  #certificate-title{
-    text-transform: uppercase;
-  }
+
   #noCertificateMessage{
     background: white;
     height: calc(100vh - 133px);
@@ -98,20 +104,30 @@ background_url = configuration_helpers.get_value('bg_img')
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-  <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
-          </div>
-          <div>
-          </div>
-      </div>
+  <div id="certificate-container">
+    <div id="certificate-container-text">
+      <p class="text">Geoffroy Mauvais, coordinateur du programme</p>
+      <p><span class="text-bold">Aires protégées d'Afrique & Conservation (PAPACO) del'Union internationale</span></p>
+      <p><span class="text-bold">pour la conservation de la nature (UICN)</span> atteste que </p>
+      <p class="name">${first_name} ${last_name}</p>
+      <p class="text">a suivi l'intégralité du <span class="text-bold"> MOOC « ${course_name} »</span></p>
+      <p>et a passé avec succès les examens en ligne.</p>
+      <p class="text-date">Le <span class="text-date" id="dateDeCertificat"></p>
+
+        <!-- <div id="internal-border" class=" certificate-border">
+            <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+            <div>
+              <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
+              <h3>${first_name} ${last_name}</h3>
+              <p>a obtenu la note de</p>
+              <h4>${int(grades['grade']*100)}%</h4>
+              <p>au cours</p>
+              <h4>${course_name}</h4>
+            </div>
+            <div>
+            </div>
+      </div> -->
+    </div>
   </div>
 </div>
 %else:
@@ -141,6 +157,21 @@ background_url = configuration_helpers.get_value('bg_img')
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
+    // GET XCERTIFICATE DATE
+    var monthNames = [
+      "Janvier", "Fevrier", "Mars",
+      "Avril", "Mai", "Juin", "Juillet",
+      "Août", "Septembre", "Octobre",
+      "Novembre", "Decembre"
+    ];
+    date = new Date();
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    var certificate_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+
+    $('#dateDeCertificat').text(certificate_date)
   })
 </script>
 

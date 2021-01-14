@@ -42,7 +42,7 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
 cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
-
+connected = user.is_authenticated()
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -131,6 +131,10 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
 
       % if user.is_authenticated():
+        <div class="courses_link">
+          <a href="${marketing_link('COURSES')}" >${_('Explore courses')}</a>
+        </div>
+        
       <!-- <ol class="left nav-global list-inline authenticated">
       <%block name="navigation_global_links_authenticated">
         % if show_program_listing:
@@ -153,6 +157,7 @@ site_status_msg = get_site_status_msg(course_id)
         %endif
       </%block>
       </ol> -->
+      
 
       <%include file="user_dropdown.html"/>
 
@@ -467,6 +472,11 @@ color : ${color_custom}!important;
 .header-global .wrapper-header .list-inline.nav-global {
     justify-content: flex-end !important;
 }
+
+a:hover, a:focus, a:visited:hover, a:visited:focus {
+    color: currentColor !important;
+}
+
 
 </style>
 <!-- TMA Ficus Redesign -->
