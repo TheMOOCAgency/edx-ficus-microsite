@@ -34,7 +34,11 @@ $(document).ready(function(){
         </div>
   % else:
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+    % if request.LANGUAGE_CODE == 'fr' :
+        Je m'inscris ! 
+    % else :
+        Enrol now ! 
+    % endif
         </div>
   % endif
   </div>
