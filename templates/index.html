@@ -379,8 +379,8 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
       <div id="header">
         <nav id="navigation">
         <ol id="navigation_list">
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Our MOOCs</a></li>
-          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels">Our Essentials</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container_en_anchor">Our MOOCs</a></li>
+          <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels_en_anchor">Our Essentials</a></li>
           <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=en">Other MOOCs</a></li>
           <!-- <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about">Certificate</a></li> -->
           <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/faq?lang=en">F.A.Q</a></li>
@@ -390,7 +390,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
         </nav>
       </div>
       <div id="course_container">
-        <div class="course_list">
+        <div id="course_container_en_anchor" class="course_list">
           <div class="course_list_intro">
             <h2 class="course_list_title">
               Our MOOC Conservation
@@ -406,7 +406,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
         </div>
 
         <div id="container_essentiels" class="course_list essentiels">
-          <div class="course_list_intro">
+          <div id="container_essentiels_en_anchor" class="course_list_intro">
             <h2 class="course_list_title">
               Our Essentials
             </h2>
@@ -518,7 +518,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
               <p class="footer_title"> Menu </p>
               <div class="footer_list">
                 <ol class="footer_list_nav"></ol>
-                  <li class="footer_list_element"><a href="/#course_container">Our MOOCs</a></li>
+                  <li class="footer_list_element"><a href="/#course_container_en_anchor">Our MOOCs</a></li>
                   <li class="footer_list_element"><a href="/tos?lang=en">Other MOOCs</a></li>
                   <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
                   <li class="footer_list_element"><a href="/faq?lang=en">F.A.Q</a></li>
@@ -631,12 +631,7 @@ $(".btn-login").each(function(){
 
 <script>
   $( document ).ready(function(){
-    // window.setInterval(function(){
-    //   $( ".arrow-scroll" ).effect( "bounce", { times: 1 }, "slow" );
-    // }, 1000);
-    // $( ".arrow-scroll"  ).click(function() {
-    //     $('html,body').animate({scrollTop: $("#formationRecap").offset().top},'slow');
-    // });
+
     if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
       $('#main-content-fr').hide()
       $('#main-content-en').show()
