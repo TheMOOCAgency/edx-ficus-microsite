@@ -78,7 +78,6 @@ font-weight: 300;
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('/media/microsite/mooc-conservation/extra/certificat/background_aires_protegees.png');
     background-size: contain;
   }
   #pdf-btn-wrapper{
@@ -93,43 +92,124 @@ font-weight: 300;
     justify-content: center;
     flex-direction: column;
   }
+
+  /* certificates background */
+  .gestion_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/background_aires_protegees.png');
+  }
+  .gestion_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/background_aires_protegees_en.png');
+  }
+
+  .suivi_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/suivi.png');
+  }
+  .suivi_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/suivi_en.png');
+  }
+
+  .loi_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/loi.png');
+  }
+  .loi_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/loi_en.png');
+  }
+
+  .conservation_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/conservation.png');
+  }
+  .conservation_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/conservation_en.png');
+  }
+
+  .valorisation_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/valorisation.png');
+  }
+  .valorisation_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/valorisation_en.png');
+  }
+
+  .techno_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/techno.png');
+  }
+  .techno_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/techno_en.png');
+  }
+
+  .marine_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/marine.png');
+  }
+  .marine_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/marine_en.png');
+  }
+
+  .essentiel_fr{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/essentiel.png');
+  }
+  .essentiel_en{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/essentiel_en.png');
+  }
+
+  .container-text-essentials{
+    margin-top: 23%;
+  }
+
 </style>
 
-<!-- CUSTOM STYLE -->
-<style>
-
-</style>
 % if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-  <div id="certificate-container">
-    <div id="certificate-container-text">
-      <p class="text">Geoffroy Mauvais, coordinateur du programme</p>
-      <p><span class="text-bold">Aires protégées d'Afrique & Conservation (PAPACO) del'Union internationale</span></p>
-      <p><span class="text-bold">pour la conservation de la nature (UICN)</span> atteste que </p>
-      <p class="name">${first_name} ${last_name}</p>
-      <p class="text">a suivi l'intégralité du <span class="text-bold"> MOOC « ${course_name} »</span></p>
-      <p>et a passé avec succès les examens en ligne.</p>
-      <p class="text-date">Le <span class="text-date" id="dateDeCertificat"></p>
-
-        <!-- <div id="internal-border" class=" certificate-border">
-            <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-            <div>
-              <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-              <h3>${first_name} ${last_name}</h3>
-              <p>a obtenu la note de</p>
-              <h4>${int(grades['grade']*100)}%</h4>
-              <p>au cours</p>
-              <h4>${course_name}</h4>
-            </div>
-            <div>
-            </div>
-      </div> -->
+  % if request.path == '/tma_apps/course-v1:mooc-conservation+aires-protegees+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="gestion_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+protected-areas+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="gestion_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+suivi-eco+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="suivi_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+eco-monitoring+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="suivi_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+application-loi+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="loi_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+law-enforcement+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="loi_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+conservation-especes+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="conservation_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+species-conservation+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="conservation_en">   
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+valorisation-aires+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="valorisation_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+areas-valorisation+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="valorisation_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+nouvelles-technologies+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="techno_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+new-techs+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="techno_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+aires-marines+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="marine_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+marine-areas+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="marine_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-ranger+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-loi+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-leader+2021_T1/certificate/render' : 
+    <div id="certificate-container" class="essentiel_fr">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render' :
+    <div id="certificate-container" class="essentiel_en">
+  % endif  
+  %if request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-ranger+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-loi+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-leader+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render' : 
+      <div id="certificate-container-text" class="container-text-essentials">
+  % else :
+      <div id="certificate-container-text">
+  % endif
+        <p class="text">Geoffroy Mauvais, coordinateur du programme</p>
+        <p><span class="text-bold">Aires protégées d'Afrique & Conservation (PAPACO) del'Union internationale</span></p>
+        <p><span class="text-bold">pour la conservation de la nature (UICN)</span> atteste que </p>
+        <p class="name">${first_name} ${last_name}</p>
+        <p class="text">a suivi l'intégralité du <span class="text-bold"> MOOC « ${course_name} »</span></p>
+        <p>et a passé avec succès les examens en ligne.</p>
+        <p class="text-date">Le <span class="text-date" id="dateDeCertificat"></p>
+      </div>
     </div>
-  </div>
 </div>
+
 %else:
   <div id="noCertificateMessage">
       <h3>Certificat Non Disponible</h3>
@@ -147,7 +227,7 @@ font-weight: 300;
       onrendered : function (canvas){
        var img=canvas.toDataURL("image/png");
        var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
+       doc.addImage(img, "PNG", 22, 35);
        doc.save("certificat.pdf");
       }
     })
