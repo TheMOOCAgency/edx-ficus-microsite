@@ -83,3 +83,23 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
       </section>
     </section>
 </main>
+
+
+<!-- display non to org and modes in Refine your search -->
+<style>
+  [data-facet="org"], [data-facet="modes"]{
+    display: none;
+  }
+
+</style>
+<script>
+
+var checkExist = setInterval(function() {
+   if ($('.search-facets-lists > h3:nth-child(1)').length && $('.search-facets-lists > h3:nth-child(3)').length ) {
+      $('.search-facets-lists > h3:nth-child(1)').hide()
+      $('.search-facets-lists > h3:nth-child(3)').hide()
+      clearInterval(checkExist);
+   }
+}, 100);
+
+</script>
