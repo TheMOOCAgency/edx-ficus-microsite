@@ -173,6 +173,9 @@ import datetime
 <div class="group group-form group-form-requiredinformation">
 <ol class="list-input">
 % for n in extra_form:
+  % if n.get('name') == 'departement':
+  <p style=" margin-bottom: 5px;font-size: 0.8em;"> Pour vous inscrire de l’étranger, choisir « Autre » dans cette liste et renseignez votre Pays</p>
+  % endif
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
