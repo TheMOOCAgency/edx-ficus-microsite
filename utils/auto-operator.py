@@ -100,7 +100,7 @@ timesfr = time.strftime("%d.%m.%Y")
 timesfr = str(timesfr)
 
 #headers
-HEADERS = ["Nom","Prénom","adresse email","ville","pays","why mooc","note finale", "lien cv"]
+HEADERS = ["Nom","Prénom","adresse email","ville","pays","why mooc","note finale", "lien cv", "code postal","dernière connexion","date d'inscription"]
 
 #get course enrolls
 course_enrollement=CourseEnrollment.objects.filter(course_id=course_key)
@@ -183,6 +183,15 @@ for i in range(len(course_enrollement)):
                 town=user_profile.get('city','n/a')
                 final_grade='n/a'
                 cv_link='n/a'
+                code_postal=user_profile.get('cp','n/a')
+                try:
+                    register_date=user.date_joined.strftime('%d %b %y')
+                except:
+                    register_date="Null"
+                try:
+                    last_login_formated=user.last_login.strftime('%d %b %y')
+                except:
+                    last_login_formated="Null"
 
                 final_grade = str(course_grade.percent * 100)+'%'
 
@@ -193,7 +202,7 @@ for i in range(len(course_enrollement)):
 
                 #insert rows
                 primary_rows = [
-                    last_name,first_name,email,town,country,why_mooc,final_grade,cv_link
+                    last_name,first_name,email,town,country,why_mooc,final_grade,cv_link,code_postal,last_login_formated,register_date
                 ]
 
                 l=0

@@ -1,0 +1,7 @@
+Bonjour {full_name},
+
+Félicitations, vous avez terminé avec succès le MOOC Opération Raffinage ! Veuillez-trouver ci-joint un formulaire vous permettant de déposer votre CV en ligne:
+{cv_link}
+
+Cordialement,
+l'équipe Oeration-raffinage

@@ -231,9 +231,14 @@ date_reference = datetime.datetime(2020, 8, 1).replace(tzinfo=utc)
 
 for i in range(len(course_enrollement)):
     user=course_enrollement[i].user
-    user_enroll_date = course_enrollement[i].created
 
-    if user_enroll_date > date_reference:
+    ## OLD check date by register date
+    # user_enroll_date = course_enrollement[i].created
+    # if user_enroll_date > date_reference:
+
+    ## New check date by last login date
+    last_login = user.last_login
+    if last_login and last_login > date_reference:
         j=j+1
         #userprofile
         user_profile = {}
