@@ -36,9 +36,33 @@
       <p>Comment prévenir et lutter contre ces comportements sur le lieu de travail</p>
     </div>
     <div id="butnContainer">
+      <div id="butnResources"><a href="#">Je consulte<br>les ressources</a>
+        <div id="resourcesMenu">
+          <li class="list-item">
+            <ul class="drop-menu menu-2" style="list-style: none; padding-left: 20px;">
+              <li style="display: none;" class="drop-item"><a href="#" class="item--0"></a></li>
+              <li class="drop-item"><a href="#" class="item--1 menu-item">Comprendre le sexisme</a></li>
+              <li class="drop-item"><a href="#" class="item--2 menu-item">Repérer et qualifier</a></li>
+              <li class="drop-item"><a href="#" class="item--3 menu-item">Rôle du référent</a></li>
+              <li class="drop-item"><a href="#" class="item--4 menu-item">Partenaires</a></li>
+            </ul>
+          </li>
+        </div>
+      </div>
       <div id="butnRegister"><a href="/register?course_id=course-v1:egaliteprofessionnelle-ieg+EP01+2020&enrollment_action=enroll" target="_blank">Je m’inscris<br>à la formation<br>en ligne</a></div>
       <div id="butnLogin"><a href="/login" target="_blank">Je me connecte<br>à la formation<br>en ligne</a></div>
     </div>
+    <!-- <div id="resourcesMenu" class="hidden">
+      <li class="list-item">
+        <ul class="drop-menu menu-2" style="list-style: none; padding-left: 20px;">
+          <li style="display: none;" class="drop-item"><a href="#" class="item--0"></a></li>
+          <li class="drop-item"><a href="#" class="item--1 menu-item">Comprendre le sexisme</a></li>
+          <li class="drop-item"><a href="#" class="item--2 menu-item">Repérer et qualifier</a></li>
+          <li class="drop-item"><a href="#" class="item--3 menu-item">Rôle du référent</a></li>
+          <li class="drop-item"><a href="#" class="item--4 menu-item">Partenaires</a></li>
+        </ul>
+      </li>
+    </div> -->
     <div id="fadeInWordsContainer"></div>
   </div>
   <div id="ongletComprendre" class="onglet" style="display: none;">
@@ -221,3 +245,9 @@
 </body>
 </html>
 <script type="text/javascript" src="/media/microsite/egaliteprofessionnelle-ieg/js/homepageScript.js"></script>
+<script> 
+ $("#resourcesMenu").hide();
+$("#butnResources").click(function(){
+  $("#resourcesMenu").toggle();
+});
+</script>

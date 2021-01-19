@@ -6,7 +6,7 @@
       ${'' if not is_hidden else 'is-hidden' }"
      tabindex="-1">
     <span class="icon fa ${notification_icon}" aria-hidden="true"></span>
-    <span class="notification-message" aria-describedby="${ short_id }-problem-title">${notification_message}
+    <span id="textNotificationMessage" class="notification-message" aria-describedby="${ short_id }-problem-title">${notification_message}
     </span>
     <div class="notification-btn-wrapper">
         % if notification_name is 'hint':
@@ -17,3 +17,10 @@
         <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">${_('Review')}</button>
     </div>
 </div>
+
+<script>
+  const textNotification = $('#textNotificationMessage').text()
+  if (textNotification == "Partially Correct\n    "){
+    $('#textNotificationMessage').text('Partiellement correct')
+  }
+</script>
