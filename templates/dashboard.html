@@ -231,15 +231,7 @@ endfor
         %if n.get('weight')==0:
           optionnel
         %else:
-          %if request.LANGUAGE_CODE == 'de-de' :
-            Gewicht: ${int(n.get('weight') * 100)}%
-          % elif request.LANGUAGE_CODE == 'es-419' :
-            Peso: ${int(n.get('weight') * 100)}%
-          % elif request.LANGUAGE_CODE == 'en' :
-            Weight: ${int(n.get('weight') * 100)}%
-          % else:
-            Poids: ${int(n.get('weight') * 100)}%
-          %endif
+          ${_('Weight')}: ${int(n.get('weight') * 100)}%
         %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
