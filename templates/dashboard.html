@@ -20,6 +20,7 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+import json
 %>
 
 <%
@@ -49,6 +50,179 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 </script>
 % endfor
 </%block>
+
+<%
+custom_fields = {}
+custom_fields = json.loads(user.profile.custom_field)
+%>
+
+% if not 'bnpp_entity' in custom_fields.keys() or not 'bnpp_country' in custom_fields.keys():
+%if request.LANGUAGE_CODE == 'fr':
+<script>
+  var confirmButtonText = 'Valider'
+  var cancelButtonText = 'Annuler'
+  var titleQuestion1 = 'Pays'
+  var textQuestion1 = 'Quel est votre pays ?'
+  var titleQuestion2 = 'Entité'
+  var textQuestion2 = 'Quel est votre entité ?'
+  var updateCompleted = 'Données actualisées avec succès'
+</script>
+%else:
+<script>
+  var confirmButtonText = 'Validate'
+  var cancelButtonText = 'Cancel'
+  var titleQuestion1 = 'Country'
+  var textQuestion1 = 'What is your country ?'
+  var titleQuestion2 = 'Entity'
+  var textQuestion2 = 'What is your entity ?'
+  var updateCompleted = 'data successfully completed'
+</script>
+%endif
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  $( document ).ready(function() {
+    Swal.mixin({
+      input: 'text',
+      confirmButtonText: confirmButtonText,
+      cancelButtonText: cancelButtonText,
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([
+      {
+        title: titleQuestion1,
+        text: textQuestion1,
+        input: 'select',
+        inputOptions: {
+          'Africa': {
+            BurkinaFaso: 'Burkina Faso',
+            Botswana: 'Botswana',
+            IvoryCoast: 'Ivory Coast',
+            Algeria: 'Algeria',
+            Gabon: 'Gabon',
+            Guinea: 'Guinea',
+            Comoros: 'Comoros',
+            Morocco: 'Morocco',
+            Mali: 'Mali',
+            Namibia: 'Namibia',
+            Senegal: 'Senegal',
+            Tunisia: 'Tunisia',
+            SouthAfrica: 'South Africa'
+          },
+          'Asia - Oceania': {
+            Australia: 'Australia',
+            China: 'China',
+            HongKong: 'Hong Kong',
+            Indonesia: 'Indonesia',
+            India: 'India',
+            Japan: 'Japan',
+            SouthKorea: 'South Korea',
+            Malaysia: 'Malaysia',
+            NewZealand: 'New Zealand',
+            Philippines: 'Philippines',
+            Singapore: 'Singapore',
+            Thailand: 'Thailand',
+            Taiwan: 'Taiwan',
+            VietNam: 'Viet Nam'
+          },
+          'Europe (France excluded)': {
+            Austria: 'Austria',
+            Belgium: 'Belgium',
+            Bulgaria: 'Bulgaria',
+            Switzerland: 'Switzerland',
+            CzechRepublic: 'Czech Republic',
+            Germany: 'Germany',
+            Denmark: 'Denmark',
+            Spain: 'Spain',
+            Finland: 'Finland',
+            UnitedKingdom: 'United Kingdom',
+            Guernsey: 'Guernsey',
+            Greece: 'Greece',
+            Hungary: 'Hungary',
+            Ireland: 'Ireland',
+            Italy: 'Italy',
+            Jersey: 'Jersey',
+            Luxembourg: 'Luxembourg',
+            Monaco: 'Monaco',
+            Netherlands: 'Netherlands',
+            Norway: 'Norway',
+            Poland: 'Poland',
+            Portugal: 'Portugal',
+            Romania: 'Romania',
+            Serbia: 'Serbia',
+            Russia: 'Russia',
+            Sweden: 'Sweden',
+            Slovakia: 'Slovakia',
+            Turkey: 'Turkey',
+            Ukraine: 'Ukraine',
+          },
+          'France & Outremer': {
+            France: 'France',
+          },
+          'Middle East': {
+            UnitedArabEmirates: 'United Arab Emirates',
+            Bahrain: 'Bahrain',
+            Israel: 'Israel',
+            Kuwait: 'Kuwait',
+            Qatar: 'Qatar',
+            SaudiArabia: 'Saudi Arabia'
+          },
+          'North America': {
+            Canada: 'Canada',
+            UnitedStates: 'United States',
+            Argentina: 'Argentina',
+            Brazil: 'Brazil',
+            Chile: 'Chile',
+            Colombia: 'Colombia',
+            CaymanIslands: 'Cayman Islands',
+            Mexico: 'Mexico',
+            Peru: 'Peru'
+          }
+        }
+      },
+      {
+        title: titleQuestion2,
+        text: textQuestion2,
+        input: 'select',
+        inputOptions: {
+          titleQuestion2: {
+            BNPParibasPersonalFinance1: 'BNP Paribas Personal Finance 1',
+            BNPParibasCardif: 'BNP Paribas Cardif',
+            BNPParibasRealEstate: 'BNP Paribas Real Estate',
+            BNPParibasWealthManagement2: 'BNP Paribas Wealth Management 2',
+            BNPParibasAssetManagement: 'BNP Paribas Asset Management',
+            IRBInternationalRetailBanking3: 'IRB – International Retail Banking 3',
+            GroupCompliance: 'Group Compliance',
+            BDDFBanquededetailenFrance: 'BDDF – Banque de détail en France',
+            BGLLuxembourg: 'BGL – Luxembourg',
+            BNL: 'BNL',
+            BNPParibasFortis: 'BNP Paribas Fortis',
+            CIBCorporateandInstitutionalBanking: 'CIB – Corporate and Institutional Banking'
+          }
+        }
+      }
+    ]).then((result) => {
+      var customFields = {'bnpp_country':result.value[0],'bnpp_entity':result.value[1]}
+      var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
+      console.log(customFields)
+      $.ajax({
+				url: urlAPI,
+				type: "POST",
+				data: customFields,
+				headers: {'X-CSRFToken': $.cookie('csrftoken')},
+				dataType: 'json'
+			})
+      .then(response => {
+        Swal.fire(updateCompleted, '', 'success')
+      })
+      .catch(error => {
+        Swal.showValidationMessage(
+          'Request failed: '+error
+        )
+      })
+    })
+  });
+</script>
+% endif
 
 <%block name="js_extra">
   <script src="${static.url('js/commerce/credit.js')}"></script>
@@ -246,7 +420,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          poids: ${int(n.get('weight') * 100)}%
+          ${_('Weight')}: ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
