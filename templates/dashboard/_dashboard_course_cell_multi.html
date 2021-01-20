@@ -83,13 +83,13 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <span></span>
 % if LANGUAGE_CODE == "ja-jp":
   % if insc_ouv:
-  <span>コースは開いています</span>
+  <span>開講中、</span>
   % else:
   <span>${_("Enrollments are closed")} </span>
   % endif
   <span>${_('and')}</span>
   % if cours_ouv:
-  <span>コースは開いています</span>
+  <span>受講登録中。</span>
   % else:
   <span> ${_("Course is closed")}</span>
   % endif
@@ -118,7 +118,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     % if LANGUAGE_CODE == "ja-jp":
-      以来 ${course_overview.start.strftime("%d/%b/%Y")}
+      以来 ${course_overview.start.strftime("%Y年%b月%d日開設")}
     % else:
       Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
     % endif
@@ -136,7 +136,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <div class="dashboard_button">
 % if cours_ouv:
       % if LANGUAGE_CODE == "ja-jp":
-      <a href="/dashboard/${course_overview.id}/">コースを見る</a>
+      <a href="/dashboard/${course_overview.id}/">講座ダッシュボードはこちら</a>
       % else:
       <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
       % endif

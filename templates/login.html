@@ -99,7 +99,11 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
+        % if LANGUAGE_CODE == "ja-jp":
+          html("シャンパーニュ・ムークのアカウントにログインし、オンライン講座にアクセス");
+        % else:
           html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+        % endif
       }
       else {
         $submitButton.
@@ -215,7 +219,11 @@ background: #ffffffbd !important;
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
             <span class="tip tip-input">
+              % if LANGUAGE_CODE == "ja-jp":
+              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">パスワードをお忘れの場合</a>
+              % else:
               <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${_('Forgot password?')}</a>
+              % endif
             </span>
           </li>
         </ol>
@@ -227,7 +235,11 @@ background: #ffffffbd !important;
         <ol class="list-input">
           <li class="field required checkbox" id="field-remember">
             <input id="remember-yes" type="checkbox" name="remember" value="true" />
+            % if LANGUAGE_CODE == "ja-jp":
+            <label for="remember-yes">パスワードを保存する＊</label>
+            % else:
             <label for="remember-yes">${_('Remember me')}</label>
+            % endif
           </li>
         </ol>
       </div>

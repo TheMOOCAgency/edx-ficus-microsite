@@ -193,9 +193,17 @@ endfor
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
+          % if LANGUAGE_CODE == "ja-jp":
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">フォーラムに投稿する</a></span>
+          %else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          % endif
         % else:
+          % if LANGUAGE_CODE == "ja-jp":
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">フォーラムに投稿する</span>
+          %else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+          % endif
         % endif
       </div>
     </div>
@@ -203,7 +211,11 @@ endfor
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
+        % if LANGUAGE_CODE == "ja-jp":
         <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+        % else:
+        <span>最終成績</span><span id="score_tma">${score}%</span>
+        %endif
       </div>
   <%
   course_details_len = len(course_details)
@@ -217,7 +229,11 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
+        % if LANGUAGE_CODE == "ja-jp":
+          比率: ${int(n.get('weight') * 100)}%
+        % else:
           ${_('Weight')}: ${int(n.get('weight') * 100)}%
+        %endif
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
@@ -627,10 +643,10 @@ $( document ).ready(function(){
     $(".training-not-validated>a").text('Follow your progress')
   }
   if($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
-    $("#course_start > span:contains(Démarrer)").text('スタート')  
-    $("#forum_button > span").text('')
-    $(".course_nav > span:contains(info)").text('')
-    $(".course_nav > span:contains(Retour)").text('')
+    $("#course_start > span:contains(Démarrer)").text('はじめる')  
+    $("#forum_button > span").text('フォーラム')
+    $(".course_nav > span:contains(info)").text('インフォメーション')
+    $(".course_nav > span:contains(Retour)").text('戻る')
     $(".training-not-validated>a").text('あなたの進歩に従ってください')
   }
 });
