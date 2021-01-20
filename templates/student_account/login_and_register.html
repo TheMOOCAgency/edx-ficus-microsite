@@ -91,14 +91,14 @@ if(!is_third_party_on){
 var adaptifssoornot = setInterval(function(){
 
 function usessorather(page){
- if($("#"+page+"-email").val().indexOf("saint-gobain") > -1 || $("#"+page+"-email").val().indexOf("safran") > -1 || $("#"+page+"-email").val().indexOf("transitions") > -1){
+ if($("#"+page+"-email").val().indexOf("saint-gobain") > -1 || $("#"+page+"-email").val().indexOf("transitions") > -1){
   Swal.fire({
     html:
       '<h2 style="margin-top:30px">Veuillez utiliser le SSO de votre entreprise<br>Please use your company SSO</h2>' +
       '<div>'+
       '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_saint-gobain.png" alt="logo Saint-Gobain" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain\'">'+
       '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_transitions.jpg" alt="logo TO" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod\'">'+
-      '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_safran.jpg" alt="logo Safran" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod\'">'+
+      //'<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_safran.jpg" alt="logo Safran" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod\'">'+
       '</div>',
     showCancelButton: false,
     showCloseButton: false,
