@@ -212,9 +212,9 @@ endfor
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
         % if LANGUAGE_CODE == "ja-jp":
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
-        % else:
         <span>最終成績</span><span id="score_tma">${score}%</span>
+        % else:
+        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
         %endif
       </div>
   <%
