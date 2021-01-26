@@ -62,29 +62,37 @@ custom_fields = json.loads(user.profile.custom_field)
   var confirmButtonText = 'Valider'
   var cancelButtonText = 'Annuler'
   var titleQuestion1 = 'Pays'
-  var textQuestion1 = 'Quel est votre pays ?'
+  var textQuestion1 = 'Sélectionnez votre pays'
   var titleQuestion2 = 'Entité'
-  var textQuestion2 = 'Quel est votre entité ?'
-  var updateCompleted = 'Données actualisées avec succès'
+  var textQuestion2 = 'Sélectionnez votre entité'
+  var updateCompleted = 'Vos informations ont bien été enregistrées'
+  var footerText = '<ul><li><sup>*1</sup> inclut : Cetelem, Cofinoga, Findomestic, Alphacredit, RCS, Sevendays Finans, Express Bank</li>'
+  +'<br /><li><sup>*2</sup> inclut : Banque Privée France</li>'
+  +'<br /><li><sup>*3</sup> inclut : Bank of the West, BMCI, BNP Paribas Polska, TEB, Ukrsibbank, BICICI, BICIS</li></ul>'
 </script>
 %else:
 <script>
   var confirmButtonText = 'Validate'
   var cancelButtonText = 'Cancel'
   var titleQuestion1 = 'Country'
-  var textQuestion1 = 'What is your country ?'
+  var textQuestion1 = 'Select your country'
   var titleQuestion2 = 'Entity'
-  var textQuestion2 = 'What is your entity ?'
-  var updateCompleted = 'data successfully completed'
+  var textQuestion2 = 'Select your entity'
+  var updateCompleted = 'Your information have been saved'
+  var footerText = '<ul><li><sup>*1</sup> including: Cetelem, Cofinoga, Findomestic, Alphacredit, RCS, Sevendays Finans, Express Bank</li>'
+  +'<br /><li><sup>*2</sup> including: Banque Privée France</li>'
+  +'<br /><li><sup>*3</sup> including: Bank of the West, BMCI, BNP Paribas Polska, TEB, Ukrsibbank, BICICI, BICIS</li></ul>'
 </script>
 %endif
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script>
+<script>
   $( document ).ready(function() {
     Swal.mixin({
       input: 'text',
       confirmButtonText: confirmButtonText,
       cancelButtonText: cancelButtonText,
+      confirmButtonColor: '#9BE7D8',
+      cancelButtonColor: '#bec5c4',
       showCancelButton: true,
       progressSteps: ['1', '2']
     }).queue([
@@ -92,6 +100,7 @@ custom_fields = json.loads(user.profile.custom_field)
         title: titleQuestion1,
         text: textQuestion1,
         input: 'select',
+        inputValue: 'France',
         inputOptions: {
           'Africa': {
             BurkinaFaso: 'Burkina Faso',
@@ -183,14 +192,15 @@ custom_fields = json.loads(user.profile.custom_field)
         title: titleQuestion2,
         text: textQuestion2,
         input: 'select',
+        footer: footerText,
         inputOptions: {
           titleQuestion2: {
-            BNPParibasPersonalFinance1: 'BNP Paribas Personal Finance 1',
+            BNPParibasPersonalFinance: 'BNP Paribas Personal Finance<sup> *1</sup>',
             BNPParibasCardif: 'BNP Paribas Cardif',
             BNPParibasRealEstate: 'BNP Paribas Real Estate',
-            BNPParibasWealthManagement2: 'BNP Paribas Wealth Management 2',
+            BNPParibasWealthManagement: 'BNP Paribas Wealth Management<sup> *2</sup>',
             BNPParibasAssetManagement: 'BNP Paribas Asset Management',
-            IRBInternationalRetailBanking3: 'IRB – International Retail Banking 3',
+            IRBInternationalRetailBanking: 'IRB – International Retail Banking<sup> *3</sup>',
             GroupCompliance: 'Group Compliance',
             BDDFBanquededetailenFrance: 'BDDF – Banque de détail en France',
             BGLLuxembourg: 'BGL – Luxembourg',
@@ -212,7 +222,12 @@ custom_fields = json.loads(user.profile.custom_field)
 				dataType: 'json'
 			})
       .then(response => {
-        Swal.fire(updateCompleted, '', 'success')
+        Swal.fire({
+          title: updateCompleted, 
+          text: '', 
+          icon: 'success',
+          confirmButtonColor: '#9BE7D8'
+        })
       })
       .catch(error => {
         Swal.showValidationMessage(
@@ -221,7 +236,20 @@ custom_fields = json.loads(user.profile.custom_field)
       })
     })
   });
-</script> -->
+</script>
+<style>
+  .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step, .swal2-progress-steps .swal2-progress-step, .swal2-progress-steps .swal2-progress-step-line {
+    background: #9BE7D8;
+  }
+  .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line, .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line {
+    background: rgb(173 216 230 / 0.5);
+  }
+  .swal2-styled{
+    color: black !important;
+    text-shadow: none;
+    font-weight: 600;
+  }
+</style>
 % endif
 
 <%block name="js_extra">
@@ -488,12 +516,15 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
           <h3>${course_end} cours<br>terminés</h3>
         % endif
     % endif
-
     % for n in course_name:
-        <div class="course_name_profile_list">
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
-        </div>
+    <div class="course_name_profile_list">
+      <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
+    </div>
     % endfor
+  </div>
+  <% report_link = '/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA.xls'.format(time.strftime("%d.%m.%Y")) %>
+  <div class="dashboard_profile" id="reportButton" style="display: none;">
+    <a href="${report_link}"><h3>Télécharger le rapport de notes</h3></a>
   </div>
 % endif
   </div>
@@ -857,6 +888,33 @@ $(window).initialize(function(){
 
   #profile_bottom_multi h3 {
     background-color:#9be7d8
-}
+  }
+
+  #reportButton > a > h3{
+    background-color: #9be7d8;
+    transition: all 0.1s linear 0s;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #636363 !important;
+    font-size: 29px;
+    text-transform: uppercase;
+    padding: 35px;
+    text-align: center;
+    font-weight: 100;
+  }
+
+  #reportButton > a > h3:hover{
+    background-color: #c8e4df;
+    transition: all 0.1s linear 0s;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #reportButton > a{
+    color: #636363 !important;
+    text-decoration: none;
+  }
 
  </style>
