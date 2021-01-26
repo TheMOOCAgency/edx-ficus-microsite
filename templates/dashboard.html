@@ -268,6 +268,39 @@ else{
   </div>
   <div id="dashboard_course_content">
 % if len(course_enrollments) == 1:
+
+
+<!-- DASHBOARD FOR IOS -->
+<script type="text/javascript">
+function iOS() {
+  return [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ].includes(navigator.platform)
+  // iPad on iOS 13 detection
+  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+setInterval(function() {
+ if(iOS()){
+  $("#dashboard_profile").hide();
+  $("#global-navigation").hide();
+  $("#dashboard_course_content").css("background-color","white");
+  $("#dashboard_course_content").css("text-align","center");
+  $("#dashboard_course_content").html("<p style='line-height:24px'>Votre compte a été créé.<br/>Vous pouvez cliquer sur le bouton Fermer et vous connecter</p>");
+  $("div.empty-dashboard-message").each(function() {
+   $(this).html("<p style='line-height:24px'>Votre compte a été créé.<br/>Vous pouvez cliquer sur le bouton Fermer et vous connecter</p>");
+  });
+ }
+},10);
+</script>
+
+
+
+
   % for dashboard_index, enrollment in enumerate(course_enrollments):
     <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
     <% cert_status = cert_statuses.get(enrollment.course_id) %>
@@ -365,7 +398,39 @@ else{
 
     %endif
 </div>
+
+
+<!-- DASHBOARD FOR IOS -->
+<script type="text/javascript">
+function iOS() {
+  return [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ].includes(navigator.platform)
+  // iPad on iOS 13 detection
+  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+setInterval(function() {
+ if(iOS()){
+  $("#dashboard_profile").hide();
+  $("#global-navigation").hide();
+  $("div.empty-dashboard-message").each(function() {
+   $(this).html("<p style='line-height:24px'>Votre compte a été créé.<br/>Vous pouvez cliquer sur le bouton Fermer et vous connecter</p>");
+  });
+ }
+},10);
+</script>
+
 % endif
+
+
+
+
+
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->
