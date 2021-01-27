@@ -23,23 +23,69 @@ org = static.get_value('domain_prefix')
 <main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
   % if user.is_authenticated():
 
-    <div id="languageChoiceContainer">
-      <h1 id="welcome-title"><p style="font-size: 24px; text-align: center; font-weight: 700;">Welcome!</p><br/>Choose the language for course content. *<br/>Choisissez la langue dans laquelle les parcours seront diffusés.<br/>Wählen Sie die Sprache, in der die Kurse ausgestrahlt werden.<br/>Elija el idioma en el que se transmitirán los cursos.</h1>
-      <div id="language-selector" style='display:block'>
-          <a data-value="en" data-course="course-v1:edf-netexploacademy+manager+manager-en">
-            <img height="80px" src="/media/microsite/${org}/images/uk.png" alt="uk" style="margin: 40px 5px;">
-          <a data-value="fr" data-course="course-v1:edf-netexploacademy+parcours-manager-fr+parcours-manager-fr">
-            <img height="80px" src="/media/microsite/${org}/images/fr.png" alt="fr" style="margin: 40px 5px;">
-          </a>
-          <a data-value="de-de" data-course="course-v1:edf-netexploacademy+manager+manager-de">
-            <img height="80px" src="/media/microsite/${org}/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
-          </a>
-          <a data-value="es-419" data-course="course-v1:edf-netexploacademy+manager+manager-es">
-            <img height="82px" src="/media/microsite/${org}/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
-      </div>
+  <div id="languageChoiceContainer">
+    <div class="separator"></div>
 
-    <h1 id="welcome-subtitle" style="font-style: italic;">*Subtitles in other languages are available for most courses. To display them, please select the English audio version.</h1>
-  </div>
+    <div id="language-selector" >
+
+      <a data-value="en" data-course="course-v1:edf-netexploacademy+manager+manager-en">
+      <div class="flag_container">
+        <p class="choose_text">CHOOSE</p>
+
+        <img height="80px" src="/media/microsite/${org}/images/uk.png" alt="uk" style="margin: 40px 5px;">
+
+        <p class="audio">Audio</p>
+        <p>EN</p>
+        <p class="subtitles">Subtitles</p>
+        <p class="english_sub">EN<span class="space_between"></span>JP</p>
+        <p>BG<span class="space_between"></span>PL</p>
+        <p>CS<span class="space_between"></span>PT</p>
+        <p>DE<span class="space_between"></span>RO</p>
+        <p>ES<span class="space_between"></span>SK</p>
+        <p>FR<span class="space_between"></span>TR</p>
+        <p>HU<span class="space_between"></span>UA</p>
+        <p>IT<span class="space_between"></span>ZH</p>
+      </div>
+    </a>
+
+    <a data-value="fr" data-course="course-v1:edf-netexploacademy+parcours-manager-fr+parcours-manager-fr">
+      <div class="flag_container">
+        <p class="choose_text">CHOISIR</p>
+
+        <img height="80px" src="/media/microsite/${org}/images/fr.png" alt="fr" style="margin: 40px 5px;">
+
+        <p class="audio">Audio</p>
+        <p>FR</p>
+        <p class="subtitles">Sous-titres</p>
+        <p>FR</p>
+      </div>
+    </a>
+
+    <a data-value="de-de" data-course="course-v1:edf-netexploacademy+manager+manager-de">
+        <div class="flag_container">
+            <p class="choose_text">WÄLHEN</p>
+            <img height="80px" src="/media/microsite/${org}/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
+            <p class="audio">Audio</p>
+            <p>DE</p>
+            <p class="subtitles">Undertitle</p>
+            <p>DE</p>
+        </div>
+      </a>    
+
+      <a data-value="es-419" data-course="course-v1:edf-netexploacademy+manager+manager-es">
+        <div class="flag_container">
+          <p class="choose_text">ELEGIR</p>
+          <img height="82px" src="/media/microsite/${org}/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
+          <p class="audio">Audio</p>
+          <p>ES</p>
+          <p class="subtitles">Subtítulos</p>
+          <p>ES</p>
+        </div>
+      </a>
+    </div>
+
+</div>
+
   % endif
 </main>
 <script>
@@ -107,12 +153,13 @@ org = static.get_value('domain_prefix')
 .swal-button--cancel {
 color:white !important;
 }
-#languageChoiceContainer {
-  width: 70%;
-  margin: auto;
-  background-color: rgba(255,255,255,0.8);
+.flag_container {
+  margin: 1%;
+  background-color: rgba(255,255,255,0.6);
   border-radius: 20px;
-  padding: 20px;
+  padding: 5px 35px 40px;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 #welcome-title, #welcome-subtitle {
   color: black;
@@ -121,7 +168,71 @@ color:white !important;
   width: 70%;
   margin: auto;
 }
-#language-selector > a > img:hover {
+#language-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+#language-selector > div > a > img:hover {
   cursor: pointer;
+}
+p{
+  font-size: 23px;
+}
+
+.space_between {
+  width: 45%;
+  display: inline-block;
+}
+
+.subtitles {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.english_sub {
+margin-top: 30px;
+}
+.audio {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.choose_text {
+margin-top: 1em;
+font-weight: bold;
+}
+
+#languageChoiceContainer{
+  width: 900px;
+  margin: auto;
+  position: relative;
+}
+.separator{
+  border-bottom: 1px solid black ;
+  position: relative;
+  top: 212px;
+  left: 2px;
+width: 897px;
+
+}
+
+a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
+    color:black !important;
+}
+
+
+@media only screen and (max-width: 900px) {
+.separator, .choose_bar{
+  display: none;
+}
+#languageChoiceContainer{
+  width: 100%;
+}
+#language-selector {
+    justify-content: center;
+    flex-wrap: wrap;
+}
 }
 </style>
