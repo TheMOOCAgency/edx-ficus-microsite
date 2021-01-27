@@ -16,7 +16,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home" style="background-image: url(/media/microsite/mooc-integrerlesiec/auto/images/bg_img.jpg)">
       <header style="background: none;box-shadow: none;">
-        <div style="box-shadow: none;text-align: center;font-size: 34px;line-height: normal;background-color: rgba(255,255,255,0.8);width: 100%;margin: 10% 0 0 0;padding: 0;">
+        <div style="box-shadow: none;text-align: center;font-size: 34px;line-height: normal;background-color: rgba(255,255,255,0.8);width: 100%;margin: 10% 0 0 0;padding: 0;font-weight: 800;">
           Bienvenue sur le MOOC : Intégrer le SIEC
         </div>
       </header>
@@ -33,7 +33,6 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
          }
       })
    </script>
-</%block>
 
 % if show_signup_immediately is not UNDEFINED:
   ## NOTE: This won't work in production, because anonymous views are cached, so it will
