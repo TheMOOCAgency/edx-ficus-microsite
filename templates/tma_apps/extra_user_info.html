@@ -21,17 +21,15 @@ from openedx.core.djangolib.markup import HTML, Text
 
     <div id="languageChoiceContainer">
       <div class="separator"></div>
-      <div class="choose_bar">
-        <p class="choose_text">CHOOSE</p>
-        <p class="choose_text">CHOISIR</p>
-        <p class="choose_text">WÄLHEN</p>
-        <p class="choose_text">ELEGIR</p>
-      </div>
+
       <div id="language-selector" >
+
+        <a data-value="en" data-course="course-v1:bnpp-netexplo+manager+manager-en">
         <div class="flag_container">
-          <a data-value="en" data-course="course-v1:bnpp-netexplo+manager+manager-en">
+          <p class="choose_text">CHOOSE</p>
+
             <img height="80px" src="/media/microsite/bnpp-netexplo/images/uk.png" alt="uk" style="margin: 40px 5px;">
-          </a>
+
           <p class="audio">Audio</p>
           <p>EN</p>
           <p class="subtitles">Subtitles</p>
@@ -44,33 +42,42 @@ from openedx.core.djangolib.markup import HTML, Text
           <p>HU<span class="space_between"></span>UA</p>
           <p>IT<span class="space_between"></span>ZH</p>
         </div>
+      </a>
+
+        <a data-value="fr" data-course="course-v1:bnpp-netexplo+parcours-manager-fr+parcours-manager-fr">
         <div class="flag_container">
-            <a data-value="fr" data-course="course-v1:bnpp-netexplo+parcours-manager-fr+parcours-manager-fr">
+          <p class="choose_text">CHOISIR</p>
+
             <img height="80px" src="/media/microsite/bnpp-netexplo/images/fr.png" alt="fr" style="margin: 40px 5px;">
-          </a>
+
           <p class="audio">Audio</p>
           <p>FR</p>
           <p class="subtitles">Sous-titres</p>
           <p>FR</p>
         </div>
-        <div class="flag_container">
-          <a data-value="de-de" data-course="course-v1:bnpp-netexplo+manager+manager-de">
-            <img height="80px" src="/media/microsite/bnpp-netexplo/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
-          </a>
-          <p class="audio">Audio</p>
-          <p>DE</p>
-          <p class="subtitles">Undertitle</p>
-          <p>DE</p>
-        </div>
-        <div class="flag_container">
-          <a data-value="es-419" data-course="course-v1:bnpp-netexplo+manager+manager-es">
-            <img height="82px" src="/media/microsite/bnpp-netexplo/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
-          </a>
-          <p class="audio">Audio</p>
-          <p>ES</p>
-          <p class="subtitles">Subtítulos</p>
-          <p>ES</p>
-        </div>
+      </a>
+
+        <a data-value="de-de" data-course="course-v1:bnpp-netexplo+manager+manager-de">
+          <div class="flag_container">
+              <p class="choose_text">WÄLHEN</p>
+                <img height="80px" src="/media/microsite/bnpp-netexplo/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
+              <p class="audio">Audio</p>
+              <p>DE</p>
+              <p class="subtitles">Undertitle</p>
+              <p>DE</p>
+          </div>
+        </a>    
+
+        <a data-value="es-419" data-course="course-v1:bnpp-netexplo+manager+manager-es">
+          <div class="flag_container">
+            <p class="choose_text">ELEGIR</p>
+              <img height="82px" src="/media/microsite/bnpp-netexplo/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
+            <p class="audio">Audio</p>
+            <p>ES</p>
+            <p class="subtitles">Subtítulos</p>
+            <p>ES</p>
+          </div>
+        </a>
       </div>
 
   </div>
@@ -132,7 +139,7 @@ from openedx.core.djangolib.markup import HTML, Text
   }
 
   $(document).ready(function(){
-    $('#language-selector > div > a').on('click', function(e){
+    $('#language-selector > a').on('click', function(e){
       alertAndSendInfo($(this));
     });
   });
@@ -145,7 +152,9 @@ color:white !important;
   margin: 1%;
   background-color: rgba(255,255,255,0.6);
   border-radius: 20px;
-  padding: 0 35px 40px;
+  padding: 5px 35px 40px;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 #welcome-title, #welcome-subtitle {
   color: black;
@@ -163,16 +172,18 @@ color:white !important;
   cursor: pointer;
 }
 p{
-  font-size: 1.8em;
+  font-size: 23px;
 }
 
 .space_between {
-  width: 35%;
+  width: 45%;
   display: inline-block;
 }
 
 .subtitles {
   margin-top: 1em;
+  font-weight: bold;
+  font-size: 23px;
 }
 
 .english_sub {
@@ -180,16 +191,12 @@ margin-top: 30px;
 }
 .audio {
   margin-top: 15px;
+  font-weight: bold;
 }
-.choose_bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 5px 0;
-}
+
 .choose_text {
-  padding: 0 45px;
-  margin: 1%;
+margin-top: 1em;
+font-weight: bold;
 }
 
 #languageChoiceContainer{
@@ -201,9 +208,13 @@ margin-top: 30px;
   border-bottom: 1px solid black ;
   position: relative;
   top: 212px;
-  left: 9px;
-  width: 98%;
+  left: 2px;
+width: 897px;
 
+}
+
+a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
+    color:black !important;
 }
 
 
