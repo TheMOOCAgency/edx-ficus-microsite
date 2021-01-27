@@ -42,12 +42,13 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
 cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
-
+connected = user.is_authenticated()
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
 <link rel="stylesheet" type="text/css" href="${cssresponsive}" />
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/nav_burger_menu.css">
 <%
 try:
     course_id = course.id
@@ -68,9 +69,21 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
-  <input class="burger" type="checkbox">
-    <nav class="wrapper-header" aria-label="${_('Global')}">
-    <h1 class="logo">
+    <!-- <input class="burger" type="checkbox"> -->
+    <!-- burger menu -->
+    <div id="menuToggle" style="display: none;">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu_burger">
+        <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
+        <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
+      </ul>
+    </div>
+    <!-- burger menu -->
+    <nav class="wrapper-header" aria-label="${_('Global')}" style="max-width: 290px;position: absolute;right: 10px;">
+    <h1 class="logo" style="position: absolute;left: 35px;">
       <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
         <%
@@ -118,7 +131,10 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
 
       % if user.is_authenticated():
-        <ol class="left nav-global list-inline authenticated">
+      <div class="courses_link">
+        <a href="${marketing_link('COURSES')}" >${_('Explore courses')}</a>
+      </div>
+        <!-- <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -139,7 +155,7 @@ site_status_msg = get_site_status_msg(course_id)
             </li>
           %endif
         </%block>
-      </ol>
+      </ol> -->
 
       <%include file="user_dropdown.html"/>
 
@@ -157,7 +173,7 @@ site_status_msg = get_site_status_msg(course_id)
         </ol>
       % endif
     % else:
-      <ol class="left list-inline nav-global">
+      <ol class="left list-inline nav-global" style="width: 120px;margin-right: 25px;">
         <%block name="navigation_global_links">
           % if static.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
             <li class="item nav-global-01">
@@ -188,9 +204,9 @@ site_status_msg = get_site_status_msg(course_id)
             % else:
               <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll" style="width: 105px;">${_("Register")}</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register" style="width: 105px;">${_("Register")}</a>
                 % endif
               </li>
             % endif
@@ -402,7 +418,8 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
   background-color:  ${custom_color} !important;
 }
 .header-global .nav-global li a, .header-global .nav-global div a{
-  color : ${color_custom}!important;
+   /* color : ${color_custom}!important; */
+   color : white !important;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -417,13 +434,67 @@ color : ${color_custom}!important;
     color:   ${color_custom}!important;
 }
 #global-navigation .burger{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
+  border: none;
 }
 #global-navigation .burger::before{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
 }
 #global-navigation .burger::before{
-  color: ${color_custom}!important;
+  color: rgba(28, 114, 138, 1) !important;
+}
+.nav-global-04{
+  max-width: 120px;
+  font-size: 1rem!important;
+}
+.nav-global-04 > a{
+  color: white!important;
+}
+.btn-login {
+  background-color: rgba(28, 114, 138, 0.8) !important;
+  padding: 0.7em !important;
+  border-radius: 10px !important;
+  text-transform: uppercase !important;
+  margin: 0.6em !important;
+  font-size: 1em !important;
+  font-weight: 700 !important;
+  min-width: 120px;
+  min-height: 43px;
+}
+
+.btn-neutral{
+  background-color: rgba(28, 114, 138, 1) !important;
+  color: white !important;
+  padding: 0.9em !important;
+  border-radius: 10px !important;
+  text-transform: uppercase !important;
+  margin: 0.6em !important;
+  font-size: 1.1em !important;
+  font-weight: 700 !important;
+  max-width: 120px;
+}
+
+.header-global .wrapper-header .list-inline.nav-global {
+    justify-content: flex-end !important;
+}
+
+a:hover, a:focus, a:visited:hover, a:visited:focus {
+    color: currentColor !important;
+}
+
+@media only screen and (max-width: 700px) {
+  #global-navigation .wrapper-header {
+    max-width: 290px;
+}
+.header-global h1.logo img.ec-logo-size {
+    margin-top: 0px;
+}
+}
+@media screen and (max-width: 680px) {
+  body .header-global .nav-global li a, .header-global .nav-global div a {
+    color: white!important;
+    width: 82px!important;
+  }
 }
 </style>
 <!-- TMA Ficus Redesign -->
