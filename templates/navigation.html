@@ -42,13 +42,12 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
 cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
-connected = user.is_authenticated()
+
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
 <link rel="stylesheet" type="text/css" href="${cssresponsive}" />
-<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/nav_burger_menu.css">
 <%
 try:
     course_id = course.id
@@ -69,19 +68,7 @@ site_status_msg = get_site_status_msg(course_id)
 % endif
 </%block>
   <header id="global-navigation" class="header-global" >
-  <!-- <input class="burger" type="checkbox"> -->
-    <!-- burger menu -->
-    <div id="menuToggle">
-      <input type="checkbox" />
-      <span></span>
-      <span></span>
-      <span></span>
-      <ul id="menu_burger">
-        <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
-        <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
-      </ul>
-    </div>
-    <!-- burger menu -->
+  <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
       <a href="${marketing_link('ROOT')}">
@@ -131,33 +118,28 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
 
       % if user.is_authenticated():
-        <div class="courses_link">
-          <a href="${marketing_link('COURSES')}" >${_('Explore courses')}</a>
-        </div>
-        
-      <!-- <ol class="left nav-global list-inline authenticated">
-      <%block name="navigation_global_links_authenticated">
-        % if show_program_listing:
-          <li class="tab-nav-item">
-            <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
-              ${_("Courses")}
-            </a>
-          </li>
-          <li class="tab-nav-item">
-            <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
-              ${_("Programs")}
-            </a>
-          </li>
-        % endif
-        %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
-          <li class="item">
-            ## Translators: This is short for "System administration".
-            <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
-          </li>
-        %endif
-      </%block>
-      </ol> -->
-      
+        <ol class="left nav-global list-inline authenticated">
+        <%block name="navigation_global_links_authenticated">
+          % if show_program_listing:
+            <li class="tab-nav-item">
+              <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
+                ${_("Courses")}
+              </a>
+            </li>
+            <li class="tab-nav-item">
+              <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
+                ${_("Programs")}
+              </a>
+            </li>
+          % endif
+          %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
+            <li class="item">
+              ## Translators: This is short for "System administration".
+              <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
+            </li>
+          %endif
+        </%block>
+      </ol>
 
       <%include file="user_dropdown.html"/>
 
@@ -420,8 +402,7 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
   background-color:  ${custom_color} !important;
 }
 .header-global .nav-global li a, .header-global .nav-global div a{
-  /* color : ${color_custom}!important; */
-  color : white !important;
+  color : ${color_custom}!important;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -436,56 +417,13 @@ color : ${color_custom}!important;
     color:   ${color_custom}!important;
 }
 #global-navigation .burger{
-  color: rgba(28, 114, 138, 1) !important;
-  border: none;
+  color: ${color_custom}!important;
 }
 #global-navigation .burger::before{
-  color: rgba(28, 114, 138, 1) !important;
+  color: ${color_custom}!important;
 }
 #global-navigation .burger::before{
-  color: rgba(28, 114, 138, 1) !important;
+  color: ${color_custom}!important;
 }
-
-.btn-login {
-  background-color: rgba(28, 114, 138, 0.8) !important;
-  padding: 0.7em !important;
-  border-radius: 10px !important;
-  text-transform: uppercase !important;
-  margin: 0.6em !important;
-  font-size: 1em !important;
-  font-weight: 700 !important;
-  min-width: 81px;
-  min-height: 43px;
-}
-
-.btn-neutral{
-  background-color: rgba(28, 114, 138, 1) !important;
-  color: white !important;
-  padding: 0.9em !important;
-  border-radius: 10px !important;
-  text-transform: uppercase !important;
-  margin: 0.6em !important;
-  font-size: 1.1em !important;
-  font-weight: 700 !important;
-}
-
-.header-global .wrapper-header .list-inline.nav-global {
-    justify-content: flex-end !important;
-}
-
-a:hover, a:focus, a:visited:hover, a:visited:focus {
-    color: currentColor !important;
-}
-
-@media only screen and (max-width: 700px) {
-  #global-navigation .wrapper-header {
-    max-width: 150px;
-}
-.header-global h1.logo img.ec-logo-size {
-    margin-top: 0px;
-}
-}
-
-
 </style>
 <!-- TMA Ficus Redesign -->
