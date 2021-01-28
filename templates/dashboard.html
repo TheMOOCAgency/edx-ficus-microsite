@@ -20,6 +20,8 @@ from xmodule.modulestore.django import modulestore
 from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
+
+from lms.djangoapps.tma_apps.netexplo.utils import was_previously_succeeded_on_upro_academy
 %>
 
 <%
@@ -49,6 +51,48 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 </script>
 % endfor
 </%block>
+
+<style>
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  margin-left:82px;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  line-height: 16px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 10%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
 
 <%block name="js_extra">
   <script src="${static.url('js/commerce/credit.js')}"></script>
@@ -211,7 +255,7 @@ endfor
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
-      <div id="dashboard_profile_bottom_up">
+      <div id="dashboard_profile_bottom_up" style="display:none">
         %if request.LANGUAGE_CODE == 'de-de' :
           <span>Abschlussnote</span>
         % else :
@@ -222,18 +266,51 @@ endfor
   <%
   course_details_len = len(course_details)
   mark = 0
+  show_tooltip = str(course_mono_id) in ["course-v1:edf-netexploacademy+Netexplo_passeport+2018_T2_passeport","course-v1:edf-netexploacademy+Netexplo_passeport_EN+2018_T2_passeport_EN","course-v1:edf-netexploacademy+12+ES","course-v1:edf-netexploacademy+13+DE"]
   %>
   % for n in course_details:
-    <% mark = mark + 1 %>
+    <%
+	  mark = mark + 1 
+	  previously_succeeded = was_previously_succeeded_on_upro_academy(user.email,str(course_mono_id),n.get('type'))
+	%>
     <!-- assignement type -->
     <div class="dashboard_profile_bottom_middle">
+
+     %if previously_succeeded:
+
+
+      <img class="svg" src="${static.url('images/badge_couleur.svg')}" id="badge_${mark}"/>
+	  <span 
+	  %if show_tooltip:
+	  class="tooltip"
+	  %endif
+	  >${n.get('type')} 
+       %if n.get('weight')==0:
+          (optionnel)
+       %else:
+          (${_('Weight')}: ${int(n.get('weight') * 100)}%)
+       %endif
+	  %if show_tooltip:
+	    <div class="tooltiptext">${_("This quiz was validated on the previous version of the Academy. To get your certificate you will have to pass it again.")}</div>
+	  %endif
+	  </span>
+      <span id="assignment_grade_${mark}">100%</span>
+
+
+     %else:
+
       <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-        %if n.get('weight')==0:
+       %if n.get('weight')==0:
           optionnel
-        %else:
+       %else:
           ${_('Weight')}: ${int(n.get('weight') * 100)}%
-        %endif
-      )</span></span><span id="assignment_grade_${mark}">0%</span>
+       %endif
+
+      )</span><span id="assignment_grade_${mark}">0%</span>
+     %endif
+
+
+
     </div>
     % if mark < course_details_len:
     <!-- border middle -->
@@ -269,7 +346,7 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
 $("#score_tma").html(grade_summary['percent']*100+" %");
 </script>
 % elif len(course_enrollments) > 1:
-  <div class="dashboard_profile" id="profile_bottom_multi">
+  <div class="dashboard_profile" id="profile_bottom_multi" style="display:none">
     % if course_end < 2:
         %if request.LANGUAGE_CODE == 'en':
           <h3>${course_end} course<br>completed</h3>
