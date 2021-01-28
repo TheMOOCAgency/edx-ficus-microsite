@@ -20,9 +20,9 @@ def url_class(is_active):
   %>
   <li class="tab">
   %if tab.name=="Home":
-  <a href="/dashboard" class="${tab_class}">
+  <a style="color: rgb(0,84,163) !important;" href="/dashboard" class="${tab_class}">
   %else:
-  <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+  <a style="color: rgb(0,84,163) !important;" href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
 
