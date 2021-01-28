@@ -10,6 +10,7 @@ import time
 import logging
 from unidecode import unidecode
 from xlwt import *
+import re
 
 from io import BytesIO
 
@@ -20,6 +21,7 @@ from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
 from datetime import datetime, date
+from dateutil.parser import parse
 import copy
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
@@ -59,11 +61,9 @@ def is_course_open(course):
         return True
 
 # SET MAIN VARIABLES
-string_emails = sys.argv[1]
-TO_EMAILS = string_emails.split(';')
-org = sys.argv[2]
+org = sys.argv[1]
 path_to_utils = '/edx/app/edxapp/edx-microsite/{}/utils/'.format(org)
-old_file = path_to_utils + sys.argv[3]
+old_file = path_to_utils + sys.argv[2]
 register_form = configuration_helpers.get_value_for_org(org, 'FORM_EXTRA')
 certificate_extra_form = configuration_helpers.get_value_for_org(org, 'CERTIFICATE_FORM_EXTRA')
 form_factory = ensure_form_factory()
@@ -78,17 +78,8 @@ HEADERS_GLOBAL = []
 HEADERS_USER = [u"Prénom", u"Nom", u"Matricule", u"Email", u"position", u"department", u"region", u"additional_information", u"Date d'inscription",u"Dernière connexion"]
 
 HEADERS_FORM = []
-# if register_form is not None:
-#     for row in register_form:
-#         if row.get('type') is not None:
-#             if 'first_name' not in row.get('name') and 'last_name' not in row.get('name'):
-#                 HEADERS_FORM.append(row.get('name'))
-
-# NICE_HEADER = list(HEADERS_FORM)
 
 headerNoGradesLen = len(HEADERS_USER) + len(HEADERS_FORM)
-
-# HEADERS_USER.extend(NICE_HEADER)
 
 HEADER = HEADERS_USER
 
@@ -221,10 +212,27 @@ def get_best_date(dateA, dateB):
 
 def is_sections_valid(sections):
     valid = True
-    invalid_values = [[''], '', 'n/a']
+    invalid_values = ['', 'n/a', [''], ['n/a']]
     if not isinstance(sections, list) or sections in invalid_values:
         valid = False
     return valid
+
+def is_date(value):
+    is_date = False
+    p = re.compile('\d+[-]\d+[-]\d+')
+    if p.match(value):
+        is_date = True
+    return is_date
+
+def get_best_grade_date_or_sections_number(sectionsA, sectionsB):
+    if len(sectionsA)==1 and isinstance(sectionsA[0], str) and is_date(sectionsA[0]):
+        return sectionsA[0]
+    
+    elif len(sectionsB)==1 and isinstance(sectionsB[0], str) and is_date(sectionsB[0]):
+        return sectionsB[0]
+    
+    else:
+        return get_sections_number(sectionsA, sectionsB)
 
 def get_sections_number(sectionsA, sectionsB):
     total_sections = 'n/a'
@@ -244,6 +252,14 @@ def get_sections_number(sectionsA, sectionsB):
     else:
         total_sections = ''
     return total_sections
+
+def get_best_grade_date(user, course_id, course_grade):
+    tma_enrollment=TmaCourseEnrollment.get_enrollment(course_id=course_id, user=user)
+    if tma_enrollment.best_grade_date == None and (course_grade.percent>0 or tma_enrollment.best_grade>0):
+        tma_enrollment.best_grade_date = datetime.now()
+        tma_enrollment.save()
+    grade_date = tma_enrollment.best_grade_date.strftime('%d-%m-%y')
+    return grade_date
 
 #### TRUE SCRIPT
 
@@ -282,7 +298,7 @@ for j in range(len(course_ids)):
                 course_value = ''
                 try:
                     course_grade = CourseGradeFactory().create(user, course)
-                    if course_name == "journey" or course_name == "expeditions":
+                    if course_name == "journey" or course_name == "expeditions" and not course_grade.passed:
                         grade_summary={}
                         passed_exercices=[]
                         for section_grade in course_grade.grade_value['section_breakdown']:
@@ -292,13 +308,8 @@ for j in range(len(course_ids)):
                             grade_value = grade_summary[section]
                             if grade_value > 0.7 :
                                 passed_exercices.append(section)
-                        course_value = passed_exercices
                     else:
-                        tma_enrollment=TmaCourseEnrollment.get_enrollment(course_id=course_id, user=user)
-                        if tma_enrollment.best_grade_date == None and (course_grade.percent>0 or tma_enrollment.best_grade>0):
-                            tma_enrollment.best_grade_date = datetime.now()
-                            tma_enrollment.save()
-                        course_value = tma_enrollment.best_grade_date.strftime('%d-%m-%y')
+                        course_value = get_best_grade_date(user, course_id, course_grade)
                 except:
                     pass
 
@@ -329,8 +340,8 @@ for old_user in old_users_datas_list:
             date_inscription = old_user['inscrit le']
             last_login = user[9]
             data_IA = get_best_date(user[10], old_user['data-ia'])
-            expeditions = get_sections_number(user[11], old_user['expedition'].split(','))
-            journey = get_sections_number(user[12], old_user['journey'].split(','))
+            expeditions = get_best_grade_date_or_sections_number(user[11], old_user['expedition'].split(','))
+            journey = get_best_grade_date_or_sections_number(user[12], old_user['journey'].split(','))
             manager = get_best_date(user[13], old_user['manager'])
             passeport = get_best_date(user[14], old_user['passport'])
             social_school = get_best_date(user[15], old_user['social-school'])
@@ -349,8 +360,8 @@ for old_user in old_users_datas_list:
             old_user['inscrit le'],
             old_user['derniere connexion'],
             old_user['data-ia'],
-            get_sections_number(old_user['expedition'].split(','), 'n/a'),
-            get_sections_number(old_user['journey'].split(','), 'n/a'),
+            get_best_grade_date_or_sections_number(old_user['expedition'].split(','), 'n/a'),
+            get_best_grade_date_or_sections_number(old_user['journey'].split(','), 'n/a'),
             old_user['manager'],
             old_user['passport'],
             old_user['social-school']
@@ -360,7 +371,6 @@ file.close()
 # WRITE FILE
 # Prepare workbook
 wb = Workbook(encoding='utf-8')
-# filename = '/home/edxtma/csv/{}_{}.xls'.format(org, time.strftime("%d.%m.%Y"))
 sheet = wb.add_sheet('Rapport')
 style_title = easyxf('font: bold 1')
 for i in range(len(HEADER)):
@@ -375,35 +385,4 @@ for user in users_data:
         except:
             pass
     j = j + 1
-wb.save('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}.xls'.format(org))
-
-# SEND MAILS
-# output = BytesIO()
-# wb.save(output)
-# _files_values = output.getvalue()
-
-# html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es </p></body></html>"
-
-# part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
-
-# for i in range(len(TO_EMAILS)):
-#     fromaddr = "{} <ne-pas-repondre@themoocagency.com>".format(org)
-#     toaddr = str(TO_EMAILS[i])
-#     msg = MIMEMultipart()
-#     msg['From'] = fromaddr
-#     msg['To'] = toaddr
-#     msg['Subject'] = "Rapport {} - {}".format(org, time.strftime("%d.%m.%Y"))
-#     attachment = _files_values
-#     part = MIMEBase('application', 'octet-stream')
-#     part.set_payload(attachment)
-#     encoders.encode_base64(part)
-#     part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename))
-#     msg.attach(part)
-#     server = smtplib.SMTP('mail3.themoocagency.com', 25)
-#     server.starttls()
-#     server.login('contact', 'waSwv6Eqer89')
-#     msg.attach(part2)
-#     text = msg.as_string()
-#     server.sendmail(fromaddr, toaddr, text)
-#     server.quit()
-#     log.info('Email sent to '+str(toaddr))
+wb.save('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA.xls'.format(time.strftime("%d.%m.%Y")))

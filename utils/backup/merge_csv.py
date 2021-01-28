@@ -15,6 +15,7 @@ from io import BytesIO
 
 import csv
 from csv import reader
+from dateutil.parser import parse
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 os.environ.setdefault("lms.envs.aws,SERVICE_VARIANT", "lms")
@@ -33,9 +34,9 @@ from pprint import pformat
 org = 'bnpp-netexplo'
 path_to_utils = '/edx/app/edxapp/edx-microsite/{}/utils/backup/'.format(org)
 
-file_journeys = path_to_utils + 'journeys.csv'
-file_expeditions = path_to_utils + 'expeditions.csv'
-file_report = path_to_utils + 'rapport_ancienne_aca.csv'
+file_journeys = path_to_utils + 'export-users-journey.csv'
+file_expeditions = path_to_utils + 'export-users-expedition.csv'
+file_report = path_to_utils + 'export-users-condensed.csv'
 file_report_v2 = path_to_utils + 'rapport_ancienne_aca_v2.csv'
 
 journeys_match_list = {
@@ -77,7 +78,7 @@ expeditions_match_list = {
 users = {}
 
 file = open(file_journeys, "rb")
-old_users_journey_list = csv.DictReader(file, delimiter=';')
+old_users_journey_list = csv.DictReader(file, delimiter=',')
 for old_user in old_users_journey_list:
     journey_list_str =''
     for journey_match in journeys_match_list:
@@ -91,7 +92,7 @@ for old_user in old_users_journey_list:
 file.close()
 
 file = open(file_expeditions, "rb")
-old_users_expeditions_list = csv.DictReader(file, delimiter=';')
+old_users_expeditions_list = csv.DictReader(file, delimiter=',')
 for old_user in old_users_expeditions_list:
     expeditions_list_str =''
     for expeditions_match in expeditions_match_list:
@@ -107,22 +108,17 @@ file.close()
 
 users_new_version_list = []
 with open(file_report, 'r') as read_obj:
-    csv_reader = reader(read_obj, delimiter=';')
+    csv_reader = reader(read_obj, delimiter=',')
     header = next(csv_reader)
 
 file = open(file_report, "rb")
-old_users_report_v1 = csv.DictReader(file, delimiter=';')
-log.info(users.keys())
+old_users_report_v1 = csv.DictReader(file, delimiter=',')
 for old_user in old_users_report_v1:
     if old_user['email'] in users.keys():
         user_dict = users[old_user['email']]
-        if 'journeys' in user_dict:
-            log.info(old_user['email'])
-            log.info(user_dict['journeys'])
+        if 'journeys' in user_dict and not len(user_dict['journeys'].split(',')) == 24:
             old_user['journey'] = user_dict['journeys']
-        if 'expeditions' in users:
-            log.info(old_user['email'])
-            log.info(user_dict['expeditions'])
+        if 'expeditions' in users and not len(user_dict['expeditions'].split(',')) == 6:
             old_user['expedition'] = user_dict['expeditions']
     row = []
     for key in header:
