@@ -109,6 +109,7 @@ custom_fields = json.loads(user.profile.custom_field)
   var cancelButtonText = 'Annuler'
   var titleQuestion1 = 'Pays'
   var textQuestion1 = 'Sélectionnez votre pays'
+  var optionOther = 'Autre'
   var titleQuestion2 = 'Entité'
   var textQuestion2 = 'Sélectionnez votre entité'
   var updateCompleted = 'Vos informations ont bien été enregistrées'
@@ -122,6 +123,7 @@ custom_fields = json.loads(user.profile.custom_field)
   var cancelButtonText = 'Cancel'
   var titleQuestion1 = 'Country'
   var textQuestion1 = 'Select your country'
+  var optionOther = 'Other'
   var titleQuestion2 = 'Entity'
   var textQuestion2 = 'Select your entity'
   var updateCompleted = 'Your information have been saved'
@@ -240,7 +242,6 @@ custom_fields = json.loads(user.profile.custom_field)
         input: 'select',
         footer: footerText,
         inputOptions: {
-          titleQuestion2: {
             BNPParibasPersonalFinance: 'BNP Paribas Personal Finance<sup> *1</sup>',
             BNPParibasCardif: 'BNP Paribas Cardif',
             BNPParibasRealEstate: 'BNP Paribas Real Estate',
@@ -252,8 +253,8 @@ custom_fields = json.loads(user.profile.custom_field)
             BGLLuxembourg: 'BGL – Luxembourg',
             BNL: 'BNL',
             BNPParibasFortis: 'BNP Paribas Fortis',
-            CIBCorporateandInstitutionalBanking: 'CIB – Corporate and Institutional Banking'
-          }
+            CIBCorporateandInstitutionalBanking: 'CIB – Corporate and Institutional Banking',
+            Ohter:optionOther
         }
       }
     ]).then((result) => {
