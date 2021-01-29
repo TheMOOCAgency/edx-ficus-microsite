@@ -35,6 +35,29 @@
 
 <div class="section-bkg-wrapper">
     <main id="main" aria-label="Content" tabindex="-1">
-        <div id="login-and-registration-container" class="login-register" />
+        <div id="login-and-registration-container" class="login-register" style="visibility:hidden" />
     </main>
 </div>
+
+<script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+    
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+    
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+    
+    if(getUrlParameter("admin")){
+       $("#login-and-registration-container").css("visibility","visible");
+    }else{
+       window.location.replace("/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=edf_netexplo");
+    }
+    </script>
