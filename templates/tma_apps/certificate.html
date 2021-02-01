@@ -55,8 +55,9 @@ h4 {
 #main{
   background-color: white;
   border: 1px solid lightgray;
+  margin: auto;
   margin-top:80px;
-  margin-left: 70px;
+  /* margin-left: 70px; */
   padding: 0;
   height:480px;
   width:854px;
@@ -366,6 +367,92 @@ h4 {
     </div>
 
   </div>
+  % elif "course-v1:nature-for-city-life+NFCL_SP_DEUCH+session2021" in request.path:
+
+  <div id="en" class="container">
+    <img src="/media/microsite/nature-for-city-life/certificates/Attestation_réussite_parcours_perfectionnement-DE.png" alt="">
+
+    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20 pt-0 pb-0">
+          <div class="col-12 text-left">
+            <h3 class="main-color" style="position: relative;top: -287px;left: 40px;"><span>${first_name} ${last_name}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  % elif "course-v1:nature-for-city-life+NFCL_FR+session2021" in request.path:
+
+  <div id="en" class="container">
+    <img src="/media/microsite/nature-for-city-life/certificates/Attestation_réussite_parcours_perfectionnement-FR.png" alt="">
+
+    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20 pt-0 pb-0">
+          <div class="col-12 text-left">
+            <h3 class="main-color" style="position: relative;top: -287px;left: 40px;"><span>${first_name} ${last_name}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_IT+session2021" in request.path:
+
+  <div id="en" class="container">
+    <img src="/media/microsite/nature-for-city-life/certificates/Attestation_réussite_parcours_perfectionnement-IT.png" alt="">
+
+    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20 pt-0 pb-0">
+          <div class="col-12 text-left">
+            <h3 class="main-color" style="position: relative;top: -287px;left: 40px;"><span>${first_name} ${last_name}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_ESP+session2021" in request.path:
+
+  <div id="en" class="container">
+    <img src="/media/microsite/nature-for-city-life/certificates/Attestation_réussite_parcours_perfectionnement-ESP.png" alt="">
+
+    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20 pt-0 pb-0">
+          <div class="col-12 text-left">
+            <h3 class="main-color" style="position: relative;top: -287px;left: 40px;"><span>${first_name} ${last_name}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  % elif "course-v1:nature-for-city-life+SPENG2021+Session2021" in request.path:
+
+  <div id="en" class="container">
+    <img src="/media/microsite/nature-for-city-life/certificates/Attestation_réussite_parcours_perfectionnement-ENG.png" alt="">
+
+    <div class="bandeau-middle reset-bandeaux pb-0 pt-0">
+      <div class="w-100">
+        <div class="row white_bg m-0 p-20 pt-0 pb-0">
+          <div class="col-12 text-left">
+            <h3 class="main-color" style="position: relative;top: -287px;left: 40px;"><span>${first_name} ${last_name}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
   % else:
   <div id="en" class="container">
     <img src="/media/microsite/nature-for-city-life/assets/img/cert-banner.png" alt="">
@@ -428,11 +515,11 @@ h4 {
 <script type="text/javascript">
 //PDF VERSION
 function printpage(){
-   html2canvas(document.body, {
+   html2canvas(document.getElementById("main"), {
     onrendered : function (canvas){
      var img=canvas.toDataURL("image/png");
      var doc = new jsPDF({orientation: 'landscape'});
-     doc.addImage(img, "PNG", 20, 20);
+     doc.addImage(img, "PNG", 35, 35);
      doc.save("certificat.pdf");
     }
   })
