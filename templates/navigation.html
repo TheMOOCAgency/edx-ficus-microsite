@@ -82,7 +82,12 @@ site_status_msg = get_site_status_msg(course_id)
       </ul>
     </div>
     <!-- burger menu -->
-    <nav class="wrapper-header" aria-label="${_('Global')}" style="max-width: 290px;position: absolute;right: 10px;">
+    <nav class="wrapper-header" aria-label="${_('Global')}"
+    % if user.is_authenticated():
+    style="max-width: 290px;position: absolute;right: 83px;">
+    % else:
+    style="max-width: 290px;position: absolute;right: 10px;">
+    %endif
     <h1 class="logo" style="position: absolute;left: 5%!important;">
       <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
