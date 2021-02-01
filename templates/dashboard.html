@@ -160,9 +160,9 @@ endfor
     %>
 
     <!-- block milieu profil -->
-    <div class="dashboard_profile" id="dashboard_profile_middle">
+    <div style="height: 95px;" class="dashboard_profile" id="dashboard_profile_middle">
       <!-- formation validé -->
-      <div id="dashboard_profile_middle_up">
+      <div style="line-height: 91px;" id="dashboard_profile_middle_up">
         % if False:
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % elif cours_ouv:
@@ -172,10 +172,10 @@ endfor
         % endif
       </div>
       <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
+      <div style="display: none;" id="dashboard_profile_middle_middle">
       </div>
       <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
+      <div style="display: none;" id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
@@ -439,6 +439,7 @@ else{
     margin-right: 7px;
   }
 }
+
 </style>
 % else:
 <style>
