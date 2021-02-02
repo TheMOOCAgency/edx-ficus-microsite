@@ -343,6 +343,10 @@ $('.tab').find('a').initialize(function(){
     $(this).attr('href','/dashboard/${course.id}/');
   }
 })
+setInterval(function(){
+    $('.scormxblock_block').next().css({'position':'relative','bottom':'745px','right':'calc(50% - 235px)'});
+    $('.scormxblock_block').next().find('button > span').html('CLIQUEZ ICI POUR<BR />UTILISER CETTE RESSOURCE EN PLEIN ECRAN')
+}, 500);
 </script>
 <style>
 .drag-container .target{
