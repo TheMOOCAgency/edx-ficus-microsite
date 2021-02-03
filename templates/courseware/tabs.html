@@ -8,6 +8,13 @@
 <%page args="tab_list, active_page, default_tab, tab_image" expression_filter="h" />
 
 <%
+no_forum_list = ["course-v1:mooc-conservation+essential-leader+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-law+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-research+2021_T1_EN", "course-v1:mooc-conservation+essential-ranger+2021_T1_EN", "course-v1:mooc-conservation+essentiel-leader+2021_T1", "course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1", "course-v1:mooc-conservation+essentiel-manager-loi+2021_T1","course-v1:mooc-conservation+essentiel-ranger+2021_T1"]
+
+def is_forum_allowed():
+  if str(course.id) not in no_forum_list:
+    return True
+  return False
+
 def url_class(is_active):
   if is_active:
     return "active"
@@ -18,6 +25,7 @@ def url_class(is_active):
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
   %>
+  % if tab.name != "Discussion" or is_forum_allowed():
   <li class="tab">
   %if tab.name=="Home":
   <a href="/dashboard" class="${tab_class}" style="color:black!important">
@@ -80,4 +88,5 @@ def url_class(is_active):
   %endif
   </a>
   </li>
+  %endif
 % endfor

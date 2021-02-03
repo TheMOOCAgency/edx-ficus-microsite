@@ -147,6 +147,13 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   endif
   """
 endfor
+
+no_forum_list = ["course-v1:mooc-conservation+essential-leader+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-law+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-research+2021_T1_EN", "course-v1:mooc-conservation+essential-ranger+2021_T1_EN", "course-v1:mooc-conservation+essentiel-leader+2021_T1", "course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1", "course-v1:mooc-conservation+essentiel-manager-loi+2021_T1","course-v1:mooc-conservation+essentiel-ranger+2021_T1"]
+
+def is_forum_allowed(course_id):
+  if str(course_id) not in no_forum_list:
+    return True
+  return False
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
@@ -157,6 +164,7 @@ endfor
     <%
     for enrollment in course_enrollments:
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+        forum_allowed = is_forum_allowed(enrollment.course_id)
     %>
 
     <!-- block milieu profil -->
@@ -182,6 +190,7 @@ endfor
       <!-- border middle -->
       <div id="dashboard_profile_middle_middle">
       </div>
+      % if forum_allowed:
       <!-- actif forum -->
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
@@ -192,6 +201,16 @@ endfor
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
       </div>
+      % else:
+      <style>
+        #dashboard_profile_middle_middle{
+          display: none;
+        }
+        #dashboard_profile_middle {
+          height: 63px;
+        }
+      </style>
+      % endif
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
