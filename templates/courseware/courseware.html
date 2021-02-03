@@ -399,6 +399,20 @@ setInterval(function(){
     $('#field_help_title').text('Ajoutez un titre clair et descriptif pour favoriser la participation') ;
     $('#new-post-editor-description').text('Votre question ou idée') ;
 }, 2000);
+
+
+// Remove Youtube subtitles management
+function replaceAt(string, index, replace) {
+  return string.substring(0, index) + replace + string.substring(index + 1);
+}
+setInterval(function(){
+    var videoSrc = $('.video-player > iframe').attr('src')
+    if (videoSrc && videoSrc.indexOf('cc_load_policy=0') > -1) {
+        var index = videoSrc.indexOf('cc_load_policy=0') + 15
+        $('.video-player > iframe').attr('src', replaceAt(videoSrc,index, "3"))
+    }
+}, 500);
+
 })
 </script>
 <style>
@@ -432,6 +446,10 @@ setInterval(function(){
   }
   .wrapper-header>.nav-global>li.nav-global-01:hover>a{
       color :#fff!important;
+  }
+    display: none!important;
+}.caption-window {
+    display: none!important;
   }
 </style>
 <!-- TMA Ficus Redesign -->
@@ -501,5 +519,8 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 }
 .nav-global-04 > a{
   color: white!important;
+}
+.caption-window {
+  display: none!important;
 }
 </style>
