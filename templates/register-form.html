@@ -101,6 +101,27 @@ import datetime
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
     </li>
 
+    <li class="field text" id="field-email-verify">
+      % if request.LANGUAGE_CODE == 'en':
+      <label for="email">Confirm email</label>
+      % else :
+      <label for="email">Confirmer le mail</label>
+      % endif
+      <input class="" id="email-verify" type="email" name="email-verify" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+      % if request.LANGUAGE_CODE == 'en':
+      <span class="tip tip-input" id="name-tip">Write again your email</span>
+      % else :
+      <span class="tip tip-input" id="name-tip">Renseignez de nouveau votre adresse mail</span>
+      % endif
+    </li>
+
+    <script>
+      window.onload = () => {
+        const emailVerify = document.getElementById('email-verify');
+        emailVerify.onpaste = e => e.preventDefault();
+      }
+    </script>
+
 
     <li class="field required text" id="field-name" style="display:none;">
       <label for="name">${_('Full Name')}</label>
@@ -336,8 +357,17 @@ import datetime
 </div>
 
 <div class="form-actions">
-  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
+  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button disabled"><!--${_('Create My Account')}--></button>
 </div>
+<script>
+  $( "#email-verify, #email" ).change(function() {
+    if($( "#email-verify" ).val() == $( "#email" ).val()) {
+      $('#submit').removeClass( "disabled" )
+    } else {
+      $('#submit').addClass( "disabled" )
+    }
+  });
+</script>
 <style>
 #login_link_up {
  margin-top: 10px;
