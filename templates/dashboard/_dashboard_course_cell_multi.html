@@ -51,7 +51,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
       <span class="list_params">
 
         % if show_email_settings:
-        <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height: 18px;width: 18px;display: inline-block;margin: 0px 5px 0px 5px;background-size: contain;"></a>
+        <a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-dashboard-index="${dashboard_index}" data-optout="${unicode(course_overview.id) in course_optouts}" style="background-image:url(${static.url('images/close-envelope.png')});height: 12px;width: 12px;display: inline-block;margin: 0px 5px 0px 5px;background-size: contain;"></a>
       % endif
         <a href="#unenroll-modal" class="unenroll_multi" rel="leanModal" data-course-id="${course_overview.id}" data-course-number="${course_overview.number}" data-course-name="${course_overview.display_name_with_default}" data-dashboard-index="${dashboard_index}"
            data-track-info="${_("Are you sure you want to unenroll from the purchased course %(course_name)s (%(course_number)s)?")}"
@@ -123,3 +123,10 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <span style="display:block;clear:left"></span>
   </div>
 </li>
+<style>
+@media (max-width: 405px)
+.list_params a {
+    width: 12px!important;
+    height: 12px!important;
+}
+</style>

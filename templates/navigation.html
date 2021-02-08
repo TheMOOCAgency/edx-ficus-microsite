@@ -84,9 +84,9 @@ site_status_msg = get_site_status_msg(course_id)
     <!-- burger menu -->
     <nav class="wrapper-header" aria-label="${_('Global')}"
     % if user.is_authenticated():
-    style="max-width: 290px;position: absolute;right: 83px;">
+    style="max-width: 290px;position: absolute;right: 83px;background-color: transparent!important;">
     % else:
-    style="max-width: 290px;position: absolute;right: 10px;">
+    style="max-width: 290px;position: absolute;right: 10px;background-color: transparent!important;">
     %endif
     <h1 class="logo" style="position: absolute;left: 5%!important;">
       <a href="${marketing_link('ROOT')}">
@@ -499,6 +499,15 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   body .header-global .nav-global li a, .header-global .nav-global div a {
     color: white!important;
     width: 82px!important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper-header {
+    max-width: 258px!important;
+  }
+  .wrapper-header > ol {
+    margin-right: 0px!important;
   }
 }
 </style>
