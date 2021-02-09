@@ -128,13 +128,18 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
 % endif
 
-<link rel="stylesheet" href="/media/microsite/mooc-conservation/css/responsive_top_layer_2.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/css/responsive_top_layer_3.css" type="text/css" media="screen" />
 
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
 % if disable_accordion is UNDEFINED or not disable_accordion:
     <div class="menu-accordion" style="display:none;">
+    % if request.LANGUAGE_CODE == 'fr':
+    <div class="burgerMenuText">Afficher tous les modules</div>
+    % else :
+    <div class="burgerMenuText">Display all modules</div>
+    % endif
     <input class="burger" type="checkbox">
     <div class="course-index">
       <div class="wrapper-course-modes" style="overflow:hidden">
