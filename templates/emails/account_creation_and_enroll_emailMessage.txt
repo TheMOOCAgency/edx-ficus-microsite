@@ -2,14 +2,14 @@
 
 Bonjour ${_("{full_name}").format(full_name=full_name)},
 
-Bienvenue chez 5A Conseil !
+Bienvenue chez Garance&Moi !
 
 Vous êtes désormais inscrit(e) au ${_("{course_name}").format(course_name=course.display_name_with_default_escaped)} !
 
 Vous pouvez dès à présent démarrer votre bilan en vous connectant avec vos identifiants :
 Identifiant : ${_("{email}").format(email=email_address)}
 Mot de passe :  ${_("{password}").format(password=password)}
-Lien de connexion : https://bilan-digital.5aconseil.com/login
+Lien de connexion : https://bilan-digital.garance-et-moi.com/login
 
 Nous vous recommandons de personnaliser votre mot de passe, en cliquant sur “mot de passe oublié”.
 
@@ -17,7 +17,7 @@ Enfin, nous sommes très heureux de vous accueillir dans notre communauté, et n
 
 En vous souhaitant une excellente journée,
 
-Garance de 5A Conseil
+Garance de Garance&Moi
 
 ----
-Cet email a été envoyé automatiquement. En cas de souci, n’hésitez pas à nous contacter à bienvenue@5aconseil.com ou au 01 43 87 87 07.
+Cet email a été envoyé automatiquement. En cas de souci, n’hésitez pas à nous contacter à bienvenue@garanceetmoi.com ou au 01 43 87 87 07.

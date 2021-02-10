@@ -1,4 +1,4 @@
 <%! from django.utils.translation import ugettext as _ %>
-5A Conseil : Bienvenue dans le ${_("{course_name}").format(
+Garance&Moi : Bienvenue dans le ${_("{course_name}").format(
 		course_name=display_name or course.display_name_with_default_escaped
 	)} !
