@@ -15,6 +15,7 @@ import time
 import os
 from xlwt import *
 import json
+import logging
 
 from io import BytesIO
 
@@ -24,6 +25,7 @@ from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
 
+log = logging.getLogger()
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 os.environ.setdefault("lms.envs.aws,SERVICE_VARIANT", "lms")
@@ -52,13 +54,11 @@ from student.models import *
 from courseware.courses import get_course_by_id
 from courseware.courses import get_course
 from tma_ensure_form.models import ensure_form_models
-
 from microsite_configuration.models import (
     MicrositeOrganizationMapping,
     Microsite
 )
 from tma_apps.files_api.models import mongofiles
-
 
 string_emails = sys.argv[1]
 TO_EMAILS = string_emails.split(';')
@@ -99,6 +99,7 @@ try:
         graded = False
 except:
     graded = None
+
 #Types de fichiers à récupérer
 try :
     string_fichiers = sys.argv[7]
@@ -124,6 +125,7 @@ org = course.org
 query = "SELECT a.id,a.organization,b.key FROM microsite_configuration_micrositeorganizationmapping a,microsite_configuration_microsite b WHERE a.microsite_id = b.id"
 microsite_list = MicrositeOrganizationMapping.objects.raw(query)
 microsite_name = None
+
 for row in microsite_list:
     if row.organization == org:
         microsite_name = row.key
@@ -131,10 +133,10 @@ for row in microsite_list:
 domain_prefix = None
 register_form = None
 certificate_form = None
-
 microsite = Microsite.objects.get(key=microsite_name)
 microsite_value = microsite.values
 i=0
+
 for val in microsite_value:
     if val == 'domain_prefix':
         domain_prefix = microsite_value.values()[i]
@@ -145,13 +147,13 @@ for val in microsite_value:
     if val == 'APPLICATION_EXTRA':
         application_form = microsite_value.values()[i]
     i=i+1
+
 #mongo certificate_form models
 _mongo = ensure_form_models()
 db = 'ensure_form'
 collection = 'certificate_form'
 _mongo.connect(db=db,collection=collection)
 _mongo.microsite = domain_prefix
-
 timestr = time.strftime("%Y_%m_%d")
 timesfr = time.strftime("%d.%m.%Y")
 timesfr = str(timesfr)
@@ -173,6 +175,7 @@ if register_users and register_form is not None:
     for row in register_form:
         if row.get('type') is not None:
             HEADERS.append(row.get('name'))
+
 #certificate_form
 if certificate_users and certificate_form is not None:
     for row in certificate_form:
@@ -186,13 +189,13 @@ course_enrollement=CourseEnrollment.objects.filter(course_id=course_key)
 user_repports_summary=course_enrollement[0]
 user_summary=user_repports_summary.user
 if graded:
-    header_summary_base=CourseGradeFactory().create(user_summary, course).grade_value['grade_breakdown'].keys()
-
-    for h in header_summary_base:
-        HEADERS.append(h)
-
-    HEADERS.append('Note finale')
-
+    try:
+        header_summary_base=CourseGradeFactory().create(user_summary, course).grade_value['grade_breakdown'].keys()
+        for h in header_summary_base:
+            HEADERS.append(h)
+        HEADERS.append('Note finale')
+    except:
+        pass    
 
 #certificate_form
 #if ajout_fichiers :
@@ -203,10 +206,9 @@ for fichier_name in ajout_fichiers:
 if application_field:
     for value in application_form:
         HEADERS.append(value['name'])
+
 #prepare workbook
-
 wb = Workbook(encoding='utf-8')
-
 filename = '/home/edxtma/csv/{}_{}.xls'.format(timestr,course.display_name_with_default)
 sheet = wb.add_sheet('Stats')
 for i, header in enumerate(HEADERS):
@@ -224,12 +226,13 @@ if persistent:
 
 #NOW LOOK AT GRADES
 j=0
-
 for i in range(len(course_enrollement)):
+    
     j=j+1
     user=course_enrollement[i].user
     #userprofile
     user_profile = {}
+
     #ip
     list_ip_str = ""
     try:
@@ -268,7 +271,6 @@ for i in range(len(course_enrollement)):
         user.id,username,email,
         client,date_inscription, last_login
     ]
-
 
     l=0
 
@@ -317,37 +319,40 @@ for i in range(len(course_enrollement)):
         l=l+1
 
     if graded:
-        course_grade = CourseGradeFactory().create(user, course)
-        percent = str(course_grade.percent * 100)+'%'
-        for user_summary in course_grade.grade_value['grade_breakdown'].keys():
-            summary_percent = course_grade.grade_value['grade_breakdown'].get(user_summary)['percent']
-            try:
-                summary_coef = float(course_grade.grade_value['grade_breakdown'].get(user_summary)['detail'].split(' of a possible ')[1].replace('%','')) / 100
+        try:
+            course_grade = CourseGradeFactory().create(user, course)
+            percent = str(course_grade.percent * 100)+'%'
+            for user_summary in course_grade.grade_value['grade_breakdown'].keys():
+                summary_percent = course_grade.grade_value['grade_breakdown'].get(user_summary)['percent']
+                try:
+                    summary_coef = float(course_grade.grade_value['grade_breakdown'].get(user_summary)['detail'].split(' of a possible ')[1].replace('%','')) / 100
 
-                #Bonus courses with 0 Coef
-                if summary_coef==0:
-                    number_sections=0
-                    student_score=[]
-                    name_section=course_grade.grade_value['grade_breakdown'].get(user_summary)['category']
-                    for course_part in course_grade.grade_value['section_breakdown']:
-                        if course_part['category'] == name_section:
-                            number_sections=number_sections+1
-                            student_score.append(course_part['percent'])
-                            if number_sections>1:
-                                summary_grade= student_score[number_sections-1]*100
-                            else :
-                                summary_grade=student_score[0]*100
-                else:
-                    summary_grade = (course_grade.grade_value['grade_breakdown'].get(user_summary)['percent'] / summary_coef) * 100
-                summary_grade = float(int(summary_grade * 100)) / 100
+                    #Bonus courses with 0 Coef
+                    if summary_coef==0:
+                        number_sections=0
+                        student_score=[]
+                        name_section=course_grade.grade_value['grade_breakdown'].get(user_summary)['category']
+                        for course_part in course_grade.grade_value['section_breakdown']:
+                            if course_part['category'] == name_section:
+                                number_sections=number_sections+1
+                                student_score.append(course_part['percent'])
+                                if number_sections>1:
+                                    summary_grade= student_score[number_sections-1]*100
+                                else :
+                                    summary_grade=student_score[0]*100
+                    else:
+                        summary_grade = (course_grade.grade_value['grade_breakdown'].get(user_summary)['percent'] / summary_coef) * 100
+                    summary_grade = float(int(summary_grade * 100)) / 100
 
-            except:
-                summary_grade = 0.00
-            summary_grade = str(summary_grade).replace('.',',')+"%"
-            sheet.write(j, l, summary_grade)
+                except:
+                    summary_grade = 0.00
+                summary_grade = str(summary_grade).replace('.',',')+"%"
+                sheet.write(j, l, summary_grade)
+                l=l+1
+            sheet.write(j, l, percent.replace('.',','))
             l=l+1
-        sheet.write(j, l, percent.replace('.',','))
-        l=l+1
+        except:
+            pass
     #check if cv link available
     if ajout_fichiers :
         for user_fichier in ajout_fichiers:
@@ -407,4 +412,6 @@ if persistent:
     _log_file.close()
 """
 
-#execute the script: sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/inveest/utils/greenflex_reminder_mails.py
+#execute the script: 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+agman01+2021_T1 true false false true
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+depa01+2021_T1 true false false true
