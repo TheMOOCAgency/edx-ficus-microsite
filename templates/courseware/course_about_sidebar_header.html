@@ -26,7 +26,15 @@ $(document).ready(function(){
 });
 </script>
            <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-           &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
+           &nbsp;<br/>
+% if LANGUAGE_CODE == "ja-jp":
+ 講座ダッシュボードはこ
+% elif LANGUAGE_CODE == "en":
+ Go to the MOOC !
+% else:
+ Accéder au MOOC ! 
+%endif
+<br/>&nbsp;<br/></span>
 
     % else:
            Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
@@ -34,7 +42,14 @@ $(document).ready(function(){
         </div>
   % else:
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+% if LANGUAGE_CODE == "ja-jp":
+ 登録
+% elif LANGUAGE_CODE == "en":
+ I register myself !
+% else:
+ Je m'inscris ! 
+%endif
+
         </div>
   % endif
   </div>

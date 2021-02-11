@@ -118,7 +118,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     % if LANGUAGE_CODE == "ja-jp":
-      以来 ${course_overview.start.strftime("%Y年%b月%d日開設")}
+      以来 ${course_overview.start.strftime("%Y年{}月%d日開設".format(course_overview.start.month))}
     % else:
       Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
     % endif
@@ -133,10 +133,14 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % endif
       </div>
     </div>
+    % if LANGUAGE_CODE == "ja-jp":
+    <div class="dashboard_button" style="width:235px">
+    % else:
     <div class="dashboard_button">
+    % endif
 % if cours_ouv:
       % if LANGUAGE_CODE == "ja-jp":
-      <a href="/dashboard/${course_overview.id}/">講座ダッシュボードはこちら</a>
+      <a href="/dashboard/${course_overview.id}/" style="width:215px">講座ダッシュボードはこちら</a>
       % else:
       <a href="/dashboard/${course_overview.id}/">${_("Course dashboard")}</a>
       % endif

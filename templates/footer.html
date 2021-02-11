@@ -13,13 +13,13 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
 
 <script>
-$( document ).ready(function(){
-  if($('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
+setInterval(function(){
+  if("${LANGUAGE_CODE}" == "ja-jp"){
     $('#general-conditions').text('規約と条件')
     $('#credits').text('クレジット')
     $('#faq').text('よくある質問')
     $('#help').text('助けて')
-  } else if($('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
+  } else if("${LANGUAGE_CODE}" == "en"){
     $('#general-conditions').text('General conditions')
     $('#credits').text('Credits')
   } else{
@@ -27,7 +27,7 @@ $( document ).ready(function(){
     $('#credits').html('Cr&eacute;dits')
     $('#all_discussions>.forum-nav-browse-title').text('Toutes les discussions');
   }
-});
+}, 500);
 </script>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
