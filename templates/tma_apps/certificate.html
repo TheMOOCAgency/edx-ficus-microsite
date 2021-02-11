@@ -76,19 +76,24 @@ background_url = configuration_helpers.get_value('bg_img')
     align-items: center;
     justify-content: center;
   }
-  #certificate-container-passed{
-    width: 763px;
-    height: 515px;
-    margin: 0 auto;
-    padding: 40px;
-    background-image: url(/media/microsite/gen/certificate/certificat_gen.png);
-  }
+
   #certificate-container{
     width: 763px;
     height: 515px;
     margin: 0 auto;
     padding: 40px;
-    background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
+    background-size: contain;
+  % if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
+    % if request.path == '/tma_apps/course-v1:gen+01_02+2021_T1/certificate/render' :
+      background-image: url(/media/microsite/gen/certificate/GEN-Attestation_VDEF.png)
+    % else :
+      % if int(grades['grade']*100) < 70 :
+      background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
+      % else :
+      background-image: url(/media/microsite/gen/certificate/certificat_gen.png);
+      %endif
+    %endif
+  %endif
   }
   #pdf-btn-wrapper{
     padding: 15px
