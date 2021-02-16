@@ -12,50 +12,247 @@ register_course_id = static.get_value('course_id')
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<!-- <link rel="stylesheet" type="text/css" href="${static.url(css)}" /> -->
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/navigation.css">
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/header.css">
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/presentation.css">
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/courses_list.css">
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/footer.css">
+<link rel="stylesheet" href="/media/microsite/mooc-cniel/extra/css/menu_burger.css">
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+
+
+
+  <div class="main_container">
+    <nav class="navigation">
+      <img class="navigation_logo" src="/media/microsite/mooc-cniel/extra/images/logo.jpg" alt="logo_cniel">
+      <div class="navigation_text_menu">
+        <p class="navigation_text">Je choisis ma formation</p>
+        <!-- burger menu -->
+        <nav role='navigation'>
+          <div id="menuToggle">
+            <input id="burger_checkbox" type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <div id="menu">
+              <div class="menu_formation">
+                <div class="menu_formation_image image_formation1">
+                  <button class="button courses_list_container_button_inscription_yellow menu_formation_image_button">Je m'inscris</button>
+                </div>
+                <div class="menu_formation_text">
+                  <h2 class="menu_formation_text_title menu_title_yellow">Formation 1</h2>
+                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
+                  <button class="button courses_list_container_button_know_more_yellow menu_formation_text_button">En savoir plus</button>
+                </div>
+              </div>
+              <div class="menu_formation">
+                <div class="menu_formation_image image_formation2">
+                  <button class="button courses_list_container_button_inscription_green menu_formation_image_button">Je m'inscris</button>
+                </div>
+                <div class="menu_formation_text">
+                  <h2 class="menu_formation_text_title menu_title_green">Formation 2</h2>
+                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
+                  <button class="button courses_list_container_button_know_more_green menu_formation_text_button">En savoir plus</button>
+                </div>
+              </div>
+              <div class="menu_formation">
+                <div class="menu_formation_image image_formation3">
+                  <button class="button courses_list_container_button_inscription_red menu_formation_image_button">Je m'inscris</button>
+                </div>
+                <div class="menu_formation_text">
+                  <h2 class="menu_formation_text_title menu_title_red">Formation 3</h2>
+                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
+                  <button class="button courses_list_container_button_know_more_red menu_formation_text_button">En savoir plus</button>
+                </div>
+              </div>
+              <div class="menu_formation">
+                <div class="menu_formation_image image_formation4 menu_title_blue">
+                  <button class="button courses_list_container_button_inscription_blue menu_formation_image_button">Je m'inscris</button>
+                </div>
+                <div class="menu_formation_text">
+                  <h2 class="menu_formation_text_title">Formation 4</h2>
+                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
+                  <button class="button courses_list_container_button_know_more_blue menu_formation_text_button">En savoir plus</button>
+                </div>
+              </div>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
           </div>
+        </nav>
+      <!-- burger menu -->
+      </div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+    </nav>
+    <div id="content_to_make_translucent">
+      <header class="header">
+        <div class="header_presentation">
+          <div class="header_presentation_text">
+            <h1 class="header_presentation_text_title">
+              Lorem Ipsum
+            </h1>
+            <p class="header_presentation_text_subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. quisquam recusandae neque nihil!</p>
+          </div>
+          <div class="header_presentation_button">
+            <button class="button header_presentation_button_connexion">Connexion</button>
+            <button class="button header_presentation_button_inscription">Inscription</button>
+          </div>
         </div>
-
+        <!-- <div class="header_image"> -->
+          <img class="header_image_image" src="/media/microsite/mooc-cniel/extra/images/photo-accueil.png" alt="image d'accueil">
+        <!-- </div> -->
       </header>
-      <%include file="${courses_list}" />
-
-    </section>
+      <section class="presentation">
+        <h2 class="presentation_MOOC">Qu'est ce qu'un MOOC ?</h2>
+        <div class="presentation_container">
+          <div class="presentation_container_element">
+            <img class="presentation_container_element_image" src="/media/microsite/mooc-cniel/extra/images/picto-massive.png" alt="pictogramme groupe de personne">
+            <h3 class="presentation_container_element_title">Massive</h3>
+            <p class="presentation_container_element_subtitle">Des cours pour tous les professionnels</p>
+          </div>
+          <div class="presentation_container_element">
+            <img class="presentation_container_element_image" src="/media/microsite/mooc-cniel/extra/images/picto-cadenas.png" alt="pictogramme cadenas">
+            <h3 class="presentation_container_element_title">Open</h3>
+            <p class="presentation_container_element_subtitle">Accédez librement à un ensemble de ressources</p>
+          </div>
+          <div class="presentation_container_element">
+            <img class="presentation_container_element_image" src="/media/microsite/mooc-cniel/extra/images/picto-online.png" alt="pictogramme ecran">
+            <h3 class="presentation_container_element_title">Online</h3>
+            <p class="presentation_container_element_subtitle">Connectez-vous à tout moment et où que vous soyez</p>
+          </div>
+          <div class="presentation_container_element">
+            <img class="presentation_container_element_image" src="/media/microsite/mooc-cniel/extra/images/picto-livre.png" alt="pictogramme livre">
+            <h3 class="presentation_container_element_title">Course</h3>
+            <p class="presentation_container_element_subtitle">Suivez un parcours pédagogique innovant vous permettant l'aquisition de connaissances</p>
+          </div>
+        </div>
+      </section>
+      <section class="courses_list">
+        <div class="courses_list_container">
+          <div class="courses_list_container_text">
+            <div class="courses_list_container_text_title">
+              <h2 class="courses_list_container_text_title_title title_yellow">Titre de la formation 1</h2>
+              <p class="courses_list_container_text_title_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. </p>
+            </div>
+            <div class="courses_list_container_picto">
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/horloge-jaune.png" alt="pictogramme horloge">
+                <p class="courses_list_container_picto_container_text">5 heures de formation</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/picot-4-jaune.png" alt="pictogramme chiffre 4">
+                <p class="courses_list_container_picto_container_text">Séquences</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/calendrier-jaune.png" alt="pictogramme calendrier">
+                <p class="courses_list_container_picto_container_text">Ouverture le 01/03/2021</p>
+              </div>
+            </div>
+          </div>
+          <div class="courses_list_container_image image_yellow">
+          </div>
+          <div class="courses_list_container_button">
+            <button class="button courses_list_container_button_know_more_yellow">En savoir plus</button>
+            <button class="button courses_list_container_button_inscription_yellow">Je m'inscris</button>
+          </div>
+        </div>
+        <div class="courses_list_container">
+          <div class="courses_list_container_text">
+            <div class="courses_list_container_text_title">
+              <h2 class="courses_list_container_text_title_title title_green">Titre de la formation 2</h2>
+              <p class="courses_list_container_text_title_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. </p>
+            </div>
+            <div class="courses_list_container_picto">
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/horloge-vert.png" alt="pictogramme horloge">
+                <p class="courses_list_container_picto_container_text">5 heures de formation</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/picto-6-vert.png" alt="pictogramme chiffre 6">
+                <p class="courses_list_container_picto_container_text">Séquences</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/calendrier-vert.png" alt="pictogramme calendrier">
+                <p class="courses_list_container_picto_container_text">Ouverture le 01/03/2021</p>
+              </div>
+            </div>
+          </div>
+          <div class="courses_list_container_image image_green">
+          </div>
+          <div class="courses_list_container_button">
+            <button class="button courses_list_container_button_know_more_green">En savoir plus</button>
+            <button class="button courses_list_container_button_inscription_green">Je m'inscris</button>
+          </div>
+        </div>
+        <div class="courses_list_container">
+          <div class="courses_list_container_text">
+            <div class="courses_list_container_text_title">
+              <h2 class="courses_list_container_text_title_title title_red">Titre de la formation 3</h2>
+              <p class="courses_list_container_text_title_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. </p>
+            </div>
+            <div class="courses_list_container_picto">
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/horloge-rouge.png" alt="pictogramme horloge">
+                <p class="courses_list_container_picto_container_text">5 heures de formation</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/picto-4-rouge.png" alt="pictogramme chiffre 4">
+                <p class="courses_list_container_picto_container_text">Séquences</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/calendrier-rouge.png" alt="pictogramme calendrier">
+                <p class="courses_list_container_picto_container_text">Ouverture le 01/03/2021</p>
+              </div>
+            </div>
+          </div>
+          <div class="courses_list_container_image image_red">
+          </div>
+          <div class="courses_list_container_button">
+            <button class="button courses_list_container_button_know_more_red">En savoir plus</button>
+            <button class="button courses_list_container_button_inscription_red">Je m'inscris</button>
+          </div>
+        </div>
+        <div class="courses_list_container">
+          <div class="courses_list_container_text">
+            <div class="courses_list_container_text_title">
+              <h2 class="courses_list_container_text_title_title title_blue">Titre de la formation 4</h2>
+              <p class="courses_list_container_text_title_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. </p>
+            </div>
+            <div class="courses_list_container_picto">
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/horloge-bleu.png" alt="pictogramme horloge">
+                <p class="courses_list_container_picto_container_text">5 heures de formation</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/picto-3.png" alt="pictogramme chiffre 3">
+                <p class="courses_list_container_picto_container_text">Séquences</p>
+              </div>
+              <div class="courses_list_container_picto_container">
+                <img class="courses_list_container_picto_container_icone" src="/media/microsite/mooc-cniel/extra/images/calendrier-bleu.png" alt="pictogramme calendrier">
+                <p class="courses_list_container_picto_container_text">Ouverture le 01/03/2021</p>
+              </div>
+            </div>
+          </div>
+          <div class="courses_list_container_image image_blue">
+          </div>
+          <div class="courses_list_container_button">
+            <button class="button courses_list_container_button_know_more_blue">En savoir plus</button>
+            <button class="button courses_list_container_button_inscription_blue">Je m'inscris</button>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <ul class="footer_list">
+          <li class="footer_list_element"><a class="customise_hover" href="#">FAQ</a></li>
+          <li class="footer_list_element"><a class="customise_hover" href="#">Nous contacter</a></li>
+          <li class="footer_list_element list_element_logo_left"><a class="customise_hover" href="#"><img class="footer_logo" src="/media/microsite/mooc-cniel/extra/images/logo.jpg" alt="logo_cniel"></a></li>
+          <li class="footer_list_element list_element_logo_right"><a class="customise_hover" href="#"><img class="footer_logo" src="/media/microsite/mooc-cniel/extra/images/log_ft.jpg" alt="logo france terre"></a></li>
+          <li class="footer_list_element"><a class="customise_hover" href="#">RGPD</a></li>
+          <li class="footer_list_element"><a class="customise_hover" href="#">Mentions légales</a></li>
+        </ul>
+      </footer>
+    </div>
+  </div>
 </main>
 
 % if show_homepage_promo_video:
@@ -95,3 +292,21 @@ $(".btn-login").each(function(){
 
 </script>
 % endif
+
+<script>
+
+    $('#burger_checkbox').on('click', function(){
+      $('#content_to_make_translucent').toggleClass('hide');
+
+    });
+
+</script>
+
+<style>
+  #tma_background_font{
+    background:none
+  }
+  body {
+    overflow-x: hidden;
+}
+</style>
