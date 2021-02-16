@@ -486,7 +486,8 @@ endfor
   <%
   course_details_len = len(course_details)
   mark = 0
-  show_tooltip = str(course_mono_id) in ["course-v1:bnpp-netexplo+Netexplo_passeport+2018_T2_passeport","course-v1:bnpp-netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN","course-v1:bnpp-netexplo+12+ES","course-v1:bnpp-netexplo+13+DE"]
+  show_tooltip = False
+  #str(course_mono_id) in ["course-v1:bnpp-netexplo+Netexplo_passeport+2018_T2_passeport","course-v1:bnpp-netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN","course-v1:bnpp-netexplo+12+ES","course-v1:bnpp-netexplo+13+DE"]
   %>
   % for n in course_details:
     <% 
