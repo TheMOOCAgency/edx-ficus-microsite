@@ -45,6 +45,16 @@ else:
 cours_ouv = show_courseware_link and not is_course_blocked
 
 %>
+
+<style>
+.all_dates{
+  padding:10px;
+}
+
+.info_date {
+  padding-top: 8px;
+}
+</style>
 <li class="course_cell_multi">
   <div class="up_cell">
     <div class="options">
@@ -95,29 +105,6 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <span></span>
       </div>
     </div>
-    <div class="dates">
-<!--
-% if course_overview.start is not None:
-  ${_("start")} ${course_overview.start.strftime("%d/%b/%Y")}
-% endif
--->
-% if course_overview.start is not None:
-  % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
-    %if request.LANGUAGE_CODE == 'en':
-      Available since ${course_overview.start.strftime("%d/%b/%Y")}
-    %else:
-      Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
-    % endif
-  % else:
-    ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
-  % endif
-% endif
-
-% if course_overview.end is not None:
-  <span></span>
-  ${_("end")}  ${course_overview.end.strftime("%d/%b/%Y")}
-% endif
-      </div>
     </div>
     <div class="dashboard_button">
 % if cours_ouv:
