@@ -131,11 +131,13 @@ css = org+'/css/dashboard.css'
 css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${css}">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <script type="text/javascript" src="${static.url('js/customize.js')}"></script>
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
-<style>
+<!-- <style>
   @font-face {
    font-family: 'custom_font';
    src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProMd.otf"); 
@@ -149,7 +151,7 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 
    font-weight: normal;
   }
-</style>
+</style> -->
 
 
 % if static.get_value('google_font') is not None:
@@ -160,8 +162,9 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 ${font_string | n}
 <style>
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
-    font-family:"custom_font" !important;
+    /* font-family:"custom_font" !important; */
     /* font-family:"${font_name}" !important; */
+    font-family: 'Roboto', sans-serif;
   }
 </style>
 % else:
