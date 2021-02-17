@@ -138,10 +138,19 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 <style>
   @font-face {
    font-family: 'custom_font';
-   src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProMd.otf");
+   src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProMd.otf"); 
+
+   /* src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProCn.otf"); */ 
+   /* src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProEx.otf");  */
+
+   /* src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProRoman.otf");  */
+
+   /* src: url("/media/microsite/mooc-cniel/fonts/HelveticaNeueLTProBd.otf");  */
+
    font-weight: normal;
   }
 </style>
+
 
 % if static.get_value('google_font') is not None:
 <%
@@ -152,6 +161,7 @@ ${font_string | n}
 <style>
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
     font-family:"custom_font" !important;
+    /* font-family:"${font_name}" !important; */
   }
 </style>
 % else:
