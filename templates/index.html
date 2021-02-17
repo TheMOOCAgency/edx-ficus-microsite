@@ -39,42 +39,42 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             <div id="menu">
               <div class="menu_formation">
                 <div class="menu_formation_image image_formation1">
-                  <button class="button courses_list_container_button_inscription_yellow menu_formation_image_button">Je m'inscris</button>
+                  <button class="button courses_list_container_button_inscription_yellow menu_formation_button">Je m'inscris</button>
                 </div>
                 <div class="menu_formation_text">
                   <h2 class="menu_formation_text_title menu_title_yellow">Formation 1</h2>
-                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
-                  <button class="button courses_list_container_button_know_more_yellow menu_formation_text_button">En savoir plus</button>
+                  <p class="menu_formation_text_subtitle">Doloribus impedit sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea. </p>
+                  <button class="button courses_list_container_button_know_more_yellow menu_formation_button">En savoir plus</button>
                 </div>
               </div>
               <div class="menu_formation">
                 <div class="menu_formation_image image_formation2">
-                  <button class="button courses_list_container_button_inscription_green menu_formation_image_button">Je m'inscris</button>
+                  <button class="button courses_list_container_button_inscription_green menu_formation_button">Je m'inscris</button>
                 </div>
                 <div class="menu_formation_text">
                   <h2 class="menu_formation_text_title menu_title_green">Formation 2</h2>
-                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
-                  <button class="button courses_list_container_button_know_more_green menu_formation_text_button">En savoir plus</button>
+                  <p class="menu_formation_text_subtitle">Doloribus impedit sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea. </p>
+                  <button class="button courses_list_container_button_know_more_green menu_formation_button">En savoir plus</button>
                 </div>
               </div>
               <div class="menu_formation">
                 <div class="menu_formation_image image_formation3">
-                  <button class="button courses_list_container_button_inscription_red menu_formation_image_button">Je m'inscris</button>
+                  <button class="button courses_list_container_button_inscription_red menu_formation_button">Je m'inscris</button>
                 </div>
                 <div class="menu_formation_text">
                   <h2 class="menu_formation_text_title menu_title_red">Formation 3</h2>
-                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
-                  <button class="button courses_list_container_button_know_more_red menu_formation_text_button">En savoir plus</button>
+                  <p class="menu_formation_text_subtitle">Doloribus impedit sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea. </p>
+                  <button class="button courses_list_container_button_know_more_red menu_formation_button">En savoir plus</button>
                 </div>
               </div>
               <div class="menu_formation">
                 <div class="menu_formation_image image_formation4 menu_title_blue">
-                  <button class="button courses_list_container_button_inscription_blue menu_formation_image_button">Je m'inscris</button>
+                  <button class="button courses_list_container_button_inscription_blue menu_formation_button">Je m'inscris</button>
                 </div>
                 <div class="menu_formation_text">
-                  <h2 class="menu_formation_text_title">Formation 4</h2>
-                  <p class="menu_formation_text_subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus impedit velit eveniet aspernatur sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea, voluptatem neque libero. </p>
-                  <button class="button courses_list_container_button_know_more_blue menu_formation_text_button">En savoir plus</button>
+                  <h2 class="menu_formation_text_title menu_title_blue">Formation 4</h2>
+                  <p class="menu_formation_text_subtitle">Doloribus impedit sunt inventore labore, atque quaerat provident. Natus nesciunt dicta nulla ea. </p>
+                  <button class="button courses_list_container_button_know_more_blue menu_formation_button">En savoir plus</button>
                 </div>
               </div>
             </div>
@@ -297,7 +297,11 @@ $(".btn-login").each(function(){
 
     $('#burger_checkbox').on('click', function(){
       $('#content_to_make_translucent').toggleClass('hide');
-
+      // $('body').toggleClass('hide_overflow');
+      if (window.matchMedia("(min-width: 1050px)").matches) {
+  /* La largeur minimum de l'affichage est 600 px inclus */
+        $('body').toggleClass('hide_overflow');
+      }
     });
 
 </script>
@@ -308,5 +312,11 @@ $(".btn-login").each(function(){
   }
   body {
     overflow-x: hidden;
+}
+.hide{
+    opacity: 0.1
+}
+.hide_overflow{
+    overflow-y: hidden;
 }
 </style>
