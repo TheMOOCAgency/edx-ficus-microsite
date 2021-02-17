@@ -15,6 +15,7 @@ import time
 import os
 from xlwt import *
 import json
+import logging
 
 from io import BytesIO
 
@@ -24,6 +25,7 @@ from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
 
+log = logging.getLogger()
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 os.environ.setdefault("lms.envs.aws,SERVICE_VARIANT", "lms")
@@ -140,6 +142,8 @@ for val in microsite_value:
         domain_prefix = microsite_value.values()[i]
     if val == 'FORM_EXTRA':
         register_form = microsite_value.values()[i]
+        log.info("******************")
+        log.info(register_form)
     if val == 'CERTIFICATE_FORM_EXTRA':
         certificate_form = microsite_value.values()[i]
     if val == 'APPLICATION_EXTRA':
@@ -407,4 +411,6 @@ if persistent:
     _log_file.close()
 """
 
-#execute the script: sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/inveest/utils/greenflex_reminder_mails.py
+#execute the script: 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "test@weuplearning.com" course-v1:sncf-maintenance+agman01+2021_T1 true false false true
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "test@weuplearning.com" course-v1:sncf-maintenance+depa01+2021_T1 true false false true
