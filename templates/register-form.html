@@ -120,12 +120,13 @@ import datetime
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
     </li>
-
+    
     % else:
-
+    
     <li class="field required password" id="field-password">
+      <!-- toggle password visibility -->
       <label for="password">${_('Password')}</label>
-      <input id="password" type="password" name="password" value="" required aria-required="true" />
+      <input id="password" type="password" name="password" value="" required aria-required="true" /><i class="fa fa-eye" id="togglePassword"></i>
     </li>
 
     % endif
@@ -355,6 +356,12 @@ import datetime
  color: rgba(98,181,207,0.8);
  border: none;
 }
+#field-password i {
+  position: absolute;
+  left: 570px;
+  bottom: 15px;
+  cursor: pointer;
+}
 </style>
 <script>
 $('#first_name,#last_name').change(function(){
@@ -363,6 +370,19 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+
+// toggle password visibility
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#password');
+togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
+
+
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
