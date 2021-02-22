@@ -87,7 +87,6 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % else:
   <span>${_("Enrollments are closed")} </span>
   % endif
-  <span>${_('and')}</span>
   % if cours_ouv:
   <span>受講登録中。</span>
   % else:
@@ -118,7 +117,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     % if LANGUAGE_CODE == "ja-jp":
-      以来 ${course_overview.start.strftime("%Y年{}月%d日開設".format(course_overview.start.month))}
+      ${course_overview.start.strftime("%Y年{}月%d日開設".format(course_overview.start.month))}
     % else:
       Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
     % endif
