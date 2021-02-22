@@ -66,7 +66,7 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85f28f02759b6f"></script>
+<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85f28f02759b6f"></script> -->
 <link href="${static.url('css/vendor/jquery.autocomplete.css')}" rel="stylesheet" type="text/css">
   ${HTML(fragment.head_html())}
 </%block>
@@ -139,7 +139,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   endif
 %>
 
-<!-- Custom style for 5aconseil -->
+<!-- Custom style for Garance&Moi -->
 <style>
 body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading {
   background-color: ${custom_color} !important;
@@ -252,8 +252,12 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
         </nav>
       </div>
     </div>
-    <div class="addthis_inline_share_toolbox"></div>
+    <div class="addthis_inline_share_toolbox">
+        <a href="https://www.facebook.com/Garanceetmoi" target="_blank"><i class="fa fa-facebook-f"></i> Facebook</a>
+        <a href="https://twitter.com/GaranceEtMoi" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+        <a href="https://www.linkedin.com/school/garance-et-moi" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a>
     </div>
+</div>
 
 % endif
     <section class="course-content" id="course-content">
@@ -508,4 +512,37 @@ $('.button-previous').live('click',function(e){
   .wrapper-header>.nav-global>li.nav-global-01:hover>a{
       color :#fff!important;
   }
+  .addthis_inline_share_toolbox > a {
+    height: 1rem;
+
+    color: white;
+    padding: 5px 12px;
+    margin: 5px 2px;
+    font-size: 10.2px;
+    line-height: 16px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    -webkit-transition: top 0.25s;
+    -moz-transition: top 0.25s;
+    -o-transition: top 0.25s;
+    transition: top 0.25s;
+  }
+  .addthis_inline_share_toolbox > a:hover {
+    top: -5pt;
+  }
+
+  .addthis_inline_share_toolbox a:nth-child(1) {
+    background-color: #3B5998;
+  }
+  .addthis_inline_share_toolbox a:nth-child(2) {
+    background-color: #1DA1F2;
+  }
+  .addthis_inline_share_toolbox a:nth-child(3) {
+    background-color: #1377B4;
+  }
+  .addthis_inline_share_toolbox  a:visited {
+      color: white;
+  }
+
 </style>
