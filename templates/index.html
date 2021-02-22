@@ -1,97 +1,676 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOOC CEM</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="media/microsite/cem/assets/bootstrap/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="media/microsite/cem/assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="media/microsite/cem/assets/css/stylesVideo.css"
+    />
+    <script src="media/microsite/cem/assets/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="media/microsite/cem/assets/js/wmBox.js"></script>
+    <script src="media/microsite/cem/assets/js/main.js"></script>
+  </head>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+  <style>
+    html {
+      scroll-behavior: smooth;
+      font-family: "Roboto", sans-serif;
+    }
 
-          </div>
+    ul {
+      list-style: none;
+      color: black;
+    }
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+    ul > h5 {
+      color: black;
+    }
 
-      </header>
-      <%include file="${courses_list}" />
+    .titles {
+      width: 65%;
+      margin: auto;
+      margin-top: 20px;
+    }
 
-    </section>
-</main>
+    .logoCentre {
+      width: 30%;
+    }
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+    .title_section_2 {
+      color: black;
+    }
+    .blackP {
+      color: black;
+    }
+
+    .mooc_degrade2_under p {
+      text-align: center;
+      color: white;
+    }
+
+    #section4 {
+      height: auto;
+      background-color: #cddf22;
+    }
+
+    .pictos img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+    }
+
+    #boder_span_section2 {
+      height: 7px;
+      width: 370px;
+      margin-right: calc(100% - 41px);
+      background-color: #cddf22;
+      margin-top: 25px;
+      margin-bottom: 55px;
+    }
+
+    p.scroll {
+      top: 93%;
+      position: absolute;
+      font-style: italic;
+      text-align: center;
+      width: 100%;
+      color: white;
+      font-size: 1.3em;
+    }
+
+    #srcoll_button {
+      position: relative;
+      margin: auto;
+      width: auto;
+      height: 25px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    #section3-2 li::before {
+      content: "• ";
+      color: #cddf22;
+    }
+
+    #section4 {
+      height: 250px;
+      background-image: url("media/microsite/cem/assets/img/IMG-Footer-RTE.jpg");
+      margin-top: 86px;
+      background-position: center;
+      background-size: cover;
+    }
+
+    footer {
+      text-align: center;
+      color: #fff;
+      border-top: 4px solid #091b51;
+      border-bottom: 4px solid #091b51;
+      background-color: #091b51;
+      height: 34px;
+      font-size: 12px;
+    }
+
+    .vignette-img {
+      display: block;
+      margin-right: 20px;
+      float: left;
+      width: 100%;
+    }
+
+    .vignette {
+      padding: 20px;
+    }
+
+    .home-buttons {
+      text-align: center;
+      list-style: none;
+      margin-top: 480px;
+    }
+
+    .home-buttons > li > a {
+      margin-top: 0px;
+      margin-bottom: 20px;
+    }
+
+    .greyP {
+      text-align: center;
+      color: #5b5b5b;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 18px;
+      padding: 0;
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        width: 100% !important;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1200px) {
+      p.scroll.noGo {
+        display: none;
+      }
+      .container {
+        width: 1100px !important;
+      }
+      .discover-box > p {
+        font-size: 18px !important;
+      }
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    .contact {
+      position: fixed;
+      right: 10%;
+      bottom: 5%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1%;
+      z-index: 99999;
+      font-size: 100%;
+      text-align: center;
+      font-weight: bold;
+      max-width: 15%;
+      border-radius: 5%;
+    }
+
+    .fixed {
+      color: #cddf22;
+    }
+
+    .contactIMG {
+      width: 50px;
+      cursor: pointer;
+    }
+
+    @media (min-width: 0px) and (max-width: 600px) {
+      p.scroll.noGo,
+      #srcoll_button,
+      .fixed {
+        display: none;
+      }
+      .contact {
+        background-color: #0000;
+      }
+      .discover-box > p {
+        font-size: 18px !important;
+      }
+    }
+
+    #video-teaser {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      height: auto;
+    }
+    #video-teaser iframe,
+    #video-teaser object,
+    #video-teaser embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    /* Cookie-banner css start */
+    #cookie-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      height: 90px;
+      color: white;
+      background-color: #323538;
+      top: 0;
+      z-index: 6;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    #cookie-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 130px;
+      border-radius: 5px;
+      padding: 15px;
+      cursor: pointer;
+    }
+    .cookie-banner-button:hover {
+      text-decoration: underline;
+      color: #1a905b;
+      background-color: black;
+    }
+    #cookie-banner a {
+      color: white;
+      font-weight: 400;
+    }
+    #cookie-banner a:hover {
+      color: #1a905b;
+      background-color: #323538;
+    }
+    #cookie-banner a:visited {
+      text-decoration: none;
+    }
+    .roll-cookie-banner {
+      -webkit-transition: 1.5s;
+      -moz-transition: 1.5s;
+      -ms-transition: 1.5s;
+      -o-transition: 1.5s;
+      transition: 1.5s;
+      margin-top: -90px;
+    }
+    /* Cookie-banner css end */
+  </style>
+
+  <body onresize="resizeIframe()">
+    <div
+      class="contact"
+      href="/media/microsite/cem/page/contact.html"
+      onclick="window.open('/media/microsite/cem/page/contact.html','_blank')"
+    >
+      <div class="minicontact">
+        <img
+          class="contactIMG"
+          src="media/microsite/cem/assets/img/messaging.png"
+        />
+      </div>
+      <div class="minicontact">
+        <a
+          class="fixed"
+          href="/media/microsite/cem/page/contact.html"
+          target="_blank"
+          >contactez-nous</a
+        >
+      </div>
     </div>
-  </section>
-% endif
+    <div>
+      <div id="cookie-banner">
+        <span>
+          Ce site utilise des cookies pour vous assurer la meilleure navigation
+          possible. En continuant de naviguer sur ce site, nous comprenons que
+          vous acceptez l'utlisation de cookies.
+          <a
+            href="https://mooc.cem-50hz.info/honor"
+            class="cookie-banner-button"
+            >En savoir plus</a
+          >
+        </span>
+        <div id="cookie-button" class="cookie-banner-button">J'accepte !</div>
+      </div>
+      <section id="section1" class="container-fluid">
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-xs-12 head_nav">
+            <ul class="home-buttons pager">
+              <li>
+                <p>Vous voulez suivre le MOOC ?</p>
+                <a href="/register">Inscrivez-vous</a>
+              </li>
+              <li>
+                <p>Déjà inscrit ?</p>
+                <a href="/login">Connectez-vous</a>
+              </li>
+              <li>
+                <p>Vous souhaitez un accès rapide ?</p>
+                <a href="https://videos.cem-50hz.info/CEM/app/">Cliquez-ici</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="scroll noGo">
+              Pour découvrir le contenu de la formation,
+              <span style="color: #cddf22; font-weight: bold"
+                >voir ci-dessous</span
+              ><br />
+              <a
+                href="#section2"
+                style="text-align: center; display: inherit"
+                class="smooth-scroll"
+                ><img
+                  id="srcoll_button"
+                  src="media/microsite/cem/assets/img/green_arrow.png"
+              /></a>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="section2" class="container-fluid" style="padding: 5%">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-xs-12 text_section2">
+            <div class="border_section2"></div>
+            <h2 class="title_section_2">
+              <span class="title_section_2" style="text-align: left !important"
+                >découvrez</span
+              ><span
+                class="title_section_2"
+                style="text-align: left !important"
+              >
+                la formation</span
+              >
+            </h2>
+            <h2>
+              <span class="title_section_2"></span><span class="blackP"></span
+              ><span id="boder_span_section2"> </span>
+            </h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-xs-12 text-center">
+            <!--<video id="video-teaser" preload="metadata" src="https://player.vimeo.com/external/273907658.hd.mp4?s=afbd82596a5b319beb0d83a64aecc109e9946193&profile_id=175">
+                    </video>
+                    <iframe id="video-teaser" src="https://player.vimeo.com/external/273907658.hd.mp4?s=afbd82596a5b319beb0d83a64aecc109e9946193&profile_id=175" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen></iframe>-->
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+            <!--<script>
+                    function resizeIframe(){
+                            $('iframe').width('100%')
+                            $('iframe').attr('width','100%')
+                            $('iframe').css('width','100%')
+                            }
+                            
+                            resizeIframe()
+                    </script>-->
+            <div
+              id="video-teaser"
+              data-vimeo-url="https://vimeo.com/301174287"
+              height="422"
+            ></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-12 discover-box">
+            <p class="blackP" style="font-size: 24px">
+              Vous voulez comprendre l'environnement électromagnétique à basse
+              fréquence ?
+            </p>
+            <p class="blackP" style="font-size: 24px">
+              Vous souhaitez connaître les études sur les possibles effets
+              sanitaires des champs ?
+            </p>
+            <p class="blackP" style="font-size: 24px">
+              Vous voulez comprendre sur quelles bases ont été établies les
+              réglementations et les politiques de protection de la population ?
+            </p>
+            <br />
+            <p class="blackP" style="font-weight: bold; font-size: 28px">
+              Ce MOOC est fait pour vous !
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-lg-12 col-md-12 col-xs-12"
+            style="
+              padding-left: 15px;
+              padding-right: 15px;
+              margin-top: 30px;
+              margin-bottom: 30px;
+            "
+          >
+            <p class="greyP">
+              En suivant ce MOOC, qui vous est proposé par RTE, gestionnaire du
+              réseau de transport d’électricité, vous découvrirez dans un
+              premier temps les notions essentielles de physique permettant de
+              comprendre les champs électromagnétiques d’extrêmement basse
+              fréquence (CEM EBF), et les principales sources de champ. Vous
+              aborderez ensuite la question de leurs possibles effets sanitaires
+              avec une introduction générale aux études biomédicales, études en
+              laboratoire et études d’observation sur l’homme, suivie des
+              résultats de ces études appliquées aux CEM EBF et du bilan que les
+              autorités médicales tirent des 40 années de recherches écoulées.
+              Enfin, dans la dernière partie, vous vous consacrerez à la
+              réglementation française et européenne y compris la manière dont
+              le principe de précaution est décliné.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="section3" class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-md-12 col-xs-12 mooc_title">
+            <h2 class="title_section_2" style="color: #091b51 !important">
+              qu'est ce qu'un mooc ? <span> </span>
+            </h2>
+          </div>
+        </div>
+        <div class="row picto_content">
+          <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+            <img src="media/microsite/cem/assets/img/Picto1.png" />
+            <h4><span>massive</span></h4>
+            <p>Des cours pour tous</p>
+            <p>les professionnels</p>
+          </div>
+          <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+            <img src="media/microsite/cem/assets/img/Picto2.png" />
+            <h4><span>Open </span></h4>
+            <p>Accédez librement à</p>
+            <p>un ensemble de ressources</p>
+          </div>
+          <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+            <img src="media/microsite/cem/assets/img/Picto3.png" />
+            <h4><span>online </span></h4>
+            <p>Connectez-vous à tout</p>
+            <p>moment et où que vous soyez</p>
+          </div>
+          <div class="col-lg-3 col-md-6 col-xs-12 pictos">
+            <img src="media/microsite/cem/assets/img/Picto4.png" />
+            <h4><span>course </span></h4>
+            <p>Suivez un parcours pédagogique</p>
+            <p>innovant vous permettant l'aquisition</p>
+            <p>de connaissances</p>
+          </div>
+        </div>
+      </section>
+      <section id="section3-2" class="container-fluid" style="padding: 5%">
+        <div class="row">
+          <div
+            class="col-lg-6 col-md-6 col-xs-12 text_section2"
+            style="margin-left: 0px !important"
+          >
+            <h2 class="title_section_2">
+              <span class="title_section_2">Contenu</span
+              ><span
+                class="title_section_2"
+                style="text-align: left !important"
+              >
+                de la formation</span
+              >
+            </h2>
+            <h2>
+              <span class="title_section_2"></span><span class="blackP"></span
+              ><span id="boder_span_section2"> </span>
+            </h2>
+            <p class="blackP" style="font-weight: bold">
+              Sur 4 semaines, voici les 4 thèmes que vous aborderez :
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <img
+                src="media/microsite/cem/assets/img/semaine1.jpg"
+                class="vignette-img"
+              />
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <h5 style="font-weight: bold">
+                Notions essentielles sur les champs électromagnétiques
+              </h5>
+              <ul>
+                <li>Champ électrique, Champ magnétique</li>
+                <li>
+                  Hautes et basses fréquences - le spectre électromagnétique
+                </li>
+                <li>
+                  Les champs (naturels et anthropiques) dans notre environnement
+                </li>
+                <li>Valeurs de champs générés par les réseaux électriques</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <img
+                src="media/microsite/cem/assets/img/semaine2.jpg"
+                class="vignette-img"
+              />
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <h5 style="font-weight: bold">
+                Introduction aux études biomédicales
+              </h5>
+              <ul>
+                <li>
+                  Expérimentation et épidémiologie : deux approches
+                  complémentaires
+                </li>
+                <li>Forces et faiblesses de l’expérimentation</li>
+                <li>Forces et faiblesses de l’épidémiologie</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <img
+                src="media/microsite/cem/assets/img/semaine3.jpg"
+                class="vignette-img"
+              />
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <h5 style="font-weight: bold">
+                Les résultats des études biomédicales sur les CEM basse
+                fréquence
+              </h5>
+              <ul>
+                <li>
+                  Historique : pourquoi s’intéresse-t-on au champ magnétique ?
+                </li>
+                <li>Résultats des études épidémiologiques</li>
+                <li>Résultats des études expérimentales</li>
+                <li>Bilan de la recherche - les expertises collectives</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-12 vignette">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <img
+                src="media/microsite/cem/assets/img/semaine4.jpg"
+                class="vignette-img"
+              />
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <h5 style="font-weight: bold">La règlementation</h5>
+              <ul>
+                <li>La législation européenne</li>
+                <li>La législation française</li>
+                <li>
+                  Le principe de précaution appliqué aux CEM basse fréquence
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div style="clear: left"></div>
+        </div>
+      </section>
+      <section id="section4" class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-xs-12 head_nav_4">
+            <h1 style="padding-bottom: 0px; margin-top: 5%">
+              Découvrez la formation
+            </h1>
+            <ul class="pager">
+              <li>
+                <a href="/register" style="margin-top: 0px">Inscription</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <div class="container-fluid">
+        <div class="row" onload="resizeIframe()">
+          <footer class="col-lg-12 col-md-12 col-xs-12" style="height: 100%">
+            <span
+              >Ce MOOC est produit par
+              <img
+                src="media/microsite/cem/assets/img/RTE_logo.png"
+                width="40px"
+                style="margin: 5px"
+              />|</span
+            >
+            <span>site déployé par </span>
+            <a href="#">The MOOC Agency</a>
+            <span> - 2018 </span>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script src="media/microsite/cem/assets/js/jquery.min.js"></script>
+    <script src="media/microsite/cem/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+      var element = $("#video-teaser");
+      var config = {
+        height: "auto",
+        width: "100%",
+      };
+      var videoPlayer = new Vimeo.Player(element, config);
+      videoPlayer.on("play", function () {
+        console.log("Played the video");
+      });
+    </script>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+    <!-- Cookie-banner script start -->
+    <script>
+      const cookieBanner = document.querySelector("#cookie-banner");
+      const cookieBannerButton = document.querySelector("#cookie-button");
 
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
 
-</script>
-% endif
+      if (getCookie("eu-consent")) {
+        cookieBanner.classList.add("hidden");
+      } else {
+        cookieBannerButton.addEventListener("click", function (e) {
+          cookieBanner.classList.add("roll-cookie-banner");
+          document.cookie = "eu-consent=true";
+        });
+      }
+    </script>
+    <!-- Cookie-banner script end -->
+  </body>
+</html>
