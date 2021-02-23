@@ -268,7 +268,7 @@ site_status_msg = get_site_status_msg(course_id)
              <div id="lang-content">
                <img src="/media/microsite/champagne-mooc/home/en.png" id="en">
                <img src="/media/microsite/champagne-mooc/home/fr.png" id="fr">
-               <img src="/media/microsite/champagne-mooc/home/jp.jpg" id="jp" style="display: none;">
+               <img src="/media/microsite/champagne-mooc/home/jp.jpg" id="jp">
                <select class="input select language-selector" id="settings-language-value" name="language" size="3" >
                  % for language in languages:
                   % if language[0] =="en" or language[0] =="fr" or language[0] =="ja-jp":
@@ -291,7 +291,7 @@ site_status_msg = get_site_status_msg(course_id)
        display: none;
      }
      #lang-content {
-       width: 60px;
+       width: 84px;
        height: 24px;
      }
      #lang-content img{
