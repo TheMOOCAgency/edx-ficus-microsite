@@ -37,7 +37,6 @@
         }
     </%static:require_module>
 </%block>
-
 <%block name="header_extras">
     % for template_name in ["account", "access", "form_field", "login", "register", "institution_login", "institution_register", "password_reset", "hinted_login"]:
         <script type="text/template" id="${template_name}-tpl">
@@ -61,7 +60,7 @@
 
 <div class="section-bkg-wrapper">
     <main id="main" aria-label="Content" tabindex="-1">
-        <div id="login-and-registration-container" class="login-register" />
+        <div id="login-and-registration-container" class="login-register">
     </main>
 </div>
 <style>
@@ -97,9 +96,7 @@ function usessorather(page){
       '<h2 style="margin-top:30px">Veuillez utiliser le SSO de votre entreprise<br>Please use your company SSO</h2>' +
       '<div>'+
       '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_saint-gobain.png" alt="logo Saint-Gobain" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=saint-gobain\'">'+
-      '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_transitions.jpg" alt="logo TO" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod\'">'+
-      //'<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_safran.jpg" alt="logo Safran" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=safran-prod\'">'+
-      '</div>',
+      '<img style="    box-shadow: 2px 2px 2px lightgrey;width:20%;margin-left:20px;cursor:pointer;" src="/media/microsite/digimapper/auto/images/logo_transitions.jpg" alt="logo TO" onclick="window.location.href=\'/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=to-prod\'"></div>',
     showCancelButton: false,
     showCloseButton: false,
     focusConfirm: true,
@@ -129,4 +126,25 @@ if(loginemailfield && ! is_third_party_on){
 }
 
 },500);
+
+var test123 = setInterval(function(){
+    
+    var passwordField = document.querySelector('.password-password')
+    passwordField.innerHTML = '<label for="register-password">Mot de passe *</label><input id="register-password" type="password" name="password" value="" required aria-required="true" /><i class="fa fa-eye" id="togglePassword" style="position:absolute; left:530px; bottom:15px; cursor:pointer;"></i>'
+
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#register-password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+    clearInterval(test123)
+
+}, 200)
+
+
 </script>
