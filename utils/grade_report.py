@@ -70,7 +70,7 @@ form_factory = ensure_form_factory()
 db = 'ensure_form'
 collection = 'certificate_form'
 form_factory.microsite = org
-allow_admin_mails = True
+allow_admin_mails = False
 admin_mail_list = [u"themoocagency", u"weuplearning", u"yopmail"]
 
 # Get headers
@@ -135,6 +135,22 @@ course_ids=[
     }
 ]
 
+entityTable = {
+    'BNPParibasPersonalFinance': ['BNPParibasPersonalFinance', 'IFS - BNP Paribas Personal Finance', 'IFS - BNP Paribas Personal Finance - Findomestic'],
+    'BNPParibasCardif': ['BNPParibasCardif', 'IFS - BNP Paribas Cardif', ],
+    'BNPParibasRealEstate': ['BNPParibasRealEstate', 'Real Estate', 'IFS - BNP Paribas Real Estate'],
+    'BNPParibasWealthManagement': ['BNPParibasWealthManagement', 'BNP Paribas Banque Privée France'],
+    'BNPParibasAssetManagement': ['BNPParibasAssetManagement', 'IFS - BNP Paribas Investment Partners', 'IFS - BNP Paribas Asset Management'],
+    'IRBInternationalRetailBanking': ['IRBInternationalRetailBanking','IFS - BNP Paribas International Retail Banking'],
+    'GroupCompliance': ['GroupCompliance', 'Compliance - Function'],
+    'BDDFBanquededetailenFrance': ['BDDFBanquededetailenFrance', 'BDDF'],
+    'BGLLuxembourg': ['BGLLuxembourg', 'BNP Paribas Luxembourg'],
+    'BNL': ['BNL'],
+    'BNPParibasFortis': ['BNPParibasFortis', 'BNP Paribas Fortis'],
+    'CIBCorporateandInstitutionalBanking': ['CIBCorporateandInstitutionalBanking', 'CIB - Securities Services', 'CIB - Corporate Bank', 'CIB – Other', 'CIB - Global Market'],
+    'Other': ['Ohter', 'Other', 'IFS – Other', 'Group Communication', 'Digital Working', 'BNP Paribas Switzerland', 'BNP Paribas Consulting', 'BNP Paribas - Others']
+}
+
 def get_user_info(user):
     user_profile = {}
     email = user.email
@@ -174,10 +190,14 @@ def get_user_info(user):
         last_login = user.last_login.strftime('%d %b %y')
     except:
         last_login = "n/a"
+
+    try:
+        position = custom_field.get('bnpp_entity', 'n/a')
+    except:
+        position = "n/a"
     
     # missing datas
     matricule = "n/a"
-    position = "n/a"
     department = "n/a"
     region = "n/a"
     additional_information = "n/a"
@@ -368,7 +388,7 @@ for old_user in old_users_datas_list:
         ]
 file.close()
 
-# WRITE FILE
+# WRITE GLOBAL FILE
 # Prepare workbook
 wb = Workbook(encoding='utf-8')
 sheet = wb.add_sheet('Rapport')
@@ -386,3 +406,29 @@ for user in users_data:
             pass
     j = j + 1
 wb.save('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA.xls'.format(time.strftime("%d.%m.%Y")))
+log.info('[WUL] : Global report file written')
+
+# WRITE FILTERED REPORT BY ENTITY
+# Prepare workbook
+for entity_group in entityTable.keys():
+    wb = Workbook(encoding='utf-8')
+    sheet = wb.add_sheet('Rapport')
+    style_title = easyxf('font: bold 1')
+    for i in range(len(HEADER)):
+        sheet.write(0, i, HEADER[i],style_title)
+
+    j = 1
+    for user in users_data:
+        user_data = users_data[user]
+        log.info(user_data[4])
+        log.info(entity_group)
+        log.info(entityTable[entity_group])
+        if user_data[4] in entityTable[entity_group]:
+            for i in range(len(user_data)):
+                try:
+                    sheet.write(j, i, user_data[i])
+                except:
+                    pass
+            j = j + 1
+    wb.save('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA_{}.xls'.format(time.strftime("%d.%m.%Y"), entity_group))
+    log.info('[WUL] : report entity {} file written'.format(entity_group))
