@@ -12,6 +12,12 @@ from third_party_auth import provider, pipeline
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
+<style>
+  .login .content, .register .content, .passwordreset .content, #forgot-password-modal #password-reset .content {
+    width: 100% !important;
+  }
+
+</style>
   <script type="text/javascript">
     $(function() {
 
@@ -229,15 +235,4 @@ from third_party_auth import provider, pipeline
     % endif
 
   </section>
-
-  <aside role="complementary">
-
-<%
-  # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
-  sidebar_file = static.get_template_path('login-sidebar.html')
-%>
-
-    <%include file="${sidebar_file}" />
-
-  </aside>
   </section>
