@@ -16,7 +16,7 @@ from courseware.courses import get_course_by_id
 log = logging.getLogger()
 
 alumni_courses_list = ['course-v1:champagne-mooc+003+003','course-v1:champagne-mooc+004+004']
-course_enrollments, first_name, last_name, email, city, country, tell_us_more_again, profile_image_url, mention, linkedin = [], [], [], [], [], [], [], [], [], []
+course_enrollments, first_name, last_name, email, username, city, country, tell_us_more_again, profile_image_url, mention, linkedin = [], [], [], [], [], [], [], [], [], [], []
 json_alumni_users = ''
 user_is_alumni_registered = False
 country_codes = {}
@@ -64,6 +64,7 @@ if request.user.is_authenticated():
             if 'alumni_registered' in custom_field and (custom_field['alumni_registered'] == 'true' or custom_field['alumni_registered'] == 'True' or custom_field['alumni_registered'] == True):
                 test_list.append(get_custom_field_value(custom_field, 'first_name'))
                 email.append(user.email)
+                username.append(user.username)
                 first_name.append(get_custom_field_value(custom_field, 'first_name'))
                 last_name.append(get_custom_field_value(custom_field, 'last_name'))
                 city.append(get_custom_field_value(custom_field, 'city'))
@@ -86,7 +87,7 @@ if request.user.is_authenticated():
         mention.append(percent)
 
     if len(email) > 0:
-        alumni_users = [{'first_name': f, 'last_name': la, 'email': e, 'city': ci, 'country': co, 'tell_us_more_again': t, 'profile_image_url' : p, 'mention' : m, 'linkedin': li} for f, la, e, ci, co, t, p, m, li in zip(first_name, last_name, email, city, country, tell_us_more_again, profile_image_url, mention, linkedin)]
+        alumni_users = [{'first_name': f, 'last_name': la, 'email': e, 'username': u, 'city': ci, 'country': co, 'tell_us_more_again': t, 'profile_image_url' : p, 'mention' : m, 'linkedin': li} for f, la, e, u, ci, co, t, p, m, li in zip(first_name, last_name, email, username, city, country, tell_us_more_again, profile_image_url, mention, linkedin)]
         json_alumni_users = json.dumps(alumni_users)
 %>
 
