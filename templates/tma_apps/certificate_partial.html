@@ -15,12 +15,13 @@ from tma_apps.tma_support_functions import tma_verify_access
 
 primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
-background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reussite.png'
+background_image_suivi = '/media/microsite/sncf-maintenance/images/fond_certificat_suivi.png'
 
 %>
 
 
-<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+
+<%block name="pagetitle">${_("Attestation de suivi")}</%block>
 
 <!-- COMMON STYLE-->
 <style>
@@ -42,7 +43,6 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
     font-display: swap;
   }
 
-  
   h1,h2,h3,h4,h5,p{
     font-family: inherit
   }
@@ -59,14 +59,15 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
     background: white;
   }
   .certificate-border{
-    /* border:2px solid ${primary_color};
-    border-radius:5px; */
+    /* border:2px solid ${primary_color}; */
+    /* border-radius:5px; */
     position: relative;
   }
   .certificate-border h3 {
     color: var(--orange);
     font-family: "Avenir Heavy";
   }
+
   #custom-btn{
     background: ${primary_color};
     border: none;
@@ -80,7 +81,7 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
     justify-content: space-between;
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 20px 30px 20px 20px;
     box-sizing: border-box;
   }
   #certificate-wrapper{
@@ -91,13 +92,13 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
     justify-content: center;
   }
   #certificate-container{
-    width:843px;
+    width:854px;
     height:596px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url("${background_image}");
     background-repeat: no-repeat;
     background-size: cover;  
+    background-image: url('${background_image_suivi}')
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -156,39 +157,35 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
     justify-content: center;
     align-items: center;
   }
-</style>
 
-% if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
+</style>
+% if grades.get('partial') or tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title">
-            <!-- <h3>Certificat de Réussite</h3> -->
-          </div>
-          <div>
-            <!-- <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p> -->
-            <h3 id="user-name" >${first_name} ${last_name}</h3>
-            <!-- <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>-->
-            <h2 id="course-name"></h2> 
-            <h2 id="users-grade" >${int(grades['grade']*100)}%.</h2>
-            <h2 id="graduation-date">
-              <span id="datetime"></span>
-            </h2>
-          </div>
-          <div>
+      <div id="internal-border">
+        <div id="certificate-title">
+          <!-- <h3>Certificat de Réussite</h3> -->
+        </div>
+        <div>
+          <h3 id="user-name" >${first_name} ${last_name}</h3>
+          <h2 id="course-name"></h2> 
+          <h2 id="users-grade" >${int(grades['grade']*100)}%.</h2>
+          <h2 id="graduation-date">
+            <span id="datetime"></span>
+          </h2>
+        </div>
+        <div>
           </div>
       </div>
   </div>
 </div>
 %else:
   <div id="noCertificateMessage">
-      <h3>Certificat Non Disponible</h3>
-      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+      <h3>Attestation de suivi non disponible</h3>
+      <p>Vous n'avez pas progressé suffisamment pour obtenir votre attestation de suivi.</p>
   </div>
 %endif
 
@@ -207,25 +204,25 @@ background_image = '/media/microsite/sncf-maintenance/images/fond_certificat_reu
       }
     })
   }
-
   //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
   $(document).ready(function(){
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+      $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
+    
+    // JOB
+    let course_name = "${course_name}"
+    document.getElementById("course-name").innerHTML = course_name.slice(9)
 
-  // JOB
-  let course_name = "${course_name}"
-  document.getElementById("course-name").innerHTML = course_name.slice(9)
+    // DATE
 
-  // DATE
-  date = new Date();
-  var tab_mois=["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
+    date = new Date();
+    var tab_mois=["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
 
-  document.getElementById("datetime").innerHTML = "Le " + day + " " + tab_mois[monthIndex]+ " " + year;
+    document.getElementById("datetime").innerHTML = "Le " + day + " " + tab_mois[monthIndex]+ " " + year;
 </script>
 
