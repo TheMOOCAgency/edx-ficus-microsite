@@ -42,7 +42,28 @@ org_static = static.get_value('domain_prefix')
 cours_ouv = show_courseware_link and not is_course_blocked
 %>
 
+<style>
+  #title_dashboard_course h1 {
+    color: white !important;
+  }
 
+  #course_nav .svg path {
+    fill: white !important;
+  }
+
+  #course_start span, .course_nav span {
+    color: white !important;
+  }
+
+  .course_cell h2 {
+    margin-bottom: 0px!important;
+    color: white !important;
+  }
+
+  #dashboard_profile_up h3, #dashboard_profile_up h4 {
+    color: white !important;
+  }
+</style>
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
   <h1>${course_overview.display_name_with_default}

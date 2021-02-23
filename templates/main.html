@@ -62,7 +62,7 @@ from pipeline_mako import render_require_js_path_overrides
   <link rel="stylesheet" type="text/css" href="${cssoverride}" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="${static.url(static.get_value('favicon', settings.FAVICON_PATH))}" />
-
+  <link rel="stylesheet" type="text/css" href="/media/microsite/orano/css/style.css" />
   <%static:css group='style-vendor'/>
   <%static:css group='${self.attr.main_css}'/>
 
