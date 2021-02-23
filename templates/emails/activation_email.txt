@@ -1,10 +1,24 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bonjour,
 
 Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
+
+Vous avez 15 jours à compter d'aujourd'hui pour terminer votre formation.
+
+Cliquez sur ce lien pour télecharger votre guide stagiaire : 
+
+https://lien
+
+La Cellule e-learning se tient à votre disposition pour toute demande d'assistance. 
+
+Bonne formation !
+
+La Cellule e-learning Apave
+
+Mail : assistance@weuplearning.com 
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.

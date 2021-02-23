@@ -364,7 +364,8 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 %endif
 <script>
 $(document).ready(function(){
-setTimeout($('.menu-accordion').show(), 1000);
+// setTimeout($('.menu-accordion').show(), 1000);
+setTimeout($('.menu-accordion').hide(), 1000);
 $('.ui-accordion-content:not(.active)>.custom_unit').on('click',function(e){
     window.location.href=$(e.target).attr('href');
 })

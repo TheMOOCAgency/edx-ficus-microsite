@@ -1,14 +1,25 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+${_("Bonjour {full_name}").format(full_name=full_name)}
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+${_("Vous avez été inscrit à la {course_name} en E-learning.").format(course_name=course.display_name_with_default_escaped)}
 
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+Vous avez 15 jours à compter d'aujourd'hui pour terminer votre formation.
 
-${_("It is recommended that you change your password.")}
+Pour votre première connexion, voici vos identifiants : 
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+${_("Adresse de la plate forme : https://{site_name}").format(site_name=site_name)}
+${_("Login: {email}").format(email=email_address)}
+${_("Mot de passe: {password}").format(password=password)}
+
+Cliquez sur ce lien pour télecharger votre guide stagiaire : 
+
+https://lien
+
+La Cellule e-learning se tient à votre disposition pour toute demande d'assistance. 
+
+Bonne formation !
+
+La Cellule e-learning Apave
+
+Mail : assistance@weuplearning.com 
