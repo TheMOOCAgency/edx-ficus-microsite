@@ -16,8 +16,13 @@ from openedx.core.djangolib.markup import HTML, Text
 <!-- <link rel="stylesheet" href="/media/microsite/digimapper-data/css/digimap.css"> -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- useless page : redirect to dashboard -->
+<script>
+  window.location.hraf = "/dashboard"
+</script>
+
 <main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
-  % if user.is_authenticated():
+  % if user.is_authenticated() and False:
 
     <div id="languageChoiceContainer">
       <!-- <h1 id="welcome-title"><p style="font-size: 24px; text-align: center; font-weight: 700;">Welcome!</p><br/>Choose the language for course content. *<br/>Choisissez la langue dans laquelle les parcours seront diffusés. -->
@@ -33,11 +38,15 @@ from openedx.core.djangolib.markup import HTML, Text
             <p class="course_text">Pour vous inscrire au cours Premium en français, <a class="course_link" data-pricing="premium" data-value="fr" data-course="course-v1:champagne-mooc+003+003">cliquez ici</a></p>
             <p class="course_text">Pour vous inscrire au cours Classique en anglais, <a class="course_link" data-pricing="free" data-value="fr" data-course="course-v1:champagne-mooc+002+002">cliquez ici</a></p>
             <p class="course_text">Pour vous inscrire au cours Premium en anglais, <a class="course_link" data-pricing="premium" data-value="fr" data-course="course-v1:champagne-mooc+004+004">cliquez ici</a></p>
+            <p class="course_text">Pour vous inscrire au cours Classique en japonais, <a class="course_link" data-pricing="free" data-value="fr" data-course="course-v1:champagne-mooc+005+005">cliquez ici</a></p>
+            <p class="course_text">Pour vous inscrire au cours Premium en japonais, <a class="course_link" data-pricing="premium" data-value="fr" data-course="course-v1:champagne-mooc+006+006">cliquez ici</a></p>
           %else:
             <p class="course_text">To register for the Classic course in French, <a class="course_link" data-pricing="free" data-value="en" data-course="course-v1:champagne-mooc+001+001">click here</a></p>
             <p class="course_text">To register for the Premium course in French, <a class="course_link" data-pricing="premium" data-value="en" data-course="course-v1:champagne-mooc+003+003">click here</a></p>
             <p class="course_text">To register for the Classic course in English, <a class="course_link" data-pricing="free" data-value="en" data-course="course-v1:champagne-mooc+002+002">click here</a></p>
             <p class="course_text">To register for the Premium course in English, <a class="course_link" data-pricing="premium" data-value="en" data-course="course-v1:champagne-mooc+004+004">click here</a></p>
+            <p class="course_text">To register for the Classic course in Japanese, <a class="course_link" data-pricing="free" data-value="en" data-course="course-v1:champagne-mooc+005+005">click here</a></p>
+            <p class="course_text">To register for the Premium course in Japanese, <a class="course_link" data-pricing="premium" data-value="en" data-course="course-v1:champagne-mooc+006+006">click here</a></p>
           %endif
       </div>
 
