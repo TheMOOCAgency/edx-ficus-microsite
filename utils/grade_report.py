@@ -142,8 +142,6 @@ for val in microsite_value:
         domain_prefix = microsite_value.values()[i]
     if val == 'FORM_EXTRA':
         register_form = microsite_value.values()[i]
-        log.info("******************")
-        log.info(register_form)
     if val == 'CERTIFICATE_FORM_EXTRA':
         certificate_form = microsite_value.values()[i]
     if val == 'APPLICATION_EXTRA':
@@ -415,10 +413,7 @@ if persistent:
 """
 
 #execute the script: 
-<<<<<<< HEAD
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "test@weuplearning.com" course-v1:sncf-maintenance+agman01+2021_T1 true false false true
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "test@weuplearning.com" course-v1:sncf-maintenance+depa01+2021_T1 true false false true
-=======
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+agman01+2021_T1 true false false true
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+depa01+2021_T1 true false false true
->>>>>>> 08efc45e1fe0a138461fa99c1af161e56b4984e7
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+meca01+2021_T1 true false false true
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/sncf-maintenance/utils/script.py "cyril.adolf@weuplearning.com" course-v1:sncf-maintenance+enel01+2021_T1 true false false true
