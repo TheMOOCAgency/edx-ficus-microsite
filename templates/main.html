@@ -155,7 +155,7 @@ ${font_string | n}
       url("/static/sncf/fonts/avenir.woff'") format("woff"),
       url("/static/sncf/fonts/avenir.eot") ,
       url("/static/sncf/fonts/avenir.eot?#iefix") format("embedded-opentype");
-  }
+}
 </style>
 % endif
 <style>
@@ -167,6 +167,33 @@ ${font_string | n}
     font-weight: normal;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.eot');
+    src: url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.woff2') format('woff2'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.woff') format('woff'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.ttf') format('truetype'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Regular.svg#Roboto-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.eot');
+    src: url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.woff2') format('woff2'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.woff') format('woff'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.ttf') format('truetype'),
+      url('/media/microsite/mooc-integrerlesiec/fonts/Roboto-Bold.svg#Roboto-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
 </style>
 <style>
 .icon {
@@ -194,7 +221,7 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
         <%include file="${static.get_template_path('header.html')}" args="online_help_token=online_help_token" />
     % endif
 
-    <div class="content-wrapper" id="content">
+    <div class="content-wrapper" id="content" >
       ${self.body()}
       <%block name="bodyextra"/>
     </div>
