@@ -136,7 +136,7 @@ from third_party_auth import provider, pipeline
 
 <section class="login container">
   <section role="main" class="content">
-    <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
+    <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate autocomplete="off" >
 
       <!-- status messages -->
       <div role="alert" class="status message">
@@ -171,11 +171,29 @@ from third_party_auth import provider, pipeline
         <h2 class="sr">${_('Required Information')}</h2>
 
         <ol class="list-input">
-          <li class="field required text" id="field-email">
+          <li class="field required text" id="field-email" style="display: none;">
             <label for="email">${_('E-mail')}</label>
-            <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
+            <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" autocomplete="off"/>
             <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
           </li>
+
+          <!-- EXTRA TO CONNECT WITHOUT EMAIL -->
+          <li class="field required text" id="field-rtmUsername">
+            <label for="email">Identifiant</label>
+            <input class="" id="rtmUsername" type="email" name="rtmUsername" value="" placeholder="Exemple: GDUPONT" required aria-required="true" aria-described-by="rtmUsername-tip" />
+            <span class="tip tip-input" id="rtmUsername-tip">Votre matricule ou votre email</span>
+          </li>
+          <script>
+            $("#rtmUsername").on("change paste keyup", function() {
+              if ($("#rtmUsername").val().indexOf('@') === -1) {
+                $("#email").val($(this).val()+"_courtepaille@yopmail.com");
+              } else {
+                $("#email").val($(this).val());
+              }
+            });
+          </script>
+          <!-- EXTRA TO CONNECT WITHOUT EMAIL -->
+
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
