@@ -34,6 +34,19 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/dashboard.css'.format(org_static)
 css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_static)
+
+# COURSE TIME OUT FEATURE
+custom_fields = json.loads(user.profile.custom_field)
+start_date = datetime.datetime.strptime(custom_fields['desired_start_date'], '%d/%m/%Y').date()
+today = datetime.datetime.now().date()
+days_delta = (today - start_date).days
+course_timed_out = False
+if days_delta >= 15:
+    course_timed_out = True
+
+is_student = False
+if (user.last_login - user.date_joined).total_seconds() > 10:
+    is_student = True
 %>
 <link rel="stylesheet" type="text/css" href="${cssoverride}" />
 <%block name="pagetitle">${_("Dashboard")}</%block>
@@ -80,13 +93,34 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 </%block>
 <link rel="stylesheet" type="text/css" href="${css_bis}" />
 <div class="dashboard-notifications" tabindex="-1">
-    %if message:
+    %if not is_student:
+      <div class="dashboard-banner">
+        <div class="dashboard-banner">
+          <div class="wrapper-msg urgency-high">
+            <div class="msg">
+              <div class="msg-content">
+                <h2 class="title">
+                  Vous y êtes presque !
+                </h2>
+                <div class="copy">
+                  <p class="activation-message">
+                    Plus qu'une étape : pour finaliser l'inscription à un cours, l'étudiant devra d'abord activer son compte et configurer son mot de passe. Un email contenant les instructions pour activer son compte lui a été envoyé par email.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    %endif
+
+    %if message and is_student:
         <div class="dashboard-banner">
             ${message | n, decode.utf8}
         </div>
     %endif
 
-    %if enrollment_message:
+    %if enrollment_message and is_student:
         <div class="dashboard-banner">
             ${enrollment_message | n,  decode.utf8}
         </div>
@@ -148,326 +182,320 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   endif
   """
 endfor
-
-# COURSE TIME OUT FEATURE
-custom_fields = json.loads(user.profile.custom_field)
-start_date = datetime.datetime.strptime(custom_fields['desired_start_date'], '%d/%m/%Y').date()
-today = datetime.datetime.now().date()
-days_delta = (today - start_date).days
-course_timed_out = False
-if days_delta >= 15:
-    course_timed_out = True
 %>
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
       <h4>${user.email}</h4>
     </div>
-% if len(course_enrollments) == 1:
+% if is_student:
+  % if len(course_enrollments) == 1:
+      <%
+      for enrollment in course_enrollments:
+          cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+      %>
+
+      <!-- block milieu profil -->
+      <div style="height: 95px;" class="dashboard_profile" id="dashboard_profile_middle">
+        <!-- formation validé -->
+        <div style="line-height: 91px;" id="dashboard_profile_middle_up">
+          % if False:
+            <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          % elif cours_ouv:
+            <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          % else:
+            <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          % endif
+        </div>
+        <!-- border middle -->
+        <div style="display: none;" id="dashboard_profile_middle_middle">
+        </div>
+        <!-- actif forum -->
+        <div style="display: none;" id="dashboard_profile_middle_bottom">
+          % if forum_tma:
+            <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
+          % elif cours_ouv:
+            <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          % else:
+            <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+          % endif
+        </div>
+      </div>
+      <!-- block bottom profil -->
+      <div class="dashboard_profile" id="dashboard_profile_bottom">
+        <!-- note totale -->
+        <div id="dashboard_profile_bottom_up">
+          <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+        </div>
     <%
-    for enrollment in course_enrollments:
-        cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+    course_details_len = len(course_details)
+    mark = 0
     %>
-
-    <!-- block milieu profil -->
-    <div style="height: 95px;" class="dashboard_profile" id="dashboard_profile_middle">
-      <!-- formation validé -->
-      <div style="line-height: 91px;" id="dashboard_profile_middle_up">
-        % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-        % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
-        % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
-        % endif
+    % for n in course_details:
+      <% mark = mark + 1 %>
+      <!-- assignement type -->
+      <div class="dashboard_profile_bottom_middle">
+        <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
+         %if n.get('weight')==0:
+            optionnel
+         %else:
+            ${_('Weight')}: ${int(n.get('weight') * 100)}%
+         %endif
+        )</span></span><span id="assignment_grade_${mark}">0%</span>
       </div>
+      % if mark < course_details_len:
       <!-- border middle -->
-      <div style="display: none;" id="dashboard_profile_middle_middle">
+      <div class="dashboard_profile_bottom_middle_border">
       </div>
-      <!-- actif forum -->
-      <div style="display: none;" id="dashboard_profile_middle_bottom">
-        % if forum_tma:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
-        % elif cours_ouv:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
-        % else:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
-        % endif
-      </div>
+      % endif
+    % endfor
     </div>
-    <!-- block bottom profil -->
-    <div class="dashboard_profile" id="dashboard_profile_bottom">
-      <!-- note totale -->
-      <div id="dashboard_profile_bottom_up">
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
-      </div>
-  <%
-  course_details_len = len(course_details)
-  mark = 0
-  %>
-  % for n in course_details:
-    <% mark = mark + 1 %>
-    <!-- assignement type -->
-    <div class="dashboard_profile_bottom_middle">
-      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
-       %if n.get('weight')==0:
-          optionnel
-       %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
-       %endif
-      )</span></span><span id="assignment_grade_${mark}">0%</span>
-    </div>
-    % if mark < course_details_len:
-    <!-- border middle -->
-    <div class="dashboard_profile_bottom_middle_border">
-    </div>
-    % endif
-  % endfor
-  </div>
 
-  <!-- TMA Ficus Redesign -->
-  <%
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-  if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-    if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-      custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+    <!-- TMA Ficus Redesign -->
+    <%
+    custom_color = str(configuration_helpers.get_value('primary_color'))
+    if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
+      if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
+        custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
+      else:
+        custom_color = str(configuration_helpers.get_value('primary_color'))
+      endif
     else:
       custom_color = str(configuration_helpers.get_value('primary_color'))
     endif
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-  if configuration_helpers.get_value('third_color'):
-    third_color = str(configuration_helpers.get_value('third_color'))
-  else:
-    third_color = "#fff"
-  endif
-  if configuration_helpers.get_value('dark_theme'):
-    color_font_custom = "#fff"
-  else:
-    color_font_custom = "#3c3c3c"
-  %>
+    if configuration_helpers.get_value('third_color'):
+      third_color = str(configuration_helpers.get_value('third_color'))
+    else:
+      third_color = "#fff"
+    endif
+    if configuration_helpers.get_value('dark_theme'):
+      color_font_custom = "#fff"
+    else:
+      color_font_custom = "#3c3c3c"
+    %>
 
-<style>
-  #dashboard_profile_up{
-    background-color: ${custom_color}!important;
-  }
-  #course_start{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  @keyframes anim {
-    0% {
-  background: ${color_font_custom}!important;;
+  <style>
+    #dashboard_profile_up{
+      background-color: ${custom_color}!important;
     }
-    100% {
+    #course_start{
+      background: ${custom_color}!important;
+      color : ${color_font_custom}!important;
+    }
+    @keyframes anim {
+      0% {
     background: ${color_font_custom}!important;;
+      }
+      100% {
+      background: ${color_font_custom}!important;;
+    }
   }
-}
-  #dashboard_profile_up h3, #dashboard_profile_up h4 {
-    color : ${color_font_custom}!important;
-  }
-  .up_cell {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #list_multi_title h1 {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_title {
-    background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  .course_cells_action{
-    background-color: ${custom_color};
-  }
-  #title_dashboard_course h1 {
-    color : ${color_font_custom}!important;
-  }
-  #title_dashboard_course h1:hover {
-    color : ${color_font_custom}!important;
-  }
-  .course_cell h2{
-    margin-bottom: 0px!important;
-    color : ${color_font_custom}!important;
+    #dashboard_profile_up h3, #dashboard_profile_up h4 {
+      color : ${color_font_custom}!important;
+    }
+    .up_cell {
+      background-color: ${custom_color}!important;
+      color : ${color_font_custom}!important;
+    }
+    #list_multi_title h1 {
+      background-color: ${custom_color}!important;
+      color : ${color_font_custom}!important;
+    }
+    .course_cells_title {
+      background-color: ${custom_color}!important;
+      color : ${color_font_custom}!important;
+    }
+    .course_cells_action{
+      background-color: ${custom_color};
+    }
+    #title_dashboard_course h1 {
+      color : ${color_font_custom}!important;
+    }
+    #title_dashboard_course h1:hover {
+      color : ${color_font_custom}!important;
+    }
+    .course_cell h2{
+      margin-bottom: 0px!important;
+      color : ${color_font_custom}!important;
+    }
+
+    #profile_bottom_multi h3{
+       color : ${color_font_custom}!important;
+    }
+    #title_dashboard_course h1{
+       color : ${color_font_custom}!important;
+    }
+    .course_nav{
+      background: ${custom_color}!important;
+      color : ${color_font_custom}!important;
+    }
+    #course_nav a:hover{
+      background-color: ${custom_color} !important;
+    }
+    #course_start span, .course_nav span{
+      color : ${color_font_custom}!important;
+    }
+    #course_nav .svg path{
+      fill : ${color_font_custom}!important;
+    }
+    #course_nav .svg{
+      fill : ${color_font_custom}!important;
+    }
+
+  </style>
+  %if course.no_grade:
+   <style>
+    #dashboard_profile_bottom{
+      visibility:hidden;
+    }
+   </style>
+  %endif
+
+
+  <script type="text/javascript">
+  grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
+  j=1;
+  for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
+   if(grade_summary['section_breakdown'][i].prominent){
+    grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
+    $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
+    //TODO : Improve to get the 70 from the back
+    if(grade_to_show>=70){
+      $("#badge_"+j.toString()).attr("src","${static.url('images/badge_couleur.svg')}");
+    }
+    j=j+1;
+   }
   }
 
-  #profile_bottom_multi h3{
-     color : ${color_font_custom}!important;
+  /*Score rounded */
+  score_user=grade_summary['percent']*100
+  if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
+    $("#score_tma").html(Math.round(score_user,1)+" %");
   }
-  #title_dashboard_course h1{
-     color : ${color_font_custom}!important;
-  }
-  .course_nav{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
-  }
-  #course_nav a:hover{
-    background-color: ${custom_color} !important;
-  }
-  #course_start span, .course_nav span{
-    color : ${color_font_custom}!important;
-  }
-  #course_nav .svg path{
-    fill : ${color_font_custom}!important;
-  }
-  #course_nav .svg{
-    fill : ${color_font_custom}!important;
+  else{
+    $("#score_tma").html(score_user+" %");
   }
 
-</style>
-%if course.no_grade:
- <style>
-  #dashboard_profile_bottom{
-    visibility:hidden;
+  </script>
+  % elif len(course_enrollments) > 1:
+  <!--  <div class="dashboard_profile" id="profile_bottom_multi">
+      % if course_end < 2:
+        <h3>${course_end} Parcours<br>terminé</h3>
+      % else:
+        <h3>${course_end} Parcours<br>terminés</h3>
+      % endif
+      % for n in course_name:
+          <div class="course_name_profile_list">
+            <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
+          </div>
+      % endfor
+    </div>
+  -->
+  % endif
+    </div>
+    <div id="dashboard_course_content">
+  % if len(course_enrollments) == 1:
+    % for dashboard_index, enrollment in enumerate(course_enrollments):
+      <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
+      <% cert_status = cert_statuses.get(enrollment.course_id) %>
+      <% can_unenroll = (not cert_status) or cert_status.get('can_unenroll') %>
+      <% credit_status = credit_statuses.get(enrollment.course_id) %>
+      <% show_email_settings = (enrollment.course_id in show_email_settings_for) %>
+      <% course_mode_info = all_course_modes.get(enrollment.course_id) %>
+      <% show_refund_option = (enrollment.course_id in show_refund_option_for) %>
+      <% is_paid_course = (enrollment.course_id in enrolled_courses_either_paid) %>
+      <% is_course_blocked = (enrollment.course_id in block_courses) %>
+      <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
+      <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
+      <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
+      <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, social_url=social_url,dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard, course_timed_out=course_timed_out' />
+    % endfor
+    </div>
+    <div id="dashboard_course_info">
+      <div id="dashboard_course_info_header">
+        <h2>${_('News')}</h2>
+      </div>
+      <div>
+    ${HTML(get_course_info_section(request, request.user, course, 'updates'))}
+      </div>
+      <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
+    </div>
+    <!-- FIN DASHBOARD MONO -->
+    <!-- FIN DASHBOARD MONO -->
+    <!-- FIN DASHBOARD MONO -->
+    <!-- FIN DASHBOARD MONO -->
+    <!-- DASHBOARD MULTI -->
+    <!-- DASHBOARD MULTI -->
+    <!-- DASHBOARD MULTI -->
+    <!-- DASHBOARD MULTI -->
+  % elif len(course_enrollments) > 1:
+  <style>
+  #dashboard_course_content {
+    width: calc(100% - 470px);
+    margin-left: 53px;
+    margin-right: 53px;
   }
- </style>
+  </style>
+  <span id="list_multi_title">
+  <h1><span id="span_1">Mes formations</span></h1>
+  </span>
+  <ul id="list_multi">
+  % for dashboard_index, enrollment in enumerate(course_enrollments):
+    <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % endfor
+  </ul>
+  <!-- multi site css -->
+  <style>
+  .dashboard_profile {
+    margin-bottom: 20px;
+  }
+  @media(max-width:1024px) {
+    #dashboard_course_content {
+      width: calc(100% - 76px);
+      margin-left: 23px;
+    }
+  }
+  @media(max-width:673px) {
+    .course_show_tma {
+      left: calc(100% - 120px);
+      bottom: -48px;
+      transform: none;
+    }
+    .tma_bottom_course_listing_multi {
+      position: relative;
+      bottom: 0;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+  @media(max-width:445px) {
+    #dashboard_course_content {
+      width: calc(100% - 14px);
+      margin-left: 7px;
+      margin-right: 7px;
+    }
+  }
+
+  </style>
+  % else:
+  <style>
+  .empty-dashboard-message a:hover{
+    color: #fff !important;
+  }
+  </style>
+    <div class="empty-dashboard-message">
+      <p>${_("You are not enrolled in any courses yet.")}</p>
+
+      % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+        <a href="${marketing_link('COURSES')}">
+          ${_("Explore courses")}
+        </a>
+
+      %endif
+  </div>
+  % endif
 %endif
 
-
-<script type="text/javascript">
-grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
-j=1;
-for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
- if(grade_summary['section_breakdown'][i].prominent){
-  grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
-  $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
-  //TODO : Improve to get the 70 from the back
-  if(grade_to_show>=70){
-    $("#badge_"+j.toString()).attr("src","${static.url('images/badge_couleur.svg')}");
-  }
-  j=j+1;
- }
-}
-
-/*Score rounded */
-score_user=grade_summary['percent']*100
-if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
-  $("#score_tma").html(Math.round(score_user,1)+" %");
-}
-else{
-  $("#score_tma").html(score_user+" %");
-}
-
-</script>
-% elif len(course_enrollments) > 1:
-<!--  <div class="dashboard_profile" id="profile_bottom_multi">
-    % if course_end < 2:
-      <h3>${course_end} Parcours<br>terminé</h3>
-    % else:
-      <h3>${course_end} Parcours<br>terminés</h3>
-    % endif
-    % for n in course_name:
-        <div class="course_name_profile_list">
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span>${n}</span>
-        </div>
-    % endfor
-  </div>
--->
-% endif
-  </div>
-  <div id="dashboard_course_content">
-% if len(course_enrollments) == 1:
-  % for dashboard_index, enrollment in enumerate(course_enrollments):
-    <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
-    <% cert_status = cert_statuses.get(enrollment.course_id) %>
-    <% can_unenroll = (not cert_status) or cert_status.get('can_unenroll') %>
-    <% credit_status = credit_statuses.get(enrollment.course_id) %>
-    <% show_email_settings = (enrollment.course_id in show_email_settings_for) %>
-    <% course_mode_info = all_course_modes.get(enrollment.course_id) %>
-    <% show_refund_option = (enrollment.course_id in show_refund_option_for) %>
-    <% is_paid_course = (enrollment.course_id in enrolled_courses_either_paid) %>
-    <% is_course_blocked = (enrollment.course_id in block_courses) %>
-    <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
-    <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
-    <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
-    <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, social_url=social_url,dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard, course_timed_out=course_timed_out' />
-  % endfor
-  </div>
-  <div id="dashboard_course_info">
-    <div id="dashboard_course_info_header">
-      <h2>${_('News')}</h2>
-    </div>
-    <div>
-  ${HTML(get_course_info_section(request, request.user, course, 'updates'))}
-    </div>
-    <span id="course_info_next"><a href="/courses/${course_mono_id}/info">${_("More news")}</a></span>
-  </div>
-  <!-- FIN DASHBOARD MONO -->
-  <!-- FIN DASHBOARD MONO -->
-  <!-- FIN DASHBOARD MONO -->
-  <!-- FIN DASHBOARD MONO -->
-  <!-- DASHBOARD MULTI -->
-  <!-- DASHBOARD MULTI -->
-  <!-- DASHBOARD MULTI -->
-  <!-- DASHBOARD MULTI -->
-% elif len(course_enrollments) > 1:
-<style>
-#dashboard_course_content {
-  width: calc(100% - 470px);
-  margin-left: 53px;
-  margin-right: 53px;
-}
-</style>
-<span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
-</span>
-<ul id="list_multi">
-% for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
-% endfor
-</ul>
-<!-- multi site css -->
-<style>
-.dashboard_profile {
-  margin-bottom: 20px;
-}
-@media(max-width:1024px) {
-  #dashboard_course_content {
-    width: calc(100% - 76px);
-    margin-left: 23px;
-  }
-}
-@media(max-width:673px) {
-  .course_show_tma {
-    left: calc(100% - 120px);
-    bottom: -48px;
-    transform: none;
-  }
-  .tma_bottom_course_listing_multi {
-    position: relative;
-    bottom: 0;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 0px;
-  }
-}
-@media(max-width:445px) {
-  #dashboard_course_content {
-    width: calc(100% - 14px);
-    margin-left: 7px;
-    margin-right: 7px;
-  }
-}
-
-</style>
-% else:
-<style>
-.empty-dashboard-message a:hover{
-  color: #fff !important;
-}
-</style>
-  <div class="empty-dashboard-message">
-    <p>${_("You are not enrolled in any courses yet.")}</p>
-
-    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-      <a href="${marketing_link('COURSES')}">
-        ${_("Explore courses")}
-      </a>
-
-    %endif
-</div>
-% endif
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->

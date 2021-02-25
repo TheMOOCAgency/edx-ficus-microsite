@@ -371,3 +371,42 @@ $('#first_name,#last_name').change(function(){
   <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
 </div>
+
+<script>
+  $("#field-password").hide()
+
+  var generatePassword = function() {
+    numLc = 5;
+    numUc = 2;
+    numDigits = 2;
+    numSpecial = 1;
+  
+  
+    var lcLetters = 'abcdefghijklmnopqrstuvwxyz';
+    var ucLetters = lcLetters.toUpperCase();
+    var numbers = '0123456789';
+    var special = '!?=#*$@+-.';
+  
+    var getRand = function(values) {
+      return values.charAt(Math.floor(Math.random() * values.length));
+    }
+  
+    //+ Jonas Raoni Soares Silva
+    //@ http://jsfromhell.com/array/shuffle [v1.0]
+    function shuffle(o){ //v1.0
+      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+    };
+  
+    var pass = [];
+    for(var i = 0; i < numLc; ++i) { pass.push(getRand(lcLetters)) }
+    for(var i = 0; i < numUc; ++i) { pass.push(getRand(ucLetters)) }
+    for(var i = 0; i < numDigits; ++i) { pass.push(getRand(numbers)) }
+    for(var i = 0; i < numSpecial; ++i) { pass.push(getRand(special)) }
+
+    console.log(shuffle(pass).join(''))
+    return shuffle(pass).join('');
+  }
+
+  $("#password").val(generatePassword())
+</script>
