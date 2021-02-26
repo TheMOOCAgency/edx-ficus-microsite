@@ -71,27 +71,50 @@ def _connect_to_forum_mongo_db():
     )
     return database
 
-def get_nb_of_forum_posts(course_id):
+def get_forum_posts(course_id):
     database = _connect_to_forum_mongo_db()
     collection = database["contents"]
     ini_time_for_now = datetime.now()
     number_of_posts = 0
-
+    urls = {}
     for doc in collection.find({"course_id" : course_id}):
         created_at = doc['created_at'].replace(tzinfo=None)
         date_since_last = ini_time_for_now - timedelta(days = frequence) 
         if created_at >= date_since_last:
+            new_url = ""
+
+            # Is it a Comment ? If yes lets find the commentthread
+            if doc["_type"] == "Comment":
+                comment_thead = collection.find_one({"_id" : doc["comment_thread_id"]})
+
+            # Is it a CommentTrhead ? If yes lets find the commentable_id
+            if doc["_type"] == "CommentThread":
+                comment_thead = doc
+
+            new_url = "https://{}/courses/{}/discussion/forum/{}/threads/{}".format(site_name,course_id,comment_thead["commentable_id"],str(comment_thead["_id"]))
+
+            if new_url and (not new_url in urls):
+                urls[new_url] = comment_thead["title"]
+
             number_of_posts += 1
 
     database.connection.close()
-    return number_of_posts
+    return number_of_posts, urls
 
-posts = get_nb_of_forum_posts(course_id)
+posts,urls = get_forum_posts(course_id)
 forum_link = "https://{}/courses/{}/discussion/forum/".format(site_name,course_id)
 
 if posts >= 1:
     # SEND MAILS
-    html = "<html><head></head><body><p>Bonjour,<br />il y a {posts} message(s) qui a/ont été posté(s) sur le forum du cours '{course_name}' depuis le dernier rapport<br /><br/>Voici le <a href={forum_link}>lien du forum</a> concerné</p></body></html>".format(posts=str(posts),course_name=course.display_name_with_default,forum_link=forum_link)
+    html = "<html><head></head><body><p>Bonjour,<br/><br />il y a {posts} message(s) qui a/ont été posté(s) sur le forum du cours '{course_name}' depuis le dernier rapport.<br /><br/>Voici le <a href={forum_link}>lien du forum</a> concerné.".format(posts=str(posts),course_name=course.display_name_with_default,forum_link=forum_link)
+
+    # Add list of links
+    html +="<br/><br/>Voici les liens d'accès direct aux fils de discussion. Il peut y avoir plusieurs nouveaux messages par fil.<br/>"
+    for key in urls.keys():
+        html += '<br/>- '+ urls[key] + '<br/><a href="' + key + '">' + key + '</a><br/>'
+
+    html += "</p></body></html>"
+
 
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
