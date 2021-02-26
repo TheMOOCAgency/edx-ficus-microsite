@@ -20,7 +20,7 @@ timestamp = int(round(time.time() * 1000))
 
 custom_fields = json.loads(real_user.profile.custom_field)
 if str(course.id) in custom_fields.keys() :
-  if custom_fields[str(course.id)] + 1000*60*60*24*30 < timestamp :
+  if int(custom_fields[str(course.id)]) + 1000*60*60*24*30 < timestamp :
     timed_out = True
   else:
     timed_out = False
