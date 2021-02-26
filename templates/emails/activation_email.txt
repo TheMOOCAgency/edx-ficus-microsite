@@ -7,11 +7,11 @@ Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
 
-Vous avez 15 jours à compter d'aujourd'hui pour terminer votre formation.
+Vous avez 15 jours pour terminer votre formation mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.
 
 Cliquez sur ce lien pour télecharger votre guide stagiaire : 
 
-https://lien
+https://services.themoocagency.com/public/storage/orano/Guide_stagiaire_edx.docx
 
 Nous nous tenons à votre disposition pour toute demande d'assistance. 
 

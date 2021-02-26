@@ -37,14 +37,21 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 
 # COURSE TIME OUT FEATURE
 custom_fields = json.loads(user.profile.custom_field)
-start_date = datetime.datetime.strptime(custom_fields['desired_start_date'], '%d/%m/%Y').date()
+desired_start_date = custom_fields['desired_start_date']
+start_date = datetime.datetime.strptime(desired_start_date, '%d/%m/%Y').date()
 today = datetime.datetime.now().date()
 days_delta = (today - start_date).days
-course_timed_out = False
-if days_delta >= 15:
-    course_timed_out = True
 
+course_timed_out = False
+course_started = True
 is_student = False
+
+if days_delta >= 15:
+  course_timed_out = True
+
+if days_delta < 0:
+  course_started = False
+
 if (user.last_login - user.date_joined).total_seconds() > 10:
     is_student = True
 %>
@@ -408,7 +415,7 @@ endfor
       <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
       <% course_requirements = courses_requirements_not_met.get(enrollment.course_id) %>
       <% related_programs = programs_by_run.get(unicode(enrollment.course_id)) %>
-      <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, social_url=social_url,dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard, course_timed_out=course_timed_out' />
+      <%include file='dashboard/_dashboard_course_listing_mono.html' args='course_overview=enrollment.course_overview, enrollment=enrollment, show_courseware_link=show_courseware_link, cert_status=cert_status, can_unenroll=can_unenroll, credit_status=credit_status, show_email_settings=show_email_settings, course_mode_info=course_mode_info, show_refund_option=show_refund_option, is_paid_course=is_paid_course, is_course_blocked=is_course_blocked, verification_status=course_verification_status, course_requirements=course_requirements, social_url=social_url,dashboard_index=dashboard_index, share_settings=share_settings, user=user, related_programs=related_programs, display_course_modes_on_dashboard=display_course_modes_on_dashboard, course_timed_out=course_timed_out, course_started=course_started, desired_start_date=desired_start_date' />
     % endfor
     </div>
     <div id="dashboard_course_info">

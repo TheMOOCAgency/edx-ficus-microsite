@@ -1,4 +1,4 @@
-<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard, course_timed_out" expression_filter="h"/>
+<%page args="course_overview, enrollment, show_courseware_link, cert_status, can_unenroll, credit_status, show_email_settings, course_mode_info, show_refund_option, is_paid_course, is_course_blocked, verification_status, course_requirements, dashboard_index, share_settings,social_url, related_programs, display_course_modes_on_dashboard, course_timed_out, course_started, desired_start_date" expression_filter="h"/>
 
 <%!
 import urllib
@@ -74,7 +74,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
     % endif
   </h1>
 </div>
-%if not course_timed_out:
+%if not course_timed_out and course_started:
   %if cours_ouv:
   <div id="course_nav">
     <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
@@ -112,6 +112,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
       <h1>Ouverture le : ${course_overview.start.strftime("%d %b %Y")}<br/>A très vite !</h1>
     </div>
   %endif
+
+% elif not course_started:
+  <div id="title_dashboard_course" >
+    <h1>Vous ne pouvez pas accéder à ce module avant le ${desired_start_date}.</h1>
+  </div>
 %else:
   <div id="title_dashboard_course" >
     <h1>Vous avez démarré ce cours il y a plus de 15 jours, il est désormais inaccessible.</h1>

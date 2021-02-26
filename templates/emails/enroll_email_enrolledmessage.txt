@@ -4,7 +4,7 @@ ${_("Bonjour {full_name}").format(full_name=full_name)}
 
 ${_("Vous avez été inscrit à la {course_name} en E-learning.").format(course_name=course.display_name_with_default_escaped)}
 
-Vous avez 15 jours à compter d'aujourd'hui pour terminer votre formation.
+Vous avez 15 jours pour terminer votre formation mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.
 
 Pour votre première connexion, voici vos identifiants : 
 
@@ -14,7 +14,7 @@ Le mot de passe sera celui que vous aurez défini lors de votre première connex
 
 Cliquez sur ce lien pour télecharger votre guide stagiaire : 
 
-https://lien
+https://services.themoocagency.com/public/storage/orano/Guide_stagiaire_edx.docx
 
 Nous nous tenons à votre disposition pour toute demande d'assistance. 
 
