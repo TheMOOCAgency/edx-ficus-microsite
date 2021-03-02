@@ -18,7 +18,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 os.environ.setdefault("lms.envs.aws,SERVICE_VARIANT", "lms")
@@ -95,10 +95,10 @@ if register_form is not None:
                 HEADERS_FORM.append(row.get('name'))
 
 NICE_HEADER = list(HEADERS_FORM)
-NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12"])
+NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12","Note de cas pratique"])
 
 TECHNICAL_HEADER = list(HEADERS_FORM)
-TECHNICAL_HEADER.extend(["score1","score1p","score3","score4","score5","score7","score8","score9","score9p","score10","score11","score12"])
+TECHNICAL_HEADER.extend(["score1","score1p","score3","score4","score5","score7","score8","score9","score9p","score10","score11","score12","cas_pratique_grade"])
 
 HEADERS_USER.extend(NICE_HEADER)
 
@@ -245,6 +245,10 @@ for j in range(len(course_ids)):
     
     i = 0
     for i in range(len(enrollments)):
+        # FOR DEBUG PURPOSES
+        #if i > 10:
+        #    break
+
         user = enrollments[i].user
         #As the user is enrolled in something remove it from potentially non enrolled users
         if user.id in potentially_non_enrolled_user_ids:
@@ -269,7 +273,6 @@ for j in range(len(course_ids)):
 
         # Final grade
         diff = len(HEADER) - len(course_ids)*2 + j*2 - len(users_data[user.id])
-        # diff = len(HEADER) - len(course_ids) + j - len(users_data[user.id])
 
         if diff > 0 :
             users_data[user.id].extend([None] * diff)
@@ -285,10 +288,10 @@ for user_id in potentially_non_enrolled_user_ids:
     users_data[user_id] = get_user_info(User.objects.get(id=user_id))
 
 for recipient in recipients_geography:
-    # WRITE FILE
+    # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename = '/home/edxtma/csv/e-formation.artisanat.fr_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_all_values = '/home/edxtma/csv/e-formation.artisanat.fr-complet_{}.xls'.format(time.strftime("%d.%m.%Y"))
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -317,10 +320,57 @@ for recipient in recipients_geography:
                     pass
             j = j + 1
 
-    # SEND MAILS
     output = BytesIO()
     wb.save(output)
-    _files_values = output.getvalue()
+    file_all_values = output.getvalue()
+
+
+
+    # WRITE FILE FOR YESTERDAY ONLY
+    # Prepare workbook
+    wb = Workbook(encoding='utf-8')
+    filename_yesterday = '/home/edxtma/csv/e-formation.artisanat.fr-veille_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    sheet = wb.add_sheet('Rapport')
+    style_title = easyxf('font: bold 1')
+    for i in range(len(HEADER)):
+        sheet.write(0, i, HEADER[i],style_title)
+
+    j = 1
+    for user in users_data:
+        user_data = users_data[user]
+
+        # We make sure that only new users are in the report
+        date_joined = user_data[5]
+        date_joined = datetime.strptime(user_data[5], '%d %b %y')
+        now =  datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+        if not(date_joined >=  now - timedelta(days=1) and date_joined < now):
+            continue
+
+        # unidecode and avoid spaces and dashes
+        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
+        unidecoded_user_field =  ""
+        try:
+            unidecoded_user_field = unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        unidecoded_recipient_geo = ""
+        try:
+            unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
+            for i in range(len(user_data)):
+                try:
+                    sheet.write(j, i, user_data[i])
+                except:
+                    pass
+            j = j + 1
+
+
+    output = BytesIO()
+    wb.save(output)
+    file_yesterday = output.getvalue()
 
     html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits aux formations disponibles sur e-formation.artisanat.fr pour votre r&eacute;gion: "+recipients_geography[recipient]+".<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe e-formation-artisanat.fr</p></body></html>"
 
@@ -332,17 +382,28 @@ for recipient in recipients_geography:
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
     msg['Subject'] = "Rapport e-formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
-    attachment = _files_values
+
+    attachment = file_all_values
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(attachment)
     encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename))
+    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_all_values))
     msg.attach(part)
+
+    attachment = file_yesterday
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(attachment)
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_yesterday))
+    msg.attach(part)
+
     server = smtplib.SMTP('mail3.themoocagency.com', 25)
     server.starttls()
     server.login('contact', 'waSwv6Eqer89')
     msg.attach(part2)
     text = msg.as_string()
+    #For debug purposes
+    #server.sendmail(fromaddr, "aurelien.croq@weuplearning.com", text)
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
     log.info('Email sent to '+str(toaddr))
