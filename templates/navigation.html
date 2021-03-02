@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+from tma_apps.tma_support_functions import tma_verify_access
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -349,6 +350,18 @@ site_status_msg = get_site_status_msg(course_id)
         }
       </style>
       <!-- Menu burger Stop-->
+
+      % if user.is_authenticated():      
+       % if course:
+        % if tma_verify_access(user).has_dashboard_access(str(course.id)):
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Votre Vademecum mis à jour sera bientôt disponible. Votre nouvelle interface d\'administration va s\'afficher dans un nouvel onglet.');">Administration</a>
+        % endif
+       % else:
+        % if tma_verify_access(user).has_dashboard_access("course-v1:e-formation-artisanat+premium+2020_T1"):
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Votre Vademecum mis à jour sera bientôt disponible. Votre nouvelle interface d\'administration va s\'afficher dans un nouvel onglet.');">Administration</a>
+        % endif
+       % endif
+      % endif
       <h1 class="logo">
         <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
