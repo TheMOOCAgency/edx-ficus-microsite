@@ -1486,6 +1486,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
     <script>
       $( document ).ready(function(){
+
+        if (!$('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
+          var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+          };
+
+          var urlLang = getUrlParameter('lang');
+          if (urlLang == 'jp') {
+            $('#settings-language-value > option[value="ja-jp"]').attr('selected','selected');
+            $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+          }
+        }
+
+        window.history.pushState("/", "Champagne MOOC", "/");
+        
         window.setInterval(function(){
           $( ".arrow-scroll" ).effect( "bounce", { times: 1 }, "slow" );
         }, 1000);
