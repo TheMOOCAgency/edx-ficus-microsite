@@ -32,9 +32,6 @@ from student.views import get_course_enrollments
 from tma_apps.skill_grade.helpers import SkillGrades
 from social.apps.django_app.default.models import UserSocialAuth
 
-#dev Aurelien
-from datetime import datetime, timedelta
-import pytz
 
 import logging
 log = logging.getLogger()
@@ -109,6 +106,29 @@ class GroupGradesGenerator():
     def buildGradesFile(self):
         gradesFile = []
         for index,level in enumerate(self.levels_list) :
+            histogram_dict = {
+                "range_0_to_5" :0,
+                "range_6_to_10" :0,
+                "range_11_to_15" :0,
+                "range_16_to_20" :0,
+                "range_21_to_25" :0,
+                "range_26_to_30" :0,
+                "range_31_to_35" :0,
+                "range_36_to_40" :0,
+                "range_41_to_45" :0,
+                "range_46_to_50" :0,
+                "range_51_to_55" :0,
+                "range_56_to_60" :0,
+                "range_61_to_65" :0,
+                "range_66_to_70" :0,
+                "range_71_to_75" :0,
+                "range_76_to_80" :0,
+                "range_81_to_85" :0,
+                "range_86_to_90" :0,
+                "range_91_to_95" :0,
+                "range_96_to_100" :0,
+                "total" :0
+            }
             log.info("Starting treatment of level {} ----------------------------- ".format(str(index+1)))
             self.initializeAverages()
             self.getEmptySkillGrades(level[0])
@@ -121,6 +141,50 @@ class GroupGradesGenerator():
                     courseRegisteredTo = self.getCourseRegisteredTo(level, tmaUser)
                     log.info("user {} is registered to ----------------------------- {}".format(user['email'], courseRegisteredTo))
                     userResults = self.buildResults(user=user, course_id=courseRegisteredTo, tmaUser=tmaUser) if courseRegisteredTo else self.buildResults(user=user, course_id=level[0], tmaUser=None)
+                    histogram_dict["total"] += 1
+                    # Order data in the corresponding range
+                    if userResults["grades"]["global"] <= 0.05:
+                    #if round(**grade**/5) <= 1   
+                        histogram_dict["range_0_to_5"] += 1
+                        #histogram_dict[x]=histogram_dict.get(x,0) +1
+                    elif userResults["grades"]["global"] <= 0.10:
+                        histogram_dict["range_6_to_10"] += 1
+                    elif userResults["grades"]["global"] <= 0.15:
+                        histogram_dict["range_11_to_15"] += 1
+                    elif userResults["grades"]["global"] <= 0.20:
+                        histogram_dict["range_16_to_20"] += 1
+                    elif userResults["grades"]["global"] <= 0.25:
+                        histogram_dict["range_21_to_25"] += 1
+                    elif userResults["grades"]["global"] <= 0.30:
+                        histogram_dict["range_26_to_30"] += 1
+                    elif userResults["grades"]["global"] <= 0.35:
+                        histogram_dict["range_31_to_35"] += 1
+                    elif userResults["grades"]["global"] <= 0.40:
+                        histogram_dict["range_36_to_40"] += 1
+                    elif userResults["grades"]["global"] <= 0.45:
+                        histogram_dict["range_41_to_45"] += 1
+                    elif userResults["grades"]["global"] <= 0.50:
+                        histogram_dict["range_46_to_50"] += 1
+                    elif userResults["grades"]["global"] <= 0.55:
+                        histogram_dict["range_51_to_55"] += 1
+                    elif userResults["grades"]["global"] <= 0.60:
+                        histogram_dict["range_56_to_60"] += 1
+                    elif userResults["grades"]["global"] <= 0.65:
+                        histogram_dict["range_61_to_65"] += 1
+                    elif userResults["grades"]["global"] <= 0.70:
+                        histogram_dict["range_66_to_70"] += 1
+                    elif userResults["grades"]["global"] <= 0.75:
+                        histogram_dict["range_71_to_75"] += 1
+                    elif userResults["grades"]["global"] <= 0.80:
+                        histogram_dict["range_76_to_80"] += 1
+                    elif userResults["grades"]["global"] <= 0.85:
+                        histogram_dict["range_81_to_85"] += 1
+                    elif userResults["grades"]["global"] <= 0.90:
+                        histogram_dict["range_86_to_90"] += 1
+                    elif userResults["grades"]["global"] <= 0.95:
+                        histogram_dict["range_91_to_95"] += 1
+                    else:
+                        histogram_dict["range_96_to_100"] += 1
                 else:
                     userResults = self.buildResults(user=user, course_id=level[0], tmaUser=None)
                 self.userData.append(userResults)
@@ -130,7 +194,8 @@ class GroupGradesGenerator():
                 "filiere_skill_average":self.getFiliereSkillAverage(),
                 "filiere_average":{index:round(value['totalScore']/value['totalParticipants'],2) if value['totalParticipants']>=3 else 0.55 for (index, value) in self.filiere_global.items()},
                 "group_average":round(self.group_global['totalScore']/self.group_global['totalParticipants'],2) if self.group_global['totalParticipants']>=3 else 0.50,
-                "group_skill_average":{index:round(value['totalScore']/value['totalParticipants'],2) if value['totalParticipants']>=3 else 0.50 for (index, value) in self.group_skill.items()}
+                "group_skill_average":{index:round(value['totalScore']/value['totalParticipants'],2) if value['totalParticipants']>=3 else 0.50 for (index, value) in self.group_skill.items()},
+                "histogram_data": histogram_dict
             }
             gradesFile.append(self.levelData)
             log.info("Ending treatment of level {} ----------------------------- ".format(str(index+1)))
@@ -151,7 +216,7 @@ class GroupGradesGenerator():
 
     def produceGradesJson(self):
         data = self.buildGradesFile()
-        with open("/edx/var/edxapp/secret/microsite/"+microsite_name+"/grades.json", 'w') as outfile:
+        with open("/edx/var/edxapp/secret/microsite/"+microsite_name+"/grades-histogram-test-10percent.json", 'w') as outfile:
             json.dump(data, outfile)
 
     def getCourseStatus(self, tmaEnrollment):
@@ -162,54 +227,12 @@ class GroupGradesGenerator():
             elif tmaEnrollment.has_started_course:
                 status="ongoing"
         return status
-
+    
     def buildResults(self, user, course_id, tmaUser=None):
         tmaEnrollment= TmaCourseEnrollment.get_enrollment(user=tmaUser, course_id=course_id) if tmaUser else None
         status = self.getCourseStatus(tmaEnrollment)
-        skillGrades = None
-
-        #devAurelien
-        if tmaUser:
-            #skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
-            tz_info = tmaUser.last_login.tzinfo
-            if tmaUser.last_login < datetime.now(tz_info) - timedelta(10):
-                log.info("user did not login since 10 days: "+str(tmaUser.email))
-                #user did not login since a long time so if we have his/her skillgrade lets use it
-                extra_data = {}
-                try:
-                    extra_data = json.loads(tmaEnrollment.extra_data)
-                except:
-                    log.info("ERROR : could not load extra_data for user: "+str(tmaUser.email))
-                    pass
-                if "skillGrades" in extra_data:
-                    skillGrades = extra_data["skillGrades"]
-                else:
-                    # user did not login since a long time but we have no clue about his results so lets
-                    # compute them and also memorize
-                    log.info("user did not login since 10 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
-                    skillGrades = SkillGrades(course_id, tmaUser)
-                    try:
-                        extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
-                        tmaEnrollment.extra_data = json.dumps(extra_data)
-                        tmaEnrollment.save()
-                        log.info("user did not login since 10 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
-                    except:
-                        log.info("ERROR : could not save for old user: "+str(tmaUser.email))
-                        pass
-                    skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
-            else:
-                #user did login rather "recently" so lets compute his/her skillgrade and memorize it
-                skillGrades = SkillGrades(course_id, tmaUser)
-                try:
-                    extra_data = json.loads(tmaEnrollment.extra_data)
-                    extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
-                    tmaEnrollment.extra_data = json.dumps(extra_data)
-                    tmaEnrollment.save()
-                    log.info("user logged in recently so we had to compute and store: "+str(tmaUser.email))
-                except:
-                    log.info("ERROR : could not load or save data for recent user "+str(tmaUser.email))
-                skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
-
+        skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
+        
         user_object={
             "fields":{
                 "id":user['Uid'],
@@ -226,8 +249,8 @@ class GroupGradesGenerator():
                 "progressLink":"/tma_apps/"+course_id+"/skill-radar?user="+str(tmaUser.id) if tmaEnrollment else "no_link"
             },
             "grades":{
-                "global":round(skillGrades["global_grade"],2) if tmaUser else 0,
-                "skills":skillGrades["skill_grades"] if tmaUser else self.emptySkillGrades
+                "global":round(skillGrades.global_grade,2) if tmaUser else 0,
+                "skills":skillGrades.skill_grades if tmaUser else self.emptySkillGrades
             }
         }
         
@@ -255,11 +278,7 @@ class GroupGradesGenerator():
         
         
 
- 
-       
-
-
-
-
 GroupGradesGenerator(microsite_name, users_file_name,invited_users_file_name).produceGradesJson()
 
+# to run the script on pprod1 with culture_digitale_export-CA-input.csv : 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/var/edxapp/secret/microsite/psa-netexplo/psa-grades-script-histogram.py "psa-netexplo" "culture_digitale_export-CA-input.csv" "culture_digitale_export-CA-input.csv"

@@ -40,7 +40,6 @@ for course in crude_data:
         {"value": 95, "score": '95-100', "users_percent": 0 }
     ]
     total = 0
-
     for user in course["userData"]:
         if user["fields"]["has_finished"] :
             total += 1
