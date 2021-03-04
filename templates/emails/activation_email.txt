@@ -7,7 +7,7 @@ Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
 
-${_("Vous avez 15 jours pour terminer votre formation [à partir du {desired_start_date}] mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.".format(desired_start_date=desired_start_date))}
+${_("Vous avez 15 jours pour terminer votre formation à partir du {desired_start_date} mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.".format(desired_start_date=desired_start_date))}
 
 Cliquez sur ce lien pour télecharger votre guide stagiaire : 
 
