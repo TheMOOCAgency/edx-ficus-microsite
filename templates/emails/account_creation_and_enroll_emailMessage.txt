@@ -4,7 +4,7 @@ ${_("Bonjour {full_name}").format(full_name=full_name)}
 
 ${_("Vous avez été inscrit à la {course_name} en E-learning.").format(course_name=course.display_name_with_default_escaped)}
 
-Vous avez 15 jours pour terminer votre formation mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.
+${_("Vous avez 15 jours pour terminer votre formation [à partir du {desired_start_date}] mais vous devez impérativement la réaliser avant la remise de votre badge d'accès.".format(desired_start_date=desired_start_date))}
 
 Pour votre première connexion, voici vos identifiants : 
 
