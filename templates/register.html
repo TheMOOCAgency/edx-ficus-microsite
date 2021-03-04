@@ -135,3 +135,17 @@ import calendar
   </aside>
 -->
 </section>
+<script>
+  $( document ).ready(function() {
+    $('#field-niveau, #field-matiere_enseignee, #field-filiere_enseignement').parent().addClass( 'required' )
+    $('#categorie_professionnelle').change(function() {
+      if ($('#categorie_professionnelle').val() === 'enseignant') {
+        $('#field-niveau, #field-matiere_enseignee, #field-filiere_enseignement').show()
+        $('#field-niveau, #field-matiere_enseignee, #field-filiere_enseignement').parent().addClass( 'required' )
+      } else {
+        $('#field-niveau, #field-matiere_enseignee, #field-filiere_enseignement').hide()
+        $('#field-niveau, #field-matiere_enseignee, #field-filiere_enseignement').parent().removeClass( 'required' )
+      }
+    });
+  });
+</script>
