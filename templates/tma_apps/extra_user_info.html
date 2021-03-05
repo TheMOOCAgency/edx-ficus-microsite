@@ -20,10 +20,11 @@ org = static.get_value('domain_prefix')
 <!-- <link rel="stylesheet" href="/media/microsite/digimapper-data/css/digimap.css"> -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 150px;">
+<main id="main" aria-label="Content" tabindex="-1" style="text-align:center; padding-top: 110px;">
   % if user.is_authenticated():
 
   <div id="languageChoiceContainer">
+    <div id="languageChoiceTitle">Choose you language. Subtitles will be displayed when available.</div>
     <div class="separator"></div>
 
     <div id="language-selector" >
@@ -34,8 +35,8 @@ org = static.get_value('domain_prefix')
 
         <img height="80px" src="/media/microsite/${org}/images/uk.png" alt="uk" style="margin: 40px 5px;">
 
-        <p class="audio">Audio</p>
-        <p>EN</p>
+        <!-- <p class="audio">Audio</p>
+        <p>EN</p> -->
         <p class="subtitles">Subtitles</p>
         <p class="english_sub">EN<span class="space_between"></span>JP</p>
         <p>BG<span class="space_between"></span>PL</p>
@@ -54,8 +55,8 @@ org = static.get_value('domain_prefix')
 
         <img height="80px" src="/media/microsite/${org}/images/fr.png" alt="fr" style="margin: 40px 5px;">
 
-        <p class="audio">Audio</p>
-        <p>FR</p>
+        <!-- <p class="audio">Audio</p>
+        <p>FR</p> -->
         <p class="subtitles">Sous-titres</p>
         <p>FR</p>
       </div>
@@ -65,8 +66,8 @@ org = static.get_value('domain_prefix')
         <div class="flag_container">
             <p class="choose_text">WÄLHEN</p>
             <img height="80px" src="/media/microsite/${org}/images/de.png" alt="de" style="border-radius: 10px; margin: 40px 5px;">
-            <p class="audio">Audio</p>
-            <p>DE</p>
+            <!-- <p class="audio">Audio</p>
+            <p>DE</p> -->
             <p class="subtitles">Undertitle</p>
             <p>DE</p>
         </div>
@@ -76,8 +77,8 @@ org = static.get_value('domain_prefix')
         <div class="flag_container">
           <p class="choose_text">ELEGIR</p>
           <img height="82px" src="/media/microsite/${org}/images/es.png"  alt="es" style="border-radius: 10px; margin: 40px 5px;">
-          <p class="audio">Audio</p>
-          <p>ES</p>
+          <!-- <p class="audio">Audio</p>
+          <p>ES</p> -->
           <p class="subtitles">Subtítulos</p>
           <p>ES</p>
         </div>
@@ -153,13 +154,27 @@ org = static.get_value('domain_prefix')
 .swal-button--cancel {
 color:white !important;
 }
+#languageChoiceTitle {
+  font-size: 24px;
+    margin: auto auto 25px auto;
+    color: black;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 20px;
+    padding: 15px 0 15px 0;
+    width: 760px;
+}
 .flag_container {
   margin: 1%;
   background-color: rgba(255,255,255,0.6);
+  transition-duration: 0.5s;
   border-radius: 20px;
   padding: 5px 35px 40px;
   cursor: pointer;
   margin-bottom: 15px;
+}
+.flag_container:hover {
+  background-color: rgba(255,255,255,1);
+  transition-duration: 0.5s;
 }
 #welcome-title, #welcome-subtitle {
   color: black;
@@ -220,6 +235,7 @@ width: 897px;
 
 a:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4, div.info-wrapper section.handouts ol li div.hitarea:focus + h4, a:focus, a:visited:hover, div.info-wrapper section.handouts ol li div.hitarea:hover + h4:visited, div.info-wrapper section.handouts ol li div.hitarea:focus + h4:visited, a:visited:focus {
     color:black !important;
+    text-decoration: none;
 }
 
 
