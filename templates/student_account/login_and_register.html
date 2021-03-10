@@ -62,7 +62,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 if(getUrlParameter("admin")){
    $("#login-and-registration-container").css("visibility","visible");
-}else{
-   window.location.replace("/auth/login/tpa-saml/?auth_entry=register&next=%2Ftma_apps%2Fuser_info&idp=edf_netexplo");
+}else if(window.location.indexOf("/register") > -1){
+   window.location.replace("/");
 }
 </script>

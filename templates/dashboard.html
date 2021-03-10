@@ -266,7 +266,9 @@ endfor
   <%
   course_details_len = len(course_details)
   mark = 0
-  show_tooltip = str(course_mono_id) in ["course-v1:edf-netexploacademy+Netexplo_passeport+2018_T2_passeport","course-v1:edf-netexploacademy+Netexplo_passeport_EN+2018_T2_passeport_EN","course-v1:edf-netexploacademy+12+ES","course-v1:edf-netexploacademy+13+DE"]
+  show_tooltip = False
+  #no more tooltip as EDF refuses it
+  #str(course_mono_id) in ["course-v1:edf-netexploacademy+Netexplo_passeport+2018_T2_passeport","course-v1:edf-netexploacademy+Netexplo_passeport_EN+2018_T2_passeport_EN","course-v1:edf-netexploacademy+12+ES","course-v1:edf-netexploacademy+13+DE"]
   %>
   % for n in course_details:
     <%
@@ -335,7 +337,9 @@ j=1;
 for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
  if(grade_summary['section_breakdown'][i].prominent){
   grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
-  $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
+  if(grade_to_show>0){
+    $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
+  }
   //TODO : Improve to get the 70 from the back
   if(grade_to_show>=70){
     $("#badge_"+j.toString()).attr("src","${static.url('images/badge_couleur.svg')}");
