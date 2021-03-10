@@ -1,15 +1,14 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-Bienvenue sur Netexplo Data Ready !
+Bienvenue sur Netexplo DataReady !
 
-Rendez vous sur ${_("{site_name}").format(site_name=site_name)}
-Cliquez sur le bouton connexion et entrez vos identifiants :
+Pour vous connecter, rendez-vous sur ${_("{site_name}").format(site_name=site_name)} puis cliquez sur le bouton « connexion » et entrez vos identifiants :
 ${_("email: {email}").format(email=email_address)}
 ${_("password: {password}").format(password=password)}
 
-Il est recommandé de personnaliser votre mot de passe lors de la première connexion en cliquant sur « mot de passe oublié » sur votre page de connexion.
+Lors de la première connexion, il est recommandé de personnaliser votre mot de passe en cliquant sur « mot de passe oublié » sur votre page de connexion.
 
-Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante : clescop-ext@netexplo.org
+Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante : learning@netexplo.org
 
 Cordialement,
-L'équipe Netexplo
+L'équipe Netexplo Observatory
