@@ -56,9 +56,42 @@
     };
     
 
+</script>
 
+
+<style>
+.header-global .nav-courseware li .btn{
+  display:none !important;
+}
+</style>
+% if "/login" in request.path:
+<style>
+#main{
+  display:none !important;
+}
+.login_container{
+margin-top:30vh;
+margin-left:45vw;
+width: 5vw;
+}
+.btn.btn-login.btn-middle-screen{
+color:rgba(155,231,216,0.8) !important;
+background:white !important;
+font-size:24px !important;
+padding: 15px 15px !important;
+border: 3px solid rgba(155,231,216,0.8) !important;
+}
+</style>
+<div class="login_container">
+<button class="btn btn-login btn-middle-screen" onclick="location.replace('/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=bnpp_netexplo')">Connexion</a>
+</div>
+%endif
+
+
+<script>
 if(getUrlParameter("admin")){
    $("#login-and-registration-container").css("visibility","visible");
+   $("#main").show();
 }else if(window.location.indexOf("/register") > -1){
    window.location.replace("/");
 }

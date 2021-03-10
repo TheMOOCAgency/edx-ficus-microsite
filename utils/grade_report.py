@@ -20,7 +20,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.parser import parse
 import copy
 
@@ -420,9 +420,6 @@ for entity_group in entityTable.keys():
     j = 1
     for user in users_data:
         user_data = users_data[user]
-        log.info(user_data[4])
-        log.info(entity_group)
-        log.info(entityTable[entity_group])
         if user_data[4] in entityTable[entity_group]:
             for i in range(len(user_data)):
                 try:
@@ -432,3 +429,17 @@ for entity_group in entityTable.keys():
             j = j + 1
     wb.save('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA_{}.xls'.format(time.strftime("%d.%m.%Y"), entity_group))
     log.info('[WUL] : report entity {} file written'.format(entity_group))
+
+
+# delete old files
+two_days_ago = datetime.today() - timedelta(days=1)
+try:
+    os.remove('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA.xls'.format(two_days_ago.strftime("%d.%m.%Y")))
+except:
+    pass
+
+for entity_group in entityTable.keys():
+    try:
+        os.remove('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA_{}.xls'.format(two_days_ago.strftime("%d.%m.%Y"), entity_group))
+    except:
+        pass
