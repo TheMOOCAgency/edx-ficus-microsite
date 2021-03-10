@@ -341,7 +341,7 @@ org = static.get_value('domain_prefix')
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
-  % if request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_passeport+2018_T2_passeport/certificate/render' : 
+  % if request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_passeport+2018_T2_passeport/certificate/render' : 
     <div id="certificate-container" class=" certificate-container_passeport">
       <div>
           <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -349,7 +349,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+parcours-manager-fr+parcours-manager-fr/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+parcours-manager-fr+parcours-manager-fr/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -357,7 +357,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+FR+V1/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+FR+V1/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -365,7 +365,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today_data-ia">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_expedition+2018_T2_expedition/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_expedition+2018_T2_expedition/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -373,7 +373,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today_expedition">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_voyages+2018_T2_voyages/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_voyages+2018_T2_voyages/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -381,7 +381,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today_voyages">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+socialschoolfr+SSFR/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+socialschoolfr+SSFR/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -392,7 +392,7 @@ org = static.get_value('domain_prefix')
 
   <!-- english section -->
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_passeport_EN+2018_T2_passeport_EN/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_passeport_EN+2018_T2_passeport_EN/certificate/render' :
   <div id="certificate-container" class=" certificate-container_passeport_en">
     <div>
         <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -400,7 +400,7 @@ org = static.get_value('domain_prefix')
       <h4 style="left: 200px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
     </div>
   </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+manager+manager-en/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+manager+manager-en/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager_en">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -408,7 +408,7 @@ org = static.get_value('domain_prefix')
         <h4 style="left: 231px;" class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+EN+V1/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+EN+V1/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia_en">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -418,7 +418,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_expeditions_en+2018_T2_expeditions_en/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_expeditions_en+2018_T2_expeditions_en/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition_en">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -427,7 +427,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+Netexplo_travel+2018_T2_travel/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+Netexplo_travel+2018_T2_travel/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages_en">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -436,7 +436,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+socialschoolen+SSEN/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+socialschoolen+SSEN/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool_en">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -447,7 +447,7 @@ org = static.get_value('domain_prefix')
 
         <!-- spanish section -->
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+12+ES/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+12+ES/certificate/render' :
   <div id="certificate-container" class=" certificate-container_passeport_es">
     <div>
         <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -455,7 +455,7 @@ org = static.get_value('domain_prefix')
       <h4 style="top: 287px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
     </div>
   </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+manager+manager-es/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+manager+manager-es/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager_es">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -463,7 +463,7 @@ org = static.get_value('domain_prefix')
         <h4 class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+data_ia+2020_ES/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+data_ia+2020_ES/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia_es">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -473,7 +473,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+expeditions+2020_es/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+expeditions+2020_es/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition_es">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -482,7 +482,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+travel+2020_es/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+travel+2020_es/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages_es">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -491,7 +491,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+socialschooles+SSES/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+socialschooles+SSES/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool_es">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -502,7 +502,7 @@ org = static.get_value('domain_prefix')
 
       <!-- german section -->
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+13+DE/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+13+DE/certificate/render' :
   <div id="certificate-container" class=" certificate-container_passeport_de">
     <div>
         <img class="logo_company" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -510,7 +510,7 @@ org = static.get_value('domain_prefix')
       <h4 style="top: 289px;left: 175px;" class= "date_today">${date.today().strftime("%d/%m/%Y")}</h4>
     </div>
   </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+manager+manager-de/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+manager+manager-de/certificate/render' :
     <div id="certificate-container" class=" certificate-container_manager_de">
       <div>
           <img class="logo_company_manager" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -518,7 +518,7 @@ org = static.get_value('domain_prefix')
         <h4 style="top: 259px;left: 242px;" class= "date_today_manager">${date.today().strftime("%d/%m/%Y")}</h4>
       </div>
     </div>
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+data_ia+2020_DE/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+data_ia+2020_DE/certificate/render' :
     <div id="certificate-container" class=" certificate-container_data-ia_de">
       <div>
           <img class="logo_company_data-ia" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -527,7 +527,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+expeditions+2020_de/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+expeditions+2020_de/certificate/render' :
     <div id="certificate-container" class="certificate-container_expedition_de">
       <div>
           <img class="logo_company_expedition" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -536,7 +536,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+travel+2020_de/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+travel+2020_de/certificate/render' :
     <div id="certificate-container" class=" certificate-container_voyages_de">
       <div>
           <img class="logo_company_voyages" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
@@ -545,7 +545,7 @@ org = static.get_value('domain_prefix')
       </div>
     </div>
 
-  % elif request.path == '/tma_apps/course-v1:edf-netexplo.academy+socialschoolde+SSDE/certificate/render' :
+  % elif request.path == '/tma_apps/course-v1:edf-netexploacademy+socialschoolde+SSDE/certificate/render' :
     <div id="certificate-container" class=" certificate-container_socialschool_de">
       <div>
           <img class="logo_company_socialschool" src="/media/microsite/${org}/images/certificate/logo.png" alt="logo" />
