@@ -84,6 +84,7 @@ $.ajax({
              }
 });
 </script>
+
 <img src="/media/microsite/faciliter-transformation/images/logo_1.png" width="300" id="logoDashboard"/>
 <style>
   #title_dashboard_course{
@@ -94,23 +95,29 @@ $.ajax({
   }
   .course_cell {
     width: 200px;
-    height: 100px;
-    line-height: 100px;
+    height: 150px;
+    line-height: 150px;
   }
   .course_cells_title {
     width: 200px;
-    height: 100px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .course_cells_action {
     width: 200px;
-    height: 100px;
+    height: 150px;
   }
   .course_cells_title > h2 {
     font-size: 14px;
+    margin-bottom: 0px;
   }
   #logoDashboard {
     position: absolute;
-    right: 100px;
+    right: 20%;
+    top: 15%;
+    width: 250px;
   }
   @media screen and (max-width: 1024px) {
     #logoDashboard {
@@ -137,6 +144,22 @@ $.ajax({
                }
            });
 </script>
+
+<!-- #12751 -->
+<!-- #12751 -->
+<script>
+  var url_tma = window.location.href;
+  console.log(url_tma); 
+  var logo ="df";
+  console.log(logo);
+  console.log(url_tma.indexOf("FR"));
+  
+  if (url_tma.indexOf("FR") == -1) {
+    logo="logo_EN"
+    document.getElementById('logoDashboard').src = "/media/microsite/faciliter-transformation/images/" + logo + ".png"; 
+  };
+  // document.getElementById('logoDashboard').src = "/media/microsite/faciliter-transformation/images/" + logo + ".png"; 
+  </script>
 
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");
