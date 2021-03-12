@@ -39,19 +39,11 @@ from openedx.core.djangolib.markup import HTML, Text
           <h1 class="emTitle emTitle--primary" style="font-family: benchNine,Arial,Helvetica,sans-serif!important;">Les formations digitales de<br><span class="emTitle--subtitle">Courtepaille</span></h1>
         </div>
         <div id="buttonsContainer">
-          <a class="homePageButton" href="/register">Inscription</a>
+          <a class="homePageButton" href="/register?course_id=course-v1:courtepaille+1+2021&enrollment_action=enroll">Inscription</a>
           <a class="homePageButton" href="/login">Connexion</a>
         </div>
       </div>
     </div>
     <%include file="${courses_list}" />
   </div>
-<div id="footer">
-  <div id="toit"> 
-  </div>
-  <ul>
-    <li><a href='/tos'>Conditions Générales d'Utilisation</a></li>
-    <li><a href='/faq'>FAQ</a></li>
-    <!--<li><a href='/#'>Contact</a></li>-->
-  </ul>
 </body>

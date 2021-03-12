@@ -45,22 +45,41 @@ else:
 body footer.global {
     background-color: ${third_color}!important;
 }
+.footer-container {
+    text-align: center;
+}
+#toitContainer {
+    position: relative;
+}
+#toit {
+    position: absolute;
+    width: 120px;
+    height: 90px;
+    max-width: 50%;
+    left: 50px;
+    background: url(/media/microsite/courtepaille/assets/engagement_toit.png) 100% 100% no-repeat;
+    background-size: contain;
+    top: -109px;
+}
 </style>
 
-<footer class="global">
+<footer class="global" style="background-color: rgba(210,10,40,1)!important;overflow: initial;">
+  <div id="toitContainer">
+    <div id="toit"></div>
+  </div>
   <div class="footer-container">
     <ul class="links">
       <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
+        <a href="${marketing_link('HONOR')}">Conditions générales d'utilisation</a>
       </li>
       <li>
         <a href="${marketing_link('FAQ')}">FAQ</a>
       </li>
-	  <li>
+<!--  <li>
         <a href="/about">Cr&eacute;dits</a>
-      </li>
+      </li>-->
     </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
+    <!--<p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>-->
     <div class="by-ionisx">
 	<!--modif on text and image-->
       <!--
