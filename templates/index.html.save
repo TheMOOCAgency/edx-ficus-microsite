@@ -73,8 +73,8 @@ from django.utils.translation import ugettext as _
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
                <h2 class="sectionTitle"></h2>
                <p class="text_1"></p>
-               <iframe src="https://player.vimeo.com/video/520955160" style="margin:25px auto auto auto" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                <p class="text_2"></p>
+               <iframe src="https://player.vimeo.com/video/520955160" style="margin-top:25px" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
          </div>
          </div>          
@@ -409,12 +409,9 @@ from django.utils.translation import ugettext as _
                   height: 800,
                })
             })
-            
-            $('#se3 img').mouseenter(function() {
-                $(this).attr('src','/media/microsite/kangae/pagebuilder/assets/img/picto-hover'+($(this).index()+1)+'.png')
-            }).mouseleave (function() {
-                $(this).attr('src','/media/microsite/kangae/pagebuilder/assets/img/pictos'+($(this).index()+1)+'.png')
-            })
+
+            $( selector ).hover( handlerIn, handlerOut )
+
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
