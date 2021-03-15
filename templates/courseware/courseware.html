@@ -486,10 +486,26 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
    font-weight : 400!important;
  }
  .menu-item.active>.accordion-nav>.accordion-display-name{
-    color :  ${custom_color} !important;
+    color :  #cc0033 !important;
  }
  #global-navigation .burger{
     color :  ${color_custom} !important;
  }
-
+ .custom_unit {
+    color: black !important;
+    transition-duration: 500ms;
+ }
+ .custom_unit.active {
+    color: white !important;
+    background-color: rgba(210,10,40,1) !important;
+    border-radius: 10px !important;
+ }
+ .custom_unit:hover {
+    background-color: rgba(210,10,40,0.5) !important;
+    border-radius: 10px !important;
+    transition-duration: 500ms;
+ }
+ .ui-accordion .ui-accordion-header .ui-icon {
+    display: none;
+ }
 </style>
