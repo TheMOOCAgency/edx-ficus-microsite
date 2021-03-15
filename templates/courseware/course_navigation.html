@@ -94,22 +94,28 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
 
 % if disable_tabs is UNDEFINED or not disable_tabs:
     <nav class="${active_page} wrapper-course-material" aria-label="${_('Course Material')}">
-        <div class="course-material">
+        <div class="course-material menu-responsive">
+          <input class="burger" type="checkbox" style="display:none;">
             <%
             tab_list = get_course_tab_list(request, course)
             tabs_tmpl = static.get_template_path('/courseware/tabs.html')
             %>
             <ol class="tabs course-tabs">
-              <li class="tab">
-                  <a href="/dashboard" id="tma_return_dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
+              <li class="tab" id="return_dashboard">
+                    <a href="/dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
               </li>
+              % if user.is_authenticated() and tma_verify_access(request.user).has_dashboard_access(str(course.id)):
+              <li class="tab">
+                  <a href="/tma/${str(course.id)}/dashboard">WEUP DASHBOARD</a>
+              </li>
+              % endif
                 <%include file="${tabs_tmpl}" args="tab_list=tab_list,active_page=active_page,default_tab=default_tab,tab_image=tab_image" />
                 <%block name="extratabs" />
             </ol>
-            <span style="display:block;clear:left;"></span>
+        </input>
         </div>
     </nav>
-%endif
+% endif
 
 % if show_preview_menu:
     <%
