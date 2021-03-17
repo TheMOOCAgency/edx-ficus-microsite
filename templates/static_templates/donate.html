@@ -3,10 +3,126 @@
 <%inherit file="../main.html" />
 
 <%block name="pagetitle">${_("Donate")}</%block>
-
+<link rel="stylesheet" href="/media/microsite/orano/css/donate.css">
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
-        <h1>${_("Donate")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+        <!-- <h1>${_("Donate")}</h1>
+        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p> -->
+        <div class="header_container">
+            <div class="header_image_and_title">
+                <img class="header_image" src="/media/microsite/orano/auto/images/logo.png" alt="orano_logo">
+                <p id="course_title" class="header_title"></p>
+            </div>
+            <p class="header_price">9,60 €</p>
+        </div>
+        <div>
+            <!-- <div class="inscription_container"> -->
+                <p>Vous trouverez ici toutes les informations nécessaires au règlement par virement bancaire de l'inscription au module : </p>
+                <p class="span_title" id="span_title"></p>
+            <!-- </div> -->
+            <p class="">Télechargez ici les informations relatives au paiement :</p>
+            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/iban_VARIABLE_00064069201.pdf', '_blank')">RIB</p>
+            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/751632803_EX_CP_EJNMS_1.pdf', '_blank')">Kbis</p>
+            <p class="help_section">Pour toutes questions relatives à cette inscription vous pouvez écrire à "helpdesk-orano@weuplearning.com" </p>
+
+            <div class="checkbox_and_label">
+                <input id="identifiants_checkbox" type="checkbox" id="identifiants" name="identifiants">
+                <label class="label_input_id" for="identifiants">Je dispose d'un bon de commande.</label>
+            </div>
+
+            <div id="form_input">
+                <label for="identifiants">Bon de commande</label><br>
+                <input type="text" id="identifiants"><br>
+                <button id="submit_button" class="submit_button button" type="submit">OK</button>
+            </div>
+
+            <div class="buttons_container">
+                <button id="button_two" class="button" type="button">
+                    Envoyer une facture par mail au demandeur et à moi-même
+                </button>
+            </div>
+            <div class="checkbox_and_label">
+                <input id="checkbox_engagment" type="checkbox" id="engagment" name="engagment">
+                <label class="label_input" for="engagment">Je m'engage à ce que mon entreprise règle la somme de 9.60€ par virement bancaire à la société VARIABLE.</label>
+            </div>
+            <p id="reduction_code_text" class="reduction_code_text">Pour finaliser votre inscription entrez le code ci-dessous en tant que code promo sur la page Paypal. Ce code applique une réduction de 100%. Votre inscription sera terminée une fois que vous aurez cliqué sur Payer.</p>
+            <p id="reduction_code" class="reduction_code">code réduction</p>
+        </div>
     </section>
 </main>
+
+
+<script>
+
+    //get the user's identifiants
+    $("#form_input").hide()
+
+    $('#identifiants_checkbox').change(
+    function(){
+        if (this.checked) {
+            $("#form_input").show()
+        } else {
+            $("#form_input").hide()
+        }
+    });
+
+    let inputValue;
+    $("#submit_button").click(function(){
+        inputValue = $("#identifiants").val();
+    });
+    
+
+    //eventlistener for checkbox and second button to display the reduction code
+    $("#reduction_code_text").hide()
+    $("#reduction_code").hide()
+
+    let secondButtonClicked = false
+    let checkBoxCliqued = false
+
+    $("#button_two").click(function(){
+        secondButtonClicked = true
+        if (checkBoxCliqued) {
+            $("#reduction_code_text").show()
+            $("#reduction_code").show()
+        }
+    }); 
+
+    $('#checkbox_engagment').change(
+    function(){
+        if (this.checked && secondButtonClicked) {
+            checkBoxCliqued = true
+            $("#reduction_code_text").show()
+            $("#reduction_code").show()
+        } else if (this.checked) {
+            checkBoxCliqued = true
+        } else {
+            checkBoxCliqued = false
+            $("#reduction_code_text").hide()
+            $("#reduction_code").hide()
+        }
+    });
+
+    //set the correct reduction code for the course id and set the correct courseName
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const courseKey = urlParams.get('course_key').replaceAll(" ", "+")
+    const courseNameSlug = urlParams.get('course_name')
+    console.log({courseKey,courseNameSlug})
+
+    if(courseKey === "course-v1:orano+fsa_tricastin+2021") {
+        $("#reduction_code").text("VLPK5KI45CQOKDD4")
+        $("#course_title").text("Formation Sécurité Accueil du Site Orano Tricastin")
+        $("#span_title").text("Formation Sécurité Accueil du Site Orano Tricastin")
+    } else if (courseKey === "course-v1:orano+fsa_malvesi+2021") {
+        $("#reduction_code").text("VTZSRC6W337RTEES")
+        $("#course_title").text("Formation Sécurité Accueil du Site Orano Malvési")
+        $("#span_title").text("Formation Sécurité Accueil du Site Orano Malvési")
+    }else {
+        $("#reduction_code").text("QCDEYLYCLG7HUNLD")
+        $("#course_title").text("Radioprotection - Malvési")
+        $("#span_title").text("Radioprotection - Malvési")
+    }
+
+</script>
+
