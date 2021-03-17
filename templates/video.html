@@ -115,21 +115,18 @@ from openedx.core.djangolib.js_utils import js_escaped_string
 % endif;
 <script>
 
-
-
 var interval = setInterval(function(){
 
-    const videoDiv = document.querySelector('.video');
-    const ccBanner = document.querySelector('.closed-captions');
+const videoDiv = document.querySelector('.video');
+const ccBanner = document.querySelector('.closed-captions');
+const info = videoDiv.getAttribute('data-metadata');
+var subtitle = (info.indexOf('"sub": ""')!=-1);
 
-    const info = videoDiv.getAttribute('data-metadata');
+if (subtitle) {
+    ccBanner.setAttribute('style', "display: none" ); 
+}
 
-    var subtitle = (info.indexOf('"sub": ""')==-1);
-    const style = subtitle ? "" : "display: none";
-
-    ccBanner.setAttribute('style', style ); 
-    clearInterval(interval)
-
+clearInterval(interval)
 }, 650)
 
 </script>
