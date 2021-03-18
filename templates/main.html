@@ -131,7 +131,92 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
 <script type="text/javascript" src="${static.url('js/initialize.js')}"></script>
 
 <!-- fonts call -->
-    
+<style>
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.eot');
+  src: url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.eot') format('embedded-opentype'),
+  url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.woff2') format('woff2'),
+  url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.woff') format('woff'),
+  url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.ttf') format('truetype'),
+  url('/media/microsite/faciliter-transformation/fonts/OpenSans-Regular.svg#OpenSans-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+  @font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Italic.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Italic.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Italic.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Italic.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Bold.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Bold.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Bold.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Bold.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-BoldItalic.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-BoldItalic.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-BoldItalic.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-BoldItalic.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Regular.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Regular.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Regular.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Regular.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-LightItalic.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-LightItalic.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-LightItalic.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-LightItalic.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Light.eot');
+    src: url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Light.eot') format('embedded-opentype'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Light.woff2') format('woff2'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Light.woff') format('woff'),
+        url('/media/microsite/faciliter-transformation/fonts/RobotoCondensed-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+</style>
+
 % if static.get_value('google_font') is not None:
 <%
 font_string = static.get_value('google_font')
@@ -140,7 +225,7 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 ${font_string | n}
 <style>
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
-    font-family:"${font_name}" !important;
+    font-family:"Roboto Condensed" !important;
   }
 </style>
 % else:
@@ -151,7 +236,7 @@ ${font_string | n}
       url("/static/sncf/fonts/avenir.woff'") format("woff"),
       url("/static/sncf/fonts/avenir.eot") ,
       url("/static/sncf/fonts/avenir.eot?#iefix") format("embedded-opentype");
-  }
+}
 </style>
 % endif    
 <style>
@@ -169,7 +254,7 @@ ${font_string | n}
  font: normal normal normal 14px/1 FontAwesome !important;
 }
 .dashboard .my-courses .course .details .course-actions .wrapper-action-more .action-more{
-font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !important;
+font: normal 1.2rem/1.6rem "Roboto Condensed" ,"Open Sans",Verdana,Geneva,sans-serif,sans-serif !important;
 }
 .fa {
  font: normal normal normal 14px/1 FontAwesome !important;
@@ -323,5 +408,6 @@ setInterval(function(){
 <style>
 .xmodule_display.xmodule_CapaModule div.problem div p.answer:before{
  content: "Solution:";
-}
+} 
+
 </style>
