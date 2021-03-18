@@ -145,21 +145,18 @@ $.ajax({
            });
 </script>
 
-<!-- #12751 -->
-<!-- #12751 -->
+<!-- #12751 - toggle logo regarding course language -->
 <script>
-  var url_tma = window.location.href;
-  console.log(url_tma); 
-  var logo ="df";
-  console.log(logo);
-  console.log(url_tma.indexOf("FR"));
+var course_version = document.getElementById("course_start").getAttribute("href");
+// console.log(course_version); 
+var logo = "init";
   
-  if (url_tma.indexOf("FR") == -1) {
-    logo="logo_EN"
-    document.getElementById('logoDashboard').src = "/media/microsite/faciliter-transformation/images/" + logo + ".png"; 
-  };
-  // document.getElementById('logoDashboard').src = "/media/microsite/faciliter-transformation/images/" + logo + ".png"; 
-  </script>
+// console.log(course_version.indexOf("FR"));
+if (course_version.indexOf("FR") == -1) {
+  logo="logo_EN"
+  document.getElementById('logoDashboard').src = "/media/microsite/faciliter-transformation/images/" + logo + ".png"; 
+};
+</script>
 
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");
