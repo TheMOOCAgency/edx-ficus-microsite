@@ -2,6 +2,7 @@
 
 <%namespace name='static' file='/static_content.html'/>
 <%!
+ from tma_apps.tma_support_functions import tma_verify_access
  from django.utils.translation import ugettext as _
  from django.core.urlresolvers import reverse
  %>
@@ -14,6 +15,7 @@ def url_class(is_active):
   return ""
 %>
 % for tab in tab_list:
+
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
@@ -40,6 +42,8 @@ def url_class(is_active):
   </li>
 % endif
 % endfor
+% if user.is_authenticated() and tma_verify_access(request.user).has_dashboard_access(str(course.id)):
 <script>
   $('.tabs.course-tabs > li:nth-child(2) > a').attr('href','/tma_apps/new_tma_dashboard').text('WEUP DASHBOARD');
- </script>
+</script>
+%endif

@@ -10,6 +10,7 @@ from openedx.core.djangoapps.course_groups.partition_scheme import get_cohorted_
 from openedx.core.djangolib.js_utils import dump_js_escaped_json
 from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
+from tma_apps.tma_support_functions import tma_verify_access
 %>
 <%
 org_static = static.get_value('domain_prefix')
