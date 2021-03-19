@@ -212,7 +212,7 @@ endfor
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
         % if LANGUAGE_CODE == "ja-jp":
-        <span>最終成績</span><span id="score_tma">${score}%</span>
+        <span>合計スコア</span><span id="score_tma">${score}%</span>
         % else:
         <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
         %endif
@@ -221,6 +221,13 @@ endfor
   course_details_len = len(course_details)
   mark = 0
   %>
+  % if LANGUAGE_CODE == "ja-jp":
+  <style>
+    .dashboard_profile_bottom_middle span {
+      font-size: 11px !important;
+    }
+  </style>
+  % endif
   % for n in course_details:
     <% mark = mark + 1 %>
     <!-- assignement type -->
@@ -344,7 +351,7 @@ else{
 </style>
 <span id="list_multi_title">
 % if LANGUAGE_CODE == "ja-jp":
-<h1><span id="span_1">私のコース</span></h1>
+<h1><span id="span_1">マイページ</span></h1>
 % else:
 <h1><span id="span_1">${_('My courses')}</span></h1>
 % endif
@@ -647,7 +654,7 @@ $( document ).ready(function(){
     $("#forum_button > span").text('フォーラム')
     $(".course_nav > span:contains(info)").text('インフォメーション')
     $(".course_nav > span:contains(Retour)").text('戻る')
-    $(".training-not-validated>a").text('あなたの進歩に従ってください')
+    $(".training-not-validated>a").text('学習進度をチェックする')
   }
 });
 </script>

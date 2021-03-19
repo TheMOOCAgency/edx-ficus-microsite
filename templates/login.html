@@ -100,7 +100,7 @@ from third_party_auth import provider, pipeline
       if(enable) {
         $submitButton.
         % if LANGUAGE_CODE == "ja-jp":
-          html("シャンパーニュ・ムークのアカウントにログインし、オンライン講座にアクセス");
+          html("Champagne-mooc のアカウントにログインし、<br />オンライン講座にアクセス");
         % else:
           html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
         % endif

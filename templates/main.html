@@ -265,6 +265,23 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 % endif
 <script>
   setInterval(function () {
+    % if LANGUAGE_CODE =="ja-jp":
+    if (window.location.href.indexOf('/forum') > -1) {
+      $(".field-help").each(function () {
+        $(this).html($(this).html().replace("Add your post to a relevant topic to help others find it.", "他の受講者がフォローしやすいように、適切なスレッドを選んでください。"));
+        $(this).html($(this).html().replace("Questions raise issues that need answers. Discussions share ideas and start conversations.", "返答が必要な場合には「質問」としてください。「ディスカッション」ではトピックを開始します。投稿は英語またはフランス語でご記入ください。"));
+        $(this).html($(this).html().replace("Add a clear and descriptive title to encourage participation.", "他の受講者が参加しやすいようにわかりやすいタイトルをつけてください。"));
+      });
+      $("#new-post-editor-description").each(function () {
+        $(this).html($(this).html().replace("Your question or idea", "あなたの質問や意見など"));
+      });
+      $(".user-roles").each(function () {
+        $(this).css('display', 'none');
+      });
+      $('[aria-label=Discussions] .btn-link.all-topics').html('<span class="icon fa fa-bars" aria-hidden="true"></span>全トピック');
+      $('.btn.discussion-submit-post.control-button').html('送信');
+    }
+    %else:
     $(".problem-progress").each(function () {
       $(this).html($(this).html().replace("(ungraded)", ""));
     });
@@ -335,6 +352,7 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
         $(this).css('display', 'none');
       });
     }
+    % endif
   }, 500);
 </script>
 

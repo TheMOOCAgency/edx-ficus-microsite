@@ -83,7 +83,13 @@ import calendar
 
       if(enable) {
         $submitButton.
-          html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
+          html(
+            % if LANGUAGE_CODE == "ja-jp":
+            "champagne-mooc のアカウントを作成"
+            % else:
+            "${_('Create My {platform_name} Account').format(platform_name=platform_name)}"
+            % endif
+            );
       }
       else {
         $submitButton.
@@ -140,3 +146,12 @@ background: #ffffffbd !important;
   </aside>
 -->
 </section>
+% if LANGUAGE_CODE == "ja-jp" and not is_bookmarked:
+<script>
+  replaceTradsJp = setInterval(function(){
+    if ($('.message-copy').text().indexOf('First Name') > -1) {
+      $('.message-copy').text('「名」が必要')
+    }
+  },500);
+</script>
+% endif

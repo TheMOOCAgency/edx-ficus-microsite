@@ -23,23 +23,43 @@
 
 <main id="main" class="main-content-fr" aria-label="Content" tabindex="-1">
    <section class="container about" style="background: #ffffffbd !important;">
+      % if LANGUAGE_CODE == "ja-jp":
+      <h1 class="pressTitle">講師陣のご紹介</h1>
+      % else:
       <h1 class="pressTitle">Les intervenants</h1>
+      % endif
+      % if LANGUAGE_CODE == "ja-jp":
+      <h2>ガイド役</h2>
+      % else:
       <h2>Votre guide</h2>
+      % endif
       <div class="row">
          <div class="col-md-3">
             <img class="partn" src="/media/microsite/champagne-mooc/home/JeremyCukierman.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ジェレミー・クキエルマン（2017年マスター・オブ・ワイン）</h5>
+            % else:
             <h5>Jérémy Cukierman - Master of Wine 2017</h5>
+            % endif
          </div>
       </div>
-        <h2>Les professionnels du champagne :</h2>
+         % if LANGUAGE_CODE == "ja-jp":
+         <h2>シャンパーニュのプロフェッショナルたち :</h2>
+         % else:
+         <h2>Les professionnels du champagne :</h2>
+         % endif
       <div class="row">
          <div class="col-md-3">
             <img class="partn" src="/media/microsite/champagne-mooc/home/DenisBunner.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ボランジェ　副醸造責任者　ドゥニ・ビュネール</h5>
+            % else:
             <h5>Denis Bunner - Adjoint Chef de Caves - Champagne Bollinger</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -47,7 +67,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/MichelDrappier.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ドラピエ　オーナー経営者　ミッシェル・ドラピエ</h5>
+            % else:
             <h5>Michel Drappier - Propriétaire et dirigeant - Champagne Drappier</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -55,7 +79,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/CharlesGoemaere.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャルル・ゴエメール　シャンパーニュ委員会事務局長</h5>
+            % else:
             <h5>Charles Goemaere - Directeur Général Adjoint - Comité Champagne</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -63,7 +91,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/GeraldineLacourte.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ラクルト＝ゴドビヨン　ブドウ栽培家　ジェラルディーヌ・ラクルト</h5>
+            % else:
             <h5>Géraldine Lacourte - Vigneronne - Champagne Lacourte-Godbillon</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -71,7 +103,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/ArnaudLallement.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ラシエット・シャンプノワーズ***　オーナーシェフ　アルノー・ラルマン</h5>
+            % else:
             <h5>Arnaud Lallement - Propriétaire et Chef cuisinier - L'Assiette Champenoise***</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -79,7 +115,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/GerardLigerBelair.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ランス・シャンパーニュ・アルデンヌ大学教授・研究員　ジェラール・リジェ＝ベレール</h5>
+            % else:
             <h5>Gérard Liger-Belair - Professeur des Universités / Chercheur - Université de Reims Champagne-Ardenne</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -87,7 +127,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/SandrineLogette.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・デュヴァル＝ルロワ　醸造責任者　サンドリーヌ・ロジェット</h5>
+            % else:
             <h5>Sandrine Logette - Chef de Caves - Champagne Duval-Leroy</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -95,7 +139,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/PhilippeMille.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ドメーヌ・レ・クレイエル　レストラン　ル・パルク**　シェフ　フィリップ・ミル</h5>
+            % else:
             <h5>Philippe Mille - Chef cuisinier - Le Parc** du Domaine Les Crayères</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -103,7 +151,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/PierreNaviaux.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ委員会　持続可能な成長プロジェクトリーダー　ピエール・ナヴィオ</h5>
+            % else:
             <h5>Pierre Naviaux - Chef de Projets Développement Durable - Comité Champagne</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -111,7 +163,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/Jlnormand.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ドメーヌ・ラ・ボルドリー　ブドウ栽培家　ジャン=ルイ・ノルマン</h5>
+            % else:
             <h5>Jean-Louis Normand - Vigneron - Champagne Domaine la Borderie</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -119,9 +175,13 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/VincentPerrin.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ヴァンサン・ペラン　　前シャンパーニュ委員会事務局</h5>
+            % else:
             <h5>
                Vincent Perrin - Directeur Général - Comité Champagne
             </h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -129,7 +189,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/ClementPierlot.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ポメリー　醸造責任者　クレマン・ピエルロ</h5>
+            % else:
             <h5>Clément Pierlot - Chef de Caves - Champagne Pommery</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -137,7 +201,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/BrunoTailly.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>ホテル＆スパ　ロワイヤル・シャンパーニュ　オペレーションディレクター　ブルノー・タイイ</h5>
+            % else:
             <h5>Bruno Tailly - Directeur des Opérations - Royal Champagne Hotel & Spa</h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -145,9 +213,13 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/PierreEmmanuelTaittinger.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・テタンジェ　会長　ピエール＝エマニュエル・テタンジェ</h5>
+            % else:
             <h5>
                Pierre-Emmanuel Taittinger - Président - Champagne Taittinger
             </h5>
+            % endif
          </div>
       </div>
       <div class="row">
@@ -155,7 +227,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/YvesTesson.png" alt="Sandrine Logette">
         </div>
         <div class="col-md-9">
-           <h5>Yves Tesson - Historien</h5>
+         % if LANGUAGE_CODE == "ja-jp":
+         <h5>歴史家　イブ・テソン</h5>
+         % else:
+         <h5>Yves Tesson - Historien</h5>
+         % endif
         </div>
       </div>
       <div class="row">
@@ -163,7 +239,11 @@
             <img class="partn" src="/media/microsite/champagne-mooc/home/JeanPierreVazart.png" alt="Sandrine Logette">
          </div>
          <div class="col-md-9">
+            % if LANGUAGE_CODE == "ja-jp":
+            <h5>シャンパーニュ・ヴァザール・コカール・エ・フィス　ブドウ栽培家　ジャン＝ピエール・ヴァザール</h5>
+            % else:
             <h5>Jean-Pierre Vazart - Vigneron - Champagne Vazart-Coquart & Fils</h5>
+            % endif
          </div>
       </div>
    </section>

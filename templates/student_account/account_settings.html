@@ -71,5 +71,14 @@ css = static.get_value('css_overrides_account_settings')
              clearInterval(clicker_order);
           }
       },100);
+
+    % if LANGUAGE_CODE == "ja-jp":
+    replaceTradsJp = setInterval(function(){
+        $('label[for=field-input-email]').text('メールアドレス')
+        $('label[for=u-field-select-country]').text('国または地域')
+        $('#about-tab').text('アカウント情報')
+        $('#orders-tab').text('注文履歴')
+    },500);
+    % endif
     </script>
 
