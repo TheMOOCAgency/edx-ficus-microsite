@@ -120,10 +120,113 @@ from third_party_auth import provider, pipeline
          $('#login-form').submit();
        }
     })(${pipeline_running})
+  
+  // <!-- Cookie-banner script start -->
+  const cookieBanner = document.querySelector("#cookie-banner");
+  const cookieBannerButton = document.querySelector("#cookie-button");
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  if (getCookie("eu-consent")) {
+    cookieBanner.classList.add("hidden");
+  } else {
+    cookieBannerButton.addEventListener("click", function (e) {
+      cookieBanner.classList.add("hidden");
+      document.cookie = "eu-consent=true";
+      console.log("cookie-button");
+    });
+  }
+  // <!-- Cookie-banner script end -->
+
+
   </script>
 </%block>
 
+<style>
+/* Cookie-banner css start */
+#cookie-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 90px;
+  color: white;
+  background-color: #323538;
+  top: 0;
+  z-index: 6;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+#cookie-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  border: solid 2px black;
+  margin: 10px;
+}
+.cookie-banner-button:hover {
+  text-decoration: underline;
+  color: #1a905b;
+  background-color: black;
+}
+#cookie-banner a {
+  color: white;
+  font-weight: 400;
+  margin: 0 20px;
+}
+#cookie-banner a:hover {
+  color: #1a905b;
+  background-color: #323538;
+}
+#cookie-banner a:visited {
+  text-decoration: none;
+}
+.roll-cookie-banner {
+  -webkit-transition: 1.5s;
+  -moz-transition: 1.5s;
+  -ms-transition: 1.5s;
+  -o-transition: 1.5s;
+  transition: 1.5s;
+  margin-top: -90px;
+}
+/* Cookie-banner css end */
+</style>
 <%include file="forgot_password_modal.html" />
+
+<div id="cookie-banner">
+  <span>
+    Ce site utilise des cookies pour vous assurer la meilleure navigation
+    possible. En continuant de naviguer sur ce site, nous comprenons que
+    vous acceptez l'utlisation de cookies.
+    <a
+      href="https://recrutement-maintenance.sncf-mooc.fr/honor"
+      class="cookie-banner-button"
+      >En savoir plus</a
+    >
+  </span>
+  <div id="cookie-button" class="cookie-banner-button">J'accepte !</div>
+</div>
 
 <section class="introduction">
   <header>
