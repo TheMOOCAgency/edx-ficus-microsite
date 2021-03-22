@@ -23,6 +23,7 @@ from django.utils.translation import ugettext as _
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
       </head>
       <body style="display: none">
          <nav id = "nav"class="navbar navbar-default">
@@ -156,6 +157,11 @@ from django.utils.translation import ugettext as _
                <div class="col text-center">
                   <button class="btn btn-default butn" id="subscribeButn2" target="_blank">
                   JE M’INSCRIS !</button> 
+               </div>
+            </div>
+            <div style="overflow: hidden;">
+               <div id="fusee" style="position: relative; bottom: 0px; left: -200px;">
+                  <img width="200" src="/media/microsite/kangae/pagebuilder/assets/img/fusee.png" alt="fusee">
                </div>
             </div>
             <div class="row footerBottom">
@@ -376,37 +382,57 @@ from django.utils.translation import ugettext as _
 
             $('#se3 > div > div > .module_1').click(function(){
                Swal.fire({
-                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours1.jpg',
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours1.png',
                   imageAlt: 'schéma parcours 1',
                   width: 800,
                   height: 800,
+                  confirmButtonText: '<span style="color: #5f514e;font-size: 16px;">FERMER LA FENÊTRE</span>',
+                  confirmButtonColor: '#ffcc34',
+                  showClass: {
+                      popup: 'animate__animated animate__fadeInUp'
+                  }
                })
             })
 
             $('#se3 > div > div > .module_2').click(function(){
                Swal.fire({
-                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours2.jpg',
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours2.png',
                   imageAlt: 'schéma parcours 2',
                   width: 800,
                   height: 800,
+                  confirmButtonText: '<span style="color: #5f514e;font-size: 16px;">FERMER LA FENÊTRE</span>',
+                  confirmButtonColor: '#ffcc34',
+                  showClass: {
+                      popup: 'animate__animated animate__fadeInUp'
+                  }
                })
             })
 
             $('#se3 > div > div > .module_3').click(function(){
                Swal.fire({
-                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours3.jpg',
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours3.png',
                   imageAlt: 'schéma parcours 3',
                   width: 800,
                   height: 800,
+                  confirmButtonText: '<span style="color: #5f514e;font-size: 16px;">FERMER LA FENÊTRE</span>',
+                  confirmButtonColor: '#ffcc34',
+                  showClass: {
+                      popup: 'animate__animated animate__fadeInUp'
+                  }
                })
             })
 
             $('#se3 > div > div > .module_4').click(function(){
                Swal.fire({
-                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours4.jpg',
+                  imageUrl: '/media/microsite/kangae/pagebuilder/assets/img/parcours4.png',
                   imageAlt: 'schéma parcours 4',
                   width: 800,
                   height: 800,
+                  confirmButtonText: '<span style="color: #5f514e;font-size: 16px;">FERMER LA FENÊTRE</span>',
+                  confirmButtonColor: '#ffcc34',
+                  showClass: {
+                      popup: 'animate__animated animate__fadeInUp'
+                  }
                })
             })
             
@@ -415,6 +441,34 @@ from django.utils.translation import ugettext as _
             }).mouseleave (function() {
                 $(this).attr('src','/media/microsite/kangae/pagebuilder/assets/img/pictos'+($(this).index()+1)+'.png')
             })
+
+            // Fusee
+            function isScrolledIntoView(elem) {
+               var docViewTop = $(window).scrollTop();
+               var docViewBottom = docViewTop + $(window).height();
+
+               var elemTop = $(elem).offset().top;
+               var elemBottom = elemTop + $(elem).height();
+
+               return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            }
+
+            var fuseeStarted = false
+            var fuseePosX = -200;
+            var fuseeMove = setInterval(function(){
+               if (!fuseeStarted) {
+                  if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
+                     fuseeStarted = true
+                  }
+               } else {
+                  fuseePosX += 1;
+                  $('#fusee').css({'left':fuseePosX})
+                  if (fuseePosX >= $('body').width()) {
+                     $('#fusee').css({'left':-200})
+                     clearInterval(fuseeMove)
+                  }
+               }
+            }, 3);
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
