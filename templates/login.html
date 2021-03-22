@@ -12,6 +12,7 @@ from third_party_auth import provider, pipeline
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
+
   <script type="text/javascript">
     $(function() {
 
@@ -124,6 +125,7 @@ from third_party_auth import provider, pipeline
 </%block>
 
 <%include file="forgot_password_modal.html" />
+<%include file="cookie_banner.html" />
 
 <section class="introduction">
   <header>
@@ -133,6 +135,7 @@ from third_party_auth import provider, pipeline
     </h1>
   </header>
 </section>
+
 
 <section class="login container">
   <section role="main" class="content">
