@@ -199,13 +199,11 @@ endfor
     <% mark = mark + 1 %>
     <!-- assignement type -->
     <div class="dashboard_profile_bottom_middle">
-      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
+      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')}
        %if n.get('weight')==0:
           optionnel
-       %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
        %endif
-      )</span></span><span id="assignment_grade_${mark}">0%</span>
+      </span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
     % if mark < course_details_len:
     <!-- border middle -->
@@ -645,3 +643,8 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+<style>
+#title_dashboard_course {
+padding-top:0px!important;
+}
+</style>
