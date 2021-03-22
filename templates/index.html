@@ -73,7 +73,7 @@ from django.utils.translation import ugettext as _
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
                <h2 class="sectionTitle"></h2>
                <p class="text_1"></p>
-               <iframe src="https://player.vimeo.com/video/520955160" style="margin:25px auto auto auto" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+               <iframe src="https://player.vimeo.com/video/520955160" style="margin:25px auto auto auto; max-width:100%" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                <p class="text_2"></p>
             </div>
          </div>
@@ -88,10 +88,6 @@ from django.utils.translation import ugettext as _
          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
             <h2 class="sectionTitle"></h2>
             <div class="reveal row">
-              <!-- <div class="module module_1 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-               <div class="module module_2 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-               <div class="module module_3 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-               <div class="module module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div> -->
                <img class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos.png' alt='Se lancer dans la sensibilisation à l’esprit d’entreprendre'>
                <img class="module_2 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos2.png' alt='Eveiller à l’esprit d’entreprendre'>
                <img class="module_3 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos3.png' alt='Esquisser un projet entrepreneurial'>
@@ -122,15 +118,10 @@ from django.utils.translation import ugettext as _
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pad4 " >
                <h2 class="sectionTitle"></h2>
                <div class="reveal row">
-                 <!-- <div class="module_dark module_1 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module_dark module_2 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module_dark module_3 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module_dark module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div>
-                  <div class="module module_4 m-auto"><div class="module_title"></div><div class="module_text"></div></div> -->
-                  <img class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos5.png' alt='Fiches actions et animation'>
-                  <img class="module_2 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos6.png' alt='Fiches outils'>
-                  <img class="module_3 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos7.png' alt='Ressources Bpifrance'>
-                  <img class="module_4 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 " src='/media/microsite/kangae/pagebuilder/assets/img/pictos8.png' alt='Autres ressources'>
+                  <div class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 "><img src="/media/microsite/kangae/pagebuilder/assets/img/pictos5.png" alt="Fiches actions et animation" style="width: 80%;margin: auto;"></div>
+                  <div class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 "><img src='/media/microsite/kangae/pagebuilder/assets/img/pictos6.png' alt='Fiches outils' style="width: 80%;margin: auto;"></div>
+                  <div class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 "><img src='/media/microsite/kangae/pagebuilder/assets/img/pictos7.png' alt='Ressources Bpifrance' style="width: 80%;margin: auto;"></div>
+                  <div class="module_1 module_1 col-xs-6 col-sm-6 col-md-3 col-lg-3 pad4 "><img src='/media/microsite/kangae/pagebuilder/assets/img/pictos8.png' alt='Autres ressources' style="width: 80%;margin: auto;"></div>
                </div>
             </div>
        </section>
@@ -152,10 +143,15 @@ from django.utils.translation import ugettext as _
          </div>
 
          <footer id="footer">
-            <div class="row" style="display: block">
+            <div class="row" style="display: block;margin: 0">
                <div class="col text-center">
                   <button class="btn btn-default butn" id="subscribeButn2" target="_blank">
                   JE M’INSCRIS !</button> 
+               </div>
+            </div>
+            <div style="overflow: hidden;">
+               <div id="fusee" style="position: relative; bottom: 0px; left: -200px;">
+                  <img width="200" src="/media/microsite/kangae/pagebuilder/assets/img/fusee.png" alt="fusee">
                </div>
             </div>
             <div class="row footerBottom">
@@ -415,6 +411,34 @@ from django.utils.translation import ugettext as _
             }).mouseleave (function() {
                 $(this).attr('src','/media/microsite/kangae/pagebuilder/assets/img/pictos'+($(this).index()+1)+'.png')
             })
+
+            // Fusee
+            function isScrolledIntoView(elem) {
+               var docViewTop = $(window).scrollTop();
+               var docViewBottom = docViewTop + $(window).height();
+
+               var elemTop = $(elem).offset().top;
+               var elemBottom = elemTop + $(elem).height();
+
+               return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            }
+
+            var fuseeStarted = false
+            var fuseePosX = -200;
+            var fuseeMove = setInterval(function(){
+               if (!fuseeStarted) {
+                  if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
+                     fuseeStarted = true
+                  }
+               } else {
+                  fuseePosX += 1;
+                  $('#fusee').css({'left':fuseePosX})
+                  if (fuseePosX >= $('body').width()) {
+                     $('#fusee').css({'left':-200})
+                     clearInterval(fuseeMove)
+                  }
+               }
+            }, 3);
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
