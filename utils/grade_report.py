@@ -71,7 +71,7 @@ db = 'ensure_form'
 collection = 'certificate_form'
 form_factory.microsite = org
 allow_admin_mails = False
-admin_mail_list = [u"themoocagency", u"weuplearning", u"yopmail"]
+admin_mail_list = [u"themoocagency.com", u"weuplearning.com", u"yopmail.com", u"mpsa.com"]
 
 # Get headers
 HEADERS_GLOBAL = []
@@ -86,51 +86,51 @@ HEADER = HEADERS_USER
 course_ids=[
     { "data-IA":
         [
-            "course-v1:netexplo+FR+V1",
-            "course-v1:netexplo+EN+V1",
-            "course-v1:netexplo+12+ES",
-            "course-v1:netexplo+13+DE"
+            "course-v1:bnpp-netexplo+FR+V1",
+            "course-v1:bnpp-netexplo+EN+V1",
+            "course-v1:bnpp-netexplo+12+ES",
+            "course-v1:bnpp-netexplo+13+DE"
         ]
     },
     { "expeditions":
         [
-            "course-v1:netexplo+Netexplo_expedition+2018_T2_expedition",
-            "course-v1:netexplo+Netexplo_expeditions_en+2018_T2_expeditions_en",
-            "course-v1:netexplo+expeditions+2020_es",
-            "course-v1:netexplo+expeditions+2020_de"
+            "course-v1:bnpp-netexplo+Netexplo_expedition+2018_T2_expedition",
+            "course-v1:bnpp-netexplo+Netexplo_expeditions_en+2018_T2_expeditions_en",
+            "course-v1:bnpp-netexplo+expeditions+2020_es",
+            "course-v1:bnpp-netexplo+expeditions+2020_de"
         ]
     },
     
     { "journey":
         [
-            "course-v1:netexplo+Netexplo_voyages+2018_T2_voyages",
-            "course-v1:netexplo+Netexplo_travel+2018_T2_travel",
-            "course-v1:netexplo+travel+2020_es",
-            "course-v1:netexplo+travel+2020_de"
+            "course-v1:bnpp-netexplo+Netexplo_voyages+2018_T2_voyages",
+            "course-v1:bnpp-netexplo+Netexplo_travel+2018_T2_travel",
+            "course-v1:bnpp-netexplo+travel+2020_es",
+            "course-v1:bnpp-netexplo+travel+2020_de"
         ]
     },
     { "manager":
         [
-            "course-v1:netexplo+parcours-manager-fr+parcours-manager-fr",
-            "course-v1:netexplo+manager+manager-en",
-            "course-v1:netexplo+manager+manager-es",
-            "course-v1:netexplo+manager+manager-de"
+            "course-v1:bnpp-netexplo+parcours-manager-fr+parcours-manager-fr",
+            "course-v1:bnpp-netexplo+manager+manager-en",
+            "course-v1:bnpp-netexplo+manager+manager-es",
+            "course-v1:bnpp-netexplo+manager+manager-de"
         ]
     },
     {"passeport":
         [
-            "course-v1:netexplo+Netexplo_passeport+2018_T2_passeport",
-            "course-v1:netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN",
-            "course-v1:netexplo+data_ia+2020_ES",
-            "course-v1:netexplo+data_ia+2020_DE"
+            "course-v1:bnpp-netexplo+Netexplo_passeport+2018_T2_passeport",
+            "course-v1:bnpp-netexplo+Netexplo_passeport_EN+2018_T2_passeport_EN",
+            "course-v1:bnpp-netexplo+data_ia+2020_ES",
+            "course-v1:bnpp-netexplo+data_ia+2020_DE"
         ]
     },
     { "social-school":
         [
-            "course-v1:netexplo+socialschoolfr+SSFR",
-            "course-v1:netexplo+socialschoolen+SSEN",
-            "course-v1:netexplo+socialschooles+SSES",
-            "course-v1:netexplo+socialschoolde+SSDE"
+            "course-v1:bnpp-netexplo+socialschoolfr+SSFR",
+            "course-v1:bnpp-netexplo+socialschoolen+SSEN",
+            "course-v1:bnpp-netexplo+socialschoolen+SSES",
+            "course-v1:bnpp-netexplo+socialschoolen+SSDE"
         ]
     }
 ]
@@ -306,11 +306,14 @@ for j in range(len(course_ids)):
         i = 0
         for i in range(len(enrollments)):
             user = enrollments[i].user
-            if allow_admin_mails or not user.email in admin_mail_list:
+            
+            if allow_admin_mails or len([ele for ele in admin_mail_list if(ele in user.email)]) == 0:
                 # If the user has never been seen before get its basic info
                 if user.id not in users_data.keys():
                     # USER INFO
                     users_data[user.id] = get_user_info(user)
+                    if user.email == 'annakarin.klingberg@bnpparibascardif.com':
+                        log.info(users_data[user.id])
                     for k in range(j):
                         users_data[user.id].append('n/a')
                 # get list of sections in "journey" and "expeditions"
@@ -335,6 +338,8 @@ for j in range(len(course_ids)):
 
                 if course_value != '' and course_value != [] and len(users_data[user.id]) < (headerNoGradesLen + j+1):
                     users_data[user.id].append(course_value)
+            if user.email == 'annakarin.klingberg@bnpparibascardif.com':
+                log.info(users_data[user.id])
 
     #Set default value for unenrolled users
     for user in users_data.keys():
@@ -343,8 +348,10 @@ for j in range(len(course_ids)):
 
 file = open(old_file, "rb")
 old_users_datas_list = csv.DictReader(file, delimiter=';')
+header = next(old_users_datas_list)
 for old_user in old_users_datas_list:
     in_new_platform = False
+
     for key in users_data.keys():
         user = users_data[key]
         if user[3] == old_user['email']:
