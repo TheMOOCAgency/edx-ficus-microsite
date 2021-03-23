@@ -150,7 +150,7 @@ from django.utils.translation import ugettext as _
                   JE M’INSCRIS !</button> 
                </div>
             </div>
-            <div style="overflow: hidden;height: 200px;">
+            <div style="overflow: hidden;height: 200px;position: absolute;width: 100%;">
                <div id="fusee" style="position: relative; bottom: 0px; left: -200px;">
                   <img width="200" src="/media/microsite/kangae/pagebuilder/assets/img/fusee.png" alt="fusee">
                </div>
@@ -444,22 +444,24 @@ from django.utils.translation import ugettext as _
                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
             }
 
-            var fuseeStarted = true
-            var fuseePosX = -200;
-            var fuseeMove = setInterval(function(){
-               if (!fuseeStarted) {
-                  if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
-                     fuseeStarted = true
+            $( "document" ).ready( function () {
+               var fuseeStarted = false
+               var fuseePosX = -200;
+               var fuseeMove = setInterval(function(){
+                  if (!fuseeStarted) {
+                     if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
+                        fuseeStarted = true
+                     }
+                  } else {
+                     fuseePosX += 1;
+                     $('#fusee').css({'left':fuseePosX,'top':Math.sin(fuseePosX/50)*30+40})
+                     if (fuseePosX >= $('body').width()) {
+                        $('#fusee').css({'left':-200})
+                        clearInterval(fuseeMove)
+                     }
                   }
-               } else {
-                  fuseePosX += 1;
-                  $('#fusee').css({'left':fuseePosX,'top':Math.sin(fuseePosX/50)*30+40})
-                  if (fuseePosX >= $('body').width()) {
-                     $('#fusee').css({'left':-200})
-                     clearInterval(fuseeMove)
-                  }
-               }
-            }, 3);
+               }, 3);
+            } )
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
