@@ -15,6 +15,7 @@ from tma_apps.tma_support_functions import tma_verify_access
 
 primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
+background_image = '/media/microsite/rtm/images/maquette_vide.png'
 %>
 
 
@@ -23,8 +24,9 @@ background_url = configuration_helpers.get_value('bg_img')
 
 <!-- COMMON STYLE-->
 <style>
-  h1,h2,h3,h4,h5,p{
-    font-family: inherit
+  h1,h2,h3,h4,h5,p, span{
+    font-family: inherit;
+    color: white;
   }
   p{
     padding:10px
@@ -57,7 +59,9 @@ background_url = configuration_helpers.get_value('bg_img')
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: white;
+    position: relative ;
+
+    /* background: rgba(0, 0, 0, 1); */
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -68,16 +72,18 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #certificate-container{
     width:854px;
-    height:500px;
+    height:480px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('${background_image}');
+    box-sizing: border-box;
   }
   #pdf-btn-wrapper{
     padding: 15px
   }
   #certificate-title{
     text-transform: uppercase;
+    height: 100px;
   }
   #noCertificateMessage{
     background: white;
@@ -87,30 +93,63 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
     flex-direction: column;
   }
+
+  .info1 {  
+    font-size: 45px !important;
+    width: 500px;    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+  }
+  .info2 {
+    font-size: 25px;
+    position: absolute;
+    bottom: 45px;
+    right: 50px;
+  }
+  .flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  h3 {
+    line-height: 1.5;
+  }
+  h3 > span:nth-child(2) {
+    margin-right: 13px;
+  }
+
 </style>
 
 <!-- CUSTOM STYLE -->
 <style>
 
 </style>
+
+
 % if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
   <div id="pdf-btn-wrapper">
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+      <div id="internal-border">
+          <div id="certificate-title"></div>
+          <div class="flex">
+            <!-- <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p> -->
+                <h3 class="info1"><span style="text-transform: uppercase" >${last_name}</span><span>, </span><span style="text-transform: capitalize" >${first_name}</span></h3>
+                <h3 class="info1" id="entreprise" ></h3>
+                
+            <!-- <p>a obtenu la note de</p> -->
+            <!-- <h4>${int(grades['grade']*100)}%</h4> -->
+            <!-- <p>au cours</p> -->
+            <!-- <h4>${course_name}</h4> -->
           </div>
-          <div>
-          </div>
+          <span id="date_deliver" class="info2" >Attestation délivrée le</span>
       </div>
   </div>
 </div>
@@ -126,21 +165,47 @@ background_url = configuration_helpers.get_value('bg_img')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 <script>
+
+const entrepriseField = document.querySelector("#entreprise")
+$.ajax({
+    url: '/tma_apps/tma_api/v0/CustomFieldView/',
+    type: "GET",
+    dataType: 'json',
+	success: function (res) {
+                  console.log(res.entreprise)
+                  console.log(res.entreprise)
+                  entrepriseField.textContent = res.entreprise
+
+
+              }
+})
+
+
+
   function CertificateToPdf(){
-     html2canvas(document.getElementById("certificate-container"), {
-      onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
-       doc.save("certificat.pdf");
-      }
-    })
-  }
-  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
-  $(document).ready(function(){
-    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+    html2canvas(document.getElementById("certificate-container"), {
+    onrendered : function (canvas){
+      var img=canvas.toDataURL("image/png");
+      var doc = new jsPDF({orientation: 'landscape'});
+      doc.addImage(img, "PNG", 30, 35);
+      doc.save("certificat.pdf");
     }
   })
+}
+//AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
+$(document).ready(function(){
+  if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+  $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+  }
+})
+
+var d = new Date();
+month=d.getMonth()+1
+if (month <= 9) {
+  month="0"+month
+}
+var now = d.getDate()+'/'+month+'/'+d.getFullYear();
+$("#date_deliver").append(" "+now);
+
 </script>
 
