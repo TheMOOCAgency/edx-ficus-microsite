@@ -45,20 +45,26 @@ else:
 body footer.global {
     background-color: ${third_color}!important;
 }
+body footer.global ul.links li a, body footer.global ul.links li a:hover {
+    color: #000;
+}
+body footer.global {
+    padding: 22px 0;
+}
 </style>
 
-<footer class="global">
+<footer class="global" style="background-color: rgba(255,205,0,1)!important;">
   <div class="footer-container">
-    <ul class="links">
+    <ul class="links" style="text-align: center;">
       <li>
         <a href="${marketing_link('HONOR')}">Conditions générales</a>
       </li>
-      <li>
+<!--      <li>
         <a href="${marketing_link('FAQ')}">FAQ</a>
       </li>
 	  <li>
         <a href="/about">Cr&eacute;dits</a>
-      </li>
+      </li>-->
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">

@@ -447,20 +447,20 @@ from django.utils.translation import ugettext as _
             $( "document" ).ready( function () {
                var fuseeStarted = false
                var fuseePosX = -200;
-               var fuseeMove = setInterval(function(){
-                  if (!fuseeStarted) {
-                     if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
-                        fuseeStarted = true
-                     }
-                  } else {
-                     fuseePosX += 1;
-                     $('#fusee').css({'left':fuseePosX,'top':Math.sin(fuseePosX/50)*30+40})
-                     if (fuseePosX >= $('body').width()) {
-                        $('#fusee').css({'left':-200})
-                        clearInterval(fuseeMove)
-                     }
-                  }
-               }, 3);
+              // var fuseeMove = setInterval(function(){
+                 // if (!fuseeStarted) {
+                 //    if (isScrolledIntoView(document.getElementById('subscribeButn2'))) {
+                 //       fuseeStarted = true
+                 //    }
+                //  } else {
+                //     fuseePosX += 1;
+                //     $('#fusee').css({'left':fuseePosX,'top':Math.sin(fuseePosX/50)*30+40})
+                //     if (fuseePosX >= $('body').width()) {
+                //        $('#fusee').css({'left':-200})
+                //        clearInterval(fuseeMove)
+                //     }
+                //  }
+             //  }, 3);
             } )
           </script>
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

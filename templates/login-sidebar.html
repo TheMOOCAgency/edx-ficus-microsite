@@ -25,10 +25,10 @@ from django.core.urlresolvers import reverse
 % endif
   ## Disable help unless the FAQ marketing link is enabled
   % if settings.MKTG_URL_LINK_MAP.get('FAQ'):
-    <h3>${_("Need Help?")}</h3>
+  <!--  <h3>${_("Need Help?")}</h3>
     <p>Besoin d'aide pour vous connecter ou pour votre compte ?
     <a href="${marketing_link('FAQ')}">
         ${_("View our help section for answers to commonly asked questions.")}
-    </a></p>
+    </a></p> -->
   % endif
 </div>

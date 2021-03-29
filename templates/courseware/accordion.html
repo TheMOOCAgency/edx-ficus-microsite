@@ -73,6 +73,57 @@ else:
                 % endif
             </a>
         </div>
+            % if 'PARCOURS 2 -' in chapter['display_name'] and 'Objectif du parcours' in section['display_name'] :
+                <!-- <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeContext1">CONTEXTE</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themePrepare1">SE PREPARER</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeLead1">MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT</p>              
+                    </a>
+                </div> -->
+            % endif
+            % if 'PARCOURS 3 -' in chapter['display_name'] and 'Objectif du parcours' in section['display_name'] :
+                <!-- <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeContext2">CONTEXTE</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themePrepare2">SE PREPARER</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeLead2">MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT</p>              
+                    </a>
+                </div> -->
+            % endif
+            % if 'PARCOURS 4 -' in chapter['display_name'] and 'Objectif du parcours' in section['display_name'] :
+                <!-- <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeContext3">CONTEXTE</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themePrepare3">SE PREPARER</p>              
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="accordion-nav">
+                        <p class="accordion-display-name inactive" id="themeLead3">MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT</p>              
+                    </a>
+                </div> -->
+            % endif
         % endfor
     </div>
 </div>
@@ -92,3 +143,54 @@ else:
         DateUtilFactory.transform(iterationKey=".localized-datetime");
     </%static:require_module_async>
 % endif
+
+<!-- <script>
+    var themeTree = {
+        "PARCOURS 2 -": {
+            "CONTEXTE": ["Valoriser les apprentissage", "Challenger et se challenger", "Lever les freins"],
+            "SE PREPARER": ["Encadrer : une question de posture", "sur les dynamiques", "la gestion de projet"],
+            "MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT": ["Eveiller à"]
+        },
+        "PARCOURS 3 -": {
+            "CONTEXTE": ["Valoriser les apprentissage", "Challenger et se challenger", "Lever les freins"],
+            "SE PREPARER": ["Encadrer : une question de posture", "sur les dynamiques", "la gestion de projet", "Sourcer et se ressourcer"],
+            "MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT": ["Identifier une problématique", "Rechercher une idée", "Etudier son marché", "Comprendre sa cible", "Construire le potentiel", "Savoir pitcher", "Eveiller à"]
+        },
+        "PARCOURS 4 -": {
+            "CONTEXTE": ["Valoriser les apprentissage", "Challenger et se challenger", "Lever les freins"],
+            "SE PREPARER": ["Encadrer : une question de posture", "sur les dynamiques", "la gestion de projet", "Sourcer et se ressourcer"],
+            "MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT": ["Identifier une problématique", "Rechercher une idée", "Etudier son marché", "Comprendre sa cible", "Construire le potentiel", "Savoir pitcher", "Eveiller à"]
+        }
+    }
+
+    var parcoursList = Object.keys(themeTree)
+
+    $(document).ready( function() {
+        for (let i = 0; i < parcoursList.length; i++) {
+            var subParcoursList = Object.keys(themeTree[parcoursList[i]])
+            for (let j = 0; j < subParcoursList.length; j++) {
+                var nodeTheme = null
+                if (subParcoursList[j] === "CONTEXTE") {
+                    nodeTheme = "themeContext"+(i+1)
+                } else if (subParcoursList[j] === "SE PREPARER") {
+                    nodeTheme = "themePrepare"+(i+1)
+                } else if (subParcoursList[j] === "MENER UNE ACTION DE SENSIBILISATION À L'ENTREPRENEURIAT") {
+                    nodeTheme = "themeLead"+(i+1)
+                }
+                var subThemeList = themeTree[parcoursList[i]][subParcoursList[j]]
+                for (let h = 0; h < subThemeList.length; h++) {
+                    if ($('span:contains("'+parcoursList[i]+'")').parent().next().find('.chapter-menu > .menu-item > a > p:contains("'+subThemeList[h]+'")').parent().parent().length > 0) {
+                        console.log($('span:contains("'+parcoursList[i]+'")').parent().next().find('.chapter-menu > .menu-item > a > p:contains("'+subThemeList[h]+'")').parent().parent())
+                        console.log('#'+nodeTheme)
+                        $('span:contains("'+parcoursList[i]+'")').parent().next().find('.chapter-menu > .menu-item > a > p:contains("'+subThemeList[h]+'")').css({'font-style': 'italic'}).parent().parent().appendTo('#'+nodeTheme)
+                    }
+                }
+            }
+        }
+    })
+</script> -->
+<style>
+    .menu-item .menu-item > .accordion-nav:hover {
+        background-color: #f9e38b !important
+    }
+</style>
