@@ -5,7 +5,7 @@
       possible. En continuant de naviguer sur ce site, nous comprenons que
       vous acceptez l'utlisation de cookies.
       <a
-        href="/honor"
+        href="/tos"
         class="cookie-banner-button"
         >En savoir plus</a
       >
@@ -16,7 +16,7 @@
       <span>
         This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
         <a
-          href="/honor"
+          href="/tos"
           class="cookie-banner-button"
           >Find out more</a
         >
@@ -28,7 +28,7 @@
       <span>
         This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
         <a
-          href="/honor"
+          href="/tos"
           class="cookie-banner-button"
           >Find out more</a
         >
@@ -94,34 +94,32 @@
 </style>
 
 <script>
-    // <!-- Cookie-banner script start -->
-    const cookieBanner = document.querySelector("#cookie-banner");
-        const cookieBannerButton = document.querySelector("#cookie-button");
+  const cookieBanner = document.querySelector("#cookie-banner");
+  const cookieBannerButton = document.querySelector("#cookie-button");
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
   
-        function getCookie(cname) {
-          var name = cname + "=";
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var ca = decodedCookie.split(";");
-          for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == " ") {
-              c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-              return c.substring(name.length, c.length);
-            }
-          }
-          return "";
-        }
-        
-        if (getCookie("eu-consent")) {
-          cookieBanner.classList.add("hidden");
-        } else {
-          cookieBannerButton.addEventListener("click", function (e) {
-            cookieBanner.classList.add("hidden");
-            document.cookie = "eu-consent=true";
-            console.log("cookie-button");
-          });
-        }
-      // <!-- Cookie-banner script end -->
-  </script>
+  if (getCookie("eu-consent")) {
+    $('#cookie-banner').hide()
+  } else {
+    cookieBannerButton.addEventListener("click", function (e) {
+      $('#cookie-banner').hide()
+      document.cookie = "eu-consent=true";
+      console.log("cookie-button");
+    });
+  }
+</script>
