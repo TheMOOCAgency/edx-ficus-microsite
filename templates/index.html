@@ -1,97 +1,44 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+<!DOCTYPE html> 
+<html>
+  <head>
+    <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <script src='/media/microsite/masterclass5g/bootstrap/js/bootstrap.min.js'></script>
+        <script src='/media/microsite/masterclass5g/bootstrap/js/jquery.scrollify.js'></script>
+        <link rel="stylesheet" href="/media/microsite/masterclass5g/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/media/microsite/masterclass5g/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/media/microsite/masterclass5g/css/style.css" />
+  </head>
+  <body>
+  <script>
+    document.title="masterclass5G";
+  </script>
+    <main id="main" aria-label="Content" tabindex="-1">
+      <div id="logosContainer" class="row">
+        <div class="col-xs-12 col-sm-4">
+          <img src="/media/microsite/masterclass5g/assets/Logo_Télécom.png" alt="logo telecom paris">
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+        <div class="col-xs-12 col-sm-4 animate__animated animate__fadeInUp">
+          <h1>Bienvenue dans la formation</h1>
+          <img src="/media/microsite/masterclass5g/assets/Logo_5G.png" alt="logo 5G">
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <img src="/media/microsite/masterclass5g/assets/Netexplo_blanc.png" alt="logo Netexplo blanc">
+        </div>
+      </div>
+      <div id="loginButn" onclick="window.location.href='/login'" class="animate__animated animate__fadeInUp animate__delay-1s">
+        connexion
+      </div>
+    </main>
+    <footer>
+      <ul>
+        <li><a href="/tos">Conditions Générales</a></li>
+        <li><a href="/honor">Mention Légales</a></li>
+        <li><a href="/privacy">Confidentialité</a></li>
+        <li><a href="/about">Crédits</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>
