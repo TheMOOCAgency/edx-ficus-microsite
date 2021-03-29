@@ -334,6 +334,13 @@ site_status_msg = get_site_status_msg(course_id)
       }
     </style>
     <script>
+      % if LANGUAGE_CODE == 'fr':
+      var computerAdvise = 'Pour une expérience optimale nous vous recommandons de réaliser les activités suivantes sur un ordinateur.'
+      % elif LANGUAGE_CODE == 'en':
+      var computerAdvise = 'For a better experience please realise the following activities on a computer/laptop.'
+      % elif LANGUAGE_CODE == 'ja-jp':
+      var computerAdvise = '最適な形にするために次のようなPCの操作をしてください。'
+      % endif
       //LANGUAGE FLAGS
       let params = new URL(window.location).searchParams;
       let lang = params.get('lang');
