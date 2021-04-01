@@ -15,8 +15,7 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 <script>
 $( document ).ready(function(){
   var user_lang = navigator.language || navigator.userLanguage; 
-  console.log(user_lang);
-  console.log(user_lang.indexOf("fr")!= -1 || user_lang.indexOf("FR")!=-1 );
+
   if(user_lang.indexOf("fr")!= -1 || user_lang.indexOf("FR")!=-1 ){
     $('#about-trad').text('Mentions Légales')
     $('#conf-trad').text('Confidentialité')
