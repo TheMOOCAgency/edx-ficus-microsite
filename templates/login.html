@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("Connexion à mon compte");
       }
       else {
         $submitButton.
@@ -174,7 +174,6 @@ from third_party_auth import provider, pipeline
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
           </li>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>
@@ -193,6 +192,10 @@ from third_party_auth import provider, pipeline
           <li class="field required checkbox" id="field-remember">
             <input id="remember-yes" type="checkbox" name="remember" value="true" />
             <label for="remember-yes">${_('Remember me')}</label>
+          </li>
+          <li class="field required checkbox" id="field-agreeTos">
+            <input id="agreeTos" type="checkbox" name="agreeTos" value="true"/>
+            <label for="agreeTos">J'accèpte les <a href="/tos">conditions d'utilisation du Service</a></label>
           </li>
         </ol>
       </div>
@@ -230,7 +233,7 @@ from third_party_auth import provider, pipeline
 
   </section>
 
-  <aside role="complementary">
+  <aside role="complementary" style="display:none;">
 
 <%
   # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
@@ -241,3 +244,12 @@ from third_party_auth import provider, pipeline
 
   </aside>
   </section>
+<style>
+  .login.container {
+    max-width: 50vw!important;
+  }
+  
+  .login.container > section {
+    width: 100%;
+}
+</style>

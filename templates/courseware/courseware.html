@@ -169,7 +169,7 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
         </nav>
       </div>
     </div>
-    <div class="addthis_inline_share_toolbox"></div>
+    <!-- <div class="addthis_inline_share_toolbox"></div> -->
     </div>
 
 % endif
@@ -402,6 +402,10 @@ setInterval(function(){
 })
 </script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+  * {
+    font-family: 'PT Sans'!important, sans-serif;
+  }
   .wrapper-course-material>.menu-responsive{
     display:none!important;
   }

@@ -171,9 +171,6 @@ endfor
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % endif
       </div>
-      <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
-      </div>
       <!-- actif forum -->
       <!-- <div id="dashboard_profile_middle_bottom"> -->
         % if forum_tma:
@@ -203,7 +200,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          ${_('Weight')}: ${int(n.get('weight') * 100)}%
+          ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
@@ -240,11 +237,10 @@ endfor
 
 <style>
   #dashboard_profile_up{
-    background-color: ${custom_color}!important;
+    background-color: #FFD923!important;
   }
   #course_start{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
+    background-color : #FFD923!important;
   }
   @keyframes anim {
     0% {
@@ -266,14 +262,16 @@ endfor
     color : ${color_font_custom}!important;
   }
   .course_cells_title {
+    background-color : ${custom_color}!important;
+  }
+  .course_cells_action {
     background-color: ${custom_color}!important;
-    color : ${color_font_custom}!important;
   }
   .course_cells_action{
     background-color: ${custom_color};
   }
   #title_dashboard_course h1 {
-    color : ${color_font_custom}!important;
+    background-color : #FFD923!important;
   }
   #title_dashboard_course h1:hover {
     color : ${color_font_custom}!important;
@@ -290,8 +288,7 @@ endfor
      color : ${color_font_custom}!important;
   }
   .course_nav{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
+    background-color : #FFD923!important;
   }
   #course_nav a:hover{
     background-color: ${custom_color} !important;
@@ -305,7 +302,9 @@ endfor
   #course_nav .svg{
     fill : ${color_font_custom}!important;
   }
-
+  #dashboard_profile_middle {
+    height: 67px!important;
+  }
 </style>
 %if course.no_grade:
  <style>

@@ -143,8 +143,9 @@ font_name = font_string.replace('<link href="https://fonts.googleapis.com/css?fa
 %>
 ${font_string | n}
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
   *, div, span, section, h1, h2, h3, h4, h5, h6, p, header {
-    font-family:"${font_name}" !important;
+    font-family:'PT Sans', sans-serif !important;
   }
 </style>
 % else:

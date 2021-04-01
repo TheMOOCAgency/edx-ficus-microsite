@@ -62,7 +62,7 @@ $( function() {
     <div class="chapter-menu">
         % for section in chapter['sections']:
             <a class="accordion-nav accordion-nav-item ${'active' if 'active' in section and section['active'] else ''}" href="${reverse('courseware_section', args=[course_id, chapter['url_name'], section['url_name']])}">
-                <p class="accordion-display-name">${section['display_name']} ${Text(_('{span_start}current section{span_end}')).format(
+                <p class="accordion-display-name" style="color:#E11383">${section['display_name']} ${Text(_('{span_start}current section{span_end}')).format(
                         span_start=HTML('<span class="sr">'),
                         span_end=HTML('</span>'),
                     ) if 'active' in section and section['active'] else ''}</p></a>
@@ -183,5 +183,8 @@ else:
   }
   .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a, .course-index .accordion .course-navigation .chapter-content-container .chapter-menu .menu-item.active a:hover{
     color : ${custom_color}!important;
+  }
+  .ui-accordion-header-icon {
+    display:none;
   }
 </style>
