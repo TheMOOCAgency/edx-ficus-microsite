@@ -3,6 +3,13 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+import datetime
+from datetime import date
+
+#enrollment_start = enrollment.course_overview.enrollment_start
+#enrollment_end = enrollment.course_overview.enrollment_end
+#today = date.today()
+#if enrollment_end.date() < today or enrollment_start.date() > today:
 %>
 <%page args="course" expression_filter="h"/>
 <article class="course" id="${course.id}" role="region" aria-label="${course.display_name_with_default}">

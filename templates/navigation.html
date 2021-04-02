@@ -115,12 +115,12 @@ site_status_msg = get_site_status_msg(course_id)
     display: none;
   }
   #lang-content {
-    width: 60px;
+    width: auto;
     height: 24px;
   }
-  
+
   .noDecimal{list-style: none}
-  
+
   .ilEnd{
   float: inline-end;
   }
@@ -259,11 +259,14 @@ site_status_msg = get_site_status_msg(course_id)
             <label><span class="sr">${_("Choose Language")}</span>
               <!--LANGUAGE FLAGS-->
               <div id="lang-content">
-                <img src="/media/microsite/nature-for-city-life/img/us.png" id="us">
-                <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                <img src="/media/microsite/nature-for-city-life/img/us.png" id="us" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/fr.png" id="fr" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/es.png" id="es" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/de.png" id="de" style="width: 23px;">
+                <img src="/media/microsite/nature-for-city-life/img/it.png" id="it" style="width: 23px;">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="5" >
                   % for language in languages:
-                   % if language[0] =="en" or language[0] =="fr":
+                   % if language[0] =="en" or language[0] =="fr" or language[0] =="es-419" or language[0] =="it-it" or language[0] =="de-de":
                     % if language[0] == LANGUAGE_CODE:
                       <option value="${language[0]}" selected="selected">${language[0]}</option>
                     % else:
@@ -299,9 +302,9 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 
 <script>
   //LANGUAGE FLAGS
-  
+
   var setLanguage = true
-  
+
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -318,38 +321,128 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 };
 
 function getLangUrl(){
-if(setLanguage = true){
-var lang = getUrlParameter('lang');
+  if(setLanguage = true){
+    var lang = getUrlParameter('lang');
+    if(lang=="en" && ($('#settings-language-value > option[value="en"]').attr('selected')) !='selected'){
+      $( "#us" ).trigger( "click" );
+    }
+    if(lang=="es-419" && ($('#settings-language-value > option[value="es-419"]').attr('selected')) !='selected'){
+      $( "#es" ).trigger( "click" );
+    }
 
-if(lang=="en" && ($('#settings-language-value > option[value="en"]').attr('selected')) !='selected'){
-$( "#us" ).trigger( "click" );
-}
+    if(lang=="de-de" && ($('#settings-language-value > option[value="de-de"]').attr('selected')) !='selected'){
+      $( "#de" ).trigger( "click" );
+    }
 
-if(lang=="fr" && ($('#settings-language-value > option[value="fr"]').attr('selected')) !='selected'){
-$( "#fr" ).trigger( "click" );
-}
+    if(lang=="fr" && ($('#settings-language-value > option[value="fr"]').attr('selected')) !='selected'){
+      $( "#fr" ).trigger( "click" );
+    }
 
-}
-}
-  $('#us').on('click', function() {
-    $('#settings-language-value > option[value="en"]').attr('selected','selected');
-    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    if(lang=="it-it" && ($('#settings-language-value > option[value="it-it"]').attr('selected')) !='selected'){
+      $( "#it" ).trigger( "click" );
+    }
   }
-  );
-  $('#fr').on('click', function() {
-    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+};
 
-  }
-
-  );
-  
 
 
 $( document ).ready(function() {
   getLangUrl();
   setLanguage = false
-}); 
+  if ($('#settings-language-value').val() == "fr") {
+    var dirtyTranslate = setInterval(function(){
+      $('.forum-nav-filter-main-control > option[value = "unread"]').text('Non lus')
+      $('.forum-nav-filter-main-control > option[value = "unanswered"]').text('Non répondus')
+      if ($('.forum-nav-filter-main-control > option[value = "unread"]').text() === 'Non lus') {
+        clearInterval(dirtyTranslate)
+      }
+    }, 1000);
+    if ($('.dates').length > 0) {
+      for (let j = 0; j < 2; j++) {
+        for (let i = 0; i < $('.dates').length; i++) {
+          var dates_content = $('.dates:eq('+i+')').text();
+          var dates_replacement_pos = -1;
+          var dates_replacement_text = "";
+          if (dates_content.indexOf("/Jan/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jan/")
+            dates_replacement_text = " Janvier "
+          } else if (dates_content.indexOf("/Feb/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Feb/")
+            dates_replacement_text = " Février "
+          } else if (dates_content.indexOf("/Mar/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Mar/")
+            dates_replacement_text = " Mars "
+          } else if (dates_content.indexOf("/Apr/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Apr/")
+            dates_replacement_text = " Avril "
+          } else if (dates_content.indexOf("/May/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/May/")
+            dates_replacement_text = " Mai "
+          } else if (dates_content.indexOf("/Jun/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jun/")
+            dates_replacement_text = " Juin "
+          } else if (dates_content.indexOf("/Jul/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Jul/")
+            dates_replacement_text = " Juillet "
+          } else if (dates_content.indexOf("/Aug/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Aug/")
+            dates_replacement_text = " Août "
+          } else if (dates_content.indexOf("/Sep/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Sep/")
+            dates_replacement_text = " Septembre "
+          } else if (dates_content.indexOf("/Oct/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Oct/")
+            dates_replacement_text = " Octobre "
+          } else if (dates_content.indexOf("/Nov/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Nov/")
+            dates_replacement_text = " Novembre "
+          } else if (dates_content.indexOf("/Dec/") > -1) {
+            dates_replacement_pos = dates_content.indexOf("/Dec/")
+            dates_replacement_text = " Décembre "
+          }
+          if (dates_replacement_pos > -1) {
+            $('.dates:eq('+i+')').text([dates_content.slice(0, dates_replacement_pos), dates_replacement_text, dates_content.slice(dates_replacement_pos+5)].join(''));
+          }
+        }
+      }
+    }
+  }
+  $('#us').on('click', function() {
+    $('#settings-language-value > option[value="en"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
+    });
+  $('#fr').on('click', function() {
+    $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
+  });
+  $('#es').on('click', function() {
+    $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
+  });
+  $('#de').on('click', function() {
+    $('#settings-language-value > option[value="de-de"]').attr('selected','selected');
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger( "change");
+  })
+  $('#it').on('click', function() {
+    $('#settings-language-value > option[value="it-it"]').attr('selected','selected');
+    $('#settings-language-value > option[value="de-de"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
+  })
+});
 </script>
 
 <!-- superglobale js username and course_enrollment -->
