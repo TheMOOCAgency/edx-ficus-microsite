@@ -1,43 +1,39 @@
+
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear student,")}
 
-${_("You have been invited to join {course_name} at {site_name} by a "
-	"member of the course staff.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}
-% if is_shib_course:
-% if auto_enroll:
+% if course_name.find("FR") != -1:
 
-${_("To access the course visit {course_url} and login.").format(course_url=course_url)}
-% elif course_about_url is not None:
+Bonjour,
 
-${_("To access the course visit {course_about_url} and register for the course.").format(
-		course_about_url=course_about_url)}
+Vous avez été inscrit à la formation Faciliter la transformation digitale des entreprises.
+
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le lien suivant avec votre login et mot de passe ci-dessous :
+
+lien url : https://formationadistance.faciliterlatransformation.com
+
+Pour vous connecter, veuillez entrer votre adresse email et votre mot de passe Netexplo, ou cliquez sur Mot de passe oublié.
+
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org
+
+Cordialement,
+L'équipe de l'ESCP Business School - Observatoire Netexplo
+
+%else:
+
+Hello,
+
+You have been registered to Facilitating business’ digital transformation training.
+
+To access the program and start the training, we invite you to go to the following link with your login and password below:
+
+url link: https://formationadistance.faciliterlatransformation.com
+
+To connect, please enter your email address and your Netexplo password, or click the Forgot password button.
+
+If you have any problems connecting, please contact Esther by email learning@netexplo.org
+
+Sincerely yours,
+The ESCP Business School – Netexplo Observatory Team
+
 % endif
-% else:
-
-${_("To finish your registration, please visit {registration_url} and fill "
-	"out the registration form making sure to use {email_address} in the E-mail field.").format(
-		registration_url=registration_url,
-		email_address=email_address
-	)}
-% if auto_enroll:
-${_("Once you have registered and activated your account, you will see "
-	"{course_name} listed on your dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped
-	)}
-% elif course_about_url is not None:
-${_("Once you have registered and activated your account, visit {course_about_url} "
-	"to join the course.").format(course_about_url=course_about_url)}
-% else:
-${_("You can then enroll in {course_name}.").format(course_name=display_name or course.display_name_with_default_escaped)}
-% endif
-% endif
-
-----
-${_("This email was automatically sent from {site_name} to "
-	"{email_address}").format(
-		site_name=site_name, email_address=email_address
-	)}
