@@ -1,20 +1,39 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear {full_name}").format(full_name=full_name)}
 
-${_("You have been enrolled in {course_name} at {site_name} by a member "
-	"of the course staff. The course should now appear on your {site_name} "
-	"dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}
+% if display_name.find("ing") != -1 or course.display_name_with_default_escaped.find("ing") != -1:
 
-${_("To start accessing course materials, please visit {course_url}").format(
-		course_url=course_url
-	)}
+Hello,
 
-----
-${_("This email was automatically sent from {site_name} to "
-	"{full_name}").format(
-		site_name=site_name, full_name=full_name
-	)}
+You have been registered to Facilitating business’ digital transformation training.
+
+To access the program and start the training, we invite you to go to the following link with your login and password below:
+
+url link: https://formationadistance.faciliterlatransformation.com
+
+To connect, please enter your email address and your Netexplo password, or click the Forgot password button.
+
+If you have any problems connecting, please contact Esther by email learning@netexplo.org
+
+Sincerely yours,
+The ESCP Business School – Netexplo Observatory Team
+
+
+% else:
+
+Bonjour,
+
+Vous avez été inscrit à la formation Faciliter la transformation digitale des entreprises.
+
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le lien suivant avec votre login et mot de passe ci-dessous :
+
+lien url : https://formationadistance.faciliterlatransformation.com
+
+Pour vous connecter, veuillez entrer votre adresse email et votre mot de passe Netexplo, ou cliquez sur Mot de passe oublié.
+
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org
+
+Cordialement,
+L'équipe de l'ESCP Business School - Observatoire Netexplo
+
+% endif

@@ -1,7 +1,11 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-% if course_name.find("FR")!= -1:
-Objet : FORMATION / Faciliter la transformation digitale des entreprises - votre compte
-%else:
-Objet : TRAINING / Facilitating business’ digital transformation – your account
-% endif
+% if display_name.find("ing") != -1 or course.display_name_with_default_escaped.find("ing") != -1:
+
+TRAINING / Facilitating business’ digital transformation – your account
+
+% else: 
+
+FORMATION / Faciliter la transformation digitale des entreprises - votre compte
+
+% endif:

@@ -1,27 +1,6 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-
-% if course_name.find("FR") != -1:
-
-Bonjour,
-
-Vous avez été inscrit à la formation Faciliter la transformation digitale des entreprises.
-
-Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le lien suivant avec votre login et mot de passe ci-dessous :
-
-lien url : https://formationadistance.faciliterlatransformation.com
-
-Pour vous connecter, veuillez entrer :
-
-- votre adresse email : ${email_address}
-- votre mot de passe : ${password}
-
-Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org
-
-Cordialement,
-L'équipe de l'ESCP Business School - Observatoire Netexplo
-
-%else:
+% if display_name.find("ing") != -1 or course.display_name_with_default_escaped.find("ing") != -1:
 
 Hello,
 
@@ -40,5 +19,25 @@ If you have any problems connecting, please contact Esther by email learning@net
 
 Sincerely yours,
 The ESCP Business School – Netexplo Observatory Team
+
+% else:
+
+Bonjour,
+
+Vous avez été inscrit à la formation Faciliter la transformation digitale des entreprises.
+
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le lien suivant avec votre login et mot de passe ci-dessous :
+
+lien url : https://formationadistance.faciliterlatransformation.com
+
+Pour vous connecter, veuillez entrer :
+
+- votre adresse email : ${email_address}
+- votre mot de passe : ${password}
+
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org
+
+Cordialement,
+L'équipe de l'ESCP Business School - Observatoire Netexplo
 
 % endif
