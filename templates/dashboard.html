@@ -38,6 +38,7 @@ cssoverride = '/media/microsite/assets_redesign/css/dashboard.css'.format(org_st
 # COURSE TIME OUT FEATURE
 custom_fields = json.loads(user.profile.custom_field)
 desired_start_date = custom_fields['desired_start_date']
+desired_start_date = desired_start_date.replace(" ", "")
 start_date = datetime.datetime.strptime(desired_start_date, '%d/%m/%Y').date()
 today = datetime.datetime.now().date()
 days_delta = (today - start_date).days
