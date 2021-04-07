@@ -10,6 +10,7 @@ from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_json
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
+from student.models import UserProfile
 import json
 from tma_apps.tma_support_functions import tma_verify_access
 
@@ -17,14 +18,13 @@ primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
 %>
 
-
-
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
 <!-- COMMON STYLE-->
 <style>
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: inherit;
+    color:black;
   }
   p{
     padding:10px
@@ -39,7 +39,7 @@ background_url = configuration_helpers.get_value('bg_img')
     background: white;
   }
   .certificate-border{
-    border:2px solid ${primary_color};
+    /* border:2px solid ${primary_color}; */
     border-radius:5px;
   }
   #custom-btn{
@@ -57,7 +57,8 @@ background_url = configuration_helpers.get_value('bg_img')
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: white;
+    color: black;
+    margin-top: 120px;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -71,7 +72,11 @@ background_url = configuration_helpers.get_value('bg_img')
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('/media/microsite/courtepaille/assets/attestation_bg.jpg');
+    background-size: contain;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-position-x: center;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -100,14 +105,17 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
+          <!-- <div id="certificate-title"><h3>Certificat de Réussite</h3></div> -->
           <div>
             <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
             <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
+            <h3 id="restaurant"></h3>
+            <p>A suivi la formation "Accueil & service gagnant"</p>
+            <h4 id="datetime"></h4>
+            <!-- <p>a obtenu la note de</p>
             <h4>${int(grades['grade']*100)}%</h4>
             <p>au cours</p>
-            <h4>${course_name}</h4>
+            <h4>${course_name}</h4> -->
           </div>
           <div>
           </div>
@@ -142,5 +150,27 @@ background_url = configuration_helpers.get_value('bg_img')
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
+  var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
+  $.ajax({
+    url: urlAPI,
+    type: "GET",
+    dataType: 'json'
+  })
+  .done(function(data) {
+    if (data.restaurant_location) {
+      $('#restaurant').text(data.restaurant_location)
+    } else {
+      $('#restaurant').text("Restaurant non renseigné")
+    }
+  });
+
+  // DATE
+  date = new Date();
+  var tab_mois=["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  $('#datetime').text("Le " + day + " " + tab_mois[monthIndex]+ " " + year)
 </script>
 
