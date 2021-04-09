@@ -8,7 +8,7 @@ import third_party_auth
 from third_party_auth import provider, pipeline
 %>
 
-<%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
+<%block name="pagetitle">${("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
@@ -97,7 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("${('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${('Access My Courses')}");
       }
       else {
         $submitButton.
@@ -128,8 +128,8 @@ from third_party_auth import provider, pipeline
 <section class="introduction">
   <header>
     <h1 class="title">
-      <span class="title-super">${_("Please log in")}</span>
-      <span class="title-sub">${_("to access your account and courses")}</span>
+      <span class="title-super">${("Please log in")}</span>
+      <span class="title-sub">${("to access your account and courses")}</span>
     </h1>
   </header>
 </section>
@@ -140,13 +140,13 @@ from third_party_auth import provider, pipeline
 
       <!-- status messages -->
       <div role="alert" class="status message">
-        <h3 class="message-title">${_("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name=platform_name)}</h3>
+        <h3 class="message-title">${("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name=platform_name)}</h3>
       </div>
 
       <div role="alert" class="status message submission-error" tabindex="-1">
-        <h3 class="message-title">${_("We couldn't log you in.")} </h3>
+        <h3 class="message-title">${("We couldn't log you in.")} </h3>
         <ul class="message-copy">
-          <li>${_("Your email or password is incorrect")}</li>
+          <li>${("Your email or password is incorrect")}</li>
         </ul>
       </div>
 
@@ -156,7 +156,7 @@ from third_party_auth import provider, pipeline
 
       % if third_party_auth_error:
         <div role="alert" class="status message third-party-auth-error is-shown" tabindex="-1">
-          <h3 class="message-title">${_("An error occurred when signing you in to {platform_name}.").format(platform_name=platform_name)} </h3>
+          <h3 class="message-title">${("An error occurred when signing you in to {platform_name}.").format(platform_name=platform_name)} </h3>
           <ul class="message-copy">
             <li>${third_party_auth_error}</li>
           </ul>
@@ -164,35 +164,35 @@ from third_party_auth import provider, pipeline
       % endif
 
       <p class="instructions sr">
-        ${_('Please provide the following information to log into your {platform_name} account. Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.').format(platform_name=platform_name)}
+        ${('Please provide the following information to log into your {platform_name} account. Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.').format(platform_name=platform_name)}
       </p>
 
       <div class="group group-form group-form-requiredinformation">
-        <h2 class="sr">${_('Required Information')}</h2>
+        <h2 class="sr">${('Required Information')}</h2>
 
         <ol class="list-input">
           <li class="field required text" id="field-email">
-            <label for="email">${_('E-mail')}</label>
-            <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
+            <label for="email">${('E-mail')}</label>
+            <input class="" id="email" type="email" name="email" value="" placeholder="${('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
+            <span class="tip tip-input" id="email-tip">${("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
           </li>
           <li class="field required password" id="field-password">
-            <label for="password">${_('Password')}</label>
+            <label for="password">${('Password')}</label>
             <input id="password" type="password" name="password" value="" required aria-required="true" />
             <span class="tip tip-input">
-              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${_('Forgot password?')}</a>
+              <a href="#forgot-password-modal" rel="leanModal" class="pwd-reset action action-forgotpw" id="forgot-password-link" role="button" aria-haspopup="true">${('Forgot password?')}</a>
             </span>
           </li>
         </ol>
       </div>
 
       <div class="group group-form group-form-secondary group-form-accountpreferences">
-        <h2 class="sr">${_('Account Preferences')}</h2>
+        <h2 class="sr">${('Account Preferences')}</h2>
 
         <ol class="list-input">
           <li class="field required checkbox" id="field-remember">
             <input id="remember-yes" type="checkbox" name="remember" value="true" />
-            <label for="remember-yes">${_('Remember me')}</label>
+            <label for="remember-yes">${('Remember me')}</label>
           </li>
         </ol>
       </div>
@@ -207,7 +207,7 @@ from third_party_auth import provider, pipeline
       <span class="deco-divider">
         ## Developers: this is a sentence fragment, which is usually frowned upon.  The design of the pags uses this fragment to provide an "else" clause underneath a number of choices.  It's OK to leave it.
         ## Translators: this is the last choice of a number of choices of how to log in to the site.
-        <span class="copy">${_('or')}</span>
+        <span class="copy">${('or')}</span>
       </span>
 
     <div class="form-actions form-third-party-auth">
@@ -220,7 +220,7 @@ from third_party_auth import provider, pipeline
         % else:
         <span class="icon" aria-hidden="true"><img class="icon-image" src="${enabled.icon_image.url}" alt="${enabled.name} icon" /></span>
         % endif
-        ${_('Sign in with {provider_name}').format(provider_name=enabled.name)}
+        ${('Sign in with {provider_name}').format(provider_name=enabled.name)}
       </button>
     % endfor
 

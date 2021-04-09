@@ -123,19 +123,19 @@ site_status_msg = get_site_status_msg(course_id)
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
-                ${_("Courses")}
+                Courses
               </a>
             </li>
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
-                ${_("Programs")}
+                Programs
               </a>
             </li>
           % endif
           %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
             <li class="item">
               ## Translators: This is short for "System administration".
-              <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
+              <a href="${reverse('sysadmin')}">Sysadmin</a>
             </li>
           %endif
         </%block>
@@ -145,13 +145,13 @@ site_status_msg = get_site_status_msg(course_id)
 
       <a href="${get_online_help_info(online_help_token)['doc_url']}"
          target="_blank"
-         class="doc-link" style="display:none">${_("Help")}</a>
+         class="doc-link" style="display:none">Help</a>
 
       % if should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()): # see shoppingcart.context_processor.user_has_cart_context_processor
         <ol class="user">
           <li class="primary">
             <a class="shopping-cart" href="${reverse('shoppingcart.views.show_cart')}">
-              <span class="icon fa fa-shopping-cart" aria-hidden="true"></span> ${_("Shopping Cart")}
+              <span class="icon fa fa-shopping-cart" aria-hidden="true"></span> Shopping Cart
             </a>
           </li>
         </ol>
@@ -161,15 +161,15 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links">
           % if static.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
             <li class="item nav-global-01">
-              <a href="${marketing_link('HOW_IT_WORKS')}">${_("How it Works")}</a>
+              <a href="${marketing_link('HOW_IT_WORKS')}">How it Works</a>
             </li>
             % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
               <li class="item nav-global-02">
-                <a href="${marketing_link('COURSES')}">${_("Courses")}</a>
+                <a href="${marketing_link('COURSES')}">Courses</a>
               </li>
             % endif
             <li class="item nav-global-03">
-              <a href="${marketing_link('SCHOOLS')}">${_("Schools")}</a>
+              <a href="${marketing_link('SCHOOLS')}">Schools</a>
             </li>
           % endif
         </%block>
@@ -178,19 +178,19 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
+                <a class="btn" href="/courses" style="display:none">Explore Courses</a>
               </li>
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">Register</a>
               </li>
             % else:
               <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">Register</a>
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <a class="btn-neutral" href="/register">Register</a>
                 % endif
               </li>
             % endif
@@ -202,12 +202,12 @@ site_status_msg = get_site_status_msg(course_id)
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
+                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">Login</a>
               % else:
                 % if static.get_value('course_id') is not None:
-                <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">Login</a>
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login">Login</a>
                 % endif
               % endif
             % endif
@@ -227,7 +227,7 @@ site_status_msg = get_site_status_msg(course_id)
             % else:
             <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
             % endif
-            <label><span class="sr">${_("Choose Language")}</span>
+            <label><span class="sr">Choose Language</span>
                 <select class="input select language-selector" id="settings-language-value" name="language">
                   % for language in languages:
                     % if language[0] == LANGUAGE_CODE:

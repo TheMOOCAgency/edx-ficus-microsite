@@ -17,11 +17,11 @@ import datetime
 
 <!-- status messages -->
 <div role="alert" class="status message">
-  <h3 class="message-title">${_("We're sorry, but this version of your browser is not supported. Try again using a different browser or a newer version of your browser.")}</h3>
+  <h3 class="message-title">${("We're sorry, but this version of your browser is not supported. Try again using a different browser or a newer version of your browser.")}</h3>
 </div>
 
 <div role="alert" class="status message submission-error" tabindex="-1">
-  <h3 class="message-title">${_("The following errors occurred while processing your registration:")} </h3>
+  <h3 class="message-title">${("The following errors occurred while processing your registration:")} </h3>
   <ul class="message-copy"> </ul>
 </div>
 <style>
@@ -43,7 +43,7 @@ import datetime
       % else:
       <span class="icon" aria-hidden="true"><img class="icon-image" src="${enabled.icon_image.url}" alt="${enabled.name} icon" /></span>
       % endif
-      ${_('Sign up with {provider_name}').format(provider_name=enabled.name)}
+      ${('Sign up with {provider_name}').format(provider_name=enabled.name)}
     </button>
   % endfor
 
@@ -52,12 +52,12 @@ import datetime
   <span class="deco-divider">
     ## Developers: this is a sentence fragment, which is usually frowned upon.  The design of the pags uses this fragment to provide an "else" clause underneath a number of choices.  It's OK to leave it.
     ## Translators: this is the last choice of a number of choices of how to log in to the site.
-    <span class="copy">${_('or')}</span>
+    <span class="copy">${('or')}</span>
   </span>
 
   <p class="instructions">
-    ${_('Create your own {platform_name} account below').format(platform_name=platform_name)}
-    <span class="note">${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}</span>
+    ${('Create your own {platform_name} account below').format(platform_name=platform_name)}
+    <span class="note">${('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}</span>
   </p>
 
 
@@ -65,8 +65,8 @@ import datetime
 
   <p class="instructions">
     ## Translators: selected_provider is the name of an external, third-party user authentication service (like Google or LinkedIn).
-    ${_("You've successfully signed in with {selected_provider}.").format(selected_provider='<strong>%s</strong>' % selected_provider)}<br />
-    ${_("We just need a little more information before you start learning with {platform_name}.").format(platform_name=settings.PLATFORM_NAME)}
+    ${("You've successfully signed in with {selected_provider}.").format(selected_provider='<strong>%s</strong>' % selected_provider)}<br />
+    ${("We just need a little more information before you start learning with {platform_name}.").format(platform_name=settings.PLATFORM_NAME)}
   </p>
 
   % endif
@@ -74,57 +74,57 @@ import datetime
 % else:
 
 <p class="instructions">
-  ${_("Please complete the following fields to register for an account. ")}<br />
-  ${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}
+  ${("Please complete the following fields to register for an account. ")}<br />
+  ${('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}
 </p>
 
 % endif
 
 <div class="group group-form group-form-requiredinformation">
-  <h2 class="sr">${_('Required Information')}</h2>
+  <h2 class="sr">${('Required Information')}</h2>
 
   % if has_extauth_info is UNDEFINED:
 
   <ol class="list-input">
     <!--
     <li class="field required text" id="field-last_name">
-      <label for="last_name">${_('Last Name')}</label>
-      <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
+      <label for="last_name">${('Last Name')}</label>
+      <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${('example: Durand')}" required aria-required="true" />
     </li>
     <li class="field required text" id="field-first_name">
-      <label for="first_name">${_('First Name')}</label>
-      <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
+      <label for="first_name">${('First Name')}</label>
+      <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${('example: Kevin')}" required aria-required="true" />
     </li>
     -->
     <li class="field required text" id="field-email">
-      <label for="email">${_('E-mail')}</label>
-      <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
+      <label for="email">${('E-mail')}</label>
+      <input class="" id="email" type="email" name="email" value="${email}" placeholder="${('example: username@domain.com')}" required aria-required="true" />
     </li>
 
 
     <li class="field required text" id="field-name" style="display:none;">
-      <label for="name">${_('Full Name')}</label>
-      <input id="name" type="text" name="name" value="${name}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
-      <span class="tip tip-input" id="name-tip">${_("Your legal name, used for any certificates you earn.")}</span>
+      <label for="name">${('Full Name')}</label>
+      <input id="name" type="text" name="name" value="${name}" placeholder="${('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
+      <span class="tip tip-input" id="name-tip">${("Your legal name, used for any certificates you earn.")}</span>
     </li>
 
     <li class="field required text" id="field-username">
-      <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
-      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <label for="username">${('Public Username')}</label>
+      <input id="username" type="text" name="username" value="${username}" placeholder="${('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
+      <span class="tip tip-input" id="username-tip">${('Will be shown in any discussions or forums you participate in')} <strong>(${('cannot be changed later')})</strong></span>
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
 
     <li class="is-disabled field optional password" id="field-password" hidden>
-      <label for="password">${_('Password')}</label>
+      <label for="password">${('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
     </li>
 
     % else:
 
     <li class="field required password" id="field-password">
-      <label for="password">${_('Password')}</label>
+      <label for="password">${('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
     </li>
 
@@ -133,8 +133,8 @@ import datetime
   % else:
 
   <div class="message">
-    <h3 class="message-title">${_("Welcome {username}").format(username=extauth_id)}</h3>
-    <p class="message-copy">${_("Enter a Public Display Name:")}</p>
+    <h3 class="message-title">${("Welcome {username}").format(username=extauth_id)}</h3>
+    <p class="message-copy">${("Enter a Public Display Name:")}</p>
   </div>
 
   <ol class="list-input">
@@ -142,24 +142,24 @@ import datetime
     % if ask_for_email:
 
     <li class="field required text" id="field-email">
-      <label for="email">${_("E-mail")}</label>
-      <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" />
+      <label for="email">${("E-mail")}</label>
+      <input class="" id="email" type="email" name="email" value="" placeholder="${('example: username@domain.com')}" />
     </li>
 
     % endif
 
     <li class="field required text" id="field-username">
-      <label for="username">${_('Public Display Name')}</label>
-      <input id="username" type="text" name="username" value="${extauth_username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip" />
-      <span class="tip tip-input" id="id="username-tip>${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <label for="username">${('Public Display Name')}</label>
+      <input id="username" type="text" name="username" value="${extauth_username}" placeholder="${('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip" />
+      <span class="tip tip-input" id="id="username-tip>${('Will be shown in any discussions or forums you participate in')} <strong>(${('cannot be changed later')})</strong></span>
     </li>
 
     % if ask_for_fullname:
 
     <li class="field required text" id="field-name">
-      <label for="name">${_('Full Name')}</label>
+      <label for="name">${('Full Name')}</label>
       <input id="name" type="text" name="name" value="" placeholder="$_('example: Jane Doe')}" aria-describedby="name-tip" />
-      <span class="tip tip-input" id="name-tip">${_("Your legal name, used for any certificates you earn.")}</span>
+      <span class="tip tip-input" id="name-tip">${("Your legal name, used for any certificates you earn.")}</span>
     </li>
 
     % endif
@@ -175,13 +175,13 @@ import datetime
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+  <label for="${n.get('name')}">${(n.get('label'))}</label>
+  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
   % elif n.get('type') == 'text':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+  <label for="${n.get('name')}">${(n.get('label'))}</label>
+  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
   % elif n.get('type') == 'select':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
+  <label for="${n.get('name')}">${(n.get('label'))}</label>
   <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
     % if n.get('name') == 'country':
       <option value="" data-isdefault="true">--</option>
@@ -209,7 +209,7 @@ import datetime
   </select>
   % elif n.get('type') == 'checkbox':
   <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
+  <label for="${n.get('name')}">${(n.get('label'))}</label>
   % endif
   </div>
   </li>
@@ -218,19 +218,19 @@ import datetime
 </div>
 <!-- end extraform generation -->
 <div class="group group-form group-form-secondary group-form-personalinformation">
-  <h2 class="sr">${_("Additional Personal Information")}</h2>
+  <h2 class="sr">${("Additional Personal Information")}</h2>
 
   <ol class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['city'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['city']} text" id="field-city">
-      <label for="city">${_('City')}</label>
-      <input id="city" type="text" name="city" value="" placeholder="${_('example: New York')}" aria-describedby="city-tip" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['city'] == 'required' else ''} />
+      <label for="city">${('City')}</label>
+      <input id="city" type="text" name="city" value="" placeholder="${('example: New York')}" aria-describedby="city-tip" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['city'] == 'required' else ''} />
     </li>
     % endif
     % if settings.REGISTRATION_EXTRA_FIELDS['country'] != 'hidden':
     <li class="field-group">
     <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['country']} select" id="field-country">
-        <label for="country">${_("Country")}</label>
+        <label for="country">${("Country")}</label>
         <select id="country" name="country" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['country'] == 'required' else ''}>
           <option value="">--</option>
           %for code, country_name in countries:
@@ -243,11 +243,11 @@ import datetime
     % if settings.REGISTRATION_EXTRA_FIELDS['level_of_education'] != 'hidden':
     <li class="field-group field-education-level">
     <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['level_of_education']} select" id="field-education-level">
-        <label for="education-level">${_("Highest Level of Education Completed")}</label>
+        <label for="education-level">${("Highest Level of Education Completed")}</label>
         <select id="education-level" name="level_of_education" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['level_of_education'] == 'required' else ''}>
           <option value="">--</option>
           %for code, ed_level in UserProfile.LEVEL_OF_EDUCATION_CHOICES:
-          <option value="${code}">${_(ed_level)}</option>
+          <option value="${code}">${(ed_level)}</option>
           %endfor
         </select>
       </div>
@@ -256,11 +256,11 @@ import datetime
     % if settings.REGISTRATION_EXTRA_FIELDS['gender'] != 'hidden':
     <li class="field-group field-gender">
       <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['gender']} select" id="field-gender">
-        <label for="gender">${_("Gender")}</label>
+        <label for="gender">${("Gender")}</label>
         <select id="gender" name="gender" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['gender'] == 'required' else ''}>
           <option value="">--</option>
           %for code, gender in UserProfile.GENDER_CHOICES:
-          <option value="${code}">${_(gender)}</option>
+          <option value="${code}">${(gender)}</option>
           %endfor
         </select>
       </div>
@@ -269,7 +269,7 @@ import datetime
     % if settings.REGISTRATION_EXTRA_FIELDS['year_of_birth'] != 'hidden':
     <li class="field-group field-yob">
       <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['year_of_birth']} select" id="field-yob">
-        <label for="yob">${_("Year of Birth")}</label>
+        <label for="yob">${("Year of Birth")}</label>
         <select id="yob" name="year_of_birth" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['year_of_birth'] == 'required' else ''}>
           <option value="">--</option>
           %for year in UserProfile.VALID_YEARS:
@@ -287,14 +287,14 @@ import datetime
   <ol class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['mailing_address']} text" id="field-address-mailing">
-      <label for="address-mailing">${_("Mailing Address")}</label>
+      <label for="address-mailing">${("Mailing Address")}</label>
       <textarea id="address-mailing" name="mailing_address" value="" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] == 'required' else ''}></textarea>
     </li>
     % endif
 
     % if settings.REGISTRATION_EXTRA_FIELDS['goals'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['goals']} text" id="field-goals">
-      <label for="goals">${_("Please share with us your reasons for registering with {platform_name}").format(platform_name=platform_name)}</label>
+      <label for="goals">${("Please share with us your reasons for registering with {platform_name}").format(platform_name=platform_name)}</label>
       <textarea id="goals" name="goals" value="" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['goals'] == 'required' else ''}></textarea>
     </li>
     % endif
@@ -302,7 +302,7 @@ import datetime
 </div>
 
 <div class="group group-form group-form-accountacknowledgements">
-  <h2 class="sr">${_("Account Acknowledgements")}</h2>
+  <h2 class="sr">${("Account Acknowledgements")}</h2>
 
   <ol class="list-input">
     <li class="field-group">
@@ -310,7 +310,7 @@ import datetime
       % if has_extauth_info is UNDEFINED or ask_for_tos :
       <div class="field required checkbox" id="field-tos">
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
-        <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
+        <label for="tos-yes">${('I agree to the {link_start}Terms of Service{link_end}').format(
           link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
           link_end='</a>')}</label>
       </div>
@@ -324,7 +324,7 @@ import datetime
         <%
           honor_code_path = marketing_link('HONOR')
         %>
-        <label for="honorcode-yes">${_('I agree to the {link_start}Honor Code{link_end}').format(
+        <label for="honorcode-yes">${('I agree to the {link_start}Honor Code{link_end}').format(
           link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=honor_code_path),
           link_end='</a>')}</label>
       </div>
@@ -336,7 +336,7 @@ import datetime
 </div>
 
 <div class="form-actions">
-  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
+  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${('Create My Account')}--></button>
 </div>
 <style>
 #login_link_up {
@@ -366,8 +366,8 @@ $('#first_name,#last_name').change(function(){
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
-  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
+  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${("Already have an account?")}</a>
 % else:
-  <a id="login_link" href="/login">${_("Already have an account?")}</a>
+  <a id="login_link" href="/login">${("Already have an account?")}</a>
 % endif
 </div>

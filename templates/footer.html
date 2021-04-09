@@ -42,32 +42,46 @@ else:
 
 <link rel="stylesheet" type="text/css" href="${css}" />
 <style>
-body footer.global {
-    background-color: ${third_color}!important;
-}
+  @font-face {
+    font-family: 'Gotham'; 
+    src: url("/media/microsite/ademe/fonts/Gotham-Medium.otf") format("opentype");
+  }
+  @font-face {
+    font-family: 'GothamLight'; 
+    src: url("/media/microsite/ademe/fonts/Gotham-Thin.otf") format("opentype");
+  }
+
+  * {
+    font-family: GothamLight!important;
+    font-weight: 700;
+  }
+  footer ul {
+    list-style: none;
+    background-color: rgb(255,116,0);
+    padding: 9px 5px 9px 5px;
+    margin: 0;
+  }
+
+  footer li {
+    margin-right: 15px;
+    display: inline-block;
+  }
+
+  footer a, footer a:visited {
+    color: white!important;
+    text-decoration: none!important;
+  }
+
+  footer a:hover {
+    color: black!important;
+    text-decoration: none!important;
+  }
 </style>
 
-<footer class="global">
-  <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
+<footer>
+    <ul>
+      <li><a href="/about">TEAM</a></li>
+      <li><a href="/blog">PARTNERS</a></li>
+      <li><a href="/tos">TERMS OF USAGE</a></li>
     </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
-    </div>
-  </div>
 </footer>

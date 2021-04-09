@@ -13,7 +13,7 @@ from third_party_auth import pipeline, provider
 import calendar
 %>
 
-<%block name="pagetitle">${_("Register for {platform_name}").format(platform_name=platform_name)}</%block>
+<%block name="pagetitle">${("Register for {platform_name}").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-register</%block>
 
@@ -83,11 +83,11 @@ import calendar
 
       if(enable) {
         $submitButton.
-          html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
+          html("${('Create My {platform_name} Account').format(platform_name=platform_name)}");
       }
       else {
         $submitButton.
-          text("${_('Processing your account information')}");
+          text("${('Processing your account information')}");
       }
     }
   </script>
@@ -106,8 +106,8 @@ import calendar
 <section class="introduction">
   <header>
     <h1 class="title">
-      <span class="title-super">${_("Welcome!")}</span>
-      <span class="title-sub">${_("Register below to create your {platform_name} account").format(platform_name=platform_name)}</span>
+      <span class="title-super">${("Welcome!")}</span>
+      <span class="title-sub">${("Register below to create your {platform_name} account").format(platform_name=platform_name)}</span>
     </h1>
   </header>
 </section>
