@@ -354,11 +354,11 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():      
        % if course:
         % if tma_verify_access(user).has_dashboard_access(str(course.id)):
-         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Votre Vademecum mis à jour sera bientôt disponible. Votre nouvelle interface d\'administration va s\'afficher dans un nouvel onglet.');">Administration</a>
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px; text-align: center;" onclick="alert('Vous allez accéder à la nouvelle interface « Administrateur ». Pour cela, cliquez sur OK');">Administration</a>
         % endif
        % else:
         % if tma_verify_access(user).has_dashboard_access("course-v1:e-formation-artisanat+premium+2020_T1"):
-         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Votre Vademecum mis à jour sera bientôt disponible. Votre nouvelle interface d\'administration va s\'afficher dans un nouvel onglet.');">Administration</a>
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Vous allez accéder à la nouvelle interface « Administrateur ». Pour cela, cliquez sur OK');">Administration</a>
         % endif
        % endif
       % endif
