@@ -190,7 +190,7 @@ site_status_msg = get_site_status_msg(course_id)
                 % if static.get_value('course_id') is not None:
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">Register</a>
                 % else:
-                <a class="btn-neutral" href="/register">Register</a>
+                <a class="btn-neutral" href="/register?course_id=course-v1:ademe+2021+01&enrollment_action=enroll">Register</a>
                 % endif
               </li>
             % endif

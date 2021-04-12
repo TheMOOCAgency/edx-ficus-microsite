@@ -19,7 +19,7 @@ _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
   _template = "<p>Cgu</p>"
 %>
-<%block name="pagetitle">${_("Terms of Service")}</%block>
+<%block name="pagetitle">Terms of usage</%block>
 <%
 static.get_value('domain_prefix')
 %>
