@@ -381,19 +381,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div id="main">
-        <div id="cookie-banner">
-          <span>
-            Ce site utilise des cookies pour vous assurer la meilleure navigation
-            possible. En continuant de naviguer sur ce site, nous comprenons que
-            vous acceptez l'utlisation de cookies.
-            <a
-              href="/tos"
-              class="cookie-banner-button"
-              >En savoir plus</a
-            >
-          </span>
-          <div id="cookie-button" class="cookie-banner-button">J'accepte !</div>
-        </div>
         <div id="intro">
           <div id="navPart">
             <div class="mainColorBg bandeau"></div>
@@ -788,17 +775,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div id="main">
-        <div id="cookie-banner">
-          <span>
-            This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
-            <a
-              href="/tos"
-              class="cookie-banner-button"
-              >Find out more</a
-            >
-          </span>
-          <div id="cookie-button" class="cookie-banner-button">Accept !</div>
-        </div>
         <div id="intro">
           <div id="navPart">
             <div class="mainColorBg bandeau"></div>
@@ -1199,17 +1175,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div id="main">
-        <div id="cookie-banner">
-          <span>
-            This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
-            <a
-              href="/tos"
-              class="cookie-banner-button"
-              >Find out more</a
-            >
-          </span>
-          <div id="cookie-button" class="cookie-banner-button">Accept !</div>
-        </div>
         <div id="intro">
           <div id="navPart">
             <div class="mainColorBg bandeau"></div>
@@ -1572,6 +1537,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
+    <!-- cookie banner -->
+    <div id="cookie-banner">
+      % if LANGUAGE_CODE == "fr":
+      <span>
+        Ce site utilise des cookies pour vous assurer la meilleure navigation
+        possible. En continuant de naviguer sur ce site, nous comprenons que
+        vous acceptez l'utlisation de cookies.
+        <a
+          href="/tos"
+          class="cookie-banner-button"
+          >En savoir plus</a
+        >
+      </span>
+      <div id="cookie-button" class="cookie-banner-button">J'accepte !</div>
+      % elif LANGUAGE_CODE == "en":
+      <div id="cookie-banner">
+        <span>
+          This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
+          <a
+            href="/tos"
+            class="cookie-banner-button"
+            >Find out more</a
+          >
+        </span>
+        <div id="cookie-button" class="cookie-banner-button">Accept !</div>
+      </div>
+      % elif LANGUAGE_CODE == "ja-jp":
+      <div id="cookie-banner">
+        <span>
+          This site uses cookies to ensure the best navigation possible. By continuing to browse this site, we understand that you accept the use of cookies.
+          <a
+            href="/tos"
+            class="cookie-banner-button"
+            >Find out more</a
+          >
+        </span>
+        <div id="cookie-button" class="cookie-banner-button">Accept !</div>
+      </div>
+      % endif
+  </div>
+
     <script src="/media/librairies/bootstrap/bootstrap.min.js" charset="utf-8"></script>
     <script>
       $( document ).ready(function(){
@@ -1589,6 +1595,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
+              console.log(c.substring(name.length, c.length))
               return c.substring(name.length, c.length);
             }
           }
@@ -1601,10 +1608,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           cookieBannerButton.addEventListener("click", function (e) {
             $('#cookie-banner').hide()
             document.cookie = "eu-consent=true";
-            console.log("cookie-button");
           });
         }
-    // <!-- Cookie-banner script end -->
+        // <!-- Cookie-banner script end -->
 
         if (!$('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")){
           var getUrlParameter = function getUrlParameter(sParam) {
@@ -1624,11 +1630,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           };
 
           var urlLang = getUrlParameter('lang');
-          if (urlLang == 'jp') {
+          if (urlLang == 'jp' && !$('#settings-language-value > option[value="ja-jp"]')[0].hasAttribute("selected")) {
             $('#settings-language-value > option[value="ja-jp"]').attr('selected','selected');
             $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
-            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
+            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
           }
+        }
+
+        var url = new URL(window.location.href);
+        var paramUrl = url.searchParams.get('lang');
+        if (paramUrl){
+          console.log(paramUrl)
+          if(paramUrl === 'en' && !$('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")) {
+            $('#settings-language-value > option[value="en"]').attr('selected','selected');
+            $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+          }else if(paramUrl === 'fr' && !$('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")){
+            $('#settings-language-value > option[value="fr"]').attr('selected','selected');
+            $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
+          }
+        }else {
+          console.log('no param')
         }
 
         window.history.pushState("/", "Champagne MOOC", "/");
@@ -1664,22 +1685,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               $('html,body').animate({scrollTop: $("#offersFooterJP").offset().top},'slow');
           })
         }
-
-      var url = new URL(window.location.href);
-      var paramUrl = url.searchParams.get('lang');
-      if (paramUrl){
-        console.log(paramUrl)
-        if(paramUrl === 'en' && $('#settings-language-value > option[value="fr"]')[0].hasAttribute("selected")) {
-          $('#settings-language-value > option[value="en"]').attr('selected','selected');
-          $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
-        }else if(paramUrl === 'fr' && $('#settings-language-value > option[value="en"]')[0].hasAttribute("selected")){
-          $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-          $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");;
-        }
-      }else {
-        console.log('no param')
-      }
-
 
         $('.en').on('click', function() {
           $('#settings-language-value > option[value="en"]').attr('selected','selected');
