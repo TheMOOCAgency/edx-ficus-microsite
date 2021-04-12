@@ -61,7 +61,10 @@ def is_course_open(course):
 string_emails = sys.argv[1]
 TO_EMAILS = string_emails.split(';')
 org = sys.argv[2]
-old_file = sys.argv[3]
+path_to_utils = '/edx/app/edxapp/edx-microsite/{}/utils'.format(org)
+old_file = path_to_utils + sys.argv[3]
+old_users_journey_list = path_to_utils + sys.argv[4]
+old_users_expedition_list = path_to_utils + sys.argv[5]
 register_form = configuration_helpers.get_value_for_org(org, 'FORM_EXTRA')
 certificate_extra_form = configuration_helpers.get_value_for_org(org, 'CERTIFICATE_FORM_EXTRA')
 form_factory = ensure_form_factory()
@@ -141,6 +144,32 @@ course_ids=[
     }
 ]
 
+match_list = {
+    "Big Data":"Big Data",
+    "Blockchain":"Blockchain",
+    "Chatbot":"Chatbot",
+    "Collaborateurs Connectés":"Collaborateurs co",
+    "Compétences connectées":"Compétences co",
+    "Consommateurs Connectés":"Consommateurs co",
+    "Consumer to consumer":"C to C",
+    "Crowdfunding":"Crowdfunding",
+    "Digital in store":"Digital in Store",
+    "e-Santé":"eSanté",
+    "Economie Participative":"Eco participative",
+    "Ewellness":"Ewellness",
+    "Handicap":"Handicap",
+    "Information 2.0":"Information 2 0",
+    "Innovation frugale":"Inno frugale",
+    "Internet Mobile":"Internet Mobile",
+    "Makers":"Makers",
+    "Médias Sociaux":"Médias sociaux",
+    "Nouvelles Interfaces":"Nlles Interfaces",
+    "Objets Connectés":"Objets connectés",
+    "Robotique & IA":"Robotique & IA",
+    "Savoirs Connectés":"Savoirs co",
+    "Sécurité":"Sécurité",
+    "Smartcities":"Smart Cities"
+}
 
 def get_user_info(user):
     user_profile = {}
@@ -224,7 +253,7 @@ def isInt(value):
   except ValueError:
     return False
 
-def get_journey_number(journeyA, journeyB):
+def get_journey_number(journeytype, journeyB):
     best_journey = ''
 
     if isInt(journeyA) and not isInt(journeyB):
@@ -240,6 +269,36 @@ def get_journey_number(journeyA, journeyB):
         best_journey = str(best_journey)
         
     return best_journey
+
+    file = open(old_file, "rb")
+    old_users_journey_list = csv.DictReader(file, delimiter=';')
+    for old_user in old_users_datas_list:
+        in_new_platform = False
+        for key in users_data.keys():
+            user = users_data[key]
+            if user[3] == old_user['email']:
+                in_new_platform = True
+                first_name = user[0]
+                last_name = user[1]
+                matricule = old_user['matricule']
+                email = user[3]
+                position = old_user['position']
+                department = old_user['department']
+                region = old_user['region']
+                additional_information = old_user['additional information']
+                date_inscription = old_user['inscrit le']
+                last_login = user[9]
+                data_IA = get_best_date(user[10], old_user['data-ia'])
+                expeditions = get_best_date(user[11], old_user['expedition'])
+                journey = get_journey_number(user[12], old_user['journey'])
+                manager = get_best_date(user[13], old_user['manager'])
+                passeport = get_best_date(user[14], old_user['passport'])
+                social_school = get_best_date(user[15], old_user['social-school'])
+                users_data[key] = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login, data_IA, expeditions, journey, manager, passeport, social_school]
+
+        if not in_new_platform:
+            users_data[old_user['matricule']] = [old_user['firstname'], old_user['lastname'], old_user['matricule'], old_user['email'], old_user['position'], old_user['department'], old_user['region'], old_user['additional information'], old_user['inscrit le'], old_user['derniere connexion'], old_user['data-ia'], old_user['expedition'], old_user['journey'], old_user['manager'], old_user['passport'], old_user['social-school']]
+    file.close()
 
 #### TRUE SCRIPT
 

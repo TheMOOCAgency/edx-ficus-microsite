@@ -172,9 +172,13 @@ endfor
         % elif cours_ouv:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
             %if request.LANGUAGE_CODE == 'de-de' :
-              Training nicht validiert
-            % else :
-              ${_("Training not validated")}
+              Setzen Sie das Training fort
+            % elif request.LANGUAGE_CODE == 'en' :
+             Resume training
+            % elif request.LANGUAGE_CODE == 'es':
+             Reanudar el entrenamiento
+            % elif request.LANGUAGE_CODE == 'fr':
+             Reprendre la formation
             % endif
           </a>
         </span>
