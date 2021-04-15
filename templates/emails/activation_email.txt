@@ -21,3 +21,15 @@ https://${ site }/activate/${ key }
 
 Thank you for registering and we hope you’ll enjoy the course.
 See you soon !
+
+-----
+
+ようこそ、
+
+www.champagne-mooc.comにて通常版へ登録のご登録ありがとうございました。 ただいまよりChampagne-moocベーシックコースを受講いただけます。 こちらのリンクからレッスンを開始いただけます。
+
+https://${ site }/activate/${ key }
+
+-----
+
+このメールは自動配信のため返信は受付できません
