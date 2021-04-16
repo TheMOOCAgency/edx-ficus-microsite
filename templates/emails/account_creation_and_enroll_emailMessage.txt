@@ -1,14 +1,21 @@
-<%! from django.utils.translation import ugettext as _ %>
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+Bonjour,
+ 
+Nous vous confirmons votre inscription à la formation MasterClass 5G de Télécom Paris - NetExplo Observatory
+ 
+Pour accéder au programme et démarrer la formation, nous vous invitons à vous rendre sur le lien suivant avec vos identifiants ci-dessous,
+ 
+lien URL :  https://formationadistance.masterclass5g.com/
+ 
+Pour vous connecter, renseignez votre identifiant, ainsi que votre mot de passe.
+ 
+e-mail: ${email_address}
+mot de passe: ${password}
+ 
+Pour les classes virtuelles par groupes de 25 animées par des professeurs de Télécom Paris, un lien spécifique ainsi qu’un calendrier de cours vous seront envoyés au début de votre parcours de formation.
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
-
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
-
-${_("It is recommended that you change your password.")}
-
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+En cas de difficulté de connexion, merci de contacter Marie-Jo Cousin par email : mjcousin@netexplo.org
+ 
+Nous vous souhaitons un excellent parcours de formation,
+ 
+Netexplo Observatory - Télécom Paris
