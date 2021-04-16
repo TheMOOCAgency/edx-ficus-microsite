@@ -268,5 +268,12 @@ from third_party_auth import provider, pipeline
   
   .login.container > section {
     width: 100%;
-}
+  }
+  .view-login .form-actions button[type="submit"] {
+    background: #ffd923;
+    color: rgb(99 104 109) !important;
+  }
+  .login .form-actions button[disabled][type="submit"] {
+    background: #000;
+  }
 </style>
