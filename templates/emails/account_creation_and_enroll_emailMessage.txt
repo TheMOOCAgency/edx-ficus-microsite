@@ -1,4 +1,23 @@
-% if course_key == "course-v1:complete-data+FR+MBA_HEC" or course_key == "course-v1:complete-data+EN+MBA_HEC"  :
+% if course_key == "course-v1:complete-data+EN+MBA_HEC" :
+Dear Participant,
+
+We have already registered you on the online platform of your Data for Managers course, but there is a formal process to follow.
+
+Please click on the link below:
+https://formationadistance.dataformanagers.com/login
+
+Then type in your email address and the following password:
+Login: ${email_address}
+Password: ${password}
+
+If you encounter any tech issues, please contact learning@netexplo.org
+
+See you at 5:10 PM.
+
+Best regards,
+
+Julien Lévy
+% elif course_key == "course-v1:complete-data+FR+MBA_HEC" :
 Dear Participant,
 
 I am very happy to welcome you to the HEC MBA Course Data for Managers.
