@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 from context_processors import doc_url
 from lms.djangoapps.ccx.overrides import get_current_ccx
 from openedx.core.djangolib.markup import HTML, Text
+from tma_apps.tma_support_functions import tma_verify_access
 
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -118,7 +119,11 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
 
       % if user.is_authenticated():
-        <ol class="left nav-global list-inline authenticated" style="display: none !important;">
+        <ol class="left nav-global list-inline authenticated" 
+        % if not tma_verify_access(request.user).is_tma_team():
+          style="display: none !important;"
+        % endif
+        >
         <%block name="navigation_global_links_authenticated">
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -409,7 +414,7 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
 }
 
 .header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
-  color : ${color_custom}!important;
+  color : black!important;
   text-shadow : none!important;
 }
 .label-username p, .label-username:hover p{
@@ -428,7 +433,7 @@ color : ${color_custom}!important;
   color: ${color_custom}!important;
 }
 .header-global .nav-global li a, .header-global .nav-global div a{
-  color: white !important;
+  color: black !important;
   font-weight: 600;
   /* text-transform: uppercase; */
   padding: 10px 20px;
