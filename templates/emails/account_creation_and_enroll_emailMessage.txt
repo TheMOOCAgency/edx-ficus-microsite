@@ -14,7 +14,7 @@ mot de passe: ${password}
  
 Pour les classes virtuelles par groupes de 25 animées par des professeurs de Télécom Paris, un lien spécifique ainsi qu’un calendrier de cours vous seront envoyés au début de votre parcours de formation.
 
-En cas de difficulté de connexion, merci de contacter Marie-Jo Cousin par email : mjcousin@netexplo.org
+En cas de difficulté de connexion, merci de contacter learning@netexplo.org
  
 Nous vous souhaitons un excellent parcours de formation,
  
