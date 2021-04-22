@@ -13,9 +13,21 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" href="/media/microsite/masterclass5g/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/media/microsite/masterclass5g/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" type="text/css" href="/media/microsite/hedis/css/style.css" />
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
+        <div id="titleContainer" class="animate__animated animate__fadeInUp">
+          <h1>Bienvenu dans les formation Hedis</h1>
+          <img src="/media/microsite/hedis/auto/images/logo.png">
+          <div id="logoContainer">
+            <a href="/login"><div class="logRegButton">Connexion</div></a>
+            <a href="/register"><div class="logRegButton">Inscription</div></a>
+          </div>
+        </div>
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -57,6 +69,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 
     </section>
 </main>
+<%include file="cookie_banner.html" />
 
 % if show_homepage_promo_video:
   <section id="video-modal" class="modal home-page-video-modal video-modal">
