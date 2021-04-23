@@ -21,13 +21,13 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     <section class="home">
       <header>
         <div id="titleContainer" class="animate__animated animate__fadeInUp">
-          <h1>Bienvenu dans les formation Hedis</h1>
-          <img src="/media/microsite/hedis/auto/images/logo.png">
+          <h1><b>Bienvenu dans la formation :</b><br />Prévention des risques chimiques</h1>
           <div id="logoContainer">
             <a href="/login"><div class="logRegButton">Connexion</div></a>
             <a href="/register"><div class="logRegButton">Inscription</div></a>
           </div>
         </div>
+        <div id="titeImage"></div>
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -63,10 +63,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             </a>
           % endif
         </div>
-
       </header>
-      <%include file="${courses_list}" />
-
     </section>
 </main>
 <%include file="cookie_banner.html" />

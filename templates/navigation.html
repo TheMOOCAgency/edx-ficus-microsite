@@ -67,7 +67,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global" >
+  <header id="global-navigation" class="header-global" style="    background-color: rgba(18,37,45,1)!important;">
   <input class="burger" type="checkbox">
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
@@ -81,7 +81,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img class="${logo_size}" src="/media/microsite/hedis/assets/images/Logo_WeUp_BY.png" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}" style="height: 85px!important;"/>
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
@@ -181,24 +181,14 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
               </li>
             %endif
-            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
-            % else:
-              <li class="item nav-global-04">
-                % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
-                % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
-                % endif
-              </li>
-            % endif
           % endif
         </%block>
       </ol>
-      <ol class="right nav-courseware list-inline">
+      <ol class="right nav-courseware list-inline" style="width: 470px;">
         <%block name="navigation_sign_in">
+          <li class="item nav-courseware-01">
+              <a class="btn btn-login" href="/register">${_("Register")}</a>
+          </li>
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
@@ -424,6 +414,9 @@ color : ${color_custom}!important;
 }
 #global-navigation .burger::before{
   color: ${color_custom}!important;
+}
+.list-inline > li > a {
+    font-size: 16px!important;
 }
 </style>
 <!-- TMA Ficus Redesign -->
