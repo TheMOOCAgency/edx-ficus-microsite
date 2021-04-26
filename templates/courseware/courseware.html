@@ -133,11 +133,6 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 
       <div class="wrapper-course-modes">
 
-          <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
-              <button type="button" class="bookmarks-list-button is-inactive" aria-pressed="false">
-                  ${_('Bookmarks')}
-              </button>
-          </div>
 
           % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
             <div id="courseware-search-bar" class="search-bar courseware-search-bar" role="search" aria-label="Course">

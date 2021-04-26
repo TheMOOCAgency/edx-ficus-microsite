@@ -170,10 +170,10 @@ endfor
         % endif
       </div>
       <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
-      </div>
+      <!-- <div id="dashboard_profile_middle_middle">
+      </div> -->
       <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
+      <!-- <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
@@ -181,7 +181,7 @@ endfor
         % else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
-      </div>
+      </div> -->
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
@@ -220,7 +220,11 @@ endfor
   }
  </style>
 %endif
-
+<style>
+  #dashboard_profile_middle{
+    height: 63px !important;
+  }
+</style>
 
 <script type="text/javascript">
 grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
