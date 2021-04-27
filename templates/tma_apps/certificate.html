@@ -57,7 +57,6 @@ background_url = configuration_helpers.get_value('bg_img')
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: white;
   }
   #certificate-wrapper{
     min-height: calc(100vh - 133px);
@@ -71,7 +70,8 @@ background_url = configuration_helpers.get_value('bg_img')
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}')
+    background-image: url('${background_url}');
+    background-size: contain;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -99,9 +99,9 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
+      <div id="internal-border" >
           <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
+          <div style="background-color: rgba(255,255,255,0.75);padding: 10px;border-radius: 10px;">
             <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
             <h3>${first_name} ${last_name}</h3>
             <p>a obtenu la note de</p>
