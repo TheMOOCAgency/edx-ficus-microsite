@@ -1,5 +1,10 @@
 <%! from django.utils.translation import ugettext as _ %>
 
+% if course_name == "MOOCシャンパーニュ 通常版" :
+${full_name} 様 www.champagne-mooc.com にて通常版へ登録のご登録ありがとうございました。 ただいまよりChampagne-moocベーシックコースを受講いただけます。 こちらのリンクからレッスンを開始いただけます。https://www.champagne-mooc.com/courses/course-v1:champagne-mooc+005+005/ このメールは自動配信のため返信は受付できません
+% elif course_name == "MOOCシャンパーニュ　プレミアム版" :
+${full_name} 様 www.champagne-mooc.com にてプレミアム版へ登録のご登録ありがとうございました。 ただいまよりChampagne-moocプレミアムコースを受講いただけます。 こちらのリンクからレッスンを開始いただけます。https://www.champagne-mooc.com/courses/course-v1:champagne-mooc+006+006/ このメールは自動配信のため返信は受付できません
+% else:
 ${_("Dear {full_name}").format(full_name=full_name)}
 
 ${_("You have been enrolled in {course_name} at {site_name} by a member "
@@ -18,3 +23,4 @@ ${_("This email was automatically sent from {site_name} to "
 	"{full_name}").format(
 		site_name=site_name, full_name=full_name
 	)}
+% endif

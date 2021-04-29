@@ -1,5 +1,11 @@
 <%! from django.utils.translation import ugettext as _ %>
 
+% if course_name == "MOOCシャンパーニュ 通常版" :
+MOOCシャンパーニュ通常版に登録完了しました。
+% elif course_name == "MOOCシャンパーニュ　プレミアム版" :
+MOOCシャンパーニュ　プレミアム版に登録完了しました。
+% else :
 ${_("You have been enrolled in {course_name}").format(
 		course_name=display_name or course.display_name_with_default_escaped
 	)}
+% endif
