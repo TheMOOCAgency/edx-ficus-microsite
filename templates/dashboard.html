@@ -31,6 +31,7 @@ import time
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/dashboard.css'.format(org_static)
 css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
+one_course_list = ["nathalie@estellat.com","suzanne.peters@brainbooster.global"]
 %>
 
 <%block name="pagetitle">${_("Dashboard")}</%block>
@@ -374,7 +375,9 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
+  % if user.email not in one_course_list or str(enrollment.course_id) == "course-v1:netexplo+parcours-manager-fr+parcours-manager-fr" :
   <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  % endif
 % endfor
 </ul>
 <!-- multi site css -->
