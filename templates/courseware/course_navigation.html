@@ -99,9 +99,12 @@ from tma_apps.tma_support_functions import tma_verify_access
             tabs_tmpl = static.get_template_path('/courseware/tabs.html')
             %>
             <ol class="tabs course-tabs">
+<script>
+console.log('TEST')
+</script>
               <li class="tab" id="return_dashboard">
                     % if LANGUAGE_CODE == "ja-jp":
-                        <a href="/dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ホームへ戻る</a>
+                        <a href="/dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ホームに戻る</a>
                     % else :
                         <a href="/dashboard"><span class="icon fa fa-chevron-prev" aria-hidden="true"></span> ${_("Return to the dashboard")}</a>
                     % endif

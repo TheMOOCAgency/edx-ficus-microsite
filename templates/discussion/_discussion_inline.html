@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from json import dumps as json_dumps
 from openedx.core.djangolib.js_utils import js_escaped_string
 %>
-
+<script>console.log('TEST')</script>
 <div class="discussion-module" data-discussion-id="${discussion_id}"
     data-user-create-comment="${json_dumps(can_create_comment)}"
     data-user-create-subcomment="${json_dumps(can_create_subcomment)}"

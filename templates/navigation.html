@@ -96,6 +96,20 @@ cssoverride = '/media/microsite/{}/css/navigation.css'.format(org_static)
     setTimeout(function(){
         $('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text($('.row-description:contains("Utilisez le menu \'Tous les sujets\' pour trouver un sujet spécific")').text().replace('spécific','spécifique'))
     }, 200);
+    % if LANGUAGE_CODE =="ja-jp" :
+    setInterval(function(){
+      $('.forum-nav-filter-main-control > option:contains("Unread")').text('未読');
+      $('.forum-nav-filter-main-control > option:contains("Unanswered")').text('未回答');
+      $('#return_dashboard > a').text('ホームに戻る');
+      $('h4:contains("返信を入力")').text('あなたの質問や意見など');
+      $('#field_help_title').text('他の受講者が参加しやすいようにわかりやすいタイトルをつけてください。');
+      $('#field_help_topic_area').text('他の受講者がフォローしやすいように、適切なスレッドを選んでください。');
+      $('#field_help_post_type').text('返答が必要な場合には「質問」としてください。「ディスカッション」ではトピックを開始します。投稿は英語またはフランス語でご記入ください。');
+      $('#new-post-editor-description').text('あなたの質問や意見など');
+      $('button:contains("提出")').text('送信');
+      $('button:contains("全てのトピック")').text('全トピック');
+    }, 500);
+    %endif
 </script>
 
 <%

@@ -192,7 +192,11 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                                         </p>
                                         %if len(section.scores) > 0:
                                         <dl class="scores">
+                                            % if LANGUAGE_CODE == "ja-jp":
+                                            <dt class="hd hd-6">${ ("クイズのスコア") if section.graded else _("Practice Scores: ")}</dt>
+                                            % else :
                                             <dt class="hd hd-6">${ _("Problem Scores: ") if section.graded else _("Practice Scores: ")}</dt>
+                                            % endif
                                             %for score in section.scores:
                                             <dd>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}</dd>
                                             %endfor
