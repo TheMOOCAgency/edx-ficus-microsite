@@ -2,12 +2,12 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Donate")}</%block>
+<%block name="pagetitle">Paiement par virement</%block>
 <link rel="stylesheet" href="/media/microsite/orano/css/donate.css">
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
-        <!-- <h1>${_("Donate")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p> -->
+        <h1>Payer par virement bancaire</h1>
+        <!-- <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p> -->
         <div class="header_container">
             <div class="header_image_and_title">
                 <img class="header_image" src="/media/microsite/orano/auto/images/logo.png" alt="orano_logo">
@@ -15,44 +15,74 @@
             </div>
             <p class="header_price">9,60 €</p>
         </div>
-        <div>
+        <div style="width: 70%;margin: auto;">
             <!-- <div class="inscription_container"> -->
                 <p>Vous trouverez ici toutes les informations nécessaires au règlement par virement bancaire de l'inscription au module : </p>
                 <p class="span_title" id="span_title"></p>
             <!-- </div> -->
-            <p class="">Télechargez ici les informations relatives au paiement :</p>
-            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/iban_VARIABLE_00064069201.pdf', '_blank')">RIB</p>
-            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/751632803_EX_CP_EJNMS_1.pdf', '_blank')">Kbis</p>
-            <p class="help_section">Pour toutes questions relatives à cette inscription vous pouvez écrire à "helpdesk-orano@weuplearning.com" </p>
-
-            <div class="checkbox_and_label">
+            <p class="">Une facture indiquant le nombre d'inscriptions que vous avez réalisé sera envoyé à la fin de l'année à l'adresse mail indiquée dans la case "adresse mail du demandeur".</p>
+            <p class="">Voici les éléments que vous pouvez télécharger si besoin pour constituer le compte fournisseur :</p>
+            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/iban_VARIABLE_00064069201.pdf', '_blank')"><img style="width: 16px;" src="/media/microsite/orano/ecommerce_files/download_icon.png"> RIB</p>
+            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/attestation_Urssaf_23032021.pdf', '_blank')"><img style="width: 16px;" src="/media/microsite/orano/ecommerce_files/download_icon.png"> Attestation Urssaf</p>
+            <p class="download" onclick="window.open('/media/microsite/orano/ecommerce_files/751632803_EX_CP_EJNMS_1.pdf', '_blank')"><img style="width: 16px;" src="/media/microsite/orano/ecommerce_files/download_icon.png"> Kbis</p>
+            <div id="infosForBilling">
+                <div>
+                    <p id="billStatus">Rentrez votre adresse de facturation</p>
+                    <label for="identifiants">Destinataire</label><br>
+                    <input type="text" id="bill_id" class="bill_input"><br>
+                    <label for="identifiants">Voie</label><br>
+                    <input type="text" id="bill_adress" class="bill_input"><br>
+                    <label for="identifiants">Code postal</label><br>
+                    <input type="text" id="bill_postal" class="bill_input"><br>
+                    <label for="identifiants">Ville</label><br>
+                    <input type="text" id="bill_town" class="bill_input"><br>
+                    <button id="submit_button" class="submit_button button disabled" type="submit">Enregistrer l'adresse de facturation</button>
+                </div>
+                <div class="checkbox_and_label">
+                    <input id="checkbox_engagment" type="checkbox" id="engagment" name="engagment">
+                    <label class="label_input" for="engagment">Je m'engage à régler la facture qui me sera fait parvenir à la fin de l'année.</label>
+                </div>
+            </div>
+            
+            <!-- <div class="checkbox_and_label">
                 <input id="identifiants_checkbox" type="checkbox" id="identifiants" name="identifiants">
                 <label class="label_input_id" for="identifiants">Je dispose d'un bon de commande.</label>
             </div>
-
+            
             <div id="form_input">
                 <label for="identifiants">Bon de commande</label><br>
                 <input type="text" id="identifiants"><br>
                 <button id="submit_button" class="submit_button button" type="submit">OK</button>
             </div>
-
+            
             <div class="buttons_container">
                 <button id="button_two" class="button" type="button">
                     Envoyer une facture par mail au demandeur et à moi-même
                 </button>
-            </div>
-            <div class="checkbox_and_label">
-                <input id="checkbox_engagment" type="checkbox" id="engagment" name="engagment">
-                <label class="label_input" for="engagment">Je m'engage à ce que mon entreprise règle la somme de 9.60€ par virement bancaire à la société VARIABLE.</label>
-            </div>
-            <p id="reduction_code_text" class="reduction_code_text">Pour finaliser votre inscription entrez le code ci-dessous en tant que code promo sur la page Paypal. Ce code applique une réduction de 100%. Votre inscription sera terminée une fois que vous aurez cliqué sur Payer.</p>
+            </div> -->
+            <p id="reduction_code_text" class="reduction_code_text">Afin de finaliser l'inscription rendez-vous dans l'onglet précédent pour inscrire ce code dans la partie "appliquer un code promo" et cliquer sur "payer".</p>
             <p id="reduction_code" class="reduction_code">code réduction</p>
+            <p class="help_section">Pour toutes questions relatives à cette inscription vous pouvez écrire à <a href="mailto:helpdesk-orano@weuplearning.com">helpdesk-orano@weuplearning.com</a></p>
         </div>
     </section>
 </main>
 
 
 <script>
+    //Unlock OK form's button
+    $('.bill_input').keyup(function( event ) {
+        var bill_id = $('#bill_id').val();
+        var bill_adress = $('#bill_adress').val();
+        var bill_postal = $('#bill_postal').val();
+        var bill_town = $('#bill_town').val();
+        if ($('#submit_button').hasClass("disabled")) {
+            if (bill_id !== "" && bill_adress !== "" && bill_postal !== "" && bill_town !== "") {
+                $('#submit_button').removeClass("disabled")
+            } else if (!$('#submit_button').hasClass ("disabled")) {
+                $('#submit_button').addClass("disabled")
+            }
+        }
+    });
 
     //get the user's identifiants
     $("#form_input").hide()
@@ -68,7 +98,36 @@
 
     let inputValue;
     $("#submit_button").click(function(){
-        inputValue = $("#identifiants").val();
+        // inputValue = $("#identifiants").val();
+        var bill_id = $('#bill_id').val();
+        var bill_adress = $('#bill_adress').val();
+        var bill_postal = $('#bill_postal').val();
+        var bill_town = $('#bill_town').val();
+        if (bill_adress !== "" && bill_postal !== "" && bill_town !== ""  && bill_id !== "") {
+            $('#submit_button').addClass("disabled")
+            $('#bill_adress').attr('disabled', true)
+            $('#bill_postal').attr('disabled', true)
+            $('#bill_town').attr('disabled', true)
+            var urlAPI = '/tma_apps/tma_api/v0/CustomFieldView/'
+            var customFields = { billCompleteAdress: "Destinataire: "+bill_id+" ; Voie : "+bill_adress+" ; Code postal : "+bill_postal+" ; Ville : "+bill_town}
+            $.ajax({
+				url: urlAPI,
+				type: "POST",
+				data: customFields,
+				headers: {'X-CSRFToken': $.cookie('csrftoken')},
+				dataType: 'json'
+			})
+            .done(function(data) {
+                if (data.status === true) {
+                    billAdressGiven = true;
+                    $('#submit_button').text('Adresse de facturation enregistrée avec succès')
+                    $('#billStatus').text('Adresse de facturation enregistrée avec succès')
+                    showPromoCode();
+                } else {
+                    $('#submit_button').text('Erreur lors de l\'enregistrement, veuillez recharger la page et recommencez')
+                }
+            })
+        }
     });
     
 
@@ -78,6 +137,7 @@
 
     let secondButtonClicked = false
     let checkBoxCliqued = false
+    let billAdressGiven = false
 
     $("#button_two").click(function(){
         secondButtonClicked = true
@@ -87,20 +147,24 @@
         }
     }); 
 
-    $('#checkbox_engagment').change(
-    function(){
-        if (this.checked && secondButtonClicked) {
-            checkBoxCliqued = true
+    var showPromoCode = function(){
+        if (checkBoxCliqued && billAdressGiven) {
             $("#reduction_code_text").show()
             $("#reduction_code").show()
-        } else if (this.checked) {
-            checkBoxCliqued = true
         } else {
-            checkBoxCliqued = false
             $("#reduction_code_text").hide()
             $("#reduction_code").hide()
         }
-    });
+    }
+
+    $('#checkbox_engagment').change( function(){
+        if ($('#checkbox_engagment').is(':checked')) {
+            checkBoxCliqued = true
+        } else {
+            checkBoxCliqued = false
+        }
+        showPromoCode()
+    } );
 
     //set the correct reduction code for the course id and set the correct courseName
     const queryString = window.location.search;
