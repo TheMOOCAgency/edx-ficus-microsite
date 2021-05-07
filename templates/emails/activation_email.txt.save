@@ -3,9 +3,8 @@
 
 Welcome
 
-You must now activate your account, following this link :
+
 
 https://${ site }/activate/${ key }
 
-If you have not requested an account’s creation, you have nothing else to do, we won’t contact you
-anymore.
+Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
