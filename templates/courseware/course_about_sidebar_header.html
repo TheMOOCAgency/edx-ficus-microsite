@@ -33,8 +33,11 @@ $(document).ready(function(){
     % endif
         </div>
   % else:
-        <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+        <div style="border-bottom: 1px solid white;line-height: 20px;" class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+           Pas encore de compte&nbsp;?<br />Inscrivez-vous&nbsp;!
+        </div>
+        <div style="line-height: 20px;" class="enroll-button" onclick="window.location.href='/login?next=/courses/&course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+           Déjà un compte&nbsp;?<br />S'inscrire à ce cours
         </div>
   % endif
   </div>

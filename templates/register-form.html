@@ -380,6 +380,29 @@ $('#first_name,#last_name').change(function(){
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
 })
+var options = $('#restaurant_location option');
+var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
+arr.sort(function(o1, o2) { return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0; });
+options.each(function(i, o) {
+  o.value = arr[i].v;
+  $(o).text(arr[i].t);
+});
+
+[].slice.call( document.querySelectorAll('option') ).forEach(ucfirst);
+
+document.getElementById('restaurant_location').addEventListener('change', fn, false);
+
+function ucfirst(el) {
+    el.innerHTML = el.innerHTML.charAt(0).toUpperCase() + el.innerHTML.slice(1).toLowerCase();
+}
+
+function fn() {
+    var options  = this.getElementsByTagName('option');
+    var selected = options[this.selectedIndex];
+
+    [].slice.call(options).forEach(ucfirst);
+    selected.value = selected.innerHTML = selected.innerHTML.toUpperCase();
+}
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:

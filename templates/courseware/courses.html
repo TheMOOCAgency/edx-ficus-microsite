@@ -41,8 +41,8 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
       <section class="courses-container">
         % if course_discovery_enabled:
         <div id="discovery-form" role="search" aria-label="course" class="wrapper-search-context">
-          <div id="discovery-message" class="search-status-label"></div>
-          <form class="wrapper-search-input">
+          <div id="discovery-message" class="search-status-label" style="width:97%!important"></div>
+          <form class="wrapper-search-input" style="display:none!important">
             <label for="discovery-input" class="sr">${_('Search for a course')}</label>
             <input id="discovery-input" class="discovery-input" placeholder="${_('Search for a course')}" type="text"/>
             <button type="submit" class="button postfix discovery-submit" title="${_('Search')}">
@@ -61,7 +61,7 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
         </div>
         % endif
 
-        <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region" aria-label="${_('List of Courses')}">
+        <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region" aria-label="${_('List of Courses')}" style="width:100%!important">
           <ul class="courses-listing">
             %for course in courses:
             <li class="courses-listing-item">
@@ -73,7 +73,7 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
 
 
         % if course_discovery_enabled:
-        <aside aria-label="${_('Refine Your Search')}" class="search-facets phone-menu">
+        <aside aria-label="${_('Refine Your Search')}" class="search-facets phone-menu" style="display:none!important">
           <h2 class="header-search-facets">${_('Refine Your Search')}</h2>
           <section class="search-facets-lists">
           </section>
