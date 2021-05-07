@@ -11,10 +11,17 @@ from openedx.core.djangolib.js_utils import js_escaped_string, dump_js_escaped_j
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from datetime import datetime, date
 import json
+from datetime import datetime, date
 from tma_apps.tma_support_functions import tma_verify_access
 
 primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
+
+logo_2 = '/media/microsite/ademe/auto/images/Image1.jpg'
+logo_1 = '/media/microsite/ademe/auto/images/Image2.png'
+logo_3 = '/media/microsite/ademe/auto/images/Image3.jpg'
+logo_mooc = '/media/microsite/ademe/auto/images/Image4.png'
+
 %>
 
 
@@ -22,25 +29,71 @@ background_url = configuration_helpers.get_value('bg_img')
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
 <!-- COMMON STYLE-->
+<!-- https://ademe.pprod1.the-mooc-agency.com/tma_apps/course-v1:ademe+2021+01/certificate/render -->
 <style>
+
+@font-face {
+  font-family: 'Gotham-Ultra';
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Ultra.eot');
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Ultra.eot') format('embedded-opentype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Ultra.woff2') format('woff2'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Ultra.woff') format('woff'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Ultra.ttf') format('truetype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Ultra.svg') format('svg');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Medium.eot');
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Medium.eot') format('embedded-opentype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Medium.woff2') format('woff2'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Medium.woff') format('woff'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Medium.ttf') format('truetype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Medium.svg') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham-Thin';
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Thin.eot');
+  src: url('/media/microsite/ademe/fonts/iCielGotham-Thin.eot') format('embedded-opentype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Thin.woff2') format('woff2'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Thin.woff') format('woff'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Thin.ttf') format('truetype'),
+      url('/media/microsite/ademe/fonts/iCielGotham-Thin.svg') format('svg');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family: "Open Sans" , "Gotham-Thin" !important;
   }
   p{
     padding:10px
   }
   h4{
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
-  h3{
+  h3 {
     font-size: 1.7rem
+  }
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0;
   }
   #certificate-wrapper{
     background: white;
   }
   .certificate-border{
     border:2px solid ${primary_color};
-    border-radius:5px;
+    border-radius : 5px;
   }
   #custom-btn{
     background: ${primary_color};
@@ -76,9 +129,6 @@ background_url = configuration_helpers.get_value('bg_img')
   #pdf-btn-wrapper{
     padding: 15px
   }
-  #certificate-title{
-    text-transform: uppercase;
-  }
   #noCertificateMessage{
     background: white;
     height: calc(100vh - 133px);
@@ -92,6 +142,44 @@ background_url = configuration_helpers.get_value('bg_img')
 <!-- CUSTOM STYLE -->
 <style>
 
+#logo-mooc {
+  height: 75px;
+  margin-right: 10px;
+}
+#name {
+  /* font-family: "Gotham" !important ; */
+  font-style: italic;
+  color: #0070C0;
+  font-weight: 900;
+}
+#course-name {
+  /* font-family: "Open Sans", "Gotham" !important ; */
+  font-style: italic;
+  color: black;
+  font-weight: 900;
+}
+#comment {
+  width:65%;
+  line-height: 1.6rem;
+}
+#secondary-logo {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+}
+#secondary-logo img {
+  height: 90px;
+}
+#date_deliver {
+  font-family: 'Open Sans' !important;
+  font-weight: 400 !important;
+}
+strong {
+  font-family: "Gotham" !important ;
+}
+
 </style>
 % if grades.get('passed') or  tma_verify_access(request.user).is_tma_team():
 <div id="certificate-wrapper">
@@ -100,17 +188,20 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" class=" certificate-border">
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div>
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+          <img src="${logo_mooc}" alt="logo-mooc" id="logo-mooc">
+          <h4>This certificate is presented to</h4>
+          <h3 id="name">${first_name} ${last_name}</h3>
+          <h4>For successfully completing the MOOC on</h4>
+          <h2 id="course-name">"${course_name}"</h2>
+          <h4 id="comment">Disseminated through the Sustainable Building MOOC Platform by <strong>ADEME</strong> in partnership with <strong>LETCHI</strong> and <strong>PEEB</strong> </h4>
+          <div id="secondary-logo">
+            <img src="${logo_1}" alt="logo-Letchi" style="height: 75px; margin-right:25px;">
+            <img src="${logo_2}" alt="logo-RF">
+            <img src="${logo_3}" alt="logo-PEEB">
           </div>
-          <div>
-          </div>
+          <h4>Delivered on: <span id="date_deliver"></span></h4>
+          <!-- <h4><strong>Number of Theoretical Hours: 9 hours</strong></h4> -->
+
       </div>
   </div>
 </div>
@@ -142,5 +233,13 @@ background_url = configuration_helpers.get_value('bg_img')
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
+
+  var d = new Date();
+  const month = d.toLocaleString('en', { month: 'long' });
+  var now = d.getDate()+' '+month+' '+d.getFullYear();
+
+  $("#date_deliver").append(" "+now);
+
+
 </script>
 
