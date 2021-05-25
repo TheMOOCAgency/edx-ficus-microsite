@@ -53,6 +53,16 @@ domainUser = user.email.split('@')[1]
 %endif
 
 <style>
+    #logoData4Manager {
+    width: 85%;
+    display: flex;
+    margin: auto;
+    background: none;
+    border: none;
+    text-align: center;
+    padding: 0 10px 0 0;
+    justify-content: space-between;
+  }
   .content_tma {
     min-height: calc(100vh - 181px) !important;
   }
@@ -116,10 +126,16 @@ domainUser = user.email.split('@')[1]
 </style>
 
 <div id="dashboard_course_content">
-  <div id="white_veil">
+  <!-- <div id="white_veil"> -->
+    <div id="white_veil" style="height: 320px;
+    min-width: 740px; padding: 10px;">
     <div id="logoData4Manager">
-      <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
+      <img src="/media/microsite/data-ready/images/Logo_DataReady.png" width="50" style="height: auto;width: 370px;"/>
+      <img src="/media/microsite/data-ready/images/Logo_HEC.png" width="50" style="width: 210px;height: auto;"/>
     </div>
+    <!-- <div id="logoData4Manager">
+      <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
+    </div> -->
     <div class="container">
       <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
         <div class="bottom_btn">
