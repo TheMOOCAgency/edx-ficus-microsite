@@ -133,46 +133,6 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
-% if disable_accordion is UNDEFINED or not disable_accordion:
-    <div class="menu-accordion" style="display:none;">
-    <input class="burger" type="checkbox">
-    <div class="course-index">
-      <div class="wrapper-course-modes" style="overflow:hidden">
-            <div class="courseware-bookmarks-button" data-bookmarks-api-url="${bookmarks_api_url}">
-              <button type="button" class="bookmarks-list-button is-inactive" aria-pressed="false">
-                  ${_('Bookmarks')}
-              </button>
-          </div>
-          % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
-            <div id="courseware-search-bar" class="search-bar courseware-search-bar" role="search" aria-label="Course">
-              <form>
-                <label for="course-search-input" class="sr">${_('Course Search')}</label>
-                <div class="search-field-wrapper">
-                  <input id="course-search-input" type="text" class="search-field" placeholder=${_('Search')} />
-                  <button type="submit" class="search-button"><img src="${static.url('images/recherche_couleur.svg')}" class="svg" /></button>
-                  <button type="button" class="cancel-button" title="${_('Clear search')}">
-                    <span class="icon fa fa-remove" aria-hidden="true"></span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          % endif
-
-      </div>
-      <div class="accordion" style="overflow:hidden">
-        <nav class="course-navigation" aria-label="${_('Course')}">
-          % if accordion.strip():
-            ${HTML(accordion)}
-          % else:
-            <div class="chapter">${_("No content has been added to this course")}</div>
-          % endif
-        </nav>
-      </div>
-    </div>
-    <div class="addthis_inline_share_toolbox"></div>
-    </div>
-
-% endif
     <section class="course-content" id="course-content">
         <div class="path"></div>
         <main id="main" aria-label="Content" tabindex="-1">

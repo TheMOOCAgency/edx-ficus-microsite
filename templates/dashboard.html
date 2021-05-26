@@ -172,10 +172,10 @@ endfor
         % endif
       </div>
       <!-- border middle -->
-      <div id="dashboard_profile_middle_middle">
-      </div>
+      <!-- <div id="dashboard_profile_middle_middle">
+      </div> -->
       <!-- actif forum -->
-      <div id="dashboard_profile_middle_bottom">
+      <!-- <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
@@ -183,7 +183,7 @@ endfor
         % else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
-      </div>
+      </div> -->
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
@@ -213,6 +213,7 @@ endfor
     </div>
     % endif
   % endfor
+  <img src="/media/microsite/lvmh-elearninginternalcontrol/auto/images/logo.png" alt="logo-LVMH" id="logo-bottom-left">
   </div>
 
   <!-- TMA Ficus Redesign -->
@@ -246,6 +247,12 @@ endfor
     background: ${custom_color}!important;
     color : ${color_font_custom}!important;
   }
+  #logo-bottom-left {
+    position: absolute;
+    height: 250px;
+    bottom: 10%;
+    right: 3%;
+  }
   @keyframes anim {
     0% {
   background: ${color_font_custom}!important;;
@@ -273,11 +280,16 @@ endfor
     background-color: ${custom_color};
   }
   #title_dashboard_course h1 {
-    color : ${color_font_custom}!important;
+    background-color: none !important;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 35px;
+    color : ${custom_color} !important;
   }
-  #title_dashboard_course h1:hover {
-    color : ${color_font_custom}!important;
+  #title_dashboard_course span {
+    font-style: italic;
   }
+
   .course_cell h2{
     margin-bottom: 0px!important;
     color : ${color_font_custom}!important;
@@ -286,9 +298,7 @@ endfor
   #profile_bottom_multi h3{
      color : ${color_font_custom}!important;
   }
-  #title_dashboard_course h1{
-     color : ${color_font_custom}!important;
-  }
+
   .course_nav{
     background: ${custom_color}!important;
     color : ${color_font_custom}!important;

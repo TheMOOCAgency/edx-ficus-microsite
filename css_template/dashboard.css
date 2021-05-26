@@ -98,8 +98,8 @@
 }
 #dashboard_profile_middle {
   width: 100%;
-  height: 127px;
-  background-color: #fff;
+  background-color: red;
+  height: 63px !important;
 }
 #dashboard_profile_middle_up,#dashboard_profile_middle_bottom {
   width: calc(100% - 20px);
@@ -206,17 +206,14 @@
   padding-bottom: 25px;
   width: 100%;
   text-align: center;
-  color: #636363;
+  /* color: #636363; */
   font-size: 30px;
   margin: 0;
+  white-space: nowrap;
 }
-/*MODIF AURELIEN*/
+
+
 #title_dashboard_course h1 {
-  color: white;
-  /* primary color */
-  background-color:tma_primary_color;
-  font-size: 30px;
-  font-weight: bold;
   margin: 0;
   padding: 0;
   font-family:'custom_font';
