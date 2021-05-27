@@ -1,4 +1,5 @@
-## mako
+## mako   
+## /edx/app/edxapp/edx-microsite/lvmh-elearninginternalcontrol/templates/courseware
 
 <%namespace name='static' file='/static_content.html'/>
 <%!
@@ -21,10 +22,11 @@ def url_class(is_active):
 
   <!-- NO FORUM FOR THIS MICROSITE -->
     <li class="tab">
-    %if tab.name=="Home" or tab.name=="Progress":
+    %if tab.name=="Home":
     <a href="/dashboard" class="${tab_class}">
-    <!-- %else:
-    <a href="${tab.link_func(course, reverse)}" class="${tab_class}"> -->
+    %endif
+    %if tab.name=="Progress":
+    <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
     %endif
 
     ${_(tab.name)}
