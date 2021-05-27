@@ -41,11 +41,20 @@ org_static = static.get_value('domain_prefix')
 <%
 cours_ouv = show_courseware_link and not is_course_blocked
 %>
-
+<style>
+  @font-face{
+  font-family:"lvmh-regular";
+  src:url("/media/microsite/lvmh-elearninginternalcontrol/fonts/lvmh-regular.otf") format("opentype");
+  }
+  @font-face{
+  font-family:"lvmh-italic";
+  src:url("/media/microsite/lvmh-elearninginternalcontrol/fonts/lvmh-italic.otf") format("opentype");
+  }
+</style>
 
 <%namespace name='static' file='../static_content.html'/>
 <div id="title_dashboard_course">
-  <h1>E-LEARNING <span>LVMH Internal Control</span></h1>
+  <h1 style="font-family: 'lvmh-regular' !important;">E-LEARNING <span style="font-family: 'lvmh-italic' !important;">LVMH Internal Control</span></h1>
 </div>
 
 <div id="course_nav">
