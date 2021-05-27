@@ -1,4 +1,9 @@
-# -*- coding: utf-8 -*-
+<!-- /edx/app/edxapp/edx-microsite/lvmh-elearninginternalcontrol/templates/tma_apps 
+
+  # -*- coding: utf-8 -*-
+-->
+
+
 <%page expression_filter="h"/>
 <%namespace name='static' file='/static_content.html'/>
 
@@ -17,26 +22,46 @@ from openedx.core.djangolib.markup import HTML, Text
 <style>
   #main {
     background-image:url("/media/microsite/lvmh-elearninginternalcontrol/auto/images/bg_img_blue.jpg") !important;
+    background-size: cover;
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
+  
+  #box1 {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 100px 200px;
+  }
+  #language-selector{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  
+  }
+
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <main id="main" aria-label="Content" tabindex="-1">
   % if user.is_authenticated():
-    <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langage<br/>Choose your language
+  <div id="box1" >
+
+    <h1 id="welcome-title" style="color:black; font-weight: 700;">Choisissez votre langage<br/>Choose your language
       <!-- <br/>Wählen Sie Ihre Sprache. -->
     </h1>
-    <div id="language-selector" style='display:block'>
+    <div id="language-selector" >
       <a data-value="fr" data-course="course-v1:psa-netexplo+BM01+SP">
-        <img height="100px" src="/media/microsite/psa-netexplo/images/fr.png" alt="fr">
+        <img height="160px" src="/media/microsite/psa-netexplo/images/fr.png" alt="fr">
       </a>
       <a data-value="en" data-course="course-v1:psa-netexplo+BM01_EN+SP">
-        <img height="100px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
+        <img height="160px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
       </a>
-        <!-- <a data-value="de-de" data-course="course-v1:psa-netexplo+BM01_DE+SP">
-          <img height="100px" src="/media/microsite/psa-netexplo/images/de.png" alt="de">
-        </a> -->
+      <!-- <a data-value="de-de" data-course="course-v1:psa-netexplo+BM01_DE+SP">
+        <img height="100px" src="/media/microsite/psa-netexplo/images/de.png" alt="de">
+      </a> -->
     </div>
+  </div>
   % endif
 </main>
 <script>

@@ -21,10 +21,10 @@ def url_class(is_active):
 
   <!-- NO FORUM FOR THIS MICROSITE -->
     <li class="tab">
-    %if tab.name=="Home":
+    %if tab.name=="Home" or tab.name=="Progress":
     <a href="/dashboard" class="${tab_class}">
-    %else:
-    <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
+    <!-- %else:
+    <a href="${tab.link_func(course, reverse)}" class="${tab_class}"> -->
     %endif
 
     ${_(tab.name)}
