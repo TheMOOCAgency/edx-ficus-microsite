@@ -361,6 +361,25 @@ setInterval(function(){
 }, 2000);
 })
 </script>
+
+<script>
+var interv = setInterval(function(){
+
+  
+  var x = document.URL;
+  var fullScreenButton = document.getElementsByClassName("fullscreen-button")
+  
+  if (x.indexOf("EN") != -1) {
+    // if ENG
+    fullScreenButton.firstElementChild.textContent = "Terms of Use";
+    console.log('1234');
+  };
+
+  clearInterval(interv)
+
+}, 400)
+</script>
+
 <style>
   .wrapper-course-material>.menu-responsive{
     display:none!important;
