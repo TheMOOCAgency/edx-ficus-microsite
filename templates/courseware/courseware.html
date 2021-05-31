@@ -367,17 +367,20 @@ var interv = setInterval(function(){
 
   
   var x = document.URL;
-  var fullScreenButton = document.getElementsByClassName("fullscreen-button")
+  var fullScreenButton = $(".fullscreen-button span")
+  console.log("444444444444444");
+  console.log(fullScreenButton);
   
   if (x.indexOf("EN") != -1) {
     // if ENG
-    fullScreenButton.firstElementChild.textContent = "Terms of Use";
+    
+    var y = fullScreenButton[0].innerText = "Full Screen mode";
     console.log('1234');
   };
 
   clearInterval(interv)
 
-}, 400)
+}, 900)
 </script>
 
 <style>

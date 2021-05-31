@@ -14,10 +14,6 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 cssoverride = '/media/microsite/assets_redesign/css/footer.css'.format(org_static)
 %>
-<%
-var_language = LANGUAGE_CODE
-%>
-
 
 
 <!-- TMA Ficus Redesign -->
@@ -58,21 +54,12 @@ body footer.global {
 <footer class="global">
   <div class="footer-container">
     <ul class="links">
-      % if var_language == "EN":
-        <li>
-          <a href="/tos" id="tos">Terms of Use</a>
-        </li>
-        <li>
-          <a href="/honor" id="honor">Legal</a>
-        </li>
-      % else:
-        <li>
-          <a href="/tos" id="tos">Conditions g&eacute;n&eacute;rales</a>
-        </li>
-        <li>
-          <a href="/honor" id="honor">Mentions l&eacute;gales</a>
-        </li>
-      %endif
+      <li>
+        <a href="/tos" id="tos">Conditions g&eacute;n&eacute;rales</a>
+      </li>
+      <li>
+        <a href="/honor" id="honor">Mentions l&eacute;gales</a>
+      </li>
       <!-- <li>
         <a href="/privacy" id="privacy">Condfidentialit&eacute;</a>
       </li>
@@ -86,3 +73,15 @@ body footer.global {
     </div>
   </div>
 </footer>
+<script>
+  var x = document.URL;
+
+
+  if (x.indexOf("EN") != -1) {
+    // if ENG
+    document.getElementById("tos").textContent = "Terms of Use";
+    document.getElementById("honor").textContent = "Legal";
+    // document.getElementById("privacy").textContent = "Privacy";
+    // document.getElementById("about").textContent = "About";
+  }
+</script>
