@@ -81,7 +81,7 @@ site_status_msg = get_site_status_msg(course_id)
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
-            <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
+            <img class="${logo_size}" src="${logo_url}" alt="${_('{platform_name} Home Page').format(platform_name=static.get_platform_name())}" style="display: none;"/>
 <!--
       <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
 <style>
@@ -115,6 +115,7 @@ site_status_msg = get_site_status_msg(course_id)
             display_name = ccx.display_name
         %>
         <span class="course-name">${display_name}</span></h2>
+        
       % endif
 
       % if user.is_authenticated():
