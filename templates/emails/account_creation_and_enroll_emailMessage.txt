@@ -1,23 +1,4 @@
-% if course_key == "course-v1:complete-data+EN+MBA_HEC" :
-Dear Participant,
-
-We have already registered you on the online platform of your Data for Managers course, but there is a formal process to follow.
-
-Please click on the link below:
-https://formationadistance.dataformanagers.com/login
-
-Then type in your email address and the following password:
-Login: ${email_address}
-Password: ${password}
-
-If you encounter any tech issues, please contact learning@netexplo.org
-
-See you at 5:10 PM.
-
-Best regards,
-
-Julien Lévy
-% elif course_key == "course-v1:complete-data+FR+MBA_HEC" :
+% if course_key == "course-v1:complete-data+FR+MBA_HEC" or course_key == "course-v1:complete-data+EN+MBA_HEC"  :
 Dear Participant,
 
 I am very happy to welcome you to the HEC MBA Course Data for Managers.
@@ -41,7 +22,7 @@ Password: ${password}
 
 When connected, you will have to select between two languages: French or English. If you are French speaking, select French, otherwise select English: It is the exact same content and the lectures have been recorded in both languages (testimonials are sub-titled). The synchronous sessions will be of course in English.
 
-If you encounter any tech issues, please contact Claire Lescop at clescop-ext@netexplo.org
+If you encounter any tech issues, please contact Esther Ruch at learning@netexplo.org
 
 Do not hesitate to contact me for any further question,
 
@@ -66,7 +47,7 @@ Pour vous connecter, renseignez votre identifiant, ainsi que votre mot de passe.
 Identifiant: ${email_address}
 Mot de passe: ${password}
 
-En cas de difficulté de connexion, merci de contacter Claire Lescop par email clescop-ext@netexplo.org
+En cas de difficulté de connexion, merci de contacter Esther Ruch par email learning@netexplo.org
 
 La formation prévoit deux sessions animées à distance :
 
@@ -95,7 +76,7 @@ Then type in your email address and the following password:
 Login: ${email_address}
 Password: ${password}
 
-If you encounter any issues please contact Claire Lescop at clescop-ext@netexplo.org
+If you encounter any issues please contact Esther Ruch at learning@netexplo.org
 
 The training program also includes two remote live sessions:
 
