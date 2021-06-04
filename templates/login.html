@@ -121,6 +121,16 @@ from third_party_auth import provider, pipeline
        }
     })(${pipeline_running})
   </script>
+  <style>
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login {
+    border-radius: 20px;
+  }
+  </style>
 </%block>
 
 <%include file="forgot_password_modal.html" />

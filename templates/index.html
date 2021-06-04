@@ -13,6 +13,22 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+.header-information {
+  margin: 80px;
+}
+.header-information-title {
+  color: white !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.header-information-text {
+  color: white !important;
+  padding: 15px;
+  text-align: justify;
+
+}
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
@@ -50,6 +66,16 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               </div>
             </a>
           % endif
+        </div>
+
+        <div class="header-information">
+          <h2 class="header-information-title">Un nouveau module est disponible !</h2>
+          <p class="header-information-text">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae aliquam, est similique eius labore praesentium quo voluptatum impedit dolore minima alias recusandae sunt sit sed neque, illum voluptas! Rerum, dolores.
+            Tenetur odit maiores voluptatum nulla dolor architecto laudantium eaque impedit? Voluptate optio est corporis eaque sunt exercitationem ipsam facere nisi aspernatur temporibus ipsa, laboriosam sit! Architecto eveniet nemo neque voluptatem?
+            Animi debitis impedit ipsam aut perferendis, facilis soluta at magni, facere iste tenetur asperiores aspernatur nulla quas unde ullam maiores alias corporis, rem modi nemo. Veritatis et recusandae error provident.
+          </p>
+
         </div>
 
       </header>

@@ -32,7 +32,7 @@ endif
 if configuration_helpers.get_value('third_color'):
   third_color = str(configuration_helpers.get_value('third_color'))
 else:
-  third_color = "#fff"
+  third_color = "#1C488F"
 endif
 if configuration_helpers.get_value('dark_theme'):
   color_custom = "#fff"
@@ -45,29 +45,30 @@ else:
 body footer.global {
     background-color: ${third_color}!important;
 }
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 45%;
+  color: white !important;
+}
 </style>
 
 <footer class="global">
   <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
+    <div class="links">
+      
+      <a href="/about">À propos</a> 
+      <span> | </span>
+      <a href="/privacy">Mentions L&eacute;gales</a> 
+      <span> | </span>
+      <a href="/tos">Conditions générales</a>
+      
     </div>
   </div>
 </footer>
