@@ -10,7 +10,7 @@
         <ul class="courses-listing">
           ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
           %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-          %if 'rattrapage' not in str(course.id) and 'test+test' not in str(course.id):
+          %if 'rattrapage' not in str(course.id) and 'test+test' not in str(course.id) and 'anglais' not in str(course.id):
               <li class="courses-listing-item">
                 <%include file="course.html" args="course=course" />
               </li>
