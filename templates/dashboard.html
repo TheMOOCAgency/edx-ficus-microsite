@@ -509,6 +509,31 @@ endfor
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->
 </div>
+
+% if not is_student :
+<div id="anotherEnroll" style="background-color: white;float: right;width: calc(100% - 430px);padding: 20px;margin-top: 50px;">
+Si vous souhaitez inscrire votre stagiaire à une autre formation présente sur la plateforme, cliquez sur <a href="/courses">explorer les cours</a>, choisissez la formation et cliquez sur "m'inscrire".
+<br>
+<br>Avant de quitter cette page soyez sûr que vous ne devez pas inscrire cet apprenant à une autre formation.</div>
+
+<style>
+  #anotherEnroll {
+    background-color: white;
+    float: right;
+    width: calc(100% - 430px);
+    padding: 20px;
+    margin-top: 50px;
+  }
+  #anotherEnroll a {
+    color: blue;
+  }
+  #anotherEnroll a:hover, #anotherEnroll a:visited {
+    color: green!important;
+    font-weight: 500!important;
+  }
+</style>
+% endif
+
 <span style="display:block;clear:left;"></span>
 <script>
 // SVG ACTION

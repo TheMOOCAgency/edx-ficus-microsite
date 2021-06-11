@@ -64,9 +64,11 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
         <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region" aria-label="${_('List of Courses')}">
           <ul class="courses-listing">
             %for course in courses:
-            <li class="courses-listing-item">
-              <%include file="../course.html" args="course=course" />
-            </li>
+              % if "rattrapage" not in str(course.id):
+              <li class="courses-listing-item">
+                <%include file="../course.html" args="course=course" />
+              </li>
+              % endif
             %endfor
           </ul>
         </div>
@@ -83,3 +85,16 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
       </section>
     </section>
 </main>
+<script>
+$( document ).ready(function() {
+console.log('COURSES : ${courses}')
+    setInterval(function(){
+        $('article[aria-label*="Rattrapage"]').parent().hide()
+    }, 500);
+});
+</script>
+<style>
+    .courses-listing-item {
+        margin-right: 0!important;
+    }
+</style>

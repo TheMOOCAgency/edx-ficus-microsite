@@ -16,6 +16,7 @@
             <p class="header_price">9,60 €</p>
         </div>
         <div style="width: 70%;margin: auto;">
+        % if user.is_authenticated():
             <!-- <div class="inscription_container"> -->
                 <p>Vous trouverez ici toutes les informations nécessaires au règlement par virement bancaire de l'inscription au module : </p>
                 <p class="span_title" id="span_title"></p>
@@ -63,6 +64,9 @@
             <p id="reduction_code_text" class="reduction_code_text">Afin de finaliser l'inscription rendez-vous dans l'onglet précédent pour inscrire ce code dans la partie "appliquer un code promo" et cliquer sur "payer".</p>
             <p id="reduction_code" class="reduction_code">code réduction</p>
             <p class="help_section">Pour toutes questions relatives à cette inscription vous pouvez écrire à <a href="mailto:helpdesk-orano@weuplearning.com">helpdesk-orano@weuplearning.com</a></p>
+        % else :
+            <p><a href="/login?next=/donate">Connectez-vous</a> à la plateforme pour être authentifié.</p>
+        % endif
         </div>
     </section>
 </main>
