@@ -1,43 +1,28 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear student,")}
+% if display_name.find("Rattrapage") != -1 or course.display_name_with_default_escaped.find("Rattrapage") != -1:
 
-${_("You have been invited to join {course_name} at {site_name} by a "
-	"member of the course staff.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}
-% if is_shib_course:
-% if auto_enroll:
+Bonjour,
 
-${_("To access the course visit {course_url} and login.").format(course_url=course_url)}
-% elif course_about_url is not None:
+Vous avez été inscrit à ${course.display_name_with_default_escaped}. Vous pouvez réaliser le module en vous connectant à https://orano.the-mooc-agency.com/login, vos identifiants sont les mêmes que pour le premier module.
 
-${_("To access the course visit {course_about_url} and register for the course.").format(
-		course_about_url=course_about_url)}
-% endif
-% else:
+Pour rappel, votre identifiant est votre adresse mail, si vous avez oubliée votre mot de passe, cliquez sur « mots de passe oubliée ? »
 
-${_("To finish your registration, please visit {registration_url} and fill "
-	"out the registration form making sure to use {email_address} in the E-mail field.").format(
-		registration_url=registration_url,
-		email_address=email_address
-	)}
-% if auto_enroll:
-${_("Once you have registered and activated your account, you will see "
-	"{course_name} listed on your dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped
-	)}
-% elif course_about_url is not None:
-${_("Once you have registered and activated your account, visit {course_about_url} "
-	"to join the course.").format(course_about_url=course_about_url)}
-% else:
-${_("You can then enroll in {course_name}.").format(course_name=display_name or course.display_name_with_default_escaped)}
-% endif
+Bien cordialement,
+Orano
+
 % endif
 
-----
-${_("This email was automatically sent from {site_name} to "
-	"{email_address}").format(
-		site_name=site_name, email_address=email_address
-	)}
+% if display_name.find("Remedial Course") != -1 or course.display_name_with_default_escaped.find("Remedial Course") != -1:
+
+Hello,
+
+You have been register at ${course.display_name_with_default_escaped}. You can practice this module by login at https://orano.the-mooc-agency.com/login, your username and password are unchanged.
+
+Reminder: your username is your email address, if you forget your password, click on "forgotten password ?"
+
+Regard,
+Orano
+
+% endif
+

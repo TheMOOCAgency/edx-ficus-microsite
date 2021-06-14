@@ -1,5 +1,19 @@
 <%! from django.utils.translation import ugettext as _ %>
 
+% if display_name.find("Rattrapage") != -1 or course.display_name_with_default_escaped.find("Rattrapage") != -1:
+
+Bonjour,
+
+Vous avez été inscrit à ${course.display_name_with_default_escaped}. Vous pouvez réaliser le module en vous connectant à https://orano.the-mooc-agency.com/login, vos identifiants sont les mêmes que pour le premier module.
+
+Pour rappel, votre identifiant est votre adresse mail, si vous avez oubliée votre mot de passe, cliquez sur « mots de passe oubliée ? »
+
+Bien cordialement,
+Orano
+
+% else:
+
+
 ${_("Bonjour {full_name}").format(full_name=full_name)}
 
 ${_("Vous avez été inscrit à la {course_name} en E-learning.").format(course_name=course.display_name_with_default_escaped)}
@@ -22,3 +36,4 @@ Bonne formation !
 
 Mail : helpdesk-orano@weuplearning.com
 
+% endif
