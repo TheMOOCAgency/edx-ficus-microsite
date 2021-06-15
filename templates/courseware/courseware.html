@@ -410,12 +410,15 @@ setInterval(function(){
 function replaceAt(string, index, replace) {
   return string.substring(0, index) + replace + string.substring(index + 1);
 }
+
 setInterval(function(){
-    var videoSrc = $('.video-player > iframe').attr('src')
-    if (videoSrc && videoSrc.indexOf('cc_load_policy=0') > -1) {
+    $('.video-player > iframe').each(function( index ) {
+      var videoSrc = $(this).attr('src')
+        if (videoSrc && videoSrc.indexOf('cc_load_policy=0') > -1) {
         var index = videoSrc.indexOf('cc_load_policy=0') + 15
-        $('.video-player > iframe').attr('src', replaceAt(videoSrc,index, "3"))
-    }
+        $(this).attr('src', replaceAt(videoSrc,index, "3"))
+        }
+    });
 }, 500);
 
 })

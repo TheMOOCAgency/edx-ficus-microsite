@@ -25,7 +25,7 @@ $(document).ready(function(){
         });
 });
 </script>
-           <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
+           <span style="cursor:pointer;" onclick="window.location.href='/dashboard/${course.id.to_deprecated_string() | u}'">
            &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
 
     % else:
@@ -41,6 +41,10 @@ $(document).ready(function(){
     % endif
         </div>
   % endif
+<script>
+  $('.enroll-button span:not([onclick*="essenti"])').parent().hide()
+</script>
+
   </div>
   % if static.get_value('course_about_show_social_links', True):
   <div class="social-sharing">

@@ -179,6 +179,11 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
             <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
             <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
+            <div style="position: absolute;top: 220px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
+                      background-color: rgba(255,255,255,0.75);
+            ">Début de la prochaine session : 1er décembre 2021.
+            <br>Les inscriptions sont ouvertes !
+          </div>
         </nav>
       </div>
       <div id="course_container">
@@ -388,6 +393,11 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">If you already have an account, go to your courses</span><a href="/login">Sign in</a></li>
         </ol>
         </nav>
+        <div style="position: absolute;top: 220px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
+                      background-color: rgba(255,255,255,0.75);
+            ">Start of next session: December 1, 2021
+            <br>registration is open!
+          </div>
       </div>
       <div id="course_container">
         <div id="course_container_en_anchor" class="course_list">
@@ -574,6 +584,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
     </section>
   </div> 
 </main>
+<%include file="cookie_banner.html" />
 
 % if show_homepage_promo_video:
   <section id="video-modal" class="modal home-page-video-modal video-modal">
@@ -662,5 +673,7 @@ $(".btn-login").each(function(){
     for (let i = 0; i < toHideCourses.length; i++) {
       $( "article[id='course-v1:mooc-conservation+"+toHideCourses[i]+"']" ).parent().hide()
     }
+    /* HIDE COURSE TPE */
+    $( "article[id='course-v1:MOOC-Conservation+TPE+2020_T2']" ).parent().hide()
   })
 </script>
