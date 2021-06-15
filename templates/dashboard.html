@@ -198,7 +198,7 @@ endfor
   % for n in course_details:
     <% mark = mark + 1 %>
     <!-- assignement type -->
-    <div class="dashboard_profile_bottom_middle">
+    <div class="dashboard_profile_bottom_middle" style="display: none;">
       <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')} (
        %if n.get('weight')==0:
           optionnel
@@ -209,8 +209,7 @@ endfor
     </div>
     % if mark < course_details_len:
     <!-- border middle -->
-    <div class="dashboard_profile_bottom_middle_border">
-    </div>
+    <div class="dashboard_profile_bottom_middle_border" style="display: none;"></div>
     % endif
   % endfor
   <img src="/media/microsite/lvmh-elearninginternalcontrol/auto/images/logo.png" alt="logo-LVMH" id="logo-bottom-left">
@@ -314,9 +313,6 @@ endfor
   }
   #course_nav .svg{
     fill : ${color_font_custom}!important;
-  }
-  footer {
-    display: none;
   }
 
 </style>
