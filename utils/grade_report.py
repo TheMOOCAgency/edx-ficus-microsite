@@ -61,9 +61,7 @@ recipients_geography = {
     "parcours.createur@artisanatpaysdelaloire.fr":u"Pays de la Loire",
     "ParcoursCrea@artisanat-bfc.fr":u"Bourgogne-Franche-Comt\u00e9",
     "parcours-creation@crma-auvergnerhonealpes.fr":u"Auvergne-Rh\u00f4ne-Alpes",
-    "aurelien.croq@weuplearning.com":u"Tout",
     "tom.douce@weuplearning.com":u"Tout",
-    "alexandre.berteau@weuplearning.com":u"Tout",
 }
 
 # Auxiliary functions
@@ -377,7 +375,7 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr"]
+    toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr","alexandre.berteau@weuplearning.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)

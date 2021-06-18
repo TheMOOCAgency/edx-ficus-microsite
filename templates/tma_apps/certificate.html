@@ -36,7 +36,6 @@ background_url = configuration_helpers.get_value('bg_img')
     font-size: 1.7rem
   }
   #certificate-wrapper{
-    background: white;
   }
   .certificate-border{
     border:2px solid ${primary_color};
@@ -72,6 +71,7 @@ background_url = configuration_helpers.get_value('bg_img')
     margin: 0 auto;
     padding: 20px;
     background-image: url('${background_url}')
+    background-size: contain;
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -99,7 +99,7 @@ background_url = configuration_helpers.get_value('bg_img')
     <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div id="certificate-container" class=" certificate-border">
-      <div id="internal-border" class=" certificate-border">
+      <div id="internal-border">
           <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
           <div>
             <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>

@@ -16,13 +16,16 @@ else:
 first_list = []
 second_list = []
 third_list = []
+fourth_list = []
 
 for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   if str(course.id) not in hidden_courses:
-    if "Module" in str(course.id):
+    if "HACCP_01" in str(course.id) or "HACCP_02" in str(course.id):
       third_list.append(course)
-    elif "Auto_positionnement" in str(course.id):
+    elif "HACCP_B01" in str(course.id) or "HACCP_B02" in str(course.id):
       first_list.append(course)
+    elif "Partner_" in str(course.id):
+      fourth_list.append(course)
     else:
       second_list.append(course)
 
@@ -99,6 +102,26 @@ third_list.sort(key=lambda x: x.id)
         <a class="courses-more-cta" href="${marketing_link('COURSES')}"> ${_("View all Courses")} </a>
       </div>
       % endif
+    % endif
+
+  </section>
+</section>
+<section class="courses-container" style="margin-bottom:50px;background-color:#CDD9EF !important">
+  <section class="highlighted-courses">
+
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+    <section class="courses">
+      <div class="custom-courses-display">
+        <div class="custom-courses-category">Nos modules Partenaires</div>
+        <ul class="courses-listing">
+          %for course in fourth_list:
+            <li class="courses-listing-item">
+            <%include file="course.html" args="course=course" />
+            </li>
+          %endfor
+        </ul>
+      </div>
+    </section>
     % endif
 
   </section>
