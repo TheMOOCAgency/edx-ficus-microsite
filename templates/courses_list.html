@@ -20,9 +20,9 @@ fourth_list = []
 
 for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   if str(course.id) not in hidden_courses:
-    if "HACCP_01" in str(course.id) or "HACCP_02" in str(course.id):
+    if "Module" in str(course.id):
       third_list.append(course)
-    elif "HACCP_B01" in str(course.id) or "HACCP_B02" in str(course.id):
+    elif "Auto_positionnement" in str(course.id):
       first_list.append(course)
     elif "Partner_" in str(course.id):
       fourth_list.append(course)
