@@ -47,7 +47,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   max-width: 1000px;
   position: relative;
   margin: auto;
-  margin-top: 35px;
+  padding-top: 35px;
 }
 
 /* Make the images invisible by default */
@@ -138,10 +138,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
         <div class="outer-wrapper">
           <div class="title">
-            <div class="heading-group">
+            <div class="heading-group" style="display: none;">
               % if homepage_overlay_html:
                 ${homepage_overlay_html | n, decode.utf8}
               % else:
@@ -152,7 +151,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               % endif
             </div>
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
+              <!-- <div class="course-search" >
                 <form method="get" action="/courses">
                   <label><span class="sr">${_("Search for a course")}</span>
                     <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
@@ -161,7 +160,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                     <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
                   </button>
                 </form>
-              </div>
+              </div> -->
             % endif
 
           </div>
@@ -175,7 +174,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           % endif
         </div>
 
-        <div class="header-information">
+        <!-- <div class="header-information">
           <h2 class="header-information-title">Un nouveau module est disponible !</h2>
           <p class="header-information-text">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae aliquam, est similique eius labore praesentium quo voluptatum impedit dolore minima alias recusandae sunt sit sed neque, illum voluptas! Rerum, dolores.
@@ -187,9 +186,8 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             En savoir plus
           </div>
 
-        </div>
+        </div> -->
 
-      </header>
       
       <div class="slideshow-container fade">
 

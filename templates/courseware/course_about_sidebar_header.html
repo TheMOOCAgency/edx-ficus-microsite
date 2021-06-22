@@ -12,7 +12,7 @@ from django.conf import settings
     <img src="${course_image_urls['large']}" alt="">
   </div>
   % if user.is_authenticated() and registered:
-	<div class="enroll-button">
+	<div class="enroll-button" style="margin: 0 15px;" >
     % if user.is_active:
 <!--           <span>Votre inscription a été prise en compte !
            <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
@@ -33,7 +33,7 @@ $(document).ready(function(){
     % endif
         </div>
   % else:
-        <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+        <div class="enroll-button" style="margin: 0 15px;" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
            Je m'inscris !
         </div>
   % endif

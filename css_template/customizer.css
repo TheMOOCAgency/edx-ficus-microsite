@@ -473,7 +473,7 @@ span.icon.fa{
 }
 
 .inner-wrapper section h2{
-  cursor:pointer;
+  cursor:default;
 }
 .course-info .details .inner-wrapper>section{
   background:white;
