@@ -144,7 +144,7 @@ from third_party_auth import provider, pipeline
   </header>
 </section>
 
-<section class="login container">
+<section class="login container" style="width: 640px; min-width: 640px;">
   <section role="main" class="content">
     <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate>
 
@@ -240,7 +240,8 @@ from third_party_auth import provider, pipeline
 
   </section>
 
-  <aside role="complementary">
+<!-- 
+    <aside role="complementary">
 
 <%
   # allow for theming overrides on the registration sidebars, otherwise default to pre-existing ones
@@ -249,5 +250,6 @@ from third_party_auth import provider, pipeline
 
     <%include file="${sidebar_file}" />
 
-  </aside>
+  </aside> 
+-->
   </section>
