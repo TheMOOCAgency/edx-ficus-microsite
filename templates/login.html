@@ -203,13 +203,17 @@ from third_party_auth import provider, pipeline
     </form>
 
     % if third_party_auth.is_enabled():
-
+<!--  
+  HIDE SINCE SSO IS NOT READY
+  HIDE SINCE SSO IS NOT READY
+  HIDE SINCE SSO IS NOT READY
+  HIDE SINCE SSO IS NOT READY
       <span class="deco-divider">
         ## Developers: this is a sentence fragment, which is usually frowned upon.  The design of the pags uses this fragment to provide an "else" clause underneath a number of choices.  It's OK to leave it.
         ## Translators: this is the last choice of a number of choices of how to log in to the site.
         <span class="copy">${_('or')}</span>
       </span>
-
+ -->
     <div class="form-actions form-third-party-auth">
 
     % for enabled in provider.Registry.displayed_for_login():
