@@ -33,7 +33,8 @@ $(document).ready(function(){
     % endif
         </div>
   % else:
-        <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
+        <div class="enroll-button" onclick="window.location.href='/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=siec'">
+        <!-- <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'"> -->
            Je m'inscris !
         </div>
   % endif

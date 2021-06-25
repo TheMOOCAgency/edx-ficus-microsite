@@ -1,0 +1,130 @@
+<!-- /edx/app/edxapp/edx-microsite/lvmh-elearninginternalcontrol/templates/tma_apps 
+
+  # -*- coding: utf-8 -*-
+-->
+
+
+<%page expression_filter="h"/>
+<%namespace name='static' file='/static_content.html'/>
+
+<%inherit file="../main.html" />
+<%!
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+%>
+
+<%block name="pagetitle">${_("Choose language")}</%block>
+
+<!-- <link rel="stylesheet" href="/media/microsite/lvmh-elearninginternalcontrol/home.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<style>
+  #main {
+    /* background-image:url("/media/microsite/lvmh-elearninginternalcontrol/auto/images/bg_img_blue.jpg") !important; */
+    background-size: cover;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  #box1 {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 100px 200px;
+  }
+  #language-selector{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  
+  }
+
+  .fa-play-circle {
+    font-size: 80px;
+    color: primary_color;
+  }
+  .fa-play-circle :hover {
+    color: black !important
+  }
+
+</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<main id="main" aria-label="Content" tabindex="-1">
+  % if user.is_authenticated():
+  <div id="box1" >
+
+    <h1 id="welcome-title" style="color:black; font-weight: 700;">
+      Vous pouvez commencer à suivre la formation en cliquant sur le bouton ci-dessous: 
+    </h1>
+    <div id="language-selector" >
+      <a data-value="fr" data-course="course-v1:mooc-integrerlesiec+1+2020">
+        <i class="far fa-play-circle" ></i>
+        
+      </a>
+    </div>
+  </div>
+  % endif
+</main>
+<script>
+  // Values for current microsite & alert messages
+  var microsite = "${configuration_helpers.get_value('course_org_filter')}";
+  var alertMessages = {
+    message: {
+      "fr": "Vous allez être redirigé vers la formation",
+      "en": "This setting cannot be changed later.\nPlease confirm.",
+    },
+    button: {
+      "fr": "Confirmer",
+      "en": "Confirm",
+    },
+    cancel: {
+      "fr": "Annuler",
+      "en": "Cancel",
+    }
+  };
+
+  // Trigger confirmation alert then send info
+  function alertAndSendInfo(element) {
+    swal(alertMessages.message[element.data('value')], {
+        icon: "warning",
+        buttons: {
+            cancel: alertMessages.cancel[element.data('value')],
+            catch: {
+            text: alertMessages.button[element.data('value')],
+            value: "catch",
+        }
+        },
+    }).then(function(value) {
+      if (value) {
+        $.ajax({
+          url: 'check_enrollment',
+          type: 'POST',
+          data: { 
+            language: element.data('value'),
+            course_id: element.data('course'),
+            cohort_name: element.data('cohort'),
+            microsite: microsite
+          }, 
+          success: function(data){
+            console.log(data);
+            window.location.replace(data.redirect_url)
+          }
+        });
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $('#language-selector > a').on('click', function(e){
+      alertAndSendInfo($(this));
+    });
+  });
+</script>
+<style>
+.swal-button--cancel {
+  color:white !important;
+}
+</style>

@@ -189,14 +189,14 @@ site_status_msg = get_site_status_msg(course_id)
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+                <!-- <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a> -->
               </li>
             % else:
               <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
+                <!-- <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a> -->
                 % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
+                <!-- <a class="btn-neutral" href="/register">${_("Register")}</a> -->
                 % endif
               </li>
             % endif
@@ -208,12 +208,15 @@ site_status_msg = get_site_status_msg(course_id)
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=siec">${_("Sign in")}</a>
+                <!-- <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a> -->
               % else:
                 % if static.get_value('course_id') is not None:
-                <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=siec">${_("Sign in")}</a>
+                <!-- <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a> -->
                 % else:
-                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=siec">${_("Sign in")}</a>
+                <!-- <a class="btn btn-login" href="/login">${_("Sign in")}</a> -->
                 % endif
               % endif
             % endif
@@ -336,6 +339,13 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<script>
+  if(window.location.href==="https://mooc-integrerlesiec.the-mooc-agency.com/login"){
+    window.location.replace("https://mooc-integrerlesiec.the-mooc-agency.com")
+  }
+</script>
+
 
 
 

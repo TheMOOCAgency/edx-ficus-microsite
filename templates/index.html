@@ -47,8 +47,16 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           <h1 class="emTitle emTitle--primary" style="font-family: 'Roboto',sans-serif!important; text-transform: none!important;">Bienvenue sur le MOOC : Intégrer le SIEC</h1>
         </div>
         <div id="buttonsContainer">
-          <a class="homePageButton" href="/register" style="color:#5770BE!important;">Inscription</a>
-          <a class="homePageButton" href="/login" style="color:#5770BE!important;">Connexion</a>
+          <!-- <a class="homePageButton" href="/register" style="color:#5770BE!important;">Inscription</a> -->
+          
+          <a class="homePageButton" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=siec" style="color:#5770BE!important;">Connexion</a>
+<!-- 
+  THESE SOLUTION CAN NOT BE TESTED BECAUSE THERE IS NO SSO IN PPROD1 OR ANY TEST USER FROM THE CLIENT
+
+          <a class="homePageButton" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Fcourses%2Fcourse-v1:mooc-integrerlesiec+1+2020%2Fabout&idp=siec" style="color:#5770BE!important;">Connexion</a>
+          
+          <a class="homePageButton" href="/auth/login/tpa-saml/?auth_entry=login&next=%2Fregister?course_id=course-v1:mooc-integrerlesiec+1+2020&enrollment_action=enroll&idp=siec" style="color:#5770BE!important;">Connexion</a>
+ -->
         </div>
       </div> 
     </div>
