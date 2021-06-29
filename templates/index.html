@@ -14,18 +14,14 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<link rel="stylesheet" type="text/css" href="/media/microsite/data-ready/css/digimap.css" />
+<link rel="stylesheet" type="text/css" href="/media/microsite/techready/auto/css/digimap.css" />
+
 <style>
   .wrapper-header {
     display: none;
   }
   body {
     background-image: none !important;
-  }
-  .home>header {
-    height: 450px;
-    background-image: none;
-    box-shadow: none;
   }
   .header-global {
     height: 120px;
@@ -42,11 +38,11 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   }
 </style>
 <script>
-  document.title="Dataready";
+  document.title="Techready";
 </script>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header style="display: flex;">
+      <header id="home-header" >
         <div id="white_veil" >
           <div class="outer-wrapper">
             <div class="title">
@@ -84,21 +80,27 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             % endif
           </div>
 
-          <div id="logoData4Manager">
-            <img id="Logo_DataReady" src="/media/microsite/data-ready/images/Logo_DataReady.png" />
-            <img id="Logo_HEC" src="/media/microsite/data-ready/images/Logo_HEC.png"  />
+          <div id="logo">
+            <img id="logo_techready" src="/media/microsite/techready/auto/images/logo.png" />
+            <div id="logo_secondary">
+              <img id="logo_telecomParis" src="/media/microsite/techready/auto/images/Logo_Télécom.png"  />
+              <div id="logo_separator"></div>
+              <img id="logo_netexplo" src="/media/microsite/techready/auto/images/Logo_Netexplo_Noir.png"  />
+            </div>
           </div>
 
           <div id="connectButnsWrapper">
             <div class="butnContainer">
-              <a class="registerButn" id="register-butn">Inscription</a>
+              <a class="registerButn" id="register-butn" >${_("Register")}</a>
             </div>
             <div class="butnContainer">
-              <a class="connectButn" href='/login?next=%2Ftma_apps%2Fuser_info'>Connexion</a>
+              <a class="connectButn" href="/login" >${_("Sign in")}</a>
+              <!-- <a class="connectButn" href='/login?next=%2Ftma_apps%2Fuser_info'>${_("Sign in")}</a> -->
             </div>
           </div>
         </div>
       </header>
+
       <div id="connect-popin-veil">
         <div id="connect-popin-groups-container">
           <div id="veilCloseContainer">
@@ -111,6 +113,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           </div>
         </div>
       </div>
+      
       <%include file="${courses_list}" />
 
     </section>
@@ -150,6 +153,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 // $(".btn-login").each(function(){
 //  $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
 // });
+
 $(".registerButn").each(function(){
  $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
 });
@@ -162,6 +166,7 @@ $(".connectButn").each(function(){
 
 
 
+
 <% languages = static.get_released_languages() %>
  <div class="primary nav-item active">
    <form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
@@ -171,8 +176,8 @@ $(".connectButn").each(function(){
      % else:
      <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('session_language')}" data-user-is-authenticated="false">
      % endif
-       <!--LANGUAGE FLAGS-->
-       <div id="lang-content">
+
+     <div id="lang-content">
          <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
            % for language in languages:
             <script>console.log("${language[0]}")</script>
@@ -196,12 +201,12 @@ $(".connectButn").each(function(){
     if ($('#settings-language-value > option[value="fr"]').attr('selected') === 'selected') {
       var state = {}
       var title = ''
-      var url = '/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'
+      var url = '/register?course_id=course-v1:techready+level1+EN&enrollment_action=enroll'
       history.pushState(state, title, url)
       $('#settings-language-value > option[value="en"]').attr('selected','selected');
       $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger( "change");
     } else {
-      window.location.href='/register?course_id=course-v1:data-ready+v1+EN&enrollment_action=enroll'
+      window.location.href='/register?course_id=course-v1:techready+level1+EN&enrollment_action=enroll'
     }
     console.log('OK EN')
   }
@@ -210,12 +215,12 @@ $(".connectButn").each(function(){
     if ($('#settings-language-value > option[value="en"]').attr('selected') === 'selected') {
       var state = {}
       var title = ''
-      var url = '/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll'
+      var url = '/register?course_id=course-v1:techready+level1+FR&enrollment_action=enroll'
       history.pushState(state, title, url)
       $('#settings-language-value > option[value="fr"]').attr('selected','selected');
       $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");
     } else {
-      window.location.href='/register?course_id=course-v1:data-ready+v1+FR&enrollment_action=enroll'
+      window.location.href='/register?course_id=course-v1:techready+level1+FR&enrollment_action=enroll'
     }
     console.log('OK FR')
   }
@@ -226,4 +231,5 @@ $(".connectButn").each(function(){
   closeFlags = function(){
     $("#connect-popin-veil").hide();
   }
-</script>
+</script> 
+
