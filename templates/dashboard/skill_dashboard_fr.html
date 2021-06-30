@@ -14,8 +14,11 @@ domainFiliere = Null
 domainGroup = Null
 userGroup = Null
 domainUser = user.email.split('@')[1]
+
+
 %>
 <link rel="stylesheet" type="text/css" href="/media/microsite/techready/auto/css/digimap.css" />
+
 
 %if course_state!="finished" and course_state!="ongoing":
 <script>
@@ -92,12 +95,41 @@ domainUser = user.email.split('@')[1]
     width: 100%;
   }*/
   .dashboard-btn:hover{
-    background-color: rgba(70,124,218,0.8) !important;
+    background-color: rgba(20, 127, 224,0.8) !important;
   }
   #dashboard_course_content{
     text-align: center;
     padding-right: 49%;
   }
+
+  #logo_separator{
+    border-left: 2px solid black;
+    height: 75px;
+  }
+  #logo{
+    padding: 0 90px;
+  }
+  #logo_techready{
+    justify-content: center;
+    align-items: center;
+    width: Calc(100% - 40px);
+    margin: 75px auto 0 auto;
+  }
+  #logo_secondary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: Calc( 30% - 10px );
+    margin-top: 35px ;
+    padding: 0 20px;
+  }
+  #logo_telecomParis {
+    height: 150px;
+  }
+  #logo_netexplo {
+    height: 70px;
+  }
+
   @media(max-width:1024px) {
     #dashboard_course_content {
       width: calc(100% - 76px);
@@ -131,16 +163,19 @@ domainUser = user.email.split('@')[1]
 
 <div id="dashboard_course_content">
   <!-- <div id="white_veil"> -->
-    <div id="white_veil" style="height: 320px;
+    <div id="white_veil" style="
     min-width: 740px; padding: 10px;">
-    <div id="logoData4Manager">
-      <img src="/media/microsite/techready/auto/images/logo.png" style="width: 270px;"/>
-      <div style="height: 75px;border-left: solid 1px black;"></div>
-      <img src="/media/microsite/techready/auto/images/Logo_Netexplo_Noir.png" style="width: 125px;"/>
-      <div style="height: 75px;border-left: solid 1px black;"></div>
-      <img src="/media/microsite/techready/auto/images/Logo_Télécom.png" style="width: 50px;"/>
-    </div>
-    <!-- <div id="logoData4Manager">
+
+      <div id="logo">
+        <img id="logo_techready" src="/media/microsite/techready/auto/images/logo.png" />
+        <div id="logo_secondary">
+          <img id="logo_telecomParis" src="/media/microsite/techready/auto/images/Logo_Télécom.png"  />
+          <div id="logo_separator"></div>
+          <img id="logo_netexplo" src="/media/microsite/techready/auto/images/Logo_Netexplo_Noir.png"  />
+        </div>
+      </div>    
+      
+<!-- <div id="logoData4Manager">
       <img src="/media/microsite/data-ready/images/data-ready_logo.png" width="50" style="width: 500px;"/>
     </div> -->
     <div class="container">
