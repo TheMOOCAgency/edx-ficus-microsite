@@ -65,6 +65,9 @@ from third_party_auth import provider, pipeline
         if(json.success) {
           // var nextUrl = "${login_redirect_url}";
           var nextUrl = "/tma_apps/user_info";
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
+json.redirect_url = urlParams.get('next');
           if (json.redirect_url) {
             nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
           }
