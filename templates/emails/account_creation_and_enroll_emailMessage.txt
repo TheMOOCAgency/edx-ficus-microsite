@@ -1,6 +1,30 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-Bienvenue sur Netexplo DataReady !
+% if display_name.find("EN") != -1 or course.display_name_with_default_escaped.find("EN") != -1:
+
+Hello,
+
+You are now registered to Netexplo TechReady.
+
+To start the program please follow the link below:
+
+URL: https://learning.netexplotechready.com 
+
+Then type in your email address and the following password:
+
+${_("email: {email}").format(email=email_address)}
+${_("password: {password}").format(password=password)}
+
+If you encounter any issues please contact learning@netexplo.org
+
+Best regards,
+
+Netexplo
+
+
+% else
+
+Bienvenue sur Netexplo TechReady !
 
 Pour vous connecter, rendez-vous sur ${_("{site_name}").format(site_name=site_name)} puis cliquez sur le bouton « connexion » et entrez vos identifiants :
 ${_("email: {email}").format(email=email_address)}
@@ -12,3 +36,5 @@ Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante 
 
 Cordialement,
 L'équipe Netexplo Observatory
+
+%endif
