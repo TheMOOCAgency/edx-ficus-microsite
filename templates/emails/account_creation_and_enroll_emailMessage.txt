@@ -22,7 +22,7 @@ Best regards,
 Netexplo
 
 
-% else
+% else:
 
 Bienvenue sur Netexplo TechReady !
 
