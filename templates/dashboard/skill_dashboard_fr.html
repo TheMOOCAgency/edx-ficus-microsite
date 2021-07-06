@@ -126,6 +126,31 @@ except:
 </script>
 %endif
 
+<script>
+
+var companyField = undefined
+$.ajax({
+    url: '/tma_apps/tma_api/v0/CustomFieldView/',
+    type: "GET",
+    dataType: 'json',
+  success: function (res) {
+                  companyField = res.company
+                  try {
+                    if (res.company.toLowerCase() == "edf") {
+                      $("a[href='https://learning.netexplodigimapper.com/register?course_id=course-v1%3Adigimapper-ressources%2BFR%2B1&enrollment_action=enroll&next=%2Fcourses%2Fcourse-v1%3Adigimapper-ressources%2BFR%2B1%2Fcourseware%2Faa71569bfe8640e7bb58b4da04689ff3%2F8cdb686a44404bbc9e9318752f93149b%2F']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/digimapper')
+                    }
+                    
+                  } catch (error) {
+                    console.log(error);
+                  }
+
+
+              }
+})
+
+</script>
+    
+  
 <style>
 #main{
   height: 100vh;
@@ -237,6 +262,7 @@ except:
         <div class="text-center">
           %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
             <a style="color:inherit;" href="https://learning.netexplodigimapper.com/register?course_id=course-v1%3Adigimapper-ressources%2BFR%2B1&enrollment_action=enroll&next=%2Fcourses%2Fcourse-v1%3Adigimapper-ressources%2BFR%2B1%2Fcourseware%2Faa71569bfe8640e7bb58b4da04689ff3%2F8cdb686a44404bbc9e9318752f93149b%2F" target="_blank">
+              
               <button class="sub-btn blue-btn" id="last_score" style="background-color: #FFAA16 !important;">
                 Accès direct au Learning   
               </button>     

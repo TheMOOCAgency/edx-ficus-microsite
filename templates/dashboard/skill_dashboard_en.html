@@ -127,6 +127,30 @@ except:
 </script>
 %endif
 
+<script>
+
+var companyField = undefined
+$.ajax({
+    url: '/tma_apps/tma_api/v0/CustomFieldView/',
+    type: "GET",
+    dataType: 'json',
+  success: function (res) {
+                  companyField = res.company
+                  try {
+                    if (res.company.toLowerCase() == "edf") {
+                      $("a[href='https://learning.netexplodigimapper.com/register?course_id=course-v1%3Adigimapper-ressources%2BEN%2B1&enrollment_action=enroll&next=%2Fcourses%2Fcourse-v1%3Adigimapper-ressources%2BEN%2B1%2Fcourseware%2Ffca645ff40ab4b60993de20bf404fe11%2F6a2f4b9fa472440ea1b491e783286d26%2F']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/digimapper')
+                    }
+                    
+                  } catch (error) {
+                    console.log(error);
+                  }
+
+
+              }
+})
+
+</script>
+    
 <style>
 #main{
   height: 100vh;

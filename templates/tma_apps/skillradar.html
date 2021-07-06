@@ -17,6 +17,9 @@
   <link href="/media/microsite/digimapper/skill-radar/static/css/main.87899a11.chunk.css" />
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <script
   src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces5%2Ces6%2Ces7%2Cdefault%2CArray.isArray%2CArray.from%2CArray.of%2CEvent%2CMap%2CJSON%2CNodeList.prototype.forEach%2CNumber.isNaN%2CObject.entries%2CObject.values%2CObject.keys%2CURLSearchParams%2Cdocument%2Cdocument.getElementsByClassName%2Cdocument.querySelector%2CpageYOffset%2CpageXOffset%2CscrollX%2CscrollY%2Cwindow.scroll%2Cfetch%2CObject.getOwnPropertyDescriptor%2CObject.getOwnPropertyDescriptors%2CObject.getOwnPropertyNames%2ClocalStorage%2Clocation.origin%2Cscroll%2CscrollBy%2Cwindow.scrollBy%2C%7Ehtml5-elements%2C%7Eviewport%2CDate.now%2CElement"></script>
 <style>
@@ -40,7 +43,239 @@
     window.props = ${ dump_js_escaped_json(props) | n, decode.utf8 };
     window.props.csrfToken = "${csrf_token}";
     console.log(window.props)
+
   </script>
+
+<script>
+
+var companyField = undefined
+$.ajax({
+    url: '/tma_apps/tma_api/v0/CustomFieldView/',
+    type: "GET",
+    dataType: 'json',
+  success: function (res) {
+    companyField = res.company
+  }
+})
+
+var updateLink = setInterval(function(){
+  console.log("start");
+  console.log("companyField");
+  console.log(companyField);
+
+  if (companyField && companyField.toLowerCase() == "edf") {
+
+    // EN Link start
+    // Strategie level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')            
+    } catch (error) {
+      console.log("missing 1");
+    }
+    // Strategie level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/21e3a436838b45e487fb569ec3aa449e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 2");
+    }
+    // Strategie level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/5f63696838124e05b263087b8872082e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 3");
+    }
+    
+    // clients level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/7c3b54fe560e4dfb8d713b378cf168d9/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 4")
+    }
+    // clients level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/1ecfe7a825124d5db928e23cc8994a1d/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 5")
+    }
+    // clients level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/724dab2cb00f4ce3bdf18834eb4b9e4e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 6")
+    }
+    
+
+    // operations level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/a6252e58e3154fd2b1ab55cf272653be/f742b4b5b3b94975b40c8b85276fb1e3/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 7")  
+    }
+    // operations level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/a6252e58e3154fd2b1ab55cf272653be/b251ba09dbb34223bc279abba2864459/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 8")
+    }
+    // operations level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/a6252e58e3154fd2b1ab55cf272653be/8bfe4268f16944e1bd22268b0f9bd0e8/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 9")
+    }
+
+    // Employees level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/eae39739a4964038a8e71bb05db849b6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 10")
+    }          
+    // Employees level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/7c07f01b147e4fb6aedc6a0acaad0ba6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 11")
+    }
+    // Employees level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/7c07f01b147e4fb6aedc6a0acaad0ba6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 12")
+    }
+
+    // Technology level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/9b8da071e032454a87d47466ef8c42e0/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 13")
+    }
+    // Technology level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/6088fc0f1f074b3d8cfe887eacaae660/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 14")
+    }
+
+    // Technology level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+EN+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/15eaba6cdd72447a911cc26725a2f441/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 15")
+    }
+    // EN Link end
+    // EN Link end
+
+    // FR Link start
+    // FR Link start
+    // Strategie level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/ab4e38bc38714f52b1822bb9f7ab4ec0/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')            
+    } catch (error) {
+      console.log("missing 1");
+    }
+    // Strategie level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/21e3a436838b45e487fb569ec3aa449e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 2");
+    }
+    // Strategie level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/27d97d2c379f4bd0b53a2ac4e8f827d9/5f63696838124e05b263087b8872082e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-strat%25C3%25A9gie-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 3");
+    }
+    
+    // clients level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/7c3b54fe560e4dfb8d713b378cf168d9/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 4")
+    }
+    // clients level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/1ecfe7a825124d5db928e23cc8994a1d/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 5")
+    }
+    // clients level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/3d8f5935e12a4823b58a8bfb8675f713/724dab2cb00f4ce3bdf18834eb4b9e4e/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/relation-clients-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 6")
+    }
+    
+
+    // operations level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/a6252e58e3154fd2b1ab55cf272653be/f742b4b5b3b94975b40c8b85276fb1e3/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 7")  
+    }
+    // operations level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/a6252e58e3154fd2b1ab55cf272653be/b251ba09dbb34223bc279abba2864459/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 8")
+    }
+    // operations level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/a6252e58e3154fd2b1ab55cf272653be/8bfe4268f16944e1bd22268b0f9bd0e8/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-industrie-et-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 9")
+    }
+
+    // Employees level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/eae39739a4964038a8e71bb05db849b6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 10")
+    }          
+    // Employees level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/7c07f01b147e4fb6aedc6a0acaad0ba6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 11")
+    }
+    // Employees level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/fbca6ed280bc4a398b6e7462b0ac3477/7c07f01b147e4fb6aedc6a0acaad0ba6/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/travailler-%25C3%25A0-l-%25C3%25A8re-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 12")
+    }
+
+    // Technology level1
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/9b8da071e032454a87d47466ef8c42e0/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 13")
+    }
+    // Technology level2
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/6088fc0f1f074b3d8cfe887eacaae660/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 14")
+    }
+
+    // Technology level3
+    try {
+      $("a[href='https://learning.netexplodigimapper.com/courses/course-v1:digimapper-ressources+FR+1/courseware/ab7f8bec14304e73a87ee6217dc094e6/15eaba6cdd72447a911cc26725a2f441/']").attr('href', 'https://www.myelectricnetwork.fr:443/web/tousnumeriques/lire-detail/-/asset_publisher/AO6j/content/-digimapper-les-technologies-du-num%25C3%25A9rique')
+    } catch (error) {
+      console.log("missing 15")
+    }
+
+  } 
+  
+  console.log("end");
+  clearInterval(updateLink);
+}, 500)
+
+</script>
+
+
+
+
+
   <!-- <script>
       let languages = {
         'en' : {
