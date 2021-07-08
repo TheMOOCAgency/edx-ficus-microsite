@@ -15,7 +15,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
-<%include file="/tma_apps/tma_time_tracking.html" />
+<%include file="../tma_apps/tma_time_tracking.html" />
 <%def name="course_name()">
  <% return _("{course_number} Courseware").format(course_number=course.display_number_with_default) %>
 </%def>
@@ -360,6 +360,9 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 
   <!--TMA TIME TRACKING-->
 %if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
+<script>
+console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+</script>
 <%include file="/tma_apps/tma_time_tracking.html" />
 %endif
 <script>

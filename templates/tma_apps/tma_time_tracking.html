@@ -13,23 +13,27 @@
   $(document).idle({
   idle: 900000,
   onIdle: function(){
+    console.log('******************* user is in idle ********************')
     time=end_timer();
     send_time(time);
   },
 
   onActive: function(){
     if(can_reset_timer){
+      console.log('******************* user reset timer ********************')
       start_timer();
     }
   },
 
   onHide: function(){
+    console.log('******************* user is in hidden mode ********************')
     time=end_timer();
     send_time(time);
   },
 
   onShow: function(){
     if(can_reset_timer){
+      console.log('******************* user is in show mode ********************')
       start_timer();
     }
   }
@@ -38,6 +42,7 @@
   //Send timer when user leaves the page
   window.addEventListener('beforeunload', function (e) {
     time=end_timer();
+    console.log('******************time*******************')
     send_time(time);
   });
 
@@ -45,6 +50,7 @@
   function start_timer() {
     startTime = new Date();
     can_reset_timer=false;
+    console.log("Votre temps de formation est décompté.")
     $('#time-message').html("Votre temps de formation est décompté.");
     $('.recording-dot').addClass('recording-time').removeClass('not-recording-time');
   };
@@ -58,6 +64,7 @@
     var seconds = Math.round(timeDiff);
     $('#time-message').html("Votre temps de formation n'est plus décompté.");
     $('.recording-dot').removeClass('recording-time').addClass('not-recording-time');
+    console.log('Votre temps de formation n\'est plus décompté.');
     console.log('time sent');
     console.log(seconds);
     //reset_timer
@@ -90,7 +97,7 @@
   function send_time(time){
     section=get_section();
     subsection=get_sub_section();
-    //console.log('time sent : '+time);
+    console.log('time sent : '+time);
     $.ajax({
       url : '/tma_apps/${str(course.id)}/tma_stats/time_tracker',
       type : 'POST',
@@ -102,6 +109,7 @@
       dataType:'json',
       success : function(data) {
         if ('success' in data){
+          console.log('can_reset_timer=true')
           can_reset_timer=true;
         }
       }
