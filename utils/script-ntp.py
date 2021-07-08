@@ -136,14 +136,6 @@ for course_id in course_ids:
     course = get_course_by_id(course_key)
     course_enrollments = CourseEnrollment.objects.filter(course_id=course_key)
     
-    log.info((course_key.course))
-    log.info(dir(course_overview))
-    log.info((course_overview.display_name))
-    log.info(course)
-    log.info(dir(course))
-    log.info("@@@@@@@@@")
-    log.info(course.display_name)
-
     # add course headers
     user_repports_summary = course_enrollments[0]
     user_summary=user_repports_summary.user
@@ -218,6 +210,8 @@ for course_id in course_ids:
         user_data["email_address"] = user.email
 
         # Time tracking
+        log.info(tma_enrollment)
+        log.info(tma_enrollment.global_time_tracking)
         try:
             seconds = tma_enrollment.global_time_tracking
             minute = seconds // 60
@@ -227,14 +221,16 @@ for course_id in course_ids:
 
 
         # Finished course date
-        try:
-            seconds = tma_enrollment.finished_course_date
-            log.info("try 3 ")
+        log.info(tma_enrollment)
+        log.info(tma_enrollment.finished_course_date)
+        # try:
+        #     seconds = tma_enrollment.finished_course_date
+        #     log.info("try 3 ")
 
-            minute = seconds // 60
-            user_data["time_tracking"] = int(minute)
-        except:
-            user_data["time_tracking"] = int(0)
+        #     minute = seconds // 60
+        #     user_data["time_tracking"] = int(minute)
+        # except:
+        #     user_data["time_tracking"] = int(0)
 
         course_grade = CourseGradeFactory().create(user, course)
 
@@ -285,6 +281,7 @@ for course_id in course_ids:
                 if user_grade.locations_to_scores.get(block_location):
                     history_entries = list(user_state_client.get_history(user.username, block_location))
                     value = history_entries[0].state.get('student_answers').values()[0]  # ----->  choice_2
+                    log.info(history_entries[0].state.get('student_answers'))
 
                     corrected_value = value.split('_')[1]
                     corrected_value = int(corrected_value)
@@ -371,15 +368,15 @@ for course_id in course_ids:
         if len(list_question) != 0:
             user_data["average_score_raw"] = round(int(raw_score_sum)/len(list_question),2)
             user_data["average_score"] = round(int(score_sum)/len(list_question), 2)
-            user_data["average_d_o_c"] = round(int(d_o_c_sum)/len(list_question), 2)
-            user_data["centration"] ="detailler le calcul"
             user_data["travail"] = round(int(answered_total)/len(list_question), 2)
+            user_data["average_d_o_c"] = round(int(d_o_c_sum)/len(list_question), 2)
+            # La centration est la différence entre le taux de bonne réponse (Nb de bonnes réponses/Nb de questions) et la certitude moyenne (degrée de certitude moyen. On prend comme référence pour une plage de certitude, la médiane. Par exemple le degrée de certitude 70%-85% deviens 77,5%
+            user_data["centration"] = round(int(raw_score_sum)/len(list_question),2) - round(int(d_o_c_sum)/len(list_question), 2)/100
         else :
             user_data["average_score_raw"] = "n.a."
-            user_data["average_score"] ="n.a."
-            user_data["average_d_o_c"] ="detailler le calcul"
-            user_data["centration"] ="detailler le calcul"
-
+            user_data["average_score"] = "n.a."
+            user_data["average_d_o_c"] = "n.a."
+            user_data["centration"] = "n.a."
         
         data = {"grades": questions, "general": user_data}
 
@@ -435,6 +432,8 @@ for index, user in all_users_data.items():
         sheet.write(j, i+1, grade["raw_score"])
         sheet.write(j, i+2, grade["d_o_c_text"])
         sheet.write(j, i+3, grade["score"])
+        log.info('grade["submit_time"]')
+        log.info(grade["submit_time"])
         i += 4
     j += 1
 
