@@ -164,16 +164,10 @@ endfor
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Show Results")}</span>
         % elif cours_ouv:
           <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
-            <!-- ${_("Training not validated")} -->
-            <!-- %if document.URL.indexOf("EN") != -1 : -->
-            %if request.LANGUAGE_CODE == 'fr' :
-              Voir mes résultats
-            % else :
-              See my results
-            % endif
+            ${_("Show Results")}
           </a>
         </span>
         % else:
@@ -246,6 +240,8 @@ endfor
   else:
     color_font_custom = "#3c3c3c"
   %>
+
+
 
 <style>
   #dashboard_profile_up{
