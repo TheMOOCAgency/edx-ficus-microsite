@@ -10,6 +10,11 @@ from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
 %>
+
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />
+
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
