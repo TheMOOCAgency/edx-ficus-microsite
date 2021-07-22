@@ -314,3 +314,12 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<script>
+  console.log("123");
+  console.log(window.location.href);
+  if(window.location.href.indexOf("/login") > -1 && window.location.href.indexOf("/login?admin=true") == -1){
+    window.location.replace("https://edf.netexplo.academy/")
+  }
+</script>
+
