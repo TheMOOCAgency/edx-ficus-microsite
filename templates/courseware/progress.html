@@ -59,7 +59,7 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                     ${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}
                 </h3>
 
-                %if certificate_data:
+                %if False and certificate_data:
                 <div class="wrapper-msg wrapper-auto-cert">
                     <div id="errors-info" class="errors-info"></div>
                     %if passed:
