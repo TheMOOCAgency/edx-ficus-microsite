@@ -399,7 +399,7 @@ for course_id in course_ids:
         
 
 
-headers = ["Identifiant","Email","Prénom", "Nom de famille","Pays","Entité","Job","Langage","Date d'inscription","Dernière connexion","Temps passé (hh-mm)","Date de soumission (hh-mm)", "Score global brut (en %)","Score global", "Degré de certitude moyen", "Centration"]
+headers = ["Identifiant","Email","Prénom", "Nom de famille","Pays","Entité","Job","Langage","Date d'inscription","Dernière connexion","Temps passé (hh-mm)","Date de soumission (hh-mm)", "Score global brut (en %)","Score global", "Degré de certitude moyen", "Centration" , "Matrice inversée"]
 
 
 def Getletterfromindex( num):
@@ -436,7 +436,7 @@ alphabet = []
 for i, header in enumerate(headers):
     sheet.write(j, i, header)
 
-i=16
+i=17
 for question in list_question:
     # sheet.write(0, i, "bonne réponse")
     # sheet.write(0, i+1, "titre cours")
