@@ -210,6 +210,7 @@ for course_id in course_ids:
         user_data["email_address"] = user.email
 
         # Time tracking
+        log.info("tma_enrollment")
         log.info(tma_enrollment)
         log.info(tma_enrollment.global_time_tracking)
         try:
@@ -218,9 +219,11 @@ for course_id in course_ids:
             user_data["time_tracking"] = int(minute)
         except:
             user_data["time_tracking"] = int(0)
+            log.info("except 1")
 
 
         # Finished course date
+        log.info("tma_enrollment.finished_course_date")
         log.info(tma_enrollment.finished_course_date)
         # try:
         #     seconds = tma_enrollment.finished_course_date
@@ -243,8 +246,11 @@ for course_id in course_ids:
 
 
         for assignment_type_name, subsection_infos in grading_context['all_graded_subsections_by_type'].iteritems():
+            log.info("loop 1")
             for subsection_index, subsection_info in enumerate(subsection_infos, start=1):
+                log.info("loop 2")
                 for scorable_block in subsection_info['scored_descendants']:
+                    log.info("loop 3")
                     header_name = (
                         u"{assignment_type} {subsection_index}: "
                         u"{subsection_name} - {scorable_block_name}"
@@ -259,6 +265,8 @@ for course_id in course_ids:
                     list_question.append(section_name)
 
         user_grade = check_best_grade(user, course, force_best_grade=True)
+        log.info("user_grade")
+        log.info(user_grade)
 
 
         user_state_client = DjangoXBlockUserStateClient()
@@ -270,13 +278,20 @@ for course_id in course_ids:
         answered_total = 0
 
         iteration = 0
+
+        log.info("666666666666666666666")
+        log.info(scorable_block_titles)
+        log.info(scorable_block_titles.items())
+
         for block_location,block_title in scorable_block_titles.items():
             question = {}
            
 
             # Add submit_time
             try:
+                log.info("1")
                 if user_grade.locations_to_scores.get(block_location):
+                    log.info("2")
                     history_entries = list(user_state_client.get_history(user.username, block_location))
                     value = history_entries[0].state.get('student_answers').values()[0]  # ----->  choice_2
 
@@ -284,12 +299,16 @@ for course_id in course_ids:
                     corrected_value = int(corrected_value)
                     corrected_value += 1
                     answer = "choice "+ str(corrected_value)
+                    log.info("3")
                 else:
+                    log.info("4")
+
                     answer=('not graded for student')
             except:
+                log.info("5")
                 answer='inv.'
 
-
+            log.info("6")
             # Add Timestamp
 
             try:
@@ -467,7 +486,10 @@ for index, user in all_users_data.items():
     sheet.write(j, 8, user["general"]["registration_date"], style1)
     sheet.write(j, 9, user["general"]["last_visit"], style1)
     sheet.write(j, 10, user["general"]["time_tracking"])
-    sheet.write(j, 11, user["general"]["last_submit"], style1)
+    try:
+        sheet.write(j, 11, user["general"]["last_submit"], style1)
+    except:
+        sheet.write(j, 11, 'no time stamp')
 
     i=17
 
