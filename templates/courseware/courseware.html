@@ -356,4 +356,82 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+
+
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - START
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - START
+
+function createCookie(key, value, days) {
+  let date = new Date();
+  date.setTime(date.getTime()+ (days*24*60*60*1000));
+  const expiration = date.toGMTString();
+
+  const cookie = escape(key) + "=" + escape(value) + ";expires=" + expiration + ";";
+  document.cookie = cookie;
+}
+
+function readCookie(name) {
+  let key = name + "=";
+  let cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i];
+    while (cookie.charAt(0) === ' ') {
+      cookie = cookie.substring(1, cookie.length);
+    }
+    if (cookie.indexOf(key) === 0) {
+      return cookie.substring(key.length, cookie.length);
+    }
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  createCookie(name, "", -1);
+}
+
+// Needed because there is no refresh when moving inside a subsection
+setInterval(function(){ 
+  // console.log("iteration");
+  var problems = document.getElementsByClassName('problems-wrapper')
+
+  for (let j=0; j<problems.length ; j++) {
+    
+    if (problems[j].getAttribute('data-attempts-used') == 0 ) {
+      
+      target = problems[j].querySelector('input')    
+      let question = target.id.split("_")[1]
+      let answer = "declare"
+
+      try {
+        answer = readCookie(question)
+        // console.log("cookie find > answer : ", answer);
+
+        // Check the value if cookie is found
+        document.getElementById('input_'+question+'_2_1_choice_'+answer).checked = true
+      } catch (error) {
+        pass
+      }
+
+      var fields = problems[j].getElementsByClassName('field')
+  
+      for (let i=0; i<fields.length; i++) {
+        
+        // Create cookies
+        fields[i].onclick = function() {
+
+          target = fields[i].querySelector('input')
+          answer = target.id.split("_")[5]
+          // console.log("selected value : ",answer);
+
+          deleteCookie(question)
+          createCookie(question, answer, 1)
+        }
+      }
+    }
+  }
+}, 1000)
+
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
+
 </script>
