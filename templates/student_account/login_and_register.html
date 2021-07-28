@@ -130,7 +130,7 @@ if(loginemailfield && ! is_third_party_on){
 var test123 = setInterval(function(){
     
     var passwordField = document.querySelector('.password-password')
-    passwordField.innerHTML = '<label for="register-password">Mot de passe *</label><input id="register-password" type="password" name="password" value="" required aria-required="true" /><i class="fa fa-eye" id="togglePassword" style="position:absolute; left:530px; bottom:15px; cursor:pointer;"></i>'
+    passwordField.innerHTML = '<label for="register-password">Mot de passe </label><input id="register-password" type="password" name="password" value="" required aria-required="true" /><i class="fa fa-eye" id="togglePassword" style="position:absolute; left:530px; bottom:40px; cursor:pointer;"></i><button type="button" class="forgot-password field-link">Mot de passe oublié?</button>'
 
     const togglePassword = document.querySelector('#togglePassword');
     const passwordInput = document.querySelector('#register-password');
