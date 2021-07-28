@@ -314,3 +314,12 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<script>
+  if(window.location.href==="https://bnp-paribas.netexplo.academy/login"){
+    window.location.replace("https://bnp-paribas.netexplo.academy/")
+  }
+  if(window.location.href==="https://bnpp-netexplo.pprod1.the-mooc-agency.com/login"){
+    window.location.replace("https://bnpp-netexplo.pprod1.the-mooc-agency.com/")
+  }
+</script>
