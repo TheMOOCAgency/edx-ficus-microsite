@@ -320,3 +320,23 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<style>
+  .login-providers > .section-title, .login-providers > .section-title span, .toggle-form > .section-title span  {
+    display: none !important;
+  }
+  .button-saml-edf_pprod {
+    margin-top: 15px;
+  }
+
+</style>
+<script>
+
+setInterval(function(){
+
+  let sso_anchor = document.getElementsByClassName("button-saml-edf_pprod");
+  sso_anchor[0].setAttribute('data-provider-url', '/auth/login/tpa-saml/?auth_entry=register&next=%2Fdashboard&idp=edf_pprod')
+  
+}, 1000)
+
+</script>
