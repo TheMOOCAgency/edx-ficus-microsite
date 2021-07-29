@@ -273,8 +273,9 @@ for course_id in course_ids:
         questions = []
 
         # Average calculation
-        score_sum = ""
-        d_o_c_sum = 0
+        # score_sum = ""
+        # d_o_c_sum = 0
+        inverted_score = 0
         answered_total = 0
 
         iteration = 0
@@ -353,39 +354,38 @@ for course_id in course_ids:
             iteration += 1
 
             degree_table = {
-                1 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.975},
-                0.975 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.9},
-                0.95 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.775},
-                0.925 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.6},
-                0.9 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.375},
-                0.825 : {"graded": True, "raw_score": 1, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.125},
-                0 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.975},
-                0.35 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.9},
-                0.5 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.775},
-                0.55 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.6},
-                0.575 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.375},
-                0.6 : {"graded": True, "raw_score": 0, "score": grade.earned,"choice":answer , "question":block_title, "submit_time":valueTS,  "d_o_c": 0.125}
+                1 : {"graded":True, "inverted_matrix":20, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.975},
+                0.975 : {"graded":True, "inverted_matrix":19, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.9},
+                0.95 : {"graded":True, "inverted_matrix":18, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.775},
+                0.925 : {"graded":True, "inverted_matrix":17, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.6},
+                0.9 : {"graded":True, "inverted_matrix":16, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.375},
+                0.825 : {"graded":True, "inverted_matrix":13, "raw_score":1, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.125},
+                0 : {"graded":True, "inverted_matrix":4, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.975},
+                0.35 : {"graded":True, "inverted_matrix":3, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.9},
+                0.5 : {"graded":True, "inverted_matrix":2, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.775},
+                0.55 : {"graded":True, "inverted_matrix":0, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.6},
+                0.575 : {"graded":True, "inverted_matrix":-6, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.375},
+                0.6 : {"graded":True, "inverted_matrix":-20, "raw_score":0, "score":grade.earned, "choice":answer, "question":block_title, "submit_time":valueTS, "d_o_c": 0.125}
             }
 
             if grade.earned in degree_table and answer !='inv.': 
                 question = degree_table[grade.earned]
 
-
                 # score_sum += degree_table[grade.earned]["score"]
-                score_sum += str(degree_table[grade.earned]["score"])
-                score_sum += str(" + ")
-
-                d_o_c_sum += degree_table[grade.earned]["d_o_c"]
+                # score_sum += str(degree_table[grade.earned]["score"])
+                # score_sum += str(" + ")
+                # d_o_c_sum += degree_table[grade.earned]["d_o_c"]
+                inverted_score += question["inverted_matrix"]
                 answered_total += 1
                 
             else:
-                question = {"graded": False,"raw_score": 0, "score": 0,"choice":"not answered" ,"question":block_title,"submit_time": "n.a.", "d_o_c": 0}
+                question = {"graded": False,  "inverted_matrix":0, "raw_score": 0, "score": 0,"choice":"not answered" ,"question":block_title,"submit_time": "n.a.", "d_o_c": 0}
                 
             questions.append(question)
 
 
-        if len(score_sum) >= 2 :
-            score_sum = score_sum[0: -2 ]
+        # if len(score_sum) >= 2 :
+        #     score_sum = score_sum[0: -2 ]
 
         
         if len(list_question) != 0 :
@@ -402,15 +402,17 @@ for course_id in course_ids:
             # user_data["average_d_o_c"] = round(int(d_o_c_sum)/len(list_question), 2)
             user_data["average_d_o_c"] = True
 
-            # La centration est la différence entre le taux de bonne réponse (Nb de bonnes réponses/Nb de questions) et la certitude moyenne (degrée de certitude moyen. On prend comme référence pour une plage de certitude, la médiane. Par exemple le degrée de certitude 70%-85% deviens 77,5%
             # user_data["centration"] = round(int(raw_score_sum)/len(list_question),2) - round(int(d_o_c_sum)/len(list_question), 2)/100
             user_data["centration"] = True
+
+            user_data["average_inverted"] = round(int(inverted_score)/len(list_question), 2)
 
         else :
             user_data["average_score_raw"] = False
             user_data["average_score"] = False
             user_data["average_d_o_c"] = False
             user_data["centration"] = False
+            user_data["average_inverted"] = False
         
         data = {"grades": questions, "general": user_data}
 
@@ -422,33 +424,21 @@ headers = ["Identifiant","Email","Prénom", "Nom de famille","Pays","Entité","J
 
 
 def Getletterfromindex( num):
-    #produces a string from numbers so
-
-    #1->a
-    #2->b
-    #26->z
-    #27->aa
-    #28->ab
-    #52->az
-    #53->ba
-    #54->bb
+    #produces a string from numbers so  1->A , 26->Z , 54->BB
 
     num2alphadict = dict(zip(range(1, 27), string.ascii_uppercase))
     outval = ""
     numloops = (num-1) //26
-
     if numloops > 0:
         outval = outval + Getletterfromindex(numloops)
-
     remainder = num % 26
     if remainder > 0:
         outval = outval + num2alphadict[remainder]
     else:
-        outval = outval + "z"
+        outval = outval + "Z"
     return outval
 
 # WRITE FILE
-
 j = 1
 i = 0
 alphabet = []
@@ -483,8 +473,16 @@ for index, user in all_users_data.items():
     sheet.write(j, 5, user["general"]["entity"])
     sheet.write(j, 6, user["general"]["job"])
     sheet.write(j, 7, user["general"]["langage"])
-    sheet.write(j, 8, user["general"]["registration_date"], style1)
-    sheet.write(j, 9, user["general"]["last_visit"], style1)
+    try:
+        sheet.write(j, 8, user["general"]["registration_date"], style1)
+    except:
+        sheet.write(j, 8, "n.a.")
+
+    try:
+        sheet.write(j, 9, user["general"]["last_visit"], style1)
+    except:
+        sheet.write(j, 9, "n.a.")
+
     sheet.write(j, 10, user["general"]["time_tracking"])
     try:
         sheet.write(j, 11, user["general"]["last_submit"], style1)
@@ -492,7 +490,6 @@ for index, user in all_users_data.items():
         sheet.write(j, 11, 'no time stamp')
 
     i=17
-
     for grade in user["grades"]:
         sheet.write(j, i, grade["choice"])
         sheet.write(j, i+1, grade["raw_score"])
@@ -513,17 +510,14 @@ for index, user in all_users_data.items():
     d_o_c_sum = d_o_c_sum[0:-2]
     score_sum = score_sum[0:-2]
 
-    # sheet.write(j, 12, str(user["general"]["average_score_raw"]*100)+ " %")
     if user["general"]["average_score_raw"] : 
         # sheet.write(j, 12, Formula(user["general"]["average_score_raw"]))
         sheet.write(j, 12, Formula("("+raw_score_sum + ")*100 /" + str(len(user["grades"])) ))
     else:
         sheet.write(j, 12, "n.a.")
     
-    # sheet.write(j, 13, str(user["general"]["average_score"]*100)+ " %")
     if user["general"]["average_score"] :
         sheet.write(j, 13, Formula("("+score_sum + ")*100 /" + str(len(user["grades"]))) )   
-        # sheet.write(j, 13, Formula(user["general"]["average_score"]))   
     else:
         sheet.write(j, 13, "n.a.")   
 
@@ -533,17 +527,18 @@ for index, user in all_users_data.items():
         sheet.write(j, 14, "n.a.")
 
     if user["general"]["centration"] :
-        sheet.write(j, 15, Formula((Getletterfromindex(13) + str(j+1)) +" - " + (Getletterfromindex(15) + str(j+1)) ))
+        # La centration est la différence entre le taux de bonne réponse (Nb de bonnes réponses/Nb de questions) et la certitude moyenne (degrée de certitude moyen. On prend comme référence pour une plage de certitude, la médiane. Par exemple le degrée de certitude 70%-85% deviens 77,5%
+        sheet.write(j, 15, Formula((Getletterfromindex(13) + str(j+1)) +" - "+ (Getletterfromindex(15) + str(j+1)) ))
     else :
         sheet.write(j, 15, "n.a.")
 
-    sheet.write(j, 16, "-20 to 20 score")
-    # if user["general"]["centration"] :
-    #     sheet.write(j, 16, Formula((Getletterfromindex(13) + str(j+1)) +" - " + (Getletterfromindex(15) + str(j+1)) ))
-    # else :
-    #     sheet.write(j, 16, "n.a.")
+    if user["general"]["average_inverted"] :
+        sheet.write(j, 16, user["general"]["average_inverted"])
+    else :
+        sheet.write(j, 16, "n.a.")
 
     j += 1
+
 
 # SEND MAILS
 output = BytesIO()
@@ -589,7 +584,7 @@ for i in range(len(TO_EMAILS)):
  
 # July 2021
 
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/nuclear-training-program/utils/script-ntp.py "cyril.adolf@weuplearning.com" "course-v1:nuclear-training-program+NTP26+Track17" 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/nuclear-training-program/utils/script-grade.py "cyril.adolf@weuplearning.com" "course-v1:nuclear-training-program+NTP26+Track17" 
 
 
 

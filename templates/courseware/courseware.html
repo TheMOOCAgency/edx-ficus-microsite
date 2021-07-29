@@ -10,6 +10,7 @@ from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
 %>
+
 <%
   include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and (course.enable_proctored_exams or course.enable_timed_exams)
 %>
@@ -60,6 +61,10 @@ ${static.get_page_title_breadcrumbs(course_name())}
 % if is_edxnotes_enabled(course):
 <%static:css group='style-student-notes'/>
 % endif
+
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />
+
 
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
@@ -351,4 +356,112 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+
+
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - START
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - START
+
+function createCookie(key, value, days) {
+  let date = new Date();
+  date.setTime(date.getTime()+ (days*24*60*60*1000));
+  const expiration = date.toGMTString();
+
+  const cookie = escape(key) + "=" + escape(value) + ";expires=" + expiration + ";";
+  document.cookie = cookie;
+}
+
+function readCookie(name) {
+  let key = name + "=";
+  let cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i];
+    while (cookie.charAt(0) === ' ') {
+      cookie = cookie.substring(1, cookie.length);
+    }
+    if (cookie.indexOf(key) === 0) {
+      return cookie.substring(key.length, cookie.length);
+    }
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  createCookie(name, "", -1);
+}
+
+// Needed because there is no refresh when moving inside a subsection
+setInterval(function(){ 
+  // Target input with id="input_problemXX_2_1_choiceX"
+  
+  var problems = document.getElementsByClassName('problems-wrapper')
+
+  for (let j=0; j<problems.length ; j++) {
+    
+    if (problems[j].getAttribute('data-attempts-used') == 0 ) {
+      
+      target = problems[j].querySelector('input')
+      console.log(target);    
+      let question = target.id.split("_")[1]
+      // console.log("question : ", question);
+      let answer = "declare"
+      // console.log("answer : ", answer);
+
+      if (readCookie(question)) {
+      
+        answer = readCookie(question);
+        // console.log("cookie find > answer : ", answer);
+
+        // Check the value if cookie is found
+        document.getElementById('input_'+question+'_2_1_choice_'+answer).checked = true
+        // document.getElementById('input_problem01_2_1_choice_2').checked = true
+      }
+
+      var fields = problems[j].getElementsByClassName('field')
+  
+      for (let i=0; i<fields.length; i++) {
+        // Create cookies
+        fields[i].onclick = function() {
+
+          target = fields[i].querySelector('input');
+          answer = target.id.split("_")[5]
+          // console.log("selected value : ",answer);
+
+          deleteCookie(question)
+          createCookie(question, answer, 2)
+        }
+      }
+
+      // DO THE SAME FOR DoC : 
+      // DO THE SAME FOR DoC : 
+      // Target input with id="input_problemX_degree_X"
+      let d_o_c_fields = problems[j].getElementsByClassName("DoCText")
+      let cookie_name_d_o_c = question + "_degree_" ;
+
+      if (readCookie(cookie_name_d_o_c)) {
+
+        value = readCookie(cookie_name_d_o_c)
+        document.getElementById('input_'+cookie_name_d_o_c+value).checked = true
+      }
+
+      for (let k=0 ; k<d_o_c_fields.length ; k++) {
+
+        d_o_c_fields[k].onclick = function() {
+
+          d_o_c_selected = d_o_c_fields[k].querySelector('input');
+          value = d_o_c_selected.value
+
+          deleteCookie(cookie_name_d_o_c)
+          createCookie(cookie_name_d_o_c, value, 2)
+        }
+      }
+    }
+  }
+}, 500)
+
+
+
+
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
+// USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
+
 </script>
