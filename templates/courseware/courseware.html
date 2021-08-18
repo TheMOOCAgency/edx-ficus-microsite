@@ -400,7 +400,7 @@ setInterval(function(){
     if (problems[j].getAttribute('data-attempts-used') == 0 ) {
       
       target = problems[j].querySelector('input')
-      console.log(target);    
+      // console.log(target);    
       let question = target.id.split("_")[1]
       // console.log("question : ", question);
       let answer = "declare"
@@ -432,13 +432,11 @@ setInterval(function(){
       }
 
       // DO THE SAME FOR DoC : 
-      // DO THE SAME FOR DoC : 
       // Target input with id="input_problemX_degree_X"
       let d_o_c_fields = problems[j].getElementsByClassName("DoCText")
       let cookie_name_d_o_c = question + "_degree_" ;
 
       if (readCookie(cookie_name_d_o_c)) {
-
         value = readCookie(cookie_name_d_o_c)
         document.getElementById('input_'+cookie_name_d_o_c+value).checked = true
       }
@@ -457,8 +455,6 @@ setInterval(function(){
     }
   }
 }, 500)
-
-
 
 
 // USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
