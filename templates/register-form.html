@@ -376,8 +376,10 @@ $('#first_name,#last_name').change(function(){
 })
 
 
-$('#field-Formation').hide()
+$('#field-Type').hide()
+$('#field-Libelle').hide()
 $('#field-city').hide()
+$('#Libelle').val("Prévention des risques chimiques")
 
 const table = {
   "AED": "PRINGY",
@@ -401,7 +403,8 @@ $('#Établissement').change(function(){
 
   let value = $('#Établissement').val()
 
-  $('#Formation').val("Prévention des risques chimiques")
+  $('#Type').val("Formation")
+  
   $('#field-Établissement option[value="Nom de la filiale"]').remove()
 
   if (check_add_option) {
