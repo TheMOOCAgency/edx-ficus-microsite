@@ -400,6 +400,7 @@ headers = ["Identifiant","Email","Prénom", "Nom de famille","Pays","Entité","J
 
 def Getletterfromindex( num):
     #produces a string from numbers so  1->A , 26->Z , 54->BB
+
     num2alphadict = dict(zip(range(1, 27), string.ascii_uppercase))
     outval = ""
     numloops = (num-1) //26
@@ -441,6 +442,7 @@ for question in list_question:
         color = "00FFFFFF"
     else:
         color = "00D0D0D0"
+
 
 
 j = 2
@@ -510,28 +512,28 @@ for index, user in all_users_data.items():
     if user["general"]["average_score_raw"] : 
         sheet.cell(j+1, 13, ("=SUM("+raw_score_sum+")*100 /" + str(len(user["grades"])) ))
     else:
-        sheet.cell(j+1, 13, "n.a.")
+        sheet.cell(j+1, 13, 0)
     
     if user["general"]["average_score"] :
         sheet.cell(j+1, 14, ("=SUM("+score_sum +")*100 /" + str(len(user["grades"]))) )   
     else:
-        sheet.cell(j+1, 14, "n.a.")   
+        sheet.cell(j+1, 14, 0)   
 
     if user["general"]["average_d_o_c"] :
         sheet.cell(j+1, 15, ("=SUM("+d_o_c_sum + ")*100 /" + str(len(user["grades"]))))
     else: 
-        sheet.cell(j+1, 15, "n.a.")
+        sheet.cell(j+1, 15, 0)
 
     if user["general"]["centration"] :
         # La centration est la différence entre le taux de bonne réponse (Nb de bonnes réponses/Nb de questions) et la certitude moyenne (degrée de certitude moyen. On prend comme référence pour une plage de certitude, la médiane. Par exemple le degrée de certitude 70%-85% deviens 77,5%
         sheet.cell(j+1, 16, ("=SUM("+(Getletterfromindex(13)+str(j+1))+"-"+(Getletterfromindex(15)+str(j+1))+")"))
     else :
-        sheet.cell(j+1, 16, "n.a.")
+        sheet.cell(j+1, 16, 0)
 
     if user["general"]["average_inverted"] :
         sheet.cell(j+1, 17, user["general"]["average_inverted"])
     else :
-        sheet.cell(j+1, 17, "n.a.")
+        sheet.cell(j+1, 17, 0)
 
     j += 1
 
@@ -581,7 +583,4 @@ for i in range(len(TO_EMAILS)):
 # July 2021
 
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/nuclear-training-program/utils/script-grade.py "cyril.adolf@weuplearning.com" "course-v1:nuclear-training-program+NTP26+Track17" 
-
-
-
 
