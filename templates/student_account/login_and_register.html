@@ -94,8 +94,8 @@ border: 3px solid rgba(155,231,216,0.8) !important;
 if(getUrlParameter("admin")){
    $("#login-and-registration-container").css("visibility","visible");
    $("#main").show();
-}else if(window.location.indexOf("/register") > -1){
-   window.location.replace("/");
+}else if(window.location.href.indexOf("/register") > -1){
+    window.location.href = "https://bnp-paribas.netexplo.academy/";
 }
 
 </script>
