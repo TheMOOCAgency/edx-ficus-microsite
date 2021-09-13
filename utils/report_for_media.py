@@ -136,7 +136,7 @@ for course_id in course_ids:
         user = course_enrollments[i].user
 
         if user.email.find('@yopmail') >0 : 
-            break
+            continue
 
         # Create a new user_data
         user_data = {}        
