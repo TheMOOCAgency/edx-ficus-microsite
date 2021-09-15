@@ -1,8 +1,27 @@
 <%! from django.utils.translation import ugettext as _ %>
 
+% if display_name.find("EN") != -1 or course.display_name_with_default_escaped.find("EN") != -1:
+
+Welcome to Netexplo DataReady!
+
+To log in, go to ${_("{site_name}").format(site_name=site_name)} then click on the "login" button and enter your login details:
+${_("email: {email}").format(email=email_address)}
+${_("password: {password}").format(password=password)}
+
+At the first connection, it is recommended to personalize your password by clicking on "forgotten password" on your connection page.
+
+If you have any questions, please do not hesitate to contact us at : learning@netexplo.org
+
+Sincerely,
+The Netexplo Observatory team
+
+
+% else:
+
+
 Bienvenue sur Netexplo DataReady !
 
-Pour vous connecter, rendez-vous sur ${_("{site_name}").format(site_name=site_name)} puis cliquez sur le bouton « connexion » et entrez vos identifiants :
+Pour vous connetcer, rendez vous sur ${_("{site_name}").format(site_name=site_name)} puis cliquez sur le bouton « connexion » et entrez vos identifiants :
 ${_("email: {email}").format(email=email_address)}
 ${_("password: {password}").format(password=password)}
 
@@ -12,3 +31,5 @@ Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante 
 
 Cordialement,
 L'équipe Netexplo Observatory
+
+% endif
