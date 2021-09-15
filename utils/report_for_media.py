@@ -15,7 +15,6 @@ import time
 import os
 import json
 import logging
-# import string
 from collections import OrderedDict
 
 
@@ -29,21 +28,11 @@ os.chdir("/edx/app/edxapp/edx-platform")
 startup = importlib.import_module("lms.startup")
 startup.run()
 
-# from django.core.management import execute_from_command_line
-# import django
 
 ##USE EDX FUNCTIONS
 from opaque_keys.edx.keys import CourseKey
-# from courseware.access import has_access
-# from lms.djangoapps.ccx.utils import prep_course_for_grading
-# from lms.djangoapps.courseware import courses
-# from lms.djangoapps.grades.api.serializers import GradingPolicySerializer
 from lms.djangoapps.grades.new.course_grade import CourseGradeFactory, CourseGrade
-# from lms.djangoapps.tma_stat_dashboard.grade_reports import grade_reports
-# from openedx.core.lib.api.view_utils import DeveloperErrorViewMixin, view_auth_classes
-# from openedx.core.djangoapps.course_groups.models import CohortMembership, CourseUserGroup
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
-# from student.roles import CourseStaffRole
 from student.models import *
 from courseware.courses import get_course_by_id
 from courseware.courses import get_course
@@ -54,7 +43,7 @@ from courseware.user_state_client import DjangoXBlockUserStateClient
 
 
 
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from xlwt import *
 
 
@@ -62,8 +51,6 @@ from microsite_configuration.models import (
     MicrositeOrganizationMapping,
     Microsite
 )
-# from tma_apps.files_api.models import mongofiles
-# from tma_apps.models import TmaCourseEnrollment
 
 log = logging.getLogger()
 
@@ -78,7 +65,6 @@ timestr = str(timesfr)
 
 wb = Workbook(encoding='utf-8')
 sheet = wb.add_sheet('Rapport')
-# filename = '/home/edxtma/csv/{}_Egalite_Professionnelle.xls'.format(timestr)
 filename = '/edx/var/edxapp/media/microsite/cfe-cgc/reports/{}_Egalite_Professionnelle.xls'.format(timestr)
 
 # Course_ids must be from same platform : getting microsite via first course_id in list
@@ -130,7 +116,6 @@ for course_id in course_ids:
     # add course headers
     user_repports_summary = course_enrollments[0]
     user_summary=user_repports_summary.user
-
 
     for i in range(len(course_enrollments)):
         user = course_enrollments[i].user
@@ -320,8 +305,6 @@ for index, user in all_users_data.items():
     sheet.write(j+1, 37, user["general"]["final_grade"])
     sheet.write(j+1, 38, user["general"]["attestation"])
     
-
-
     i=10
     for index, chapter in user['grades'].items():
         
@@ -335,10 +318,19 @@ for index, user in all_users_data.items():
 
 # SAVE FILE
 wb.save(filename)
+
+# REMOVE OLDER FILE
+delta = date.today() - timedelta(30)
+delta = delta.strftime("%Y_%m_%d")
+
+target_to_remove = delta +"_Egalite_Professionnelle.xls"
+cmd = 'rm /edx/var/edxapp/media/microsite/cfe-cgc/reports/' + target_to_remove
+print("command to run : "+cmd)
+stream = os.popen(cmd)
+
 log.info('SCRIPT END')
-
-
  
+
 # Last update September 2021, Cyril
  
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/cfe-cgc/utils/test_full_grade.py "course-v1:cfe-cgc+MOOC1+2019" 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/cfe-cgc/utils/report_for_media_new.py "course-v1:cfe-cgc+MOOC1+2019" 
