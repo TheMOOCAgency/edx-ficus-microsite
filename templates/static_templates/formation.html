@@ -15,15 +15,19 @@ css = '/media/microsite/{}/coachApp/css/main.af1eb179.chunk.css'.format(org)
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
         <h2>Notre formation</h2>
-        <p>Nous vous proposons, grâce à ce MOOC, de bénéficier gratuitement de petits contenu vidéo ludiques et interactifs pour apprendre et mieux comprendre ce qu’est un AVC et ses conséquences.
+        <p>Nous vous proposons, grâce à ce MOOC, de bénéficier gratuitement de petits contenus vidéos ludiques et interactifs pour apprendre et mieux comprendre ce qu’est un AVC et ses conséquences.
         <br />
         <br />Voici une petite présentation vidéo :</p>
         <iframe src="https://player.vimeo.com/video/564508342" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        <p>Une fois inscrit, vous recevrez par mail la date à laquelle ce MOOC sera ouvert (prochaine date prévue le 8 Novembre) ainsi que son système de messagerie instantanée pour discuter entre participant et un professionnel de santé.
+        <p>Une fois inscrit, vous recevrez par mail </p>
+            <ul>
+                <li>La date à laquelle ce MOOC sera ouvert (prochaine date prévue le 8 novembre) ainsi que son système de messagerie instantanée pour discuter entre participant et un professionnel de santé.</li>
+                <li>Une notification pour vous connecter sur la plateforme tout-savoir-avc.com avec votre adresse mail et votre mot de passe. Vous pourrez alors visionner le nouveau module.</li>
+            </ul>
         <br />
-        <br />Par la suite, vous recevrez par mails, une notification pour vous connecter sur la plateforme tout-savoir-AVC.com avec votre adresse mail et votre mot de passe ; vous pourrez alors visionner le nouveau module.
-        <br />
-        <br />Le MOOC vous est disponible sur une durée de 10 semaines, vous pouvez alors le suivre à votre rythme.</p>
+        <p>
+            Le MOOC est mis à votre disposition durant 10 semaines et vous aurez la possibilité de le suivre à votre rythme.
+        </p>
         <div id="buttonContainer">
             <a href="/register"><div class="buttonFormation" id="buttonRegister">
                 <p>Je m'inscris</p>
@@ -103,4 +107,22 @@ css = '/media/microsite/{}/coachApp/css/main.af1eb179.chunk.css'.format(org)
         position: relative;
         top: 26px;
     }
+
+@media screen and (max-width: 1090px) {
+    .buttonFormation {
+        height: 133px;
+    }
+    .container.about {
+        padding: 20px 4px ;
+    }
+    .container > h2 {
+        margin: auto;
+    }
+    iframe {
+        max-width : 90%;
+        /* max-height: 90%; */
+        height: unset;
+
+    }
+}
 </style>
