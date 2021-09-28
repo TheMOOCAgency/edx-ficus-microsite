@@ -33,23 +33,23 @@
       <li><a href="#">Filière A.V.C</a></li>
       <li><a href="#">Vie quotidienne</a></li>
       <li><a href="#">Près de chez vous</a></li>
-      <!-- <li><a href="#">Forum</a></li>
-      <li><a href="/register?course_id=course-v1:tout-savoir-avc+AVC01+2020&enrollment_action=enroll" target="_blank">Je m'inscris</a></li>-->
-      <li><a href="/login" target="_blank">Je me connecte à la formation</a></li>
+      <!-- <li><a href="#">Forum</a></li> -->
+      <li><a href="/register?course_id=course-v1:tout-savoir-avc+AVC01+2020&enrollment_action=enroll" target="_blank">Je m'inscris</a></li>
+      <li><a href="/login" target="_blank">Je me connecte</a></li>
     </ul>
   </div>
   <div id="ongletHome" class="onglet">
     <div id="homeImage">
       <div Class="titleContainer">
         <h1>Tout savoir sur <b>l'A.V.C</b></h1>
-        <p>Un accident vasculaire cérébral ou A.V.C, communément appelé «&nbsp;attaque cérébrale&nbsp;», est une perte soudaine d’une ou plusieurs fonctions du cerveau. Ce site vous propose des informations et un enseignement en ligne (MOOC) pour mieux comprendre cette maladie, comment vivre avec mais aussi comment la prévenir. </p>
+        <p>Un accident vasculaire cérébral ou A.V.C, communément appelé «&nbsp;attaque cérébrale&nbsp;», est une perte soudaine d’une ou plusieurs fonctions du cerveau. Ce site vous propose des informations et un enseignement en ligne (MOOC) pour mieux comprendre cette maladie, comment vivre avec et mais aussi comment la prévenir. </p>
       </div>
       <div id="encartContainer">
-        <!--<div class="encart" id="encartVideo" style="cursor: pointer;">
+        <div class="encart" id="encartVideo" style="cursor: pointer;">
           <p>Je découvre un aperçu de la formation en vidéo</p>
-        </div>-->
-        <div class="encart" id="encarRegister" onclick="window.open('/tma_apps/static_page/formation.html');" style="cursor: pointer;">
-          <p>Je veux en savoir plus...</p>
+        </div>
+        <div class="encart" id="encartLogin" onclick="window.open('/login', '_blank');" style="cursor: pointer;">
+          <p>J'accède à ma formation</p>
         </div>
       </div>
       <div id="arrowContainer">
@@ -64,12 +64,7 @@
       </div>
     </div>
     <div id="introTextes">
-      <h2>PRéSENTATION</h2>
-        <p>Ce site vous est proposé à partir d’un projet élaboré par un membre de l’équipe de l’Unité Neurovasculaire du CHU de Toulouse, Mme Cécile TRAVERE.
-        <br />Forte de son expérience d’infirmière de 12 ans au sein de l’Unité Neurovasculaire du CHU de Toulouse, Mme TRAVERE s’est formée et spécialisée en éducation thérapeutique et coordonne le programme d’Éducation thérapeutique EVA dédié aux victimes d’A.V.C. depuis 9 ans.
-        <br />Accompagnée du Dr BARBIEUX GUILLOT, elle est personnellement attentive à accompagner au mieux toutes les personnes victimes d’Accidents Vasculaires Cérébraux mais aussi leurs aidants.
-        <br />En créant ce site mais aussi le MOOC (formation à distance), Mme TRAVERE a la volonté de proposer à un large public, une information fiable et claire, ainsi qu’une formation sur le sujet, pour mieux appréhender les différents aspects de ces pathologies.</p>
-        <img src="media/microsite/tout-savoir-avc/assets/photos.png" alt="Photos de Mme Cécile TRAVERE et de dr. BARBIEUX GUILLOT" style="margin: 0 auto 35px auto;max-width: 300px;display: block;"/>
+      <h2>PRESENTATION</h2>
       <h2>INTRODUCTION</h2>
         <p>L’Accident Vasculaire Cérébral (A.V.C) est une pathologie très courante puisqu’elle touche, en France, environ 150 000 personnes chaque année.
         <br />Toutes les tranches d’âge sont concernées par cette maladie mais on considère que ¾ des AVC surviennent après 65 ans avec un âge moyen de survenue d’un AVC de 73 ans, quel que soit le sexe.
@@ -606,7 +601,7 @@
         spécifiques précoces</li></ul>
         <img src="/media/microsite/tout-savoir-avc/assets/carteunv.png" alt="Carte UNV" onclick="window.open('/media/microsite/tout-savoir-avc/assets/carteunv.png', '_blank');" style="cursor: pointer;width:100%" />
         <h2>Parcours de soins</h2>
-        <img src="/media/microsite/tout-savoir-avc/assets/schémas9.png" alt="schéma IMC" onclick="window.open('/media/microsite/tout-savoir-avc/assets/schémas9.jpg', '_blank');" style="cursor: pointer;width:100%" />
+        <img src="/media/microsite/tout-savoir-avc/assets/schémas9.jpg" alt="schéma IMC" onclick="window.open('/media/microsite/tout-savoir-avc/assets/schémas9.jpg', '_blank');" style="cursor: pointer;width:100%" />
         <p>Facteurs importants de retour à domicile :</p>
         <ul><li>Incapacité modérée - vie en couple</li>
         <li>Contacts sociaux fréquents</li>

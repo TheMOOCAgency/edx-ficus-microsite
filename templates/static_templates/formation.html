@@ -1,0 +1,106 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+org = static.get_value('domain_prefix')
+css = '/media/microsite/{}/coachApp/css/main.af1eb179.chunk.css'.format(org)
+%>
+<%inherit file="../main.html" />
+<script >
+  document.title = "En savoir plus"
+</script>
+<style>
+</style>
+
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="container about">
+        <h2>Notre formation</h2>
+        <p>Nous vous proposons, grâce à ce MOOC, de bénéficier gratuitement de petits contenu vidéo ludiques et interactifs pour apprendre et mieux comprendre ce qu’est un AVC et ses conséquences.
+        <br />
+        <br />Voici une petite présentation vidéo :</p>
+        <iframe src="https://player.vimeo.com/video/564508342" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <p>Une fois inscrit, vous recevrez par mail la date à laquelle ce MOOC sera ouvert (prochaine date prévue le 8 Novembre) ainsi que son système de messagerie instantanée pour discuter entre participant et un professionnel de santé.
+        <br />
+        <br />Par la suite, vous recevrez par mails, une notification pour vous connecter sur la plateforme tout-savoir-AVC.com avec votre adresse mail et votre mot de passe ; vous pourrez alors visionner le nouveau module.
+        <br />
+        <br />Le MOOC vous est disponible sur une durée de 10 semaines, vous pouvez alors le suivre à votre rythme.</p>
+        <div id="buttonContainer">
+            <a href="/register"><div class="buttonFormation" id="buttonRegister">
+                <p>Je m'inscris</p>
+            </div></a>
+            <a href="/"><div class="buttonFormation" id="buttonBack">
+                <p>Je retourne naviguer sur le site</p>
+            </div></a>
+        </div>
+    </section>
+</main>
+<style>
+    @font-face {
+        font-family: "Quicksand";
+        src: url('/media/microsite/tout-savoir-avc/fonts/Quicksand-Medium.ttf');
+    }
+
+    @font-face {
+        font-family: "Quicksand";
+        font-weight: 600;
+        src: url("/media/microsite/tout-savoir-avc/fonts/Quicksand-SemiBold.ttf");
+    }
+
+    @font-face {
+        font-family: "Quicksand";
+        font-weight: 700;
+        src: url("/media/microsite/tout-savoir-avc/fonts/Quicksand-Bold.ttf");
+    }
+    #main > section * {
+        font-family: "Quicksand" !important;
+    }
+    .container.about {
+        padding-top: 60px;
+    }
+    h2 {
+        background-color: #3f6ba1;
+        font-size: 18px;
+        color: white;
+        padding: 5px 20px 5px 20px;
+        text-transform: uppercase;
+        display: table;
+    }
+    section.container.about {
+        background-color: rgba(255,255,255,1);
+        width: 70%;
+        margin: 25px auto 25px auto;
+    }
+    section iframe{
+        margin: 60px auto;
+        width: 100%;
+    }
+    #buttonContainer {
+        margin-top: 50px;
+    }
+    .buttonFormation {
+        display: inline-block;
+        height: 90px;
+        text-align: center;
+        font-size: 22px;
+        z-index: 1;
+        width: calc(50% - 3px);
+        vertical-align: top;
+        padding: 1%;
+        box-sizing: border-box;
+        background-color: rgba(63, 107, 161, 0.7);
+    }
+    .buttonFormation:hover {
+        background-color: rgba(63, 107, 161, 1);
+        transition-duration: 0.4s;
+    }
+    .buttonFormation p {
+        color: white;
+        width: 96%;
+        padding: 0;
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        position: relative;
+        top: 26px;
+    }
+</style>
