@@ -66,11 +66,9 @@ from openedx.core.djangolib.js_utils import js_escaped_string
       $('#login-form').on('ajax:success', function(event, json, xhr) {
         if(json.success) {
           var nextUrl = "${login_redirect_url | n, js_escaped_string }";
-          console.log(nextUrl)
           if (json.redirect_url) {
             nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
           }
-          console.log(nextUrl)
           if (!isExternal(nextUrl)) {
             location.href=nextUrl;
           } else {
