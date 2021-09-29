@@ -6,12 +6,14 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 import third_party_auth
 from third_party_auth import provider, pipeline
+from openedx.core.djangolib.js_utils import js_escaped_string
 %>
 
 <%block name="pagetitle">${_("Log into your {platform_name} Account").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-login</%block>
 <%block name="js_extra">
+
   <script type="text/javascript">
     $(function() {
 
@@ -63,10 +65,12 @@ from third_party_auth import provider, pipeline
 
       $('#login-form').on('ajax:success', function(event, json, xhr) {
         if(json.success) {
-          var nextUrl = "${login_redirect_url}";
+          var nextUrl = "${login_redirect_url | n, js_escaped_string }";
+          console.log(nextUrl)
           if (json.redirect_url) {
             nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
           }
+          console.log(nextUrl)
           if (!isExternal(nextUrl)) {
             location.href=nextUrl;
           } else {
