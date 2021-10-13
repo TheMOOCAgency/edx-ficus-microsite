@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.utils import html
 from django_countries import countries
+from openedx.core.djangolib.js_utils import js_escaped_string
 from student.models import UserProfile
 from datetime import date
 import third_party_auth
@@ -52,7 +53,7 @@ import calendar
       });
       */
       $('#register-form').on('ajax:success', function(event, json, xhr) {
-        var nextUrl = "${login_redirect_url}";
+        var nextUrl = "${login_redirect_url | n, js_escaped_string }";
         if (json.redirect_url) {
           nextUrl = json.redirect_url; // Most likely third party auth completion. This trumps 'nextUrl' above.
         }
