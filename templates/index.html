@@ -13,6 +13,10 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper/swiper-bundle.min.css"
+/>
 <style>
   #global-navigation {
     position: fixed;
@@ -76,7 +80,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     display: flex;
     justify-content: center;
   }
-  #videoHeader{
+  #videoHeader, .swiper{
     position: fixed;
     right: 0;
     left: 0;
@@ -102,6 +106,40 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
     width: 80%;
     margin: auto;
   }
+
+  /* SWIPER */
+  .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+  /* SWIPER END */
   @media screen and (max-width: 780px) {
     #main>section>header>#homepage_banner>h1{
       font-size: 1.6rem;
@@ -133,27 +171,51 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
             </li>
           </ol>
         </div>
-        <!-- <iframe id="videoHeader" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-        <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+        <!-- <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
           <source src="/media/microsite/e-formation-artisanat/assets/video.mp4" type="video/mp4">
           Your browser does not support the video tag.
-        </video>
+        </video> -->
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/media/microsite/management-artisanat/assets/cooking.jpg" alt="formation cuisine"></div>
+            <div class="swiper-slide"><img src="/media/microsite/management-artisanat/assets/asian.jpg" alt="formation cuisine"></div>
+            <div class="swiper-slide"><img src="/media/microsite/management-artisanat/assets/construction.jpg" alt="formation cuisine"></div>
+            <div class="swiper-slide"><img src="/media/microsite/management-artisanat/assets/cma_paca.jpg" alt="formation cuisine"></div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
       </header>
 
       <%include file="${courses_list}" />
 
     </section>
 </main>
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<%block name="js_extra">
-  <script type="text/javascript">
-    $(window).load(function() {
-      if(getParameterByName('next')) {
-        $('#login').trigger("click");
-      }
-    })
-  </script>
-</%block>
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    // navigation: {
+    //   nextEl: ".swiper-button-next",
+    //   prevEl: ".swiper-button-prev",
+    // },
+  });
+</script>
 
 % if show_signup_immediately is not UNDEFINED:
   ## NOTE: This won't work in production, because anonymous views are cached, so it will

@@ -20,12 +20,10 @@ fourth_list = []
 
 for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
   if str(course.id) not in hidden_courses:
-    if "Module" in str(course.id):
+    if "MA_B0" in str(course.id):
       third_list.append(course)
-    elif "Auto_positionnement" in str(course.id):
+    elif "MA_0" in str(course.id):
       first_list.append(course)
-    elif "Partner_" in str(course.id):
-      fourth_list.append(course)
     else:
       second_list.append(course)
 
@@ -106,7 +104,7 @@ third_list.sort(key=lambda x: x.id)
 
   </section>
 </section>
-<section class="courses-container" style="margin-bottom:50px;background-color:#CDD9EF !important">
+<!-- <section class="courses-container" style="margin-bottom:50px;background-color:#CDD9EF !important">
   <section class="highlighted-courses">
 
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
@@ -125,4 +123,4 @@ third_list.sort(key=lambda x: x.id)
     % endif
 
   </section>
-</section>
+</section>-->

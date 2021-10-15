@@ -346,7 +346,6 @@ course_enrollments.sort(cmp=comparator,reverse=True)
 </style>
 % else:
 
-<!---- NO COURSE ENROLLMENT
 <style>
 .empty-dashboard-message a:hover{
   color: #fff !important;
@@ -361,7 +360,7 @@ course_enrollments.sort(cmp=comparator,reverse=True)
       </a>
 
     %endif
--->
+
 	%if user.is_active:
 		<style>
 		#dashboard_profile{
@@ -385,10 +384,6 @@ course_enrollments.sort(cmp=comparator,reverse=True)
 			border: 0;
 		}
 		</style>
-
-		<div class="iframe-container">
-		  <iframe src="/media/microsite/e-formation-artisanat/autopos/story.html"></iframe>
-		</div>
 
 		<script>
 		  window.addEventListener('storage', function(event) {  
