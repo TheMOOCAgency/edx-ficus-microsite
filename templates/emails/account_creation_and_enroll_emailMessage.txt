@@ -1,23 +1,22 @@
 <%! from django.utils.translation import ugettext as _ %>
-<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_1.jpg" style="height:100px;margin-bottom:50px"/></div>
 
-<p><br />${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}</p>
+${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
 
-<p>Pour commencer, rendez-vous sur https://${site_name}.</p>
+Pour commencer, rendez-vous sur https://${site_name}.
 
-<p>Les informations d'identification pour votre compte sont les suivantes :</p>
+Les informations d'identification pour votre compte sont les suivantes :
 
-<p>${_("email: {email}").format(email=email_address)}
-<br />${_("password: {password}").format(password=password)}</p>
+${_("email: {email}").format(email=email_address)}
+${_("password: {password}").format(password=password)}
 
-<p>${_("It is recommended that you change your password.")}</p>
+${_("It is recommended that you change your password.")}
 
-<p>${_("Vous bénéficiez de l’accès au cours pour une durée de 30 jours.")}</p>
+${_("Vous bénéficiez de l’accès au cours pour une durée de 30 jours.")}
 
-<p>${_("Pour une meilleure audition sonore, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer.")}</p>
+${_("Pour une meilleure audition sonore, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer.")}
 
-<p>${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}</p>
+${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}
 
-<p>${_("Cordialement")}<br /><br /><br /></p>
+${_("Cordialement")}
 
 <div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_2.jpg" style="height:100px;margin-top:50px"/></div>
