@@ -14,7 +14,8 @@ import json
 from tma_apps.tma_support_functions import tma_verify_access
 
 primary_color = configuration_helpers.get_value('primary_color')
-background_url = configuration_helpers.get_value('bg_img')
+background_image = '/media/microsite/hedis/auto/images/bg_img_cert.jpg'
+
 %>
 
 
@@ -24,16 +25,18 @@ background_url = configuration_helpers.get_value('bg_img')
 <!-- COMMON STYLE-->
 <style>
   h1,h2,h3,h4,h5,p{
-    font-family: inherit
+    font-family:  inherit ;
+    color: #0C4D84 !important;
   }
   p{
-    padding:10px
+    padding:10px ;
+    font-size: 1.2rem;
   }
   h4{
     font-size: 1.5rem;
   }
   h3{
-    font-size: 1.7rem
+    font-size: 1.7rem ;
   }
   #certificate-wrapper{
     background: white;
@@ -66,18 +69,23 @@ background_url = configuration_helpers.get_value('bg_img')
     justify-content: center;
   }
   #certificate-container{
-    width:854px;
+    width:897px;
     height:500px;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('${background_url}');
+    background-image: url("${background_image}");
     background-size: contain;
+    position: relative;
   }
   #pdf-btn-wrapper{
     padding: 15px
   }
   #certificate-title{
     text-transform: uppercase;
+    color: #0C4D84;
+    font-weight: bold;
+    margin: 43px 0 0 127px;
+    font-size: 32px;
   }
   #noCertificateMessage{
     background: white;
@@ -86,6 +94,51 @@ background_url = configuration_helpers.get_value('bg_img')
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+  #fullname {
+    color: #F79220 !important;
+    padding: 10px;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 40px;
+  }
+  #grade {
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    right: 75px;
+    bottom: 84px;
+    transform: rotate(7deg);
+  }
+  #grade > span {
+    font-size: 56px;
+    color: #51BCEC;
+    line-height: 115px;
+  
+  }
+  #frame {
+    width: 80%;
+    background-color: rgba(255,255,255,0);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 55px;
+  }
+  #line01, #line02 {
+    text-align: start;
+    font-weight: bold;
+  }
+  #course_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #51BCEC !important;
+    text-align: start;
+    padding : 20px 10px;
+  }
+  #datetime {
+    text-align: start;
+    font-size: 19.2px;
+    padding: 10px;
+    font-weight: bold;
   }
 </style>
 
@@ -100,14 +153,22 @@ background_url = configuration_helpers.get_value('bg_img')
   </div>
   <div id="certificate-container" class=" certificate-border">
       <div id="internal-border" >
-          <div id="certificate-title"><h3>Certificat de Réussite</h3></div>
-          <div style="background-color: rgba(255,255,255,0.75);padding: 10px;border-radius: 10px;">
-            <p>L'équipe ${configuration_helpers.get_value('course_org_filter')} certifie que </p>
-            <h3>${first_name} ${last_name}</h3>
-            <p>a obtenu la note de</p>
-            <h4>${int(grades['grade']*100)}%</h4>
-            <p>au cours</p>
-            <h4>${course_name}</h4>
+          <div id="certificate-title">Certificat de Réussite</div>
+          <div id='frame'>
+            <p id='line01'>L'équipe <span style="text-transform: capitalize;">
+              ${configuration_helpers.get_value('course_org_filter')} 
+            </span> 
+            certifie que </p>
+            <h3 id='fullname' >${first_name} ${last_name}</h3>
+            <p id='line02' >A validé le cours :</p>
+            <h4 id='course_name'>${course_name}</h4>
+            <h4 id='grade' >
+              Avec la note de <br>
+              <span>
+                ${int(grades['grade']*100)}%
+              </span> 
+            </h4>
+            <h4 id='datetime'></h4>
           </div>
           <div>
           </div>
@@ -142,5 +203,15 @@ background_url = configuration_helpers.get_value('bg_img')
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
   })
+
+  // DATE
+  date = new Date();
+  var tab_mois=["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  document.getElementById("datetime").innerHTML = "Délivré le " + day + " " + tab_mois[monthIndex]+ " " + year;
+
 </script>
 
