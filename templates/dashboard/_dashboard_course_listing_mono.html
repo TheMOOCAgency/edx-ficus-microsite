@@ -79,7 +79,12 @@ $.ajax({
             contentType: "application/json; charset=utf-8",
             success: function (chapter_list) {
                 for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+                    // $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
+                    if(chapter_list[i].sections.length > 0){
+                      $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"/"+chapter_list[i].sections[0].url_name+"'>${_('Start')}</a></div></div>");
+                    } else {
+                      $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_('Start')}</a></div></div>");
+                    }
                 }
              }
 });
