@@ -13,8 +13,6 @@ ${_("To start accessing course materials, please visit {course_url}").format(
 		course_url=course_url
 	)}
 
-${_("Vous bénéficiez de l’accès au cours pour une durée de 30 jours.")}
-
 ${_("Pour une meilleure audition sonore, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer.")}
 
 ${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}
