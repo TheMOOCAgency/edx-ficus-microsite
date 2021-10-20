@@ -2,6 +2,10 @@
   import json
   from django.utils.translation import ugettext as _
   from openedx.core.djangolib.js_utils import dump_js_escaped_json
+  from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+  import branding
+  from courseware.courses import get_course_by_id
+  from opaque_keys.edx.keys import CourseKey
 %>
 <%inherit file="../main.html" />
 <%
@@ -31,7 +35,59 @@
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
+courses=branding.get_visible_courses(org=org_static, filter_=none)
 %>
+
+<%
+primary_color=configuration_helpers.get_value('primary_color')
+
+if(configuration_helpers.get_value('hidden_courses')):
+  hidden_courses = configuration_helpers.get_value('hidden_courses') 
+else:
+  hidden_courses = []
+
+first_list = []
+second_list = []
+third_list = []
+fourth_list = []
+
+for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+  if str(course.id) not in hidden_courses:
+    if "Module" in str(course.id):
+      third_list.append(course)
+    elif "Auto_positionnement" in str(course.id):
+      first_list.append(course)
+    elif "Partner_" in str(course.id):
+      fourth_list.append(course)
+    else:
+      second_list.append(course)
+
+
+second_list.sort(key=lambda x: x.id)
+third_list.sort(key=lambda x: x.id)
+%>
+
+<script>console.log("${courses}")</script>
+
+<style>
+  .custom-courses-category{
+    font-weight: 900 !important;
+    font-size:1.5em;
+    margin-bottom:30px;
+    text-transform: uppercase;
+    width: 100%;
+    padding: 10px;
+    border-radius: 2px;
+    color:${primary_color};
+  }
+  .white-background{
+    background-color: white !important;
+  }
+  .custom-courses-display{
+    display: flex;
+    flex-direction: column;
+  }
+</style>
 
 <%block name="pagetitle">${_("Courses")}</%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -61,15 +117,79 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
         </div>
         % endif
 
-        <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region" aria-label="${_('List of Courses')}">
-          <ul class="courses-listing">
-            %for course in courses:
-            <li class="courses-listing-item">
-              <%include file="../course.html" args="course=course" />
-            </li>
-            %endfor
-          </ul>
-        </div>
+        <section class="courses-container white-background" style="margin-bottom:50px;">
+          <section class="highlighted-courses white-background">
+        
+            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+            <section class="courses" id="course_catalog">
+              <h1>Accédez à nos formations en ligne</h1>
+              <div class="custom-courses-display">
+                <div class="custom-courses-category">Nos packs de formations</div>
+                <ul class="courses-listing">
+                  %for course in first_list:
+                    <li class="courses-listing-item">
+                    <%include file="../course.html" args="course=course" />
+                    </li>
+                  %endfor
+                  %for course in second_list:
+                    <li class="courses-listing-item">
+                    <%include file="../course.html" args="course=course" />
+                    </li>
+                  %endfor
+                </ul>
+        
+              </div>
+            </section>
+            % endif
+        
+          </section>
+        </section>
+        <section class="courses-container" style="margin-bottom:50px;">
+          <section class="highlighted-courses">
+        
+            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+            <section class="courses">
+              <div class="custom-courses-display">
+                <div class="custom-courses-category">Nos modules individuels</div>
+                <ul class="courses-listing">
+                  %for course in third_list:
+                    <li class="courses-listing-item">
+                    <%include file="../course.html" args="course=course" />
+                    </li>
+                  %endfor
+                </ul>
+              </div>
+            </section>
+            ## in case there are courses that are not shown on the homepage, a 'View all Courses' link should appear
+              % if settings.HOMEPAGE_COURSE_MAX and len(courses) > settings.HOMEPAGE_COURSE_MAX:
+              <div class="courses-more">
+                <a class="courses-more-cta" href="${marketing_link('COURSES')}"> ${_("View all Courses")} </a>
+              </div>
+              % endif
+            % endif
+        
+          </section>
+        </section>
+        <section class="courses-container" style="margin-bottom:50px;background-color:#CDD9EF !important">
+          <section class="highlighted-courses">
+        
+            % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+            <section class="courses">
+              <div class="custom-courses-display">
+                <div class="custom-courses-category">Nos modules Partenaires</div>
+                <ul class="courses-listing">
+                  %for course in fourth_list:
+                    <li class="courses-listing-item">
+                    <%include file="../course.html" args="course=course" />
+                    </li>
+                  %endfor
+                </ul>
+              </div>
+            </section>
+            % endif
+        
+          </section>
+        </section>
       </section>
     </section>
 </main>

@@ -76,7 +76,12 @@ site_status_msg = get_site_status_msg(course_id)
             <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a> -->
             <!-- <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a> -->
               % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-                <a href="/#course_catalog"><li>▶ Découvrez notre offre de formation</li></a>
+                % if user.is_authenticated():
+		<a href="/courses">
+		% else:
+		<a href="/#course_catalog">
+		% endif
+		<li>▶ Découvrez notre offre de formation</li></a>
               % endif
               % if show_program_listing:
                 <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a> -->
@@ -407,7 +412,12 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
             <li class="item nav-global-01">
-              <a href="/#course_catalog">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
+              % if user.is_authenticated():
+                <a href="/courses">
+                % else:
+                <a href="/#course_catalog">
+                % endif
+		Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
             </li>
           % endif
           % if show_program_listing:
@@ -468,7 +478,12 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/#course_catalog">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
+		% if user.is_authenticated():
+                <a class="btn" href="/courses">
+                % else:
+                <a class="btn" href="/#course_catalog">
+                % endif
+		Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
               </li>
             %endif
           % endif

@@ -307,7 +307,7 @@ course_enrollments.sort(cmp=comparator,reverse=True)
 %>
 
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  % if tma_verify_access(request.user).has_dashboard_access(str(enrollment.course_id)) or (not str(enrollment.course_id) in custom_fields.keys() or int(custom_fields[str(enrollment.course_id)] + 1000*60*60*24*30) > timestamp) :
+  % if tma_verify_access(request.user).has_dashboard_access(str(enrollment.course_id)) or (not str(enrollment.course_id) in custom_fields.keys() or int(custom_fields[str(enrollment.course_id)]) + 1000*60*60*24*30 > timestamp) :
     <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
   % endif
 % endfor
