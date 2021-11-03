@@ -14,6 +14,28 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 <link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global" style="background-color: #80CCF5">
   <div class="footer-container">
+    % if request.LANGUAGE_CODE == 'en':
+    <ul class="links">
+      <li>
+        <a href="/tos">General conditions -</a>
+      </li>
+      <li>
+        <a href="${marketing_link('FAQ')}">FAQ -</a>
+      </li>
+      <li>
+        <a href="/about">Legal Notice -</a>
+      </li>
+	  <li>
+        <a href="/privacy">Privacy -</a>
+      </li>
+      <li>
+        <a href="/honor">Credits -</a>
+      </li>
+      <li>
+        <a href="https://netexplo.com/corporate/digimapper/">About</a>
+      </li>
+    </ul>
+    % else :
     <ul class="links">
       <li>
         <a href="/tos">Conditions générales -</a>
@@ -34,6 +56,7 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
         <a href="https://netexplo.com/corporate/digimapper/">Renseignements</a>
       </li>
     </ul>
+    % endif
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">
 	<!--modif on text and image-->
