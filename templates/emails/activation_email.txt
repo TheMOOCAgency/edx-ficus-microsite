@@ -1,6 +1,19 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
+
+% if request.LANGUAGE_CODE == 'en':
+
+Welcome
+
+You can now activate your account, with the following link:
+
+https://${ site }/activate/${ key }
+
+If you haven't created an account, don't click on this link above. We will not contact you again.
+
+% else :
+
 Bienvenue
 
 Vous devez maintenant activer votre compte, avec le lien suivant :
@@ -8,3 +21,5 @@ Vous devez maintenant activer votre compte, avec le lien suivant :
 https://${ site }/activate/${ key }
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+
+% endif
