@@ -1,3 +1,11 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-Welcome to TechReady
+% if display_name.find("EN") != -1 or course.display_name_with_default_escaped.find("EN") != -1:
+
+Welcome to Netexplo TechReady!
+
+% else:
+
+Bienvenue sur Netexplo TechReady !
+
+% endif

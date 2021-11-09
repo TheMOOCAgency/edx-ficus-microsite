@@ -2,37 +2,33 @@
 
 % if display_name.find("EN") != -1 or course.display_name_with_default_escaped.find("EN") != -1:
 
-Hello,
+Welcome to Netexplo TechReady, the self assessment tool measuring your knowledge of technologies applied to business!
 
-You are now registered to Netexplo TechReady.
+To log in, go to https://netexplotechready.com then click on the "login" button and enter your login details:
 
-To start the program please follow the link below:
+e-mail: ${_("email: {email}").format(email=email_address)}
+password: ${_("password: {password}").format(password=password)}
 
-URL: https://netexplotechready.com 
+At the first connection, it is recommended to personalize your password by clicking on "forgotten password" on the connection page.
 
-Then type in your email address and the following password:
-
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
-
-If you encounter any issues please contact learning@netexplo.org
+If you have any questions, please do not hesitate to contact us at : learning@netexplo.org
 
 Best regards,
-
-Netexplo
+The Netexplo Observatory team
 
 
 % else:
 
-Bienvenue sur Netexplo TechReady !
+Bienvenue sur Netexplo TechReady, l’outil de mesure de vos connaissances en matière de technologies appliquées au business !
 
 Pour vous connecter, rendez-vous sur ${_("{site_name}").format(site_name=site_name)} puis cliquez sur le bouton « connexion » et entrez vos identifiants :
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+e-mail: ${_("email: {email}").format(email=email_address)}
+mot de passe: ${_("password: {password}").format(password=password)}
 
-Lors de la première connexion, il est recommandé de personnaliser votre mot de passe en cliquant sur « mot de passe oublié » sur votre page de connexion.
+Lors de la première connexion, il est recommandé de personnaliser votre mot de passe en cliquant sur « mot de passe oublié » sur la page de connexion.
 
-Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante : learning@netexplo.org
+Pour toutes questions, n’hésitez pas à nous contacter à l'adresse suivante : 
+learning@netexplo.org
 
 Cordialement,
 L'équipe Netexplo Observatory
