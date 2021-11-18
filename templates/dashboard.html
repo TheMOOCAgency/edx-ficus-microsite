@@ -93,6 +93,12 @@ window.setInterval(hideMyCred(), 500);
   % endif
 </%block>
 <link rel="stylesheet" type="text/css" href="${css_bis}" />
+
+<style>
+  #dashboard_profile_middle {
+    height: 192px !important;
+}
+</style>
 <div class="dashboard-notifications" tabindex="-1">
     %if message:
         <div class="dashboard-banner">
@@ -199,6 +205,15 @@ endfor
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
       </div>
+
+      <div id="dashboard_profile_middle_middle">
+      </div>
+
+      <div id="dashboard_profile_middle_bottom">
+        <span><a href="/courses/course-v1:prorefei+ATEE+RE2019/courseware/e2333014bc2b4c6ba569df6487d36b3f/c23c2788c9d94ba4a2018947ee77f84b/">Parcours tertiaire</a></span>
+      </div>
+
+
     </div>
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
