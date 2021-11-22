@@ -182,12 +182,12 @@ def get_user_info(user):
         last_name = "n/a"
 
     try:
-        date_inscription = user.date_joined.strftime('%d %b %y')
+        date_inscription = user.date_joined.strftime('%d-%m-%Y')
     except:
         date_inscription = "n/a"
 
     try:
-        last_login = user.last_login.strftime('%d %b %y')
+        last_login = user.last_login.strftime('%d-%m-%Y')
     except:
         last_login = "n/a"
 
@@ -278,7 +278,7 @@ def get_best_grade_date(user, course_id, course_grade):
     if tma_enrollment.best_grade_date == None and (course_grade.percent>0 or tma_enrollment.best_grade>0):
         tma_enrollment.best_grade_date = datetime.now()
         tma_enrollment.save()
-    grade_date = tma_enrollment.best_grade_date.strftime('%d-%m-%y')
+    grade_date = tma_enrollment.best_grade_date.strftime('%d-%m-%Y')
     return grade_date
 
 #### TRUE SCRIPT

@@ -35,7 +35,7 @@
 
 <div class="section-bkg-wrapper">
     <main id="main" aria-label="Content" tabindex="-1">
-        <div id="login-and-registration-container" class="login-register" style="visibility:hidden" />
+        <div id="login-and-registration-container" class="login-register"  />
     </main>
 </div>
 
@@ -91,11 +91,16 @@ border: 3px solid rgba(155,231,216,0.8) !important;
 
 
 <script>
-if(getUrlParameter("admin")){
-   $("#login-and-registration-container").css("visibility","visible");
-   $("#main").show();
-}else if(window.location.href.indexOf("/register") > -1){
-    window.location.href = "https://bnp-paribas.netexplo.academy/";
-}
+//console.log('test_sso_bnpp_1')
+//if(getUrlParameter("admin")){
+//    console.log('test_sso_bnpp_2')
+//    $("#login-and-registration-container").css("visibility","visible");
+//    $("#main").show();
+//}else if(window.location.href.indexOf("/register") > -1){
+//    console.log('test_sso_bnpp_3')
+//    window.location.href = "https://bnp-paribas.netexplo.academy/tma_apps/user_info";
+//}
+//console.log('test_sso_bnpp_4')
 
 </script>
+
