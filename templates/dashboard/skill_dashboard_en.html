@@ -29,7 +29,8 @@ course_state = user_course_state[str(enrollment.course_id)]
       <!-- ${HTML(about_course_video)}-->
       <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
       %if user.username in authorized_users_usernames or user.email in authorized_admins:
-      <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <iframe src="https://fiat.mc.eu1.kontiki.com/global/player?moid=aaf61ab3-747c-44b0-9797-0e258f0ba636&repeat=false&client=false&context=embed&overlay=false&name=false&description=false&created_by=false&created_at=false&rating=false&sharing=false&favorites=false&chapters=false&tags=false&flagging=false&views=false&length=false&downloading=false&autoPlay=false" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <!-- <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       %endif
         <p>${HTML(about_course_description)}</p>
       </div>
