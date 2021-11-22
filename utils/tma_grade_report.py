@@ -74,7 +74,7 @@ admin_mail_list = [u"themoocagency.com", u"weuplearning.com", u"yopmail.com", u"
 
 # Get headers
 HEADERS_GLOBAL = []
-HEADERS_USER = [u"Prénom", u"Nom", u"Matricule", u"Email", u"position", u"department", u"region", u"additional_information", u"Date d'inscription",u"Dernière connexion"]
+HEADERS_USER = [u"Prénom", u"Nom", u"Email", u"position", u"Date d'inscription",u"Dernière connexion"]
 
 HEADERS_FORM = []
 
@@ -178,14 +178,8 @@ def get_user_info(user):
         position = custom_field.get('bnpp_entity', 'n/a')
     except:
         position = "n/a"
-    
-    # missing datas
-    matricule = "n/a"
-    department = "n/a"
-    region = "n/a"
-    additional_information = "n/a"
         
-    user_row = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login]
+    user_row = [first_name, last_name, email, position, date_inscription, last_login]
     
     # CUSTOM FIELDS INFO
     for field in HEADERS_FORM:
@@ -312,6 +306,7 @@ for j in range(len(course_ids)):
                             grade_value = grade_summary[section]
                             if grade_value > 0.7 :
                                 passed_exercices.append(section)
+                        course_value = len(passed_exercices)
                     else:
                         course_value = get_best_grade_date(user, course_id, course_grade)
                 except:

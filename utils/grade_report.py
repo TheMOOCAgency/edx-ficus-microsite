@@ -75,7 +75,7 @@ allowAdminMails = True
 
 # Get headers
 HEADERS_GLOBAL = []
-HEADERS_USER = [u"Prénom", u"Nom", u"Matricule", u"Email", u"position", u"department", u"region", u"additional_information", u"Date d'inscription",u"Dernière connexion"]
+HEADERS_USER = [u"Prénom", u"Nom", u"Email", u"position", u"Date d'inscription",u"Dernière connexion"]
 
 HEADERS_FORM = []
 # if register_form is not None:
@@ -212,13 +212,9 @@ def get_user_info(user):
         last_login = "n/a"
     
     # missing datas
-    matricule = "n/a"
     position = "n/a"
-    department = "n/a"
-    region = "n/a"
-    additional_information = "n/a"
         
-    user_row = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login]
+    user_row = [first_name, last_name, email, position, date_inscription, last_login]
     
     # CUSTOM FIELDS INFO
     for field in HEADERS_FORM:
@@ -228,6 +224,35 @@ def get_user_info(user):
             user_row.append('n/a')
 
     return user_row
+
+def get_best_grade_date_or_sections_number(sectionsA, sectionsB):
+    if len(sectionsA)==1 and isinstance(sectionsA[0], str) and is_date(sectionsA[0]):
+        return sectionsA[0]
+    
+    elif len(sectionsB)==1 and isinstance(sectionsB[0], str) and is_date(sectionsB[0]):
+        return sectionsB[0]
+    
+    else:
+        return get_sections_number(sectionsA, sectionsB)
+
+def get_sections_number(sectionsA, sectionsB):
+    total_sections = 'n/a'
+
+    if is_sections_valid(sectionsA) and not is_sections_valid(sectionsB):
+        total_sections = sectionsA
+
+    if not is_sections_valid(sectionsA) and is_sections_valid(sectionsB):
+        total_sections = sectionsB
+    
+    if is_sections_valid(sectionsA) and is_sections_valid(sectionsB):
+        sectionsA.extend(x for x in sectionsB if x not in sectionsA)
+        total_sections = sectionsA
+
+    if total_sections != 'n/a':
+        total_sections = str(len(total_sections))
+    else:
+        total_sections = ''
+    return total_sections
 
 def get_best_date(dateA, dateB):
     earliest_date = ''
@@ -280,24 +305,17 @@ def get_journey_number(journeytype, journeyB):
                 in_new_platform = True
                 first_name = user[0]
                 last_name = user[1]
-                matricule = old_user['matricule']
                 email = user[3]
                 position = old_user['position']
-                department = old_user['department']
-                region = old_user['region']
-                additional_information = old_user['additional information']
                 date_inscription = old_user['inscrit le']
                 last_login = user[9]
                 data_IA = get_best_date(user[10], old_user['data-ia'])
-                expeditions = get_best_date(user[11], old_user['expedition'])
-                journey = get_journey_number(user[12], old_user['journey'])
+                expeditions = get_best_grade_date_or_sections_number(user[11], old_user['expedition'])
+                journey = get_best_grade_date_or_sections_number(user[12], old_user['journey'])
                 manager = get_best_date(user[13], old_user['manager'])
                 passeport = get_best_date(user[14], old_user['passport'])
                 social_school = get_best_date(user[15], old_user['social-school'])
-                users_data[key] = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login, data_IA, expeditions, journey, manager, passeport, social_school]
-
-        if not in_new_platform:
-            users_data[old_user['matricule']] = [old_user['firstname'], old_user['lastname'], old_user['matricule'], old_user['email'], old_user['position'], old_user['department'], old_user['region'], old_user['additional information'], old_user['inscrit le'], old_user['derniere connexion'], old_user['data-ia'], old_user['expedition'], old_user['journey'], old_user['manager'], old_user['passport'], old_user['social-school']]
+                users_data[key] = [first_name, last_name, email, position, date_inscription, last_login, data_IA, expeditions, journey, manager, passeport, social_school]
     file.close()
 
 #### TRUE SCRIPT
@@ -378,24 +396,17 @@ for old_user in old_users_datas_list:
             in_new_platform = True
             first_name = user[0]
             last_name = user[1]
-            matricule = old_user['matricule']
             email = user[3]
             position = old_user['position']
-            department = old_user['department']
-            region = old_user['region']
-            additional_information = old_user['additional information']
             date_inscription = old_user['inscrit le']
             last_login = user[9]
             data_IA = get_best_date(user[10], old_user['data-ia'])
-            expeditions = get_best_date(user[11], old_user['expedition'])
-            journey = get_journey_number(user[12], old_user['journey'])
+            expeditions = get_best_grade_date_or_sections_number(user[11], old_user['expedition'])
+            journey = get_best_grade_date_or_sections_number(user[12], old_user['journey'])
             manager = get_best_date(user[13], old_user['manager'])
             passeport = get_best_date(user[14], old_user['passport'])
             social_school = get_best_date(user[15], old_user['social-school'])
-            users_data[key] = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login, data_IA, expeditions, journey, manager, passeport, social_school]
-
-    if not in_new_platform:
-        users_data[old_user['matricule']] = [old_user['firstname'], old_user['lastname'], old_user['matricule'], old_user['email'], old_user['position'], old_user['department'], old_user['region'], old_user['additional information'], old_user['inscrit le'], old_user['derniere connexion'], old_user['data-ia'], old_user['expedition'], old_user['journey'], old_user['manager'], old_user['passport'], old_user['social-school']]
+            users_data[key] = [first_name, last_name, email, position, date_inscription, last_login, data_IA, expeditions, journey, manager, passeport, social_school]
 file.close()
 
 # WRITE FILE

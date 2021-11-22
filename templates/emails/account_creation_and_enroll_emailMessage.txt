@@ -1,14 +1,28 @@
-<%! from django.utils.translation import ugettext as _ %>
+% if LANGUAGE_CODE == "en":
+Welcome to Netexplo Academy
 
-${_("Welcome to {course_name}").format(course_name=course.display_name_with_default_escaped)}
+You are now registered to Netexplo Academy.
 
-${_("To get started, please visit https://{site_name}. The login information for your account follows.").format(site_name=site_name)}
+To start the program please follow the link below:
+URL: https://netexplo.academy
 
-${_("email: {email}").format(email=email_address)}
-${_("password: {password}").format(password=password)}
+${("email: {email}").format(email=email_address)}
+${("password: {password}").format(password=password)}
 
-${_("It is recommended that you change your password.")}
+Best regards,
 
-${_("Sincerely yours,"
-""
-"The {course_name} Team").format(course_name=course.display_name_with_default_escaped)}
+Netexplo Academy
+% else :
+Bienvenue sur l'Academy Netexplo
+
+Vous êtes inscrit à l'ensemble de l'Academy.
+
+Pour commencer, rendez-vous sur https://netexplo.academy
+
+${("e-mail: {email}").format(email=email_address)}
+${("mot de passe: {password}").format(password=password)}
+
+Cordialement,
+
+L'équipe de l’Academy Netexplo
+% endif
