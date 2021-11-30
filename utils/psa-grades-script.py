@@ -172,8 +172,8 @@ class GroupGradesGenerator():
         if tmaUser:
             #skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
             tz_info = tmaUser.last_login.tzinfo
-            if tmaUser.last_login < datetime.now(tz_info) - timedelta(10):
-                log.info("user did not login since 10 days: "+str(tmaUser.email))
+            if tmaUser.last_login < datetime.now(tz_info) - timedelta(5):
+                log.info("user did not login since 5 days: "+str(tmaUser.email))
                 #user did not login since a long time so if we have his/her skillgrade lets use it
                 extra_data = {}
                 try:
@@ -186,13 +186,13 @@ class GroupGradesGenerator():
                 else:
                     # user did not login since a long time but we have no clue about his results so lets
                     # compute them and also memorize
-                    log.info("user did not login since 10 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
+                    log.info("user did not login since 5 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
                     skillGrades = SkillGrades(course_id, tmaUser)
                     try:
                         extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
                         tmaEnrollment.extra_data = json.dumps(extra_data)
                         tmaEnrollment.save()
-                        log.info("user did not login since 10 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
+                        log.info("user did not login since 5 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
                     except:
                         log.info("ERROR : could not save for old user: "+str(tmaUser.email))
                         pass
@@ -252,11 +252,7 @@ class GroupGradesGenerator():
                 self.filiere_skill[user['job_family']][skill['name']]['totalScore']+=skill['grade']
 
         return user_object  
-        
-        
 
- 
-       
 
 
 
