@@ -1,17 +1,39 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear {full_name}").format(full_name=full_name)}
+Dear ${full_name}
 
-${_("You have been un-enrolled in {course_name} at {site_name} by a member "
-    "of the course staff. The course will no longer appear on your "
-    "{site_name} dashboard.").format(
-        course_name=display_name or course.display_name_with_default_escaped, site_name=site_name
-    )}
+You have been un-enrolled in ${course.display_name_with_default_escaped} at ${site_name} by a member of the course staff.
 
-${_("Your other courses have not been affected.")}
+The course will no longer appear on your ${site_name} dashboard.
+
+Your other courses have not been affected.
 
 ----
-${_("This email was automatically sent from {site_name} to "
-    "{full_name}").format(
-        full_name=full_name, site_name=site_name
-    )}
+This email was automatically sent from ${site_name} to ${email_address}.
+
+
+
+Estimado ${full_name},
+
+Ha sido dado de baja en ${course.display_name_with_default_escaped} en ${site_name} por un miembro del personal del curso.
+
+El curso ya no aparecerá en el panel de control en ${site_name}.
+
+Sus otros cursos no se han visto afectados.
+
+----
+Este mail ha sido enviado automáticamente por ${site_name} a ${email_address}.
+
+
+
+
+Cher, Chère ${full_name},
+
+Vous avez été désinscrit du cours ${course.display_name_with_default_escaped} sur ${site_name} par un membre du personnel du cours.
+
+Le cours n’apparaîtra plus sur le tableau de bord de votre ${site_name}.
+
+Vos autres cours n’ont pas été affectés.
+
+----
+Cet email a été envoyé automatiquement de ${site_name} à ${email_address}

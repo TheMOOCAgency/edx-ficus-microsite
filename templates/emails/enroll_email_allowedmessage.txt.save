@@ -1,0 +1,63 @@
+<%! from django.utils.translation import ugettext as _ %>
+% if LANGUAGE_CODE == "en":
+	Dear student,
+
+	You have been invited to join ${course.display_name_with_default_escaped} at ${site_name} by a member of the course staff.
+	% if is_shib_course:
+	% if auto_enroll:
+
+	To access the course visit ${course_url} and login.
+	% elif course_about_url is not None:
+
+	To access the course visit ${course_about_url} and register for the course.
+	% endif
+	% else:
+
+	To finish your registration, please visit ${registration_url} and fill out the registration form making sure to use ${email_address} in the E-mail field.
+
+	% if auto_enroll:
+	Once you have registered and activated your account, you will see ${course.display_name_with_default_escaped} listed on your dashboard.
+
+	% elif course_about_url is not None:
+	Once you have registered and activated your account, visit ${course_about_url} to join the course.
+	% else:
+	You can then enroll in ${course.display_name_with_default_escaped}.
+	% endif
+	% endif
+
+	----
+	This email was automatically sent from ${site_name} to ${email_address}.
+
+
+% elif LANGUAGE_CODE == "es":
+	Estimado estudiante,
+
+	Ha sido invitado a formar parte de ${course.display_name_with_default_escaped} en ${site_name} por un miembro del equipo pedagógico.
+	% if is_shib_course:
+	% if auto_enroll:
+
+	Para acceder al curso, visite ${course_url} y conectarse.
+	% elif course_about_url is not None:
+
+	Para acceder al curso, visite ${course_about_url} y regístrese al curso.
+	% endif
+	% else:
+
+	Para terminar su incripción, diríjase a ${registration_url} y complete el formulario de inscripción. Tenga cuidado utilizando ${email_address} en el espacio E-mail.
+
+	% if auto_enroll:
+	Una vez esté registrado y activado su cuenta, verá ${course.display_name_with_default_escaped} aparecer en su panel de inicio.
+
+	% elif course_about_url is not None:
+	Una vez que haya registrado y activado su cuenta, visite ${course_about_url} para unirse al curso.
+	% else:
+	Entonces puedes registrarte para ${course.display_name_with_default_escaped}.
+	% endif
+	% endif
+
+	----
+	Este mail ha sido enviado automáticamente por ${site_name} a ${email_address}.
+
+% else:
+        
+% endif

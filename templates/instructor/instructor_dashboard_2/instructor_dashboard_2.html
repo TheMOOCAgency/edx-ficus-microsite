@@ -107,9 +107,12 @@ from django.core.urlresolvers import reverse
         ## when the javascript loads, it clicks on the first section
         <ul class="instructor-nav">
           % for section_data in sections:
+<script>console.log('${section_data['section_key']}')</script>
+            % if section_data['section_key'] != 'instructor_analytics':
             ## This is necessary so we don't scrape 'section_display_name' as a string.
             <% dname = section_data['section_display_name'] %>
             <li class="nav-item"><button type="button" class="btn-link" data-section="${ section_data['section_key'] }">${_(dname)}</button></li>
+            % endif
           % endfor
         </ul>
 

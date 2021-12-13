@@ -133,6 +133,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     course_mono_id = enrollment.course_id
     course_module = modulestore().get_course(enrollment.course_id, depth=0)
     course_details = course_module._field_data_cache['grading_policy']['GRADER']
+    course_grade = CourseGradeFactory().create(user, course)
   """
   elif len(course_enrollments) > 1:
     get_persisted = CourseGradeFactory().get_persisted(request.user, course)
@@ -162,11 +163,29 @@ endfor
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">{_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">
+% if course_grade.passed:
+${_("Completed")}
+% else :
+${_("Training not validated")}
+% endif
+</span>
         % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
+% if course_grade.passed:
+${_("Completed")}
+% else :
+${_("Training not validated")}
+% endif
+</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">
+% if course_grade.passed:
+${_("Completed")}
+% else :
+${_("Training not validated")}
+% endif
+</span>
         % endif
       </div>
       <!-- border middle -->

@@ -1,5 +1,17 @@
 <%! from django.utils.translation import ugettext as _ %>
-Dear ${full_name},
+Cher, Chère test_tiama001 test_tiama001
+
+Vous avez été inscrit à MX4 V3.2 V4.8 V4.9 - Changement de production et inspections sur mooc.tiama.com  par un membre de l'équipe pédagogique. Le cours devrait maintenant apparaitre dans votre tableau de bord mooc.tiama.com  .
+
+Pour commencer le cours, rendez-vous sur ${course_about_url}
+
+----
+Cet email a été envoyé automatiquement de mooc.tiama.com  à ${email_address}
+
+
+
+
+Dear student,
 
 You have been invited to join ${course.display_name_with_default_escaped} at ${site_name} by a member of the course staff.
 % if is_shib_course:
@@ -25,11 +37,11 @@ You can then enroll in ${course.display_name_with_default_escaped}.
 % endif
 
 ----
-This email was automatically sent from ${site_name} to ${full_name}.
+This email was automatically sent from ${site_name} to ${email_address}.
 
 
 
-Estimado ${full_name},
+Estimado estudiante,
 
 Ha sido invitado a formar parte de ${course.display_name_with_default_escaped} en ${site_name} por un miembro del equipo pedagógico.
 % if is_shib_course:
@@ -55,36 +67,4 @@ Entonces puedes registrarte para ${course.display_name_with_default_escaped}.
 % endif
 
 ----
-Este mail ha sido enviado automáticamente por ${site_name} a ${full_name}.
-
-
-
-
-Cher, Chère ${full_name}
-
-Vous avez été inscrit à ${course.display_name_with_default_escaped} sur ${site_name} par un membre de l'équipe pédagogique.Le cours devrait maintenant apparaitre dans votre tableau de bord mooc.tiama.com .
-
-% if is_shib_course:
-% if auto_enroll:
-Pour commencer le cours, rendez-vous sur ${course_about_url}
-
-% elif course_about_url is not None:
-
-To access the course visit ${course_about_url} and register for the course.
-% endif
-% else:
-
-Pour terminer l'inscription, merci de vous rendre sur ${registration_url} pour remplir les champs et en renseignant bien ${email_address} dans le champ e-mail.
-
-% if auto_enroll:
-Une fois l'inscription terminée et le compte activé, vous verrez ${course.display_name_with_default_escaped} listé sur votre tableau de bord.
-
-% elif course_about_url is not None:
-Une fois l'inscription terminée et le compte activé, rendez-vous sur ${course_about_url} pour rejoindre le cours.
-% else:
-Vous pouvez vous inscrire à ${course.display_name_with_default_escaped}.
-% endif
-% endif
-
-----
-Cet email a été envoyé automatiquement de mooc.tiama.com à ${full_name}
+Este mail ha sido enviado automáticamente por ${site_name} a ${email_address}.

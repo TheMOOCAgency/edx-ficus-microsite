@@ -1,13 +1,33 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear Student,")}
+Dear Student,
 
-${_("You have been un-enrolled from course {course_name} by a member "
-    "of the course staff. Please disregard the invitation "
-    "previously sent.").format(course_name=display_name or course.display_name_with_default_escaped)}
+You have been un-enrolled from course ${course.display_name_with_default_escaped} by a member of the course staff.
+
+Please disregard the invitation previously sent.
 
 ----
-${_("This email was automatically sent from {site_name} "
-	"to {email_address}").format(
-		site_name=site_name, email_address=email_address
-	)}
+This email was automatically sent from ${site_name} to ${email_address}.
+
+
+
+Estimado ${full_name},
+
+Has sido dado de baja del curso ${course.display_name_with_default_escaped} por un socio del personal del curso.
+
+Por favor, haga caso omiso de la invitación enviado previamente.
+
+----
+Este mail ha sido enviado automáticamente por ${site_name} a ${email_address}.
+
+
+
+
+Cher, Chère ${full_name},
+
+Vous avez été dés-inscrit du cours ${course.display_name_with_default_escaped} par un membre du personnel du cours.
+
+Veuillez ne pas tenir compte de l’invitation précédemment envoyé.
+
+----
+Cet email a été envoyé automatiquement de ${site_name} à ${email_address}
