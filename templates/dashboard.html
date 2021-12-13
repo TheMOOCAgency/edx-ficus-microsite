@@ -10,7 +10,6 @@ import third_party_auth
 from third_party_auth import pipeline
 from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
 from openedx.core.djangolib.markup import HTML, Text
-#GEOFFREY
 from courseware.courses import get_course_info_section, get_course_date_blocks
 from courseware.courses import get_course_by_id
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
@@ -22,9 +21,21 @@ from course_api.blocks.api import get_blocks
 import time
 import json
 
-from lms.djangoapps.tma_apps.netexplo.utils import was_previously_succeeded_on_upro_academy
+from lms.djangoapps.tma_apps.netexplo.utils import matricule_was_previously_succeeded_on_upro_academy
+from social.apps.django_app.default.models import UserSocialAuth
 
 %>
+<!-- REMOVE THIS METHOD TO REPLACE WITH matricule_was_previously_succeeded_on_upro_academy -->
+<!-- from lms.djangoapps.tma_apps.netexplo.utils import was_previously_succeeded_on_upro_academy -->
+<!-- CYRIL ADD UID ATTRIBUTE WHEN LOOKING FOR PREVIOUSLY SUCCEEDED COURSES  -->
+<% user_uid = UserSocialAuth.objects.get(user=user).uid.split(':')[1] %>
+<script>
+const userUid = "${user_uid}"
+console.log('userUid')
+console.log(userUid)
+console.log(typeof userUid)
+</script>
+
 
 <%
   cert_name_short = settings.CERT_NAME_SHORT
@@ -53,6 +64,10 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 </script>
 % endfor
 </%block>
+
+
+
+
 
 <style>
 /* Tooltip container */
@@ -500,7 +515,7 @@ endfor
   % for n in course_details:
     <% 
        mark = mark + 1 
-       previously_succeeded = was_previously_succeeded_on_upro_academy(user.email,str(course_mono_id),n.get('type'))
+       previously_succeeded = matricule_was_previously_succeeded_on_upro_academy(user_uid, str(course_mono_id), n.get('type'))
     %>
     <!-- assignement type -->
     <div class="dashboard_profile_bottom_middle">
@@ -1008,3 +1023,6 @@ $(window).initialize(function(){
   }
 
  </style>
+
+
+
