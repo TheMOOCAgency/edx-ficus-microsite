@@ -28,7 +28,17 @@ from social.apps.django_app.default.models import UserSocialAuth
 <!-- REMOVE THIS METHOD TO REPLACE WITH matricule_was_previously_succeeded_on_upro_academy -->
 <!-- from lms.djangoapps.tma_apps.netexplo.utils import was_previously_succeeded_on_upro_academy -->
 <!-- CYRIL ADD UID ATTRIBUTE WHEN LOOKING FOR PREVIOUSLY SUCCEEDED COURSES  -->
-<% user_uid = UserSocialAuth.objects.get(user=user).uid.split(':')[1] %>
+
+
+
+% if user.social_auth.exists() :
+  <% user_uid = UserSocialAuth.objects.get(user=user).uid.split(':')[1] %>
+% else :
+  <% user_uid = 'notSocialAuth' %>
+% endif
+
+
+
 <script>
 const userUid = "${user_uid}"
 console.log('userUid')
