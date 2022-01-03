@@ -32,7 +32,7 @@ Julien Lévy
 Associate Professor
 Scientific director of the HEC IDEA Center
 
-% if course_key == "course-v1:complete-data+EN+MBA_HEC"  :
+% elif course_key == "course-v1:complete-data+EN+MBA_HEC"  :
 
 Hello,
 
