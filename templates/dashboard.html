@@ -155,6 +155,7 @@ endfor
     <%
     for enrollment in course_enrollments:
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
+
     %>
 
     <!-- block milieu profil -->
@@ -314,7 +315,9 @@ else{
 </span>
 <ul id="list_multi">
 % for dashboard_index, enrollment in enumerate(course_enrollments):
-  <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  %if str(enrollment.course_id) != 'course-v1:asffor+01+2022' or user.email in ["jsoulie@asf-france.com","j.bontemps@asf-france.com","cyril.adolf@weuplearning.com","manal.touati@weuplearning.com", "tom.douce@weuplearning.com"]:
+    <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+  %endif
 % endfor
 </ul>
 <!-- multi site css -->
