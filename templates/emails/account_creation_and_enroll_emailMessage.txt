@@ -92,6 +92,41 @@ Bien à vous,
 
 Netexplo/HEC Paris
 
+% elif course_key == "course-v1:complete-data+EN+v1" :
+
+Hello,
+
+To access the program please follow the link below:
+
+URL: https://formationadistance.dataformanagers.com/
+
+Then type in your email address and the following password:
+
+Login: ${email_address}
+Password: ${password}
+
+If you encounter any issues please contact Esther Ruch at learning@netexplo.org
+
+Best regards,
+
+Netexplo/HEC Paris
+
+% elif course_key == "course-v1:complete-data+EN+v3" :
+
+Hello,
+
+To access the program please follow the link below:
+URL: https://formationadistance.dataformanagers.com/
+
+Then type in your email address and the following password:
+Login: ${email_address}
+Password: ${password}
+
+If you encounter any issues please contact Esther Ruch at learning@netexplo.org
+
+Best regards,
+Netexplo/HEC Paris
+
 % else :
 
 Hello,

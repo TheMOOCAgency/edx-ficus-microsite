@@ -1,5 +1,9 @@
 % if course_key == "course-v1:complete-data+FR+v1" :
 Votre confirmation d’inscription / Data For Managers Netexplo/HEC Paris
+% elif course_key == "course-v1:complete-data+EN+v3" :
+Data Transformation at L'Oréal - Your access to the learning platform
+% elif course_key == "course-v1:complete-data+EN+v1" :
+Data For Managers Netexplo x HECParis / Your access to the learning platform
 % else :
 Your registration confirmation / Data For Managers Netexplo / HEC Paris
 % endif
