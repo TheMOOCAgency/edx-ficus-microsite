@@ -30,6 +30,18 @@ Julien Lévy
 Associate Professor
 Scientific director of the HEC IDEA Center
 
+% elif course_key == "course-v1:complete-data+EN+v3" :
+
+Hello,
+
+To access the program please follow the link below:
+URL: https://formationadistance.dataformanagers.com/
+
+If you encounter any issues please contact Esther Ruch at learning@netexplo.org
+
+Best regards,
+Netexplo/HEC Paris
+
 % else :
 
 <%! from django.utils.translation import ugettext as _ %>
