@@ -16,6 +16,8 @@ from openedx.core.djangolib.js_utils import js_escaped_string
 <%def name="course_name()">
  <% return _("{course_number} Courseware").format(course_number=course.display_number_with_default) %>
 </%def>
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />
 
 <%block name="bodyclass">view-in-course view-courseware courseware ${course.css_class or ''}</%block>
 
@@ -352,10 +354,6 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 })
 </script>
 
-  <!--TMA TIME TRACKING-->
-%if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
-<%include file="/tma_apps/tma_time_tracking.html" />
-%endif
 <style>
     .bookmark-button-wrapper{
       display:none;
