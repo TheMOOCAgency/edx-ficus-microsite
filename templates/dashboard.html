@@ -43,11 +43,11 @@ from social.apps.django_app.default.models import UserSocialAuth
 const userUid = "${user_uid}"
 
 // 14471 - CA - Update CF with user profile data. Needed for social auth users when a certificate is generated.
-const first_name_tma = "${json.loads(user.profile.custom_field).get('first_name')}";
+const first_name_cf = "${json.loads(user.profile.custom_field).get('first_name')}";
 const last_name = "${user.last_name}";
 const first_name = "${user.first_name}";
 
-if (first_name_tma == "None" || first_name_tma =='') {
+if (first_name_cf == "None" || first_name_cf =='') {
 
   $.ajax({
     url: '/tma_apps/tma_api/v0/CustomFieldView/',
@@ -59,7 +59,6 @@ if (first_name_tma == "None" || first_name_tma =='') {
     headers: {'X-CSRFToken': $.cookie('csrftoken')},
     dataType: 'json'
   })
-
 }
 
 </script>
