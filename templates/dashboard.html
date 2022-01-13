@@ -41,9 +41,21 @@ from social.apps.django_app.default.models import UserSocialAuth
 
 <script>
 const userUid = "${user_uid}"
-console.log('userUid')
-console.log(userUid)
-console.log(typeof userUid)
+const last_name = "${user.last_name}";
+const first_name = "${user.first_name}";
+
+$.ajax({
+  url: '/tma_apps/tma_api/v0/CustomFieldView/',
+  method: 'POST',
+  data: {
+      first_name,
+      last_name,
+  },
+  headers: {'X-CSRFToken': $.cookie('csrftoken')},
+  dataType: 'json'
+})
+
+
 </script>
 
 
