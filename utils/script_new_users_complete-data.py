@@ -164,14 +164,12 @@ timesfr = str(timesfr)
 #headers
 if domain_prefix == "moduleblanchiment":
     HEADERS = [
-            "id","Matricule","Adresse mail",
-            "Client","Date d'inscription","Date dernière connexion" ,"Temps passé (min.)"
-            ]
+        "id","Matricule","Adresse mail","Date d'inscription","Date dernière connexion" ,"Temps passé (min.)"
+    ]
 else:
     HEADERS = [
-            "id","Username","Adresse mail",
-            "Client","Date d'inscription","Date dernière connexion" ,"Temps passé (min.)"
-            ]
+        "id","Username","Adresse mail","Date d'inscription","Date dernière connexion" ,"Temps passé (min.)"
+    ]
 
 #register_form
 if register_users and register_form is not None:
@@ -212,7 +210,11 @@ if application_field:
 
 wb = Workbook(encoding='utf-8')
 
-filename = '/home/edxtma/csv/{}_{}.xls'.format(timestr,course.display_name_with_default)
+log.info(course.display_name_with_default)
+
+filename = '/home/edxtma/csv/{}_{}.xls'.format(timestr,course.display_name_with_default.replace(" ", "_"))
+log.info(filename)
+
 sheet = wb.add_sheet('Stats')
 for i, header in enumerate(HEADERS):
    sheet.write(0, i, header)
@@ -235,7 +237,7 @@ for i in range(len(course_enrollement)):
     tma_enrollment,is_exist=TmaCourseEnrollment.objects.get_or_create(course_enrollment_edx=course_enrollement[i])
 
     # Dev Cyril Start
-    if user.email.find("@weuplearning") != -1 or user.email.find("@themoocagency") != -1 or user.email.find("@yopmail") != -1:
+    if user.email.find("@weuplearning") != -1 or user.email.find("@themoocagency") != -1 or user.email.find("@yopmail") != -1 or user.email.find("@netexplo.org") != -1:
         continue
 
     # ONLY SAVE IF USER IS NEW (J-30) 
@@ -281,10 +283,10 @@ for i in range(len(course_enrollement)):
         time_tracking = int(0)
 
 
-    try:
-        client = email.split('@')[1]
-    except:
-        pass
+    # try:
+    #     client = email.split('@')[1].split('.')[0]
+    # except:
+    #     pass
 
     try:
         date_inscription=user.date_joined.strftime('%d %b %y')
@@ -302,7 +304,8 @@ for i in range(len(course_enrollement)):
 
     #insert rows
 
-    primary_rows = [user.id, username, email, client, date_inscription, last_login, time_tracking]
+    # primary_rows = [user.id, username, email, client, date_inscription, last_login, time_tracking]
+    primary_rows = [user.id, username, email, date_inscription, last_login, time_tracking]
 
 
     l=0
@@ -411,7 +414,7 @@ wb.save(output)
 _files_values = output.getvalue()
 # envoyer un mail test
 
-html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de données du MOOC {}<br/><br/>Bonne réception<br>The MOOC Agency<br></p></body></html>".format(course.display_name)
+html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de données du MOOC {}<br/><br/>Bonne réception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>".format(course.display_name)
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
 for i in range(len(TO_EMAILS)):
@@ -420,7 +423,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "Rapport de donnees"
+   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - ' + time.strftime("%d.%m.%Y")
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)
@@ -449,5 +452,6 @@ if persistent:
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/complete-data/utils/script_new_users_complete-data.py "clescop-ext@netexplo.org;eruch-ext@netexplo.org;tom.douce@weuplearning.com" course-v1:complete-data+FR+v1 true false false true
 
 
-# Test (cours sur app1)
+# Test (cours sur prod)
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/complete-data/utils/script_new_users_complete-data.py "cyril.adolf@weuplearning.com" course-v1:complete-data+FR+v1 true false false true
+
