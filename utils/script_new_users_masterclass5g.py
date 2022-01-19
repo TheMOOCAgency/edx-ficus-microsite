@@ -93,7 +93,7 @@ for i in range(len(enrollments)):
     if test_substract > 31 :
         log.info(user.email)
         log.info(test_substract)
-        # continue
+        continue
     # Dev Cyril End
 
 
