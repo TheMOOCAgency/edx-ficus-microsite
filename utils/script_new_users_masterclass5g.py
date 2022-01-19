@@ -84,7 +84,6 @@ for i in range(len(enrollments)):
         continue
 
     # ONLY SAVE IF USER IS NEW (J-30) 
-    # ONLY SAVE IF USER IS NEW (J-30) 
     string_data = str(enrollments[i])
     date_registration = datetime.strptime(string_data.split(' ')[3].replace('(',''), '%Y-%m-%d')
 
@@ -93,7 +92,8 @@ for i in range(len(enrollments)):
 
     if test_substract > 31 :
         log.info(user.email)
-        continue
+        log.info(test_substract)
+        # continue
     # Dev Cyril End
 
 
@@ -203,7 +203,7 @@ _files_values = output.getvalue()
 
 course_names_html = "<li>"+ course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace')+"</li>"
 
-html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +"<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
+html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +" pour la période des 30 derniers jours uniquement.<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
 
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
@@ -213,7 +213,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - ' + time.strftime("%d.%m.%Y")
+   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - last 30 days - ' + time.strftime("%d.%m.%Y")
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)
@@ -232,4 +232,7 @@ for i in range(len(TO_EMAILS)):
 
 # DEV4 TEST
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/masterclass5g/utils/script_new_users_masterclass5g.py "cyril.adolf@weuplearning.com" "course-v1:masterclass5g+01+01"
+
+# Prod TEST
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/masterclass5g/utils/script_new_users_masterclass5g.py "cyril.adolf@weuplearning.com" "course-v1:masterclass5g+5G001+2021_T2"
 
