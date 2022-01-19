@@ -61,7 +61,7 @@ register_form = configuration_helpers.get_value_for_org(org, 'FORM_EXTRA')
 
 # Get headers
 HEADERS_GLOBAL = []
-HEADERS_USER = ["Email address", "First Name", "Last Name", "Temps passé (min)", "saisie_1", "saisie_2", "saisie_3", "saisie_4", "saisie_5_1", "saisie_5_2", "saisie_5_3", "saisie_theme"] 
+HEADERS_USER = ["email", "Prénom", "Nom", "Temps passé (min)", "saisie_1", "saisie_2", "saisie_3", "saisie_4", "saisie_5_1", "saisie_5_2", "saisie_5_3", "saisie_theme"] 
 
 # Course info from argument
 course_key = CourseKey.from_string(course_id)
@@ -92,8 +92,8 @@ for i in range(len(enrollments)):
     today =  datetime.now()
 
     test_substract = (today - date_registration).days
-
     if test_substract > 31 :
+        log.info(test_substract)
         continue
     # Dev Cyril End
 
@@ -208,7 +208,7 @@ _files_values = output.getvalue()
 
 course_names_html = "<li>"+ course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace')+"</li>"
 
-html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +"<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
+html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +" pour la période des 30 derniers jours uniquement.<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
 
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
@@ -218,7 +218,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - ' + time.strftime("%d.%m.%Y")
+   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - last 30 days - ' + time.strftime("%d.%m.%Y")
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)
@@ -234,9 +234,14 @@ for i in range(len(TO_EMAILS)):
    server.quit()
    print('Email sent to '+str(TO_EMAILS[i]))
 
+
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+FR+2020"
+
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
+
 
 # PPROD1 TEST
 # sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+01+01"
 
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
+# Test Prod
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
