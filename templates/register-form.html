@@ -98,7 +98,7 @@ import datetime
     -->
     <li class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
-      <input class="" id="email" type="email" name="email" value="${email}" placeholder="exemple : formateurGENial@grandeecole.numerique.fr" required aria-required="true" />
+      <input class="" id="email" type="email" name="email" value="${email}" placeholder="" required aria-required="true" />
     </li>
 
 
@@ -110,7 +110,7 @@ import datetime
 
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
-      <input id="username" type="text" name="username" value="${username}" placeholder="exemple : formateurGENial" required aria-required="true" aria-describedby="username-tip"/>
+      <input id="username" type="text" name="username" value="${username}" placeholder="" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
@@ -173,9 +173,6 @@ import datetime
 <div class="group group-form group-form-requiredinformation">
 <ol class="list-input">
 % for n in extra_form:
-  % if n.get('name') == 'departement':
-  <p style=" margin-bottom: 5px;font-size: 0.8em;"> Pour vous inscrire de l’étranger, choisir « Autre » dans cette liste et renseignez votre Pays</p>
-  % endif
   <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
@@ -345,7 +342,9 @@ import datetime
 <div class="form-actions">
   <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
 </div>
+
 <style>
+
 #login_link_up {
  margin-top: 10px;
 }
@@ -362,6 +361,35 @@ import datetime
  color: rgba(98,181,207,0.8);
  border: none;
 }
+#nom-organisme{
+  display: none;
+}
+#autre-hidden-presentation{
+  display: none;
+}
+#autre-hidden-profession{
+  display: none;
+}
+#labelisee-hidden-presentation{
+  display: none;
+}
+#labelisee-hidden-profession{
+  display: none;
+}
+#field-labelisee-hidden-profession{
+  display: none;
+  width: 70%;
+  margin-right: auto;
+}
+#field-autre-hidden-presentation{
+  width: 70%;
+  margin-right: auto;
+}
+#field-autre-hidden-profession{
+  width: 70%;
+  margin-right: auto;
+}
+
 </style>
 <script>
 $('#first_name,#last_name').change(function(){
@@ -380,14 +408,34 @@ $('#first_name,#last_name').change(function(){
 </div>
 
 <script>
-  $( document ).ready(function(){
-    $('#departement_autre').parent().hide()
-    $('#departement').on('change', function() {
-        if(this.value === "autre" ){
-          $('#departement_autre').parent().show()
-        }else{
-          $('#departement_autre').parent().hide()
-        }
-    });
-  });
+
+/*-----------------------------------------------*/
+
+$('#presentation').change(function(){
+  if($(this).val() === 'autre'){
+    $('#autre-hidden-presentation').show();
+  }
+  else{
+    $('#autre-hidden-presentation').hide();
+  }
+})
+
+$('#profession').change(function(){
+  if($(this).val() === 'autre'){
+    $('#autre-hidden-profession').show();
+    $('#labelisee-hidden-profession').hide();
+    $('#field-labelisee-hidden-profession').hide();
+  }
+  else if($(this).val() === 'formation_labelisee'){
+    $('#labelisee-hidden-profession').show();
+    $('#field-labelisee-hidden-profession').show();
+    $('#autre-hidden-profession').hide();
+  }
+  else{
+    $('#autre-hidden-profession').hide();
+    $('#labelisee-hidden-profession').hide();
+    $('#field-labelisee-hidden-profession').hide();
+  }
+})
+
   </script> 
