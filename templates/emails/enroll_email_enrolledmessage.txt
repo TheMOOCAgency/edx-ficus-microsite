@@ -1,20 +1,28 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-${_("Dear {full_name}").format(full_name=full_name)}
+Bonjour Madame, Monsieur, 
 
-${_("You have been enrolled in {course_name} at {site_name} by a member "
-	"of the course staff. The course should now appear on your {site_name} "
-	"dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}
+En prévision de votre formation Directive sur la Distribution de produit d’Assurances vous trouverez dans ce mail les éléments pour rejoindre votre parcours. 
 
-${_("To start accessing course materials, please visit {course_url}").format(
-		course_url=course_url
-	)}
+Pour commencer, rendez vous sur ${_("{site_name}").format(site_name=site_name)} 
+Les informations d'identification pour votre compte sont les suivantes :
 
-----
-${_("This email was automatically sent from {site_name} to "
-	"{full_name}").format(
-		site_name=site_name, full_name=full_name
-	)}
+${_("email: {email}").format(email=email_address)}
+
+Si vous avez oublié votre mot de passe, vous pouvez le modifier en cliquant sur « mot de passe oublié » sur votre page de connexion.
+
+Pendant votre navigation, il est recommandé : 
+    - d'avoir un micro/casque
+    - d'être dans un environnememnt silencieux
+    - de disposer d'une connexion parfaite
+    - de couper le son de votre téléphone pendant la formation
+    - d'éviter de faire plusieurs choses en même temps
+
+L’accessibilité à ce stage a bien été prise en compte et il a été spécifié que vous n’avez pas de besoin dans ce sens.
+Nous restons à votre disposition pour tout problème technique aux coordonnées suivantes :
+
+a.matsakis@asf-france.com ou 01 53 81 51 85
+jsoulie@asf-france.com ou 01 53 81 51 80
+
+Nous vous souhaitons une excellente formation, 
+L’équipe ASFFOR.
