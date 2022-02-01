@@ -45,7 +45,6 @@ invited_users_file_name = sys.argv[3]
 structure_fields=['struct_org1','struct_org2','struct_org3','struct_org4','struct_org5','struct_org6','struct_org7','struct_org8','struct_org9']
 
 
-
 class GroupGradesGenerator():
     def __init__(self, microsite_name, users_file_name, invited_users_file_name):
         self.microsite_name = microsite_name
@@ -109,21 +108,27 @@ class GroupGradesGenerator():
     def buildGradesFile(self):
         gradesFile = []
         for index,level in enumerate(self.levels_list) :
-            log.info("Starting treatment of level {} ----------------------------- ".format(str(index+1)))
+            log.info("Starting treatment of level {} -------------------------- ".format(str(index+1)))
             self.initializeAverages()
             self.getEmptySkillGrades(level[0])
             for user in self.users_list :
+
                 log.info("Treating user ----------------------------- {}".format(user['email']))
+                # Dev Cyril
                 if UserSocialAuth.objects.filter(uid=str("psanetxploSAML:"+user['Uid'])).exists():
-                #if User.objects.filter(email=user['email']).exists() :
                     user_id = UserSocialAuth.objects.get(uid=str("psanetxploSAML:"+user['Uid'])).user_id
                     tmaUser = User.objects.get(id=user_id)
                     courseRegisteredTo = self.getCourseRegisteredTo(level, tmaUser)
-                    log.info("user {} is registered to ----------------------------- {}".format(user['email'], courseRegisteredTo))
-                    userResults = self.buildResults(user=user, course_id=courseRegisteredTo, tmaUser=tmaUser) if courseRegisteredTo else self.buildResults(user=user, course_id=level[0], tmaUser=None)
-                else:
-                    userResults = self.buildResults(user=user, course_id=level[0], tmaUser=None)
-                self.userData.append(userResults)
+                    if courseRegisteredTo : 
+                        userResults = self.buildResults(user=user, course_id=courseRegisteredTo, tmaUser=tmaUser) 
+                        try:
+                            # Only add user that already start the course
+                            if userResults['fields']['has_started'] :
+                                log.info("user {} is registered to ----------------------------- {}".format(user['email'], courseRegisteredTo))
+                                self.userData.append(userResults)
+                        except: 
+                            pass
+
             self.levelData={
                 "level":"Level "+str(index+1),
                 "userData":self.userData,
@@ -148,6 +153,7 @@ class GroupGradesGenerator():
             for index,skill in value.items():
                 value[index] = round(skill['totalScore']/skill['totalParticipants'],2) if skill['totalParticipants']>=3 else 0.55
         return self.filiere_skill
+             
 
     def produceGradesJson(self):
         data = self.buildGradesFile()
@@ -164,51 +170,64 @@ class GroupGradesGenerator():
         return status
 
     def buildResults(self, user, course_id, tmaUser=None):
-        tmaEnrollment= TmaCourseEnrollment.get_enrollment(user=tmaUser, course_id=course_id) if tmaUser else None
+        tmaEnrollment= TmaCourseEnrollment.get_enrollment(user=tmaUser, course_id=course_id)
         status = self.getCourseStatus(tmaEnrollment)
         skillGrades = None
 
         #devAurelien
-        if tmaUser:
-            #skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
-            tz_info = tmaUser.last_login.tzinfo
-            if tmaUser.last_login < datetime.now(tz_info) - timedelta(5):
-                log.info("user did not login since 5 days: "+str(tmaUser.email))
-                #user did not login since a long time so if we have his/her skillgrade lets use it
-                extra_data = {}
-                try:
-                    extra_data = json.loads(tmaEnrollment.extra_data)
-                except:
-                    log.info("ERROR : could not load extra_data for user: "+str(tmaUser.email))
-                    pass
-                if "skillGrades" in extra_data:
-                    skillGrades = extra_data["skillGrades"]
-                else:
-                    # user did not login since a long time but we have no clue about his results so lets
-                    # compute them and also memorize
-                    log.info("user did not login since 5 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
-                    skillGrades = SkillGrades(course_id, tmaUser)
-                    try:
-                        extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
-                        tmaEnrollment.extra_data = json.dumps(extra_data)
-                        tmaEnrollment.save()
-                        log.info("user did not login since 5 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
-                    except:
-                        log.info("ERROR : could not save for old user: "+str(tmaUser.email))
-                        pass
-                    skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+        #skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
+        tz_info = tmaUser.last_login.tzinfo
+
+        if tmaUser.last_login <= (datetime.now(tz_info) - timedelta(5)):
+
+            log.info("user did not login since 5 days: "+str(tmaUser.email))
+            #user did not login since a long time so if we have his/her skillgrade lets use it
+            extra_data = {}
+            try:
+                extra_data = json.loads(tmaEnrollment.extra_data)
+            except:
+                log.info("ERROR : could not load extra_data for user: "+str(tmaUser.email))
+                pass
+
+            if "skillGrades" in extra_data and 'global_grade' in extra_data["skillGrades"]:
+                skillGrades = extra_data["skillGrades"]
+                log.info("skillGrades 0")
+                log.info(skillGrades)
+
             else:
-                #user did login rather "recently" so lets compute his/her skillgrade and memorize it
+                # user did not login since a long time but we have no clue about his results so lets
+                # compute them and also memorize
+                log.info("user did not login since 5 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
                 skillGrades = SkillGrades(course_id, tmaUser)
+                log.info("skillGrades 1")
+                log.info(skillGrades)
                 try:
-                    extra_data = json.loads(tmaEnrollment.extra_data)
                     extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
                     tmaEnrollment.extra_data = json.dumps(extra_data)
                     tmaEnrollment.save()
-                    log.info("user logged in recently so we had to compute and store: "+str(tmaUser.email))
+                    log.info("user did not login since 5 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
                 except:
-                    log.info("ERROR : could not load or save data for recent user "+str(tmaUser.email))
+                    log.info("ERROR : could not save for old user: "+str(tmaUser.email))
+                    pass
                 skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+                log.info("skillGrades 2")
+                log.info(skillGrades)
+        else:
+            #user did login rather "recently" so lets compute his/her skillgrade and memorize it
+            skillGrades = SkillGrades(course_id, tmaUser)
+            log.info("skillGrades 3")
+            log.info(skillGrades)
+            try:
+                extra_data = json.loads(tmaEnrollment.extra_data)
+                extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+                tmaEnrollment.extra_data = json.dumps(extra_data)
+                tmaEnrollment.save()
+                log.info("user logged in recently so we had to compute and store: "+str(tmaUser.email))
+            except:
+                log.info("ERROR : could not load or save data for recent user "+str(tmaUser.email))
+            skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+            log.info("skillGrades 4")
+            log.info(skillGrades)
 
         user_object={
             "fields":{
@@ -226,8 +245,8 @@ class GroupGradesGenerator():
                 "progressLink":"/tma_apps/"+course_id+"/skill-radar?user="+str(tmaUser.id) if tmaEnrollment else "no_link"
             },
             "grades":{
-                "global":round(skillGrades["global_grade"],2) if tmaUser else 0,
-                "skills":skillGrades["skill_grades"] if tmaUser else self.emptySkillGrades
+                "global":round(skillGrades['global_grade'],2),
+                "skills":skillGrades['skill_grades'] 
             }
         }
         
@@ -252,10 +271,10 @@ class GroupGradesGenerator():
                 self.filiere_skill[user['job_family']][skill['name']]['totalScore']+=skill['grade']
 
         return user_object  
-
-
-
-
+        
+        
 
 GroupGradesGenerator(microsite_name, users_file_name,invited_users_file_name).produceGradesJson()
 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/var/edxapp/secret/microsite/psa-netexplo/psa-grades-script.py "psa-netexplo" "culture_digitale_export.csv" "culture_digitale_export.csv" 
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/psa-netexplo/utils/psa-grades-script.py "psa-netexplo" "culture_digitale_export.csv" "culture_digitale_export.csv"
