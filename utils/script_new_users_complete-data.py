@@ -414,7 +414,7 @@ wb.save(output)
 _files_values = output.getvalue()
 # envoyer un mail test
 
-html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de données du MOOC {}<br/><br/>Bonne réception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>".format(course.display_name)
+html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de données du MOOC {} pour la période des 30 derniers jours uniquement.<br/><br/>Bonne réception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>".format(course.display_name)
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
 for i in range(len(TO_EMAILS)):
@@ -423,7 +423,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - ' + time.strftime("%d.%m.%Y")
+   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - last 30 days - ' + time.strftime("%d.%m.%Y")
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)

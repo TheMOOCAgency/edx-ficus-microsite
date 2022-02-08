@@ -52,12 +52,14 @@ for course_id in courses_list:
 
         if test_substract > 90 :
             log.info('Older')
+            log.info(test_substract)
             user = enrollment.user
 
             if user.email not in admin_list and user.email.find("@weuplearning") == -1 and user.email.find("@themoocagency") == -1 : 
                 log.info(user.email)
-                log.info('will be deleted')
                 CourseEnrollment.unenroll_by_email(user.email, course_key)
+                log.info('has been deleted from ')
+                log.info(course_id)
 
 log.info('End')
 
