@@ -5,7 +5,7 @@
 
 Bonjour,
 
-Vous avez bien été inscrit à la saisons 4 du MOOC SFC. Voici vos identifiants de connexion :
+Vous avez bien été inscrit à la saison 4 du MOOC SFC. Voici vos identifiants de connexion :
 
 Mail : ${email_address}
 Mot de passe : ${password}
