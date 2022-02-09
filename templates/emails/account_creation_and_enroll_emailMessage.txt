@@ -63,7 +63,7 @@ Best regards,
 Netexplo/HEC Paris
 
 
-% elif course_key == "course-v1:complete-data+FR+v1"  :
+% elif course_key == "course-v1:complete-data+FR+v1" or course_key == "course-v1:complete-data+FR+2022-02-10_11" :
 
 Bonjour, 
 
