@@ -1,5 +1,20 @@
 <%! from django.utils.translation import ugettext as _ %>
 
+% if course_key == "course-v1:mooc-forem-sfc+Forem07+2022-T1" :
+
+Bonjour,
+
+Vous avez bien été inscrit à la saisons 4 du MOOC SFC.
+Veuillez utiliser vos identifiants pour vous connecter.
+
+Pour toute demande, n’hésitez pas à solliciter Christine Piret à l’adresse suivante : christine.piret@forem.be
+
+Bien cordialement,
+
+L’équipe du MOOC SFC
+
+% else :
+
 ${_("Dear {full_name}").format(full_name=full_name)}
 
 ${_("You have been enrolled in {course_name} at {site_name} by a member "
