@@ -33,3 +33,5 @@ ${_("This email was automatically sent from {site_name} to "
 	"{full_name}").format(
 		site_name=site_name, full_name=full_name
 	)}
+
+% endif
