@@ -88,7 +88,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <style>
   @media only screen and (max-width: 610px){
     #offers{
-      display: none!important;
+      /*display: none!important;*/
+      display: block !important;
     }
     #offersFooterEN{
       display: none!important;
@@ -97,7 +98,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       display: none!important;
     }
     #buttont{
-      display: none!important;
+      /*display: none!important;*/
     }
     .discoverVideo{
       display: none!important;
@@ -106,7 +107,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       display: none!important;
     }
     .label-subscribe{
-      display: none!important;
+      /*display: none!important;*/
+      margin-bottom: 10px;
     }
   }
   /* Programme Mooc*/
@@ -295,6 +297,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .settings-language-form{
     margin :5px
    }
+
+@media only screen and (max-width: 480px){
+	#intro, #introPart, #videoHeader {
+    		height: 1415px;
+	}
+}
+
   /* Cookie-banner css start */
     #cookie-banner {
       display: flex;
@@ -434,6 +443,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li class="nav-item active">
                     <a class="nav-link text-dark" href="/press">Intervenants</a>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link text-dark" href="/login?next=blog">alumni</a>
+                  </li>
                   <li class="nav-item active pointer">
                     <a class="nav-link text-dark" target="_blank" href="/media/microsite/champagne-mooc/home/CHAMPAGNE_MOOC_TUTORIAL.pdf">Help</a>
                   </li>
@@ -449,7 +461,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="separator mainColorBg" style="height:10px"></span>
             <h2 class="titlePage text-center">DU CHAMPAGNE</h2>
     		    <div id="buttont">
-              <section id="offers" style="display: flex;justify-content: center;">
+              <section id="offers" style="display: flex !important;justify-content: center;">
                 <div class="label-subscribe">
                   <p class="formula-title"><b>Version Classique</b></p>
                   <p class="formula-subtitle">Cours en français</p>
@@ -484,7 +496,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
               </section>
-              <button id="seemore" class="BUTTON_QGJ"><a>Voir nos offres</a></button>
+              <button id="seemore" class="BUTTON_QGJ" style="display:none!important"><a>Voir nos offres</a></button>
     		    </div>
           <div class="arrow-scroll"><img src="/media/microsite/champagne/home/arrow.png" /> </div>
           </div>
@@ -681,8 +693,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             		<p>Quel que soit sa couleur ou son étiquette, le vin se consomme avec plaisir et raison. </p>
             		<p>Membre de Vin & Société, la filière Champagne s’engage chaque jour pour une consommation de vin modérée et responsable. </p>
             		<p>Pour en savoir plus : </p>
-            		<p><a class="nav-link-p" href="http://www.vinetsociete.fr/s-engager/consommation-responsable" target="_blank">Vin & Société </a></p>
-            		<p><a class="nav-link-p" href="https://www.wineinmoderation.eu/frfr/content/Wine-only-appreciated-in-Moderation.12/" target="_blank">Wine in Moderation </a></p>
+            		<p><a class="nav-link-p" href="https://www.vinetsociete.fr/theme/consommation-responsable" target="_blank">Vin & Société </a></p>
+            		<p><a class="nav-link-p" href="https://www.wineinmoderation.eu/moderation" target="_blank">Wine in Moderation </a></p>
               </div>
             </div>
             </div>
@@ -828,6 +840,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li class="nav-item active">
                     <a class="nav-link text-dark" href="https://champagne-mooc.com/press">Speakers</a>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link text-dark" href="/login?next=blog">alumni</a>
+                  </li>
                   <li class="nav-item active pointer">
                     <a class="nav-link text-dark" target="_blank" href="/media/microsite/champagne-mooc/home/CHAMPAGNE_MOOC_TUTORIAL.pdf">Help</a>
                   </li>
@@ -843,7 +858,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="separator mainColorBg" style="height:10px"></span>
             <h2 class="titlePage text-center">CHAMPAGNE EXPERT</h2>
             <div id="buttont">
-              <section id="offers" style="display: flex;justify-content: center;">
+              <section id="offers" style="display: flex !important;justify-content: center;">
               <div class="label-subscribe">
                 <p class="formula-title"><b>Classic Version</b></p>
                 <p class="formula-subtitle">Course in English with subtitled videos</p>
@@ -879,7 +894,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
               </div>
               </section>
-              <button id="seemoreEN" class="BUTTON_QGJ"><a>See our offer</a></button>
+              <button id="seemoreEN" class="BUTTON_QGJ" style="display:none!important"><a>See our offer</a></button>
             </div>
             <div class="arrow-scroll"><img src="/media/microsite/champagne/home/arrow.png" /> </div>
           </div>
@@ -1078,8 +1093,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p>Whatever the color or label, wine should be enjoyed in moderation.</p>
                 <p>As a member of the French voluntary organization Vin & Société, the Champagne industry has an ongoing commitment to encourage moderation and responsibility in wine drinking. </p>
                 <p>To find out more, visit : </p>
-                <p><a class="nav-link-p" href="http://www.vinetsociete.fr/s-engager/consommation-responsable" target="_blank">Vin & Société </a></p>
-                <p><a class="nav-link-p" href="https://www.wineinmoderation.eu/en/content/Wine-only-appreciated-in-Moderation.12/" target="_blank">Wine in Moderation </a></p>
+                <p><a class="nav-link-p" href="https://www.vinetsociete.fr/theme/consommation-responsable" target="_blank">Vin & Société </a></p>
+                <p><a class="nav-link-p" href="https://www.wineinmoderation.eu/moderation" target="_blank">Wine in Moderation </a></p>
               </div>
             </div>
           </div>
@@ -1228,6 +1243,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li class="nav-item active">
                     <a class="nav-link text-dark" href="/press">講師のご紹介</a>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link text-dark" href="/login?next=blog">修了生</a>
+                  </li>
                   <li class="nav-item active pointer">
                     <a class="nav-link text-dark" target="_blank" href="/media/microsite/champagne-mooc/home/CHAMPAGNE_MOOC_TUTORIAL.pdf">ヘルプ</a>
                   </li>
@@ -1243,7 +1261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="separator mainColorBg" style="height:10px"></span>
             <h2 class="titlePage text-center">エキスパートに！</h2>
             <div id="buttont">
-              <section id="offers" style="display: flex;justify-content: center;">
+              <section id="offers" style="display: flex !important;justify-content: center;">
                 <div class="label-subscribe">
                   <p class="formula-title"><b>通常版</b></p>
                   <p class="formula-subtitle">英語でも受講OK</p>
@@ -1278,7 +1296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
               </section>
-              <button id="seemoreJP" class="BUTTON_QGJ"><a>私たちのオファーを見る</a></button>
+              <button id="seemoreJP" class="BUTTON_QGJ" style="display:none!important"><a>私たちのオファーを見る</a></button>
             </div>
           <div class="arrow-scroll"><img src="/media/microsite/champagne/home/arrow.png" /> </div>
           </div>
@@ -1473,8 +1491,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p>その色やラベルにかかわらず、ワインはいつでも気持ちよく、節度をもって飲むものです。</p>
                 <p>Vin & Sociétéのメンバーとして、シャンパーニュ業界では、日々、節度を持った責任あるワイン消費をコミットメントしています。</p>
                 <p>くわしくはこちらへ：</p>
-                <p><a class="nav-link-p" href="http://www.vinetsociete.fr/s-engager/consommation-responsable" target="_blank">Vin & Société </a></p>
-                <p><a class="nav-link-p" href="https://www.wineinmoderation.eu/frfr/content/Wine-only-appreciated-in-Moderation.12/" target="_blank">Wine in Moderation </a></p>
+                <p><a class="nav-link-p" href="https://www.vinetsociete.fr/theme/consommation-responsable" target="_blank">Vin & Société </a></p>
+                <p><a class="nav-link-p" href="https://www.wineinmoderation.eu/moderation" target="_blank">Wine in Moderation </a></p>
               </div>
             </div>
             </div>
