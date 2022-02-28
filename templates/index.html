@@ -236,7 +236,7 @@
         }
         .bio-text-light{
             color: #444 !important;
-            padding-right: 50px;
+            padding-right: 20px;
         }
         .bio-author-section{
             font-size: small;
@@ -369,22 +369,27 @@
                     height: initial;
                  }
         }
+        @media screen and (min-width: 300px) and (max-width: 600px) {
+            .main-section{
+                width: fit-content;
+            }
+        }
 
         /* ----------------------- alignement bouton ----------------------- */
 
         @media screen and (min-width: 1200px) and (max-width: 1273px){
             .bouton-savoir-plus{
-                margin-top: 260px !important;
+                margin-top: 160px !important;
             }
         }
         @media screen and (min-width: 1274px) and (max-width: 1340px){
             .bouton-savoir-plus{
-                margin-top: 180px !important;
+                margin-top: 80px !important;
             }
         }
         @media screen and (min-width: 1341px) and (max-width: 1423px){
             .bouton-savoir-plus{
-                margin-top: 70px !important;
+                margin-top: 30px !important;
             }
         }
 
@@ -427,6 +432,7 @@
         .main-section{
             background-color: white;
             transform: translateZ(0);
+            border-spacing: 7px;
         }
 
         /* ----------------------- bio cours 3 avec un seul créateur ----------------------- */
@@ -464,8 +470,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li role="presentation"><a href="/register?course-v1:gen+02+2020_T4&enrollment_action=enroll" style="color:white;font-weight:bold;font-size:17px;margin-top:16px;">Inscription </a></li> -->
-                    <li role="presentation"><a href="/login?course-v1:gen+02+2020_T4&enrollment_action=enroll" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
+                    <li role="presentation"><a href="/login" style="color:#00F3A7;font-weight:bold;font-size:17px;margin-top:16px;">Connexion </a></li>
                 </ul>
             </div>
         </div>
@@ -507,7 +512,7 @@
                                     <div class="newCourse">Nouveau !</div>
                                     <div class="video-mooc">
                                         <div class="course-video video-teaser" data-vimeo-url="https://vimeo.com/665918660/88e2e803e6" data-vimeo-height="400" data-vimeo-initialized="true">
-                                            <iframe src="https://player.vimeo.com/video/665918660?h=88e2e803e6" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                                            <iframe src="https://player.vimeo.com/video/665918660?h=88e2e803e6&autoplay=1&autopause=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                                         </div>
                                     </div>
 
@@ -598,7 +603,7 @@
                             <div class="row section-up section-up-2">
                                 <div class="video-mooc">
                                     <div class="course-video video-teaser" data-vimeo-url="https://vimeo.com/491181953/077f53d327" data-vimeo-height="400" data-vimeo-initialized="true">
-                                        <iframe src="https://player.vimeo.com/video/491181953?autoplay=1&amp;h=077f53d327" width="711" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="TEASER_GEN_SOCIAL BUILDER"></iframe>
+                                        <iframe src="https://player.vimeo.com/video/491181953?amp;h=077f53d327" width="711" height="400" frameborder="0" allow="fullscreen; picture-in-picture" title="TEASER_GEN_SOCIAL BUILDER"></iframe>
                                     </div>
                                 </div>
                                 
@@ -687,7 +692,7 @@
                             <div class="row section-up section-up-3">
                                 <div class="video-mooc">
                                     <div class="course-video video-teaser" data-vimeo-url="https://vimeo.com/369296646" data-vimeo-height="400" data-vimeo-initialized="true">
-                                        <iframe src="https://player.vimeo.com/video/369296646?h=a958dba6b1&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe src="https://player.vimeo.com/video/369296646?h=a958dba6b1&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                 </div>
 

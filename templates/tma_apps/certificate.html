@@ -19,7 +19,7 @@ background_url = configuration_helpers.get_value('bg_img')
 
 
 
-<%block name="pagetitle">${_("Certificat de reussite")}</%block>
+<%block name="pagetitle">Attestation de réussite</%block>
 
 <!-- COMMON STYLE-->
 <style>
@@ -86,6 +86,8 @@ background_url = configuration_helpers.get_value('bg_img')
   % if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
     % if request.path == '/tma_apps/course-v1:gen+01_02+2021_T1/certificate/render' :
       background-image: url(/media/microsite/gen/certificate/GEN-Attestation_VDEF.png)
+    % elif request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+      background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
     % else :
       % if int(grades['grade']*100) < 70 :
       background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
@@ -111,14 +113,27 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #nameDatas{
     position: relative;
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+    top: 130px;
+    left: 300px;
+    color: #000147 !important;
+    font-family: "Open Sans";
+% else :
     top: 234px;
     left: 274px;
+% endif
     color: rgb(56, 185, 181);
   }
   #dateContainer{
     position: relative;
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+    top: 362px;
+    left: 318px;
+    font-family: "Open Sans";
+% else :
     top: 381px;
     left: 310px;
+% endif
     font-size: 0.8em;
   }
 </style>

@@ -15,8 +15,15 @@ def url_class(is_active):
 %>
 % for tab in tab_list:
   <%
-    tab_is_active = tab.tab_id in (active_page, default_tab)
-    tab_class = url_class(tab_is_active)
+    annonces_class = ""
+    if '/info' in request.path and tab.name=="Home" :
+      tab_class = ""
+      annonces_class = "active"
+      tab_is_active = False
+    else :
+      tab_is_active = tab.tab_id in (active_page, default_tab)
+      tab_class = url_class(tab_is_active)
+    endif
   %>
   <li class="tab">
   %if tab.name=="Home":
@@ -37,4 +44,8 @@ def url_class(is_active):
   %endif
   </a>
   </li>
+  % if tab.name=="Home":
+    <li class="tab"><a href="/courses/${course.id}/info" class="${annonces_class}">Annonces</a></li>
+  % endif
 % endfor
+

@@ -258,10 +258,12 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
+    $(this).html($(this).html().replace("(graded)",""));
   });
   if(window.location.href.indexOf('/courseware/')>-1){
     $(".problem-progress").each(function() {
       $(this).html($(this).html().replace("(ungraded)",""));
+      $(this).html($(this).html().replace("(graded)",""));
       $(this).html($(this).html().replace("notés","noté"));
     });
     $(".poll-voting-thanks span").each(function() {

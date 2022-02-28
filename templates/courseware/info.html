@@ -65,9 +65,8 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 <main id="main" aria-label="Content" tabindex="-1">
     <div class="container">
       <div class="home">
-        <div class="page-header-main">
-            <h3 class="page-title">${_("Welcome to {org}'s {course_name}!").format(org=course.display_org_with_default, course_name=course.display_number_with_default)}
-              <div class="page-subtitle">${course.display_name_with_default}</div>
+        <div class="page-header-main" style="width:100%">
+            <h3 class="page-title">Bienvenue sur le MOOC ${course.display_name_with_default}
             </h3>
         </div>
         % if last_accessed_courseware_url:
