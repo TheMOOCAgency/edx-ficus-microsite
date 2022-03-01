@@ -17,23 +17,33 @@ primary_color = configuration_helpers.get_value('primary_color')
 background_url = configuration_helpers.get_value('bg_img')
 %>
 
+<%
+certificate_config = configuration_helpers.get_value('CERTIFICATE_LAYOUT').get("all")
+certificate_width = certificate_config['certificate_width']
+certificate_height = certificate_config['certificate_height']
+name_position_x = certificate_config['name_position_x']
+name_position_y = certificate_config['name_position_y']
+font_size = certificate_config['font_size']
+image_url = certificate_config['certificate_url']
+date_position_x = certificate_config['date_position_x']
+%>
 
 
 <%block name="pagetitle">Attestation de réussite</%block>
+
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 
 <!-- COMMON STYLE-->
 <style>
   @font-face {
     font-family: 'Oxygen';
-    src: url('/media/microsite/gen/assets/fonts/oxygen-regular-webfont.woff2') format('woff2'),
-         url('/media/microsite/gen/assets/fonts/oxygen-regular-webfont.woff') format('woff');
+    src: url('/media/microsite/gen/fonts/oxygen/Oxygen-Regular.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
       font-family: 'Oxygen';
-      src: url('/media/microsite/gen/assets/fonts/oxygen-bold-webfont.woff2') format('woff2'),
-          url('/media/microsite/gen/assets/fonts/oxygen-bold-webfont.woff') format('woff');
+      src: url('/media/microsite/gen/fonts/oxygen/Oxygen-Bold.ttf') format('ttf');
       font-weight: bold;
       font-style: normal;
   }
@@ -83,19 +93,21 @@ background_url = configuration_helpers.get_value('bg_img')
     margin: 0 auto;
     padding: 40px;
     background-size: contain;
-  % if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
-    % if request.path == '/tma_apps/course-v1:gen+01_02+2021_T1/certificate/render' :
-      background-image: url(/media/microsite/gen/certificate/GEN-Attestation_VDEF.png)
-    % elif request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
-      background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
-    % else :
-      % if int(grades['grade']*100) < 70 :
-      background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
-      % else :
-      background-image: url(/media/microsite/gen/certificate/certificat_gen.png);
-      %endif
+    % if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
+        % if request.path == '/tma_apps/course-v1:gen+01_02+2021_T1/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/GEN-Attestation_VDEF.png)
+        % elif request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+        % elif request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+        % else :
+            % if int(grades['grade']*100) < 70 :
+    background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
+            % else :
+    background-image: url(/media/microsite/gen/certificate/certificat_gen.png);
+            %endif
+        %endif
     %endif
-  %endif
   }
   #pdf-btn-wrapper{
     padding: 15px
@@ -113,7 +125,7 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #nameDatas{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or  request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
     top: 130px;
     left: 300px;
     color: #000147 !important;
@@ -126,7 +138,7 @@ background_url = configuration_helpers.get_value('bg_img')
   }
   #dateContainer{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
     top: 362px;
     left: 318px;
     font-family: "Open Sans";
@@ -146,21 +158,33 @@ background_url = configuration_helpers.get_value('bg_img')
   % if int(grades['grade']*100) < 70 :
     <div id="certificate-wrapper">
       <div id="pdf-btn-wrapper">
+        
+        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+        <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
+        % else :
         <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+        % endif
+
       </div>
       <div id="certificate-container" class=" certificate-border">
         <h3 id="nameDatas">${first_name} ${last_name}</h3>
-        <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
+        <p id="dateContainer"><span id="dateDeCertificat"></span></p>
       </div>
     </div>
   % else :
     <div id="certificate-wrapper">
       <div id="pdf-btn-wrapper">
+
+        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+        <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
+        % else :
         <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+        % endif
+
       </div>
       <div id="certificate-container" class=" certificate-border">
         <h3 id="nameDatas">${first_name} ${last_name}</h3>
-        <p id="dateContainer">le <span id="dateDeCertificat"></span></p>
+        <p id="dateContainer"><span id="dateDeCertificat"></span></p>
       </div>
     </div>
   %endif
@@ -171,22 +195,29 @@ background_url = configuration_helpers.get_value('bg_img')
       <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
 %endif
+
 <!-- PDF CREATOR-->
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script 
+    src="https://code.jquery.com/jquery-2.2.4.min.js" 
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+    crossorigin="anonymous">
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-<script>
+<script type="text/javascript">
+
   function CertificateToPdf(){
-     html2canvas(document.getElementById("certificate-container"), {
+    html2canvas(document.getElementById("certificate-container"), {
       onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-       doc.addImage(img, "PNG", 30, 35);
-       doc.save("certificat.pdf");
+        var img=canvas.toDataURL("image/png");
+        var doc = new jsPDF({orientation: 'landscape'});
+        doc.addImage(img, "PNG", 30, 35);
+        doc.save("certificat.pdf");
       }
     })
   }
-  //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
+  
+  var certificate_date = ''
   $(document).ready(function(){
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
     $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
@@ -194,19 +225,43 @@ background_url = configuration_helpers.get_value('bg_img')
 
     // GET XCERTIFICATE DATE
     var monthNames = [
-      "Janvier", "Fevrier", "Mars",
+      "Janvier", "Février", "Mars",
       "Avril", "Mai", "Juin", "Juillet",
       "Août", "Septembre", "Octobre",
-      "Novembre", "Decembre"
+      "Novembre", "Décembre"
     ];
     date = new Date();
 
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
-    var certificate_date = day + ' ' + monthNames[monthIndex] + ' ' + year;
+    certificate_date = 'le '+ day + ' ' + monthNames[monthIndex] + ' ' + year;
 
     $('#dateDeCertificat').text(certificate_date)
   })
+    
+  
+  function generateCertificate(){
+    $.ajax({
+      url: "/tma_apps/${course_id}/certificate/generate_pdf",
+      type: "GET",
+      data: {
+        user_name : "${first_name} ${last_name}",
+        certificate_date: certificate_date,
+      },
+      dataType: 'html', 
+      contentType:'application/pdf',
+      success : function(data){
+        const url = "/tma_apps/${course_id}/certificate/generate_pdf?certificate_date="+certificate_date
+        window.open(url);
+      },
+      
+      error : function(resultat, statut, error){
+        console.error(error)
+      }
+
+    })
+  }
+
 </script>
 
