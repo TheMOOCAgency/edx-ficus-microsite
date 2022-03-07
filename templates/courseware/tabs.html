@@ -10,6 +10,7 @@
 
 <%
 no_forum_list = ["course-v1:nature-for-city-life+NFCL_Advanced_EN+Parcours2", "course-v1:nature-for-city-life+NFCL+Parcours2", "course-v1:nature-for-city-life+NFCL+session3", "course-v1:nature-for-city-life+NFCL_EN+session3", "course-v1:nature-for-city-life+NFCL_DEUCH+session1", "course-v1:nature-for-city-life+NFCL_ESP+session1", "course-v1:nature-for-city-life+NFCL_ITL+session1",'course-v1:nature-for-city-life+NFCL_FR+session2021','course-v1:nature-for-city-life+NFCL_SP_DEUCH+session2021','course-v1:nature-for-city-life+SPENG2021+Session2021','course-v1:nature-for-city-life+NFCL_SP_IT+session2021','course-v1:nature-for-city-life+NFCL_SP_ESP+session2021']
+forum_allow_list = ["course-v1:nature-for-city-life+NFCL_SI_FR+2021","course-v1:nature-for-city-life+NFCL_SI_ENG+2021","course-v1:nature-for-city-life+NFCL_SI_DEUCH+2021","course-v1:nature-for-city-life+NFCL_SI_ESP+2021","course-v1:nature-for-city-life+NFCL_SI_ITL+2021"]
 
 def url_class(is_active):
   if is_active:
@@ -17,7 +18,7 @@ def url_class(is_active):
   return ""
 
 def is_forum_not_expired():
-  if str(course.id) not in no_forum_list or timestamp < 1594512000:
+  if str(course.id) not in no_forum_list or timestamp < 1594512000 or str(course.id) in forum_allow_list:
     return True
   return False
 
