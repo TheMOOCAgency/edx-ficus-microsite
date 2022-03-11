@@ -80,23 +80,9 @@ for i in range(len(enrollments)):
     tma_enrollment,is_exist=TmaCourseEnrollment.objects.get_or_create(course_enrollment_edx=enrollments[i])
 
 
-    # Dev Cyril Start
-    # Hide when user is testuser 
+    # # Hide when user is testuser 
     if user.email.find("@weuplearning") != -1 or user.email.find("@themoocagency") != -1 or user.email.find("@yopmail") != -1:
         continue
-
-    # ONLY SAVE IF USER IS NEW (J-30) 
-    string_data = str(enrollments[i])
-    date_registration = datetime.strptime(string_data.split(' ')[3].replace('(',''), '%Y-%m-%d')
-
-    today =  datetime.now()
-
-    test_substract = (today - date_registration).days
-    if test_substract > 31 :
-        log.info(test_substract)
-        continue
-    # Dev Cyril End
-
 
     # USER INFO
     user_profile = {}
@@ -139,46 +125,89 @@ for i in range(len(enrollments)):
     else:
         data1_SC = "n/a"
 
+    if course_id == "course-v1:faciliter-transformation+FR+2022" :
+        if custom_field :
+            saisie_1 = custom_field.get('saisie_1_2022', 'n/a')
+        else:
+            saisie_1 = "n/a"
 
-    if custom_field :
-        saisie_1 = custom_field.get('saisie_1', 'n/a')
-    else:
-        saisie_1 = "n/a"
+        if custom_field :
+            saisie_2 = custom_field.get('saisie_2_2022', 'n/a')
+        else:
+            saisie_2 = "n/a"
 
-    if custom_field :
-        saisie_2 = custom_field.get('saisie_2', 'n/a')
-    else:
-        saisie_2 = "n/a"
+        if custom_field :
+            saisie_3 = custom_field.get('saisie_3_2022', 'n/a')
+        else:
+            saisie_3 = "n/a"
 
-    if custom_field :
-        saisie_3 = custom_field.get('saisie_3', 'n/a')
-    else:
-        saisie_3 = "n/a"
+        if custom_field :
+            saisie_4 = custom_field.get('saisie_4_2022', 'n/a')
+        else:
+            saisie_4 = "n/a"
 
-    if custom_field :
-        saisie_4 = custom_field.get('saisie_4', 'n/a')
-    else:
-        saisie_4 = "n/a"
+        if custom_field :
+            saisie_5_1 = custom_field.get('saisie_5_1_2022', 'n/a')
+        else:
+            saisie_5_1 = "n/a"
 
-    if custom_field :
-        saisie_5_1 = custom_field.get('saisie_5_1', 'n/a')
-    else:
-        saisie_5_1 = "n/a"
+        if custom_field :
+            saisie_5_2 = custom_field.get('saisie_5_2_2022', 'n/a')
+        else:
+            saisie_5_2 = "n/a"
 
-    if custom_field :
-        saisie_5_2 = custom_field.get('saisie_5_2', 'n/a')
-    else:
-        saisie_5_2 = "n/a"
+        if custom_field :
+            saisie_5_3 = custom_field.get('saisie_5_3_2022', 'n/a')
+        else:
+            saisie_5_3 = "n/a"
 
-    if custom_field :
-        saisie_5_3 = custom_field.get('saisie_5_3', 'n/a')
+        if custom_field :
+            saisie_theme = custom_field.get('saisie_theme_2022', 'n/a')
+        else:
+            saisie_theme = "n/a"
+    
     else:
-        saisie_5_3 = "n/a"
+        if custom_field :
+            saisie_1 = custom_field.get('saisie_1_2022_EN', 'n/a')
+        else:
+            saisie_1 = "n/a"
 
-    if custom_field :
-        saisie_theme = custom_field.get('saisie_theme', 'n/a')
-    else:
-        saisie_theme = "n/a"
+        if custom_field :
+            saisie_2 = custom_field.get('saisie_2_2022_EN', 'n/a')
+        else:
+            saisie_2 = "n/a"
+
+        if custom_field :
+            saisie_3 = custom_field.get('saisie_3_2022_EN', 'n/a')
+        else:
+            saisie_3 = "n/a"
+
+        if custom_field :
+            saisie_4 = custom_field.get('saisie_4_2022_EN', 'n/a')
+        else:
+            saisie_4 = "n/a"
+
+        if custom_field :
+            saisie_5_1 = custom_field.get('saisie_5_1_2022_EN', 'n/a')
+        else:
+            saisie_5_1 = "n/a"
+
+        if custom_field :
+            saisie_5_2 = custom_field.get('saisie_5_2_2022_EN', 'n/a')
+        else:
+            saisie_5_2 = "n/a"
+
+        if custom_field :
+            saisie_5_3 = custom_field.get('saisie_5_3_2022_EN', 'n/a')
+        else:
+            saisie_5_3 = "n/a"
+
+        if custom_field :
+            saisie_theme = custom_field.get('saisie_theme_2022_EN', 'n/a')
+        else:
+            saisie_theme = "n/a"
+
+
 
     user_row = [email, first_name, last_name, time_tracking, saisie_1, saisie_2, saisie_3, saisie_4, saisie_5_1, saisie_5_2, saisie_5_3, saisie_theme]
 
@@ -208,7 +237,7 @@ _files_values = output.getvalue()
 
 course_names_html = "<li>"+ course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace')+"</li>"
 
-html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +" pour la période des 30 derniers jours uniquement.<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
+html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des MOOCs : "+ course_names_html +"<br/><br/>Bonne r&eacute;ception<br>L'&eacute;quipe NETEXPLO<br></p></body></html>"
 
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
@@ -218,7 +247,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + ' - last 30 days - ' + time.strftime("%d.%m.%Y")
+   msg['Subject'] = "NETEXPLO - " + course.display_name_with_default.encode('ascii', errors='xmlcharrefreplace') + time.strftime("%d.%m.%Y")
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)
@@ -235,13 +264,14 @@ for i in range(len(TO_EMAILS)):
    print('Email sent to '+str(TO_EMAILS[i]))
 
 
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+FR+2020"
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_report_customfields_faciliter_2022.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+FR+2020"
 
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_report_customfields_faciliter_2022.py "tom.douce@weuplearning.com;eruch-ext@netexplo.org;clescop-ext@netexplo.org;melanie.zunino@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
 
 
 # PPROD1 TEST
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+01+01"
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_report_customfields_faciliter_2022.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+01+01"
 
 # Test Prod
-# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_new_users_faciliter.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+EN+2021"
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_report_customfields_faciliter_2022.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+EN+2022"
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/faciliter-transformation/utils/script_report_customfields_faciliter_2022.py "cyril.adolf@weuplearning.com" "course-v1:faciliter-transformation+FR+2022"
