@@ -61,6 +61,10 @@ ${static.get_page_title_breadcrumbs(course_name())}
 <%static:css group='style-student-notes'/>
 % endif
 
+<!--TMA TIME TRACKING-->
+<%include file="/tma_apps/tma_time_tracking.html" />
+
+
 <script type="text/javascript" src="${static.url('js/jquery.autocomplete.js')}"></script>
 <script type="text/javascript" src="${static.url('js/src/tooltip_manager.js')}"></script>
 
@@ -348,7 +352,3 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 })
 </script>
   
-  <!--TMA TIME TRACKING-->
-%if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
-<%include file="/tma_apps/tma_time_tracking.html" />
-%endif
