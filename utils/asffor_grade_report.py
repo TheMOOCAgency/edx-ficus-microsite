@@ -70,12 +70,12 @@ for course_id in course_ids:
 
     course = get_course_by_id(course_key)
     course_enrollments = CourseEnrollment.objects.filter(course_id=course_key)
-    
+
     for i in range(len(course_enrollments)):
         user = course_enrollments[i].user
         tma_enrollment,is_exist=TmaCourseEnrollment.objects.get_or_create(course_enrollment_edx=course_enrollments[i])
 
-        if user.email.find("@yopmail") != -1 :
+        if user.email.find("@yopmail") != -1 or user.email.find("@weup") != -1 or user.email.find("@themoocagency") != -1 :
             log.info('yopmail account')
             continue
 
@@ -110,7 +110,7 @@ for course_id in course_ids:
             except:
                 # should not occured
                 user_data['general']["last_visit"] = "n/a"
-        
+
         user_data['general']["id"] = user.id
         user_data['general']["email_address"] = user.email
 
@@ -123,12 +123,12 @@ for course_id in course_ids:
 
         # Only for one course 
         if course_id == 'course-v1:asffor+ASF_01+ASF_2020':
-            grade = []
+            grade = dict()
             for m in user_grade.grade_value['grade_breakdown'].keys():
                 grade_partial = round(user_grade.grade_value['grade_breakdown'].get(m)['percent'] * 100, 0)
                 module_name = user_grade.grade_value['grade_breakdown'].get(m)['category']
-                grade.append({module_name : grade_partial})
-
+                #grade.append({module_name : grade_partial})
+                grade[module_name] = grade_partial
                 # log.info(tma_enrollment.detailed_time_tracking)
                 # try:
                 #     seconds = tma_enrollment.detailed_time_tracking
@@ -147,7 +147,6 @@ for course_id in course_ids:
 
 
         user_data[str(course_id)]['grade'] = grade
-
         all_users_data[str(user.id)] = user_data
 
 
@@ -322,7 +321,7 @@ for index, user in all_users_data.items():
     except:
         sheet.cell(j+1, 20, 0)
         sheet_2.cell(j+1, 18, 0)
-    
+
     try:
         sheet.cell(j+1, 21, user['course-v1:asffor+ASF_01+ASF_2020']['grade']["Module 5"]) 
         sheet_2.cell(j+1, 19, 30) if user['course-v1:asffor+ASF_01+ASF_2020']['grade']["Module 5"] >= 60 else sheet_2.cell(j+1, 19, 0)
@@ -330,7 +329,7 @@ for index, user in all_users_data.items():
     except:
         sheet.cell(j+1, 21, 0)
         sheet_2.cell(j+1, 19, 0)
-    
+
     try:
         sheet.cell(j+1, 22, user['course-v1:asffor+ASF_01+ASF_2020']['grade']["Module 6"]) 
         sheet_2.cell(j+1, 20, 30) if user['course-v1:asffor+ASF_01+ASF_2020']['grade']["Module 6"] >= 60 else sheet_2.cell(j+1, 20, 0)
@@ -490,7 +489,7 @@ for i in range(len(TO_EMAILS)):
    msg = MIMEMultipart()
    msg['From'] = fromaddr
    msg['To'] = toaddr
-   msg['Subject'] = "ASFfor - " + ' + '.join(course_names)
+   msg['Subject'] = "ASFFOR - " + ' + '.join(course_names)
    attachment = _files_values
    part = MIMEBase('application', 'octet-stream')
    part.set_payload(attachment)
