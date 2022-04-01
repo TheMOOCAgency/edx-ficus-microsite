@@ -163,29 +163,56 @@ endfor
       <!-- formation validé -->
       <div id="dashboard_profile_middle_up">
         % if False:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">
-% if course_grade.passed:
-${_("Completed")}
-% else :
-${_("Training not validated")}
-% endif
-</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/>
+          <span style="margin-left:50px;">
+          % if course_grade.passed:
+            % if LANGUAGE_CODE == "fr":
+              Cours complété
+            % elif LANGUAGE_CODE == "en":
+              Course completed
+            % elif language[0] =="es-419":
+              curso completado
+            % else:
+              ${_("Completed")}
+            % endif
+          % else :
+            ${_("Training not validated")}
+          % endif
+          </span>
         % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
-% if course_grade.passed:
-${_("Completed")}
-% else :
-${_("Training not validated")}
-% endif
-</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/>
+          <span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">
+          % if course_grade.passed:
+            % if LANGUAGE_CODE == "fr":
+              Cours complété
+            % elif LANGUAGE_CODE == "en":
+              Course completed
+            % elif language[0] =="es-419":
+              curso completado
+            % else:
+              ${_("Completed")}
+            % endif
+          % else :
+            ${_("Training not validated")}
+          % endif
+          </a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">
-% if course_grade.passed:
-${_("Completed")}
-% else :
-${_("Training not validated")}
-% endif
-</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/>
+          <span style="margin-left:50px;">
+          % if course_grade.passed:
+            % if LANGUAGE_CODE == "fr":
+              Cours complété
+            % elif LANGUAGE_CODE == "en":
+              Course completed
+            % elif language[0] =="es-419":
+              curso completado
+            % else:
+              ${_("Completed")}
+            % endif
+          % else :
+            ${_("Training not validated")}
+          % endif
+          </span>
         % endif
       </div>
       <!-- border middle -->

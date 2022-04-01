@@ -113,8 +113,15 @@ site_status_msg = get_site_status_msg(course_id)
     display: none;
   }
   #lang-content {
-    width: 80px;
+    width: 111px;
     height: 24px;
+  }
+  #lang-content img{
+    width: 23px;
+  }
+  #ko{
+    box-shadow: 0rem 0rem 0.15rem grey;
+    border-radius: 0.1rem;
   }
 
 </style>
@@ -255,15 +262,16 @@ site_status_msg = get_site_status_msg(course_id)
                 <img src="/media/microsite/tiama/img/us.png" id="us">
                 <img src="/media/microsite/tiama/img/es.png" id="es">
                 <img src="/media/microsite/tiama/img/fr.png" id="fr">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="2" >
+                <img src="/media/microsite/tiama/img/kr.svg" id="ko">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="4" >
                   % for language in languages:
-                   % if language[0] =="en" or language[0] =="es-419" or language[0] =="fr":
-                    % if language[0] == LANGUAGE_CODE:
-                      <option value="${language[0]}" selected="selected">${language[0]}</option>
-                    % else:
-                      <option value="${language[0]}">${language[0]}</option>
+                    % if language[0]=="en" or language[0]=="es-419" or language[0]=="fr" or language[0]=="ko-kr":
+                      % if language[0] == LANGUAGE_CODE:
+                        <option value="${language[0]}" selected="selected">${language[0]}</option>
+                      % else:
+                        <option value="${language[0]}">${language[0]}</option>
+                      % endif
                     % endif
-                   % endif
                   % endfor
                 </select>
               </div>
@@ -294,22 +302,30 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   //LANGUAGE FLAGS
   $('#us').on('click', function() {
     $('#settings-language-value > option[value="en"]').attr('selected','selected');
-    $('#settings-language-value > option[value="fr"]').removeAttr('selected');
-    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger( "change");
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
   }
   );
   $('#es').on('click', function() {
     $('#settings-language-value > option[value="es-419"]').attr('selected','selected');
-    $('#settings-language-value > option[value="fr"]').removeAttr('selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
-
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
   }
   );
   $('#fr').on('click', function() {
     $('#settings-language-value > option[value="fr"]').attr('selected','selected');
-    $('#settings-language-value > option[value="es-419"]').removeAttr('selected');
-    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger( "change");;
-
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
+  }
+  );
+  $('#ko').on('click', function() {
+    $('#settings-language-value > option[value="ko-kr"]').attr('selected','selected');
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
   }
   );
 
