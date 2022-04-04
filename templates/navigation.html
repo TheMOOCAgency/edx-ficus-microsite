@@ -119,10 +119,6 @@ site_status_msg = get_site_status_msg(course_id)
   #lang-content img{
     width: 23px;
   }
-  #ko{
-    box-shadow: 0rem 0rem 0.15rem grey;
-    border-radius: 0.1rem;
-  }
 
 </style>
         </%block>
@@ -262,9 +258,18 @@ site_status_msg = get_site_status_msg(course_id)
                 <img src="/media/microsite/tiama/img/us.png" id="us">
                 <img src="/media/microsite/tiama/img/es.png" id="es">
                 <img src="/media/microsite/tiama/img/fr.png" id="fr">
-                <img src="/media/microsite/tiama/img/kr.svg" id="ko">
+                <img src="/media/microsite/tiama/img/ko.png" id="ko">
                 <select class="input select language-selector" id="settings-language-value" name="language" size="4" >
                   % for language in languages:
+                    <script>
+                      var langue = "${language[0]}"
+                      console.log('langue[0]');
+                      console.log(langue);
+
+                      var langue1 = "${language[1]}"
+                      console.log('langue[1]');
+                      console.log(langue1);
+                    </script>
                     % if language[0]=="en" or language[0]=="es-419" or language[0]=="fr" or language[0]=="ko-kr":
                       % if language[0] == LANGUAGE_CODE:
                         <option value="${language[0]}" selected="selected">${language[0]}</option>
