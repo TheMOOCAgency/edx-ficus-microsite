@@ -100,7 +100,7 @@ Cet email a été envoyé automatiquement de mooc.tiama.com à ${full_name}
 % if auto_enroll:
 
 과정에 액세스하려면 ${course_url}을 방문하여 로그인하세요.
-% elif course_about_url이 없음이 아닙니다.
+% elif course_about_url is not None:
 
 과정에 액세스하려면 ${course_about_url}을 방문하여 과정에 등록하세요.
 % endif
@@ -111,7 +111,7 @@ Cet email a été envoyé automatiquement de mooc.tiama.com à ${full_name}
 % if auto_enroll:
 계정을 등록하고 활성화하면 대시보드에 ${course.display_name_with_default_escaped}가 표시됩니다.
 
-% elif course_about_url이 없음이 아닙니다.
+% elif course_about_url is not None:
 계정을 등록하고 활성화한 후 ${course_about_url}을 방문하여 과정에 참여하세요.
 
 % else:
