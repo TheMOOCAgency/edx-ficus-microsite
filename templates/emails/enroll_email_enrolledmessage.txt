@@ -30,3 +30,15 @@ Pour commencer le cours, rendez-vous sur  ${course_about_url}
 
 ----
 Cet email a été envoyé automatiquement de ${site_name} à ${email_address}
+
+
+
+
+${full_name} 님,
+
+${site_name}의 ${course.display_name_with_default_escaped}에 대해 교수팀 구성원이 등록했습니다. 이제 코스가 ${site_name} 대시보드에 표시됩니다.
+
+과정을 시작하려면 ${course_about_url}로 이동하세요.
+
+----
+이 이메일은 ${site_name}에서 ${email_address}(으)로 자동 전송되었습니다.

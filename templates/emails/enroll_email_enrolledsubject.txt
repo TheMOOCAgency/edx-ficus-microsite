@@ -1,3 +1,3 @@
 <%! from django.utils.translation import ugettext as _ %>
 
-You have been enrolled in ${course.display_name_with_default_escaped} / Usted ha sido registrado para ${course.display_name_with_default_escaped} / Vous avez été inscrit au cours ${course.display_name_with_default_escaped}
+You have been enrolled in ${course.display_name_with_default_escaped} / Usted ha sido registrado para ${course.display_name_with_default_escaped} / Vous avez été inscrit au cours ${course.display_name_with_default_escaped} / ${course.display_name_with_default_escaped} 과정에 등록하도록 초대되었습니다.

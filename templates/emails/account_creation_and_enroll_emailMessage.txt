@@ -33,6 +33,20 @@ Pour commencer, merci de vous rendre sur le lien suivant https://${site_name} av
 courriel : ${email_address}
 mot de passe : ${password}
 
-Il est recommandé de changer son mot d epasse.
+Il est recommandé de changer son mot de passe.
 
 Cordialement, l'équipe de ${course.display_name_with_default_escaped}
+
+
+
+
+에 오신 것을 환영합니다 ${course.display_name_with_default_escaped}. 
+
+시작하려면 https://${site_name} 방문하십시오. 귀하의 계정에 대한 로그인 정보는 다음과 같습니다.
+
+이메일: ${email_address}
+비밀번호: ${password}
+
+비밀번호 변경을 권장합니다.
+
+${course.display_name_with_default_escaped} 진심으로 추가합니다.

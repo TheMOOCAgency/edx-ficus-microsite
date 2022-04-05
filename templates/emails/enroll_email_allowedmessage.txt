@@ -66,8 +66,8 @@ Vous avez été inscrit à ${course.display_name_with_default_escaped} sur ${sit
 
 % if is_shib_course:
 % if auto_enroll:
-Pour commencer le cours, rendez-vous sur ${course_about_url}
 
+Pour commencer le cours, rendez-vous sur ${course_about_url}
 % elif course_about_url is not None:
 
 To access the course visit ${course_about_url} and register for the course.
@@ -88,3 +88,36 @@ Vous pouvez vous inscrire à ${course.display_name_with_default_escaped}.
 
 ----
 Cet email a été envoyé automatiquement de mooc.tiama.com à ${full_name}
+
+
+
+
+친애하는, 친애하는 ${full_name}
+
+코스 직원이 ${site_name}에서 ${course.display_name_with_default_escaped}에 가입하도록 초대했습니다.
+
+% if is_shib_course:
+% if auto_enroll:
+
+과정에 액세스하려면 ${course_url}을 방문하여 로그인하세요.
+% elif course_about_url이 없음이 아닙니다.
+
+과정에 액세스하려면 ${course_about_url}을 방문하여 과정에 등록하세요.
+% endif
+% else:
+
+등록을 마치려면 ${registration_url}을 방문하여 이메일 필드에 ${email_address}를 사용하여 등록 양식을 작성하십시오.
+
+% if auto_enroll:
+계정을 등록하고 활성화하면 대시보드에 ${course.display_name_with_default_escaped}가 표시됩니다.
+
+% elif course_about_url이 없음이 아닙니다.
+계정을 등록하고 활성화한 후 ${course_about_url}을 방문하여 과정에 참여하세요.
+
+% else:
+그런 다음 ${course.display_name_with_default_escaped}에 등록할 수 있습니다.
+% endif
+% endif
+
+----
+이 이메일은 ${site_name}에서 ${full_name}(으)로 자동 전송되었습니다.
