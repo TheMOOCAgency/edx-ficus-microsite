@@ -23,7 +23,58 @@ try:
   custom_field = json.loads(user.profile.custom_field)
 except:
   pass
+  
+try:
+  cf_company = custom_field["company"]
+except:
+  cf_company = "not_found"
+
+try:
+  cf_country = custom_field["orange_country"]
+except:
+  cf_country = "not_found"
+
 %>
+<script>
+
+// DISPLAY ORANGE- MODAL
+let cf_company = "${cf_company}"
+let cf_country = "${cf_country}"
+if (cf_company.toLowerCase() == 'orange' && cf_country == "not_found") {
+  let check_cf = setInterval(() => {
+    let divis = document.getElementById("company-needed-orange")
+    if (divis) {
+      divis.style.display = 'flex'
+      clearInterval(check_cf)
+    }
+  }, 100);
+}
+
+// UPDATE CF
+function update_country_cf() {
+  let country = document.getElementById('modal-input').value
+  if (country) { 
+    var customFields = {
+      orange_country: country,
+    }
+    $.ajax({
+      url: '/tma_apps/tma_api/v0/CustomFieldView/',
+      type: "POST",
+      data: customFields,
+      headers: {'X-CSRFToken': $.cookie('csrftoken')},
+      dataType: 'json'
+    });
+    
+    let divis = document.getElementById("company-needed-orange")
+    divis.style.display = 'none'
+  }
+}
+
+// Delete input
+function delete_input() {
+  document.getElementById('modal-input').value = ''
+}
+</script>
 %if (user.first_name == "" and user.last_name == "") and (custom_field.get('first_name','') == "" or custom_field.get('first_name') is None) and (custom_field.get('last_name','') == "" or custom_field.get('last_name') is None):
   <style>
     button.swal2-confirm:hover{
@@ -190,8 +241,99 @@ $.ajax({
   font-size: 1.1em;
   color: #000;
 }
+.horizontal-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ORANGE COMPANY MODAL */
+#company-needed-orange {
+  display: none;
+  position: fixed;
+  top:0;
+  left: 0;
+  height: 100%;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 11;
+  overflow-y: hidden;
+  justify-content: center;
+}
+#modal-container p {
+  color: #313131;
+}
+#modal-container {
+  background-color: white;
+  width: 500px;
+  height: 283px;
+  margin-bottom: 120px;
+}
+#modal-title {
+  margin: 20px 10px 0 10px;
+  font-size: 36px;
+  font-weight: 600;
+}
+#modal-input {
+  padding: 10px;
+  width: 275px;
+}
+#modal-button {
+  padding: 10px 30px;
+  margin: 37px 10px 0 10px;  
+  background-color: #80CCF5;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#modal-button-2 {
+  padding: 10px 30px;
+  margin: 37px 10px 0 10px;  
+  background-color: grey;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 </style>
 <div class="container">
+  
+  <div id="company-needed-orange" class="text-center">
+    <div id="modal-container" class="text-center">
+      <p id="modal-title">Pays</p>
+      <label for="modal-input">Sélectionnez votre pays</label>
+      <div>
+        <input list="country" id="modal-input" name="modal-input">
+        <datalist id="country">
+          <option value="Botswana">
+          <option value="Burkina Faso">
+          <option value="Cameroon">
+          <option value="Central African Republic">
+          <option value="Democratic Republic of Congo">
+          <option value="Egypt">
+          <option value="France">
+          <option value="Guinea">
+          <option value="Guinea Bissau">
+          <option value="Madagascar">
+          <option value="Morocco">
+          <option value="Ivory Coast">
+          <option value="Liberia">
+          <option value="Mali">
+          <option value="Jordan">
+          <option value="Senegal">
+          <option value="Sierra Leone">
+          <option value="Tunnisia">
+        </datalist>
+      </div>
+      <div class="horizontal-align">
+        <div id="modal-button" onclick="update_country_cf()">Valider</div>
+        <div id="modal-button-2" onclick="delete_input()">Annuler</div>
+      </div>
+    </div>
+  </div>
+
   <div class="course-block gray-opacity-bg rounded pad-40 mb-20">
     <img src="/media/microsite/digimapper/auto/images/transparent-logo.png" class="course-logo"/>
     %if associated_courses.get('delayed'):
