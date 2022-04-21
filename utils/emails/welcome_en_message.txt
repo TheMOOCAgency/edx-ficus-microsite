@@ -1,0 +1,20 @@
+Hello {full_name},
+
+Welcome to MOOC Conservation and thank you for joining the MOOC on {course_name} !
+
+Now that you are enrolled, and while the session is open (see dates on platform), you can follow the course at your pace, take the exams and use the discussion board to ask your questions. If you finish all exams and reach an average score equal to or above 75%, you’ll be able to download an attestation of success (“Attestation of success” tab at the end of the course).
+
+Make sure to follow our social media (Facebook, Instagram, Twitter and LinkedIn) and to read our emails so you won’t miss any key news: webinars with the MOOC Conservation team, new MOOCs, special events etc.
+
+Facebook : {facebook_link}
+Instagram : {instagram_link}
+Twitter : {twitter_link}
+LinkedIn : {linkedin_link}
+
+We also have a number of “ambassadors”, in other words, participants that volunteered to assist other students in their regions, but also to run local networks of conservation enthusiasts. The full list can be found here:
+{ambassadors}
+
+See you soon on mooc-conservation.org, 
+
+You no longer wish to receive emails from the Mooc-Conservation platform? Click here:
+{opted_out_link}

@@ -41,7 +41,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
 cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
-cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
+cssresponsive = '/media/microsite/assets_redesign/css/responsive_top_layer.css'.format(org_static)
 connected = user.is_authenticated()
 %>
 <%block>
@@ -68,6 +68,7 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
+  % if request.path != '/' and request.path != '/faq' and request.path != '/tos':
   <header id="global-navigation" class="header-global" >
     <!-- <input class="burger" type="checkbox"> -->
     <!-- burger menu -->
@@ -77,8 +78,13 @@ site_status_msg = get_site_status_msg(course_id)
       <span></span>
       <span></span>
       <ul id="menu_burger">
+        % if request.LANGUAGE_CODE == 'en':
+        <a href="/register"><li class="navigation_list_element nav_button login_button">Crete an account</li></a>
+        <a href="/login"><li class="navigation_list_element nav_button register_button">Login</li></a>
+        % else:
         <a href="/register"><li class="navigation_list_element nav_button login_button">Créer un compte</li></a>
         <a href="/login"><li class="navigation_list_element nav_button register_button">Se connecter</li></a>
+        % endif
       </ul>
     </div>
     <!-- burger menu -->
@@ -204,14 +210,26 @@ site_status_msg = get_site_status_msg(course_id)
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
-                <a class="btn-neutral" style="font-size: 14px!important;" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
+                % if request.LANGUAGE_CODE == 'en':
+                <a class="btn-neutral" style="font-size: 14px!important;text-align: center;" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">Create an account</a>
+                % else:
+                <a class="btn-neutral" style="font-size: 14px!important;text-align: center;" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">Créer un compte</a>
+                % endif
               </li>
             % else:
               <li class="item nav-global-04" style="font-size: 14px!important;">
                 % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll" style="width: 105px;">${_("Register")}</a>
+                 % if request.LANGUAGE_CODE == 'en':
+                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll" style="width: 105px;text-align: center;">Create an account</a>
+                 % else:
+                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll" style="width: 105px;text-align: center;">Créer un compte</a>
+                 % endif
                 % else:
-                <a class="btn-neutral" href="/register" style="width: 105px;">${_("Register")}</a>
+                 % if request.LANGUAGE_CODE == 'en':
+                 <a class="btn-neutral" href="/register" style="width: 105px;text-align: center;">Create an account</a>
+                 % else:
+                 <a class="btn-neutral" href="/register" style="width: 105px;text-align: center;">Créer un compte</a>
+                 % endif
                 % endif
               </li>
             % endif
@@ -223,12 +241,12 @@ site_status_msg = get_site_status_msg(course_id)
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}" style="width:120px;font-size: 16px!important;">${_("Sign in")}</a>
+                <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}" style="width:120px;font-size: 16px!important;height: 60px;padding-top: 20px!important;">${_("Sign in")}</a>
               % else:
                 % if static.get_value('course_id') is not None:
-                <a class="btn btn-login" style="width:120px;font-size:16px!important" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
+                <a class="btn btn-login" style="width:120px;font-size:16px!important;height: 60px;padding-top: 20px!important;" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
-                <a class="btn btn-login" style="width:120px;font-size:16px!important" href="/login">${_("Sign in")}</a>
+                <a class="btn btn-login" style="width:120px;font-size:16px!important;height: 60px;padding-top: 20px!important;" href="/login">${_("Sign in")}</a>
                 % endif
               % endif
             % endif
@@ -266,6 +284,13 @@ site_status_msg = get_site_status_msg(course_id)
       % endif
     </nav>
 </header>
+% else:
+<style>
+ol.user {
+    display: none;
+}
+</style>
+%endif
 % if course:
 <!--[if lte IE 9]>
 <div class="ie-banner" aria-hidden="true">${Text(_('{begin_strong}Warning:{end_strong} Your browser is not fully supported. We strongly recommend using {chrome_link} or {ff_link}.')).format(
@@ -429,14 +454,21 @@ body.view-in-course .wrapper-course-material .course-material, .course-index, .c
   text-transform: uppercase;
 }
 .header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
-  color : ${color_custom}!important;
+  color : black!important;
   text-shadow : none!important;
 }
+ol.user{
+  position:absolute;
+  right:250px;
+}
 .label-username p, .label-username:hover p{
-color : ${color_custom}!important;
+  color : rgb(0,117,180)!important;
+  font-size: 16px;
+  position:relative;
+  top:-2px;
 }
 .fa-sort-down::before, .fa-sort-desc::before {
-    color:   ${color_custom}!important;
+    color:   rgb(0,117,180)!important;
 }
 #global-navigation .burger{
   color: rgba(28, 114, 138, 1) !important;
@@ -491,17 +523,26 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   #global-navigation .wrapper-header {
     max-width: 290px;
 }
+}
 .header-global h1.logo img.ec-logo-size {
-    margin-top: 0px;
+    margin-top: 20px;
 }
-}
+
 @media screen and (max-width: 680px) {
   body .header-global .nav-global li a, .header-global .nav-global div a {
     color: white!important;
     width: 82px!important;
   }
 }
-
+@media screen and (max-width: 540px) {
+  .header-global .user {
+    position: absolute;
+    right: 0;
+  }
+  .header-global .user .label-username {
+    display: none!important;
+  }
+}
 @media screen and (max-width: 400px) {
   .wrapper-header {
     max-width: 258px!important;

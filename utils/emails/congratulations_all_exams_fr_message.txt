@@ -1,0 +1,12 @@
+Bonjour {full_name} et félicitations !
+
+Merci pour votre participation, nous espérons que ce MOOC vous a plu. Pour rappel, vous pouvez télécharger votre attestation de réussite directement sur la plateforme, à la fin du cours. Et si vous souhaitez aller plus loin, le Certificat en Conservation des aires protégées (octroyé par l’Université Senghor d’Alexandrie) vous intéressera sans dout, plus d’information ici :
+{application_link}
+
+Si ce n’est déjà fait, n’oubliez pas d’aller voir les autres MOOC disponibles sur la plateforme. Nous sommes constamment en train de développer de nouveaux outils, donc restez connecté pour ne passer à côté d’aucun lancement.
+À très vite sur mooc-conservation.org,
+
+L’équipe MOOC Conservation  
+
+Vous ne souhaitez plus recevoir de mail de la plateforme Mooc-Conservation ? Cliquez ici :
+{opted_out_link}

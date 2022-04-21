@@ -1,0 +1,11 @@
+Hello {full_name},
+
+It has been a while since we’ve seen you on MOOC Conservation. Remember, the ongoing session finishes {course_end} so you should try to come back and finish the MOOC before. If you do not finish the course before this date you’ll have to retake all your exams.
+
+If you don’t have time to make follow the MOOC at this point, there’s always next session.
+
+See you again soon on mooc-conservation.org,
+The MOOC Conservation team
+
+You no longer wish to receive emails from the Mooc-Conservation platform? Click here:
+{opted_out_link}

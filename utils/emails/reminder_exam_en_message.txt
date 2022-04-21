@@ -1,0 +1,10 @@
+Hello {full_name},
+
+Unfortunately your average score doesn’t allow you to receive the attestation of success for the MOOC {course_name}. But not to worry, use this time to study, to understand the concepts that may be a bit unclear, and as soon as the next session starts, you’ll be able to retake the exams.
+
+See you again soon on mooc-conservation.org,
+
+The MOOC Conservation team
+
+You no longer wish to receive emails from the Mooc-Conservation platform? Click here:
+{opted_out_link}

@@ -231,9 +231,13 @@ width: 540px;
   }
 
   #english_flag{
-    padding-right:0;
+    padding-right:0 !important;
   }
 
+
+  ol.user {
+    visibility: hidden;
+}
 
 </style>
 
@@ -362,7 +366,7 @@ width: 540px;
       </div>
     </div>
   </section>
-  <div id="footer">
+  <!-- <div id="footer">
     <div id="footer_container" >
       <div class="footer_about_and_icon footer_div">
         <div class="footer_about">
@@ -433,7 +437,7 @@ width: 540px;
       </div>
       <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
     </div>
-  </div>
+  </div> -->
   </div>
 
   <div id="en">
@@ -485,7 +489,7 @@ width: 540px;
       </div>
     </div>
   </section>
-  <div id="footer">
+  <!-- <div id="footer">
     <div id="footer_container" >
       <div class="footer_about_and_icon footer_div">
         <div class="footer_about">
@@ -506,7 +510,6 @@ width: 540px;
             <ol class="footer_list_nav"></ol>
               <li class="footer_list_element"><a href="/#course_container">Our MOOCs</a></li>
               <li class="footer_list_element"><a href="/tos?lang=en">Other MOOCs</a></li>
-              <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
               <li class="footer_list_element"><a href="/faq?lang=en">F.A.Q</a></li>
               <li class="footer_list_element fr"><a href="/courses/course_id/about">French site</a></li>
             </ol>
@@ -556,7 +559,7 @@ width: 540px;
       </div>
       <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
     </div>
-  </div>
+  </div> -->
   </div>
 </main>
 
@@ -609,4 +612,6 @@ width: 540px;
 });
 
 });
+
+document.getElementById("global-navigation").remove()
 </script>

@@ -1,0 +1,6 @@
+Bonjour {full_name},
+
+Malheureusement votre moyenne aux examens ne vous permet pas d’obtenir d’attestation de réussite pour le MOOC {course_name}. Mais pas d’inquiétude, vous pourrez reprendre les examens lors de la prochaine session. En attendant, prenez le temps de bien réviser et de saisir les concepts qui vous échappent peut-être.
+
+Vous ne souhaitez plus recevoir de mail de la plateforme Mooc-Conservation ? Cliquez ici :
+{opted_out_link}

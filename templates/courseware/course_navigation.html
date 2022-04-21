@@ -109,8 +109,14 @@ include_special_exams = settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False) and
             <span style="display:block;clear:left;"></span>
         </div>
     </nav>
-%endif
+<script>
+console.log('TEST 2')
+</script>
 
+%endif
+<script>
+console.log('TEST 1')
+</script>
 % if show_preview_menu:
     <%
     preview_options = {

@@ -1,6 +1,7 @@
 ## mako
 <%page expression_filter="h"/>
 <%!
+  import re
   from django.core.urlresolvers import reverse
   from django.utils.translation import ugettext as _
   from branding.api import get_footer
@@ -38,40 +39,200 @@ if configuration_helpers.get_value('dark_theme'):
   color_custom = "#fff"
 else:
   color_custom = "#3c3c3c"
+
+full_path = request.get_full_path()
+home_pattern = re.compile(r"^/($|\?.*)")
+tos_pattern = re.compile(r"^/tos($|\?.*)")
+about_pattern = re.compile(r"^/about($|\?.*)")
+faq_pattern = re.compile(r"^/faq($|\?.*)")
+
+is_path_home = re.search(home_pattern, full_path)
+is_path_tos = re.search(tos_pattern, full_path)
+is_path_about = re.search(about_pattern, full_path)
+is_path_faq = re.search(faq_pattern, full_path)
 %>
 
-<link rel="stylesheet" type="text/css" href="${css}" />
-<style>
-body footer.global {
-    background-color: ${third_color}!important;
-    border-top: 1px solid #000;
-}
-body footer.global ul.links li a, body footer.global ul.links li a:hover {
-  color:rgba(28, 114, 138, 1) !important;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/extra/css/index.css">
 
-<footer class="global">
-  <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="#">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
+% if request.LANGUAGE_CODE == 'fr':
+<!-- FRENCH SECTION -->
+<div id="footer">
+  <div id="footer_container" >
+    <div class="footer_about_and_icon footer_div">
+      <div class="footer_about">
+        <p class="footer_title">
+          A propos de MOOC Conservation
+        </p>
+        <p class="footer_text">
+          MOOC Conservation est un site dédié aux cours en ligne sur la conservation de la nature, développés par l’UICN-PAPACO (Programme aires protégées d’Afrique et conservation, de l’Union internationale pour la conservation de la nature) et ses partenaires. Ces cours sont entièrement gratuits et tout le monde peut s’inscrire et participer.
+        </p>
+      </div>
+      <a href="https://papaco.org/fr/"><img class="footer_icon" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
     </div>
+
+    <div class="footer_menu_and_sm footer_div">
+      <div class="footer_menu">
+        <p class="footer_title"> Menu </p>
+        <div class="footer_list">
+          <ol class="footer_list_nav"></ol>
+            <li class="footer_list_element"><a href="/#course_container" target="_blank">Nos MOOC</a></li>
+            <li class="footer_list_element"><a href="/tos?lang=fr" target="_blank">MOOC partenaires</a></li>
+            <li class="footer_list_element"><a href="/about" target="_blank">Certificat</a></li>
+            <li class="footer_list_element"><a href="/faq?lang=fr" target="_blank">F.A.Q</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="footer_sm">
+        <p class="footer_title"> Suivez-nous</p>
+        <div class="footer_list"> 
+          <ol class="footer_list_nav">
+            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" target="_blank">Page Facebook de l'UICN Papaco</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/" target="_blank>Groupe Facebook francophone des MOOC</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190" target="_blank>Groupe Facebook anglophone des MOOC</a></li>
+            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">Twitter @Papaco_IUCN</a></li>
+            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
+            <li class="footer_list_element"><a href="https://papaco.org/fr/" target="_blank">Site de l'UICN-PAPACO</a></li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer_mooc_list footer_div">
+      <p class="footer_title"> Nos MOOC</p>
+      <div class="footer_list"> 
+        <ol class="footer_list_nav">
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-protegees+2021_T1/about">MOOC Gestion des aires protégées</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+suivi-eco+2021_T1/about">MOOC Suivi écologique</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+application-loi+2021_T1/about">MOOC Application des lois</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+conservation-especes+2021_T1/about">MOOC Conservation des espèces</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+valorisation-aires+2021_T1/about">MOOC Valorisation des ressources & tourisme durable</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+nouvelles-technologies+2021_T1/about">MOOC Nouvelles technologies</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+aires-marines+2021_T1/about">MOOC Aires marines protégées</a></li>
+        </ol>
+      </div>
+
+      <p class="footer_title"> Nos essentiels</p>
+      <div class="footer_list"> 
+        <ol class="footer_list_nav">
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essentiel-ranger+2021_T1/about">Essentiel Ranger</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essentiel-manager-loi+2021_T1/about">Essentiel Manager - Loi </a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1/about">Essentiel Manager - Recherche</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essentiel-leader+2021_T1/about">Essentiel Leader</a></li>
+        </ol>
+      </div>
+
+    </div>
+    <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
   </div>
-</footer>
+</div>
+
+% else:
+<!-- ENGLISH SECTION -->
+<div id="footer">
+  <div id="footer_container" >
+    <div class="footer_about_and_icon footer_div">
+      <div class="footer_about">
+        <p class="footer_title">
+          About MOOC Conservation
+        </p>
+        <p class="footer_text">
+          MOOC Conservation is a platform that is dedicated to online courses on nature conservation. The training materials are developed by IUCN-PAPACO (the International Union for Conservation of Nature’s Programme on African Protected Areas and Conservation) and its partners. The courses are free of charge and open to all.
+        </p>
+      </div>
+      <a href="https://papaco.org/fr/"><img class="footer_icon" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
+    </div>
+
+    <div class="footer_menu_and_sm footer_div">
+      <div class="footer_menu">
+        <p class="footer_title"> Menu </p>
+        <div class="footer_list">
+          <ol class="footer_list_nav"></ol>
+            <li class="footer_list_element"><a href="/#course_container_en_anchor" target="_blank">Our MOOCs</a></li>
+            <li class="footer_list_element"><a href="/tos?lang=en" target="_blank">Other MOOCs</a></li>
+            <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
+            <li class="footer_list_element"><a href="/faq?lang=en" target="_blank">F.A.Q</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="footer_sm">
+        <p class="footer_title"> Follow us</p>
+        <div class="footer_list"> 
+          <ol class="footer_list_nav">
+            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" target="_blank">IUCN Papaco Facebook page</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/" target="_blank">English-speaking MOOCs Facebook group</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190" target="_blank">French-speaking MOOCs Facebook group</a></li>
+            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">IUCN-PAPACO website</a></li>
+            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
+            <li class="footer_list_element"><a href="https://papaco.org/" target="_blank">IUCN-PAPACO website</a></li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer_mooc_list footer_div">
+      <p class="footer_title"> Our MOOCs</p>
+      <div class="footer_list"> 
+        <ol class="footer_list_nav">
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+protected-areas+2021_T1_EN/about">Protected area management</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+eco-monitoring+2021_T1_EN/about">Ecological monitoring</a></li>
+          <li class="footer_list_element"><a href="/course-v1:mooc-conservation+law-enforcement+2021_T1_EN/about">Law enforcement</a></li>
+          <li class="footer_list_element"><a href="/course-v1:mooc-conservation+species-conservation+2021_T1_EN/about">Species conservation</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+areas-valorisation+2021_T1_EN/about">Valorisation of resources</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+new-techs+2021_T1_EN/about">New technologies</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+marine-areas+2021_T1_EN/about">Marine protected areas</a></li>
+        </ol>
+      </div>
+
+      <p class="footer_title"> Our Essentials</p>
+      <div class="footer_list"> 
+        <ol class="footer_list_nav">
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/about">Essential Ranger</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/about">Essential Manager - Law </a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/about">Essential Manager - Research</a></li>
+          <li class="footer_list_element"><a href="/courses/course-v1:mooc-conservation+essential-leader+2021_T1_EN/about">Essential Leader</a></li>
+        </ol>
+      </div>
+
+    </div>
+    <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
+  </div>
+</div>
+% endif
+
+<script>
+console.log('${is_path_home}')
+console.log('${is_path_faq}')
+console.log('${is_path_tos}')
+console.log('${is_path_about}')
+</script>
+
+% if not is_path_home and not is_path_faq and not is_path_tos and not is_path_about:
+<link rel="stylesheet" href="/media/microsite/mooc-conservation/css/responsive_top_layer_3.css" type="text/css" media="screen" />
+<style>
+  #global-navigation {
+    display: block !important;
+  }
+  #footer_container {
+    padding-top: 65px;
+  }
+  #footer {
+    background-color: rgba(28,114,138,1) !important;
+    background-image: none;
+  }
+  #footer {
+      height: 500px;
+      margin-top: 50px;
+    }
+@media screen and (max-width: 1000px) {
+  #footer {
+      height: auto;
+    }
+  }
+</style>
+% endif

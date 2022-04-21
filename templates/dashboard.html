@@ -151,7 +151,7 @@ endfor
 no_forum_list = ["course-v1:mooc-conservation+essential-leader+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-law+2021_T1_EN", "course-v1:mooc-conservation+essential-manager-research+2021_T1_EN", "course-v1:mooc-conservation+essential-ranger+2021_T1_EN", "course-v1:mooc-conservation+essentiel-leader+2021_T1", "course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1", "course-v1:mooc-conservation+essentiel-manager-loi+2021_T1","course-v1:mooc-conservation+essentiel-ranger+2021_T1"]
 
 def is_forum_allowed(course_id):
-  if False and str(course_id) not in no_forum_list:
+  if str(course_id) not in no_forum_list:
     return True
   return False
 %>
@@ -680,9 +680,9 @@ $(window).initialize(function(){
 </div>
 <script>
 $(document).ready(function(){
-  $('.multi_course_image a:not([href*="essenti"]), .multi_course_title a:not([href*="essenti"]), .down_cell a:not([href*="essenti"])').each(function() {
-      $(this).addClass('disabled')
-  });
+//  $('.multi_course_image a:not([href*="essenti"]), .multi_course_title a:not([href*="essenti"]), .down_cell a:not([href*="essenti"])').each(function() {
+//      $(this).addClass('disabled')
+//  });
 
   $('.multi_course_image a[href*="essenti"], .multi_course_title a[href*="essenti"], .down_cell a[href*="essenti"]').each(function() {
       $(this).removeClass('disabled')
@@ -690,3 +690,8 @@ $(document).ready(function(){
 });
 </script>
 
+<style>
+#content {
+  margin-bottom : 30px;
+}
+</style>

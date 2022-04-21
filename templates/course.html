@@ -25,9 +25,17 @@ from django.core.urlresolvers import reverse
           course_date_string = ''
       %>
       % if course.advertised_start is not None:
+          % if LANGUAGE_CODE == "en":
           <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+          % else:
+          <div class="course-date" aria-hidden="true">Début : ${course.advertised_start}</div>
+          % endif
       % else:
+          % if LANGUAGE_CODE == "en":
           <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}"></div>
+          % else:
+          <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Début : {date}")}"></div>
+          % endif
       % endif
     </div>
     <div class="sr">
@@ -35,9 +43,17 @@ from django.core.urlresolvers import reverse
         <li>${course.display_org_with_default}</li>
         <li>${course.display_number_with_default}</li>
         % if course.advertised_start is not None:
+            % if LANGUAGE_CODE == "en":
             <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
+            % else:
+            <li>${_("Starts")} : <time itemprop="startDate">${course.advertised_start}</time></li>
+            % endif
         % else:
+            % if LANGUAGE_CODE == "en":
             <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
+            % else:
+            <li>${_("Starts")} : <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
+            % endif
         % endif
       </ul>
     </div>

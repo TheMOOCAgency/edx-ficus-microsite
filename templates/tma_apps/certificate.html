@@ -277,5 +277,13 @@ font-weight: 300;
 
     $('#dateDeCertificat').text(certificate_date)
   })
+  $( document ).ready(function() {
+    if ($('.name').text().length >= 36) {
+    $('.name').css({
+      'font-size': '20px',
+      'margin-bottom': '40px',
+      'line-height': 1})
+    }
+  });
 </script>
 

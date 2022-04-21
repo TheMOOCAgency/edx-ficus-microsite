@@ -1,0 +1,12 @@
+Hello {full_name}, and congratulations!
+
+Thanks a lot for your participation, we hope you enjoyed this MOOC. If you haven’t done so yet, you may now download your attestation of success from the platform, at the end of the course.
+
+If you wish to participate in other courses on conservation, have a look at our other MOOCs on the platform.
+
+Stay connected, as we are constantly in the process of developing new materials.
+
+See you again soon on mooc-conservation.org,
+
+You no longer wish to receive emails from the Mooc-Conservation platform? Click here:
+{opted_out_link}

@@ -1,0 +1,13 @@
+Congratulations {full_name}!
+
+You’ve just submitted your first exam. Now that you got the hang of it, keep going and complete all the exams of this MOOC. Remember, if your average score for this MOOC reaches 75% or more, you’ll be able to download an attestation of success. 
+
+To see your current progress, click on the PROGRESS tab of the MOOC you’re following.
+
+Note: this email doesn’t consider the score to your exam, and you will not receive an email after each exam.
+
+See you again soon on mooc-conservation.org,
+The MOOC Conservation team
+
+You no longer wish to receive emails from the Mooc-Conservation platform? Click here:
+{opted_out_link}

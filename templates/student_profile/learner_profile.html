@@ -44,3 +44,17 @@ label.u-field-upload-button{
     LearnerProfileFactory(options);
 </%static:require_module>
 </%block>
+<script>
+  $( document ).ready(function() {
+    var loopLink = setInterval(function(){
+      % if request.LANGUAGE_CODE == 'fr':
+      $( ".wrapper-profile-section-one").after("<a href='/account/settings'>Paramètres de compte</a>");
+      % else:
+      $( ".wrapper-profile-section-one").after("<a href='/account/settings'>Account parameters</a>");
+      % endif
+      if ($( ".wrapper-profile-section-one").length > 0) {
+        clearInterval(loopLink);
+      }
+    }, 500);
+  });
+</script>

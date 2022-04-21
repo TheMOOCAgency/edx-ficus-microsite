@@ -1,0 +1,15 @@
+Félicitations {full_name} !
+
+Vous venez de soumettre votre premier examen. Maintenant que vous avez compris le fonctionnement, poursuivez vos efforts et continuez jusqu’à soumission de tous les examens du MOOC en cours. Si votre moyenne aux examens du MOOC est supérieure ou égale à 75%, vous pourrez télécharger une attestation de réussite.
+
+Autre point important, si vous validez tous les MOOC du Papaco, vous pourrez passer un examen supplémentaire et peut-être obtenir le Certificat en Conservation des aires protégées (octroyé par l’Université Senghor d’Alexandrie). Pour plus d’informations à ce sujet, cliquez ici :
+{application_link}
+
+Pour savoir où vous en êtes, cliquez sur PROGRESSION dans le menu du MOOC qui vous intéresse.
+Note : cet email ne prend pas en compte votre score à l’examen, et vous ne recevrez pas de mail après chaque examen.
+
+À très bientôt sur mooc-conservation.org,
+L’équipe MOOC Conservation 
+
+Vous ne souhaitez plus recevoir de mail de la plateforme Mooc-Conservation ? Cliquez ici :
+{opted_out_link}

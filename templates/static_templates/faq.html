@@ -91,6 +91,14 @@ display : none;
   .navigation_list_element .nav_list > a:active, .navigation_list_element .nav_list > a:visited, .navigation_list_element .nav_list > a:link{
     color: rgba(28,114,138,1)!important;
   }
+
+  #global-navigation{
+    display: none !important;
+  }
+
+  ol.user {
+    visibility: hidden;
+}
   </style>
 
 <header class="page_header">
@@ -250,7 +258,7 @@ display : none;
       </div>
       </section>
 
-      <div id="footer">
+      <!-- <div id="footer">
         <div id="footer_container" >
           <div class="footer_about_and_icon footer_div">
             <div class="footer_about">
@@ -321,7 +329,7 @@ display : none;
           </div>
           <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div id="en">
@@ -404,7 +412,7 @@ display : none;
       </div>
       </section>
 
-      <div id="footer">
+      <!-- <div id="footer">
         <div id="footer_container" >
           <div class="footer_about_and_icon footer_div">
             <div class="footer_about">
@@ -425,7 +433,6 @@ display : none;
                 <ol class="footer_list_nav"></ol>
                   <li class="footer_list_element"><a href="/#course_container_en_anchor">Our MOOCs</a></li>
                   <li class="footer_list_element"><a href="/tos?lang=en">Other MOOCs</a></li>
-                  <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
                   <li class="footer_list_element"><a href="/faq?lang=en">F.A.Q</a></li>
                   <li class="footer_list_element fr"><a href="/courses/course_id/about">French site</a></li>
                 </ol>
@@ -475,7 +482,7 @@ display : none;
           </div>
           <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
         </div>
-      </div>
+      </div> -->
     </div>
   </main>
 
@@ -544,5 +551,7 @@ for (let i = 0; i < toHideCourses.length; i++) {
 }
 })
 
+
+document.getElementById("global-navigation").remove()
 </script>
   <!-- script to display / undisplay element -->

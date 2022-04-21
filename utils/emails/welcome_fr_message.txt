@@ -1,0 +1,23 @@
+Bonjour {full_name},
+
+Bienvenue sur MOOC Conservation et merci d’avoir rejoint le MOOC {course_name} !
+
+Maintenant que vous êtes inscrit et tant que la session est ouverte (voir dates sur la plateforme), vous pouvez suivre les cours à votre rythme, passer les examens et poser vos questions sur le forum de discussions de la plateforme. Si vous validez les examens avec une moyenne supérieure ou égale à 75%, vous pourrez télécharger une attestation de réussite (onglet « Attestation de réussite » à la fin du cours).
+
+Notez que si vous avez validé tous les MOOC, vous pouvez passer un examen supplémentaire et obtenir le Certificat en ligne en Conservation des aires protégées, un diplôme octroyé par l’Université Senghor d’Alexandrie. Pour plus d’informations à ce sujet et pour soumettre votre candidature, allez sur le lien suivant :
+{application_link}
+
+Lisez nos mails et suivez-nous sur les réseaux sociaux (Facebook, Instagram, Twitter et LinkedIn) pour ne passer à côté d’aucune information importante : dates de webinaires avec l’équipe MOOC Conservation, événements spéciaux etc. 
+
+Facebook : {facebook_link}
+Instagram : {instagram_link}
+Twitter : {twitter_link}
+LinkedIn : {linkedin_link}
+
+Un certain nombre « d’ambassadeurs » sont également disponibles pour vous aider. Il s’agit de participants s’étant porté volontaires pour aider les étudiants de leurs villes ou régions, mais aussi pour animer des réseaux de passionnés de conservation. La liste complète peut être consultée ici :
+{ambassadors}
+
+N’hésitez pas à nous contacter si vous avez des questions. 
+
+Vous ne souhaitez plus recevoir de mail de la plateforme Mooc-Conservation ? Cliquez ici :
+{opted_out_link}

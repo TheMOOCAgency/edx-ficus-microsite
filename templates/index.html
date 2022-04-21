@@ -52,6 +52,9 @@ courses = sort_by_announcement(courses)
   .navigation_list_element .nav_list > a:active, .navigation_list_element .nav_list > a:visited, .navigation_list_element .nav_list > a:link{
     color: rgba(28,114,138,1)!important;
   }
+  #global-navigation {
+    display: none !important;
+  }
   </style>
 
 <main id="main" aria-label="Content" tabindex="-1">
@@ -171,7 +174,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
       <div id="header">
         <nav id="navigation">
           <ol id="navigation_list">
-            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Nos Mooc</a></li>
+            <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/#course_container">Nos MOOC</a></li>
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="#container_essentiels">Nos essentiels</a></li>
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/tos?lang=fr">MOOC Partenaires</a></li>
             <li class="navigation_list_element nav_list"><a style="color: rgba(28,114,138,1)!important;" href="/about">Certificat</a></li>
@@ -179,11 +182,11 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
             <li class="navigation_list_element nav_button register_button tooltip"><span class="tooltiptext">Si vous vous connectez ici pour la première fois, vous devez créer un compte</span><a class="test" href="/register">Créer un compte</a></li>
             <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">Si vous avez déjà un compte, rejoignez directement vos cours</span><a href="/login">Se connecter</a></li>
           </ol>
-            <div style="position: absolute;top: 220px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
+            <!--<div style="position: absolute;top: 230px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
                       background-color: rgba(255,255,255,0.75);border: 2px solid black;
             ">Début de la prochaine session : 1er septembre 2021.
             <br><b>Les inscriptions sont ouvertes !</b>
-          </div>
+          </div>-->
         </nav>
       </div>
       <div id="course_container">
@@ -232,7 +235,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">Début : 15 février 2021</div>
+                                <div class="course-date" aria-hidden="true">Toujours en ligne</div>
                           </div>
                         </a>
                       </article>
@@ -250,7 +253,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Début : 15 février 2021</div>
+                            <div class="course-date" aria-hidden="true">Toujours en ligne</div>
                           </div>
                         </a>
                       </article>
@@ -268,7 +271,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Début : 15 février 2021</div>
+                            <div class="course-date" aria-hidden="true">Toujours en ligne</div>
                           </div>
                         </a>
                       </article>
@@ -286,7 +289,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Début : 15 février 2021</div>
+                            <div class="course-date" aria-hidden="true">Toujours en ligne</div>
                           </div>
                         </a>
                       </article>
@@ -298,7 +301,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           </div>
         </div>
       </div>
-      <div id="footer">
+      <!-- <div id="footer">
         <div id="footer_container" >
           <div class="footer_about_and_icon footer_div">
             <div class="footer_about">
@@ -369,7 +372,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           </div>
           <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
         </div>
-      </div>
+      </div> -->
     </section>
   </div>
 
@@ -393,11 +396,11 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           <li class="navigation_list_element nav_button login_button tooltip"><span class="tooltiptext">If you already have an account, go to your courses</span><a href="/login">Sign in</a></li>
         </ol>
         </nav>
-        <div style="position: absolute;top: 220px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
+        <!--<div style="position: absolute;top: 230px;right: 0;padding: 10px 10px 10px 10px;margin-right: 20px;color: black;font-size: 20px;line-height: normal;
                       background-color: rgba(255,255,255,0.75);border: 1px solid black;
             ">Start of next session: September 1, 2021
-            <br><b>registration is open!</b>
-          </div>
+            <br><b>Registration is open!</b>
+          </div>-->
       </div>
       <div id="course_container">
         <div id="course_container_en_anchor" class="course_list">
@@ -443,7 +446,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                                <div class="course-date" aria-hidden="true">Starts: February, 15 2021</div>
+                                <div class="course-date" aria-hidden="true">Always online</div>
                           </div>
                         </a>
                       </article>
@@ -461,7 +464,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Starts: February, 15 2021</div>
+                            <div class="course-date" aria-hidden="true">Always online</div>
                           </div>
                         </a>
                       </article>
@@ -479,7 +482,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Starts: February, 15 2021</div>
+                            <div class="course-date" aria-hidden="true">Always online</div>
                           </div>
                         </a>
                       </article>
@@ -497,7 +500,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                             </div>
                           </header>
                           <div class="course-info" aria-hidden="true">
-                            <div class="course-date" aria-hidden="true">Starts: February, 15 2021</div>
+                            <div class="course-date" aria-hidden="true">Always online</div>
                           </div>
                         </a>
                       </article>
@@ -509,7 +512,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           </div>
         </div>
       <!-- </div> -->
-      <div id="footer">
+      <!-- <div id="footer">
         <div id="footer_container" >
           <div class="footer_about_and_icon footer_div">
             <div class="footer_about">
@@ -530,7 +533,6 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
                 <ol class="footer_list_nav"></ol>
                   <li class="footer_list_element"><a href="/#course_container_en_anchor">Our MOOCs</a></li>
                   <li class="footer_list_element"><a href="/tos?lang=en">Other MOOCs</a></li>
-                  <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
                   <li class="footer_list_element"><a href="/faq?lang=en">F.A.Q</a></li>
                   <li class="footer_list_element fr"><a href="/courses/course_id/about">French site</a></li>
                 </ol>
@@ -580,7 +582,7 @@ logged_out_greeting="Bonjour, comment pouvons-nous vous aider ? Hi, how can we h
           </div>
           <a href="https://papaco.org/fr/"><img class="footer_icon_mobile" src="/media/microsite/mooc-conservation/extra/images/IUCNPAPACO _logo.png" alt="IUCN PAPACO logo"></a>
         </div>
-      </div>
+      </div> -->
     </section>
   </div> 
 </main>

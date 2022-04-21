@@ -21,7 +21,6 @@ def url_class(is_active):
   return ""
 %>
 % for tab in tab_list:
-  %if tab.name != "Discussion":
   <%
     tab_is_active = tab.tab_id in (active_page, default_tab)
     tab_class = url_class(tab_is_active)
@@ -29,9 +28,9 @@ def url_class(is_active):
   % if tab.name != "Discussion" or is_forum_allowed():
   <li class="tab">
   %if tab.name=="Home":
-  <a href="/dashboard" class="${tab_class}" style="color:black!important">
+  <a href="/dashboard" class="${tab_class}" style="color:white!important">
   %else:
-  <a href="${tab.link_func(course, reverse)}" class="${tab_class}" style="color:black!important">
+  <a href="${tab.link_func(course, reverse)}" class="${tab_class}" style="color:white!important">
   %endif
 
   <style>
@@ -59,7 +58,7 @@ def url_class(is_active):
     fill: #000!important;
   }
   .wrapper-course-material .course-tabs li a:visited.active {
-    color: #000!important;
+    color: #fff!important;
     border-bottom-color: #000!important;
   }
   .tabs .tab a:hover, .tabs .tab a:focus, .tabs .tab a:visited:hover, .tabs .tab a:visited:focus {
@@ -67,15 +66,290 @@ def url_class(is_active):
     border-bottom-color: #000 !important;
   }
   .wrapper-course-material .course-tabs li {
-    border-right: 1px solid #000!important;
+    border-right: 1px solid #fff!important;
   }
   .wrapper-course-material .course-tabs li a, .wrapper-course-material .course-tabs li a:visited {
-    color: #000!important;
+    color: #fff!important;
   }
   wrapper-course-material .course-tabs li a, .wrapper-course-material .course-tabs li a:visited:focus {
     color: #000;
     border-bottom-color: #000 !important;
   }
+
+
+  .menu-accordion .burger, .burgerMenuText, .bookmarks-list-button{
+  display: none!important;
+}
+#global-navigation .burger{
+  display: none;
+}
+.caption-window {
+  display: none!important;
+}
+@media screen and (max-width: 680px) {
+  *{
+    max-width: auto!important;
+    min-width: auto!important;
+  }
+  .burgerMenuText{
+    display: block;
+  }
+  .header-global .wrapper-header .list-inline.nav-global {
+      display: flex!important;
+      justify-content : space-around!important;
+      flex-direction: column;
+  }
+  .view-register .header-global nav, .view-login .header-global nav{
+    max-width: calc(100vw - 20px);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: transparent!important;
+  }
+  .header-global .nav-global{
+    display: flex;
+  }
+  .login .content, .register .content, .passwordreset .content, #forgot-password-modal #password-reset .content{
+    float: none!important;
+    margin : 0!important;
+  }
+  #forgot-password-modal{
+    margin-left: auto!important;
+    max-width: 100vw!important;
+    left: 0px!important;
+  }
+  #unenroll-modal{
+    margin-left: auto!important;
+    max-width: 100vw!important;
+    left: 0px!important;
+  }
+  #email-settings-modal{
+    margin-left: auto!important;
+    max-width: 100vw!important;
+    left: 0px!important;
+  }
+  .container{
+    max-width: 100vw!important;
+    box-sizing: border-box;
+  }
+  .content{
+    width : auto!important;
+    box-sizing: border-box;
+  }
+  /**courseware**/
+
+  .course-wrapper .course-content{
+    width : calc(100vw - 10px)!important;
+  }
+  .course-wrapper .course-content .vert-mod .vert>.xblock-student_view, .course-wrapper .courseware-results-wrapper .vert-mod .vert>.xblock-student_view{
+    margin : 0px!important;
+    padding : 0px!important;
+    width : 100%!important;
+  }
+  .menu-accordion{
+    position:relative;
+    max-width : 80vw;
+  }
+  .menu-accordion .burger
+  {
+    display: block!important;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    font-family:'Material Icons';
+    font-size:30px;
+    line-height:50px;
+    margin:0;
+    outline:0;
+    padding:0;
+    position:absolute;
+    text-align:left;
+    top:-50px;
+    left:10px;
+    width:260px;
+    z-index: 9;
+    color: black;
+  }
+  .menu-accordion .burger:before
+  {
+    content:'more_vert';
+    color: white;
+  }
+  .menu-accordion .burger:checked:before
+  {
+    content:'close';
+    color: #fff!important;
+  }
+  .menu-accordion .burgerMenuText
+  {
+    position: absolute;
+    top: -34px;
+    left: 50px;
+    color: white;
+    width: 250px;
+    font-weight: 600;
+  }
+  .menu-accordion .course-index
+  {
+    max-width:0;
+    overflow:hidden;
+    transition:max-width .2s;
+  }
+  .menu-accordion .course-index > *
+  {
+    overflow:hidden;
+  }
+  .menu-accordion .burger:checked + .course-index
+  {
+    max-width:96vw;
+    width:96vw!important;
+    z-index: 500;
+    min-height: 100vh!important;
+    position: absolute;
+    color: #fff
+  }
+  .menu-accordion .burger:checked + .course-index
+  {
+    overflow:visible!important;
+  }
+  .menu-accordion .burger:checked + .course-index > *
+  {
+    overflow:visible!important;
+  }
+  iframe{
+    max-width: 100%!important;
+  }
+
+  .course-material{
+    height : 50px;
+  }
+  .button-previous{
+    width : 60px!important;
+  }
+  .button-previous>span:nth-child(2){
+    display: none;
+  }
+  .button-next{
+    width : 60px!important;
+  }
+  .button-next>span:nth-child(1){
+    display: none;
+  }
+  .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button:hover, .xmodule_display.xmodule_SequenceModule .sequence-nav ol li button{
+    width : 20px!important;
+    height : 20px!important;
+  }
+  .xmodule_display.xmodule_SequenceModule nav.sequence-bottom{
+    z-index: 8!important;
+  }
+  .xmodule_display.xmodule_VideoModule .video .wrapper-downloads {
+    display: block!important;
+  }
+  .header-global h1.logo {
+    margin: 0px!important;
+    position: absolute;
+    left: 35px;
+  }
+  .btn .btn-login{
+    width: 122px;
+  }
+  .left .list-inline .nav-global{
+    width: 150px;
+  }
+  #menuToggle{
+    display: none;
+  }
+  .wrapper-header{
+    max-width: 290px;
+    position: absolute;
+    right: 0;
+  }
+  #register-form #password{
+    margin-top : 35px;
+  }
+  #register-form #password + span{
+    top: 10px!important;
+  }
+  /***Custom cfi***/
+  .dropdown-menu-container .menu-title {
+    font-size : 0px!important;
+  }
+  body .header-global .nav-global li a, .header-global .nav-global div a {
+    color: #fff !important;
+  }
+  #global-navigation .wrapper-header {
+    max-width: 290px!important;
+  }
+   #global-navigation{
+    position:relative;
+    max-width : 100vw;
+  }
+  #global-navigation .burger
+  {
+    display: block!important;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    font-family:'Material Icons';
+    font-size:30px;
+    line-height:50px;
+    margin:0;
+    outline:0;
+    padding:0;
+    position:absolute;
+    text-align:center;
+    top:20px;
+    left:10px;
+    width:50px;
+    z-index: 603;
+    color: black;
+  }
+  body.view-in-course .wrapper-course-material .course-material .course-tabs {
+    display: none;
+  }
+  #global-navigation .burger:before
+  {
+    content:'menu';
+  }
+  #global-navigation .burger:checked:before
+  {
+    content:'close';
+    color: #000!important;
+  }
+  .nav-global{
+    margin-right: 0px!important;
+  }
+  #global-navigation .wrapper-header
+  {
+    max-width:0;
+    overflow:hidden;
+    transition:max-width .2s;
+    background-color: transparent!important;
+  }
+  #global-navigation .wrapper-header > *
+  {
+    overflow:hidden;
+  }
+  #global-navigation .burger:checked + .wrapper-header
+  {
+    max-width:100vw;
+    width:100vw!important;
+    z-index: initial;
+    min-height: 100vh!important;
+    position: absolute;
+    color: #000!important;
+    left: 0px;
+    box-sizing: border-box;
+align-items: center;
+  }
+
+  .nav-global > * {
+    overflow: auto!important;
+  }
+}
   </style>
 
   ${_(tab.name)}
@@ -90,11 +364,4 @@ def url_class(is_active):
   </a>
   </li>
   %endif
-  %endif
 % endfor
-<li class="tab">
-  <a href="/faq" class="${tab_class}" style="color:black!important">
-  FAQ
-  </a>
-</li>
-

@@ -1,0 +1,11 @@
+Bonjour {full_name},
+
+Voilà quelques semaines que vous ne vous êtes pas connecté à MOOC Conservation. Pour rappel, la session en cours se termine le {course_end}, nous vous invitons donc à terminer le cours avant cette date. Une fois la session terminée, vos réponses aux examens seront réinitialisées.
+
+Si vous n’avez pas le temps de suivre le MOOC, vous pourrez toujours reprendre le tout lors de la prochaine session.
+
+À très bientôt sur mooc-conservation.org,
+L’équipe MOOC Conservation 
+
+Vous ne souhaitez plus recevoir de mail de la plateforme Mooc-Conservation ? Cliquez ici :
+{opted_out_link}

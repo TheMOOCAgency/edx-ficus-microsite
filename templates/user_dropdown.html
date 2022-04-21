@@ -30,7 +30,7 @@ a.dropdown.full-width-button.active{
 </style>
 % if uses_pattern_library:
   <a type="button" class="menu-button button-more has-dropdown js-dropdown-button" aria-expanded="false" aria-controls="${_("Usermenu")}" style="width: auto;">
-    <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu" style="padding-top : 16px; margin-top: -30px;">
+    <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu" style="padding-top : 16px;">
             <span class="sr-only">${_("Dashboard for:")}</span>
             <%
             username = self.real_user.username
@@ -47,6 +47,7 @@ a.dropdown.full-width-button.active{
                   <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
 <!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
               </%block>
+              <li class="dropdown-item item has-block-link"><a href="/courses" role="menuitem" class="action dropdown-menuitem">${_("Explore Courses")}</a></li>
               <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
           </ul>
         </div>
@@ -71,6 +72,7 @@ a.dropdown.full-width-button.active{
                 <span class="sr">${_("More options dropdown")}</span><span class="fa fa-sort-desc" aria-hidden="true"></span>
                 <ul class="dropdown-menu" aria-label="More Options" role="menu">
                     ${navigation_dropdown_menu_links()}
+                    <li class="item"><a href="/courses" role="menuitem" class="dropdown-menuitem">${_("Explore Courses")}</a></li>
                     <li class="item"><a href="${reverse('logout')}" role="menuitem" class="dropdown-menuitem">${_("Sign Out")}</a></li>
                 </ul>
             </div>
