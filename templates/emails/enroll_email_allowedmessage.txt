@@ -6,7 +6,7 @@ Bonjour,
 
 Vous avez été inscrit à ${course.display_name_with_default_escaped}. Vous pouvez réaliser le module en vous connectant à https://orano.the-mooc-agency.com/login, vos identifiants sont les mêmes que pour le premier module.
 
-Pour rappel, votre identifiant est votre adresse mail, si vous avez oubliée votre mot de passe, cliquez sur « mots de passe oubliée ? »
+Pour rappel, votre identifiant est votre adresse mail, si vous avez oublié votre mot de passe, cliquez sur « mot de passe oublié ? »
 
 Bien cordialement,
 Orano
