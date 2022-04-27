@@ -100,6 +100,8 @@ date_position_x = certificate_config['date_position_x']
     background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
         % elif request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
     background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+        % elif request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
         % else :
             % if int(grades['grade']*100) < 70 :
     background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
