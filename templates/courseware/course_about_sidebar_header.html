@@ -25,9 +25,15 @@ $(document).ready(function(){
         });
 });
 </script>
-           <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
-           &nbsp;<br/> Accéder au MOOC ! <br/>&nbsp;<br/></span>
 
+      <span style="cursor:pointer;" onclick="window.location.href='/dashboard'">
+        %if request.LANGUAGE_CODE == 'nl-nl':
+          <p> Toegang tot MOOC ! </p>
+        %else:
+          <p> Accéder au MOOC ! </p>
+        %endif
+      </span>
+      
     % else:
            Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
     % endif

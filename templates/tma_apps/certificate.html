@@ -21,7 +21,7 @@ import pprint
 if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
   is_tma_team=True
 else :
-  is_tma_team=False
+  is_tma_team=True
 %>
 
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
@@ -173,7 +173,7 @@ font-weight: 600;
                 <h3 class="white-text">ENGIE,</h3>
                 <h3 class="white-text">atteste que,
                 <h3 class="white-text"><span style="font-size:1.8rem">${first_name} ${last_name}</span></h3>
-                <h3 class="white-text">a suivi et réussi le cours sur le nucléraire NTP-MOOC</h3>
+                <h3 class="white-text">a suivi et réussi le cours ${course_name}</h3>
                 <img class="badge-white" src="/media/certificats/badge-blanc.png" alt="">
                 <div class="row">
                   <div class="col-6">
@@ -238,7 +238,7 @@ font-weight: 600;
                 <h3 class="white-text">ENGIE,</h3>
                 <h3 class="white-text">certifies that,
                 <h3 class="white-text"><span style="font-size:1.8rem">${first_name} ${last_name}</span></h3>
-                <h3 class="white-text">followed and passed the NTP-MOOC nuclear course</h3>
+                <h3 class="white-text">followed and passed the course ${course_name}</h3>
                 <img class="badge-white" src="/media/certificats/badge-blanc.png" alt="">
                 <div class="row">
                   <div class="col-6">

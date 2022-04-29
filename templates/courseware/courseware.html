@@ -461,3 +461,25 @@ setInterval(function(){
 // USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
 
 </script>
+
+<!-------------- script remplacer text elements changer langue ----------------->
+
+<script>
+
+  window.addEventListener('load', () => {
+      console.log('ready')
+
+      const check = document.querySelector('#course-search-input').getAttribute('placeholder')
+      const accueuil = document.querySelector('.course-tabs').children[0].children[0]
+      const home = document.querySelector('.course-tabs').children[2].children[0]
+
+      console.log('check')
+
+      if (check.includes('Opzoeken')){
+          accueuil.innerHTML='<span class="icon fa fa-chevron-prev" aria-hidden="true"></span>      Terug naar home'
+          home.innerHTML='home'
+      }
+  })
+  console.log('finito')
+
+</script>
