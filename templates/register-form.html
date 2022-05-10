@@ -74,8 +74,9 @@ import datetime
 % else:
 
 <p class="instructions">
-  ${_("Please complete the following fields to register for an account. ")}<br />
-  ${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}
+  <div>Toutes les informations <strong class="indicator">marquées d’un astérisque</strong> dans le formulaire ci-dessous sont des informations obligatoires.<br /><br />Si vous ne renseignez pas ces informations, la CMA ne sera pas en mesure de vous fournir le service sollicité.<br /><br />Pour en savoir plus sur la gestion de vos données personnelles et pour exercer vos droits, reportez-vous à la notice <a href="/honor" target=”_blank”>ci-jointe</a>.</div>
+  <!-- ${_("Please complete the following fields to register for an account. ")}<br />
+  ${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')} -->
 </p>
 
 % endif
@@ -168,51 +169,56 @@ import datetime
 
   % endif
 </div>
+<script>
+  console.log('TEST')
+</script>
 <!-- EXTRA_FORM GENERATION -->
 <div class="group group-form group-form-requiredinformation">
 <ol class="list-input">
 % for n in extra_form:
-  <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
-  <div class="field ${n.get('type')}" id="field-${n.get('name')}">
-  % if n.get('type') == 'email':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
-  % elif n.get('type') == 'text':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
-  % elif n.get('type') == 'select':
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
-  <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
-    % if n.get('name') == 'country':
-      <option value="" data-isdefault="true">--</option>
-      <%
-      _countries = list(countries)
-      %>
-      % for f in _countries:
-        <option values="${f[0]}">${f[1]}</option>
-      %endfor
-    % endif
-    % if n.get('name') == 'year_of_birth':
+% if n.get('name') != 'score1' and n.get('name') != 'score1p' and n.get('name') != 'score3' and n.get('name') != 'score4' and n.get('name') != 'score5' and n.get('name') != 'score7' and n.get('name') != 'score8' and n.get('name') != 'score9' and n.get('name') != 'score9p' and n.get('name') != 'score10' and n.get('name') != 'score11' and n.get('name') != 'score12' :
+    <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
+    <div class="field ${n.get('type')}" id="field-${n.get('name')}">
+    % if n.get('type') == 'email':
+    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+    % elif n.get('type') == 'text':
+    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="" placeholder="${_(n.get('placeholder'))}" aria-describedby="${n.get('name')}-tip" ${'required aria-required="true"' if n.get('required') else ''} />
+    % elif n.get('type') == 'select':
+    <label for="${n.get('name')}">${_(n.get('label'))}</label>
+    <select id="${n.get('name')}" name="${n.get('name')}" ${'required aria-required="true"' if n.get('required') else ''}>
+      % if n.get('name') == 'country':
         <option value="" data-isdefault="true">--</option>
-	<%
-	year = datetime.datetime.today().year
-	YEARS = [year - i for i in range(100)]
-	%>
-        % for y in YEARS:
-	    <option value="${y}">${y}</option>
-	% endfor
-    % else:
-        % for j in n.get('options'):
-            <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+        <%
+        _countries = list(countries)
+        %>
+        % for f in _countries:
+          <option values="${f[0]}">${f[1]}</option>
         %endfor
+      % endif
+      % if n.get('name') == 'year_of_birth':
+          <option value="" data-isdefault="true">--</option>
+    <%
+    year = datetime.datetime.today().year
+    YEARS = [year - i for i in range(100)]
+    %>
+          % for y in YEARS:
+        <option value="${y}">${y}</option>
+          % endfor
+      % else:
+          % for j in n.get('options'):
+              <option value="${j.get('value')}" ${'default aria-default="true"' if j.get('default') else ''}>${j.get('name')}</option>
+          %endfor
+      % endif
+    </select>
+    % elif n.get('type') == 'checkbox':
+    <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
+    <label for="${n.get('name')}">${_(n.get('label'))}</label>
     % endif
-  </select>
-  % elif n.get('type') == 'checkbox':
-  <input id="${n.get('name')}" type="${n.get('type')}" name="${n.get('name')}" value="true" ${'required aria-required="true"' if n.get('required') else ''}/>
-  <label for="${n.get('name')}">${_(n.get('label'))}</label>
+    </div>
+    </li>
   % endif
-  </div>
-  </li>
 % endfor
 </ol>
 </div>

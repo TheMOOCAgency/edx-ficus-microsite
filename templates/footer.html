@@ -4,70 +4,54 @@
   from django.core.urlresolvers import reverse
   from django.utils.translation import ugettext as _
   from branding.api import get_footer
-  #maj TMA
-  from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 <% footer = get_footer(is_secure=is_secure) %>
 <%namespace name='static' file='static_content.html'/>
 <%
 org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
-cssoverride = '/media/microsite/assets_redesign/css/footer.css'.format(org_static)
 %>
 
-
-<!-- TMA Ficus Redesign -->
-<link rel="stylesheet" type="text/css" href="${cssoverride}" />
-<%
-custom_color = str(configuration_helpers.get_value('primary_color'))
-if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-else:
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-endif
-if configuration_helpers.get_value('third_color'):
-  third_color = str(configuration_helpers.get_value('third_color'))
-else:
-  third_color = "#fff"
-endif
-if configuration_helpers.get_value('dark_theme'):
-  color_custom = "#fff"
-else:
-  color_custom = "#3c3c3c"
-%>
-
-<link rel="stylesheet" type="text/css" href="${css}" />
 <style>
-body footer.global {
-    background-color: ${third_color}!important;
-}
+  body footer.global ul.links li {
+    margin: 0 10px 0 0;
+    font-weight: bold;
+  }
+  body footer.global {
+    background: linear-gradient(45deg, rgba(19,169,216,1) 0%, rgba(123,82,187,1) 100%);
+  }
 </style>
 
+<link rel="stylesheet" type="text/css" href="${css}" />
 <footer class="global">
   <div class="footer-container">
-    <ul class="links">
-      <li>
-        <a href="${marketing_link('HONOR')}">Conditions générales</a>
-      </li>
-      <li>
-        <a href="${marketing_link('FAQ')}">FAQ</a>
-      </li>
-	  <li>
-        <a href="/about">Cr&eacute;dits</a>
-      </li>
-    </ul>
-    <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
-    <div class="by-ionisx">
-	<!--modif on text and image-->
-      <!--
-      <a href="/">
-        <img src="" alt="">
-      </a>
-      -->
+    <div style="margin: 10px auto;width: 60%;display: block;height: 130px;display: flex;">
+      <!-- <img style="height: 100%;" src="/media/microsite/e-formation-artisanat/assets/fse1.png" alt="fond social européen"/>
+      <img style="width : auto; height: 100%;padding: 0px 10px;" src="/media/microsite/e-formation-artisanat/assets/fse2.png" alt="fond social européen"/>
+      <p style="display: inline-block;height: calc(100% - 23px);text-align: center;padding-top: 23px;">Le projet « Refonte de l’offre globale de services » est cofinancé par le Fonds social européen dans le cadre du programme opérationnel national « Emploi et Inclusion » 2014-2020</p> -->
+      <img style="height: 100%;" src="/media/microsite/e-formation-artisanat/assets/footer_banner.jpg" alt="bannière footer"/>
     </div>
+    <ul class="links" style="text-align: center;">
+      <li>
+        <a href="/about">À propos | </a>
+      </li>
+      <li>
+        <a href="${marketing_link('HONOR')}">Mentions légales | </a>
+      </li>
+      <li>
+        <a href="${marketing_link('PRIVACY')}">Politique de confidentialité | </a>
+      </li>
+      <li>
+        <a href="${marketing_link('TOS')}">Conditions générales d'utilisation |
+        </a>
+      </li>
+      <li>
+        <a href="https://www.artisanat.fr/reseau-des-cma/un-reseau-de-proximite/annuaire-des-cma">Annuaire
+        </a>
+      </li>
+      <!-- <li>
+        <a href="${marketing_link('FAQ')}">FAQ</a>
+      </li> -->
+    </ul>
   </div>
 </footer>

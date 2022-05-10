@@ -1,27 +1,104 @@
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
-<%! from django.utils.translation import ugettext as _ %>
+<%! 
+from django.utils.translation import ugettext as _
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+%>
 
-<section class="courses-container">
+<%
+primary_color=configuration_helpers.get_value('primary_color')
+
+if(configuration_helpers.get_value('hidden_courses')):
+  hidden_courses = configuration_helpers.get_value('hidden_courses') 
+else:
+  hidden_courses = []
+
+first_list = []
+second_list = []
+third_list = []
+
+for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
+  if str(course.id) not in hidden_courses:
+    if "HACCP_01" in str(course.id) or "HACCP_02" in str(course.id):
+      third_list.append(course)
+    elif "HACCP_B01" in str(course.id) or "HACCP_B02" in str(course.id):
+      first_list.append(course)
+    else:
+      second_list.append(course)
+
+
+second_list.sort(key=lambda x: x.id)
+third_list.sort(key=lambda x: x.id)
+%>
+
+<style>
+  .custom-courses-category{
+    font-weight: 900 !important;
+    font-size:1.5em;
+    margin-bottom:30px;
+    text-transform: uppercase;
+    width: 100%;
+    padding: 10px;
+    border-radius: 2px;
+    color:${primary_color};
+  }
+  .white-background{
+    background-color: white !important;
+  }
+  .custom-courses-display{
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<section class="courses-container white-background" style="margin-bottom:50px;">
+  <section class="highlighted-courses white-background">
+
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+    <section class="courses" id="course_catalog">
+      <h1>Accédez à nos formations en ligne</h1>
+      <div class="custom-courses-display">
+        <div class="custom-courses-category">Nos packs de formations</div>
+        <ul class="courses-listing">
+          %for course in first_list:
+            <li class="courses-listing-item">
+            <%include file="course.html" args="course=course" />
+            </li>
+          %endfor
+          %for course in second_list:
+            <li class="courses-listing-item">
+            <%include file="course.html" args="course=course" />
+            </li>
+          %endfor
+        </ul>
+
+      </div>
+    </section>
+    % endif
+
+  </section>
+</section>
+<section class="courses-container" style="margin-bottom:50px;">
   <section class="highlighted-courses">
 
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-      <section class="courses">
+    <section class="courses">
+      <div class="custom-courses-display">
+        <div class="custom-courses-category">Nos modules individuels</div>
         <ul class="courses-listing">
-          ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
-          %for course in courses[:settings.HOMEPAGE_COURSE_MAX]:
-          <li class="courses-listing-item">
-              <%include file="course.html" args="course=course" />
-          </li>
-        %endfor
+          %for course in third_list:
+            <li class="courses-listing-item">
+            <%include file="course.html" args="course=course" />
+            </li>
+          %endfor
         </ul>
-      </section>
+      </div>
+    </section>
     ## in case there are courses that are not shown on the homepage, a 'View all Courses' link should appear
       % if settings.HOMEPAGE_COURSE_MAX and len(courses) > settings.HOMEPAGE_COURSE_MAX:
       <div class="courses-more">
         <a class="courses-more-cta" href="${marketing_link('COURSES')}"> ${_("View all Courses")} </a>
       </div>
-    % endif
+      % endif
     % endif
 
   </section>

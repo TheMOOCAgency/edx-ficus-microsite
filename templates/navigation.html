@@ -13,7 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
-import json
+from tma_apps.tma_support_functions import tma_verify_access
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -21,13 +21,14 @@ from branding import api as branding_api
 from status.status import get_site_status_msg
 #from util.enterprise_helpers import get_enterprise_customer_logo_url
 %>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFSXGD9"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
+
+## This template should not use the target student's details when masquerading, see TNL-4895
+<%
+self.real_user = real_user if real_user != UNDEFINED else user
+%>
 
 ## Add UI Toolkit components if using the Pattern Library
 % if uses_pattern_library:
@@ -40,14 +41,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <%
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/navigation.css'.format(org_static)
-cssoverride = '/media/microsite/assets_redesign/css/navigation.css'.format(org_static)
-cssresponsive = '/media/microsite/assets_redesign/css/responsive/responsive_top_layer.css'.format(org_static)
 
 %>
 <%block>
 <link rel="stylesheet" type="text/css" href="${css}" />
-<link rel="stylesheet" type="text/css" href="${cssoverride}" />
-<link rel="stylesheet" type="text/css" href="${cssresponsive}" />
 <%
 try:
     course_id = course.id
@@ -56,8 +53,6 @@ except:
     course_id = None
 site_status_msg = get_site_status_msg(course_id)
 %>
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 % if site_status_msg:
 <div class="site-status">
   <div class="inner-wrapper">
@@ -67,42 +62,332 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
-  <header id="global-navigation" class="header-global" >
-  <input class="burger" type="checkbox">
-    <nav class="wrapper-header" aria-label="${_('Global')}">
-    <h1 class="logo">
-      <a href="${marketing_link('ROOT')}">
+  <header id="global-navigation" class="header-global" style="height:100px!important">
+    <nav class="wrapper-header" aria-label="${_('Global')}" style="min-width:98%!important">
+      <!-- Menu burger Start-->
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            % if user.is_authenticated():
+            <%block name="burger_links_authenticated">
+            <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a> -->
+            <!-- <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a> -->
+              % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+                <a href="/#course_catalog"><li>▶ Découvrez notre offre de formation</li></a>
+              % endif
+              % if show_program_listing:
+                <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a> -->
+                <a href="${reverse('program_listing_view')}"><li>▶ ${_("Programs")}</li></a>
+              % endif
+              %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
+                <a href="${reverse('sysadmin')}"><li>▶ ${_("Sysadmin")}</li></a>
+              %endif
+              <!-- <a href="${reverse('logout')}"><li>▶ ${_("Sign Out")}</li></a> -->
+            </%block>
+            % else:
+            <%block name="burger_sign_in">
+              % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
+                % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+                  <a href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}"><li>▶ ${_("Register")}</li></a>
+                  <a href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}"><li>▶ ${_("Sign in")}</li></a>
+                % else:
+                  % if static.get_value('course_id') is not None:
+                  <a href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>▶ ${_("Register")}</li></a>
+                  <a href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"><li>▶ ${_("Sign in")}</li></a>
+                  % else:
+                  <a href="/register"><li>▶ ${_("Register")}</li></a>
+                  <a href="/login"><li>▶ ${_("Sign in")}</li></a>
+                  % endif
+                % endif
+              % endif
+              </%block>
+              % endif
+              <a href="/about"><li>▶ À propos</li></a>
+              <a href="/honor"><li>▶ Mentions légales</li></a>
+              <a href="/privacy"><li>▶ Politique de Confidentialité</li></a>
+              <a href="/tos"><li>▶ Conditions Générales d'Utilisation</li></a>
+          </ul>
+        </div>
+      <style>
+        #global-navigation {
+          background: linear-gradient(45deg, rgba(19,169,216,1) 0%, rgba(123,82,187,1) 100%);
+        }
+        .header-global .user {
+          margin-top: 0px !important;
+        }
+        .header-global .nav-global li a, .header-global .nav-global div a {
+          color: black !important;
+          background: #ffffff;
+          border: 1px solid black;
+          border-radius: 6px;
+          margin-right: 5px;
+          text-align: center;
+        }
+        .header-global .nav-global li a:hover {
+          color: #fff !important;
+          background: black;
+        }
+        .header-global .nav-global li a:hover > span{
+          color: #fff !important;
+        }
+        .course-search > form > label {
+          display: inline-block;
+          vertical-align: top;
+        }
+        .header-global {
+          background:rgba(0,117,176,1);
+        }
+        .header-global .nav-global {
+          margin-top: 0px;
+        }
+        .header-global .wrapper-header {
+          margin-left: 0px;
+          max-width: 100%;
+          text-align: right;
+          padding: 17px 10px 0 !important;
+        }
+        .user {
+          background-color: white;
+          border-radius: 5px;
+        }
+        .header-global h1.logo {
+          position: inherit;
+          text-align: left;
+          float: left;
+          margin-top: 10px !important;
+          margin-left: 45px !important;
+        }
+        .header-global .nav-global {
+          display: inline-block;
+          position: inherit;
+          text-align: left;
+          float: none;
+          margin-top: 20px;
+        }
+        .ec-logo-size-custom {
+          position: absolute;
+          left: calc(50% - 80px);
+          top: 10px !important;
+        }
+        ol.user {
+          display: initial !important;
+        }
+        #menuToggle
+        {
+          z-index: 1;
+          user-select: none;
+          float: left;
+          text-align: initial;
+          position: absolute;
+          top: 38px;
+          left: 13px;
+        }
+
+        #menuToggle a
+        {
+          text-decoration: none;
+          color: #fff;
+          transition: color 0.3s ease;
+        }
+
+        #menuToggle a:hover
+        {
+          color: black!important;
+        }
+        #menuToggle input
+        {
+          display: block;
+          width: 40px;
+          height: 32px;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          cursor: pointer;
+          opacity: 0;
+          z-index: 2;
+          -webkit-touch-callout: none;
+        }
+        #menuToggle span
+        {
+          display: block;
+          width: 33px;
+          height: 4px;
+          margin-bottom: 5px;
+          position: relative;
+          background: white;
+          border-radius: 3px;
+          z-index: 1;
+          transform-origin: 4px 0px;
+          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+        }
+        #menuToggle span:first-child
+        {
+          transform-origin: 0% 0%;
+        }
+        #menuToggle span:nth-last-child(2)
+        {
+          transform-origin: 0% 100%;
+        }
+        #menuToggle input:checked ~ span
+        {
+          opacity: 1;
+          transform: rotate(45deg) translate(-2px, -1px);
+          background: #ffffff;;
+        }
+        #menuToggle input:checked ~ span:nth-last-child(3)
+        {
+          opacity: 0;
+          transform: rotate(0deg) scale(0.2, 0.2);
+        }
+        #menuToggle input:checked ~ span:nth-last-child(2)
+        {
+          transform: rotate(-45deg) translate(0, -1px);
+        }
+        #menu
+        {
+          background: rgba(0,117,176,1);
+          position: absolute;
+          width: 600px;
+          padding: 42px;
+          /* padding-top: 125px; */
+          border: 1px #a0a0a0 solid;
+          list-style-type: none;
+          -webkit-font-smoothing: antialiased;
+          transform-origin: 0% 0%;
+          transform: translate(-100%, 0);
+          transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+          left: -13px;
+          top: 46px;
+          box-sizing: border-box;
+          margin: 0px;
+        }
+        #menu li
+        {
+          padding: 10px 0;
+          font-size: 22px;
+          line-height: normal;
+        }
+        #menuToggle input:checked ~ ul
+        {
+          transform: none;
+        }
+        .course-search {
+          display:inline-block;
+          vertical-align: top;
+          margin-top: 10px;
+        }
+        .header-global .nav-courseware li .btn {
+          margin-top: 10px;
+        }
+        .ec-logo-size-custom{
+          height: 80px !important;
+        }
+        .label-username{
+          color: black!important;
+          text-shadow: none;
+        }
+        @media screen and (max-width: 650px) {
+          .ec-logo-size-custom{
+            height: 50px !important;
+            left: calc(50% - 30px);
+            top: 15px !important;
+          }
+        }
+        @media screen and (max-width: 400px) {
+          .ec-logo-size-custom{
+            height: 36px !important;
+            left: calc(50% - 20px);
+            top: 20px !important;
+          }
+        }
+        @media screen and (max-width: 1120px) {
+          .header-global .user .user-link .label-username {
+            display: none;
+          }
+          .header-global .nav-global {
+            width: 160px;
+            margin-top: 5px;
+          }
+        }
+        @media screen and (max-width: 950px) {
+          .header-global .nav-courseware li .btn {
+            display: block;
+            height: 25px;
+            padding: 4px 10px;
+            margin-bottom: 5px;
+            margin-top: 0px;
+          }
+        }
+        @media screen and (max-width: 750px) {
+          .header-global .nav-global {
+            display: none !important;
+          }
+        }
+        @media screen and (max-width: 650px) {
+          .course-search {
+            display: none;
+          }
+          #menu
+          {
+            width: 100vw;
+          }
+        }
+        .btn-login, .btn-register {
+          height: 39px;
+          text-transform: uppercase !important;
+          border-radius: 5px !important;
+          font-weight: bold !important;
+          background-color: black !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+        .btn-login:hover, .btn-register:hover {
+          background-color: rgba(0,117,176,1);
+          box-shadow: none !important;
+        }
+      </style>
+      <!-- Menu burger Stop-->
+
+      % if user.is_authenticated():      
+       % if course:
+        % if tma_verify_access(user).has_dashboard_access(str(course.id)):
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px; text-align: center;" onclick="alert('Vous allez accéder à la nouvelle interface « Administrateur ». Pour cela, cliquez sur OK');">Administration</a>
+        % endif
+       % else:
+        % if tma_verify_access(user).has_dashboard_access("course-v1:e-formation-artisanat+premium+2020_T1"):
+         <a href="/tma_apps/new_tma_dashboard/" target="_blank" style="color:white !important; position:absolute; left:100px;top:45px;" onclick="alert('Vous allez accéder à la nouvelle interface « Administrateur ». Pour cela, cliquez sur OK');">Administration</a>
+        % endif
+       % endif
+      % endif
+      <h1 class="logo">
+        <a href="${marketing_link('ROOT')}">
         <%block name="navigation_logo">
         <%
         #logo_url = get_enterprise_customer_logo_url(request)
-        logo_size = 'ec-logo-size'
+        logo_size = 'ec-logo-size-custom'
 	logo_url = static.get_value('logo_image_url')
         if logo_url is None:
             logo_url = branding_api.get_logo_url(is_secure)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
         </%block>
       </a>
     </h1>
+
+    <!-- <div class="course-search">
+      <form method="get" action="/courses">
+        <label><span class="sr">${_("Search for a course")}</span>
+          <input class="search-input" name="search_query" type="text" placeholder="Rechercher une formation" style="height:39px;box-shadow:none;border-radius: 2px;"></input>
+        </label>
+        <button class="btn btn-login" type="submit" style="background: black; height:39px;border:none !important;text-shadow:none !important">
+          <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(255, 253, 253); margin-bottom: 6px;"></span><span class="sr">${_("Search")}</span>
+        </button>
+      </form>
+    </div> -->
 
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
@@ -120,6 +405,11 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
+          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
+            <li class="item nav-global-01">
+              <a href="/#course_catalog">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
+            </li>
+          % endif
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
@@ -178,42 +468,33 @@ site_status_msg = get_site_status_msg(course_id)
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
+                <a class="btn" href="/#course_catalog">Découvrez notre offre de formation <span class="icon fa fa-search" aria-hidden="true" style="color: rgb(47, 47, 47); margin-left: 6px;"></span></a>
               </li>
             %endif
-            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
-            % else:
-              <li class="item nav-global-04">
-                % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
-                % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
-                % endif
-              </li>
-            % endif
           % endif
         </%block>
       </ol>
-      <ol class="right nav-courseware list-inline">
+      <!-- <ol class="right nav-courseware list-inline">
         <%block name="navigation_sign_in">
           <li class="item nav-courseware-01">
             % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
               % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+                <a class="btn btn-login" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
                 <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
               % else:
+              <li class="item nav-global-04">
                 % if static.get_value('course_id') is not None:
+                <a class="btn btn-login" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
+                <a class="btn btn-login" href="/register">${_("Register")}</a>
                 <a class="btn btn-login" href="/login">${_("Sign in")}</a>
                 % endif
               % endif
             % endif
           </li>
         </%block>
-      </ol>
+      </ol> -->
     % endif
     % if static.show_language_selector():
      <% languages = static.get_released_languages() %>
@@ -259,6 +540,9 @@ site_status_msg = get_site_status_msg(course_id)
 org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
 %>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/responsive_top_layer.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/navigation.css" type="text/css" media="screen" />
 <link rel="stylesheet" type="text/css" href="${css}" />
 <script src="${static.url('js/translate.js')}"></script>
 <!-- superglobale js username and course_enrollment -->
@@ -277,9 +561,6 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   %>
   <script>
     var username_pid = "${user.username}";
-    var userid_tma = "${user.id}";
-    var first_name_tma = "${json.loads(user.profile.custom_field).get('first_name')}";
-    var last_name_tma = "${json.loads(user.profile.custom_field).get('last_name')}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
 
@@ -330,100 +611,3 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
-
-
-
-<!-- TMA Ficus Redesign -->
-<%
-custom_color = str(configuration_helpers.get_value('primary_color'))
-if course and configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR'):
-  if str(course.id) in configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR') :
-    custom_color = configuration_helpers.get_value('TMA_CUSTOM_COURSE_COLOR')[str(course.id)]
-  else:
-    custom_color = str(configuration_helpers.get_value('primary_color'))
-  endif
-else:
-  custom_color = str(configuration_helpers.get_value('primary_color'))
-endif
-if configuration_helpers.get_value('third_color'):
-  third_color = str(configuration_helpers.get_value('third_color'))
-else:
-  third_color = "#fff"
-endif
-if configuration_helpers.get_value('dark_theme'):
-  color_custom = "#fff"
-else:
-  color_custom = "#3c3c3c"
-%>
-<script>
-  $(document).ready(function(i){
-    $('.course-tabs>li').appendTo('.nav-global')
-    $('.logo').prependTo('#global-navigation')
-    $('.user').appendTo('#global-navigation')
-    $('.wrapper-user-menu').appendTo('#global-navigation')
-    console.log($('.wrapper-user-menu'))
-  })
-</script>
-
-<style>
-.discussion.wrapper-course-material{
-  background-color: ${custom_color} !important;
-}
-div.forum-search button.search-btn, .content-wrapper .page-header.has-secondary .page-header-secondary .form-actions button.new-post-btn{
-  background-color:  ${custom_color} !important;
-}
-.discussion-module .btn-brand, .wmd-prompt-dialog .btn-brand, .forum-new-post-form .post-type-input:checked+.post-type-label, .edit-post-form .post-type-input:checked+.post-type-label{
-  background-color:  ${custom_color} !important;
-}
-.forum-new-post-form button.btn-brand {
-  background-color:  ${custom_color} !important;
-  border-color:  ${custom_color} !important;
-}
-.forum-new-post-form button.cancel, .discussion-reply-new button.discussion-submit-post {
-    color:  ${custom_color} !important;
-}
-.discussion-module .btn, .wmd-prompt-dialog .btn, .btn {
-  border: 1px solid  ${custom_color} !important;
-}
-.has-breadcrumbs .breadcrumbs .all-topics{
-  color:  ${custom_color} !important;
-}
-.btn-brand, .modal .inner-wrapper form .submit input[type="submit"], .leanModal_box .inner-wrapper form .submit input[type="submit"], .wmd-prompt-dialog .inner-wrapper form .submit input[type="submit"] {
-    border-color:  ${custom_color} !important;
-    background:  ${custom_color}!important;
-}
-.edit-post-form .post-cancel {
-  color:  ${custom_color} !important;
-}
-.header-global{
-  background-color: ${third_color}!important;
-}
-body.view-in-course .wrapper-course-material .course-material, .course-index, .course-index .accordion .course-navigation .button-chapter, .course-index .accordion .course-navigation .button-chapter.active .group-heading, .course-index .accordion .course-navigation .button-chapter .group-heading{
-  background-color:  ${custom_color} !important;
-}
-.header-global .nav-global li a, .header-global .nav-global div a{
-  color : ${color_custom}!important;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.header-global .user .user-link .label-username p, .header-global .user .user-link .label-username:hover p{
-  color : ${color_custom}!important;
-  text-shadow : none!important;
-}
-.label-username p, .label-username:hover p{
-color : ${color_custom}!important;
-}
-.fa-sort-down::before, .fa-sort-desc::before {
-    color:   ${color_custom}!important;
-}
-#global-navigation .burger{
-  color: ${color_custom}!important;
-}
-#global-navigation .burger::before{
-  color: ${color_custom}!important;
-}
-#global-navigation .burger::before{
-  color: ${color_custom}!important;
-}
-</style>
-<!-- TMA Ficus Redesign -->

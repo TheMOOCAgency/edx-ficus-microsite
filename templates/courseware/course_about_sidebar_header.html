@@ -33,9 +33,18 @@ $(document).ready(function(){
     % endif
         </div>
   % else:
+    <%
+    free_courses = ['course-v1:e-formation-artisanat+Module_02+SP_02','course-v1:e-formation-artisanat+Module_06+SP_06']
+    %>
+    % if course.id.to_deprecated_string() in free_courses :
         <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
-           Je m'inscris !
+          ${_("I want to enroll!")}
         </div>
+    % else:
+        <div class="enroll-button" onclick="window.location.href='/register'">
+           Sélectionner ce pack
+        </div>
+    % endif
   % endif
   </div>
   % if static.get_value('course_about_show_social_links', True):
@@ -90,3 +99,4 @@ $(document).ready(function(){
   </div>
   % endif
 </header>
+

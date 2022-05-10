@@ -3,8 +3,23 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+import logging
 %>
 <%page args="course" expression_filter="h"/>
+<%
+log = logging.getLogger(__name__)
+log.info(course.display_number_with_default)
+if "Module" in course.display_number_with_default:
+  new_course_number = list(course.display_number_with_default)
+  try:
+    index = new_course_number.index("/")
+    new_course_number[index] = "'"
+    course_default_number = "".join(new_course_number)
+  except ValueError:
+    course_default_number = course.display_number_with_default
+else:
+  course_default_number = course.display_number_with_default
+%>
 <article class="course" id="${course.id}" role="region" aria-label="${course.display_name_with_default}">
   <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
     <header class="course-image">
@@ -15,9 +30,9 @@ from django.core.urlresolvers import reverse
     </header>
     <div class="course-info" aria-hidden="true">
       <h2 class="course-name">
-        <span class="course-organization">${course.display_org_with_default}</span>
-        <span class="course-code">${course.display_number_with_default}</span>
-        <span class="course-title">${course.display_name_with_default}</span>
+        <span class="course-organization">Parcours Créateur</span>
+        <span class="course-code">${course_default_number}</span>
+        <span class="course-title" style="font-weight:bold!important;">${course.display_name_with_default}</span>
       </h2>
       <%
       if course.start is not None:
@@ -25,24 +40,26 @@ from django.core.urlresolvers import reverse
       else:
           course_date_string = ''
       %>
-      % if course.advertised_start is not None:
-          <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
-      % else:
-          <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}"></div>
-      % endif
-    </div>
-    <div class="sr">
-      <ul>
-        <li>${course.display_org_with_default}</li>
-        <li>${course.display_number_with_default}</li>
-        % if course.advertised_start is not None:
-            <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
-        % else:
-            <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
-        % endif
-      </ul>
-    </div>
-  </a>
+% if course.advertised_start is not None:
+<div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+% else:
+<div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate"
+  data-datetime="${course_date_string}" data-string="${_(" Starts: {date}")}"></div>
+% endif
+</div>
+<div class="sr">
+  <ul>
+    <li>${course.display_org_with_default}</li>
+    <li>${course.display_number_with_default}</li>
+    % if course.advertised_start is not None:
+    <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
+    % else:
+    <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate"
+        data-datetime="${course_date_string}"></time></li>
+    % endif
+  </ul>
+</div>
+</a>
 </article>
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized_datetime");

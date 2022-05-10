@@ -13,67 +13,148 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+  #global-navigation {
+    position: fixed;
+    top: 0px;
+  }
+  #main>section>header>#homepage_banner{
+    margin-top: 40vh;
+    background: #00000099;
+    padding: 25px;
+  }
+  #main>section>header>#homepage_banner>h1{
+    font-weight: 900;
+    color: white;
+    font-size: 2.6rem;
+  }
+  #main>section>header>#homepage_banner>ol{
+    list-style: none;
+  }
+  #main>section>header>#homepage_banner>ol>li>a{
+    padding: 6px 12px 6px 12px;
+    text-decoration: none;
+  }
+  #main>section>header>#homepage_banner>ol>li>a:hover{
+    color: black!important;
+    background-color: transparent!important;
+  }
+  #tma_background_font {
+    /* background-image: url(/media/microsite/e-formation-artisanat/auto/images/bg_img.jpg) !important; */
+    background-color: #EDEEEF;
+    background-position: center;
+  }
+  .modal.home-page-video-modal .inner-wrapper, .home-page-video-modal.leanModal_box .inner-wrapper {
+    z-index: 0;
+  }
+  .home {
+    background: none;
+  }
+  .home>header {
+    height: 770px;
+    box-shadow: none;
+    text-align: center;
+    background-image: url(/media/microsite/academie-digitale/images/banniere.jpeg);
+    background-size: cover;
+    background-position: top;
+  }
+  .video-modal {
+    display: block;
+    position: static;
+    margin: auto;
+    color: black;
+  }
+  .home .highlighted-courses{
+    position :inherit!important;
+  }
+  .courses-container {
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin: 0px!important;
+    max-width: 100% !important;
+  }
+  .video-wrapper{
+    display: flex;
+    justify-content: center;
+  }
+  #videoHeader{
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .courses-container {
+    margin-bottom: 0px !important;
+  }
+  .courses-container {
+    background-color: #dedede !important;
+  }
+  .home .highlighted-courses {
+    display: flex;
+  }
+  .courses-container .courses {
+    width: 80%;
+    margin: auto;
+  }
+  @media screen and (max-width: 780px) {
+    #main>section>header>#homepage_banner>h1{
+      font-size: 1.6rem;
+    }
+  }
+  @media screen and (max-width: 680px) {
+    .promo-video {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal .inner-wrapper, .home-page-video-modal.leanModal_box .inner-wrapper {
+      width: 320px;
+      height: 180px;
+    }
+    .modal.home-page-video-modal, .home-page-video-modal.leanModal_box {
+      width: 342px;
+    }
+  }
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+        <div id="homepage_banner">
+          <h1>Développez vos compétences avec<br />les chambres de métiers et de l’artisanat</h1>
+          <ol class="right nav-courseware list-inline">
+            <li class="item nav-global-04">
+              <a class="btn btn-login" href="/register">${_("Register")}</a>
+              <a class="btn btn-login" href="/login">${_("Sign in")}</a>
+            </li>
+          </ol>
         </div>
-
+        <!-- <iframe id="videoHeader" src="https://www.youtube.com/embed/cL--_9RLbyk?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        <!-- <video id="videoHeader" autoplay="true" loop="true" preload="metadata" muted="muted">
+          <source src="/media/microsite/e-formation-artisanat/assets/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video> -->
       </header>
+
       <%include file="${courses_list}" />
 
     </section>
 </main>
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
-
 <%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
+  <script type="text/javascript">
+    $(window).load(function() {
+      if(getParameterByName('next')) {
+        $('#login').trigger("click");
+      }
+    })
+  </script>
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
