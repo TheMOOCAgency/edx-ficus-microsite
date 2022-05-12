@@ -62,6 +62,7 @@ recipients_geography = {
     "ParcoursCrea@artisanat-bfc.fr":u"Bourgogne-Franche-Comt\u00e9",
     "parcours-creation@crma-auvergnerhonealpes.fr":u"Auvergne-Rh\u00f4ne-Alpes",
     "tom.douce@weuplearning.com":u"Tout",
+    "service-eco@cma.corsica":u"Corse",
 }
 
 # Auxiliary functions
