@@ -84,9 +84,9 @@ cours_ouv = show_courseware_link and not is_course_blocked
   </div>
   <div class="down_cell">
     <div class="all_dates">
-      <div class="info_date">
+      <div class="info_date" style="height: 3rem;">
         <div class="info_date_info">
-<span></span>
+<!-- <span></span>
 % if insc_ouv:
   <span>${_("Enrollments are open")} </span>
 % else:
@@ -98,10 +98,10 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % else:
   <span> ${_("Course is closed")}</span>
 % endif
-<span></span>
+<span></span> -->
       </div>
     </div>
-    <div class="dates">
+    <div class="dates" style="display: none;">
 <!--
 % if course_overview.start is not None:
   ${_("start")} ${course_overview.start.strftime("%d/%b/%Y")}
