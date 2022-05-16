@@ -228,7 +228,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
         <%include file="course_about_sidebar_header.html" />
 
-        <ol class="important-dates">
+        <!-- <ol class="important-dates">
           <li class="important-dates-item"><span class="icon fa fa-info-circle" aria-hidden="true"></span><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default | h}</span></li>
           % if not course.start_date_is_still_default:
               <%
@@ -301,7 +301,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
           % if get_course_about_section(request, course, "prerequisites"):
             <li class="important-dates-item"><span class="icon fa fa-book" aria-hidden="true"></span><p class="important-dates-item-title">${_("Requirements")}</p><span class="important-dates-item-text prerequisites">${get_course_about_section(request, course, "prerequisites")}</span></li>
           % endif
-        </ol>
+        </ol> -->
     </div>
 
       ## CourseTalk widget

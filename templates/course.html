@@ -29,9 +29,9 @@ else:
       </div>
     </header>
     <div class="course-info" aria-hidden="true">
-      <h2 class="course-name">
-        <span class="course-organization">Parcours Créateur</span>
-        <span class="course-code">${course_default_number}</span>
+      <h2 class="course-name" style="padding-top: 2rem;">
+        <!-- <span class="course-organization">Parcours Créateur</span> -->
+        <!-- <span class="course-code">${course_default_number}</span> -->
         <span class="course-title" style="font-weight:bold!important;">${course.display_name_with_default}</span>
       </h2>
       <%
@@ -41,9 +41,9 @@ else:
           course_date_string = ''
       %>
 % if course.advertised_start is not None:
-<div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+<div class="course-date" aria-hidden="true" style="display: none;">${_("Starts")}: ${course.advertised_start}</div>
 % else:
-<div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate"
+<div class="course-date localized_datetime" style="display: none;" aria-hidden="true" data-format="shortDate"
   data-datetime="${course_date_string}" data-string="${_(" Starts: {date}")}"></div>
 % endif
 </div>

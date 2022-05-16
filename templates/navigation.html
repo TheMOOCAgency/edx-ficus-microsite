@@ -89,14 +89,14 @@ site_status_msg = get_site_status_msg(course_id)
               % endif
 
               % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-                <a href="/#course_catalog"><li>▶ Accédez à nos autres formations</li></a>
+                <a href="/#course_catalog" target="_blank"><li>▶ Accédez à nos autres formations</li></a>
               % endif
               % if show_program_listing:
                 <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Courses")}</li></a> -->
-                <a href="${reverse('program_listing_view')}"><li>▶ ${_("Programs")}</li></a>
+                <a href="${reverse('program_listing_view')}" target="_blank"><li>▶ ${_("Programs")}</li></a>
               % endif
               %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
-                <a href="${reverse('sysadmin')}"><li>▶ ${_("Sysadmin")}</li></a>
+                <a href="${reverse('sysadmin')}" target="_blank"><li>▶ ${_("Sysadmin")}</li></a>
               %endif
               <!-- <a href="${reverse('logout')}"><li>▶ ${_("Sign Out")}</li></a> -->
 
@@ -119,13 +119,13 @@ site_status_msg = get_site_status_msg(course_id)
               % endif
               </%block>
               % endif
-              <a href="/about"><li>▶ À propos de nos formations digitales</li></a>
+              <a href="/about" target="_blank"><li>▶ À propos de nos formations digitales</li></a>
               <!-- <a href="/honor"><li>▶ Mentions légales</li></a>
               <a href="/privacy"><li>▶ Politique de Confidentialité</li></a>
               <a href="/tos"><li>▶ Conditions Générales d'Utilisation</li></a> -->
               <!-- <a href="http://vps-faddc8a9.vps.ovh.net/wordpress/index.php/nos_formations/"><li>▶ Centre de formation</li></a> -->
-              <a href="http://vps-faddc8a9.vps.ovh.net/wordpress/index.php/pourquoi-cma/"><li>▶ L'expertise du réseau</li></a>
-              <a href="http://vps-faddc8a9.vps.ovh.net/wordpress/index.php/contact/"><li>▶ Contact</li></a>
+              <a href="http://vps-faddc8a9.vps.ovh.net/wordpress/index.php/pourquoi-cma/" target="_blank"><li>▶ L'expertise du réseau</li></a>
+              <a href="http://vps-faddc8a9.vps.ovh.net/wordpress/index.php/contact/" target="_blank"><li>▶ Contact</li></a>
           </ul>
         </div>
       <style>
