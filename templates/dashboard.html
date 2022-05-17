@@ -25,6 +25,16 @@ import json
 %>
 
 <%
+background_img_exist = False
+course_id = request.path.replace('dashboard', '').replace('/', '').replace(':', '')
+if len(course_id) > 0:
+  background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + course_id + '.jpg'
+  background_img_exist = True
+
+%>
+
+
+<%
 custom_fields = {}
 timestamp = int(round(time.time() * 1000))
 custom_fields = json.loads(user.profile.custom_field)
@@ -633,3 +643,39 @@ $(window).initialize(function(){
     border-radius: 15px 15px 0px 0px;
   }
 </style>
+% if background_img_exist:
+<style>
+  /* #tma_background_font{
+    background: #e4e4e4;
+  } */
+
+</style>
+
+% endif
+
+
+% if background_img_exist:
+  <!-- check if img exist, then if not replace it with the original background img -->
+  <script>
+      function checkIfBgExist () {
+        $.ajax({
+          url:'${background_img_url}',
+          type:'HEAD',
+          error: function()
+          {
+              console.log("standard background image")
+
+          },
+          success: function()
+          {
+              console.log("background image successfully loaded")
+              let tmaBackground = document.getElementById("tma_background_font")
+              tmaBackground.style.backgroundImage = "url(${background_img_url})"
+    
+          }
+      });
+      }
+      checkIfBgExist()
+    
+    </script>
+% endif
