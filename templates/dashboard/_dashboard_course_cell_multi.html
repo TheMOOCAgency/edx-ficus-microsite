@@ -86,19 +86,19 @@ cours_ouv = show_courseware_link and not is_course_blocked
     <div class="all_dates">
       <div class="info_date" style="height: 3rem;">
         <div class="info_date_info">
-<!-- <span></span>
+<span style="display: none;"></span>
 % if insc_ouv:
-  <span>${_("Enrollments are open")} </span>
+  <!-- <span>${_("Enrollments are open")} </span> -->
 % else:
-  <span>${_("Enrollments are closed")} </span>
+  <!-- <span>${_("Enrollments are closed")} </span> -->
 % endif
-<span>${_('and')}</span>
+<!-- <span>${_('and')}</span> -->
 % if cours_ouv:
-  <span> ${_("Course is open")}</span>
+  <!-- <span> ${_("Course is open")}</span> -->
 % else:
-  <span> ${_("Course is closed")}</span>
+  <!-- <span> ${_("Course is closed")}</span> -->
 % endif
-<span></span> -->
+<span style="display: none;"></span>
       </div>
     </div>
     <div class="dates" style="display: none;">

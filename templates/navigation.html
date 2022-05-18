@@ -76,7 +76,7 @@ site_status_msg = get_site_status_msg(course_id)
             <!-- <a href="${reverse('dashboard')}"><li>▶ ${_("Dashboard")}</li></a> -->
             <!-- <a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}"><li>▶ ${_("Profile")}</li></a> -->
 
-              % if user.is_authenticated() and user.is_staff:
+              % if user.is_authenticated():
                 % if course:
                   % if tma_verify_access(user).has_dashboard_access(str(course.id)):
                     <a href="/tma_apps/new_tma_dashboard/" target="_blank" onclick="alert('Vous allez accéder à la nouvelle interface « Administrateur ». Pour cela, cliquez sur OK');"><li>▶ Administration</li></a>
@@ -400,8 +400,16 @@ site_status_msg = get_site_status_msg(course_id)
       <img style="width: 2rem;" src="/media/microsite/academie-digitale/images/asset_2.png" alt="home">
     </a>
 
-    % if user.is_authenticated() and user.is_staff:
-      <a href="https://management-artisanat.the-mooc-agency.com/tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
+    % if user.is_authenticated():
+      % if course:
+        % if tma_verify_access(user).has_dashboard_access(str(course.id)):
+          <a href="https://management-artisanat.the-mooc-agency.com/tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
+        % endif
+      % else:
+        % if tma_verify_access(user).has_dashboard_access("course-v1:e-formation-artisanat+premium+2020_T1"):
+          <a href="https://management-artisanat.the-mooc-agency.com/tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
+        % endif
+      % endif
     % endif
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
