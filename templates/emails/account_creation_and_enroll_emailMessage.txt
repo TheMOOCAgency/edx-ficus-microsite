@@ -34,32 +34,22 @@ Scientific director of the HEC IDEA Center
 
 % elif course_key == "course-v1:complete-data+EN+MBA_HEC"  :
 
-Hello,
+Dear Participant,
 
 Welcome to the HEC MBA Course Data for Managers.
+To access the program and start the training, we invite you to go to the following link with your login and password below:
 
-To start the program please follow the link below:
+url link: https://formationadistance.dataformanagers.com/
 
-URL: https://formationadistance.dataformanagers.com
+To connect, please enter:
 
-Then type in your email address and the following password:
+- your email addresses: ${email_address}
+- your password: ${password}
 
-Login: ${email_address}
-Password: ${password}
+If you have any problems connecting, please contact Esther by email learning@netexplo.org
 
-When connected, you will have to select between two languages: French or English. If you are French speaking, select French, otherwise select English: It is the exact same content and the lectures have been recorded in both languages (testimonials are sub-titled). The synchronous sessions will be of course in English. Once you have made your choice of language, you will not be able to change languages and you will follow the entire course in the chosen language.
+Suncerely yours,
 
-If you encounter any issues please contact Esther Ruch at learning@netexplo.org
-
-The training program includes four live sessions.
-o The first is a one hour kick off on January 4, from 10am to 11am witth Julien Levy.
-o At the end of module 3 : Q&A session with Vincent Fraitot on Data Science on Monday, January 17, 2022, from 4:20 PM to 5:20 PM
-o At the end of module 4 : Q&A session with Ghislain Mazar’s on the technologies used by companies and on the 3 stages of a data project. It will be online from 11:30 to 12:30 on Tuesday, January 25, 2022
-o The fourth is the 3 hour workshop of module 5. Two dates are scheduled: Monday, February 28 from 13:10pm to 16:20pm for half the cohort, and Tuesday, March 1st from 8am to 11h10am for the other half.
-
-We will email you very soon to schedule these sessions.
-
-Best regards,
 Netexplo/HEC Paris
 
 

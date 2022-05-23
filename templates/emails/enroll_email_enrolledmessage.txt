@@ -1,4 +1,4 @@
-% if course_key == "course-v1:complete-data+FR+MBA_HEC" or course_key == "course-v1:complete-data+EN+MBA_HEC"  :
+% if course_key == "course-v1:complete-data+FR+MBA_HEC"  :
 
 Dear Participant,
 
@@ -29,6 +29,24 @@ Best regards,
 Julien Lévy
 Associate Professor
 Scientific director of the HEC IDEA Center
+
+% elif course_key == "course-v1:complete-data+EN+MBA_HEC"  :
+
+Hello,
+
+Welcome you to the HEC MBA Course Data for Managers.
+To access the program and start the training, we invite you to go to the following link with your login and password below:
+
+url link: https://formationadistance.dataformanagers.com/
+
+If you’ve already registered to Digimapper then you may use the same email address and password to access Data For Managers.
+
+If you have any problems connecting, please contact Esther by email learning@netexplo.org
+
+Sincerely yours,
+
+Netexplo/HC Paris
+
 
 % elif course_key == "course-v1:complete-data+EN+v3" :
 
