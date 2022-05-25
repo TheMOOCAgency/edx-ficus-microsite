@@ -380,3 +380,49 @@ $(".inner-wrapper section h2").click(function() {
   color: #fff !important;
 }
 </style>
+
+
+<!-- --------------- quentin - ticket 15317 - script to show connection button on the header of the about.html template ----------------------- -->
+
+<script>
+
+  //variables
+  const spot = document.querySelector('.wrapper-header')
+  let newButton = document.createElement('a')
+  
+  console.log('newButon connexion - variable created')
+
+  //add content, classes and all to the element we want to add
+  newButton.textContent = '${_("Sign in")}'
+  newButton.classList.add('new-btn-header')
+  newButton.href = '/login'
+
+  console.log('newButon connexion - content and classes added to element')
+
+  spot.appendChild(newButton)
+
+  console.log('newButon connexion - action done')
+
+</script>
+
+<style>
+  .new-btn-header{
+    padding: 0.5rem;
+    margin: 2rem;
+    background: white;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .new-btn-header:hover{
+    background: #0075b4;
+    text-decoration: none;
+  }
+  .new-btn-header:visited{
+    color: black;
+  }
+</style>
+
+<!-- --------------- quentin - ticket 15317 - script to show connection button on the header of the about.html template ----------------------- -->
