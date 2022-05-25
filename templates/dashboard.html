@@ -10,7 +10,7 @@ import third_party_auth
 from third_party_auth import pipeline
 from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
 from openedx.core.djangolib.markup import HTML, Text
-#GEOFFREY
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from courseware.courses import get_course_info_section, get_course_date_blocks
 from courseware.courses import get_course_by_id
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
@@ -30,19 +30,18 @@ course_id = request.path.replace('dashboard', '').replace('/', '').replace(':', 
 if len(course_id) > 0:
   background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + course_id + '.jpg'
   background_img_exist = True
-
 %>
 
-
 <%
+courses_registration_time = configuration_helpers.get_value("COURSES_REGISTRATION_PERIOD")
 custom_fields = {}
 timestamp = int(round(time.time() * 1000))
 custom_fields = json.loads(user.profile.custom_field)
 %>
 
 <%
-  cert_name_short = settings.CERT_NAME_SHORT
-  cert_name_long = settings.CERT_NAME_LONG
+cert_name_short = settings.CERT_NAME_SHORT
+cert_name_long = settings.CERT_NAME_LONG
 %>
 
 <%
@@ -66,6 +65,7 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
     <%static:include path="search/${template_name}.underscore" />
 </script>
 % endfor
+
 </%block>
 
 <%block name="js_extra">
@@ -153,11 +153,15 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
   endif
 endfor
 %>
+
+
     <div class="dashboard_profile" id="dashboard_profile_up">
       <a href="${reverse('learner_profile', kwargs={'username': user.username})}"><img src="${profile_image_url}" /></a>
       <h3>${user.profile.name}</h3>
       <h4>${user.email}</h4>
     </div>
+
+
 % if len(course_enrollments) == 1:
     <%
     for enrollment in course_enrollments:
@@ -255,10 +259,12 @@ if(!isNaN(score_user) && score_user.toString().indexOf('.') != -1){
 else{
   $("#score_tma").html(score_user+" %");
 }
-  
+
+
 </script>
 % endif
   </div>
+
   <div id="dashboard_course_content">
 % if len(course_enrollments) == 1:
   % for dashboard_index, enrollment in enumerate(course_enrollments):
@@ -272,9 +278,11 @@ else{
     <% is_paid_course = (enrollment.course_id in enrolled_courses_either_paid) %>
     <% is_course_blocked = (enrollment.course_id in block_courses) %>
     <% 
-      if str(enrollment.course_id) in custom_fields.keys() :
+      if str(enrollment.course_id) in custom_fields.keys() and str(enrollment.course_id) in courses_registration_time.keys():
+        timed_out = int(custom_fields[str(enrollment.course_id)]) + 1000*60*60*24*int(courses_registration_time[str(enrollment.course_id)]) < timestamp
+      elif str(enrollment.course_id) in custom_fields.keys():
         timed_out = int(custom_fields[str(enrollment.course_id)]) + 1000*60*60*24*30 < timestamp
-      else :
+      else:
         timed_out = False
     %>
     <% course_verification_status = verification_status_by_course.get(enrollment.course_id, {}) %>
@@ -295,66 +303,76 @@ else{
   <!-- FIN DASHBOARD MONO -->
   <!-- FIN DASHBOARD MONO -->
   <!-- FIN DASHBOARD MONO -->
+
+
+
   <!-- DASHBOARD MULTI -->
   <!-- DASHBOARD MULTI -->
   <!-- DASHBOARD MULTI -->
   <!-- DASHBOARD MULTI -->
 % elif len(course_enrollments) > 1:
-<style>
-#dashboard_course_content {
-  width: calc(100% - 470px);
-  margin-left: 53px;
-  margin-right: 53px;
-}
-</style>
-<span id="list_multi_title">
-<h1><span id="span_1">Mes formations</span></h1>
-</span>
-<ul id="list_multi">
-<%
-def comparator(x, y): 
-  return cmp(str(x.course_id), str(y.course_id))
-course_enrollments.sort(cmp=comparator,reverse=True)
-%>
 
-% for dashboard_index, enrollment in enumerate(course_enrollments):
-  % if tma_verify_access(request.user).has_dashboard_access(str(enrollment.course_id)) or (not str(enrollment.course_id) in custom_fields.keys() or custom_fields[str(enrollment.course_id)] + 1000*60*60*24*30 > timestamp) :
-    <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
-  % endif
-% endfor
-</ul>
-<!-- multi site css -->
-<style>
-.dashboard_profile {
-  margin-bottom: 20px;
-}
-@media(max-width:1024px) {
+  <style>
   #dashboard_course_content {
-    width: calc(100% - 76px);
-    margin-left: 23px;
+    width: calc(100% - 470px);
+    margin-left: 53px;
+    margin-right: 53px;
   }
-}
-@media(max-width:673px) {
-  .course_show_tma {
-    left: calc(100% - 120px);
-    bottom: -48px;
-    transform: none;
+  </style>
+  <span id="list_multi_title">
+  <h1><span id="span_1">Mes formations</span></h1>
+  </span>
+  <ul id="list_multi">
+  <%
+  def comparator(x, y): 
+    return cmp(str(x.course_id), str(y.course_id))
+  course_enrollments.sort(cmp=comparator,reverse=True)
+  %>
+
+  %for dashboard_index, enrollment in enumerate(course_enrollments):
+    %if str(enrollment.course_id) in courses_registration_time.keys() :
+      %if not str(enrollment.course_id) in custom_fields.keys() or custom_fields[str(enrollment.course_id)] + 1000*60*60*24*int(courses_registration_time[str(enrollment.course_id)]) > timestamp :
+        <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+      %endif
+    %else :
+      %if not str(enrollment.course_id) in custom_fields.keys() or custom_fields[str(enrollment.course_id)] + 1000*60*60*24*30 > timestamp :
+        <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
+      %endif
+    %endif
+  %endfor
+  </ul>
+  <!-- multi site css -->
+  <style>
+  .dashboard_profile {
+    margin-bottom: 20px;
   }
-  .tma_bottom_course_listing_multi {
-    position: relative;
-    bottom: 0;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 0px;
+  @media(max-width:1024px) {
+    #dashboard_course_content {
+      width: calc(100% - 76px);
+      margin-left: 23px;
+    }
   }
-}
-@media(max-width:445px) {
-  #dashboard_course_content {
-    width: calc(100% - 14px);
-    margin-left: 7px;
-    margin-right: 7px;
+  @media(max-width:673px) {
+    .course_show_tma {
+      left: calc(100% - 120px);
+      bottom: -48px;
+      transform: none;
+    }
+    .tma_bottom_course_listing_multi {
+      position: relative;
+      bottom: 0;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 0px;
+    }
   }
-}
-</style>
+  @media(max-width:445px) {
+    #dashboard_course_content {
+      width: calc(100% - 14px);
+      margin-left: 7px;
+      margin-right: 7px;
+    }
+  }
+  </style>
 % else:
 
 <!---- NO COURSE ENROLLMENT
@@ -436,7 +454,6 @@ course_enrollments.sort(cmp=comparator,reverse=True)
 		<h2>Si vous ne recevez pas ce message, vérifiez dans votre dossier de spam.</h2>
 	%endif
 
-
 </div>
 % endif
 <!-- FIN DASHBOARD MULTI -->
@@ -444,6 +461,8 @@ course_enrollments.sort(cmp=comparator,reverse=True)
 <!-- FIN DASHBOARD MULTI -->
 <!-- FIN DASHBOARD MULTI -->
 </div>
+
+
 <span style="display:block;clear:left;"></span>
 <script>
 // SVG ACTION
@@ -650,39 +669,37 @@ $(window).initialize(function(){
     border-radius: 15px 15px 0px 0px;
   }
 </style>
+
 % if background_img_exist:
 <style>
   /* #tma_background_font{
     background: #e4e4e4;
   } */
-
 </style>
-
 % endif
 
 
 % if background_img_exist:
   <!-- check if img exist, then if not replace it with the original background img -->
-  <script>
-      function checkIfBgExist () {
-        $.ajax({
-          url:'${background_img_url}',
-          type:'HEAD',
-          error: function()
-          {
-              console.log("standard background image")
 
-          },
-          success: function()
-          {
-              console.log("background image successfully loaded")
-              let tmaBackground = document.getElementById("tma_background_font")
-              tmaBackground.style.backgroundImage = "url(${background_img_url})"
-    
-          }
+  <script>
+    function checkIfBgExist () {
+      $.ajax({
+        url:'${background_img_url}',
+        type:'HEAD',
+        error: function()
+        {
+          console.log("standard background image")
+        },
+        success: function()
+        {
+          console.log("background image successfully loaded")
+          let tmaBackground = document.getElementById("tma_background_font")
+          tmaBackground.style.backgroundImage = "url(${background_img_url})"
+        }
       });
-      }
-      checkIfBgExist()
+    }
+    checkIfBgExist()
     
-    </script>
+  </script>
 % endif

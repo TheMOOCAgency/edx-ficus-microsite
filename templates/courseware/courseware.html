@@ -9,6 +9,8 @@ from django.conf import settings
 from edxnotes.helpers import is_feature_enabled as is_edxnotes_enabled
 from openedx.core.djangolib.markup import HTML
 from openedx.core.djangolib.js_utils import js_escaped_string
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+
 import time
 import json
 %>
@@ -23,13 +25,21 @@ background_img_exist = False
 custom_fields = {}
 timed_out = False
 timestamp = int(round(time.time() * 1000))
-
+courses_registration_time = configuration_helpers.get_value("COURSES_REGISTRATION_PERIOD")
 custom_fields = json.loads(real_user.profile.custom_field)
-if str(course.id) in custom_fields.keys() :
+
+if str(course.id) in custom_fields.keys() and str(course.id) in courses_registration_time.keys() :
+  if int(custom_fields[str(course.id)]) + 1000*60*60*24*(courses_registration_time[str(course.id)]) < timestamp :
+    timed_out = True
+  else:
+    timed_out = False
+
+elif str(course.id) in custom_fields.keys():
   if int(custom_fields[str(course.id)]) + 1000*60*60*24*30 < timestamp :
     timed_out = True
   else:
     timed_out = False
+
 else:
   custom_fields[str(course.id)] = timestamp
   real_user.profile.custom_field = json.dumps(custom_fields)
