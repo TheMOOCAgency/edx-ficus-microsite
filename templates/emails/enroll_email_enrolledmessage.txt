@@ -1,30 +1,18 @@
 <%! from django.utils.translation import ugettext as _ %>
-<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_1.jpg" style="height:100px;margin-bottom:50px"/></div>
+<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/image_mail.png" style="height:100px;margin-bottom:50px"/></div>
+<p>Bonjour, </p>
 
-<p><br />${_("Dear {full_name}").format(full_name=full_name)}</p>
+<p>Vous avez été inscrit à la formation ${course_name} sur {site_name} par un membre de l'équipe pédagogique. Le cours devrait maintenant apparaitre dans votre tableau de bord.</p>
 
-<p>${_("You have been enrolled in {course_name} at {site_name} by a member "
-	"of the course staff. The course should now appear on your {site_name} "
-	"dashboard.").format(
-		course_name=display_name or course.display_name_with_default_escaped,
-		site_name=site_name
-	)}</p>
+<p>Pour commencer le cours, rendez-vous sur https://${site_name} </p>
+ 
+<p>Vous bénéficiez de l’accès au cours pour une durée de ${course_registration_period} jours à compter du ${date_today}. </p>
+ 
+<p>Pour une meilleure audibilité de la formation, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer. </p> 
+ 
+<p>Pour toute assistance technique ou fonctionnelle, vous pouvez écrire à : supportdigital@cma-france.fr </p>
+ 
+<p>L’équipe CMA vous souhaite une excellente formation et se tient à votre disposition pour toute information complémentaire. </p>
+ 
+<p>Cordialement </p>
 
-<p>${_("To start accessing course materials, please visit {course_url}").format(
-		course_url=course_url
-	)}</p>
-
-<p>${_("Vous bénéficiez de l’accès au cours pour une durée de 30 jours.")}</p>
-
-<p>${_("Pour une meilleure audition sonore, nous vous conseillons d’utiliser Chrome comme navigateur internet plutôt que Mozilla Firefox et Internet Explorer.")}</p>
-
-<p>${_("L’équipe CMA vous souhaite une excellente utilisation de la plateforme et reste à votre disposition si besoin.")}</p>
-
-<p>${_("A bientôt.")}</p>
-
-<p>----</p>
-<p>${_("This email was automatically sent from {site_name} to "
-	"{full_name}").format(
-		site_name=site_name, full_name=full_name
-	)}<br /><br /><br /></p>
-<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/logo_email_2.jpg" style="height:100px;margin-top:50px"/></div>
