@@ -59,7 +59,13 @@ cours_ouv = show_courseware_link and not is_course_blocked
     %if not "Module" in str(enrollment.course_id):
     <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
     %endif
-    <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+      %if str(enrollment.course_id) == "course-v1:academie-digitale+FC_20+2022":
+        <a href="/courses/course-v1:academie-digitale+FC_20+2022/778620a30d8d429a9111d4cc75a9e9f8/" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+      %elif str(enrollment.course_id) == "course-v1:academie-digitale+FC_20+2022":
+        <a href="/courses/course-v1:academie-digitale+FC_B20+2022/cef4535891be4fd4b47cec134b73e361/" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+      %else:
+        <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+      %endif
     % if return_social is not None:
     <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
     % else:
