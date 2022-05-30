@@ -13,6 +13,7 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 
+
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <link rel="stylesheet" type="text/css" href="/media/microsite/netexplo/css/netexplo_index.css" />
 <style>
@@ -46,60 +47,62 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
   document.title="Préparation-data";
 </script>
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
+  <%include file="cookie_banner.html" />
+  <section class="home">
+    <header>
+      <div class="outer-wrapper">
+        <div class="title">
+          <div class="heading-group">
+            % if homepage_overlay_html:
+              ${homepage_overlay_html | n, decode.utf8}
+            % else:
+                ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
+                <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
+                ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
+                <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
             % endif
-
           </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
+          % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+            <div class="course-search">
+              <form method="get" action="/courses">
+                <label><span class="sr">${_("Search for a course")}</span>
+                  <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
+                </label>
+                <button class="search-button" type="submit">
+                  <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+                </button>
+              </form>
+            </div>
           % endif
+
         </div>
 
-        <div id="logoNetexplo">
-          <img src="/media/microsite/netexplo/auto/images/logo.png" width="50" style="width: 300px;"/>
-        </div>
+        % if show_homepage_promo_video:
+          <a href="#video-modal" class="media" rel="leanModal">
+            <div class="hero">
+              <div class="play-intro"></div>
+            </div>
+          </a>
+        % endif
+      </div>
 
-        <div id="connectButnsWrapper">
-          <div class="butnContainer">
-            <a class="connectButn" href='/login?next=%2Ftma_apps%2Fuser_info'>Connexion</a>
-          </div>
-          <div class="butnContainer">
-            <a class="registerButn" href='/register?next=%2Ftma_apps%2Fuser_info'>Inscription</a>
-          </div>
-        </div>
-      </header>
-      <%include file="${courses_list}" />
+      <div id="logoNetexplo">
+        <img src="/media/microsite/netexplo/auto/images/logo.png" width="50" style="width: 300px;"/>
+      </div>
 
-    </section>
+      <div id="connectButnsWrapper">
+        <div class="butnContainer">
+          <a class="connectButn" href='/login?next=%2Ftma_apps%2Fuser_info'>Connexion</a>
+        </div>
+        <div class="butnContainer">
+          <a class="registerButn" href='/register?next=%2Ftma_apps%2Fuser_info'>Inscription</a>
+        </div>
+      </div>
+    </header>
+    <%include file="${courses_list}" />
+
+
+  </section>
 </main>
 
 % if show_homepage_promo_video:
