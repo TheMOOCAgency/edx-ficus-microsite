@@ -1,5 +1,5 @@
 <%! from django.utils.translation import ugettext as _ %>
-<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/image_mail.png" style="height:100px;margin-bottom:50px"/></div>
+<div><img src="https://www.e-formation.artisanat.fr/media/microsite/e-formation-artisanat/assets/image_mail.jpg" style="height:100px;margin-bottom:50px"/></div>
 <p>Bonjour, </p>
 
 <p>Vous avez été inscrit à la formation ${course_name} sur {site_name} par un membre de l'équipe pédagogique. Le cours devrait maintenant apparaitre dans votre tableau de bord.</p>
