@@ -207,6 +207,10 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
         % endif
 
           ${HTML(fragment.body_html())}
+          <div id="certification-orano" >
+            
+            <a href="/attendance_record/" id="certification-orano-a"> Vous pouvez télécharger votre attestation de réussite en cliquant ici</a>
+          </div>
         </main>
     </section>
 
@@ -356,15 +360,45 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+
+let updateHref = setInterval(() => {
+
+  // Update Href :
+  let username = '${user}'
+
+  let xblockList = $('.xblock-student_view')
+
+  for (let i = 0; i < xblockList.length; i++) {
+    const block = xblockList[i];
+
+    if (block.getAttribute('data-usage-id') && block.getAttribute('data-block-type') == 'scormxblock') {
+      value = block.getAttribute('data-usage-id')
+    }
+  }
+
+  let newHref = '/tma_apps/attendance_record/'+course_id_tma_nav+'/'+value+'/'+username 
+  $('#certification-orano-a').attr('href', newHref )
+
+  // Then move div 
+  let divToMove = $("#certification-orano")
+  let divTargeted = document.querySelector('.sequence-bottom')
+
+  divTargeted.parentNode.insertBefore(divToMove[0], divTargeted)
+  divToMove.attr('style', 'box-shadow: none') 
+  
+  // Stop function
+  if (divToMove.attr('style') == 'box-shadow: none') {
+    clearInterval(updateHref)
+  }
+
+}, 700);
+
+
 </script>
 
-  <!--TMA TIME TRACKING-->
-%if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
-<script>
-console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-</script>
+<!--TMA TIME TRACKING-->
 <%include file="/tma_apps/tma_time_tracking.html" />
-%endif
+
 <script>
 $(document).ready(function(){
 // setTimeout($('.menu-accordion').show(), 1000);
@@ -444,6 +478,19 @@ setInterval(function(){
   .ui-state-default .ui-icon {
     background-image: url("/media/microsite/mooc-integrerlesiec/images/ui-icons_5770BE_256x240.png");
 }
+  #certification-orano {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;  
+  }
+  #certification-orano-a {
+    border: 2px black solid;
+    padding: 10px;
+    box-shadow: none !important;
+  }
+
+
 </style>
 <!-- TMA Ficus Redesign -->
 <%
