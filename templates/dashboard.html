@@ -35,7 +35,7 @@ if len(course_id) > 0:
   background_img_exist_for_dashboard = True
 else:
   if len(course_enrollments) == 1:
-    user_enrollment = str(course_enrollments[0].course_id)
+    user_enrollment = str(course_enrollments[0].course_id).replace(':', '')
     log.info(user_enrollment)
     background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + user_enrollment + '.jpg'
     background_img_exist_for_dashboard = True
