@@ -36,7 +36,6 @@ if len(course_id) > 0:
 else:
   if len(course_enrollments) == 1:
     user_enrollment = str(course_enrollments[0].course_id).replace(':', '')
-    log.info(user_enrollment)
     background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + user_enrollment + '.jpg'
     background_img_exist_for_dashboard = True
 %>
@@ -787,7 +786,6 @@ $(window).initialize(function(){
   <script>
 
 function checkIfBgExist () {
-  console.log('${background_img_url}')
     $.ajax({
       url:'${background_img_url}',
       type:'HEAD',
