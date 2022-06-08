@@ -22,14 +22,23 @@ from tma_apps.tma_support_functions import tma_verify_access
 #from discussion_tma.views import get_section_list
 import time
 import json
+import logging
+log = logging.getLogger()
 %>
 
 <%
-background_img_exist = False
+log.info("heeeeere")
+background_img_exist_for_dashboard = False
 course_id = request.path.replace('dashboard', '').replace('/', '').replace(':', '')
 if len(course_id) > 0:
   background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + course_id + '.jpg'
-  background_img_exist = True
+  background_img_exist_for_dashboard = True
+else:
+  if len(course_enrollments) == 1:
+    user_enrollment = str(course_enrollments[0].course_id)
+    log.info(user_enrollment)
+    background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + user_enrollment + '.jpg'
+    background_img_exist_for_dashboard = True
 %>
 
 <%
@@ -168,6 +177,73 @@ endfor
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     %>
 
+
+
+    <%
+    from tma_apps.models import TmaCourseEnrollment
+    from xmodule.modulestore.tests.factories import ItemFactory
+
+    if TmaCourseEnrollment.objects.filter(course_enrollment_edx=enrollment).exists():
+      time_tracking_test = TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).detailed_time_tracking
+
+      seconds = TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).global_time_tracking
+      hour = seconds // 3600
+      seconds %= 3600
+      minute = seconds // 60
+      time_global = str(hour)+"h"+str(minute)+"min"
+
+    else :
+      time_tracking_test = 0
+    %>
+    
+    <style>
+    #dashboard_profile_time_tracking {
+      background-color: white;
+    }
+    #dashboard_profile_time_tracking .dashboard_profile_bottom_middle {
+      text-align: start;
+      margin-left: 46px;
+      
+    }
+    #dashboard_profile_time_tracking .dashboard_profile_bottom_middle span:last-child {
+      width: 150px !important;
+      text-align: end;
+      text-transform: none !important;
+    }
+
+    </style>
+
+    <script>
+      var time_tracking_dict = ''
+      var list_time_tracking = '${time_tracking_test}'.replace('&#34;&#34;: 587, ', '').replace(/&#34;/g, '"')
+
+      list_time_tracking = JSON.parse(list_time_tracking)
+
+
+      // do not manage to get section hash from enrollment .. 
+      var course_id = '${enrollment.course_id}'
+
+      if (course_id == "course-v1:academie-digitale+FC_02+FC_02") {
+        // pprod1
+        course_hashes = [ "6490e613f4b64419bfb8dd541a15183a", "f800fc13f85a4b8da4e5820eee0409d7", "4eb292036cf94b11a66676246ed3c488", "987d0de706364baaa740b299fa632195", "3c1973612b3544a5835bae7f7fdac102", "4987691195504d509c3e5a62d274b0a1"]
+
+      } else if (course_id == "course-v1:academie-digitale+FC_B20+2022") {
+
+        // Not finished
+        course_hashes = ["c0ed61dfe56448ad80c922b26a8c8b89", "e97cee85f42745d8a6e5ab0bae396cdf", "cb87227d6c8b4fe29b44147c9ecf2263", "611abdd50d214586be399c783bf70cc0"]
+
+      } else if (course_id == "course-v1:academie-digitale+FC_20+2022") {
+
+        course_hashes = ["6490e613f4b64419bfb8dd541a15183a", "f800fc13f85a4b8da4e5820eee0409d7", "4eb292036cf94b11a66676246ed3c488", "987d0de706364baaa740b299fa632195", "3c1973612b3544a5835bae7f7fdac102", "4987691195504d509c3e5a62d274b0a1"]
+
+      } else {
+        var course_hashes = []
+
+      }
+    </script>
+
+
+
     <!-- block milieu profil -->
     <div class="dashboard_profile" id="dashboard_profile_middle" style="height: 204px;">
       <!-- formation validé -->
@@ -208,33 +284,60 @@ endfor
         #dashboard_profile_middle_middle {
          display: none;
         }
+
       </style>
       %endif
     </div>
+
+
+    <!-- block bottom profil -->
+    <div class="dashboard_profile" id="dashboard_profile_time_tracking">
+      <div id="dashboard_profile_bottom_up">
+        <span>Ma Progression</span><span id="tma_time_tracking" style="text-transform: none !important;">${time_global}</span>
+      </div>
+      <%
+      course_details_len = len(course_details)
+      mark = 0
+      %>
+      % for n in course_details:
+        <% mark = mark + 1 %>
+        <!-- assignement type -->
+        <div class="dashboard_profile_bottom_middle">
+          <span>Section ${mark}</span> 
+          <span id="assignment_time_tracking_${mark}">non commencé</span>
+        </div>
+        % if mark < course_details_len:
+        <!-- border middle -->
+        <div class="dashboard_profile_bottom_middle_border"></div>
+        % endif
+      % endfor
+    </div>
+
+
     <!-- block bottom profil -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
-        <span>Progression</span><span id="score_tma">${score}%</span>
+        <span>Mes résultats</span><span id="score_tma">${score}%</span>
       </div>
-  <%
-  course_details_len = len(course_details)
-  mark = 0
-  %>
-  % for n in course_details:
-    <% mark = mark + 1 %>
-    <!-- assignement type -->
-    <div class="dashboard_profile_bottom_middle">
-      <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')}
-      </span></span><span id="assignment_grade_${mark}">0%</span>
+    <%
+    course_details_len = len(course_details)
+    mark = 0
+    %>
+    % for n in course_details:
+      <% mark = mark + 1 %>
+      <!-- assignement type -->
+      <div class="dashboard_profile_bottom_middle">
+        <img class="svg" src="${static.url('images/badge_blanc.svg')}" id="badge_${mark}"/><span>${n.get('type')}
+        </span></span><span id="assignment_grade_${mark}">0%</span>
+      </div>
+      % if mark < course_details_len:
+      <!-- border middle -->
+      <div class="dashboard_profile_bottom_middle_border">
+      </div>
+      % endif
+    % endfor
     </div>
-    % if mark < course_details_len:
-    <!-- border middle -->
-    <div class="dashboard_profile_bottom_middle_border">
-    </div>
-    % endif
-  % endfor
-  </div>
 
 <script type="text/javascript">
 grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
@@ -678,28 +781,48 @@ $(window).initialize(function(){
 </style>
 % endif
 
-
-% if background_img_exist:
+% if background_img_exist_for_dashboard:
   <!-- check if img exist, then if not replace it with the original background img -->
 
   <script>
-    function checkIfBgExist () {
-      $.ajax({
-        url:'${background_img_url}',
-        type:'HEAD',
-        error: function()
-        {
-          console.log("standard background image")
-        },
-        success: function()
-        {
-          console.log("background image successfully loaded")
-          let tmaBackground = document.getElementById("tma_background_font")
-          tmaBackground.style.backgroundImage = "url(${background_img_url})"
-        }
-      });
-    }
-    checkIfBgExist()
-    
+
+function checkIfBgExist () {
+  console.log('${background_img_url}')
+    $.ajax({
+      url:'${background_img_url}',
+      type:'HEAD',
+      error: function()
+      {
+        console.log("standard background image")
+      },
+      success: function()
+      {
+        console.log("background image successfully loaded")
+        let tmaBackground = document.getElementById("tma_background_font")
+        tmaBackground.style.backgroundImage = "url(${background_img_url})"
+      }
+    });
+  }
+  checkIfBgExist()
   </script>
+
+
 % endif
+
+
+
+
+<script>
+for (let i = 0; i < course_hashes.length; i++) {
+  const element = course_hashes[i];
+  if (element in list_time_tracking) {
+
+    seconds = list_time_tracking[element]
+    minute = Math.floor(seconds / 60)
+    time_tracking_sect = minute+" min"
+
+    $("#assignment_time_tracking_"+(i+1)).html(time_tracking_sect)
+
+  }
+}
+</script>
