@@ -400,7 +400,7 @@ $.ajax({
         </button>
         %endif
       </div>
-      <div class="text-center">
+      <div class="text-center hiddenButtonOrange">
         %if associated_courses.get('step_number',1) > 1 or course_state == "finished":
           <a style="color:inherit;" href="https://learning.netexplodigimapper.com/register?course_id=course-v1%3Adigimapper-ressources%2BEN%2B1&enrollment_action=enroll&next=%2Fcourses%2Fcourse-v1%3Adigimapper-ressources%2BEN%2B1%2Fcourseware%2Ffca645ff40ab4b60993de20bf404fe11%2F6a2f4b9fa472440ea1b491e783286d26%2F" target="_blank">
             <button class="sub-btn blue-btn" id="last_score" style="background-color: #FFAA16 !important;">
@@ -417,3 +417,14 @@ $.ajax({
   </div>    
 </div>
 
+<!-- 15463 - quentin - hide button if user's company is "orange" in custom fields -->
+
+<script>
+  const hiddenButtonOrange = document.querySelector('.hiddenButtonOrange')
+
+  if (cf_company.toLowerCase() ==  'orange'){
+    window.addEventListener('load', ()=>{
+      hiddenButtonOrange.style.display = "none"
+    })
+  }
+</script>
