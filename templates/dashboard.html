@@ -27,7 +27,6 @@ log = logging.getLogger()
 %>
 
 <%
-log.info("heeeeere")
 background_img_exist_for_dashboard = False
 course_id = request.path.replace('dashboard', '').replace('/', '').replace(':', '')
 if len(course_id) > 0:
@@ -182,6 +181,9 @@ endfor
     from tma_apps.models import TmaCourseEnrollment
     from xmodule.modulestore.tests.factories import ItemFactory
 
+
+    log.info(enrollment)
+
     if TmaCourseEnrollment.objects.filter(course_enrollment_edx=enrollment).exists():
       time_tracking_test = TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).detailed_time_tracking
 
@@ -191,6 +193,7 @@ endfor
       minute = seconds // 60
       time_global = str(hour)+"h"+str(minute)+"min"
 
+      log.info(time_tracking_test)
     else :
       time_tracking_test = 0
     %>
@@ -215,6 +218,8 @@ endfor
     <script>
       var time_tracking_dict = ''
       var list_time_tracking = '${time_tracking_test}'.replace('&#34;&#34;: 587, ', '').replace(/&#34;/g, '"')
+
+      console.log(list_time_tracking)
 
       list_time_tracking = JSON.parse(list_time_tracking)
 
@@ -431,12 +436,27 @@ else{
   course_enrollments.sort(cmp=comparator,reverse=True)
   %>
 
+
   %for dashboard_index, enrollment in enumerate(course_enrollments):
+  <script>
+    console.log("${dashboard_index}")
+    console.log("${enrollment}")
+    console.log("${courses_registration_time.keys()}")
+    console.log("${str(enrollment.course_id)}")
+    console.log("${custom_fields.keys()}")
+    console.log("${not str(enrollment.course_id) in courses_registration_time.keys()}")
+    console.log("${not str(enrollment.course_id) in custom_fields.keys()}")
+  </script>
     %if str(enrollment.course_id) in courses_registration_time.keys() :
+    <script>
+      console.log("${custom_fields[str(enrollment.course_id)]}")
+    </script>
       %if not str(enrollment.course_id) in custom_fields.keys() or custom_fields[str(enrollment.course_id)] + 1000*60*60*24*int(courses_registration_time[str(enrollment.course_id)]) > timestamp :
+      <h1>${str(enrollment.course_id)} 11</h1>
         <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
       %endif
     %else :
+    
       %if not str(enrollment.course_id) in custom_fields.keys() or custom_fields[str(enrollment.course_id)] + 1000*60*60*24*30 > timestamp :
         <%include file='dashboard/_dashboard_course_cell_multi.html' args='show_courseware_link = (enrollment.course_id in show_courseware_links_for),is_course_blocked = (enrollment.course_id in block_courses),course_overview=enrollment.course_overview,org_static=org_static, show_email_settings = (enrollment.course_id in show_email_settings_for), enrollment=enrollment, dashboard_index=dashboard_index' />
       %endif
@@ -771,14 +791,6 @@ $(window).initialize(function(){
     border-radius: 15px 15px 0px 0px;
   }
 </style>
-
-% if background_img_exist:
-<style>
-  /* #tma_background_font{
-    background: #e4e4e4;
-  } */
-</style>
-% endif
 
 % if background_img_exist_for_dashboard:
   <!-- check if img exist, then if not replace it with the original background img -->
