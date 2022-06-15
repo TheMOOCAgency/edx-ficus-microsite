@@ -1,34 +1,19 @@
-% if course_key == "course-v1:complete-data+FR+MBA_HEC"  :
+% if course_key == "course-v1:complete-data+FR+MBA_HEC" :
 
-Dear Participant,
+Cher participant,
 
-I am very happy to welcome you to the HEC MBA Course Data for Managers.
-This course has been originally developed as an Executive Short Certificate by the Netexplo Observatory and HEC, and it has been attended by almost 1000 managers in 2020.
+Bienvenue au cours MBA HEC - Data for Managers.
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le site en cliquant sur le lien suivant :
 
-It is composed of asynchronic lectures, testimonials, workshops and quiz, as well as two synchronic meetings over Zoom.
-- a 1-hour Q/A meeting Wednesday, January 27 at 4:20 PM Paris time
-- a 3-hour workshop: on Thursday, February 11 (9:00-12:10 PM Paris time) for half the cohort and Wednesday, February 17 (9:00-12:10 PM Paris time) for the other half.
+URL: https://formationadistance.dataformanagers.com/
 
-You can already register at one of these two workshop sessions there: https://docs.google.com/spreadsheets/d/10V9soz4Ln7YP8-1p_HrJsZJ6uOUG-BVJUOTWPQFB5Y4/edit?usp=sharing.
+Si vous êtes déjà inscrit à Digimapper, vous pouvez utiliser la même adresse email et le même mot de passe pour accéder à Data For Managers.
 
-As you are 44, we will have 5 groups of 4 to 5 students for each of the two cohorts.
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org.
 
-Please click on the link below:
-https://formationadistance.dataformanagers.com/login?next=/tma_apps/user_info
+Cordialement,
 
-If you’ve already registered to Digimapper then you may use the same email address and password to access Data For Managers.
-
-When connected, you will have to select between two languages: French or English. If you are French speaking, select French, otherwise select English: It is the exact same content and the lectures have been recorded in both languages (testimonials are sub-titled). The synchronous sessions will be of course in English.
-
-If you encounter any tech issues, please contact Esther Ruch at learning@netexplo.org
-
-Do not hesitate to contact me for any further question,
-
-Best regards,
-
-Julien Lévy
-Associate Professor
-Scientific director of the HEC IDEA Center
+Netexplo/HEC Paris
 
 % elif course_key == "course-v1:complete-data+EN+MBA_HEC"  :
 
