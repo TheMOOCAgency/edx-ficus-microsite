@@ -45,6 +45,36 @@ If you encounter any issues please contact Esther Ruch at learning@netexplo.org
 Best regards,
 Netexplo/HEC Paris
 
+% elif course_key == "course-v1:complete-data+FR+2022-06-14_15" :
+
+Cher participant,
+
+Bienvenue au cours Data for Managers by HEC.
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le site en cliquant sur le lien suivant :
+
+URL: https://formationadistance.dataformanagers.com/
+
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org.
+
+Cordialement,
+
+Netexplo/HEC Paris
+
+% elif course_key == "course-v1:complete-data+FR+2022-06-16_17" :
+
+Cher participant,
+
+Bienvenue au cours Data for Managers by HEC.
+Pour accéder au programme et commencer la formation, nous vous invitons à vous rendre sur le site en cliquant sur le lien suivant :
+
+URL: https://formationadistance.dataformanagers.com/
+
+Si vous avez des problèmes de connexion, veuillez contacter Esther par email learning@netexplo.org.
+
+Cordialement,
+
+Netexplo/HEC Paris
+
 % else :
 
 <%! from django.utils.translation import ugettext as _ %>
