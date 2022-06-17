@@ -386,15 +386,20 @@ const elementToChange = document.querySelector('#tos-yes').nextSibling.nextSibli
 const textPattern1 = 'I disagree to the <a href="/tos" class="new-vp" tabindex="-1">Terms of Service</a>'
 const textPattern2 = "J'ai pris connaissance et j'accepte les conditions d'utilisation du service ainsi que les termes de confidentialité du site"
 const textPattern3 = `J'ai pris connaissance et j'accepte les <a href="/tos" class="new-vp" tabindex="-1">conditions d'utilisation du service</a> ainsi que les termes de confidentialité du site`
+const textPattern4 = `I agree with <a href="/tos" class="new-vp" tabindex="-1">terms conditions</a> and privacy policy`
 const check = elementToChange.textContent
 
 if (check.includes('accepte')){
+  console.log("the page is in french 🤷🏻‍♂️")
   elementToChange.innerHTML=textPattern3
-  console.log('text replaced 👌🏻')
+  console.log('french text replaced 👌🏻')
   document.querySelector('#field-tos').style.display='flex'
 }
 else if (check.includes('agree')){
-  console.log("the page is in english")
+  console.log("the page is in english 🤷🏻‍♂️")
+  elementToChange.innerHTML=textPattern4
+  console.log('english text replaced 👌🏻');
+  document.querySelector('#field-tos').style.display='flex'
 }
 else{
   console.log('ça marche po ☹️')
