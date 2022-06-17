@@ -49,6 +49,17 @@ third_list.sort(key=lambda x: x.id)
     display: flex;
     flex-direction: column;
   }
+  /* modifs quentin - 15528 - reduce height of the formation section with white background */
+  @media screen and (min-width:1500px){
+    .white-background{
+      margin: 0rem 0rem;
+      margin-bottom: 0rem !important;
+    }
+    .white-background > .white-background > #course_catalog{
+      padding-bottom: 0rem;
+      padding-top: 1rem;
+    }
+  }
 </style>
 <section class="courses-container white-background" style="margin-bottom:50px;">
   <section class="highlighted-courses white-background">

@@ -19,12 +19,25 @@ _template = staticFiles().return_template(_values,_collection).get('template')
 if _template is None:
   _template = "<p>About</p>"
 %>
-
+<head>
+    <!-- modif quentin - 15528 - ajout de font pour la page about -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <%block name="pagetitle">${_("About")}</%block>
 <style>
-main { 
- background-color: #fff;
-}
+  main { 
+  background-color: #fff;
+  }
+  /* modif quentin - 15528 - ajout de font pour la page about */
+  p, b, a, h1, section{
+    font-family: 'Quicksand', sans-serif !important;
+    line-height: 1.4rem;
+  }
+  a:hover{
+    color: inherit !important;
+  }
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
   <section class="static-container about" style="width: 70%">

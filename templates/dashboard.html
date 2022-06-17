@@ -307,7 +307,7 @@ endfor
         <% mark = mark + 1 %>
         <!-- assignement type -->
         <div class="dashboard_profile_bottom_middle">
-          <span>Section ${mark}</span> 
+          <span>Sequence ${mark}</span> 
           <span id="assignment_time_tracking_${mark}">non commencé</span>
         </div>
         % if mark < course_details_len:
@@ -777,6 +777,12 @@ $(window).initialize(function(){
   .multi_course_image img, .up_cell{
     border-radius: 15px 15px 0px 0px;
   }
+  /* modifs quentin - ticket 15528 */
+  .course_cells_title{
+    background-color: rgba(255,255,255,0.9);
+  }
+
+
 </style>
 
 % if background_img_exist_for_dashboard:

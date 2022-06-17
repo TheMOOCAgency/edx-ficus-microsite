@@ -165,6 +165,21 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 <link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/responsive_top_layer.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/media/microsite/e-formation-artisanat/css/navigation.css" type="text/css" media="screen" />
 
+
+<style>
+  body.view-in-course .wrapper-footer {
+      margin-top: 0;
+  }
+  
+  
+.content-wrapper {
+  background: url(/static/bungalow/images/bg_dashboard.6d968f78cf70.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+  </style>
+
+
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
@@ -393,12 +408,7 @@ $(".bookmarks-empty-detail-title").initialize(function(){
   
   <!--TMA TIME TRACKING-->
 <%include file="/tma_apps/tma_time_tracking.html" />
-<style>
-  /* #tma_background_font{
-    background: #e4e4e4;
-  } */
-</style>
-  
+
 <!-- check if img exist, then if not replace it with the original background img -->
 <script>
   function checkIfBgExist () {
@@ -422,16 +432,10 @@ $(".bookmarks-empty-detail-title").initialize(function(){
   checkIfBgExist()
 
 </script>
-<!-- fix scorm error -->
-##% if request.path == "/courses/course-v1:academie-digitale+FC_20+2022/courseware/6490e613f4b64419bfb8dd541a15183a/3860f99aa25d400dbe3eafd37a92d19d/":
-<!-- <script>
-  window.addEventListener( "load", function() {
-    let scorm = document.getElementsByClassName("scorm_object")[0]
-    console.log(scorm)
-    if (scorm) {
-      scorm.src = "/media/profile-images/39b2c7c08da445d095ddfad6282c67f6/HACCP_M1_Evaluation/story.html"
-    }
-  } );
-</script> -->
 
-##% endif
+
+<!-- ticket 15528 - quentin - hide "administration element in courseware" -->
+
+<script>
+  document.querySelector('.course-tabs').children[1].style.display='none'
+</script>
