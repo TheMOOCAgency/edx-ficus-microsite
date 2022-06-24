@@ -4,9 +4,51 @@
 
 <%block name="pagetitle">${_("Help")}</%block>
 
+<style>
+    .logoutPage{
+        text-align: center;
+        transform: translateY(10rem);
+        padding: 2rem;
+        background: white;
+        border-radius: 0.5rem;
+    }
+    .logoutPage-logo-img{
+        width: 30%;
+    }
+    .logoutPage-texts {
+        margin-top: 5rem;
+    }
+    .logoutPage-text{
+        margin: 2rem 0rem;
+    }
+    @media screen and (max-width:900px){
+        .logoutPage-logo-img{
+            width: 50%;
+        }
+    }
+    @media screen and (max-width:600px){
+        .logoutPage-logo-img{
+            width: 70%;
+        }
+    }
+</style>
+
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
-        <h1>${_("Help")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+        <!-- <h1>${_("Help")}</h1>
+        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p> -->
+
+        <div class="logoutPage">
+            <div class="logoutPage-logo">
+                <img class="logoutPage-logo-img" src="/media/microsite/digimapper/auto/images/transparent-logo.png" alt="digimapper logo" />
+            </div>
+            <div class="logoutPage-texts">
+                <p class="logoutPage-text">Vous vous êtes bien déconnecté de Digimapper.</p>
+                <p class="logoutPage-text">You have successfully logged out from Digimapper.</p>
+                <p class="logoutPage-text">A bientôt !</p>
+                <p class="logoutPage-text">See you soon !</p>
+            </div>
+        </div>
+
     </section>
 </main>
