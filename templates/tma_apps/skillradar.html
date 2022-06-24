@@ -272,6 +272,25 @@ var updateLink = setInterval(function(){
 
 </script>
 
+    <!-- modifs quentin - 15591 - add redirection to webpage "help" when logout -->
+
+    <script>
+      const modifiedLink = '/logout?next=/help'
+      
+      setTimeout(() => {
+        const logoutLink = document.querySelector('[href="/logout"]')
+
+        if(logoutLink != null){
+          logoutLink.href=modifiedLink
+          console.log('-------------link changed----------')
+        }
+        else if(logoutLink == null){
+          null
+          console.log("haven't found any logout links to change");
+        }
+      }, 2000);
+  
+    </script>
 
   <script src="/media/microsite/digimapper/skill-radar/20220502/static/js/2.efc7f814.chunk.js"></script>
   <script src="/media/microsite/digimapper/skill-radar/20220502/static/js/main.189640fe.chunk.js"></script>

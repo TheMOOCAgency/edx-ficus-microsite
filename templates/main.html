@@ -334,10 +334,11 @@ setInterval(function(){
 <!-- modifs quentin - 15591 - add redirection to webpage "help" when logout -->
 
 <script>
-  const logoutLink = document.querySelector('[href="/logout"]')
+  
   const modifiedLink = '/logout?next=/help'
-
+  
   setTimeout(() => {
+    const logoutLink = document.querySelector('[href="/logout"]')
     if(logoutLink != null){
       // logoutLink.href.replace('/logout',modifiedLink)
       logoutLink.href=modifiedLink
@@ -345,8 +346,8 @@ setInterval(function(){
     }
     else if(logoutLink == null){
       null
-      console.log("haven't found any links to change");
+      console.log("haven't found any logout links to change");
     }
-  }, 500);
+  }, 1000);
 
 </script>
