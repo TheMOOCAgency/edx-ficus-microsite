@@ -294,3 +294,14 @@ $('.tab').find('a').initialize(function(){
 })
 */
 </script>
+
+
+<script>
+    // document.querySelector('.course-tabs').children[1].style.display='none'
+    let navTab = document.getElementsByClassName("tab")
+    for (tab of navTab) {
+        if (tab.children[0].textContent == "TMA DASHBOARD (beta)") {
+            tab.children[0].style.display='none'
+        }
+    }
+  </script>

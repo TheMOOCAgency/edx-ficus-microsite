@@ -307,7 +307,13 @@ endfor
         <% mark = mark + 1 %>
         <!-- assignement type -->
         <div class="dashboard_profile_bottom_middle">
-          <span>Sequence ${mark}</span> 
+          % if "Eval" in n["short_label"]:
+          <span>Evaluation</span> 
+          % elif "AutoP" in n["short_label"]: 
+          <span>Introduction</span> 
+          % else:
+          <span>${n["short_label"].replace("Seq", "Séquence ")}</span> 
+          % endif
           <span id="assignment_time_tracking_${mark}">non commencé</span>
         </div>
         % if mark < course_details_len:
