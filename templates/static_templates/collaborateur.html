@@ -1,0 +1,203 @@
+<%!
+from tma_apps.tma_support_functions import tma_verify_access
+%>
+<!doctype html>
+<%namespace name='static' file='../static_content.html'/>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="icon" href="/favicon.ico"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        <meta name="theme-color" content="#000000"/>
+        <meta name="description" content="Page collaborateur"/>
+        <link href="/media/microsite/management-artisanat/css/collaborateur.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    </head>
+<body style="background: #2c3e50 !important;">
+    % if not disable_header:
+        <%include file="${static.get_template_path('header.html')}" args="online_help_token=online_help_token" />
+    % endif
+    %if user.is_authenticated():
+    % if tma_verify_access(request.user).is_tma_team() or tma_verify_access(request.user).is_dashboard_allowed(course_key=None, org='management-artisanat'):
+    <div id="upper-zone">
+        <div style="padding-right:50px; border-right: 2px solid #556778;">
+            <h1>Espace Agents CMA</h1>
+            <h2>Bienvenue sur votre espace réservé</h2>
+            <p>
+                Plusieurs outils sont mis à votre disposition pour vous assister dans la construction de votre offre e-learning.
+                <br>
+                <br>Que ce soit pour suivre la progression de vos apprenants, étoffer votre offre de formation digitale ou monter en compétence en profitant de nos formations exclusives...
+                <br>Profitez des outils mis à votre disposition par le réseau.
+            </p>
+        </div>
+        <div>
+            <!-- Swiper -->
+            <div class="swiper-container mySwiper">
+                <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <h2>Une interface d'administration</h2>
+                    <p>Un interface d’administration permettant d’inscrire et de suivre la progression de vos apprenants. Inscrivez-les, suivez leur progression, verifiez l’état de leur compte, ajoutez une note obtenue lors d’un cas pratique ou téléchargez leur fiche de présence...</p>
+                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <h2>Votre espace de formation</h2>
+                    <p>Découvrez notre offre de formation interne mise à votre disposition gratuitement pour vous aider à progresser ou à acquérir de nouvelles compétences. Les thématiques sont variées. Il y en a pour tous les goûts, tous les besoins...
+                    <br />Alors rendez-vous sur <a href="https://management.e-formation.artisanat.fr">management.e-formation.artisanat.fr</a> pour découvir la formation qui vous convient le mieux.</p>
+                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <h2>La CMAThèque</h2>
+                    <p>Découvrez notre bibliothèque de contenus et toutes les ressources SCORM mises à disposition pour allimenter vos propres LMS et étoffer votre offre de formation.</p>
+                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="tabs">
+        <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+            <label for="tab-1" class="tab-label">Interface d’administration</label>
+            <div class="tab-content">
+                <h1 class="tab-content-title">Interface d’administration</h1>
+                <div class="content-wrapper">
+                    <div class="content-texts">
+                        <h2>UNE INTERFACE D’ADMINISTRATION</h2>
+                        <p>Chaque site de formation possède son interface d’administration dédié.
+                            Il vous permettra de gérer vos inscriptions et d’assurer le suivi de vos
+                            <br />apprenants tout au long de leur parcours.
+                            <br />Espace admin
+                            <br />
+                            <br />Utilisez cet interface dédié pour :</p>
+                        <ul>
+                            <li>Inscrire de nouveaux stagiaires à une formation</li>
+                            <li>Suivre leur progression sur la plateforme</li>
+                            <li>Vérifier l’état du compte de vos stagiaires</li>
+                            <li>Ajouter une note obtenue lors d’un cas pratique</li>
+                            <li>Télécharger une fiche de présence</li>
+                        </ul>
+                        <p>Découvrez toutes ces fonctionnalités <a href="#">en vidéo</a>.</p>
+                    </div>
+                    <div class="content-buttons">
+                        <ul>
+                            <li><a href="https://www.entrepreneuriat.artisanat.fr"><div>Espace admin
+                                <br />Parcours Créateur</div></a>
+                            </li>
+                            <li><a href="https://www.management.artisanat.fr"><div>Espace admin
+                                <br />Maître d’apprentissage</div></a>
+                            </li>
+                            <li><a href="https://www.reglementation.artisanat.fr"><div>Espace admin
+                                <br />HACCP</div></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+            <label for="tab-2" class="tab-label">Votre espace de formation</label>
+            <div class="tab-content">
+                <h1 class="tab-content-title">Votre espace de formation</h1>
+                <div class="content-wrapper">
+                    <div class="content-texts">
+                        <h2>Découvrez notre catalogue de formation</h2>
+                        <p>Découvrez notre offre de formation interne mise à votre disposition gratuitement pour vous aider à progresser ou à acquérir de nouvelles compétences. Les thématiques sont variées. Il y en a pour tous les goûts, tous les besoins...
+                        <br />
+                        <br />Parmi elles :
+                        </p>
+                        <ul>
+                            <li>Thématique 1</li>
+                            <li>Thématique 2</li>
+                            <li>Thématique 3</li>
+                        </ul>
+                    </div>
+                    <div class="content-buttons">
+                        <ul>
+                            <li><a href="#"><div>Cliquez ici pour accéder
+                                <br />à votre site de formation</div></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+            <label for="tab-3" class="tab-label">Bibliothèque de contenus</label>
+            <div class="tab-content">
+                <div class="content-wrapper">
+                    <h1 class="tab-content-title">La CMAThèque</h1>
+                    <div class="content-texts">
+                        <h2>Découvrez notre CMAThèque</h2>
+                        <p>Une bibliothèque de contenus compilant l’ensemble des ressources SCORM mises à disposition du réseau pour vous aider à étoffer votre offre de formation.
+                        <br />
+                        <br />Découvrez tous les modules proposés,
+                        <br />Testez les...
+                        <br />Téléchargez les...
+                        <br />Puis intégrez-les à vos propres LMS !
+                        </p>
+                    </div>
+                    <div class="content-buttons">
+                        <ul>
+                            <li><a href="https://cma-theque.the-mooc-agency.com/dashboard"><div>Espace admin
+                                <br />Accéder à la CMAThèque</div></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    % else:
+    <h1>Espace Agents CMA</h1>
+    <h2>Utilisateur non autorisé</h2>
+    <p>Vous ne bénéficiez pas des autorisations suffisantes pour utiliser l'Espace Agents CMA</p>
+    % endif
+    % else:
+    <h1>Espace Agents CMA</h1>
+    <h2>Utilisateur non connecté</h2>
+    <p>Veuillez vous connecter pour bénéficier de l'Espace Agents CMA</p>
+    % endif
+
+    <%include file="../footer.html" />
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+</body>
+</html>
+<style>
+ol.user {
+  display : none !important;
+}
+.swiper-pointer-events {
+    overflow: hidden;
+}
+</style>
+

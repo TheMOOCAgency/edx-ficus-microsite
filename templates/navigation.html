@@ -406,11 +406,11 @@ site_status_msg = get_site_status_msg(course_id)
     % if user.is_authenticated():
       % if course:
         % if tma_verify_access(user).has_dashboard_access(str(course.id)):
-          <a href="https://management-artisanat.the-mooc-agency.com/tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
+          <a href="tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
         % endif
       % else:
         % if tma_verify_access(user).has_dashboard_access("course-v1:e-formation-artisanat+premium+2020_T1"):
-          <a href="https://management-artisanat.the-mooc-agency.com/tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
+          <a href="tma_apps/static_page/collaborateur.html" target="_blank" style="vertical-align: -110%;margin-right: 4rem;color:white !important;">Espace Collaborateurs</a>
         % endif
       % endif
     % endif
