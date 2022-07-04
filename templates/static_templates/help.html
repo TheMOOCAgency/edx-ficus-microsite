@@ -10,17 +10,28 @@
     .container{
         min-width: auto;
     }
+    .header-global{
+        display: none;
+    }
+    footer{
+        display: none;
+    }
 
     /* global style */
+
+    .italicText{
+        font-style: italic;
+    }
     .logoutPage{
         text-align: center;
-        transform: translateY(10rem);
+        /* transform: translateY(10rem); */
         padding: 2rem;
-        background: #ffffffe3;
+        background: #ffffffbf;
         border-radius: 0.5rem;
         backdrop-filter: blur(1.5rem);
         line-height: 2rem;
         font-size: 1.3rem;
+        margin-top: 5rem;
     }
     .logoutPage-logo-img{
         width: 30%;
@@ -29,7 +40,7 @@
         margin-top: 5rem;
     }
     .logoutPage-text{
-        margin: 2rem 0rem;
+        /* margin: 2rem 0rem; */
     }
     @media screen and (max-width:900px){
         .logoutPage-logo-img{
@@ -53,8 +64,12 @@
                 <img class="logoutPage-logo-img" src="/media/microsite/digimapper/auto/images/transparent-logo.png" alt="digimapper logo" />
             </div>
             <div class="logoutPage-texts">
-                <p class="logoutPage-text">Vous êtes bien déconnecté de Digimapper. / You have successfully logged out from Digimapper.</p>
-                <p class="logoutPage-text">A bientôt ! / See you soon !</p>
+                <p class="logoutPage-text">Vous êtes bien déconnecté de Digimapper.</p>
+                <p class="logoutPage-text italicText">You have successfully logged out from Digimapper.</p>
+                <br>
+                <br>
+                <p class="logoutPage-text">A bientôt&nbsp;!</p>
+                <p class="logoutPage-text italicText">See you soon!</p>
             </div>
         </div>
 
