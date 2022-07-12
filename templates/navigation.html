@@ -365,6 +365,25 @@ site_status_msg = get_site_status_msg(course_id)
           background-color: rgba(0,117,176,1);
           box-shadow: none !important;
         }
+
+        /* modifs quentin - ticket 15792 - add mousover on element header, to show more informations */
+        .mouseOver-items{
+          position: absolute;
+          display: none;
+          opacity: 0;
+          border-radius: 0.3rem;
+          padding: 0.5rem;
+          background: white;
+          transition: all 0.2s;
+        }
+        .mouseOver-home{
+          left: 4.8rem;
+          top: 5rem;
+        }
+        .mouseOver-website{
+          left: 9.2rem;
+          top: 5rem;
+        }
       </style>
       <!-- Menu burger Stop-->
 
@@ -396,11 +415,19 @@ site_status_msg = get_site_status_msg(course_id)
       </form>
     </div> -->
 
-    <a href="/dashboard" style="float: left;margin-top: 0.9rem;" target="_blank">
+    <a onmouseover="showItems(this)" onmouseout="hideItems(this)" class="mouseOver-home-trigger" href="/dashboard" style="float: left;margin-top: 0.9rem;" target="_blank">
       <img style="width: 2rem;" src="/media/microsite/academie-digitale/images/asset_2.png" alt="home">
     </a>
-    <a href="https://www.e-formation.artisanat.fr/" style="float: left;margin-top: 0.9rem;" target="_blank">
-      <img style="width: 2rem;margin-left: 2em;margin-top: 2px;" src="/media/microsite/academie-digitale/images/online-learning.png" alt="home">
+    <!-- modifs quentin - ticket 15792 - add mousover on element header, to show more informations -->
+    <div class="mouseOver-items mouseOver-home">
+      <p>Acceuil</p>
+    </div>
+    <div class="mouseOver-items mouseOver-website">
+      <p>Site vitrine</p>
+    </div>
+    <!-- modifs quentin - ticket 15792 - add mousover on element header, to show more informations -->
+    <a onmouseover="showItems(this)" onmouseout="hideItems(this)" class="mouseOver-website-trigger" href="https://www.e-formation.artisanat.fr/" style="float: left;margin-top: 1rem; margin-left: 3rem;" target="_blank">
+      <img style="width: 2rem;" src="/media/microsite/academie-digitale/images/online-learning.png" alt="home">
     </a>
 
     % if user.is_authenticated():
@@ -636,3 +663,78 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   <noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=${static.get_value('piwik_id')}" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 % endif
+
+<!-- modifs quentin - ticket 15792 - add mousover on element header, to show more informations -->
+
+<script>
+  const homeOverTrigger = document.querySelector('.mouseOver-home-trigger')
+  const websiteOverTrigger = document.querySelector('.mouseOver-website-trigger')
+
+  const homeOver = document.querySelector('.mouseOver-home')
+  const websiteOver = document.querySelector('.mouseOver-website')
+  const itemsOver = document.querySelectorAll('mouseOver-items')
+
+  let target = []
+  let classElement = ''
+  let triggerElement = []
+
+  let elementToShowHideClass = ''
+  let elementToShowHide =[]
+
+  function showItems(targetX) {
+    // console.log('1 - ça passe bien dans la fonction showItems()');
+
+    target = targetX
+    // console.log('2 - target = '+target);
+
+    classElement = target.className
+    // console.log('3 - class name element show -------> '+classElement);
+    
+    triggerElement = document.querySelector('.'+classElement)
+    // console.log('4 - triggerElement : '+triggerElement);
+
+    elementToShowHideClass = classElement.replace('-trigger','')
+    // console.log('5 - elementToShowHideClass : '+elementToShowHideClass);
+
+    elementToShowHide = document.querySelector('.'+elementToShowHideClass)
+    // console.log('6 - elementToShowHide : '+elementToShowHide);    
+    // console.log('7 - verification OK');
+
+    console.log('the element of that class will be shown : '+elementToShowHideClass);
+
+    if (targetX == target) {
+      elementToShowHide.style.display='block'
+
+      // console.log('8 - display block');
+      
+      setTimeout(() => {
+        elementToShowHide.style.opacity='1'
+        // console.log('9 - opacity 1 elementToShowHide');
+      }, 20);
+    }
+    else{
+      console.log("error - the targets appears not to be the same as in showItems");
+    }
+  }
+
+  function hideItems(targetY) {
+    // console.log('1 hide - ça passe bien dans la fonction hideItems()');
+    // console.log('2 hide - hideItems var target : '+target);
+    // console.log('3 hide - class name element hide -------> '+classElement);
+    
+    console.log('the element of that class will be hide : '+elementToShowHideClass);
+
+    if (targetY == target) {
+      elementToShowHide.style.opacity='0'
+      // console.log('4 hide - opactity 0');
+      setTimeout(() => {
+        elementToShowHide.style.display='none'
+        // console.log('5 hide - display none');
+      }, 50);
+    }
+    else{
+      console.log("error - the targets appears not to be the same as in hideItems");
+    }
+  }
+
+</script>
