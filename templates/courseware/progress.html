@@ -167,7 +167,7 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                         <section aria-labelledby="chapter_${loop.index}">
                             <h4 class="hd hd-4" id="chapter_${loop.index}">
                                 ${ chapter['display_name']}
-                                %if chapter['time_tracker'] is not None:
+                                %if 'time_tracker' in chapter:
                                     <br/>
                                     <span class="time_tracking">
                                         ${chapter['time_tracker']}
