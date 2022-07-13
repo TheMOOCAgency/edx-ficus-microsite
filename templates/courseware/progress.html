@@ -46,6 +46,14 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="${css}" />
 <link rel="stylesheet" type="text/css" href="${css_bis}" />
 
+<style>
+    .time_tracking {
+        font-weight: 100;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+</style>
 <main id="main" aria-label="Content" tabindex="-1">
     <div class="container">
         <div class="profile-wrapper">
@@ -155,8 +163,17 @@ css_bis = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
                     <h3 class="hd hd-4 sr">${_('Details for each chapter')}</h3>
                     %for chapter in courseware_summary:
                         %if not chapter['display_name'] == "hidden":
+                        
                         <section aria-labelledby="chapter_${loop.index}">
-                            <h4 class="hd hd-4" id="chapter_${loop.index}">${ chapter['display_name']}</h4>
+                            <h4 class="hd hd-4" id="chapter_${loop.index}">
+                                ${ chapter['display_name']}
+                                %if chapter['time_tracker'] is not None:
+                                    <br/>
+                                    <span class="time_tracking">
+                                        ${chapter['time_tracker']}
+                                    </span>
+                                % endif 
+                            </h4>
                             <div class="sections">
                                 %for section in chapter['sections']:
                                     <div>
