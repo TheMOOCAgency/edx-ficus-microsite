@@ -252,11 +252,13 @@ for course_id in course_id_list:
     )
     log.info(course_id)
     for _ce in course_enrollments:
-        log.info(course_id)
         user = _ce.user
         user_id = user.id
         user_enroll_date = _ce.created
-        grade_summary = check_grade(user, course, course_id)
+        try:
+            grade_summary = check_grade(user, course, course_id)
+        except:
+            continue
         user_enroll_date = user_enroll_date.replace(hour=0, minute=0, second=0, microsecond=0)
         user_enroll_date = user_enroll_date.date()
         user_last_login = user.last_login
