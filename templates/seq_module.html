@@ -21,12 +21,15 @@
       <ol id="sequence-list">
         % for idx, item in enumerate(items):
         <li>
-        <button class="seq_${item['type']} inactive nav-item"
+          <div class="overTitleUnit overTitleUnit-${idx}"></div>
+          <button class="seq_${item['type']} inactive nav-item"
            data-id="${item['id']}"
            data-element="${idx+1}"
            data-page-title="${item['page_title']}"
            data-path="${item['path']}"
-           id="tab_${idx}">
+           id="tab_${idx}"
+           onmouseover="showInformationUnit(this)" 
+           onmouseout="hideInformationUnit(this)">
             <span class="icon fa seq_${item['type']}" aria-hidden="true"></span>
             <span class="fa fa-fw fa-bookmark bookmark-icon ${"is-hidden" if not item['bookmarked'] else "bookmarked"}" aria-hidden="true"></span>
             <div class="sequence-tooltip sr"><span class="sr">${item['type']}&nbsp;</span>${item['page_title']}<span class="sr bookmark-icon-sr">&nbsp;${_("Bookmarked") if item['bookmarked'] else ""}</span></div>
@@ -64,3 +67,108 @@
     </button>
   </nav>
 </div>
+
+<!-- modifs quentin - ticket 15793 - add mousover on element to show unit title -->
+
+<script>
+
+  const overTitleUnits = document.querySelectorAll('.overTitleUnit')
+  const navItems = document.querySelectorAll('.nav-item')
+  
+  for (let i = 0; i < navItems.length; i++) {
+    const element = navItems[i]
+    const element2 = overTitleUnits[i]
+    let unitsTitle = element.dataset.pageTitle
+
+    element2.innerHTML=unitsTitle
+
+  }
+  
+  if (navItems.length == 1) {
+    
+    let screenWidth = window.innerWidth
+
+    overTitleUnits[0].style.top='-5rem'
+
+    if (screenWidth > 1171) {
+      overTitleUnits[0].style.transform='scale(0.8) translateX(100%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 1170 && screenWidth > 1110 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(80%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 1109 && screenWidth > 1001 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(60%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 1000 && screenWidth > 900 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(35%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 899 && screenWidth > 750 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(5%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 680 && screenWidth > 600 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(60%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 601 && screenWidth > 500 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(30%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 501 && screenWidth > 400 ){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(0%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+    else if (screenWidth < 399){
+      overTitleUnits[0].style.transform='scale(0.8) translateX(-17%)'
+      console.log('variable screen width : '+screenWidth+' taille modifiée en consequence');
+    }
+  }
+
+  function showInformationUnit(x) {
+    let itemStyle = x.previousElementSibling.style
+    itemStyle.opacity='1'
+  }
+
+  function hideInformationUnit(x) {
+    let itemStyle = x.previousElementSibling.style
+    itemStyle.opacity='0'
+  }
+
+</script>
+
+<style>
+  .overTitleUnit{
+    transition: all 0.2s;
+    /* display: none; */
+    position: absolute;
+    top: -7rem;
+    width: 13rem;
+    background: white;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    transform: scale(0.8) translateX(-10%);
+    opacity: 0;
+  }
+  .overTitleUnit-0{
+    
+  }
+  .overTitleUnit-1{
+
+  }
+  .overTitleUnit-2{
+
+  }
+  .overTitleUnit-3{
+
+  }
+  .overTitleUnit-3{
+
+  }
+  .overTitleUnit-3{
+
+  }
+</style>
