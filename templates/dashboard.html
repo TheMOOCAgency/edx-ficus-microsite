@@ -159,6 +159,7 @@ for dashboard_index, enrollment in enumerate(course_enrollments):
     course_details = course_module._field_data_cache['grading_policy']['GRADER']
   endif
 endfor
+
 %>
 
 
@@ -175,28 +176,6 @@ endfor
         cours_ouv = (enrollment.course_id in show_courseware_links_for) and not (enrollment.course_id in block_courses)
     %>
 
-
-
-    <%
-    from tma_apps.models import TmaCourseEnrollment
-    from xmodule.modulestore.tests.factories import ItemFactory
-
-
-    log.info(enrollment)
-
-    if TmaCourseEnrollment.objects.filter(course_enrollment_edx=enrollment).exists():
-      time_tracking_test = TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).detailed_time_tracking
-
-      seconds = TmaCourseEnrollment.objects.get(course_enrollment_edx=enrollment).global_time_tracking
-      hour = seconds // 3600
-      seconds %= 3600
-      minute = seconds // 60
-      time_global = str(hour)+"h"+str(minute)+"min"
-
-      log.info(time_tracking_test)
-    else :
-      time_tracking_test = 0
-    %>
     
     <style>
     #dashboard_profile_time_tracking {
@@ -214,36 +193,6 @@ endfor
     }
 
     </style>
-
-    <script>
-      var time_tracking_dict = ''
-      var list_time_tracking = '${time_tracking_test}'.replace('&#34;&#34;: 587, ', '').replace(/&#34;/g, '"')
-
-      console.log(list_time_tracking)
-
-      list_time_tracking = JSON.parse(list_time_tracking)
-
-
-      // do not manage to get section hash from enrollment .. 
-      var course_id = '${enrollment.course_id}'
-
-      if (course_id == "course-v1:academie-digitale+FC_02+FC_02") {
-        // pprod1
-        course_hashes = [ "6490e613f4b64419bfb8dd541a15183a", "f800fc13f85a4b8da4e5820eee0409d7", "4eb292036cf94b11a66676246ed3c488", "987d0de706364baaa740b299fa632195", "3c1973612b3544a5835bae7f7fdac102", "4987691195504d509c3e5a62d274b0a1"]
-
-      } else if (course_id == "course-v1:academie-digitale+FC_B20+2022") {
-
-        course_hashes = ["fa885f496101480187ad0d1b11222e19", "c0ed61dfe56448ad80c922b26a8c8b89", "4241479f8f3b4f3f9230011cd71e24de", "e97cee85f42745d8a6e5ab0bae396cdf", "b8fa1ebbe81b4bfc84c39ee17b581c1a"]
-
-      } else if (course_id == "course-v1:academie-digitale+FC_20+2022") {
-
-        course_hashes = ["49398e7edb6b4efeb90a3f57af2b6d0c", "6490e613f4b64419bfb8dd541a15183a", "f800fc13f85a4b8da4e5820eee0409d7", "4eb292036cf94b11a66676246ed3c488", "987d0de706364baaa740b299fa632195", "3c1973612b3544a5835bae7f7fdac102", "4987691195504d509c3e5a62d274b0a1"]
-
-      } else {
-        var course_hashes = []
-
-      }
-    </script>
 
 
 
@@ -292,35 +241,34 @@ endfor
       %endif
     </div>
 
-
-    <!-- block bottom profil -->
-    <div class="dashboard_profile" id="dashboard_profile_time_tracking">
-      <div id="dashboard_profile_bottom_up">
-        <span>Ma Progression</span><span id="tma_time_tracking" style="text-transform: none !important;">${time_global}</span>
-      </div>
-      <%
-      course_details_len = len(course_details)
-      mark = 0
-      %>
-      % for n in course_details:
-        <% mark = mark + 1 %>
-        <!-- assignement type -->
-        <div class="dashboard_profile_bottom_middle">
-          % if "Eval" in n["short_label"]:
-          <span>Evaluation</span> 
-          % elif "AutoP" in n["short_label"]: 
-          <span>Introduction</span> 
-          % else:
-          <span>${n["short_label"].replace("Seq", "Séquence ")}</span> 
-          % endif
-          <span id="assignment_time_tracking_${mark}">non commencé</span>
-        </div>
-        % if mark < course_details_len:
-        <!-- border middle -->
-        <div class="dashboard_profile_bottom_middle_border"></div>
-        % endif
-      % endfor
+  <!-- block bottom profil -->
+  <div class="dashboard_profile" id="dashboard_profile_time_tracking">
+    <div id="dashboard_profile_bottom_up">
+      <span>Ma Progression</span><span id="tma_time_tracking" style="text-transform: none !important;">${total_time_tracking}</span>
     </div>
+    <%
+    course_details_len = len(course_details)
+    mark = 0
+    %>
+    % for course in courseware_summary:
+      <!-- assignement type -->
+      <div class="dashboard_profile_bottom_middle">
+        % if "Eval" in course["display_name"]:
+        <span>Evaluation</span> 
+        % elif "AutoP" in course["display_name"]: 
+        <span>Introduction</span> 
+        % elif "Séquence" in course["display_name"]: 
+        <span>${course["display_name"][0:11]}</span>
+        % else: 
+        <span>${course["display_name"]}</span> 
+        % endif
+        <span id="assignment_time_tracking_${mark}">${course["time_tracker"]}</span>
+      </div>
+      <!-- border middle -->
+      <div class="dashboard_profile_bottom_middle_border"></div>
+    % endfor
+  </div>
+    
 
 
     <!-- block bottom profil -->
@@ -380,6 +328,7 @@ else{
   <div id="dashboard_course_content">
 % if len(course_enrollments) == 1:
   % for dashboard_index, enrollment in enumerate(course_enrollments):
+
     <% show_courseware_link = (enrollment.course_id in show_courseware_links_for) %>
     <% cert_status = cert_statuses.get(enrollment.course_id) %>
     <% can_unenroll = (not cert_status) or cert_status.get('can_unenroll') %>
@@ -818,19 +767,3 @@ function checkIfBgExist () {
 % endif
 
 
-
-
-<script>
-for (let i = 0; i < course_hashes.length; i++) {
-  const element = course_hashes[i];
-  if (element in list_time_tracking) {
-
-    seconds = list_time_tracking[element]
-    minute = Math.floor(seconds / 60)
-    time_tracking_sect = minute+" min"
-
-    $("#assignment_time_tracking_"+(i+1)).html(time_tracking_sect)
-
-  }
-}
-</script>

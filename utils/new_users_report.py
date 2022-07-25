@@ -48,13 +48,13 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from pprint import pformat
 
 # SET MAIN VARIABLES
-org = "e-formation-artisanat"
+org = "academie-digitale"
 register_form = configuration_helpers.get_value_for_org(org, 'FORM_EXTRA')
 certificate_extra_form = configuration_helpers.get_value_for_org(org, 'CERTIFICATE_FORM_EXTRA')
 form_factory = ensure_form_factory()
 db = 'ensure_form'
 collection = 'certificate_form'
-form_factory.microsite = u"e-formation-artisanat"
+form_factory.microsite = u"academie-digitale"
 today = date.today()
 
 # Get headers
@@ -75,24 +75,10 @@ print HEADERS
 
 
 course_ids=[
-    "course-v1:e-formation-artisanat+Pack_Micro+e-formation-2020",
-    "course-v1:e-formation-artisanat+commercial+2020_T1",
-    "course-v1:e-formation-artisanat+essentiels+2020_T1",
-    "course-v1:e-formation-artisanat+gestion+2020_T1",
-    "course-v1:e-formation-artisanat+premium+2020_T1",
-    "course-v1:e-formation-artisanat+Module_01+SP_01",
-    "course-v1:e-formation-artisanat+Module_02+SP_02",
-    "course-v1:e-formation-artisanat+Module_03+SP_03",
-    "course-v1:e-formation-artisanat+Module_04+SP_04",
-    "course-v1:e-formation-artisanat+Module_05+SP_05",
-    "course-v1:e-formation-artisanat+Module_06+SP_06",
-    "course-v1:e-formation-artisanat+Module_07+SP_07",
-    "course-v1:e-formation-artisanat+Module_08+SP_08",
-    "course-v1:e-formation-artisanat+Module_09+SP_09",
-    "course-v1:e-formation-artisanat+Module_09-+SP_09-",
-    "course-v1:e-formation-artisanat+Module_10+SP_10",
-    "course-v1:e-formation-artisanat+Module_11+SP_11",
-    "course-v1:e-formation-artisanat+Module_12+SP_12"
+    "course-v1:academie-digitale+FC_20+2022",
+    "course-v1:academie-digitale+FC_B30+2022",
+    "course-v1:academie-digitale+FC_B20+2022",
+    "course-v1:academie-digitale+FC_B40+2022"
     ]
 
 
@@ -180,7 +166,7 @@ for j in range(len(course_ids)):
 # WRITE FILE
 # Prepare workbook
 wb = Workbook(encoding='utf-8')
-filename = '/home/edxtma/csv/e-formation.artisanat.fr_{}.xls'.format(time.strftime("%d.%m.%Y"))
+filename = '/home/edxtma/csv/formation.artisanat.fr_{}.xls'.format(time.strftime("%d.%m.%Y"))
 sheet = wb.add_sheet('Rapport')
 style_title = easyxf('font: bold 1')
 i=0
@@ -197,18 +183,18 @@ wb.save(output)
 _files_values = output.getvalue()
 
 if len(users_list) >= 1:
-    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits depuis le dernier rapport aux formations disponibles sur e-formation.artisanat.fr<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe e-formation-artisanat.fr</p></body></html>"
+    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits depuis le dernier rapport aux formations disponibles sur formation.artisanat.fr<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe formation-artisanat.fr</p></body></html>"
 else:
-    html = "<html><head></head><body><p>Bonjour,<br/><br/>Il n'y a pas de nouvel inscrit depuis le dernier rapport.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe e-formation-artisanat.fr</p></body></html>"
+    html = "<html><head></head><body><p>Bonjour,<br/><br/>Il n'y a pas de nouvel inscrit depuis le dernier rapport.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe formation-artisanat.fr</p></body></html>"
 
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
 fromaddr = "e-formation-artisanat <ne-pas-repondre@themoocagency.com>"
-toaddr = "alexandre.berteau@weuplearning.com"
+toaddr = "dimitri.hoareau@weuplearning.com"
 msg = MIMEMultipart()
 msg['From'] = fromaddr
 msg['To'] = toaddr
-msg['Subject'] = "Rapport des inscriptions e-formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
+msg['Subject'] = "Rapport des inscriptions formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
 if len(users_list) >= 1:
     part = MIMEBase('application', 'octet-stream')
     attachment = _files_values
