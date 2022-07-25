@@ -1,15 +1,15 @@
 <%! from django.utils.translation import ugettext as _ %>
 Cher, Chère ${full_name},
 
-Vous avez été inscrit à ${course_name} sur engie-ntp-mooc.com  par un membre de l'équipe pédagogique. Le cours devrait maintenant apparaitre dans votre tableau de bord engie-ntp-mooc.com  .
- 
+Vous avez été inscrit à ${course_name} sur nuclear-training-program.com par un membre de l'équipe pédagogique. Le cours devrait maintenant apparaitre dans votre tableau de bord nuclear-training-program.com .
+
 Pour commencer le cours, rendez-vous sur ${course_url}
 
 ----------------------------------------------------------------
 
 Beste ${full_name},
  
-U werd geregistreerd als ${course_name} op engie-ntp-mooc.com door een lid van het opleidingsteam.  De cursussen zullen nu in jouw engie-ntp-mooc.com dashboard verschijnen.
+U werd geregistreerd als ${course_name} op nuclear-training-program.com door een lid van het opleidingsteam.  De cursussen zullen nu in jouw nuclear-training-program.com dashboard verschijnen.
  
 Om de cursus te starten ga naar ${course_url}
 
@@ -17,7 +17,7 @@ Om de cursus te starten ga naar ${course_url}
 
 Dear ${full_name},
  
-You have been registered to ${course_name} on engie-ntp-mooc.com by a member of the educational team. The course should now appear in your engie-ntp-mooc.com dashboard.
+You have been registered to ${course_name} on nuclear-training-program.com by a member of the educational team. The course should now appear in your nuclear-training-program.com dashboard.
  
 To start the course, go to ${course_url}
 
