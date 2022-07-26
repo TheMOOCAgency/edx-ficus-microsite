@@ -258,20 +258,58 @@ endfor
 
 
 <script type="text/javascript">
+
+let course_id_scorm = '${enrollment.course_id}'
+
 grade_summary=${dump_js_escaped_json(grade_summary) | n, decode.utf8};
 j=1;
 for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
- if(grade_summary['section_breakdown'][i].prominent){
-  grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
-  $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
-  //TODO : Improve to get the 70 from the back
-  if(grade_to_show>=70){
-    $("#badge_"+j.toString()).attr("src","${static.url('images/badge_couleur.svg')}");
+
+  if (grade_summary['section_breakdown'][i].prominent) {
+    grade_to_show = parseInt(grade_summary['section_breakdown'][i].percent*100);
+    $("#assignment_grade_"+j.toString()).html(grade_to_show+"%");
+    //TODO : Improve to get the 70 from the back
+    if(grade_to_show>=70){
+      $("#badge_"+j.toString()).attr("src","${static.url('images/badge_couleur.svg')}");
+    }
+    j=j+1;
   }
-  j=j+1;
- }
 }
+
 $("#score_tma").html(grade_summary['percent']*100+" %");
+
+
+if (course_id_scorm =='course-v1:netexplo+passeport_FR+2022' || course_id_scorm =='course-v1:netexplo+passeport_EN+2022') {
+  // Completion for SCORM
+  let completion_netexplo = ''
+  $.ajax({
+    url: '/tma_apps/tma_api/v0/CustomFieldView/',
+    type: "GET",
+    dataType: 'json',
+    success: function (res) {
+      completion_netexplo = res.completion_netexplo
+      if (completion_netexplo) {
+        $("#badge_1".toString()).attr("src","${static.url('images/badge_couleur.svg')}");
+        $("#assignment_grade_1".toString()).html("100%");
+        $("#score_tma".toString()).html("100 %");
+
+        // NEEDED TO UPDATE BADGE
+        setTimeout(() => {  
+          array = $('[style="fill:#c6c6c6;"]')
+          array[0].style = "fill:#F05540;"
+          array[1].style = "fill:#F3705A;"
+          array[2].style = "fill:#F7B64C;"
+          array[3].style = "fill:#FFD15C;"
+        }, 700);
+      } else {
+
+        $("#badge_1".toString()).attr("src","${static.url('images/badge_blanc.svg')}");
+        console.log('Not completed');
+      }
+    }
+  })
+}
+
 </script>
 % elif len(course_enrollments) > 1:
 <div class="dashboard_profile" id="profile_bottom_multi">
@@ -479,7 +517,6 @@ function lineHeight(){
     var lineHeight = parseInt(height) / 41;
     lineHeight = 41 / lineHeight;
     $(this).css('line-height',lineHeight+'px');
-    console.log(lineHeight);
   })
 }
 $('#profile_button').click(function(){
