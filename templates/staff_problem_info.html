@@ -95,24 +95,6 @@ ${block_content}
         <tr><th>${_('Module Fields')}</th></tr>
         %for name, field in fields:
         <tr><td style="width:25%">${name}</td><td><pre style="display:inline-block; margin: 0;">${field | h}</pre></td></tr>
-
-          %if (location == 'block-v1:netexplo+passeport_FR+2022+type@scormxblock+block@49559f189f174af9b8abc8c2154fbb83' or location == 'block-v1:netexplo+passeport_EN+2022+type@scormxblock+block@428befc59c2141c9b0f0a6ffafe484f5') and name == 'lesson_status' and field == 'completed':
-            <!-- Completion condition for SCORM -->
-            <script>
-              let user = '${user.id}'
-              $.ajax({
-                url: '/tma_apps/tma_api/v0/CustomFieldEditor/',
-                method: 'POST',
-                data: {
-                  user_id_for_api: user,
-                  completion_netexplo: 'completed',
-                },
-                headers: {'X-CSRFToken': $.cookie('csrftoken')},
-                dataType: 'json'
-              })
-            </script>
-          %endif
-
         %endfor
       </table>
       <table>
