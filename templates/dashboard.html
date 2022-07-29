@@ -280,34 +280,36 @@ $("#score_tma").html(grade_summary['percent']*100+" %");
 
 
 if (course_id_scorm =='course-v1:netexplo+passeport_FR+2022' || course_id_scorm =='course-v1:netexplo+passeport_EN+2022') {
-  // Completion for SCORM
-  let completion_netexplo = ''
-  $.ajax({
-    url: '/tma_apps/tma_api/v0/CustomFieldView/',
-    type: "GET",
-    dataType: 'json',
-    success: function (res) {
-      completion_netexplo = res.completion_netexplo
-      if (completion_netexplo) {
-        $("#badge_1".toString()).attr("src","${static.url('images/badge_couleur.svg')}");
-        $("#assignment_grade_1".toString()).html("100%");
-        $("#score_tma".toString()).html("100 %");
+  $("#dashboard_profile_bottom").hide()
 
-        // NEEDED TO UPDATE BADGE
-        setTimeout(() => {  
-          array = $('[style="fill:#c6c6c6;"]')
-          array[0].style = "fill:#F05540;"
-          array[1].style = "fill:#F3705A;"
-          array[2].style = "fill:#F7B64C;"
-          array[3].style = "fill:#FFD15C;"
-        }, 700);
-      } else {
+  // // Completion for SCORM
+  // let completion_netexplo = ''
+  // $.ajax({
+  //   url: '/tma_apps/tma_api/v0/CustomFieldView/',
+  //   type: "GET",
+  //   dataType: 'json',
+  //   success: function (res) {
+  //     completion_netexplo = res.completion_netexplo
+  //     if (completion_netexplo) {
+  //       $("#badge_1".toString()).attr("src","${static.url('images/badge_couleur.svg')}");
+  //       $("#assignment_grade_1".toString()).html("100%");
+  //       $("#score_tma".toString()).html("100 %");
 
-        $("#badge_1".toString()).attr("src","${static.url('images/badge_blanc.svg')}");
-        console.log('Not completed');
-      }
-    }
-  })
+  //       // NEEDED TO UPDATE BADGE
+  //       setTimeout(() => {  
+  //         array = $('[style="fill:#c6c6c6;"]')
+  //         array[0].style = "fill:#F05540;"
+  //         array[1].style = "fill:#F3705A;"
+  //         array[2].style = "fill:#F7B64C;"
+  //         array[3].style = "fill:#FFD15C;"
+  //       }, 700);
+  //     } else {
+
+  //       $("#badge_1".toString()).attr("src","${static.url('images/badge_blanc.svg')}");
+  //       console.log('Not completed');
+  //     }
+  //   }
+  // })
 }
 
 </script>
