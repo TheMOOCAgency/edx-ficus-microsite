@@ -20,6 +20,9 @@ from course_api.blocks.api import get_blocks
 #from discussion_tma.views import get_section_list
 import time
 import json
+import logging
+
+log = logging.getLogger()
 
 from lms.djangoapps.tma_apps.netexplo.utils import matricule_was_previously_succeeded_on_upro_academy
 from social.apps.django_app.default.models import UserSocialAuth
@@ -32,7 +35,12 @@ from social.apps.django_app.default.models import UserSocialAuth
 
 
 % if user.social_auth.exists() :
-  <% user_uid = UserSocialAuth.objects.get(user=user).uid.split(':')[1] %>
+  <% 
+  try:
+    user_uid = UserSocialAuth.objects.get(user=user).uid.split(':')[1]
+  except:
+    user_uid = 'notSocialAuth'
+  %>
 % else :
   <% user_uid = 'notSocialAuth' %>
 % endif
