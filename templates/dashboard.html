@@ -198,12 +198,14 @@ if request.user.email in test_users:
     authorized_users+=['vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
     authorized_users+=['alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com']
     authorized_users+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
-    authorized_users+=['tom.douce@themoocagency.com']
+    authorized_users+=['tom.douce@themoocagency.com','dimitri.hoareau@themoocagency.com']
     authorized_users+=['psa_choix_langue_1@yopmail.com','psa_choix_langue_2@yopmail.com','psa_choix_langue_3@yopmail.com','psa_choix_langue_4@yopmail.com']
-    
+    #fix 12/08/2022
+    authorized_users+=['fernanda.bandeira@stellantis.com','markus.dejung@stellantis.com']
+
     #Filtrage par username
     authorized_users_usernames += ["MZPCUD03","P052702","J110213","J489942","U188717","U291755","J628437","C022945","J534906","C028462","P063018","J488571","J628083","J589703","P052708","J519947","P927190","U022328","J535054","J612901","J494798","J488740","U083151","U203567","C087292","U023936","U356506","J516127","U164220","U235410","J534553","U228669","U210690","U391017","U328679","U318506","U526640","U505657","U397198","P066764","J509328","J111201","U182112","J563187","J589943","C059882","P927690","J544921","U220268","P964969","J530412","U424768","U335310","C011895","U220398","U164275","J504676","U410849","U228361","J509308","U207926","J431023","J488641","P065826","J128712","U385476","U467971","P052012","CA01890","U180991","P051704","U488191","J564574","U411194","ODZKFJD","U244555","U535037","U182539","U174418","U258226","U216494","J597169","J506129","J539438","U384534","C090286","U509859","U297167","J486072","U352746","U173754","J520730","U372745","U304756","U054908","U062391","U385717","C002453","J123649","P745229","U214023","P065721","J512052","J518675","U125615","J369133","C032214","P052342","J400131","J545654","P927574","U561814","U175546","P756321","U027805","U542310","J612468","U539001","U238915","J527011","J400060","J142204","U421262","U555831","U397922","U551454","U504192","U161516","U084676","J629234","J589571","U238454","U560794","U236127","U248066","U524320","U413686","U150889","U113954","U473562","U542013","P051985","P053654","U517046","U439010","U389693","U104623","U532677","U557148","C068722","J502650","J563179","U538705","U536315","J537618","U099458","J539805","J552237","J103215","C081055","U204981","J510898","U391002","J118658","P722834","U551440","P052789","U396497","U557341","U499313","J507622","C032321","P927653","C036746","C039891","CV15281","U220024","U507604","U205829","J526076","U151579","U390648","C040214","P086082","P525507","P523469","P522831","J626055","P964963","J485763","U209983","J540428","P964807","P052059","P723542","J491121","J561231","U504726","U007279","U560733","J587665","U064663","J504058","U530137","U531215","U403686","U254149","J488582","U552333","J517430","P965002","J549472","U231721","J589688","J601209","J495800","J385995","J567423","U068015","U056945","U467872","J560959","P064840","U217020","U311042"]
-    authorized_users_usernames += ["J137592","P761321","C015083","P084402","C013320"]
+    authorized_users_usernames += ["J137592","P761321","C015083","P084402","C013320", "OQZMQ1X"]
     authorized_users_usernames += ["U412455","P067306","J510006","J130806","J604320","U304756","J555906","U388506","P723648","P743577","J595447","J611022"]
 
     #Autorisation d'accès au 22 mai
@@ -219,16 +221,19 @@ if request.user.email in test_users:
     with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_access_rights.json') as json_file:  
         data = json.load(json_file)
 
+    #fix 12/08/2022
+    authorized_users_usernames +=['OLZ4FL9', 'ONZXHTB', 'C992934', 'J548550', "T2846JS", "T8790K1"]
+
     authorized_users_usernames.extend(data['allowed_usernames'])
 
     authorized_admins=['nathalie.heuze@mpsa.com','laetitia.albenque@peugeot.com','valerie.roch@mpsa.com','cedric.clement@ext.mpsa.com','gerald.almeras@mpsa.com','celine.hoinard@mpsa.com','cedric.clement@ext.mpsa.com','christophe.rauturier@mpsa.com','bertrand.leprovost@mpsa.com','anne.fenninger@dsautomobiles.com','vbras@netexplo.org','cortega@netexplo.org','gpernoud@netexplo.org','thappe@netexplo.org','levy@hec.fr','slouradour@netexplo.org','scathelat@netexplo.org','mgoddard@netexplo.org','fsegalen@netexplo.org']
-    authorized_admins+=['aurelien.croq@themoocagency.com','yoann.mroz@themoocagency.com','nicola.bonaccorso@themoocagency.com','alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com','tom.douce@themoocagency.com']
+    authorized_admins+=['aurelien.croq@themoocagency.com','yoann.mroz@themoocagency.com','nicola.bonaccorso@themoocagency.com','alexandre.berteau@themoocagency.com','clothilde.huvier@themoocagency.com','tom.douce@themoocagency.com', 'cyril.adolf@weuplearning.com', 'melanie.zunino@themoocagency.com']
     authorized_admins+=['de_review1@yopmail.com','de_review2@yopmail.com','de_review3@yopmail.com','en_review1@yopmail.com','en_review2@yopmail.com','en_review3@yopmail.com']
     authorized_admins+=['fr_review1@yopmail.com','fr_review2@yopmail.com','fr_review3@yopmail.com']
     authorized_admins+=['psareview_fr1@yopmail.com']
     authorized_admins+=['psa_db_review_de1@yopmail.com']
     authorized_admins+=['psa_de_review3@yopmail.com']
-    authorized_admins+=['psa_en_review3@yopmail.com', ]
+    authorized_admins+=['psa_en_review3@yopmail.com', 'dimitri.hoareau@themoocagency.com' ]
     authorized_admins+=['netexplo_demo1en@yopmail.com','netexplo_demo2en@yopmail.com','netexplo_demo3en@yopmail.com','netexplo_demo4en@yopmail.com','netexplo_demo5en@yopmail.com','netexplo_demo1fr@yopmail.com','netexplo_demo2fr@yopmail.com','netexplo_demo3fr@yopmail.com','netexplo_demo4fr@yopmail.com','netexplo_demo5fr@yopmail.com']
 
     #PPROD1 - TEST ACCOUNTS
@@ -805,3 +810,4 @@ $(window).initialize(function(){
       $('#overlay').removeClass('hide-loader');
     })
   </script>
+

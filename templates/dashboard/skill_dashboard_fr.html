@@ -56,13 +56,13 @@ course_state = user_course_state[str(enrollment.course_id)]
           </p>
         %endif
         <div class="text-center">
-          %if user.username not in authorized_users_usernames and user.email not in authorized_admins:
-         <div id="main">
-             <h3>Désolé, vous n’avez pas accès pour le moment <br> à Digimapper.</h3>
+          %if user.username not in authorized_users_usernames and user.email not in authorized_admins and user.email.find("@mpsa") == -1 :
+            <div id="main">
+              <h3>Désolé, vous n’avez pas accès pour le moment <br> à Digimapper.</h3>
+            </div>
+            <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
         </div>
-             <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
-        </div>
-     </div>
+      </div>
          %else:
           %if course_state=="finished":
           <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">

@@ -37,9 +37,9 @@ course_state = user_course_state[str(enrollment.course_id)]
     </div>
     <div class="col-md-6">
       <div class="gray-bg rounded pad-25 mb-20">
-	<div style="text-align:center">
-        	<img src="/media/microsite/psa-netexplo/images/logo_digimapper.png" style="height: 60px">
-	</div>
+        <div style="text-align:center">
+          <img src="/media/microsite/psa-netexplo/images/logo_digimapper.png" style="height: 60px">
+        </div>
 	<!-- <h2 class="text-center" id="course_title">
           ${course_overview.display_name}
         </h2> -->
@@ -50,7 +50,8 @@ course_state = user_course_state[str(enrollment.course_id)]
           <p class="text-center">Next quiz will be available in ${associated_courses.get('delayed')} days.</p>
         %endif
         <div class="text-center">
-         %if user.username not in authorized_users_usernames and user.email not in authorized_admins:
+         %if user.username not in authorized_users_usernames and user.email not in authorized_admins and user.email.find('@mpsa') == -1:
+
           <div id="main">
             <h3>Sorry, you do not currently have access <br> to Digimapper.</h3>
           </div>

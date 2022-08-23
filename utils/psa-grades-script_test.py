@@ -26,219 +26,242 @@ from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
 from courseware.courses import get_course_by_id
 from tma_apps.models import TmaCourseEnrollment
 from student.models import CourseEnrollment
+from microsite_configuration.models import Microsite
+from itertools import repeat
+from student.views import get_course_enrollments
+from tma_apps.skill_grade.helpers import SkillGrades
+from social.apps.django_app.default.models import UserSocialAuth
+
+#dev Aurelien
+from datetime import datetime, timedelta
+import pytz
 
 import logging
 log = logging.getLogger()
 
-
-json_settings = json.load(open("/edx/var/edxapp/media/microsite/psa-netexplo/config/platform_stats_settings.json"))
-courses_ids=json_settings['courses_ids']
-
-user_file = open("/edx/var/edxapp/secret/microsite/psa-netexplo/culture_digitale_export_test.csv", "rb")
-psa_users = csv.DictReader(user_file, delimiter=';')
-psa_users_list=[]
-for psa_user in psa_users:
-    psa_users_list.append(psa_user)
-user_file.close()
+microsite_name = sys.argv[1]
+users_file_name = sys.argv[2]
+invited_users_file_name = sys.argv[3]
 structure_fields=['struct_org1','struct_org2','struct_org3','struct_org4','struct_org5','struct_org6','struct_org7','struct_org8','struct_org9']
 
 
-users_data=[]
-group_average={"percent":0,"participants":0}
-group_skill_average={}
-filiere_average={}
-filiere_skill_average={}
+class GroupGradesGenerator():
+    def __init__(self, microsite_name, users_file_name, invited_users_file_name):
+        self.microsite_name = microsite_name
+        self.levels = Microsite.objects.get(key=self.microsite_name).values.get('TMA_ASSOCIATED_COURSES').get('parcours')
+        self.levels_list = self.getParcoursList()
+        self.users_file_name = users_file_name
+        self.invited_users_file_name = invited_users_file_name
+        self.users_list = self.getUsersList()
+    
+    def getListOfList(self):
+        n=len(max(self.levels,key=len))
+        listOfList=[[] for i in repeat(None, n)]
+        return listOfList
+    
+    def initializeAverages(self):
+        self.filiere_global={}
+        self.filiere_skill={}
+        self.group_global={"totalParticipants":0,"totalScore":0}
+        self.group_skill={}
+        self.userData=[]
+        self.levelData={}
 
-fake_group_average=0.5
-fake_filiere_average=0.55
+    def getParcoursList(self):
+        levels_list = self.getListOfList()
+        for parcours in self.levels :
+            i=0
+            for course in parcours:
+                try:
+                    levels_list[i].append(str(course))
+                except:
+                    levels_list[i]=[course]
+                i+=1
+        return levels_list
+    
+    def getUsersList(self):
+        user_file = open("/home/edxtma/psa_files/culture_digitale_export.csv", "rb")
+        users = csv.DictReader(user_file, delimiter=';')
+        users_list=[]
+        
+        invited_users_list=[]
+        invited_users_file = open("/home/edxtma/psa_files/culture_digitale_export.csv", "rb")
+        invited_users = csv.DictReader(invited_users_file, delimiter=';')
+        for row in invited_users:
+            invited_users_list.append(row["Uid"])
+        
+        for user in users:
+            if user["Uid"] in invited_users_list:
+                users_list.append(user)
+        user_file.close()
+        return users_list
 
-users_treated=[]
+    def getCourseRegisteredTo(self, level, user):
+        course_id=None
+        enrollments = list(get_course_enrollments(user, self.microsite_name, []))
+        for enrollment in enrollments :
+            if(str(enrollment.course_id) in level) :
+                course_id=str(enrollment.course_id)
+                break
+        return course_id
 
+    def buildGradesFile(self):
+        gradesFile = []
+        for index,level in enumerate(self.levels_list) :
+            log.info("Starting treatment of level {} -------------------------- ".format(str(index+1)))
+            self.initializeAverages()
+            self.getEmptySkillGrades(level[0])
+            for user in self.users_list :
 
+                log.info("Treating user ----------------------------- {}".format(user['email']))
+                # Dev Cyril
+                if UserSocialAuth.objects.filter(uid=str("psanetxploSAML:"+user['Uid'])).exists():
+                    user_id = UserSocialAuth.objects.get(uid=str("psanetxploSAML:"+user['Uid'])).user_id
+                    tmaUser = User.objects.get(id=user_id)
+                    courseRegisteredTo = self.getCourseRegisteredTo(level, tmaUser)
+                    if courseRegisteredTo : 
+                        userResults = self.buildResults(user=user, course_id=courseRegisteredTo, tmaUser=tmaUser) 
+                        try:
+                            # Only add user that already start the course
+                            if userResults['fields']['has_started'] :
+                                log.info("user {} is registered to ----------------------------- {}".format(user['email'], courseRegisteredTo))
+                                self.userData.append(userResults)
+                        except: 
+                            pass
 
-for course_id in courses_ids:
-    log.info("Psa grade script for course_id ----------------------------- {}".format(course_id))
-    course_key=CourseKey.from_string(course_id)
-    course=get_course_by_id(course_key)
+            self.levelData={
+                "level":"Level "+str(index+1),
+                "userData":self.userData,
+                "filiere_skill_average":self.getFiliereSkillAverage(),
+                "filiere_average":{index:round(value['totalScore']/value['totalParticipants'],2) if value['totalParticipants']>=3 else 0.55 for (index, value) in self.filiere_global.items()},
+                "group_average":round(self.group_global['totalScore']/self.group_global['totalParticipants'],2) if self.group_global['totalParticipants']>=3 else 0.50,
+                "group_skill_average":{index:round(value['totalScore']/value['totalParticipants'],2) if value['totalParticipants']>=3 else 0.50 for (index, value) in self.group_skill.items()}
+            }
+            gradesFile.append(self.levelData)
+            log.info("Ending treatment of level {} ----------------------------- ".format(str(index+1)))
+        return gradesFile
 
-    #Grading Policy
-    graders=course._grading_policy.get('RAW_GRADER')
-    skill_weight={}
-    for grader in graders:
-      skill_weight[grader.get('type').lower()]=grader.get('weight')
+    def getEmptySkillGrades(self, course_id):
+        course = get_course_by_id(CourseKey.from_string(course_id))
+        emptySkillGrades = []
+        for grader in course._grading_policy.get('RAW_GRADER'):
+            emptySkillGrades.append({'name':grader.get('type').lower(),'grade':0})
+        self.emptySkillGrades = emptySkillGrades
 
-    for psa_user in psa_users_list:
-        user_object={}
-        if not psa_user['email'] in users_treated:
-            log.info("Treating user {} ----------------------------------------------------".format(psa_user['email']))
-            if User.objects.filter(email=psa_user['email']).exists() :
-                log.info("user exists in db")
-                current_user=User.objects.get(email=psa_user['email'])
-                log.info("current_user {} -----------------------------".format(current_user))
-                if CourseEnrollment.is_enrolled(current_user, course_key) :
-                    courseEnrollment = TmaCourseEnrollment.get_enrollment(course_id=course_id, user=current_user)
-                    if courseEnrollment :
-                        if courseEnrollment.has_finished_course is True:
-                            status='finished'
-                        elif courseEnrollment.has_started_course is True:
-                            status='ongoing'
-                        else :
-                            status="not_started"
-                    else:
-                        status='not_started'
-                    #log.info("status {}".format(status))
+    def getFiliereSkillAverage(self):
+        for key, value in self.filiere_skill.items():
+            for index,skill in value.items():
+                value[index] = round(skill['totalScore']/skill['totalParticipants'],2) if skill['totalParticipants']>=3 else 0.55
+        return self.filiere_skill
+             
 
-                    user_filiere=psa_user['job_family']
-                    grade_info = CourseGradeFactory().create(current_user, course)
-                    chapter_grades = grade_info.chapter_grades
+    def produceGradesJson(self):
+        data = self.buildGradesFile()
+        with open("/home/edxtma/psa_files/grades.json", 'w') as outfile:
+            json.dump(data, outfile)
 
-                    skill_points={}
-                    user_skill_averages=[]
-                    if chapter_grades:
-                      for chapter in chapter_grades:
-                        for section in chapter['sections']:
-                            if section.format is not None and len(section.scores) > 0:
-                                skill_name=section.format.lower()
-                                points_earned=0
-                                for score in section.scores:
-                                    #Only get score with 100% success
-                                    if score.earned==score.possible:
-                                        points_earned+=score.earned
-                                skill_points.setdefault(skill_name, {'total_earned':0,'total_possible':0})
-                                skill_points[skill_name]['total_earned']+=points_earned
-                                skill_points[skill_name]['total_possible']+=section.all_total.possible
+    def getCourseStatus(self, tmaEnrollment):
+        status="not_started"
+        if tmaEnrollment is not None:
+            if tmaEnrollment.has_finished_course :
+                status="finished"
+            elif tmaEnrollment.has_started_course:
+                status="ongoing"
+        return status
 
-                    #Get average grade for each skill
-                    for skill in skill_points :
-                        skill_percent = round(skill_points[skill].get('total_earned')/skill_points[skill].get('total_possible'),2)
-                        user_skill_averages.append({"name":skill,"grade":skill_percent})
+    def buildResults(self, user, course_id, tmaUser=None):
+        tmaEnrollment= TmaCourseEnrollment.get_enrollment(user=tmaUser, course_id=course_id)
+        status = self.getCourseStatus(tmaEnrollment)
+        skillGrades = None
 
-                        if status=="finished":
-                            filiere_skill_average.setdefault(user_filiere,{})
-                            filiere_skill_average[user_filiere].setdefault(skill, {'percent':0,'participants':0})
-                            filiere_skill_average[user_filiere][skill]['percent']+=skill_percent
-                            filiere_skill_average[user_filiere][skill]['participants']+=1
+        #devAurelien
+        #skillGrades = SkillGrades(course_id, tmaUser) if tmaUser else None
+        tz_info = tmaUser.last_login.tzinfo
 
-                            group_skill_average.setdefault(skill, {'percent':0,'participants':0})
-                            group_skill_average[skill]['percent']+=skill_percent
-                            group_skill_average[skill]['participants']+=1
+        if tmaUser.last_login <= (datetime.now(tz_info) - timedelta(5)):
+            log.info("user did not login since 5 days: "+str(tmaUser.email))
+            #user did not login since a long time so if we have his/her skillgrade lets use it
+            extra_data = {}
+            try:
+                extra_data = json.loads(tmaEnrollment.extra_data)
+            except:
+                log.info("ERROR : could not load extra_data for user: "+str(tmaUser.email))
+                pass
 
-                    #Get global grade
-                    user_global_grade=0
-                    for skill in user_skill_averages:
-                        user_global_grade+=(skill['grade']*skill_weight[skill['name']])
-                    #log.info("user_global_grade {}".format(user_global_grade))
+            if "skillGrades" in extra_data:
+                skillGrades = extra_data["skillGrades"]
+            else:
+                # user did not login since a long time but we have no clue about his results so lets
+                # compute them and also memorize
+                log.info("user did not login since 5 days and we dont know his/her results from extra_data: "+str(tmaUser.email))
+                skillGrades = SkillGrades(course_id, tmaUser)
+                try:
+                    extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+                    tmaEnrollment.extra_data = json.dumps(extra_data)
+                    tmaEnrollment.save()
+                    log.info("user did not login since 5 days and we dont know his/her results from extra_data but we computed it and saved it: "+str(tmaUser.email))
+                except:
+                    log.info("ERROR : could not save for old user: "+str(tmaUser.email))
+                    pass
+                skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+        else:
+            #user did login rather "recently" so lets compute his/her skillgrade and memorize it
+            skillGrades = SkillGrades(course_id, tmaUser)
+            try:
+                extra_data = json.loads(tmaEnrollment.extra_data)
+                extra_data["skillGrades"] = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
+                tmaEnrollment.extra_data = json.dumps(extra_data)
+                tmaEnrollment.save()
+                log.info("user logged in recently so we had to compute and store: "+str(tmaUser.email))
+            except:
+                log.info("ERROR : could not load or save data for recent user "+str(tmaUser.email))
+            skillGrades = {"global_grade":skillGrades.global_grade,"skill_grades":skillGrades.skill_grades}
 
-                    if status=="finished":
-                        group_average['percent']+=user_global_grade
-                        group_average['participants']+=1
+        user_object={
+            "fields":{
+                "id":user['Uid'],
+                "first_name":user['first_name'].lower(),
+                "last_name":user['last_name'].lower(),
+                "localisation":[user['country'],user['location']],
+                "position":[user['job_family'],user['profession']],
+                "structure":[user[structure] for structure in structure_fields],
+                "email":user['email'],
+                "has_finished":tmaEnrollment.has_finished_course if tmaEnrollment else False,
+                "has_started":tmaEnrollment.has_started_course if tmaEnrollment else False,
+                "finished_date":tmaEnrollment.finished_course_date.strftime("%m/%d/%Y") if (tmaEnrollment and tmaEnrollment.finished_course_date ) else "undefined",
+                "status":status,
+                "progressLink":"/tma_apps/"+course_id+"/skill-radar?user="+str(tmaUser.id) if tmaEnrollment else "no_link"
+            },
+            "grades":{
+                "global":round(skillGrades['global_grade'],2),
+                "skills":skillGrades['skill_grades'] 
+            }
+        }
+        
+        #Group and Filiere Averages
+        if status=="finished":
+            self.group_global['totalParticipants']+=1
+            self.group_global['totalScore']+=user_object['grades']['global']
 
-                        filiere_average.setdefault(user_filiere, {'percent':0,'participants':0})
-                        filiere_average[user_filiere]['percent']+=user_global_grade
-                        filiere_average[user_filiere]['participants']+=1
+            for skill in user_object['grades']['skills']:
+                self.group_skill.setdefault(skill['name'], {'totalParticipants':0,'totalScore':0})
+                self.group_skill[skill['name']]['totalParticipants']+=1
+                self.group_skill[skill['name']]['totalScore']+=skill['grade']
+            
+            self.filiere_global.setdefault(user['job_family'],{'totalParticipants':0,'totalScore':0})
+            self.filiere_global[user['job_family']]['totalParticipants']+=1
+            self.filiere_global[user['job_family']]['totalScore']+=user_object['grades']['global']
 
-                    user_object={
-                    "fields":{
-                        "id":psa_user['Uid'],
-                        "first_name":psa_user['first_name'].lower(),
-                        "last_name":psa_user['last_name'].lower(),
-                        "localisation":[psa_user['country'],psa_user['location']],
-                        "position":[psa_user['job_family'],psa_user['profession']],
-                        "structure":[psa_user[structure] for structure in structure_fields],
-                        "email":psa_user['email'],
-                        "has_finished":courseEnrollment.has_finished_course if courseEnrollment else False,
-                        "has_started":courseEnrollment.has_started_course if courseEnrollment else False,
-                        "finished_date":courseEnrollment.finished_course_date.strftime("%m/%d/%Y") if (courseEnrollment and courseEnrollment.finished_course_date ) else "undefined",
-                        "tmaId":current_user.id,
-                        "course_id":course_id,
-                        "status":status,
-                        "progressLink":"/tma_apps/"+str(course_id)+"/skill-radar?user="+str(current_user.id)
-                    },
-                    "grades":{
-                        "global":round(user_global_grade,2),
-                        "skills":user_skill_averages
-                    }
-                    }
+            self.filiere_skill.setdefault(user['job_family'], {})
+            for skill in user_object['grades']['skills']:
+                self.filiere_skill[user['job_family']].setdefault(skill['name'], {'totalParticipants':0,'totalScore':0})
+                self.filiere_skill[user['job_family']][skill['name']]['totalParticipants']+=1    
+                self.filiere_skill[user['job_family']][skill['name']]['totalScore']+=skill['grade']
 
-                    log.info("user_object {}".format(user_object))
-                    users_data.append(user_object)
-                    users_treated.append(psa_user['email'])
-                    log.info("Appended user {} ----------------------------------------------------".format(psa_user['email']))
-            else :
-                log.info("user doesn't exist in db")
-                user_skill_averages=[]
-                for skill_name, skill_percent in skill_weight.items():
-                    user_skill_averages.append({"name":skill_name,"grade":0})
+        return user_object  
+        
+        
 
-                user_object={
-                "fields":{
-                    "id":psa_user['Uid'],
-                    "first_name":psa_user['first_name'].lower(),
-                    "last_name":psa_user['last_name'].lower(),
-                    "localisation":[psa_user['country'],psa_user['location']],
-                    "position":[psa_user['job_family'],psa_user['profession']],
-                    "structure":[psa_user[structure] for structure in structure_fields],
-                    "email":psa_user['email'],
-                    "has_finished":False,
-                    "has_started":False,
-                    "finished_date":"undefined",
-                    "tmaId":"undefined",
-                    "course_id":course_id,
-                    "status":"not_started",
-                    "progressLink":"#"
-                },
-                "grades":{
-                    "global":0,
-                    "skills":user_skill_averages
-                }
-                }
+GroupGradesGenerator(microsite_name, users_file_name,invited_users_file_name).produceGradesJson()
 
-                log.info("user_object {}".format(user_object))
-                users_data.append(user_object)
-                users_treated.append(psa_user['email'])
-                log.info("Appended user {} ----------------------------------------------------".format(psa_user['email']))
-
-
-
-#Filiere Average
-for filiere_name, filiere_values in filiere_average.items():
-    if filiere_values['participants']>=3:
-        filiere_average[filiere_name]=round(filiere_values['percent']/filiere_values['participants'],2)
-    else :
-        filiere_average[filiere_name]=fake_filiere_average
-
-#Filiere Skill Averages
-for filiere_name, filiere_values in filiere_skill_average.items():
-    for filiere_skill_name, filiere_skill_value in filiere_values.items():
-        if filiere_skill_value['participants']>=3:
-            filiere_skill_average[filiere_name][filiere_skill_name]=round(filiere_skill_value['percent']/filiere_skill_value['participants'],2)
-        else :
-            filiere_skill_average[filiere_name][filiere_skill_name]=fake_filiere_average
-
-#Group Average
-if group_average['participants']>=3:
-    group_average=round(group_average['percent']/group_average['participants'], 2)
-else :
-    group_average=fake_group_average
-
-#Group Skill Averages
-for skill_name, skill_values in group_skill_average.items():
-    if skill_values['participants']>=3:
-        group_skill_average[skill_name]=round(skill_values['percent']/skill_values['participants'],2)
-    else :
-        group_skill_average[skill_name]=fake_group_average
-
-json_data={
-    "userData":users_data,
-    "group_average":group_average,
-    "group_skill_average":group_skill_average,
-    "filiere_average":filiere_average,
-    "filiere_skill_average":filiere_skill_average
-}
-
-with open("/edx/var/edxapp/secret/microsite/psa-netexplo/grades_test.json", 'w') as outfile:
-    json.dump(json_data, outfile)
-
-with open("/edx/var/edxapp/secret/microsite/psa-netexplo/emails_test.json", 'w') as f:
-    for e in users_treated:
-        f.write("%s\n" % e)
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/psa-netexplo/utils/psa-grades-script_test.py "psa-netexplo" "culture_digitale_export.csv" "culture_digitale_export.csv" 
