@@ -28,14 +28,18 @@ log = logging.getLogger()
 
 <%
 background_img_exist_for_dashboard = False
-course_id = request.path.replace('dashboard', '').replace('/', '').replace(':', '')
+course_id = request.path.replace('dashboard', '').replace('/', '')
+asset_string = course_id.replace('course-v1:', 'asset-v1:')
+course_id_string = course_id.replace('course-v1:', 'course-v1_').replace('+', '_')
+
 if len(course_id) > 0:
-  background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + course_id + '.jpg'
+  asset_string = course_id.replace('course-v1:', 'asset-v1:')
+  background_img_url = '/' + asset_string + '+type@asset+block@' + course_id_string + '.jpg'
   background_img_exist_for_dashboard = True
 else:
   if len(course_enrollments) == 1:
     user_enrollment = str(course_enrollments[0].course_id).replace(':', '')
-    background_img_url = '/media/microsite/academie-digitale/images/bg_img_' + user_enrollment + '.jpg'
+    background_img_url = '/' + asset_string + '+type@asset+block@' + course_id_string + '.jpg'
     background_img_exist_for_dashboard = True
 %>
 
