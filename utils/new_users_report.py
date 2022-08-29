@@ -190,7 +190,7 @@ else:
 part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
 fromaddr = "e-formation-artisanat <ne-pas-repondre@themoocagency.com>"
-toaddr = "dimitri.hoareau@weuplearning.com"
+toaddr = ["dimitri.hoareau@weuplearning.com", "alexandre.berteau@weuplearning.com"]
 msg = MIMEMultipart()
 msg['From'] = fromaddr
 msg['To'] = toaddr
