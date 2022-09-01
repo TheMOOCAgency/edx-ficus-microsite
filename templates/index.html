@@ -68,21 +68,41 @@
             <div class="row row-eq-height">
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvid" style="padding-left: 4%; padding-top: 4%;">
                   <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/title_se2.png" alt="Découvrez la formation" style="max-width: 100%;margin-bottom:30px;">
-                  <div class="embed-responsive embed-responsive-4by3" style="text-align: right;">
+                  <div class="embed-responsive embed-responsive-4by3" style="text-align: right; padding-bottom: 60%;">
                      <!-- <iframe id="videoSr"class="embed-responsive-item" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen poster="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/teaser_poster.png"></iframe> -->
                      <video id="videoSr" class="embed-responsive-item" width="550" controls="controls" allow="fullscreen" allowfullscreen="" poster="/media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/teaser_poster.png" src="">
                      </video>
                   </div>
                </div>
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 colvidtext tableT" >
-                  <div class="tableChild" style="font-size : 24px">
+                  <div class="tableChild" style="font-size : 24px; line-height: 1.6;">
                      <!-- <h1 id="vvTitle"></h1> -->
-                     <p id="vvText1">This is some text.</p>
+
+                     <!-- UNCOMMENT AND MODIFY JSON  -->
+                     <!-- UNCOMMENT AND MODIFY JSON  -->
+                     <!-- <p id="vvText1">This is some text.</p>
                      <p id="vvText2">This is some text.</p>
                      <p id="vvText3">This is some text.</p>
-                     <p id="vvText4">This is some text.</p>
+                     <p id="vvText4">This is some text.</p> -->
+                     <!-- UNCOMMENT AND MODIFY JSON  -->
+                     <!-- UNCOMMENT AND MODIFY JSON  -->
+
+                     <p><strong>Eco-construction, réemploi, coopération, upcycling, achat durable…</strong> Du contenu co-construit avec des professionnel.les de divers horizons (artisanat, entrepreneuriat, structures de l'économie sociale et solidaire...) pour vous permettre de comprendre ce qu'est l'économie circulaire. L'objectif ? Faire de ces pratiques responsables, la norme.</p>
                   </div>
                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0 10%; font-size : 20px;">
+               <p>Pendant les deux mois de formation, vous aurez à votre disposition : </p>
+               <ul>
+                  <li><strong>Des vidéos inspirantes de professionnel.les</strong>, partageant sous forme d’interview et de visite virtuelle leur lieu de travail : leurs actions, leurs parcours et des conseils</li>
+                  <li><strong>Des contenus théoriques </strong>: données clés, définitions des grands concepts…</li>
+                  <li><strong>De la ressource</strong> : bibliographie, sitographie, études…</li>
+                  <li><strong>Des quiz d’auto-évaluation</strong> pour vous permettre de mesurer votre apprentissage de façon ludique</li>
+                  <li><strong>Un guide des formations en économie circulaire</strong> organisé en fonction des besoins de formation (diplômes académiques, formations professionnelles, formations qualifiantes, ateliers de sensibilisation, digital learning…)</li>
+                  <li><strong>Des événements en distanciel et en présentiel </strong>pour des rencontres "live" des professionnel.les de l’économie circulaire</li>
+               </ul>
+               <p>Pour plus d’informations sur la session à venir, rendez-vous sur : <a href="https://lescanaux.com/le-mooc-des-canaux/" target="_blank" id="linkCanaux"> <strong>https://lescanaux.com/le-mooc-des-canaux/</strong> </a></p>
+
             </div>
          </section>
          <section id="se3">
@@ -96,13 +116,13 @@
                      </div>
                   </div>
                </div>
-               <div id="cinquiemeEncart">
+               <!-- <div id="cinquiemeEncart">
                   <img src="media/microsite/mooc-economie-circulaire/pagebuilder/assets/img/logo_deconstruction.png" alt="Logo déconstruction">
                   <p><b>Déconstruction sélective : la nouvelle voie de l'architecture ?</b>
                      <br />Le 12 novembre à 19h, Les Canaux vous invitent à approfondir le sujet du diagnostic ressources en abordant les étapes de sa mise en place dans un projet.
                      <br />Les intervenants du MOOC seront au rendez-vous pour en parler et répondre à vos questions !
                      <br /><b>Inscription : <a target="_blank" href="https://www.kawaa.co/home/20/rencontre/11511">https://www.kawaa.co/home/20/rencontre/11511</a></b></p>
-               </div>
+               </div> -->
             </div>
          </div>
          </div>
@@ -144,6 +164,11 @@
             </div>
             </div>
          </footer>
+         <style>
+            #linkCanaux:hover {
+               color: #337ab7;
+            }
+         </style>
          <script>
 
 				 var envDefault = "developement"
@@ -311,10 +336,10 @@
                 //var srcV = pathMedia + micrositeName + folderPb + imgSrc + objJson.container.section2.videoSrc
             	 $('#vvTitle').text(mainTitleContentTitle)
             	 $('#videoSr').attr("src",srcV)
-                $('#vvText1').text(mainTitleContentText1)
-                $('#vvText2').text(mainTitleContentText2)
-                $('#vvText3').text(mainTitleContentText3)
-                $('#vvText4').text(mainTitleContentText4)
+               //  $('#vvText1').text(mainTitleContentText1)
+               //  $('#vvText2').text(mainTitleContentText2)
+               //  $('#vvText3').text(mainTitleContentText3)
+               //  $('#vvText4').text(mainTitleContentText4)
                      }
 
             var bindindFunctionMainSectionIntro= function(){
