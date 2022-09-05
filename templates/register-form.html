@@ -341,9 +341,87 @@ import datetime
 
 </div>
 
-<div class="form-actions">
-  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
+<style>
+  .customButtons-section{
+    display: flex;
+    margin-top: 1rem;
+  }
+  .customButtons{
+    margin: 0rem 1.5rem;
+  }
+
+  .cmaUserSection{
+    margin: 1rem 0rem;
+    margin-top: 8rem !important;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+  }
+  .cmaUserSection-elements{
+    display: flex;
+    justify-content: right;
+    margin: 1rem 0rem;
+    margin-right: -8rem;
+    /* display: none; */
+    transition: .5s;
+  }
+  .cmaUserSection-input{
+    margin-right: 1rem;
+    margin-bottom: 0rem !important;
+    width: 40%;
+  }
+  .cmaUserSection-button{
+    margin-left: 1rem;
+  }
+  .cmaUserSection::after{
+    content: url("/media/microsite/academie-digitale/images/asset_check.svg");
+  }
+  .cmaUserSection-button{
+    box-shadow: 0 2px 1px 0 #0a4a67;
+    background: #126f9a;
+    text-transform: none;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+  }
+  .cmaUserSection-divider{
+    width: 0.2rem;
+    height: 1rem;
+    background: #565656;
+    margin: 0rem 2rem;
+    border-radius: 0.1rem;
+  }
+  .cmaUserSection-button:hover{
+    background: #1790c7;
+  }
+  .cmaUserSection-link{
+    font-weight: bold !important;
+    color: rgba(0,117,176,1) !important;
+    cursor: pointer;
+  }
+  .cmaUserSection-link:hover{
+    font-weight: bold !important;
+    color: rgba(0,117,176,1) !important;
+  }
+  #login_link{
+    width: auto !important;
+    height: 0rem !important;
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
+  }
+</style>
+
+<div class="form-actions customButtons-section">
+  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button customButtons customButton1">Je souhaite être contacté par un conseiller</button>
+  <button disabled name="submit" type="submit" class="action action-primary action-update customButton2 customButtons">Je m'inscris dès maintenant en choisissant de payer en ligne</button>
 </div>
+
+<!-- <div class="form-actions customButtons-section">
+  <button disabled name="submit" type="submit" class="customButtons action action-primary action-update customButton1">Je souhaite être contacté par un conseiller</button>
+  <button disabled name="submit" type="submit" class="customButtons action action-primary action-update customButton2">Je m'inscris dès maintenant en choisissant de payer en ligne</button>
+</div> -->
+
 <style>
 #login_link_up {
  margin-top: 10px;
@@ -370,14 +448,21 @@ $('#first_name,#last_name').change(function(){
   $('#name').attr('value',name);
 })
 </script>
-<div class="form-actions" id="login_link_up">
+
+<div class="form-actions cmaUserSection" id="login_link_up">
 % if static.get_value('course_id') is not None:
   <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
 % else:
   <a id="login_link" href="/login">${_("Already have an account?")}</a>
 % endif
+  <div class="cmaUserSection-divider"></div>
+  <a class="cmaUserSection-link">Je suis un collaborateur CMA</a>
 </div>
 
+<div class="form-actions cmaUserSection-elements" style="opacity: 0;">
+  <input class="cmaUserSection-input" type="text" placeholder="Entrez votre adresse CMA">
+  <button disabled name="submit" type="submit" class="cmaUserSection-button">Inscrire cet utilisateur</button>
+</div>
 
 <!-- modif quentin - 15528 - rename agreeing conditions part -->
 <script>
@@ -390,19 +475,60 @@ const textPattern4 = `I agree with <a href="/tos" class="new-vp" tabindex="-1">t
 const check = elementToChange.textContent
 
 if (check.includes('accepte')){
-  console.log("the page is in french 🤷🏻‍♂️")
+  // console.log("the page is in french 🤷🏻‍♂️")
   elementToChange.innerHTML=textPattern3
-  console.log('french text replaced 👌🏻')
+  // console.log('french text replaced 👌🏻')
   document.querySelector('#field-tos').style.display='flex'
 }
 else if (check.includes('agree')){
-  console.log("the page is in english 🤷🏻‍♂️")
+  // console.log("the page is in english 🤷🏻‍♂️")
   elementToChange.innerHTML=textPattern4
-  console.log('english text replaced 👌🏻');
+  // console.log('english text replaced 👌🏻');
   document.querySelector('#field-tos').style.display='flex'
 }
 else{
-  console.log('ça marche po ☹️')
+  console.log('something is not working with the renaming aggreeing conditions script - line 392')
 }
+
+</script>
+
+<!-- modif quentin - 16165 - show/hide section for cma users -->
+
+<script>
+  const cmaUserSectionButton = document.querySelector(".cmaUserSection-link")
+  const cmaUserSection = document.querySelector(".cmaUserSection-elements")
+
+  cmaUserSectionButton.addEventListener('click', ()=>{
+    // console.log('on entre dans le click');
+    if (cmaUserSection.style.opacity=='0') {
+      cmaUserSection.style.opacity='1'
+      // console.log('opacité à 0, changemnt à 1 -> fait');
+    }
+    else if (cmaUserSection.style.opacity=='1'){
+      cmaUserSection.style.opacity='0'
+      // console.log('opacité à 1, changemnt à 0 -> fait');
+    }
+    else{
+      console.log("it seems like there is a problem while trying to find filter value of cmaUserSection");
+    }
+  })
+
+</script>
+
+<!-- modif quentin - 16165 - change text value of 'create account' button,  -->
+
+<script>
+  
+  window.addEventListener('load', ()=>{
+    const createAccountButton = document.querySelector('.customButton1')
+
+    createAccountButton.textContent='Je souhaite être contacté par un conseiller'
+    
+    setInterval(() => {
+      if (createAccountButton.textContent.includes('Account')||createAccountButton.textContent.includes('compte')){
+        createAccountButton.textContent='Je souhaite être contacté par un conseiller'
+      }
+    }, 300);
+  })
 
 </script>
