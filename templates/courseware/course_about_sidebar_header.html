@@ -46,7 +46,12 @@ $(document).ready(function(){
         </div>
     % endif
   % endif
-  </div>
+</div>
+<div class="enroll-button contact-button">
+  <a style="color: white;" href='https://services.themoocagency.com/survey/index.php/survey/index/sid/512798/newtest/Y/lang/fr'> 
+    Nous contacter pour en savoir plus
+  </a>
+</div>
   % if static.get_value('course_about_show_social_links', True):
   <div class="social-sharing">
     ## TODO: this should probably be an overrideable block,
@@ -100,3 +105,11 @@ $(document).ready(function(){
   % endif
 </header>
 
+<style>
+  a:hover, a:focus, a:visited:hover, a:visited:focus {
+  text-decoration: none;
+  }
+  .contact-button{
+    margin-top: 0.2rem;
+  }
+</style>
