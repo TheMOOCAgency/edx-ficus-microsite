@@ -97,8 +97,7 @@ from third_party_auth import provider, pipeline
 
       if(enable) {
         $submitButton.
-          html("Se connecter");
-          //html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
@@ -121,6 +120,8 @@ from third_party_auth import provider, pipeline
          $('#login-form').submit();
        }
     })(${pipeline_running})
+
+    document.getElementsByClassName("login-button")[0].textContent ='Se connecter'
   </script>
 </%block>
 
