@@ -219,18 +219,20 @@ endfor
       %if not "Module" in str(enrollment.course_id):
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
+          <img src="/media/microsite/academie-digitale/images/questions.png" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          <!-- <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span> -->
+          <img src="/media/microsite/academie-digitale/images/questions.png" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="https://services.themoocagency.com/public/storage/CMA/Guide_Apprenant_Eformation_CMAFRANCE_BAT060922.pdf" target="_blank">Guide d'utilisation</a></span>
         % else:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
+          <!-- <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span> -->
+          <img src="/media/microsite/academie-digitale/images/questions.png" class="svg not_svg_passed"/><span style="margin-left:50px;">Guide d'utilisation</span>
         % endif
       </div>
         <!-- border middle -->
         <div id="dashboard_profile_middle_middle">
         </div>
       <div id="dashboard_profile_middle_bottom">
-          <img src="/media/microsite/academie-digitale/images/email.png" class="svg not_svg_passed"/><a style="margin-left:50px; font-size: 0.8em;" href="mailto:supportdigital@cma-France.fr">supportdigital@cma-France.fr</a>
+          <img src="/media/microsite/academie-digitale/images/email.png" class="svg not_svg_passed"/><a style="margin-left:50px; font-size: 0.8em;" href="mailto:supportdigital@cma-france.fr">supportdigital@cma-france.fr</a>
       </div>
       %else:
       <style>
