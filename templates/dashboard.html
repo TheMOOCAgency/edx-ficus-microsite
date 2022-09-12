@@ -266,7 +266,13 @@ endfor
         % else: 
         <span>${course["display_name"]}</span> 
         % endif
-        <span id="assignment_time_tracking_${mark}">${course["time_tracker"]}</span>
+        <%
+        try:
+          course_time_tracker = course["time_tracker"]
+        except:
+          course_time_tracker = "non commencé"
+        %>
+        <span id="assignment_time_tracking_${mark}">course_time_tracker</span>
       </div>
       <!-- border middle -->
       <div class="dashboard_profile_bottom_middle_border"></div>
