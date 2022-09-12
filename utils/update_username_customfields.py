@@ -27,20 +27,21 @@ from student.models import CourseEnrollment, UserProfile
 
 
 #for pprod
-course_ids=[
-    "course-v1:academie-digitale+FC_B20+FC_B20",
-    "course-v1:academie-digitale+FC_01+FC_01",
-    "course-v1:academie-digitale+FC_B01+FC_B01",
-    "course-v1:academie-digitale+FC_02+FC_02"
-    ]
+# course_ids=[
+#     "course-v1:academie-digitale+FC_B20+FC_B20",
+#     "course-v1:academie-digitale+FC_01+FC_01",
+#     "course-v1:academie-digitale+FC_B01+FC_B01",
+#     "course-v1:academie-digitale+FC_02+FC_02"
+#     ]
 
 #for prod
-# course_ids=[
-#     "course-v1:academie-digitale+FC_20+2022",
-#     "course-v1:academie-digitale+FC_B30+2022",
-#     "course-v1:academie-digitale+FC_B20+2022",
-#     "course-v1:academie-digitale+FC_B40+2022"
-#     ]
+course_ids=[
+    "course-v1:academie-digitale+FC_B50+2022",
+    "course-v1:academie-digitale+FC_20+2022",
+    "course-v1:academie-digitale+FC_B20+2022",
+    "course-v1:academie-digitale+FC_B40+2022",
+    "course-v1:academie-digitale+FC_B30+2022"
+    ]
 
 
 def get_cf_and_update(user, name, custom_fields, nametype):
