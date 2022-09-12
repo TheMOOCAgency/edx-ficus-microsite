@@ -363,7 +363,7 @@ import datetime
     margin: 1rem 0rem;
     margin-right: -8rem;
     /* display: none; */
-    transition: .5s;
+    transition: .35s;
   }
   .cmaUserSection-input{
     margin-right: 1rem;
@@ -409,6 +409,9 @@ import datetime
     height: 0rem !important;
     margin-top: 0rem !important;
     margin-bottom: 0rem !important;
+  }
+  #field-using_cpf>label {
+    font-weight: 600;
   }
 </style>
 
@@ -459,7 +462,7 @@ $('#first_name,#last_name').change(function(){
   <a class="cmaUserSection-link">Je suis un collaborateur CMA</a>
 </div>
 
-<div class="form-actions cmaUserSection-elements" style="opacity: 0;">
+<div class="form-actions cmaUserSection-elements" style="opacity: 0;pointer-events: none;">
   <input class="cmaUserSection-input" type="text" placeholder="Entrez votre adresse CMA">
   <button disabled name="submit" type="submit" class="cmaUserSection-button">Inscrire cet utilisateur</button>
 </div>
@@ -502,17 +505,18 @@ else{
     // console.log('on entre dans le click');
     if (cmaUserSection.style.opacity=='0') {
       cmaUserSection.style.opacity='1'
+      cmaUserSection.style.pointerEvents='auto'
       // console.log('opacité à 0, changemnt à 1 -> fait');
     }
     else if (cmaUserSection.style.opacity=='1'){
       cmaUserSection.style.opacity='0'
+      cmaUserSection.style.pointerEvents='none'
       // console.log('opacité à 1, changemnt à 0 -> fait');
     }
     else{
       console.log("it seems like there is a problem while trying to find filter value of cmaUserSection");
     }
   })
-
 </script>
 
 <!-- modif quentin - 16165 - change text value of 'create account' button,  -->
