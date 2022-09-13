@@ -18,7 +18,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 os.environ.setdefault("lms.envs.aws,SERVICE_VARIANT", "lms")
@@ -43,28 +43,43 @@ from lms.djangoapps.grades.context import grading_context_for_course, grading_co
 from lms.djangoapps.tma_ensure_form.utils import ensure_form_factory
 from courseware.courses import get_course_by_id
 from courseware.courses import get_course
+from tma_apps.models import TmaCourseEnrollment
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from student.models import CourseEnrollment, UserProfile
 
 from pprint import pformat
 
 
 recipients_geography = {
-    "parcours-createur@artisanat-nouvelle-aquitaine.fr" : u"Nouvelle-Aquitaine",
-    "secretariat.sdae@cma-martinique.com" : u"Martinique",
-    "parcrea@crma-centre.fr" : u"Centre-Val de Loire",
-    "j.senellart@cma-hautsdefrance.fr" : u"Hauts-de-France",
-    "eartisanat@crma-idf.fr" : u"\u00cele-de-France",
-    "parcours-createur@crma-grandest.fr" : u"Grand-Est",
-    "parcours.createur@crma-occitanie.fr" : u"Occitanie",
-    "parcours.createur@crm-bretagne.fr" : u"Bretagne",
-    "parcours.createur@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
-    "parcours.createur@artisanatpaysdelaloire.fr":u"Pays de la Loire",
-    "ParcoursCrea@artisanat-bfc.fr":u"Bourgogne-Franche-Comt\u00e9",
-    "parcours-creation@crma-auvergnerhonealpes.fr":u"Auvergne-Rh\u00f4ne-Alpes",
-    "aurelien.croq@weuplearning.com":u"Tout",
-    "tom.douce@weuplearning.com":u"Tout",
-    "alexandre.berteau@weuplearning.com":u"Tout",
+    # "formation@cma-auvergnerhonealpes.fr" : u"Auvergne-Rh\u00f4ne-Alpes",
+    # "formation@artisanat-bfc.fr": u"Bourgogne-Franche-Comt\u00e9",
+    # "contact-cfar@cma-bretagne.fr": u"Bretagne",
+    # "contact-formation.continue@cma-cvl.fr": u"Centre-Vale-de-Loire",
+    # "guimbert@cma-france.fr": u"Corse",
+    # "guimbert@cma-france.fr": u"Guadeloupe",
+    # "secretariat.fpc@cma-martinique.com": u"Martinique",
+    # "mbuisson@cmamayotte.com": u"Mayotte",
+    # # "contact@cma-grandest.fr": "Moselle"
+    # # Alsace : gestionfcc@cm-alsace.fr
+    # "contact@cma-grandest.fr": u"Grand-Est",
+    # "formationscma@cma-hautsdefrance.fr": u"Haut-de-France",
+    # "alexandre.chaubet-tavenot@cma-idf.fr": u"Ile-de-France",
+    # "formation@cma-normandie.fr": u"Normandie",
+    # "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
+    # "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
+    # "dlabetoulle@cm-toulouse.fr": u"Occitanie",
+    # "urma@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
+    # "vincent.bayol@cma-reunion.fr": u"La-Reunion",
+    # "guimbert@cma-france.fr": u"Guyanne",
+    # "guimbert@cma-france.fr": u"Saint-Pierre-et-Miquelon",
+    # "guimbert@cma-france.fr": u"Saint-Barthelemy",
+    # "guimbert@cma-france.fr": u"Saint-Martin",
+    # "guimbert@cma-france.fr": u"Wallis et Futuna",
+    # "guimbert@cma-france.fr": u"Polynesie Française",
+    # "guimbert@cma-france.fr": u"Nouvelle Caledonie",
+    "dimitri.hoareau@weuplearning.com": "tout"
 }
+
 
 # Auxiliary functions
 def is_course_open(course):
@@ -75,13 +90,13 @@ def is_course_open(course):
         return True
 
 # SET MAIN VARIABLES
-org = "e-formation-artisanat"
+org = "academie-digitale"
 register_form = configuration_helpers.get_value_for_org(org, 'FORM_EXTRA')
 certificate_extra_form = configuration_helpers.get_value_for_org(org, 'CERTIFICATE_FORM_EXTRA')
 form_factory = ensure_form_factory()
 db = 'ensure_form'
 collection = 'certificate_form'
-form_factory.microsite = u"e-formation-artisanat"
+form_factory.microsite = u"academie-digitale"
 
 # Get headers
 HEADERS_GLOBAL = []
@@ -95,41 +110,40 @@ if register_form is not None:
                 HEADERS_FORM.append(row.get('name'))
 
 NICE_HEADER = list(HEADERS_FORM)
-NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12"])
+# NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12","Note de cas pratique"])
 
 TECHNICAL_HEADER = list(HEADERS_FORM)
-TECHNICAL_HEADER.extend(["score1","score1p","score3","score4","score5","score7","score8","score9","score9p","score10","score11","score12"])
+# TECHNICAL_HEADER.extend(["score1","score1p","score3","score4","score5","score7","score8","score9","score9p","score10","score11","score12","cas_pratique_grade"])
 
 HEADERS_USER.extend(NICE_HEADER)
 
 HEADER = HEADERS_USER
 
-print HEADER
+# print TECHNICAL_HEADER
 
 
 course_ids=[
-    "course-v1:e-formation-artisanat+Pack_Micro+e-formation-2020",
-    "course-v1:e-formation-artisanat+commercial+2020_T1",
-    "course-v1:e-formation-artisanat+essentiels+2020_T1",
-    "course-v1:e-formation-artisanat+gestion+2020_T1",
-    "course-v1:e-formation-artisanat+premium+2020_T1",
-    "course-v1:e-formation-artisanat+Module_01+SP_01",
-    "course-v1:e-formation-artisanat+Module_02+SP_02",
-    "course-v1:e-formation-artisanat+Module_03+SP_03",
-    "course-v1:e-formation-artisanat+Module_04+SP_04",
-    "course-v1:e-formation-artisanat+Module_05+SP_05",
-    "course-v1:e-formation-artisanat+Module_06+SP_06",
-    "course-v1:e-formation-artisanat+Module_07+SP_07",
-    "course-v1:e-formation-artisanat+Module_08+SP_08",
-    "course-v1:e-formation-artisanat+Module_09+SP_09",
-    "course-v1:e-formation-artisanat+Module_09-+SP_09-",
-    "course-v1:e-formation-artisanat+Module_10+SP_10",
-    "course-v1:e-formation-artisanat+Module_11+SP_11",
-    "course-v1:e-formation-artisanat+Module_12+SP_12"
+    "course-v1:academie-digitale+FC_B50+2022",
+    "course-v1:academie-digitale+FC_20+2022",
+    "course-v1:academie-digitale+FC_B20+2022",
+    "course-v1:academie-digitale+FC_B40+2022",
+    "course-v1:academie-digitale+FC_B30+2022"
     ]
 
+def get_time_tracking(enrollment):
 
-def get_user_info(user):
+    try:
+        tma_enrollment=TmaCourseEnrollment.objects.get_or_create(course_enrollment_edx=enrollment)
+        global_time=tma_enrollment[0].global_time_tracking
+        log.info("--------------------------------------------------------------------")
+        log.info(global_time)
+    except:
+        global_time = 0
+    return global_time
+
+
+def get_user_info(user, enrollment_date=''):
+
     user_profile = {}
     email = user.email
     custom_field = {}
@@ -148,26 +162,27 @@ def get_user_info(user):
     if user.first_name:
         first_name = user.first_name
     elif custom_field :
-        first_name = custom_field.get('first_name', 'n/a')
+        first_name = custom_field.get('first_name', '')
     else:
-        first_name = "n/a"
+        first_name = ""
 
     if user.last_name:
         last_name = user.last_name
     elif custom_field :
-        last_name = custom_field.get('last_name', 'n/a')
+        last_name = custom_field.get('last_name', '')
     else:
-        last_name = "n/a"
+        last_name = ""
 
     try:
         date_inscription = user.date_joined.strftime('%d %b %y')
     except:
-        date_inscription = "n/a"
+        date_inscription = ""
 
     try:
         last_login = user.last_login.strftime('%d %b %y')
     except:
-        last_login = "n/a"
+        last_login = ""
+
         
     user_row = [user.id, user.username, email, first_name, last_name, date_inscription, last_login]
     
@@ -176,13 +191,14 @@ def get_user_info(user):
         try:
             user_row.append(custom_field[field])
         except:
-            user_row.append('n/a')
+            user_row.append('')
 
+    user_row.append("tma_global_time")
     return user_row
 
 def get_user_first_connect(user, course_id):
     custom_field = {}
-    date_value='n/a'
+    date_value=''
 
     user_id = str(user.id)
 
@@ -195,16 +211,17 @@ def get_user_first_connect(user, course_id):
     form_factory.user_id = long(user_id)
     
     try:
-        field_value = custom_field.get(course_id, 'n/a')
+        field_value = custom_field.get(course_id, '')
         if isinstance(field_value, int):
             field_value_string = datetime.fromtimestamp(field_value / 1e3).strftime("%d/%m/%Y")
             date_value = field_value_string
     except Exception as e:
         log.info(e)
-        date_value = 'n/a'
+        date_value = ''
 
     return date_value
 
+HEADER.append('Temps global') 
 
 #### TRUE SCRIPT
 
@@ -216,6 +233,7 @@ for j in range(len(course_ids)):
     course_key = CourseKey.from_string(course_id)
     course = get_course_by_id(course_key) 
     HEADER.append('Note "{}"'.format(course.display_name_with_default))
+    HEADER.append('date d\'inscription "{}"'.format(course.display_name_with_default))
     HEADER.append('1ere connexion "{}"'.format(course.display_name_with_default))
 
 # First get all users even if not enrolled in any course
@@ -226,7 +244,7 @@ for user_profile in user_profiles:
         custom_field = json.loads(user_profile.custom_field)
     except:
         custom_field = {}
-    if custom_field.get("microsite") == "e-formation-artisanat":
+    if custom_field.get("microsite") == "academie-digitale":
         potentially_non_enrolled_user_ids.append(user_profile.user_id)
 
 users_data = {}
@@ -244,8 +262,16 @@ for j in range(len(course_ids)):
     user_summary = first_enrollment.user
     
     i = 0
+    global_time = 0
     for i in range(len(enrollments)):
+
+        # FOR DEBUG PURPOSES
+        # if i > 3:
+        #    break
+
         user = enrollments[i].user
+        enrollment_user = enrollments.filter(course_id=course_key).filter(user=user.id).values('created')
+        enrollment_date = enrollment_user[0]['created'].strftime("%m/%d/%Y")
         #As the user is enrolled in something remove it from potentially non enrolled users
         if user.id in potentially_non_enrolled_user_ids:
             potentially_non_enrolled_user_ids.remove(user.id)
@@ -253,10 +279,13 @@ for j in range(len(course_ids)):
         # If the user has never been seen before get its basic info
         if user.id not in users_data.keys():
             # USER INFO
-            users_data[user.id] = get_user_info(user)
+            users_data[user.id] = {}
+            users_data[user.id]["data"] = get_user_info(user, enrollment_date)
+            users_data[user.id]["global_time"] = 0
         
         # get first login value
         first_connection = get_user_first_connect(user, course_id)
+        first_register = enrollment_date
             
         # User already exists so
         # GET GRADES
@@ -268,27 +297,36 @@ for j in range(len(course_ids)):
             pass
 
         # Final grade
-        diff = len(HEADER) - len(course_ids)*2 + j*2 - len(users_data[user.id])
-        # diff = len(HEADER) - len(course_ids) + j - len(users_data[user.id])
+        # diff = len(HEADER) - len(course_ids)*2 + j*2 - len(user_data[user.id]["data"])
+        # log.info(diff)
 
-        if diff > 0 :
-            users_data[user.id].extend([None] * diff)
+        # if diff > 4 :
+        #     user_data[user.id]["data"].extend([None] * diff)
 
-        users_data[user.id].append(percent)
+        users_data[user.id]["data"].append(percent)
+
+        users_data[user.id]["data"].append(first_register)
+
         # insert first login value
-        users_data[user.id].append(first_connection)
+        users_data[user.id]["data"].append(first_connection)
 
-            
+        #get global time tracking
+        log.info(user)
+        global_time = get_time_tracking(enrollments[i])
+
+        users_data[user.id]["global_time"] += global_time
 
 ## Now we get all non enrolled users
 for user_id in potentially_non_enrolled_user_ids:
-    users_data[user_id] = get_user_info(User.objects.get(id=user_id))
+    users_data[user.id] = {}
+    users_data[user.id]["data"] = get_user_info(User.objects.get(id=user_id))
+    users_data[user.id]["global_time"] = 0
 
 for recipient in recipients_geography:
-    # WRITE FILE
+    # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename = '/home/edxtma/csv/e-formation.artisanat.fr_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_all_values = '/home/edxtma/csv/formation.artisanat.fr-complet_{}.xls'.format(time.strftime("%d.%m.%Y"))
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -296,40 +334,122 @@ for recipient in recipients_geography:
 
     j = 1
     for user in users_data:
-        user_data = users_data[user]
+        user_data = users_data[user]["data"]
+        global_time = users_data[user]["global_time"]
+
+        list_index = user_data.index('tma_global_time')
+        user_data[list_index] = str(timedelta(seconds=global_time))
+                    
         # unidecode and avoid spaces and dashes
-        if unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","") == unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") or recipients_geography[recipient].lower() == "tout":
+        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
+        unidecoded_user_field =  ""
+        try:
+            unidecoded_user_field = unidecode(user_data[12].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        unidecoded_recipient_geo = ""
+        try:
+            unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") 
+        except:
+            pass
+
+        if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
             for i in range(len(user_data)):
-                sheet.write(j, i, user_data[i])
+                try:
+                    sheet.write(j, i, user_data[i])
+
+                except:
+                    pass
+
             j = j + 1
 
-    # SEND MAILS
     output = BytesIO()
     wb.save(output)
-    _files_values = output.getvalue()
+    file_all_values = output.getvalue()
 
-    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits aux formations disponibles sur e-formation.artisanat.fr pour votre r&eacute;gion: "+recipients_geography[recipient]+".<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe e-formation-artisanat.fr</p></body></html>"
+
+
+    # WRITE FILE FOR YESTERDAY ONLY
+    # Prepare workbook
+    wb = Workbook(encoding='utf-8')
+    filename_yesterday = '/home/edxtma/csv/formation.artisanat.fr-veille_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    sheet = wb.add_sheet('Rapport')
+    style_title = easyxf('font: bold 1')
+    for i in range(len(HEADER)):
+        sheet.write(0, i, HEADER[i],style_title)
+
+    j = 1
+    for user in users_data:
+        user_data = users_data[user]["data"]
+
+        # We make sure that only new users are in the report
+        date_joined = user_data[5]
+        date_joined = datetime.strptime(user_data[5], '%d %b %y')
+        now =  datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+        if not(date_joined >=  now - timedelta(days=1) and date_joined < now):
+            continue
+
+        # unidecode and avoid spaces and dashes
+        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
+        unidecoded_user_field =  ""
+        try:
+            unidecoded_user_field = unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        unidecoded_recipient_geo = ""
+        try:
+            unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","")
+        except:
+            pass
+        if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
+            for i in range(len(user_data)):
+                try:
+                    sheet.write(j, i, user_data[i])
+                except:
+                    pass
+            j = j + 1
+
+
+    output = BytesIO()
+    wb.save(output)
+    file_yesterday = output.getvalue()
+
+    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits aux formations disponibles sur formation.artisanat.fr pour votre r&eacute;gion: "+recipients_geography[recipient]+".<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe formation-artisanat.fr</p></body></html>"
 
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
     # toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr"]
-    toaddr = ["yoann.mroz@weuplearning.com"]
+    toaddr = ["dimitri.hoareau@weuplearning.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
-    msg['Subject'] = "Rapport e-formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
-    attachment = _files_values
+    msg['Subject'] = "Rapport formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
+
+    attachment = file_all_values
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(attachment)
     encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename))
+    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_all_values))
     msg.attach(part)
+
+    attachment = file_yesterday
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(attachment)
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_yesterday))
+    msg.attach(part)
+
     server = smtplib.SMTP('mail3.themoocagency.com', 25)
     server.starttls()
     server.login('contact', 'waSwv6Eqer89')
     msg.attach(part2)
     text = msg.as_string()
+    #For debug purposes
+    # server.sendmail(fromaddr, "dimitri.hoareau@weuplearning.com", text)
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
     log.info('Email sent to '+str(toaddr))
+
+
