@@ -447,8 +447,8 @@ for recipient in recipients_geography:
     msg.attach(part2)
     text = msg.as_string()
     #For debug purposes
-    server.sendmail(fromaddr, "dimitri.hoareau@weuplearning.com", text)
-    # server.sendmail(fromaddr, toaddr, text)
+    # server.sendmail(fromaddr, "dimitri.hoareau@weuplearning.com", text)
+    server.sendmail(fromaddr, toaddr, text)
     server.quit()
     log.info('Email sent to '+str(toaddr))
 
