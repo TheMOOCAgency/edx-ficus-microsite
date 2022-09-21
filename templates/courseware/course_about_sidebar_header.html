@@ -41,7 +41,7 @@ $(document).ready(function(){
           ${_("I want to enroll!")}
         </div>
     % else:
-        <div class="enroll-button" onclick="window.location.href='/register'">
+      <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string()}'">
            S'inscrire à la formation
         </div>
     % endif
