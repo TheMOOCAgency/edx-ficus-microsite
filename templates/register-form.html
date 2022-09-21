@@ -536,3 +536,29 @@ else{
   })
 
 </script>
+
+
+<!-- modif dimitri - 16354 - set value of selector with course_id on url,  -->
+<script>
+
+  const correlationTable = {
+    "course-v1:academie-digitale+FC_20+2022": "hygiene_alimentaire",
+    "course-v1:academie-digitale+FC_B50+2022": "gestion_tresorerie",
+    "course-v1:academie-digitale+FC_B40+2022": "prospection_fidelisation",
+    "course-v1:academie-digitale+FC_B30+2022": "strategie_facebook",
+    "course-v1:academie-digitale+FC_B20+2022": "maitre_apprentissage"
+  }
+
+  const queryString = window.location.search;
+  if (queryString.includes("course_id")) {
+    const urlParams = new URLSearchParams(queryString);
+    const course = urlParams.get('course_id').replace(" ", "+")
+    course_id = course.replace(" ", "+")
+    const selectorValue = document.getElementById('register_choice')
+    selectorValue.value = correlationTable[course_id]
+  }
+
+
+   
+  
+</script>
