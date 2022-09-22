@@ -115,6 +115,11 @@ import datetime
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
     </li>
 
+    <li class="field text" id="field-collaborateur">
+      <!-- <label for="collaborateur">${_('Collaborateur')}</label> -->
+      <input type="hidden" id="input-collaborateur" type="text" name="collaborateur" value=""/>
+    </li>
+
     % if third_party_auth.is_enabled() and running_pipeline:
 
     <li class="is-disabled field optional password" id="field-password" hidden>
@@ -558,7 +563,54 @@ else{
     selectorValue.value = correlationTable[course_id]
   }
 
-
-   
-  
 </script>
+
+<!-- modif anojan / dimitri - register with a colaborator  -->
+<!-- TODO uncomment this following line when the back-end part will be on production + remove disable on cmaUserSection-button -->
+
+<!-- <script>
+  const adminList =
+    [
+      "@cma.",
+      "@artisanat.",
+      "@cm.",
+      "@cmai.",
+      "@ccism.",
+      "@cma.",
+      "@ccima.",
+      "@crma.",
+      "@cmahc.",
+      "@cmar.",
+      "@cacima.",
+      "@crm.",
+      "xlamarche@lalamedia.fr",
+      "adebibi@lalamedia.fr",
+      "sylvain.vacaresse@learningsalad.fr",
+      "dimitri.hoareau@weuplearning.com"
+    ]
+    const emailCMA = document.querySelector('.cmaUserSection-input');
+    const registerCMAButton = document.querySelector('.cmaUserSection-button');
+    registerCMAButton.addEventListener('click', (e)=>{
+      if(emailCMA.value != ""){
+        let allowRegister = false
+        for(const admin of adminList){
+          if(emailCMA.value.includes(admin)){
+            allowRegister = true
+            const selectorValue = document.getElementById('input-collaborateur')
+            selectorValue.value = "collaborateur_register"
+          }
+        }
+        console.log(allowRegister)
+        if (!allowRegister) {
+          e.preventDefault()
+          alert('l`\'adresse e-mail de collaborateur renseignée est incorrecte')
+        }
+
+      }else{
+        e.preventDefault()
+        alert('le champ adresse mail de collaborateur n\'a pas été rempli')
+      }
+  
+    })
+  </script> -->
+

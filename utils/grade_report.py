@@ -59,15 +59,13 @@ recipients_geography = {
     "guimbert@cma-france.fr": u"Guadeloupe",
     "secretariat.fpc@cma-martinique.com": u"Martinique",
     "mbuisson@cmamayotte.com": u"Mayotte",
-    # "contact@cma-grandest.fr": "Moselle"
-    # Alsace : gestionfcc@cm-alsace.fr
     "contact@cma-grandest.fr": u"Grand-Est",
     "formationscma@cma-hautsdefrance.fr": u"Haut-de-France",
     "alexandre.chaubet-tavenot@cma-idf.fr": u"Ile-de-France",
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
     "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
-    "dlabetoulle@cm-toulouse.fr": u"Occitanie",
+    "guimbert@cma-france.fr": u"Occitanie",
     "urma@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
     "vincent.bayol@cma-reunion.fr": u"La-Reunion",
     "guimbert@cma-france.fr": u"Guyanne",
@@ -326,7 +324,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_all_values = '/home/edxtma/csv/formation.artisanat.fr-complet_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_all_values = '/home/edxtma/csv/e-formation_ListeComplete_Apprenants_{}.xls'.format(time.strftime("%d.%m.%Y"))
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -372,7 +370,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR YESTERDAY ONLY
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_yesterday = '/home/edxtma/csv/formation.artisanat.fr-veille_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_yesterday = '/home/edxtma/csv/e-formation_SemPrecedente_FormulairesCompletes_{}.xls'.format(time.strftime("%d.%m.%Y"))
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -420,7 +418,7 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr"]
+    toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr"]
     # toaddr = ["dimitri.hoareau@weuplearning.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
