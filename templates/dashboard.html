@@ -523,9 +523,20 @@ else{
 		  });
 		</script>
 	%else:
-		<h2>Activez votre compte pour accéder aux contenus et au test de positionnement.</h2>
-		<h2>Un email contenant les instructions pour activer votre compte vous a été envoyé.</h2>
-		<h2>Si vous ne recevez pas ce message, vérifiez dans votre dossier de spam.</h2>
+    %if 'register-mode' in custom_fields:
+      %if custom_fields['register-mode'] == 'register-mode-collaborator':
+        <h2>L'utilisateur ${request.user.email} est bien inscrit sur la plateforme mais sa formation n'est pas validée.</h2>
+        <h2>Un conseiller CMA doit valider son inscription à une formation pour qu'il puisse débuter sa formation.</h2>
+      %elif custom_fields['register-mode'] == 'register-mode-advisor':
+        <h2>Demande d'inscription enregistrée</h2>
+        <h2>Votre demande d'inscription a bien été enregistrée. Vous allez bientôt être contacté par un de nos conseillers pour finaliser votre inscription.</h2>
+      %endif
+    %else:
+      <h2>Activez votre compte pour accéder aux contenus et au test de positionnement.</h2>
+      <h2>Un email contenant les instructions pour activer votre compte vous a été envoyé.</h2>
+      <h2>Si vous ne recevez pas ce message, vérifiez dans votre dossier de spam.</h2>
+    %endif
+
 	%endif
 
 </div>
@@ -776,5 +787,3 @@ function checkIfBgExist () {
 
 
 % endif
-
-
