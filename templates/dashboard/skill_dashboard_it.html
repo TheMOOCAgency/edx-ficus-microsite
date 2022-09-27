@@ -1,0 +1,195 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous, is_ov" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+%>
+<style>
+#main{
+  height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+    background-size: cover !important;
+    position: fixed;
+    left:0;
+    top:0;
+    color: white;
+}
+.text-center{
+  text-align: center
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25">
+      <!-- ${HTML(about_course_video)}-->
+      <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+      %if user.username in authorized_users_usernames or user.email in authorized_admins:
+      <iframe src="https://fiat.mc.eu1.kontiki.com/global/player?moid=aaf61ab3-747c-44b0-9797-0e258f0ba636&repeat=false&client=false&context=embed&overlay=false&name=false&description=false&created_by=false&created_at=false&rating=false&sharing=false&favorites=false&chapters=false&tags=false&flagging=false&views=false&length=false&downloading=false&autoPlay=false" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <!-- <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
+      %endif
+        <p>${HTML(about_course_description)}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25 mb-20">
+        <div style="text-align:center">
+                <img src="/media/microsite/psa-netexplo/images/logo_digimapper.png" style="height: 60px">
+        </div>
+        <!-- <h2 class="text-center" id="course_title">
+          ${course_overview.display_name}
+        </h2> -->
+        <p class="text-center" id="trial_name">
+          Évaluation ${associated_courses.get('step_number',1)}
+        </p>
+        %if associated_courses.get('delayed'):
+          <p class="text-center">
+            Vous pourrez réaliser une nouvelle évaluation dans ${associated_courses.get('delayed')} jours.
+          </p>
+        %endif
+        <div class="text-center">
+          %if user.username not in authorized_users_usernames and user.email not in authorized_admins and user.email.find("@mpsa") == -1 :
+            <div id="main">
+                <h3>Siamo spiacenti, non è possibile accedere<br> a Digimapper.</h3>
+            </div>
+        </div>
+      </div>
+         %else:
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              MIEI RISULTATI
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn start-course"  id="course_continue">
+              <i class="fa fa-play-circle"></i>
+              RASSEGNA
+            </button>
+          </a>
+          %else:
+          <button class="dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            AVVIARE
+            %if associated_courses.get('step_number')>1:
+            LA VALUTAZIONE ${associated_courses.get('step_number')}
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-6 text-center">
+            %if course_state!="finished" :
+            <button class="sub-btn" disabled>
+              <i class="fa fa-book"></i>
+             Rivedi le mie risposte
+            </button>
+            %else :
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn"  id="see_answers">
+                <i class="fa fa-book"></i>
+               Rivedi le mie risposte
+              </button>
+            </a>
+            %endif
+          </div>
+          <div class="col-md-6 text-center">
+            %if course_state=="finished" and associated_courses.get('step_number',1)>=2:
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}/#/compare">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Come è cambiato il mio punteggio
+              </button>
+            </a>
+            %elif course_state!="finished" and associated_courses.get('step_number',1)>1:
+            <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                 Controllare il mio punteggio precedente
+              </button>
+            </a>
+            %else :
+            <button class="sub-btn deactivated" disabled>
+              <i class="fa fa-search"></i>
+              Come è cambiato il mio punteggio
+            </button>
+            %endif
+          </div>
+        </div>
+      </div>
+      %endif
+      <div class="gray-bg rounded pad-25 mb-20">
+        <p>
+          <strong>Informazioni pratiche</strong>
+          <br/>La tua valutazione:
+          <ul>
+            <li> È composta da 35 domande selezionate in modo casuale</li>
+            <li> Include domande comuni a tutte le professioni</li>
+            <li> Copre 5 aree principali di conoscenza</li>
+            <li> Richiede circa 45 minuti</li>
+            <li> Può essere interrotta in qualsiasi momento chiudendo la finestra attiva e riprendendo da dove era stata interrotta</li>
+            <li> Fornisce le risposte corrette dopo ogni domanda e le spiegazioni dettagliate necessarie a comprenderle.</li>
+          </ul>
+        </p>
+      </div>
+      <div id="conseils" class="gray-bg rounded pad-25 mb-20 overflow-hidden">
+        <p>
+          <strong>Qualche consiglio prima di iniziare !</strong>
+          <br><br>
+          <strong>Assicurati di non essere disturbato.</strong>
+          <br><br>
+          <strong>Impegna il tempo necessario in agenda.</strong>
+          <br>
+          Circa 45 minuti per rispondere alle domande, più 15 minuti per controllare le risposte corrette mentre si procede.
+          <br/>Una volta completata la valutazione, sarà possibile rivedere tutte le risposte e le spiegazioni.
+          <br><br>
+          <strong>Leggi attentamente la formulazione delle domande, le diverse proposte e le istruzioni.</strong>
+          <br>
+          Se non sai rispondere, usa il tuo buon senso. Non ci sono domande a trabocchetto.
+          <br><br>
+          <strong>Fai un passo indietro rispetto ai risultati ottenuti.</strong>
+          <br>
+          Alcune aree di conoscenza potrebbero risultarti meno familiari perché sono molto lontane dal tuo lavoro attuale. Un buon livello di cultura digitale generale si acquisisce con il tempo, poiché le conoscenze sono molto varie e in continua evoluzione.
+          <br>Sappiate che potrai rivalutarti ogni due mesi, magari dopo aver seguito qualche corso di formazione, per misurare con regolarità i tuoi progressi.
+        </p>
+      </div>
+      <div class="text-center" id="conseils-btn-wrapper">
+        <i id="conseils-btn" class="fa fa-plus-circle"></i>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/promise-polyfill"></script>
+    <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+
+    <a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf">Read now</a>
+
+%if is_ov:
+    <script>
+      swal.fire({
+    type: 'info',
+    title: 'Privacy Statement',
+    text: '',
+    confirmButtonText: '<span style="color:white!important;text-decoration:none!important">Read now</span>',
+    confirmButtonColor:'rgb(29, 82, 128)',
+    showCancelButton: true,
+    cancelButtonText:"Close",
+    cancelButtonColor: 'rgb(89, 89, 89)'}
+    ).then(function(result) {
+    if(result.value){
+      window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf","_blank");
+    }
+    });
+    </script>
+%endif
+
+

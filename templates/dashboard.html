@@ -237,14 +237,12 @@ if request.user.email in test_users:
     authorized_admins+=['netexplo_demo1en@yopmail.com','netexplo_demo2en@yopmail.com','netexplo_demo3en@yopmail.com','netexplo_demo4en@yopmail.com','netexplo_demo5en@yopmail.com','netexplo_demo1fr@yopmail.com','netexplo_demo2fr@yopmail.com','netexplo_demo3fr@yopmail.com','netexplo_demo4fr@yopmail.com','netexplo_demo5fr@yopmail.com']
 
     #PPROD1 - TEST ACCOUNTS
-    authorized_users_usernames.extend(["psaDE","psaEN","psaFR","psa-multiatt-FR","psa-multiatt-DE","psa-multiatt-EN"])
+    authorized_users_usernames.extend(["psaDE","psaEN","psaFR","psa-multiatt-FR","psa-multiatt-DE","psa-multiatt-EN","testItalien"])
     #APP1 - TEST ACCOUNTS
     authorized_users_usernames.extend(["psa_multiattempts_de","psa_multiattempts_fr","psa_multiattempts_en","psa_eval1","psa_eval2", "compte_test_multiatt"])
     #MULTIATTEMPTS TEST ACCOUNTS
     authorized_users_usernames.extend(["GA_eval1","GA_eval2","CH_eval1","CH_eval2","FS_eval1","FS_eval2","psa-test-dtl","psa-test-dtl-fs","psa-test-dtl-ter","131_en"])
   %>
-
-
   % if len(course_enrollments) == 1 and tma_randomization(course_enrollments[0].course_id).get_randomization_mode()!='random':
   <%
   course_overview=enrollment.course_overview
@@ -383,6 +381,8 @@ if request.user.email in test_users:
       <%include file="dashboard/skill_dashboard_de.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %elif course.language=="fr":
       <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
+    %elif course.language=="it":
+      <%include file="dashboard/skill_dashboard_it.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %else:
       <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames, authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %endif

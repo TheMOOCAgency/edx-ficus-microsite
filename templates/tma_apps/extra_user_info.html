@@ -18,7 +18,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
 <main id="main" aria-label="Content" tabindex="-1">
   % if user.is_authenticated():
-    <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langue.<br/>Choose your language.<br/>Wählen Sie Ihre Sprache.</h1>
+    <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langue.<br/>Choose your language.<br/>Wählen Sie Ihre Sprache.<br/>Scegli la tua lingua.</h1>
     <div id="language-selector" style='display:block'>
         <a data-value="en" data-course="course-v1:psa-netexplo+BM01_EN+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
@@ -28,6 +28,9 @@ from openedx.core.djangolib.markup import HTML, Text
         </a>
         <a data-value="de-de" data-course="course-v1:psa-netexplo+BM01_DE+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/de.png" alt="de">
+        </a>
+        <a data-value="it-it" data-course="course-v1:psa-netexplo+BM01_IT+SP">
+          <img height="100px" src="/media/microsite/psa-netexplo/images/it.png" alt="it" style="height: 70px; border-radius: 6px;">
         </a>
     </div>
   % endif
@@ -39,17 +42,20 @@ from openedx.core.djangolib.markup import HTML, Text
     message: {
       "fr": "Ce choix ne pourra pas être modifié par la suite.\nVeuillez confirmer ce choix.",
       "en": "This setting cannot be changed later.\nPlease confirm.",
-      "de-de": "Diese Auswahl kann später nicht mehr geändert werden. \nBitte bestätigen Sie diese Auswahl."
+      "de-de": "Diese Auswahl kann später nicht mehr geändert werden. \nBitte bestätigen Sie diese Auswahl.",
+      "it-it": "Questa impostazione non può essere modificata in seguito. \nSi prega di confermare."
     },
     button: {
       "fr": "Confirmer",
       "en": "Confirm",
-      "de-de": "Bestätigen"
+      "de-de": "Bestätigen",
+      "it-it": "Confermare"
     },
     cancel: {
       "fr": "Annuler",
       "en": "Cancel",
-      "de-de": "Stornieren"
+      "de-de": "Stornieren",
+      "it-it": "Cancellare"
     }
   };
 
