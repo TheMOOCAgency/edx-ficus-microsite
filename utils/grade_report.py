@@ -133,8 +133,6 @@ def get_time_tracking(enrollment):
     try:
         tma_enrollment=TmaCourseEnrollment.objects.get_or_create(course_enrollment_edx=enrollment)
         global_time=tma_enrollment[0].global_time_tracking
-        log.info("--------------------------------------------------------------------")
-        log.info(global_time)
     except:
         global_time = 0
     return global_time
@@ -192,6 +190,8 @@ def get_user_info(user, enrollment_date=''):
             user_row.append('')
 
     user_row.append("tma_global_time")
+
+    log.info(user_row)
     return user_row
 
 def get_user_first_connect(user, course_id):
@@ -334,6 +334,7 @@ for recipient in recipients_geography:
     for user in users_data:
         user_data = users_data[user]["data"]
         global_time = users_data[user]["global_time"]
+        # dans le cas d'un utilisateur ou tma_global_time a été remplacé par la valeur choisie, il n'y aura donc plus de 'tma_globaml_time' dans le tableau mais une date 
 
         list_index = user_data.index('tma_global_time')
         user_data[list_index] = str(timedelta(seconds=global_time))
@@ -360,6 +361,8 @@ for recipient in recipients_geography:
                     pass
 
             j = j + 1
+
+        user_data[list_index] = 'tma_global_time'
 
     output = BytesIO()
     wb.save(output)
@@ -419,7 +422,7 @@ for recipient in recipients_geography:
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
     toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr"]
-    # toaddr = ["dimitri.hoareau@weuplearning.com"]
+    # toaddr = ["technical@themoocagency.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
