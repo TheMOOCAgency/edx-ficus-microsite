@@ -133,14 +133,14 @@ div.course-material{
            authorized_stats_bo+=['ManagerAllemandTest','withoutgradesalltma']
 
            with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_bo_access_rights.json') as json_file:
-               data = json.load(json_file)
-           authorized_stats_bo.extend(data['allowed_usernames'])
+               data1 = json.load(json_file)
+           authorized_stats_bo.extend(data1['allowed_usernames'])
 
            authorized_users_usernames_nav = []
            with open('/edx/var/edxapp/secret/microsite/psa-netexplo/barometer_access_rights.json') as json_file:
-               data = json.load(json_file)
+               data2 = json.load(json_file)
 
-           authorized_users_usernames_nav.extend(data['allowed_usernames'])
+           authorized_users_usernames_nav.extend(data2['allowed_usernames'])
 
 
         %>

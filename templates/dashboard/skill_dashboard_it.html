@@ -48,11 +48,11 @@ course_state = user_course_state[str(enrollment.course_id)]
           ${course_overview.display_name}
         </h2> -->
         <p class="text-center" id="trial_name">
-          Évaluation ${associated_courses.get('step_number',1)}
+          Valutazione ${associated_courses.get('step_number',1)}
         </p>
         %if associated_courses.get('delayed'):
           <p class="text-center">
-            Vous pourrez réaliser une nouvelle évaluation dans ${associated_courses.get('delayed')} jours.
+            È possibile effettuare un'altra valutazione tra ${associated_courses.get('delayed')} giorni.
           </p>
         %endif
         <div class="text-center">
