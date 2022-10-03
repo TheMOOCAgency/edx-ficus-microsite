@@ -88,26 +88,10 @@ if (x && x.indexOf("CN") != -1) {
 
     // lvmh_test_cn@yomail.com
     // trads for chinese course
-    var start_button = $( "#course_start span" )
-    if (start_button[0]) {
-      start_button[0].innerText = '开始'
-    }
-
     var full_screen_button = document.getElementsByClassName("fullscreen-button")[0]
     if (full_screen_button) {
       full_screen_button.textContent = "全屏模式"
     }
-
-    var see_results_button = $( '#dashboard_profile_middle_up span a')
-    if (see_results_button[0]) {
-      see_results_button[0].textContent = "查看结果"
-    }
-
-    var final_grade_button = $( '#dashboard_profile_bottom_up span')
-    if (final_grade_button[0]) {
-      final_grade_button[0].textContent = "结语"
-    }
-
   }, 500);
 } else if (x && x.indexOf("EN") != -1) {
   setInterval(() => {
@@ -119,4 +103,28 @@ if (x && x.indexOf("CN") != -1) {
 
   }, 500);
 }
+
+setInterval(() => {
+  let course_id_info = $("#course_start")
+  if (course_id_info[0].href.indexOf('CN') == -1 ) {
+
+    var start_button = $( "#course_start span" )
+    if (start_button[0]) {
+      start_button[0].innerText = '开始'
+    }
+
+    var see_results_button = $( '#dashboard_profile_middle_up span a')
+    if (see_results_button[0]) {
+      see_results_button[0].textContent = "查看结果"
+    }
+
+    var final_grade_button = $( '#dashboard_profile_bottom_up span')
+    if (final_grade_button[0]) {
+      final_grade_button[0].textContent = "结语"
+    }
+  }
+  
+}, 500);
+
+
 </script>
