@@ -83,6 +83,7 @@ if (x.indexOf("FR") == -1) {
   // document.getElementById("about").textContent = "About";
 }
 
+// /courseware
 if (x && x.indexOf("CN") != -1) {
   setInterval(() => {
 
@@ -104,9 +105,10 @@ if (x && x.indexOf("CN") != -1) {
   }, 500);
 }
 
+// /dashboard
 setInterval(() => {
   let course_id_info = $("#course_start")
-  if (course_id_info[0].href.indexOf('CN') == -1 ) {
+  if (course_id_info && course_id_info[0].href.indexOf('CN') != -1 ) {
 
     var start_button = $( "#course_start span" )
     if (start_button[0]) {
@@ -122,6 +124,12 @@ setInterval(() => {
     if (final_grade_button[0]) {
       final_grade_button[0].textContent = "结语"
     }
+
+    var start_button_2 = $( ".course_cells_action a" )
+    if (start_button_2[0]) {
+      start_button_2[0].innerText = '开始'
+    }
+
   }
   
 }, 500);
