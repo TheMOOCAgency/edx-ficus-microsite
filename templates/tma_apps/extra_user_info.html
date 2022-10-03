@@ -47,7 +47,7 @@ from openedx.core.djangolib.markup import HTML, Text
   % if user.is_authenticated():
   <div id="box1" >
 
-    <h1 id="welcome-title" style="color:black; font-weight: 700;">Choisissez votre langage<br/>Choose your language
+    <h1 id="welcome-title" style="color:black; font-weight: 700;">Choisissez votre langage<br/>Choose your language <br>选择你的语言
       <!-- <br/>Wählen Sie Ihre Sprache. -->
     </h1>
     <div id="language-selector" >
@@ -56,6 +56,9 @@ from openedx.core.djangolib.markup import HTML, Text
       </a>
       <a data-value="en" data-course="course-v1:lvmh-elearninginternalcontrol+EN+2022">
         <img height="160px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
+      </a>
+      <a data-value="cn" data-course="course-v1:lvmh-elearninginternalcontrol+CN+2022">
+        <img height="160px" src="/media/microsite/lvmh-elearninginternalcontrol/images/cn.jpg" alt="cn">
       </a>
     </div>
   </div>
@@ -68,14 +71,17 @@ from openedx.core.djangolib.markup import HTML, Text
     message: {
       "fr": "Ce choix ne pourra pas être modifié par la suite.\nVeuillez confirmer ce choix.",
       "en": "This setting cannot be changed later.\nPlease confirm.",
+      "cn" : "这一选择在事后不能改变。\n ​请确认这一选择"
     },
     button: {
       "fr": "Confirmer",
       "en": "Confirm",
+      "cn": "确认"
     },
     cancel: {
       "fr": "Annuler",
       "en": "Cancel",
+      "cn": "取消"
     }
   };
 
@@ -84,11 +90,11 @@ from openedx.core.djangolib.markup import HTML, Text
     swal(alertMessages.message[element.data('value')], {
         icon: "warning",
         buttons: {
-            cancel: alertMessages.cancel[element.data('value')],
-            catch: {
+          cancel: alertMessages.cancel[element.data('value')],
+          catch: {
             text: alertMessages.button[element.data('value')],
             value: "catch",
-        }
+          }
         },
     }).then(function(value) {
       if (value) {

@@ -39,7 +39,6 @@ if configuration_helpers.get_value('dark_theme'):
 else:
   color_custom = "#3c3c3c"
 
-
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
@@ -48,8 +47,6 @@ body footer.global {
     background-color: rgba(0, 40, 85,1) !important;
 }
 </style>
-
-
 
 <footer class="global">
   <div class="footer-container">
@@ -73,15 +70,53 @@ body footer.global {
     </div>
   </div>
 </footer>
+
 <script>
-  var x = document.URL;
 
+var x = document.URL;
 
-  if (x.indexOf("EN") != -1) {
-    // if ENG
-    document.getElementById("tos").textContent = "Terms of Use";
-    document.getElementById("honor").textContent = "Legal";
-    // document.getElementById("privacy").textContent = "Privacy";
-    // document.getElementById("about").textContent = "About";
-  }
+if (x.indexOf("FR") == -1) {
+  // if ENG or CN
+  document.getElementById("tos").textContent = "Terms of Use";
+  document.getElementById("honor").textContent = "Legal";
+  // document.getElementById("privacy").textContent = "Privacy";
+  // document.getElementById("about").textContent = "About";
+}
+
+if (x && x.indexOf("CN") != -1) {
+  setInterval(() => {
+
+    // lvmh_test_cn@yomail.com
+    // trads for chinese course
+    var start_button = $( "#course_start span" )
+    if (start_button[0]) {
+      start_button[0].innerText = '开始'
+    }
+
+    var full_screen_button = document.getElementsByClassName("fullscreen-button")[0]
+    if (full_screen_button) {
+      full_screen_button.textContent = "全屏模式"
+    }
+
+    var see_results_button = $( '#dashboard_profile_middle_up span a')
+    if (see_results_button[0]) {
+      see_results_button[0].textContent = "查看结果"
+    }
+
+    var final_grade_button = $( '#dashboard_profile_bottom_up span')
+    if (final_grade_button[0]) {
+      final_grade_button[0].textContent = "结语"
+    }
+
+  }, 500);
+} else if (x && x.indexOf("EN") != -1) {
+  setInterval(() => {
+    var full_screen_button = $(".fullscreen-button span")
+    
+    if (full_screen_button[0]) {
+      full_screen_button[0].textContent = "Full Screen mode";
+    };
+
+  }, 500);
+}
 </script>
