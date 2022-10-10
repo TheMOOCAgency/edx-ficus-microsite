@@ -26,7 +26,7 @@ from django.core.urlresolvers import reverse
           course_date_string = ''
       %>
       % if course.advertised_start is not None:
-        % if course.find('essential') != -1:
+        % if course.display_name_with_default.find('essenti') != -1:
           <div class="course-date" aria-hidden="true">Toujours Ouvert</div>
         % elif LANGUAGE_CODE == "en":
           <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
