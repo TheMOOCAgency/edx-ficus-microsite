@@ -6,8 +6,9 @@ from django.core.urlresolvers import reverse
 %>
 <%page args="course" expression_filter="h"/>
 
+
 <article class="course" id="${course.id}" role="region" aria-label="${course.display_name_with_default}">
-  <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" target="_blank">
+  <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" >
     <h2 class="course-name">
       <span class="course-title">${course.display_name_with_default}</span>
     </h2>
@@ -25,17 +26,19 @@ from django.core.urlresolvers import reverse
           course_date_string = ''
       %>
       % if course.advertised_start is not None:
-          % if LANGUAGE_CODE == "en":
+        % if course.find('essential') != -1:
+          <div class="course-date" aria-hidden="true">Toujours Ouvert</div>
+        % elif LANGUAGE_CODE == "en":
           <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
-          % else:
+        % else:
           <div class="course-date" aria-hidden="true">Début : ${course.advertised_start}</div>
-          % endif
+        % endif
       % else:
-          % if LANGUAGE_CODE == "en":
+        % if LANGUAGE_CODE == "en":
           <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}"></div>
-          % else:
+        % else:
           <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Début : {date}")}"></div>
-          % endif
+        % endif
       % endif
     </div>
     <div class="sr">
@@ -43,17 +46,17 @@ from django.core.urlresolvers import reverse
         <li>${course.display_org_with_default}</li>
         <li>${course.display_number_with_default}</li>
         % if course.advertised_start is not None:
-            % if LANGUAGE_CODE == "en":
+          % if LANGUAGE_CODE == "en":
             <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
-            % else:
+          % else:
             <li>${_("Starts")} : <time itemprop="startDate">${course.advertised_start}</time></li>
-            % endif
+          % endif
         % else:
-            % if LANGUAGE_CODE == "en":
+          % if LANGUAGE_CODE == "en":
             <li>${_("Starts")}: <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
-            % else:
+          % else:
             <li>${_("Starts")} : <time class="localized_datetime" itemprop="startDate" data-format="shortDate" data-datetime="${course_date_string}"></time></li>
-            % endif
+          % endif
         % endif
       </ul>
     </div>

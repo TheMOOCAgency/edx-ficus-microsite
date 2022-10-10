@@ -175,9 +175,9 @@ def is_forum_allowed(course_id):
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">${_("Training not validated")}</span>
         % elif cours_ouv:
           % if request.LANGUAGE_CODE == 'en':
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Course not completed</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Check your progress</a></span>
           % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Visualisez votre progression</a></span>
           %endif
         % else:
           % if request.LANGUAGE_CODE == 'en':
@@ -213,6 +213,26 @@ def is_forum_allowed(course_id):
       % endif
     </div>
     <!-- block bottom profil -->
+    <!-- <div>
+
+
+    % if False:
+      <img src="${static.url('images/like_couleur.svg')}" /><span style="margin-left:50px;">${_("Training not validated")}</span>
+    % elif cours_ouv:
+      % if request.LANGUAGE_CODE == 'en':
+      <img src="${static.url('images/like_couleur.svg')}" /><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Check your progress</a></span>
+      % else:
+      <img src="${static.url('images/like_couleur.svg')}" /><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Visualisez votre progression</a></span>
+      %endif
+    % else:
+      % if request.LANGUAGE_CODE == 'en':
+      <img src="${static.url('images/like_couleur.svg')}" /><span style="margin-left:50px;">Course not completed</span>
+      % else:
+      <img src="${static.url('images/like_couleur.svg')}" /><span style="margin-left:50px;">${_("Training not validated")}</span>
+      % endif
+    % endif
+
+    </div> -->
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
@@ -267,20 +287,20 @@ def is_forum_allowed(course_id):
 
 <style>
   #dashboard_profile_up{
-    background-color: ${custom_color}!important;
+    background-color: ${custom_color} !important;
   }
   #course_start{
-    background: ${custom_color}!important;
-    color : ${color_font_custom}!important;
+    background: ${custom_color} !important;
+    color : ${color_font_custom} !important;
   }
   @keyframes anim {
     0% {
-  background: ${color_font_custom}!important;;
+      background: ${color_font_custom}!important;
     }
     100% {
-    background: ${color_font_custom}!important;;
+      background: ${color_font_custom}!important;;
+    }
   }
-}
   #dashboard_profile_up h3, #dashboard_profile_up h4 {
     color : ${color_font_custom}!important;
   }
@@ -332,12 +352,26 @@ def is_forum_allowed(course_id):
   #course_nav .svg{
     fill : ${color_font_custom}!important;
   }
-
-@media (max-width: 405px)
-.list_params a {
-    width: 12px!important;
-    height: 12px!important;
-}
+  #dashboard_profile_bottom_middle_border {
+    display: none;
+  }
+  @media only screen and (max-width: 425px) {
+    .list_params a {
+      width: 12px!important;
+      height: 12px!important;
+    }
+    #profile_button {
+      display: none;
+    }
+    #dashboard_profile_bottom_middle_border {
+      display: block;
+    }
+    #dashboard_profile_middle_bottom {
+      position: absolute;
+      top: 10vh;
+      right: 10vw;
+    }
+  }
 
 </style>
 %if course.no_grade:
@@ -431,6 +465,11 @@ else{
   width: calc(100% - 470px);
   margin-left: 53px;
   margin-right: 53px;
+}
+@media only screen and (max-width: 425px) {
+  #profile_button {
+    display: none;
+  }
 }
 </style>
 <span id="list_multi_title">

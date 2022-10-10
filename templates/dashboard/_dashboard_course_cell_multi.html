@@ -102,7 +102,9 @@ cours_ouv = show_courseware_link and not is_course_blocked
 % endif
 -->
 % if course_overview.start is not None:
-  % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
+  % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")) and course_overview.end is None:
+    Toujours Ouvert
+  % elif int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}
   % else:
     ${_("start")}  ${course_overview.start.strftime("%d/%b/%Y")}
@@ -124,9 +126,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
   </div>
 </li>
 <style>
-@media (max-width: 405px)
-.list_params a {
+@media (max-width: 405px) {
+
+  .list_params a {
     width: 12px!important;
     height: 12px!important;
+  }
 }
 </style>

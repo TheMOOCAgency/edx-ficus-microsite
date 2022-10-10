@@ -77,10 +77,10 @@ is_path_faq = re.search(faq_pattern, full_path)
         <p class="footer_title"> Menu </p>
         <div class="footer_list">
           <ol class="footer_list_nav"></ol>
-            <li class="footer_list_element"><a href="/#course_container" target="_blank">Nos MOOC</a></li>
-            <li class="footer_list_element"><a href="/tos?lang=fr" target="_blank">MOOC partenaires</a></li>
-            <li class="footer_list_element"><a href="/about" target="_blank">Certificat</a></li>
-            <li class="footer_list_element"><a href="/faq?lang=fr" target="_blank">F.A.Q</a></li>
+            <li class="footer_list_element"><a href="/#course_container" >Nos MOOC</a></li>
+            <li class="footer_list_element"><a href="/tos?lang=fr" >MOOC partenaires</a></li>
+            <li class="footer_list_element"><a href="/about" >Certificat</a></li>
+            <li class="footer_list_element"><a href="/faq?lang=fr" >F.A.Q</a></li>
           </ol>
         </div>
       </div>
@@ -89,12 +89,12 @@ is_path_faq = re.search(faq_pattern, full_path)
         <p class="footer_title"> Suivez-nous</p>
         <div class="footer_list"> 
           <ol class="footer_list_nav">
-            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" target="_blank">Page Facebook de l'UICN Papaco</a></li>
+            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" >Page Facebook de l'UICN Papaco</a></li>
             <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/" target="_blank>Groupe Facebook francophone des MOOC</a></li>
             <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190" target="_blank>Groupe Facebook anglophone des MOOC</a></li>
-            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">Twitter @Papaco_IUCN</a></li>
-            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
-            <li class="footer_list_element"><a href="https://papaco.org/fr/" target="_blank">Site de l'UICN-PAPACO</a></li>
+            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" >Twitter @Papaco_IUCN</a></li>
+            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" >Instagram @mooc-conservation</a></li>
+            <li class="footer_list_element"><a href="https://papaco.org/fr/" >Site de l'UICN-PAPACO</a></li>
           </ol>
         </div>
       </div>
@@ -151,10 +151,10 @@ is_path_faq = re.search(faq_pattern, full_path)
         <p class="footer_title"> Menu </p>
         <div class="footer_list">
           <ol class="footer_list_nav"></ol>
-            <li class="footer_list_element"><a href="/#course_container_en_anchor" target="_blank">Our MOOCs</a></li>
-            <li class="footer_list_element"><a href="/tos?lang=en" target="_blank">Other MOOCs</a></li>
+            <li class="footer_list_element"><a href="/#course_container_en_anchor" >Our MOOCs</a></li>
+            <li class="footer_list_element"><a href="/tos?lang=en" >Other MOOCs</a></li>
             <!-- <li class="footer_list_element"><a href="/about">Certificate</a></li> -->
-            <li class="footer_list_element"><a href="/faq?lang=en" target="_blank">F.A.Q</a></li>
+            <li class="footer_list_element"><a href="/faq?lang=en" >F.A.Q</a></li>
           </ol>
         </div>
       </div>
@@ -163,12 +163,12 @@ is_path_faq = re.search(faq_pattern, full_path)
         <p class="footer_title"> Follow us</p>
         <div class="footer_list"> 
           <ol class="footer_list_nav">
-            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" target="_blank">IUCN Papaco Facebook page</a></li>
-            <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/" target="_blank">English-speaking MOOCs Facebook group</a></li>
-            <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190" target="_blank">French-speaking MOOCs Facebook group</a></li>
-            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" target="_blank">IUCN-PAPACO website</a></li>
-            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" target="_blank">Instagram @mooc-conservation</a></li>
-            <li class="footer_list_element"><a href="https://papaco.org/" target="_blank">IUCN-PAPACO website</a></li>
+            <li class="footer_list_element"><a href="https://fr-fr.facebook.com/IUCNpapaco/" >IUCN Papaco Facebook page</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/167668443583415/" >English-speaking MOOCs Facebook group</a></li>
+            <li class="footer_list_element"><a href="https://www.facebook.com/groups/208309996241190" >French-speaking MOOCs Facebook group</a></li>
+            <li class="footer_list_element"><a href="https://twitter.com/papaco_iucn?lang=fr" >IUCN-PAPACO website</a></li>
+            <li class="footer_list_element"><a href="https://www.instagram.com/moocconservation/" >Instagram @mooc-conservation</a></li>
+            <li class="footer_list_element"><a href="https://papaco.org/" >IUCN-PAPACO website</a></li>
           </ol>
         </div>
       </div>
@@ -205,12 +205,6 @@ is_path_faq = re.search(faq_pattern, full_path)
 </div>
 % endif
 
-<script>
-console.log('${is_path_home}')
-console.log('${is_path_faq}')
-console.log('${is_path_tos}')
-console.log('${is_path_about}')
-</script>
 
 % if not is_path_home and not is_path_faq and not is_path_tos and not is_path_about:
 <link rel="stylesheet" href="/media/microsite/mooc-conservation/css/responsive_top_layer_3.css" type="text/css" media="screen" />
