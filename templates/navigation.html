@@ -113,7 +113,7 @@ site_status_msg = get_site_status_msg(course_id)
     display: none;
   }
   #lang-content {
-    width: 111px;
+    width: 140px;
     height: 24px;
   }
   #lang-content img{
@@ -259,7 +259,8 @@ site_status_msg = get_site_status_msg(course_id)
                 <img src="/media/microsite/tiama/img/es.png" id="es">
                 <img src="/media/microsite/tiama/img/fr.png" id="fr">
                 <img src="/media/microsite/tiama/img/ko.png" id="ko">
-                <select class="input select language-selector" id="settings-language-value" name="language" size="4" >
+                <img src="/media/microsite/tiama/img/it.png" id="it">
+                <select class="input select language-selector" id="settings-language-value" name="language" size="5" >
                   % for language in languages:
                     <script>
                       var langue = "${language[0]}"
@@ -270,7 +271,7 @@ site_status_msg = get_site_status_msg(course_id)
                       console.log('langue[1]');
                       console.log(langue1);
                     </script>
-                    % if language[0]=="en" or language[0]=="es-419" or language[0]=="fr" or language[0]=="ko-kr":
+                    % if language[0]=="en" or language[0]=="es-419" or language[0]=="fr" or language[0]=="ko-kr" or language[0]=="it-it":
                       % if language[0] == LANGUAGE_CODE:
                         <option value="${language[0]}" selected="selected">${language[0]}</option>
                       % else:
@@ -310,6 +311,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger("change");
   }
   );
   $('#es').on('click', function() {
@@ -317,6 +319,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger("change");
   }
   );
   $('#fr').on('click', function() {
@@ -324,6 +327,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger("change");
   }
   );
   $('#ko').on('click', function() {
@@ -331,6 +335,15 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
     $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="it-it"]').removeAttr('selected').trigger("change");
+  }
+  );
+  $('#it').on('click', function() {
+    $('#settings-language-value > option[value="it-it"]').attr('selected','selected');
+    $('#settings-language-value > option[value="es-419"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="en"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="fr"]').removeAttr('selected').trigger("change");
+    $('#settings-language-value > option[value="ko-kr"]').removeAttr('selected').trigger("change");
   }
   );
 
