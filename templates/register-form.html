@@ -424,14 +424,9 @@ import datetime
 </style>
 
 <div class="form-actions customButtons-section">
-  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button customButtons customButton1">Je souhaite être contacté par un conseiller</button>
-  <button disabled name="submit" type="submit" class="action action-primary action-update customButton2 customButtons">Je m'inscris dès maintenant en choisissant de payer en ligne</button>
+  <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button customButtons customButton1">Valider ma préinscription</button>
+  <!-- <button disabled name="submit" type="submit" class="action action-primary action-update customButton2 customButtons">Je m'inscris dès maintenant en choisissant de payer en ligne</button> -->
 </div>
-
-<!-- <div class="form-actions customButtons-section">
-  <button disabled name="submit" type="submit" class="customButtons action action-primary action-update customButton1">Je souhaite être contacté par un conseiller</button>
-  <button disabled name="submit" type="submit" class="customButtons action action-primary action-update customButton2">Je m'inscris dès maintenant en choisissant de payer en ligne</button>
-</div> -->
 
 <style>
 #login_link_up {
@@ -472,12 +467,12 @@ $('#first_name,#last_name').change(function(){
 
 <div class="form-actions cmaUserSection-elements" style="opacity: 0;pointer-events: none;">
   <input class="cmaUserSection-input" type="text" placeholder="Entrez votre adresse CMA">
-  <button disabled name="submit" type="submit" class="cmaUserSection-button">Inscrire cet utilisateur</button>
+  <button name="submit" type="submit" class="cmaUserSection-button">Inscrire cet utilisateur</button>
 </div>
 
 <style>
   .legalNoticeSection{
-
+    margin-top: 3rem;
   }
   .legalNoticeSection-text{
     font-size: 0.8rem !important;
@@ -550,16 +545,14 @@ else{
 
 <script>
   
-  window.addEventListener('load', ()=>{
+  window.addEventListener('load', () => {
     const createAccountButton = document.querySelector('.customButton1')
 
-    createAccountButton.textContent='Je souhaite être contacté par un conseiller'
-    
-    setInterval(() => {
-      if (createAccountButton.textContent.includes('Account')||createAccountButton.textContent.includes('compte')){
-        createAccountButton.textContent='Je souhaite être contacté par un conseiller'
-      }
-    }, 300);
+    createAccountButton.textContent = 'Valider ma préinscription'
+
+    if (createAccountButton.textContent.includes('Account') || createAccountButton.textContent.includes('compte')) {
+      createAccountButton.textContent = 'Valider ma préinscription'
+    }
   })
 
 </script>
