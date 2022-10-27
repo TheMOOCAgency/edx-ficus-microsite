@@ -37,3 +37,11 @@ Bonne formation !
 Mail : helpdesk-orano@weuplearning.com
 
 % endif
+
+Si toutefois vous rencontrez des problèmes (connexion, prolongation de droits, module bloqué), nous vous remercions de nous adresser un mail à : e-learning@apave.com, en indiquant vos coordonnées téléphoniques, votre adresse mail ainsi qu'un créneau horaire afin que nous puissions vous joindre.
+Notre équipe se fera un plaisir de vous répondre dans les plus brefs délais.
+
+Bonne formation !
+
+Mail : e-learning@apave.com
+Tel : 01.45.66.17.18
