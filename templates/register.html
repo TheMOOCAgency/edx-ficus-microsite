@@ -115,9 +115,9 @@ import calendar
 <section class="register container">
   <section role="main" class="content">
     % if request.LANGUAGE_CODE == 'fr':
-    <p>Nous avons changé de plateforme, donc si vous avez participé à des MOOC CONSERVATION avant janvier 2021, il faut recréer un compte sur cette nouvelle plateforme. Si vous rencontrez des difficultés, contactez-nous grâce à Messenger ou par mail à <a href="mailto:moocs@papaco.org">moocs@papaco.org</a>.</p>
+    <p class="register-complementaryInformations">Nous avons changé de plateforme, donc si vous avez participé à des MOOC CONSERVATION avant janvier 2021, il faut recréer un compte sur cette nouvelle plateforme. Si vous rencontrez des difficultés, contactez-nous grâce à Messenger ou par mail à <a href="mailto:moocs@papaco.org">moocs@papaco.org</a>.</p>
     % else :
-    <p>Note: we moved to a different platform. If you participated in some of our MOOCs before January 2021, please create a new account. If you encounter any difficulties, please contact us through Messenger or by email at <a href="mailto:moocs@papaco.org">moocs@papaco.org</a>.</p>
+    <p class="register-complementaryInformations">Note: we moved to a different platform. If you participated in some of our MOOCs before January 2021, please create a new account. If you encounter any difficulties, please contact us through Messenger or by email at <a href="mailto:moocs@papaco.org">moocs@papaco.org</a>.</p>
     % endif
     <form role="form" id="register-form" method="post" data-remote="true" action="/create_account" novalidate>
 <%
