@@ -66,7 +66,7 @@ recipients_geography = {
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
     "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
     "guimbert@cma-france.fr": u"Occitanie",
-    "urma@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
+    "e-formationcontinuepaca@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
     "vincent.bayol@cma-reunion.fr": u"La-Reunion",
     "guimbert@cma-france.fr": u"Guyanne",
     "guimbert@cma-france.fr": u"Saint-Pierre-et-Miquelon",
