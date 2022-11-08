@@ -21,6 +21,8 @@ if request.user.email.find("weuplearning.com")>-1 and user.is_active and user.is
   is_tma_team=True
 else :
   is_tma_team=False
+
+dateToday = date.today()
 %>
  
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
@@ -774,12 +776,18 @@ h4 {
         margin-top: 10rem;
         margin-bottom: 4rem;
       }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
+      }
     </style>
   
     <div id="en" class="container">
       <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_FR.png');">
         <div class="divText">
           <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
         </div>
       </div>
     </div>    
@@ -798,12 +806,18 @@ h4 {
         margin-top: 10rem;
         margin-bottom: 4rem;
       }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
+      }
     </style>
   
     <div id="en" class="container">
       <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_EN.png');">
         <div class="divText">
           <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%Y %b %d')}</p>
         </div>
       </div>
     </div>    
@@ -821,6 +835,11 @@ h4 {
       div#div-bouton{
         margin-top: 10rem;
         margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
       }
     </style>
   
@@ -846,6 +865,11 @@ h4 {
         margin-top: 10rem;
         margin-bottom: 4rem;
       }
+      .textDate{
+        margin: 0;
+        margin-top: 7.5rem;
+        font-size: 1rem;
+      }
     </style>
   
     <div id="en" class="container">
@@ -869,6 +893,11 @@ h4 {
       div#div-bouton{
         margin-top: 10rem;
         margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 7.5rem;
+        font-size: 1rem;
       }
     </style>
   
