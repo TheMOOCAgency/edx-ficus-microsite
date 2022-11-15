@@ -139,6 +139,7 @@ except :
       window.props = ${ dump_js_escaped_json(props) | n, decode.utf8 };
       window.props.bnpp_entity = '${bnpp_entity}'
       window.props.admin_filiere_list = ${ dump_js_escaped_json(admin_filiere_list) | n, decode.utf8 };
+      window.props.csrfToken = "${csrf_token}"
     </script>
     <script src="/media/microsite/bnpp-netexplo/wul_dashboard/2.52dd989d.chunk.js"></script>
     <script src="/media/microsite/bnpp-netexplo/wul_dashboard/main.e59422bd.chunk.js"></script>
