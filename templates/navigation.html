@@ -290,6 +290,7 @@ site_status_msg = get_site_status_msg(course_id)
 
 
 <script>
+var username_pid = "${user.username}";
   //LANGUAGE FLAGS, ONLY FOR MOOC_FLI
 $(document).ready(function () {
     if(window.location.href.indexOf("MOOC_FLI") > -1 || $('#title_dashboard_course h1').html()==="MOOC FLI") {

@@ -20,11 +20,11 @@ from openedx.core.djangolib.markup import HTML, Text
 #absolute-bg-img{
   width: 100%;
   cursor:pointer;
-  content:url("/media/microsite/afpa/images/supercleanum_bandeau.png");
+  content:url("/media/microsite/afpa/images/bandeau_afpa.png");
 }
 @media (max-width: 700px) { 
   #absolute-bg-img{
-    content:url("/media/microsite/afpa/images/supercleanum_carre.png");
+    content:url("/media/microsite/afpa/images/bandeau_afpa.png");
   }
 }
 #tma_background_font {
@@ -53,7 +53,7 @@ from openedx.core.djangolib.markup import HTML, Text
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header id="home-banner-header">
-        <img src="/media/microsite/afpa/images/supercleanum_bandeau.png" alt="bg" id="absolute-bg-img" onclick="window.open('https://www.cleanum.fr/applications', '_blank');">
+        <img src="/media/microsite/afpa/images/bandeau_afpa.png" alt="bg" id="absolute-bg-img" onclick="window.open('https:///mooc.afpa.fr/courses/course-v1:afpa+inclusion_sociale+2020/about', '_blank');">
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -91,12 +91,12 @@ from openedx.core.djangolib.markup import HTML, Text
         </div>
 
       </header>
-      <div class="covid_banner">
-Plus de 30 000 inscriptions et 20 000 nouveaux inscrits !
-<br>
-Dans le contexte exceptionnel qui impose à tous une solidarité nationale,<br>
-l’Afpa membre du service public se mobilise en mettant ses MOOC et des modules de formation à disposition de tous.
-</div>
+      <div class="covid_banner" style="display: none;" >
+      Plus de 30 000 inscriptions et 20 000 nouveaux inscrits !
+      <br>
+      Dans le contexte exceptionnel qui impose à tous une solidarité nationale,<br>
+      l’Afpa membre du service public se mobilise en mettant ses MOOC et des modules de formation à disposition de tous.
+      </div>
       <%include file="${courses_list}" />
 
     </section>
