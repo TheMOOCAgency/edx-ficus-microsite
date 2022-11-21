@@ -98,7 +98,7 @@ form_factory.microsite = u"academie-digitale"
 
 # Get headers
 HEADERS_GLOBAL = []
-HEADERS_USER = [u"ID", u"Nom d'utilisateur", u"Email", u"Prénom", u"Nom",u"Date d'inscription",u"Dernière connexion"]
+HEADERS_USER = [u"Date d'inscription",u"Email"]
 
 HEADERS_FORM = []
 if register_form is not None:
@@ -180,7 +180,7 @@ def get_user_info(user, enrollment_date=''):
         last_login = ""
 
         
-    user_row = [user.id, user.username, email, first_name, last_name, date_inscription, last_login]
+    user_row = [date_inscription, email]
     
     # CUSTOM FIELDS INFO
     for field in TECHNICAL_HEADER:
@@ -189,7 +189,7 @@ def get_user_info(user, enrollment_date=''):
         except:
             user_row.append('')
 
-    user_row.append("tma_global_time")
+    # user_row.append("tma_global_time")
 
     log.info(user_row)
     return user_row
@@ -219,7 +219,7 @@ def get_user_first_connect(user, course_id):
 
     return date_value
 
-HEADER.append('Temps global') 
+# HEADER.append('Temps global') 
 
 #### TRUE SCRIPT
 
@@ -230,9 +230,9 @@ for j in range(len(course_ids)):
     # Course info from argument
     course_key = CourseKey.from_string(course_id)
     course = get_course_by_id(course_key) 
-    HEADER.append('Note "{}"'.format(course.display_name_with_default))
-    HEADER.append('date d\'inscription "{}"'.format(course.display_name_with_default))
-    HEADER.append('1ere connexion "{}"'.format(course.display_name_with_default))
+    # HEADER.append('Note "{}"'.format(course.display_name_with_default))
+    # HEADER.append('date d\'inscription "{}"'.format(course.display_name_with_default))
+    # HEADER.append('1ere connexion "{}"'.format(course.display_name_with_default))
 
 # First get all users even if not enrolled in any course
 potentially_non_enrolled_user_ids = []
@@ -250,6 +250,7 @@ users_data = {}
 # Now get info for all users enrolled in courses
 j=0
 for j in range(len(course_ids)):
+
     # Course info from argument
     course_id = course_ids[j]
     course_key = CourseKey.from_string(course_id)
@@ -301,30 +302,30 @@ for j in range(len(course_ids)):
         # if diff > 4 :
         #     user_data[user.id]["data"].extend([None] * diff)
 
-        users_data[user.id]["data"].append(percent)
+        # users_data[user.id]["data"].append(percent)
 
-        users_data[user.id]["data"].append(first_register)
+        # users_data[user.id]["data"].append(first_register)
 
         # insert first login value
-        users_data[user.id]["data"].append(first_connection)
+        # users_data[user.id]["data"].append(first_connection)
 
         #get global time tracking
         log.info(user)
-        global_time = get_time_tracking(enrollments[i])
+        # global_time = get_time_tracking(enrollments[i])
 
-        users_data[user.id]["global_time"] += global_time
+        # users_data[user.id]["global_time"] += global_time
 
 ## Now we get all non enrolled users
 for user_id in potentially_non_enrolled_user_ids:
     users_data[user.id] = {}
     users_data[user.id]["data"] = get_user_info(User.objects.get(id=user_id))
-    users_data[user.id]["global_time"] = 0
+    # users_data[user.id]["global_time"] = 0
 
 for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_all_values = '/home/edxtma/csv/e-formation_ListeComplete_Apprenants_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_all_values = '/home/edxtma/csv/esemaine_precedente_formulaire_complete.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -333,17 +334,17 @@ for recipient in recipients_geography:
     j = 1
     for user in users_data:
         user_data = users_data[user]["data"]
-        global_time = users_data[user]["global_time"]
+        # global_time = users_data[user]["global_time"]
         # dans le cas d'un utilisateur ou tma_global_time a été remplacé par la valeur choisie, il n'y aura donc plus de 'tma_globaml_time' dans le tableau mais une date 
 
-        list_index = user_data.index('tma_global_time')
-        user_data[list_index] = str(timedelta(seconds=global_time))
+        # list_index = user_data.index('tma_global_time')
+        # user_data[list_index] = str(timedelta(seconds=global_time))
                     
         # unidecode and avoid spaces and dashes
         #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
         unidecoded_user_field =  ""
         try:
-            unidecoded_user_field = unidecode(user_data[12].lower()).replace(" ","").replace("-","").replace("'","")
+            unidecoded_user_field = unidecode(user_data[7].lower()).replace(" ","").replace("-","").replace("'","")
         except:
             pass
         unidecoded_recipient_geo = ""
@@ -362,7 +363,7 @@ for recipient in recipients_geography:
 
             j = j + 1
 
-        user_data[list_index] = 'tma_global_time'
+        # user_data[list_index] = 'tma_global_time'
 
     output = BytesIO()
     wb.save(output)
@@ -373,7 +374,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR YESTERDAY ONLY
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_yesterday = '/home/edxtma/csv/e-formation_SemPrecedente_FormulairesCompletes_{}.xls'.format(time.strftime("%d.%m.%Y"))
+    filename_yesterday = '/home/edxtma/csv/semaine_precedente_formulaire_complete.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -382,10 +383,11 @@ for recipient in recipients_geography:
     j = 1
     for user in users_data:
         user_data = users_data[user]["data"]
+        log.info(user_data)
 
         # We make sure that only new users are in the report
-        date_joined = user_data[5]
-        date_joined = datetime.strptime(user_data[5], '%d %b %y')
+        date_joined = user_data[0]
+        date_joined = datetime.strptime(user_data[0], '%d %b %y')
         now =  datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
         if not(date_joined >=  now - timedelta(days=1) and date_joined < now):
@@ -404,6 +406,7 @@ for recipient in recipients_geography:
         except:
             pass
         if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
+            log.info(user_data)
             for i in range(len(user_data)):
                 try:
                     sheet.write(j, i, user_data[i])
@@ -421,7 +424,7 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr"]
+    toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr", "alexandre.berteau@weuplearning.com"]
     # toaddr = ["technical@themoocagency.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
