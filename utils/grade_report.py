@@ -105,7 +105,7 @@ if register_form is not None:
     for row in register_form:
         if row.get('type') is not None:
             if 'first_name' not in row.get('name') and 'last_name' not in row.get('name'):
-                HEADERS_FORM.append(row.get('name'))
+                HEADERS_FORM.append(row.get('label'))
 
 NICE_HEADER = list(HEADERS_FORM)
 # NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12","Note de cas pratique"])
@@ -191,7 +191,6 @@ def get_user_info(user, enrollment_date=''):
 
     # user_row.append("tma_global_time")
 
-    log.info(user_row)
     return user_row
 
 def get_user_first_connect(user, course_id):
@@ -383,7 +382,7 @@ for recipient in recipients_geography:
     j = 1
     for user in users_data:
         user_data = users_data[user]["data"]
-        log.info(user_data)
+
 
         # We make sure that only new users are in the report
         date_joined = user_data[0]
@@ -406,7 +405,7 @@ for recipient in recipients_geography:
         except:
             pass
         if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
-            log.info(user_data)
+
             for i in range(len(user_data)):
                 try:
                     sheet.write(j, i, user_data[i])
