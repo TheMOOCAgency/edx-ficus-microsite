@@ -101,13 +101,15 @@ HEADERS_GLOBAL = []
 HEADERS_USER = [u"Date d'inscription",u"Email"]
 
 HEADERS_FORM = []
+NICE_HEADERS_FORM = []
 if register_form is not None:
     for row in register_form:
         if row.get('type') is not None:
             if 'first_name' not in row.get('name') and 'last_name' not in row.get('name'):
-                HEADERS_FORM.append(row.get('label'))
+                HEADERS_FORM.append(row.get('name'))
+                NICE_HEADERS_FORM.append(row.get('label'))
 
-NICE_HEADER = list(HEADERS_FORM)
+NICE_HEADER = list(NICE_HEADERS_FORM)
 # NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12","Note de cas pratique"])
 
 TECHNICAL_HEADER = list(HEADERS_FORM)
@@ -324,7 +326,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_all_values = '/home/edxtma/csv/esemaine_precedente_formulaire_complete.xls'
+    filename_all_values = '/home/edxtma/csv/semaine_precedente_formulaire_complete.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -395,6 +397,7 @@ for recipient in recipients_geography:
         # unidecode and avoid spaces and dashes
         #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
         unidecoded_user_field =  ""
+        log.info(user_data)
         try:
             unidecoded_user_field = unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","")
         except:
