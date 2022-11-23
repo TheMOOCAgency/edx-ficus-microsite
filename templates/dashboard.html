@@ -35,6 +35,7 @@ import csv
 % if not course_enrollments:
 <script>
   window.location.replace("/tma_apps/user_info")
+
 </script>
 % endif
 <%
@@ -232,7 +233,7 @@ if request.user.email in test_users:
     authorized_admins+=['fr_review1@yopmail.com','fr_review2@yopmail.com','fr_review3@yopmail.com']
     authorized_admins+=['psareview_fr1@yopmail.com']
     authorized_admins+=['psa_db_review_de1@yopmail.com']
-    authorized_admins+=['psa_de_review3@yopmail.com','testpsa_italien1@yopmail.com','testpsa_italien2@yopmail.com','testpsa2@yopmail.com','testpsa1@yopmail.com','testpsa_italien3@yopmail.com','testpsa_italien4@yopmail.com','testpsa_italien5@yopmail.com']
+    authorized_admins+=['psa_de_review3@yopmail.com','testpsa_italien1@yopmail.com','testpsa_italien2@yopmail.com','testpsa2@yopmail.com','testpsa1@yopmail.com','testpsa_italien3@yopmail.com','testpsa_italien4@yopmail.com','testpsa_italien5@yopmail.com','testpsa_portu_1@yopmail.com','testpsa_italien7@yopmail.com']
     authorized_admins+=['psa_en_review3@yopmail.com', 'dimitri.hoareau@themoocagency.com' ]
     authorized_admins+=['netexplo_demo1en@yopmail.com','netexplo_demo2en@yopmail.com','netexplo_demo3en@yopmail.com','netexplo_demo4en@yopmail.com','netexplo_demo5en@yopmail.com','netexplo_demo1fr@yopmail.com','netexplo_demo2fr@yopmail.com','netexplo_demo3fr@yopmail.com','netexplo_demo4fr@yopmail.com','netexplo_demo5fr@yopmail.com']
 
@@ -383,6 +384,8 @@ if request.user.email in test_users:
       <%include file="dashboard/skill_dashboard_fr.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %elif course.language=="it":
       <%include file="dashboard/skill_dashboard_it.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
+    %elif course.language=="pt":
+      <%include file="dashboard/skill_dashboard_pt.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames,authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %else:
       <%include file="dashboard/skill_dashboard_en.html" args='about_course_description=about_course_description, about_course_video=about_course_video, course_overview=course_overview, user=user, authorized_users=authorized_users, authorized_users_usernames=authorized_users_usernames, authorized_admins=authorized_admins, enrollment=enrollment, associated_courses=associated_courses, associated_courses_previous=associated_courses_previous,is_ov=is_ov' />
     %endif
@@ -391,6 +394,7 @@ if request.user.email in test_users:
   </div>
 
   <script>
+
     //Mark course as started
     $('#course_start').on('click', function(){
       course_status_url="${reverse('update_user_course_state', args=[str(enrollment.course_id)])}";
@@ -806,6 +810,7 @@ $(window).initialize(function(){
   <%include file="/tma_apps/loader.html" args="language=get_user_preference(request.user, LANGUAGE_KEY), primary_color=primary_color"/>
 
   <script>
+
     $('#course_continue, #course_start, #see_answers, #course_results, #last_score, #skill-bo').live('click', function(){
       $('#overlay').removeClass('hide-loader');
     })
