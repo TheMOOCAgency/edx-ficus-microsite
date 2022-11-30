@@ -33,6 +33,10 @@ english_path = ['/tma_apps/course-v1:mooc-conservation+protected-areas+2021_T1_E
 '/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render']
 %>
 
+<head>
+  <meta name="viewport" content="user-scalable = no">
+</head>
+
 <!-- FONT CALL -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> 
@@ -95,7 +99,8 @@ font-weight: 300;
     background-size: contain;
   }
   #pdf-btn-wrapper{
-    padding: 15px
+    padding: 15px;
+    margin: 2rem 0rem;
   }
 
   #noCertificateMessage{
@@ -105,6 +110,12 @@ font-weight: 300;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+  p.footer_text{
+    line-height: inherit;
+  }
+  .courses_link{
+    display: none;
   }
 
   /* certificates background */
@@ -166,6 +177,38 @@ font-weight: 300;
 
   .container-text-essentials{
     margin-top: 23% !important;
+  }
+
+  /* media-queries */
+  @media screen and (max-width: 960px) {
+    body{
+      width: 60rem;
+    }
+    #global-navigation{
+      zoom: 1.5;
+    }
+    #tma_background_font{
+      background: none;
+    }
+  }
+  @media screen and (max-width: 750px){
+    #global-navigation{
+      zoom: 1.7;
+    }
+    div#pdf-btn-wrapper{
+      zoom: 1.5;
+    }
+    #footer{
+      display: none;
+    }
+  }
+  @media screen and (max-width: 450px){
+    #global-navigation{
+      zoom: 2;
+    }
+    div#pdf-btn-wrapper{
+      zoom: 3;
+    }
   }
 
 </style>
@@ -259,7 +302,7 @@ font-weight: 300;
   //AVOID INTERNET EXPLORER NOT WORKING WITH HTML2CANVAS
   $(document).ready(function(){
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+      $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
     // GET XCERTIFICATE DATE
     var monthNames = [
