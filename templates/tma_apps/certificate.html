@@ -658,7 +658,7 @@ h4 {
 	  </div>
   </div>
 
-  % elif "course-v1:nature-for-city-life+NFCL_SP_FR+2022" in request.path:
+  % elif "course-v1:nature-for-city-life+NFCL_SP_FR+2022" and not "S2" in request.path:
   <style>
     #main {
       border: none;
@@ -717,7 +717,7 @@ h4 {
     </div>
   </div>
 
-  % elif "course-v1:nature-for-city-life+NFCL_SP_ESP+2022" in request.path:
+  % elif "course-v1:nature-for-city-life+NFCL_SP_ESP+2022" and not "S2" in request.path:
   <style>
     #main {
       border: none;
@@ -761,6 +761,10 @@ h4 {
       </div>
     </div>
   </div>
+
+  <!-- ############################################################ -->
+  <!-- 5 courses with course-id : course-v1:nature-for-city-life+NFCL_SI_...+2022_S2 -->
+  <!-- ############################################################ -->
 
   % elif "course-v1:nature-for-city-life+NFCL_SI_FR+2022_S2" in request.path:
 
@@ -910,7 +914,161 @@ h4 {
           <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
         </div>
       </div>
+    </div>
+
+    <!-- ############################################################ -->
+    <!-- ticket 15083 - quentin - 07/12/22 - 5 courses with course-id (except italian one which is slightly different): course-v1:nature-for-city-life+NFCL_SP_...+2022_S2 -->
+    <!-- ############################################################ -->
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_FR+2022_S2" in request.path:
+
+    <style>
+      #main{
+        border: none;
+      }
+      .textName{
+        margin-top: 0.9rem;
+        margin-bottom: 0rem;
+      }
+      div#div-bouton{
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  
+    <div id="en" class="container">
+      <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_SP_FR.png');">
+        <div class="divText">
+          <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
+        </div>
+      </div>
     </div>    
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_EN+2022_S2" in request.path:
+
+    <style>
+      #main{
+        border: none;
+      }
+      .textName{
+        margin-top: 0.9rem;
+        margin-bottom: 0rem;
+      }
+      div#div-bouton{
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  
+    <div id="en" class="container">
+      <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_SP_EN.png');">
+        <div class="divText">
+          <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%Y %b %d')}</p>
+        </div>
+      </div>
+    </div>    
+
+  % elif "course-v1:nature-for-city-life+SP_IT+2022_S2" in request.path:
+
+    <style>
+      #main{
+        border: none;
+      }
+      .textName{
+        margin-top: 0.9rem;
+        margin-bottom: 0rem;
+      }
+      div#div-bouton{
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 6.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  
+    <div id="en" class="container">
+      <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_SP_IT.png');">
+        <div class="divText">
+          <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
+        </div>
+      </div>
+    </div>    
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_ESP+2022_S2" in request.path:
+
+    <style>
+      #main{
+        border: none;
+      }
+      .textName{
+        margin-top: 2rem;
+        margin-bottom: 0rem;
+      }
+      div#div-bouton{
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 7.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  
+    <div id="en" class="container">
+      <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_SP_ESP.png');">
+        <div class="divText">
+          <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
+        </div>
+      </div>
+    </div>    
+
+  % elif "course-v1:nature-for-city-life+NFCL_SP_DEU+2022_S2" in request.path:
+
+    <style>
+      #main{
+        border: none;
+      }
+      .textName{
+        margin-top: 2rem;
+        margin-bottom: 0rem;
+      }
+      div#div-bouton{
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+      }
+      .textDate{
+        margin: 0;
+        margin-top: 7.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  
+    <div id="en" class="container">
+      <div id="certificate-container" class=" certificate-border" style="background-image: url('/media/microsite/nature-for-city-life/assets/img/Attestations/attestation2022_SP_DEU.png');">
+        <div class="divText">
+          <p class="text textName">${first_name.capitalize()} ${last_name.upper()}</p>
+          <p class="text textDate">${dateToday.strftime('%d %b %Y')}</p>
+        </div>
+      </div>
+    </div>
 
 
   % else:
