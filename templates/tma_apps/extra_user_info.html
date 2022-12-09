@@ -18,7 +18,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
 <main id="main" aria-label="Content" tabindex="-1">
   % if user.is_authenticated():
-    <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langue.<br/>Choose your language.<br/>Wählen Sie Ihre Sprache.<br/>Scegli la tua lingua.<br/>Escolha seu idioma.</h1>
+    <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langue.<br/>Choose your language.<br/>Wählen Sie Ihre Sprache.<br/>Scegli la tua lingua.<br/>Escolha seu idioma.<br/>Elige tu idioma.</h1>
     <div id="language-selector" style='display:block'>
         <a data-value="en" data-course="course-v1:psa-netexplo+BM01_EN+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
@@ -35,6 +35,9 @@ from openedx.core.djangolib.markup import HTML, Text
         <a data-value="pt-br" data-course="course-v1:psa-netexplo+BM01_PT+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/br.png" alt="pt" style="height: 70px; border-radius: 6px;">
         </a>
+        <a data-value="es-419" data-course="course-v1:psa-netexplo+BM01_ES+SP">
+          <img height="100px" src="/media/microsite/psa-netexplo/images/es.png" alt="es" style="height: 70px; border-radius: 6px;">
+        </a>
     </div>
   % endif
 </main>
@@ -47,21 +50,24 @@ from openedx.core.djangolib.markup import HTML, Text
       "en": "This setting cannot be changed later.\nPlease confirm.",
       "de-de": "Diese Auswahl kann später nicht mehr geändert werden. \nBitte bestätigen Sie diese Auswahl.",
       "it-it": "Questa impostazione non può essere modificata in seguito. \nSi prega di confermare.",
-      "pt-br": "Esta escolha não pode ser alterada posteriormente. \nPor favor, confirme esta escolha."
+      "pt-br": "Esta escolha não pode ser alterada posteriormente. \nPor favor, confirme esta escolha.",
+      "es-419": "Esta elección no puede modificarse posteriormente. \nPor favor, confirme esta elección."
     },
     button: {
       "fr": "Confirmer",
       "en": "Confirm",
       "de-de": "Bestätigen",
       "it-it": "Confermare",
-      "pt-br": "Confirmar"
+      "pt-br": "Confirmar",
+      "es-419": "Confirmar"
     },
     cancel: {
       "fr": "Annuler",
       "en": "Cancel",
       "de-de": "Stornieren",
       "it-it": "Cancellare",
-      "pt-br": "Cancelar"
+      "pt-br": "Cancelar",
+      "es-419": "Anular"
     }
   };
 

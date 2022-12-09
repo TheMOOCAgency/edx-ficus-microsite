@@ -1,0 +1,195 @@
+<%
+from openedx.core.djangolib.markup import HTML, Text
+from django.core.urlresolvers import reverse
+%>
+<%page args="about_course_description, about_course_video, course_overview, user, authorized_users, authorized_users_usernames, authorized_admins, enrollment, associated_courses, associated_courses_previous, is_ov" expression_filter="h"/>
+<% 
+course_state = user_course_state[str(enrollment.course_id)] 
+%>
+<style>
+#main{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image:url("/media/microsite/psa-netexplo/auto/images/bg_img.png") !important;
+  background-size: cover !important;
+  position: fixed;
+  left:0;
+  top:0;
+  color: white;
+}
+.text-center{
+  text-align: center
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25">
+      <!-- ${HTML(about_course_video)}-->
+      <!--          <iframe src="https://player.vimeo.com/video/319434884" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+      %if user.username in authorized_users_usernames or user.email in authorized_admins:
+      <iframe src="https://fiat.mc.eu1.kontiki.com/global/player?moid=aaf61ab3-747c-44b0-9797-0e258f0ba636&repeat=false&client=false&context=embed&overlay=false&name=false&description=false&created_by=false&created_at=false&rating=false&sharing=false&favorites=false&chapters=false&tags=false&flagging=false&views=false&length=false&downloading=false&autoPlay=false" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <!-- <iframe src="https://video-intranet-v2.psa-peugeot-citroen.com/en-US/Private/Frame/OnDemand/5af15653-cfca-40fb-8609-c4c0ba1a2db5" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
+      %endif
+        <p>${HTML(about_course_description)}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="gray-bg rounded pad-25 mb-20">
+        <div style="text-align:center">
+          <img src="/media/microsite/psa-netexplo/images/logo_digimapper.png" style="height: 60px">
+        </div>
+      	<!-- <h2 class="text-center" id="course_title">
+          ${course_overview.display_name}
+        </h2> -->
+        <p class="text-center" id="trial_name">
+          Calificación ${associated_courses.get('step_number',1)}
+        </p>
+        %if associated_courses.get('delayed'):
+          <p class="text-center">
+            Puede realizar otra evaluación en ${associated_courses.get('delayed')} días.
+          </p>
+        %endif
+        <div class="text-center">
+         %if user.username not in authorized_users_usernames and user.email not in authorized_admins and user.email.find('@mpsa') == -1:
+
+          <div id="main">
+            <h3>No tienes acceso a<br>Digimapper.</h3>
+          </div>
+             <!--<p>Contactez <a href="mailto:technical@themoocagency.com">technical@themoocagency.com</a><br/>si vous faites partie du pilote.</p>-->
+        </div>
+     </div>
+         %else:
+          %if course_state=="finished":
+          <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn"  id="course_results">
+              <i class="fa fa-play-circle"></i>
+              VER MIS RESULTADOS 
+            </button>
+          </a>
+          %elif course_state=="ongoing":
+          <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+            <button class="dashboard-btn start-course"  id="course_continue">
+              <i class="fa fa-play-circle"></i>
+              Plan de estudios
+            </button>
+          </a>
+          %else:
+          <button class="dashboard-btn" id="course_start">
+            <i class="fa fa-play-circle"></i>
+            Inicio
+            %if associated_courses.get('step_number')>1:
+            Evaluación ${associated_courses.get('step_number')}
+            %endif
+          </button>
+          %endif
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-6 text-center">
+            %if course_state!="finished" :
+            <button class="sub-btn" disabled>
+              <i class="fa fa-book"></i>
+              Revisar mis respuestas
+            </button>
+            %else :
+            <a href="${reverse('courseware', args=[str(enrollment.course_id)])}">
+              <button class="sub-btn blue-btn"  id="see_answers">
+                <i class="fa fa-book"></i>
+                Revisar mis respuestas
+              </button>
+            </a>
+            %endif
+          </div>
+          <div class="col-md-6 text-center">
+            %if course_state=="finished" and associated_courses.get('step_number',1)>=2:
+            <a href="${reverse('SkillRadar', args=[str(enrollment.course_id)])}/#/compare">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Evolución de mis resultados.
+              </button>
+            </a>
+            %elif course_state!="finished" and associated_courses.get('step_number',1)>1:
+            <a href="${reverse('SkillRadar', args=[associated_courses_previous])}">
+              <button class="sub-btn blue-btn deactivated" id="last_score">
+                <i class="fa fa-search"></i>
+                Ver mi puntuación anterior
+              </button>
+            </a>
+            %else :
+            <button class="sub-btn deactivated" disabled>
+              <i class="fa fa-search"></i>
+              Evolución de mis resultados.
+            </button>
+            %endif
+          </div>
+        </div>
+      </div>
+      %endif
+      <div class="gray-bg rounded pad-25 mb-20">
+        <p>
+          <strong>Información práctica</strong>
+          <br/>Su evaluación:
+          <ul>
+            <li>Consta de 35 preguntas seleccionadas al azar</li>
+            <li>Se basa en un conjunto de preguntas comunes para todas las funciones</li>
+            <li>Abarca 5 áreas principales de conocimiento</li>
+            <li>Requiere unos 45 minutos</li>
+            <li>Puede detenerse en cualquier momento cerrando la ventana activa y luego retomarla donde la dejó</li>
+            <li>Después de cada pregunta, recibirá la(s) respuesta(s) correcta(s) y las explicaciones detalladas necesarias para comprenderlas mejor.</li>
+          </ul>
+        </p>
+      </div>
+      <div id="conseils" class="gray-bg rounded pad-25 mb-20 overflow-hidden">
+        <p>
+          <strong>Algunos consejos antes de empezar</strong>
+          <br><br>
+          <strong>Asegúrate de estar en un lugar tranquilo para que no te molesten.</strong>
+          <br><br>
+          <strong>Reserve suficiente tiempo en su agenda.</strong>
+          <br>
+          Unos 45 minutos para las preguntas, más 15 minutos si queres ver las respuestas correctas sobre la marcha.
+          <br/>Tené en cuenta que una vez que haya completado su evaluación, podrá revisar todas las respuestas y explicaciones.
+          <br><br>
+          <strong>Leé atentamente las preguntas, las diferentes indicaciones y las instrucciones. </strong>
+          <br>
+          Si no conoces la respuesta de forma natural, utilice su sentido común. No hay preguntas trampa.
+          <br><br>
+          <strong>Da un paso atrás en tus resultados.</strong>
+          <br>
+          Es probable que algunas áreas de conocimiento le resulten menos familiares porque están demasiado alejadas de su trabajo. Un buen nivel de alfabetización digital se adquiere con el tiempo porque los conocimientos son muy variados y están siempre en evolución.
+          <br>Sabé que puede volver a realizar el Digimapper cada dos meses y así medir regularmente sus progresos.
+        </p>
+      </div>
+      <div class="text-center" id="conseils-btn-wrapper">
+        <i id="conseils-btn" class="fa fa-plus-circle"></i>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/promise-polyfill"></script>
+    <script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+
+    <a target="_blank" style="color:white!important;text-decoration:none!important" href="/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf">Read now</a>
+
+%if is_ov:
+    <script>
+      swal.fire({
+    type: 'info',
+    title: 'Privacy Statement',
+    text: '',
+    confirmButtonText: '<span style="color:white!important;text-decoration:none!important">Read now</span>',
+    confirmButtonColor:'rgb(29, 82, 128)',
+    showCancelButton: true,
+    cancelButtonText:"Close",
+    cancelButtonColor: 'rgb(89, 89, 89)'}
+    ).then(function(result) {
+    if(result.value){
+      window.open("/media/microsite/psa-netexplo/files/psa_privacy_statement_en.pdf","_blank");
+    }
+    });
+    </script>
+%endif
