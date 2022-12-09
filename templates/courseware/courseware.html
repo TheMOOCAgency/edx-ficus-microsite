@@ -390,73 +390,86 @@ function deleteCookie(name) {
 }
 
 // Needed because there is no refresh when moving inside a subsection
-setInterval(function(){ 
+const cookies_for_saving = setInterval(function(){ 
   // Target input with id="input_problemX_2_1_choiceX"
-  
-  var problems = document.getElementsByClassName('problems-wrapper')
 
-  for (let j=0; j<problems.length ; j++) {
-    
-    if (problems[j].getAttribute('data-attempts-used') == 0 ) {
+  // pour quel cours le garder ?
+  if (
+    document.URL.indexOf('course-v1:nuclear-training-program+09+01') != -1 
+    || document.URL.indexOf('course-v1:nuclear-training-program+12+01') != -1
+    || document.URL.indexOf('course-v1:nuclear-training-program+14+01') != -1
+    || document.URL.indexOf('course-v1:nuclear-training-program+15+01') != -1
+    || document.URL.indexOf('course-v1:nuclear-training-program+16+01') != -1
+    || document.URL.indexOf('course-v1:nuclear-training-program+17+01') != -1
+    || document.URL.indexOf('course-v1:nuclear-training-program+18+01') != -1
+  ) {
+
+    var problems = document.getElementsByClassName('problems-wrapper')
+
+    for (let j=0; j<problems.length ; j++) {
       
-      target = problems[j].querySelector('input')
-      // console.log(target);    
-      let question = target.id.split("_")[1]
-      // console.log("question : ", question);
-      let answer = "declare"
-      // console.log("answer : ", answer);
+      if (problems[j].getAttribute('data-attempts-used') == 0 ) {
+        
+        target = problems[j].querySelector('input')
+        // console.log(target);    
+        let question = target.id.split("_")[1]
+        // console.log("question : ", question);
+        let answer = "declare"
+        // console.log("answer : ", answer);
 
-      if (readCookie(question)) {
-      
-        answer = readCookie(question);
-        // console.log("cookie find > answer : ", answer);
+        if (readCookie(question)) {
+        
+          answer = readCookie(question);
+          // console.log("cookie find > answer : ", answer);
 
-        // Check the value if cookie is found
-        document.getElementById('input_'+question+'_2_1_choice_'+answer).checked = true
-        // document.getElementById('input_problem01_2_1_choice_2').checked = true
-      }
-
-      var fields = problems[j].getElementsByClassName('field')
-  
-      for (let i=0; i<fields.length; i++) {
-        // Create cookies
-        fields[i].onclick = function() {
-
-          target = fields[i].querySelector('input');
-          answer = target.id.split("_")[5]
-          // console.log("selected value : ",answer);
-
-          deleteCookie(question)
-          createCookie(question, answer, 2)
+          // Check the value if cookie is found
+          document.getElementById('input_'+question+'_2_1_choice_'+answer).checked = true
+          // document.getElementById('input_problem01_2_1_choice_2').checked = true
         }
-      }
 
-      // DO THE SAME FOR DoC : 
-      // Target input with id="input_problemX_degree_X"
-      let d_o_c_fields = problems[j].getElementsByClassName("DoCText")
-      let cookie_name_d_o_c = question + "_degree_" ;
+        var fields = problems[j].getElementsByClassName('field')
+    
+        for (let i=0; i<fields.length; i++) {
+          // Create cookies
+          fields[i].onclick = function() {
 
-      if (readCookie(cookie_name_d_o_c)) {
-        value = readCookie(cookie_name_d_o_c)
-        document.getElementById('input_'+cookie_name_d_o_c+value).checked = true
-      }
+            target = fields[i].querySelector('input');
+            answer = target.id.split("_")[5]
+            // console.log("selected value : ",answer);
 
-      for (let k=0 ; k<d_o_c_fields.length ; k++) {
+            deleteCookie(question)
+            createCookie(question, answer, 2)
+          }
+        }
 
-        d_o_c_fields[k].onclick = function() {
+        // DO THE SAME FOR DoC : 
+        // Target input with id="input_problemX_degree_X"
+        let d_o_c_fields = problems[j].getElementsByClassName("DoCText")
+        let cookie_name_d_o_c = question + "_degree_" ;
 
-          d_o_c_selected = d_o_c_fields[k].querySelector('input');
-          value = d_o_c_selected.value
+        if (readCookie(cookie_name_d_o_c)) {
+          value = readCookie(cookie_name_d_o_c)
+          document.getElementById('input_'+cookie_name_d_o_c+value).checked = true
+        }
 
-          deleteCookie(cookie_name_d_o_c)
-          createCookie(cookie_name_d_o_c, value, 2)
+        for (let k=0 ; k<d_o_c_fields.length ; k++) {
+
+          d_o_c_fields[k].onclick = function() {
+
+            d_o_c_selected = d_o_c_fields[k].querySelector('input');
+            value = d_o_c_selected.value
+
+            deleteCookie(cookie_name_d_o_c)
+            createCookie(cookie_name_d_o_c, value, 2)
+          }
         }
       }
     }
+  } else {
+    clearInterval(cookies_for_saving)
   }
+
 }, 500)
-
-
 // USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
 // USE COOKIE TO SAVE SELECTED ANSWER BETWEEN SUBSECTION - END
 
@@ -466,20 +479,16 @@ setInterval(function(){
 
 <script>
 
-  window.addEventListener('load', () => {
-      console.log('ready')
+window.addEventListener('load', () => {
+    const check = document.querySelector('#course-search-input').getAttribute('placeholder')
+    const accueuil = document.querySelector('.course-tabs').children[0].children[0]
+    const home = document.querySelector('.course-tabs').children[2].children[0]
 
-      const check = document.querySelector('#course-search-input').getAttribute('placeholder')
-      const accueuil = document.querySelector('.course-tabs').children[0].children[0]
-      const home = document.querySelector('.course-tabs').children[2].children[0]
 
-      console.log('check')
-
-      if (check.includes('Opzoeken')){
-          accueuil.innerHTML='<span class="icon fa fa-chevron-prev" aria-hidden="true"></span>      Terug naar home'
-          home.innerHTML='home'
-      }
-  })
-  console.log('finito')
+    if (check.includes('Opzoeken')){
+        accueuil.innerHTML='<span class="icon fa fa-chevron-prev" aria-hidden="true"></span>      Terug naar home'
+        home.innerHTML='home'
+    }
+})
 
 </script>
