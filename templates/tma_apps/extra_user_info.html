@@ -20,6 +20,7 @@ from openedx.core.djangolib.markup import HTML, Text
   % if user.is_authenticated():
     <h1 id="welcome-title" style="color:whitesmoke;">Choisissez votre langue.<br/>Choose your language.<br/>Wählen Sie Ihre Sprache.<br/>Scegli la tua lingua.<br/>Escolha seu idioma.<br/>Elige tu idioma.</h1>
     <div id="language-selector" style='display:block'>
+      <div>
         <a data-value="en" data-course="course-v1:psa-netexplo+BM01_EN+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/uk.png" alt="uk">
         </a>
@@ -29,15 +30,19 @@ from openedx.core.djangolib.markup import HTML, Text
         <a data-value="de-de" data-course="course-v1:psa-netexplo+BM01_DE+SP">
           <img height="100px" src="/media/microsite/psa-netexplo/images/de.png" alt="de">
         </a>
+      </div>
+
+      <div>
         <a data-value="it-it" data-course="course-v1:psa-netexplo+BM01_IT+SP">
-          <img height="100px" src="/media/microsite/psa-netexplo/images/it.png" alt="it" style="height: 70px; border-radius: 6px;">
+          <img width="100px" src="/media/microsite/psa-netexplo/images/it.png" alt="it" style="border-radius: 6px;">
         </a>
         <a data-value="pt-br" data-course="course-v1:psa-netexplo+BM01_PT+SP">
-          <img height="100px" src="/media/microsite/psa-netexplo/images/br.png" alt="pt" style="height: 70px; border-radius: 6px;">
+          <img width="100px" src="/media/microsite/psa-netexplo/images/br.png" alt="pt" style="border-radius: 6px;">
         </a>
-        <a data-value="es-419" data-course="course-v1:psa-netexplo+BM01_ES+SP">
-          <img height="100px" src="/media/microsite/psa-netexplo/images/es.png" alt="es" style="height: 70px; border-radius: 6px;">
+        <a data-value="es-419" data-course="course-v1:psa-netexplo+BM01_ES+SP" >
+          <img width="100px" src="/media/microsite/psa-netexplo/images/es.png" alt="es" style="border-radius: 6px;">
         </a>
+      </div>
     </div>
   % endif
 </main>
@@ -111,5 +116,14 @@ from openedx.core.djangolib.markup import HTML, Text
 <style>
 .swal-button--cancel {
 color:white !important;
+}
+#language-selector {
+  display: flex;
+}
+#language-selector > div {
+  margin: 30px;
+}
+#main {
+  height: calc( 100vh - ( 1em + 40px ) );
 }
 </style>

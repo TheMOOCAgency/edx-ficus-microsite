@@ -51,42 +51,48 @@ document.body.onmouseup = function (e) {
 };
 </script>
 <main id="main" aria-label="Content" tabindex="-1">
-  <h1 id="welcome-title" style="color:whitesmoke;">Bienvenue</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>Démarrer</button>
-    </a>
-  </div>
+  <div>
 
-  <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Welcome</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>Start</button>
-    </a>
+    <h1 id="welcome-title" style="color:whitesmoke;">Bienvenue</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>Démarrer</button>
+      </a>
+    </div>
+    
+    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Welcome</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>Start</button>
+      </a>
+    </div>
+    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Willkommen</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>Starten</button>
+      </a>
+    </div>
+    
   </div>
-  <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Willkommen</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>Starten</button>
-    </a>
-  </div>
-  <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Benvenuto</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>AVVIA</button>
-    </a>
-  </div>
-  <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bem-vindo</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>INÍCIO</button>
-    </a>
-  </div>
-  <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bienvenido</h1>
-  <div id="button-wrapper">
-    <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-      <button>INICIO</button>
-    </a>
+  <div>
+    <h1 id="welcome-title" style="color: whitesmoke; display: block;">Benvenuto</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>AVVIA</button>
+      </a>
+    </div>
+    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bem-vindo</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>INÍCIO</button>
+      </a>
+    </div>
+    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bienvenido</h1>
+    <div id="button-wrapper">
+      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
+        <button>INICIO</button>
+      </a>
+    </div>
   </div>
 </main>
 
@@ -111,4 +117,12 @@ document.body.onmouseup = function (e) {
 footer.global{
   display:none !important;
 }
+#main {
+  display: flex;
+  flex-direction: row;
+}
+#main > div {
+  margin: 75px;
+}
+
 </style>
