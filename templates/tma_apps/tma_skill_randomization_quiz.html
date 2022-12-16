@@ -1,0 +1,877 @@
+<%
+from tma_apps.tma_support_functions import tma_randomization
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+primary_color = configuration_helpers.get_value('primary_color')
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+from lms.djangoapps.course_blocks.api import get_course_blocks
+
+translation={
+  "fr":{
+    "pause":"Interrompre",
+    "correct":"Correct",
+    "incorrect":"Incorrect",
+    "pause_title":"Interrompre le questionnaire",
+    "pause_body":"Etes-vous sûr de vouloir interrompre le questionnaire ?",
+    "cancel":"Annuler",
+    "return_home":"Aller à la page d'accueil",
+    "explanation":"Explication",
+    "question":"Question",
+    "submit":"Soumettre"
+  },
+  "en":{
+    "pause":"Pause",
+    "correct":"Correct",
+    "incorrect":"Incorrect",
+    "pause_title":"Pause the questionnaire",
+    "pause_body":"Are you sure you want to pause the questionnaire?",
+    "cancel":"Cancel",
+    "return_home":"Return to homepage",
+    "explanation":"Explanation",
+    "question":"Question",
+    "submit":"Submit"
+  },
+  "de":{
+    "pause":"Untebrechen",
+    "correct":"Richtig",
+    "incorrect":"Falsch",
+    "pause_title":"Fragebogen unterbrechen möchten",
+    "pause_body":"Sind Sie sicher, dass Sie den Fragebogen unterbrechen möchten?",
+    "cancel":"Abbrechen",
+    "return_home":"Zur Startseite gehen",
+    "explanation":"Erläuterung",
+    "question":"Frage",
+    "submit":"Absenden"
+  },
+  "it":{
+    "pause":"Pausa",
+    "correct":"Corretto",
+    "incorrect":"Scorretto",
+    "pause_title":"Metti in pausa il questionario",
+    "pause_body":"Sei sicuro di voler interrompere il questionario?",
+    "cancel":"Per cancellare",
+    "return_home":"Torna alla home page",
+    "explanation":"Spiegazione",
+    "question":"Domanda",
+    "submit":"Invia"
+  },
+  "pt":{
+    "pause":"Pausa",
+    "correct":"Correção",
+    "incorrect":"Incorreto",
+    "pause_title":"Pausar questionário",
+    "pause_body":"Tem certeza que deseja interromper o questionário?",
+    "cancel":"Cancelar",
+    "return_home":"Vá para a página inicial",
+    "explanation":"Explicação",
+    "question":"Pergunta",
+    "submit":"Enviar"
+  },
+  "es":{
+    "pause":"Cancelar",
+    "correct":"Corrección",
+    "incorrect":"Incorrecto",
+    "pause_title":"Interrumpir el cuestionario",
+    "pause_body":"¿Seguro que quiere parar el cuestionario?",
+    "cancel":"Anular",
+    "return_home":"Ir a la página de inicio",
+    "explanation":"Explicación",
+    "question":"Pregunta",
+    "submit":"Enviar"
+  }
+}
+
+
+try:
+  quiz_mode=configuration_helpers.get_value('TMA_SKILL_RANDOMIZED').get(str(course.id), {}).get('quiz_mode',"live_quiz")
+except:
+  quiz_mode="live_quiz"
+
+
+from xmodule.modulestore.django import modulestore
+from course_api.blocks.api import get_blocks
+from opaque_keys.edx.locations import SlashSeparatedCourseKey
+from lms.djangoapps.grades.new.course_grade import CourseGradeFactory
+
+parts_number=0
+questions_per_random=0
+fixed_start_questions=0
+
+course_key = SlashSeparatedCourseKey.from_deprecated_string(str(course.id))
+course_usage_key = modulestore().make_course_usage_key(course_key)
+blocks = get_blocks(request,course_usage_key,depth='all',requested_fields=['display_name','children']).get('blocks')
+
+%>
+
+
+<% 
+#PHASE DE QUIZ
+#/edx/app/edxapp/edx-platform/lms/templates/tma_apps
+
+course_grade = CourseGradeFactory().create(request.user, course)
+courseware_summary = course_grade.chapter_grades
+grade_summary = course_grade.summary
+for chapter in courseware_summary:
+  for section in chapter['sections']:
+    if "questionsfixes" in section.display_name.lower().replace(' ',''):
+      fixed_start_questions+=1
+    elif "random1" in section.display_name.lower().replace(' ',''):
+      questions_per_random+=len(section.locations_to_scores)
+
+#PHASES DE TEST => AFFICHAGE DE TOUTES LES QUESTIONS
+for block in blocks:
+  if "type@library_content" in block :
+    parts_number+=1
+    if quiz_mode=="test_phase":
+      questions_per_random = len(blocks[block].get('children'))
+%>
+
+<script>
+  $('#overlay').removeClass('hide-loader');
+</script>
+
+<style>
+/*
+.show.problem-action-btn{
+  display: none;
+}*/
+.bookmark-button-wrapper{
+  display: none!important;
+}
+.course-index{
+  display:none;
+}
+.path{
+  display: none;
+}
+.sequence-nav{
+  display: none!important;
+}
+.course-wrapper .course-content .xmodule_display{
+  margin-top: 10px!important
+}
+#tma_randomization_progress_bar{
+  padding:20px;
+}
+#tma_randomization_progress_bar .row{
+  display: flex;
+  align-items: center;
+}
+#next_question_wrapper{
+  text-align: left;
+  width:20%;
+}
+#previous_question_wrapper{
+  text-align: right;
+  width:35%;
+}
+.sequence-bottom{
+  display: none!important;
+}
+.xblock--drag-and-drop{
+  max-width: none!important;
+}
+.course-wrapper .course-content .vert-mod .vert>.xblock-student_view{
+  padding: 25px!important;
+}
+/*Target zone DnD*/
+.drag-container > .target{
+  margin: 0 auto !important;
+}
+/*Custom rendering XBlocks*/
+.problem-progress{
+display:none !important;
+}
+.xmodule_display.xmodule_CapaModule div.problem{
+  padding-top:0px;
+}
+.next_question, .previous_question, #stop
+{
+    background-color: #8F8E8E;
+    background-image: none;
+    text-shadow: none;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 15px;
+    box-shadow: none;
+}
+#stop{
+    background-color:${primary_color}!important
+}
+.swal-icon--warning{
+  border-color:${primary_color}
+}
+svg{
+  border-radius: 25px;
+}
+#tma_nav_buttons_bottom{
+  padding: 20px;
+}
+
+/*Questions Look and feel */
+.detailed-solution, .final-feedback{
+  overflow: hidden;
+  padding: 10px;
+  max-height: 60px;
+  color : white;
+  cursor: pointer;
+  background-color:${primary_color}!important;
+}
+
+.detailed-solution:before, .final-feedback:before{
+  content: "\f150";
+  font-family: FontAwesome;
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  font-size: 22px;
+}
+.choicegroup.capa_inputtype > div.indicator-container {
+   display:none !important
+}
+
+.final-feedback:before{
+  top: auto;
+  right:95px;
+}
+.unfolded{
+  height:auto;
+  max-height:1000px;
+  transition:max-height 0.6s ease-out;
+}
+
+/*Dropdown*/
+.wrapper-problem-response .inputtype.option-input .problem-group-label{
+    display:inline-block !important;
+    max-width: 500px;
+}
+.wrapper-problem-response .inputtype.option-input select {
+    float: right;
+    left:600px !important;
+    margin-right: 130px;
+}
+.xmodule_display.xmodule_CapaModule .problem .inputtype.option-input .indicator-container{
+  float: right;
+  margin-right: 15px;
+}
+/*correct logo*/
+img.ec-logo-size{
+    height:40px !important;
+}
+/*Best prog score display*/
+#tma_progression_score{
+    margin-top:15px;
+    font-weight:bold;
+}
+#tma_randomization_progress_bar{
+    padding-bottom:10px;
+}
+/*Hide top menus*/
+nav.wrapper-preview-menu,nav.courseware.wrapper-course-material{
+    display:none;
+}
+/*shrink spaces*/
+#course-content{
+    padding-top:0px;
+}
+div.xblock.xblock-student_view{
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+/*Drag and drop*/
+.xblock--drag-and-drop .feedback-content .messages, .xblock--drag-and-drop .feedback-content h3{
+  background-color: ${primary_color}!important;
+  color:white!important;
+}
+.xblock--drag-and-drop .feedback-content .message{
+  margin: 0;
+}
+.xblock--drag-and-drop .feedback-content {
+  padding: 10px;
+}
+.xblock--drag-and-drop .feedback-content h3{
+  padding: 10px 10px 0px 10px;
+  margin: 0;
+  font-size: 14px;
+}
+.xblock--drag-and-drop .feedback-content .message{
+  border:none!important;
+  color:white!important;
+}
+.xblock--drag-and-drop .feedback-content .message.partial{
+  display: none!important;
+}
+h4.title1{
+  display: none!important;
+}
+.feedback-content h3.title1{
+  font-size:16px !important;
+}
+.feedback-content div.messages{
+  padding-top:7px;
+}
+.feedback-content p.message{
+  font-size:16px !important;
+}
+button.keyboard-help-button{
+  display: none!important;
+}
+.drag-container .popup.item-feedback-popup.popup-wrapper{
+   display:none !important;
+   visibility: hidden !important;
+}
+
+/*Consignes*/
+/*QRM/QRU*/
+description{
+  color : ${primary_color}!important;
+}
+/*DnD*/
+div.xblock--drag-and-drop > .problem > p > i:last-of-type{
+  color : ${primary_color}!important;
+}
+/*Etiquettes DnD*/
+.xblock--drag-and-drop .drag-container .option{
+  border-radius: 6px !important;
+}
+/*Liste deroulante*/
+.problem > div > p:last-of-type > i:last-of-type{
+  color : ${primary_color}!important;
+}
+/*espacement première réponse*/
+.problem .wrapper-problem-response:first-of-type{
+  padding-top:30px;
+}
+/*Drag and Drop*/
+.xblock--drag-and-drop .feedback-content{
+  display:none !important;
+}
+
+.xblock--drag-and-drop .actions-toolbar .action-toolbar-item.sidebar-buttons{
+  display:none !important;
+}
+.final-feedback{
+  border:none!important;
+}
+
+
+/*For 27th Feb demo only*/
+.inputtype.option-input p.answer{
+    display:none !important;
+}
+/*Hide attemps*/
+/*DnD Attemps*/
+.attempts-used{
+  display:none !important;
+  visibility:hidden !important;
+}
+/*QRU/QRM*/
+.submission-feedback{
+  display:none !important;
+  visibility:hidden !important;
+}
+button.save.problem-action-btn{
+  display:none !important;
+  visibility:hidden !important;
+}
+/*Hide header*/
+#global-navigation{
+  display:none !important;
+}
+/*Hide footer*/
+footer{
+  display:none !important;
+}
+
+/*Errors and success custom feedback bottom of problems*/
+.tma-error{
+  margin-top: 15px;
+  border-top: 3px solid red;
+  padding-top: 20px;
+}
+
+.tma-error .fa{
+  color: red;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.tma-success{
+  margin-top: 15px;
+  border-top: 3px solid #009b00;
+  padding-top: 20px;
+}
+
+.tma-success .fa{
+  color: green;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.field .status-icon{
+  display: none;
+}
+.problem .notification.error, .problem .notification.success{
+  display: none;
+}
+.dnd-feedback{
+  margin-bottom: 20px;
+}
+.swal-footer{
+  text-align: center;
+}
+%if str(course.id) == "course-v1:psa-netexplo+BM01+SP":
+.xblock .xblock h3:first-child{
+  display: none
+}
+%endif
+
+.swal-button{
+  color:black!important;
+}
+
+</style>
+
+
+
+<!-- TMA IMPORT LOADER -->
+<%include file="/tma_apps/loader.html" args="language=course.language, primary_color=primary_color"/>
+
+<script src="/media/librairies/progressbar.js" charset="utf-8"></script>
+<script src="/media/librairies/sweetalert2.all.min.js" charset="utf-8"></script>
+<script>
+  quiz_mode="${quiz_mode}"
+  fixed_start_questions=${fixed_start_questions}
+  questions_per_random=${questions_per_random}
+  total_quiz_questions=${parts_number}*questions_per_random+fixed_start_questions;
+  starting_question_pos=1;
+  current_chapter='';
+
+  quiz_questions=[];
+  student_position=0;
+  questions_status={};
+  dnd_total=0;
+  dnd_received=0;
+  dnd_solutions={};
+
+  function initialize_quiz(){
+    //find in which part of the quiz we are to update progressbar correctly
+    title_value=$('.path').html();
+    if (title_value.toLowerCase().indexOf('random1')>-1){
+      starting_question_pos+=fixed_start_questions;
+      current_chapter='random1';
+      questions_localization='.vert-mod .vert-mod .vert';
+    }
+    else if(title_value.toLowerCase().indexOf('random2')>-1){
+      starting_question_pos+=fixed_start_questions+questions_per_random;
+      current_chapter='random2';
+      questions_localization='.vert-mod .vert-mod .vert';
+    }
+    else if(title_value.toLowerCase().indexOf('random3')>-1){
+      starting_question_pos+=fixed_start_questions+(questions_per_random*2);
+      current_chapter='random3';
+      questions_localization='.vert-mod .vert-mod .vert';
+    }
+    else if(title_value.toLowerCase().indexOf('random4')>-1){
+      starting_question_pos+=fixed_start_questions+(questions_per_random*3);
+      current_chapter='random4';
+      questions_localization='.vert-mod .vert-mod .vert';
+    }
+    else if(title_value.toLowerCase().indexOf('random5')>-1){
+      starting_question_pos+=fixed_start_questions+(questions_per_random*4);
+      current_chapter='random5';
+      questions_localization='.vert-mod .vert-mod .vert';
+    }
+    else{
+      current_chapter='intro';
+      questions_localization='.vert-mod .vert';
+    }
+
+    $(questions_localization).each(function(){
+      $(this).css('display','none');
+      const problem_id=clean_id($(this).data('id'));
+      $(this).attr('id',problem_id);
+      quiz_questions.push(problem_id);
+
+      if(problem_id.indexOf('drag-and-drop-v2')>-1){
+        dnd_total+=1;
+        questions_status[problem_id]='unknown';
+      }
+      else{
+        if($('#'+problem_id).find('.status').hasClass('unanswered')){
+          questions_status[problem_id]='unanswered'
+        }
+        else{
+          questions_status[problem_id]='answered'
+        }
+      }
+    });
+  }
+
+  function clean_id(problem_id){
+    const new_problem_id=problem_id.split('+').join('').split('@').join('').split(':').join('');
+    return new_problem_id
+  }
+
+  function display_problem(problem_id, progress_bar){
+      if(quiz_mode==="test_phase"){
+        manage_next_btn('unlocked');
+      }
+      else if(problem_id.indexOf('drag-and-drop-v2')>-1){
+
+        if($('#'+problem_id).find('.tma-feedback').length==0){
+          manage_next_btn('locked');
+        }
+        else{
+          manage_next_btn('unlocked');
+        }
+      }
+      else{
+        if(!$('#'+problem_id).find('.status').hasClass('unanswered')){
+          manage_next_btn('unlocked');
+          if($('#'+problem_id).find('.tma-feedback').length==0){
+            const solution_check_url = $('#'+problem_id+' .problems-wrapper').data('url')+'/problem_show';
+            display_classic_solution(solution_check_url, problem_id);
+          }
+        }
+        else{
+          manage_next_btn('locked');
+        }
+      }
+      $('#'+problem_id).css('display','block');
+      //Update progress bar
+      const question_number=quiz_questions.indexOf(problem_id);
+      const progress_percent = (question_number+starting_question_pos)/total_quiz_questions;
+      $('#tma_progression_score').html('${translation.get(course.language, {}).get("question")} '+(question_number+starting_question_pos)+'/'+total_quiz_questions);
+      progress_bar.animate(progress_percent);
+  }
+
+
+
+  function display_classic_solution(solution_check_url, problem_id){
+    $.ajax({
+    url:solution_check_url,
+    type:'POST',
+    dataType:'json',
+    success:function(data){
+      for (answer in data.answers){
+        if (answer.indexOf('solution')>-1){
+          final_answer=data.answers[answer];
+          // Add detailed solution
+          $('#'+problem_id+' .solution-span span').html(final_answer);
+        }
+        else{
+          //Add green or red border
+          good_answers_list = data.answers[answer]
+          $('#'+problem_id+' .choicegroup label').each(function(){
+            answer_id=$(this).attr('id').split('-')[1];
+            if(good_answers_list.indexOf(answer_id)>-1){
+              $(this).addClass('choicegroup_correct');
+            }
+            else{
+              $(this).addClass('choicegroup_incorrect');
+            }
+          })
+        }
+      }
+      // Display Correct Incorrect at bottom
+      if(data.current_score==data.total_possible){
+        $('#'+problem_id+' .solution-span').prepend('<div class="tma-feedback tma-success" tabindex="-1"><span class="icon fa fa-check" aria-hidden="true"></span><span class="notification-message">${translation.get(course.language, {}).get("correct")}</span></div>');
+      }
+      else{
+        $('#'+problem_id+' .solution-span').prepend('<div class="tma-feedback tma-error"><span class="icon fa fa-close" aria-hidden="true"></span><span class="notification-message">${translation.get(course.language, {}).get("incorrect")}</span></div>')
+      }
+    }
+    });
+  }
+
+  function display_dnd_solution(xhr, url){
+    const dragndrop_status = JSON.parse(xhr.responseText);
+    const overall_feedback = dragndrop_status.overall_feedback;
+    feedback_list=overall_feedback.filter(function(feedbackmessage){
+      return feedbackmessage['message'].toLowerCase().indexOf(' item')==-1 && feedbackmessage['message'].toLowerCase().indexOf('highest score')==-1;
+    })
+    feedback=feedback_list[0]
+
+    is_incorrect=overall_feedback.filter(function(feedbackmessage){
+      if(feedbackmessage['message_class'] && feedbackmessage['message_class'].toLowerCase().indexOf('incorrect')>-1){
+        return true;
+      }
+    })
+    dragndrop_id=clean_id(url.split('/xblock/')[1].split('/handler/')[0]);
+
+    if(is_incorrect.length > 0){
+      $('#'+dragndrop_id+' .xblock-student_view-drag-and-drop-v2').append('<div class="tma-feedback dnd-feedback tma-error"><span class="icon fa fa-close" aria-hidden="true"></span><span class="notification-message">${translation.get(course.language, {}).get("incorrect")}</span></div>')
+    }
+    else{
+      $('#'+dragndrop_id+' .xblock-student_view-drag-and-drop-v2').append('<div class="tma-feedback tma-success dnd-feedback" tabindex="-1"><span class="icon fa fa-check" aria-hidden="true"></span><span class="notification-message">${translation.get(course.language, {}).get("correct")}</span></div>')
+    }
+    if(feedback){
+      $('#'+dragndrop_id+' .xblock-student_view-drag-and-drop-v2').append('<div class="final-feedback"><p style="font-weight:600;">${translation.get(course.language, {}).get("explanation")}</p> <p>'+feedback['message']+'</p></div>')
+    }
+    manage_next_btn('unlocked');
+    }
+
+  function manage_next_btn(status){
+    if(status==="unlocked"){
+      $('.next_question').each(function(){
+        $(this).removeAttr('disabled');
+      });
+    }
+    else{
+      $('.next_question').each(function(){
+        $(this).attr('disabled','disabled');
+      });
+    }
+  }
+
+  function redirect_to_results_page(){
+    course_status_url="${reverse('update_user_course_state', args=[str(course.id)])}";
+    $.ajax({
+      url:course_status_url,
+      type:'POST',
+      dataType:'json',
+      data:{
+        course_user_status:"finished"
+      },
+      success:function(data){
+        window.location.replace("${reverse('SkillRadar', args=[str(course.id)])}")
+      }
+    });
+  }
+
+  function load_first_unanswered_question(progress_bar){
+    let has_unanswered=false;
+    for (question in quiz_questions){
+      if(questions_status[quiz_questions[question]]=="unanswered"){
+        if(question>0){
+          student_position=parseInt(question)-1;
+        }
+        else{
+          student_position=parseInt(question)
+        }
+        has_unanswered=true;
+        break;
+      }
+    }
+    //If all answered then go to last question of current random block
+    if (!has_unanswered){
+      student_position=quiz_questions.length-1;
+    }
+    //CHANGE display last answered question
+    display_problem(quiz_questions[student_position], progress_bar);
+    $('#overlay').addClass('hide-loader');
+  }
+
+
+  $(document).ready(function(){
+    let progress_bar = new ProgressBar.Line('#tma_progress_bar', {
+      easing: 'easeInOut',
+      color: '${primary_color}',
+      trailColor: '#eee',
+      strokeWidth: 4,
+      trailWidth: 4,
+    });
+
+    //Mark answered dnd and display their solution right away
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+      if(settings.url.indexOf("get_user_state") > -1){
+        const problem_id = clean_id(settings.url.split('/xblock/')[1].split('/handler/')[0]);
+        if(JSON.parse(xhr.responseText).attempts>0){
+          $('#'+problem_id).addClass('answered_drag_and_drop');
+          display_dnd_solution(xhr, settings.url);
+        }
+      }
+    });
+
+    initialize_quiz();
+    //WAIT FOR DRAG AND DROP TO LOAD THEN GO TO FIRST UNANSWERED QUESTION
+    if(window.location.href.indexOf('?child=first')>-1){
+      display_problem(quiz_questions[0], progress_bar);
+      $('#overlay').addClass('hide-loader');
+    }
+    else if(window.location.href.indexOf('?child=last')>-1){
+      student_position=quiz_questions.length-1;
+      display_problem(quiz_questions[quiz_questions.length-1], progress_bar);
+      $('#overlay').addClass('hide-loader');
+    }
+    else{
+      if(dnd_total>0){
+        $(document).ajaxSuccess(function(event, xhr, settings) {
+          if(settings.url.indexOf("get_user_state") > -1){
+            const problem_id = clean_id(settings.url.split('/xblock/')[1].split('/handler/')[0]);
+            if(JSON.parse(xhr.responseText).attempts>0){
+              //display_dnd_solution(xhr, settings.url);
+              questions_status[problem_id]='answered';
+            }
+            else{
+              questions_status[problem_id]='unanswered';
+            }
+            dnd_received+=1;
+            if(dnd_received==dnd_total){
+              load_first_unanswered_question(progress_bar);
+            }
+          }
+        });
+      }
+      else{
+        load_first_unanswered_question(progress_bar);
+      }
+    }
+
+
+
+    // NEXT AND PREVIOUS CLICK MANAGEMENT
+    $('.next_question').on('click', function(){
+      gettrackinginfo();
+      _paq.push(['trackEvent', courseid_tma, questionid_tma, 'Next']);
+
+      if((student_position+1)+starting_question_pos>total_quiz_questions){
+        $('#overlay').removeClass('hide-loader');
+        redirect_to_results_page();
+      }
+      else if(student_position+1>=quiz_questions.length){
+        $('#overlay').removeClass('hide-loader');
+        nextUrl=$('.sequence').data('next-url');
+        window.location.href = nextUrl;
+      }
+      else{
+        $('#'+quiz_questions[student_position]).css('display','none');
+        student_position+=1;
+        display_problem(quiz_questions[student_position], progress_bar);
+      }
+    })
+    $('.previous_question').on('click', function(){
+      gettrackinginfo();
+      _paq.push(['trackEvent', courseid_tma, questionid_tma, 'Previous']);
+
+      if(current_chapter!='intro' && student_position==0){
+        $('#overlay').removeClass('hide-loader');
+        previousUrl=$('.sequence').data('prev-url');
+        window.location.href = previousUrl;
+      }
+      else if(student_position>0){
+        $('#'+quiz_questions[student_position]).css('display','none');
+        student_position-=1;
+        display_problem(quiz_questions[student_position], progress_bar);
+      }
+    })
+
+    //DISPLAY CLASSIC PROBLEM SOLUTION ON SUBMIT
+    $( document ).ajaxSuccess(function( event, xhr, settings ) {
+      if (settings.url.indexOf('problem_check')>-1) {
+        problem_id=quiz_questions[student_position];
+        solution_check_url=$('#'+problem_id+' .problems-wrapper').data('url')+'/problem_show';
+        display_classic_solution(solution_check_url, problem_id);
+        manage_next_btn('unlocked');
+      }
+    });
+
+    //DISPLAY DRAG AND DROP SOLUTIONS ON SUBMIT
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+      if(settings.url.indexOf("do_attempt") > -1){
+        display_dnd_solution(xhr, settings.url);
+      }
+    });
+
+    var courseid_tma, questionid_tma;
+    //SHOW HIDE DETAILED SOLUTION
+    function gettrackinginfo(){
+      //get course id and question number
+      courseid_tma = window.location.pathname.split("/")[2];
+
+      //get question id whether it is or not a DnD
+      questionid_tma = $('.vert-mod .vert-mod .vert.vert-'+student_position+' .hd.hd-2.problem-header').html();
+      if(!questionid_tma){
+       questionid_tma = $('.vert-mod .vert-mod .vert.vert-'+student_position+' .problem-title').html();
+      }
+      //if we are not in a random
+      if(!questionid_tma){
+      questionid_tma = $('.vert-mod .vert.vert-'+student_position+' .hd.hd-2.problem-header').html();
+       if(!questionid_tma){
+        questionid_tma = $('.vert-mod .vert.vert-'+student_position+' .problem-title').html();
+       }
+      }
+
+      questionid_tma = questionid_tma.replace(/(\r\n|\n|\r|\s)/gm,"");
+    }
+
+    $('.detailed-solution').live('click', function(){
+      $(this).toggleClass('unfolded');
+      gettrackinginfo();
+      //add piwik tracking
+       _paq.push(['trackEvent', courseid_tma, questionid_tma, 'Unfold']);
+    })
+    $('.final-feedback').live('click', function(){
+      $(this).toggleClass('unfolded');
+      //add piwik tracking
+       gettrackinginfo();
+       _paq.push(['trackEvent', courseid_tma, questionid_tma, 'Unfold']);
+    })
+
+    var ua = navigator.userAgent.toLowerCase();
+    if(/msie/.test(ua) || /rv:[\d.]+\) like gecko/.test(ua)){
+        $('#tma_progress_bar path').each(function(){
+          $(this).css('stroke-width','0.8');
+          $(this).parents('svg').css('border-radius','50%')
+        })
+        $('#progress_bar_row').css('max-height','35px').css('position','relative').css('top','-50px');
+    }
+
+  })
+
+
+
+  //Traduction bouton soumettre DND
+setInterval(function(){
+  $('.action-toolbar-item.submit-answer button').each(function(){
+    $(this).html("${translation.get(course.language, {}).get('submit')}")
+  })
+}, 500);
+
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+$(document).ready(function(){
+    function gettrackinginfo(){
+      //get course id and question number
+      courseid_tma = window.location.pathname.split("/")[2];
+
+      //get question id whether it is or not a DnD
+      questionid_tma = $('.vert-mod .vert-mod .vert.vert-'+student_position+' .hd.hd-2.problem-header').html();
+      if(!questionid_tma){
+       questionid_tma = $('.vert-mod .vert-mod .vert.vert-'+student_position+' .problem-title').html();
+      }
+      //if we are not in a random
+      if(!questionid_tma){
+      questionid_tma = $('.vert-mod .vert.vert-'+student_position+' .hd.hd-2.problem-header').html();
+       if(!questionid_tma){
+        questionid_tma = $('.vert-mod .vert.vert-'+student_position+' .problem-title').html();
+       }
+      }
+
+      questionid_tma = questionid_tma.replace(/(\r\n|\n|\r|\s)/gm,"");
+    }
+
+
+  $('#stop').on('click',function(){
+         gettrackinginfo();
+         _paq.push(['trackEvent', courseid_tma, questionid_tma, 'Stop']);
+
+    swal({
+      title: "${translation.get(course.language, {}).get('pause_title')}",
+      text: '${translation.get(course.language, {}).get("pause_body")}',
+      icon: "warning",
+      buttons: ['${translation.get(course.language, {}).get("cancel")}', "${translation.get(course.language, {}).get('return_home')}"],
+      dangerMode: true,
+    })
+    .then(function(willDelete) {
+      if (willDelete) {
+        window.location.replace("${reverse('dashboard')}")
+      }
+    });
+  })
+})
+</script>
