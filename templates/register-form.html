@@ -383,7 +383,7 @@ $('#Libelle').val("Prévention des risques chimiques")
 
 const table = {
   "AED": "PRINGY",
-  "BHE" : "FIXIN",
+  "BHE" : "NUITS SAINT GEORGES",
   "DAUGERON" : "GENEVRAYE",
   "FICHOT" : "MAINVILLIERS",
   "HEDIS" : "LEVALLOIS PERRET",
@@ -393,11 +393,72 @@ const table = {
   "ORRU" : "LA GARDE",
   "SODISCOL" : "ST ALBAN",
   "SOPECAL" : "ST SEVER",
+  "FS - Grandchamp" : "GRANDCHAMP LES FONTAINES"
 }
 
 let check_add_option = false
 let remove_BLANC = false
 let remove_GAMA = false
+$('#field-Établissement option[value="COMPTOIR DE BRETAGNE"]').remove()
+$('#field-Établissement option[value="FS - Grandchamp"]').remove()
+
+$('#groupe').change(function(){
+
+  let value = $('#groupe').val()
+  
+  if (value === 'Groupe Hedis') {
+    $('#Établissement').append("<option value='AED'>AED</option>");
+    $('#Établissement').append("<option value='BHE'>BHE</option>");
+    $('#Établissement').append("<option value='BLANC SAS'>BLANC SAS</option>");
+    $('#Établissement').append("<option value='DAUGERON'>DAUGERON</option>");
+    $('#Établissement').append("<option value='FICHOT'>FICHOT</option>");
+    $('#Établissement').append("<option value='GAMA 29'>GAMA 29</option>");
+    $('#Établissement').append("<option value='HEDIS'>HEDIS</option>");
+    $('#Établissement').append("<option value='ICA HYGIENE SAS'>ICA HYGIENE SAS</option>");
+    $('#Établissement').append("<option value='MAT\'HYGIENE SAS'>MAT\'HYGIENE SAS</option>");
+    $('#Établissement').append("<option value='NICOLAS ENTRETIEN'>NICOLAS ENTRETIEN</option>");
+    $('#Établissement').append("<option value='ORRU'>ORRU</option>");
+    $('#Établissement').append("<option value='SODISCOL'>SODISCOL</option>");
+    $('#Établissement').append("<option value='SOPECAL'>SOPECAL</option>");
+    $('#field-Établissement option[value="COMPTOIR DE BRETAGNE"]').remove()
+    $('#field-Établissement option[value="FS - Grandchamp"]').remove()
+
+  } else if (value === 'Groupe BSF') {
+    $('#Établissement').append("<option value='FS - Grandchamp'>FS - Grandchamp</option>");
+    $('#field-Établissement option[value="AED"]').remove();
+    $('#field-Établissement option[value="BHE"]').remove();
+    $('#field-Établissement option[value="BLANC SAS"]').remove();
+    $('#field-Établissement option[value="DAUGERON"]').remove();
+    $('#field-Établissement option[value="FICHOT"]').remove();
+    $('#field-Établissement option[value="GAMA 29"]').remove();
+    $('#field-Établissement option[value="HEDIS"]').remove();
+    $('#field-Établissement option[value="ICA HYGIENE SAS"]').remove();
+    $('#field-Établissement option[value="MAT\'HYGIENE SAS"]').remove();
+    $('#field-Établissement option[value="NICOLAS ENTRETIEN"]').remove();
+    $('#field-Établissement option[value="ORRU"]').remove();
+    $('#field-Établissement option[value="SODISCOL"]').remove();
+    $('#field-Établissement option[value="SOPECAL"]').remove();
+    $('#field-Établissement option[value="COMPTOIR DE BRETAGNE"]').remove()
+
+  } else{
+    $('#Établissement').append("<option value='COMPTOIR DE BRETAGNE'>COMPTOIR DE BRETAGNE</option>");
+    $('#field-Établissement option[value="AED"]').remove();
+    $('#field-Établissement option[value="BHE"]').remove();
+    $('#field-Établissement option[value="BLANC SAS"]').remove();
+    $('#field-Établissement option[value="DAUGERON"]').remove();
+    $('#field-Établissement option[value="FICHOT"]').remove();
+    $('#field-Établissement option[value="GAMA 29"]').remove();
+    $('#field-Établissement option[value="HEDIS"]').remove();
+    $('#field-Établissement option[value="ICA HYGIENE SAS"]').remove();
+    $('#field-Établissement option[value="MAT\'HYGIENE SAS"]').remove();
+    $('#field-Établissement option[value="NICOLAS ENTRETIEN"]').remove();
+    $('#field-Établissement option[value="ORRU"]').remove();
+    $('#field-Établissement option[value="SODISCOL"]').remove();
+    $('#field-Établissement option[value="SOPECAL"]').remove();
+    $('#field-Établissement option[value="FS - Grandchamp"]').remove();
+  }
+
+})
 
 $('#Établissement').change(function(){
 
@@ -435,7 +496,7 @@ $('#Établissement').change(function(){
     $('#city').val('')
     $('#field-city').show()
     $('#field-city option[value="PRINGY"]').remove()
-    $('#field-city option[value="FIXIN"]').remove()
+    $('#field-city option[value="NUITS SAINT GEORGES"]').remove()
     $('#field-city option[value="GENEVRAYE"]').remove()
     $('#field-city option[value="MAINVILLIERS"]').remove()
     $('#field-city option[value="VERN SUR SEICHE"]').remove()
@@ -455,7 +516,7 @@ $('#Établissement').change(function(){
     $('#city').val('')
     $('#field-city').show()
     $('#field-city option[value="PRINGY"]').remove()
-    $('#field-city option[value="FIXIN"]').remove()
+    $('#field-city option[value="NUITS SAINT GEORGES"]').remove()
     $('#field-city option[value="GENEVRAYE"]').remove()
     $('#field-city option[value="MAINVILLIERS"]').remove()
     $('#field-city option[value="BALARUC LES BAINS"]').remove()

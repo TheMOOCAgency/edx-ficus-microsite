@@ -40,3 +40,10 @@ def url_class(is_active):
   </li>
   %endif
 % endfor
+
+<script>
+  $( document ).ready(function(){
+$("a:contains('TMA DASHBOARD')").attr("href", "/tma_apps/new_tma_dashboard")
+$( "a:contains('TMA DASHBOARD')" ).text("Administration")
+  })
+</script>
