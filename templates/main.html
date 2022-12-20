@@ -246,6 +246,11 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 </script>
 % endif
 <script>
+// 20/12/2022 - wrong course_id
+if (window.location.href == 'https://digital-campus-en3s.fr/courses/course-v1:en3S+5+2023/about') {
+  window.location.replace('https://digital-campus-en3s.fr/courses/course-v1:en3s+2023+5/about')
+}
+
 setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
