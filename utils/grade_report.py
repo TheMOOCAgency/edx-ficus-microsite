@@ -195,12 +195,16 @@ def get_user_info(user):
         position = custom_field.get('bnpp_entity', 'n/a')
     except:
         position = "n/a"
+
+    try:
+        region = custom_field.get('bnpp_country', 'n/a')
+    except:
+        region = "n/a"
     
     # missing datas
-    matricule = "n/a"
-    department = "n/a"
-    region = "n/a"
-    additional_information = "n/a"
+    matricule = " "
+    department = " "
+    additional_information = " "
         
     user_row = [first_name, last_name, matricule, email, position, department, region, additional_information, date_inscription, last_login]
     
@@ -209,7 +213,7 @@ def get_user_info(user):
         try:
             user_row.append(custom_field[field])
         except:
-            user_row.append('n/a')
+            user_row.append(' ')
 
     return user_row
 
@@ -341,10 +345,12 @@ for j in range(len(course_ids)):
             if user.email == 'annakarin.klingberg@bnpparibascardif.com':
                 log.info(users_data[user.id])
 
+
     #Set default value for unenrolled users
     for user in users_data.keys():
         if len(users_data[user]) < (headerNoGradesLen + j+1) :
-            users_data[user].append('n/a')
+            users_data[user].append(' ')
+            # users_data[user].append('n/a')
 
 file = open(old_file, "rb")
 old_users_datas_list = csv.DictReader(file, delimiter=';')
@@ -450,3 +456,6 @@ for entity_group in entityTable.keys():
         os.remove('/edx/var/edxapp/media/microsite/bnpp-netexplo/reports/{}_BNP_ACA_{}.xls'.format(two_days_ago.strftime("%d.%m.%Y"), entity_group))
     except:
         pass
+
+
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/bnpp-netexplo/utils/grade_report.py bnpp-netexplo rapport_ancienne_aca_v2.csv
