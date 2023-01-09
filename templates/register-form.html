@@ -125,6 +125,11 @@ import datetime
       <input type="hidden" id="register-mode" type="text" name="register-mode" value=""/>
     </li>
 
+    <li class="field text" id="field-collaborator-email">
+      <!-- <label for="collaborateur">${_('Collaborateur')}</label> -->
+      <input type="hidden" id="collaborator-email" type="text" name="collaborator-email" value=""/>
+    </li>
+
     % if third_party_auth.is_enabled() and running_pipeline:
 
     <li class="is-disabled field optional password" id="field-password" hidden>
@@ -587,6 +592,7 @@ else{
 <script>
 
   const registerModeSelectorValue = document.getElementById('register-mode')
+  const collaboratorEmail = document.getElementById('collaborator-email')
   
   const adminList =
     [
@@ -621,6 +627,7 @@ else{
             const selectorValue = document.getElementById('input-collaborateur')
             selectorValue.value = "collaborateur_register"
             registerModeSelectorValue.value = "register-mode-collaborator"
+            collaboratorEmail.value = emailCMA.value
           }
         }
         if (!allowRegister) {
