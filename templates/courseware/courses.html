@@ -85,7 +85,7 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
 </main>
 
 <style>
-#discovery-form wrapper-search-input, .find-courses .search-facets.phone-menu {
+#discovery-form .wrapper-search-input, .find-courses .search-facets.phone-menu {
   display: none;
 }
 .find-courses .wrapper-search-context .search-status-label {
@@ -95,4 +95,25 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
 .courses-container .courses .course .course-info {
   height: 117px !important;
 }
+.course-info .course-date,  .course-info .course-organization, .course-info .course-code {
+  display: none !important;
+}
 </style>
+
+<script>
+  var division = $('.courses-listing-item')
+
+  for (let i = 0; i < division.length; i++) {
+    const element = division[i];
+    element.children[0].children[0].attributes.href.value = '/register?course_id='+element.children[0].id+'&enrollment_action=enroll'
+  }
+
+  
+  var division_title = $('.course-info .course-title')
+
+  for (let i = 0; i < division_title.length; i++) {
+    const element = division_title[i];
+    element.innerText = 'TechReady '+ division_title[i].innerText.slice(-2,)
+  }
+
+</script>
