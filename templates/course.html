@@ -10,14 +10,15 @@ from django.core.urlresolvers import reverse
     <header class="course-image">
       <div class="cover-image">
         <img src="${course.course_image_url}" alt="${course.display_name_with_default} ${course.display_number_with_default}" />
-        <div class="learn-more" aria-hidden="true">${_("LEARN MORE")}</div>
+        <div class="learn-more" aria-hidden="true">Je m'inscris !</div>
+        <!-- <div class="learn-more" aria-hidden="true">${_("LEARN MORE")}</div> -->
       </div>
     </header>
     <div class="course-info" aria-hidden="true">
       <h2 class="course-name">
-        <span class="course-organization">${course.display_org_with_default}</span>
-        <span class="course-code">${course.display_number_with_default}</span>
-        <span class="course-title">${course.display_name_with_default}</span>
+        <!-- <span class="course-organization">${course.display_org_with_default}</span>
+        <span class="course-code">${course.display_number_with_default}</span> -->
+        <span class="course-title">TechReady ${course.display_name_with_default[-2:]}</span>
       </h2>
       <%
       if course.start is not None:
@@ -25,11 +26,8 @@ from django.core.urlresolvers import reverse
       else:
           course_date_string = ''
       %>
-      % if course.advertised_start is not None:
-          <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
-      % else:
-          <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-string="${_("Starts: {date}")}"></div>
-      % endif
+
+
     </div>
     <div class="sr">
       <ul>
@@ -47,3 +45,12 @@ from django.core.urlresolvers import reverse
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized_datetime");
 </%static:require_module_async>
+
+<script>
+  var division = $('.courses-listing-item')
+
+  for (let i = 0; i < division.length; i++) {
+    const element = division[i];
+    element.children[0].children[0].attributes.href.value = '/register?course_id='+element.children[0].id+'&enrollment_action=enroll'
+  }
+</script>
