@@ -101,11 +101,18 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
 </style>
 
 <script>
+setTimeout(function(){
+
   var division = $('.courses-listing-item')
 
   for (let i = 0; i < division.length; i++) {
     const element = division[i];
-    element.children[0].children[0].attributes.href.value = '/register?course_id='+element.children[0].id+'&enrollment_action=enroll'
+    //console.log('element.children[0].id');
+    //console.log(element);
+    //console.log(element.children[0].children[0].href);
+    //console.log(element.children[0].children[0].href.slice(38,-6));
+    element.children[0].children[0].attributes.href.value = '/register?course_id='+element.children[0].children[0].href.slice(38,-6)+'&enrollment_action=enroll'
+    element.children[0].children[0].children[0].children[0].children[1].innerText = "Je m'inscris !"
   }
 
   
@@ -116,5 +123,5 @@ css = '/media/microsite/{}/auto/css/courses.css'.format(org_static)
     element.innerText = 'Data Ready '+ division_title[i].innerText.slice(-2,)
     // element.innerText = 'Tech Ready '+ division_title[i].innerText.slice(-2,)
   }
-
+},500);
 </script>
