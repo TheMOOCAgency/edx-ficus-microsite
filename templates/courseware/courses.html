@@ -108,6 +108,7 @@ setTimeout(function(){
   for (let i = 0; i < division.length; i++) {
     const element = division[i];
     element.children[0].children[0].attributes.href.value = '/register?course_id='+element.children[0].id+'&enrollment_action=enroll'
+    element.children[0].children[0].children[0].children[0].children[1].innerText = "Je m'inscris !"
   }
 
   
@@ -115,7 +116,7 @@ setTimeout(function(){
 
   for (let i = 0; i < division_title.length; i++) {
     const element = division_title[i];
-    element.innerText = 'TechReady '+ division_title[i].innerText.slice(-2,)
+    element.innerText = 'Tech Ready '+ division_title[i].innerText.slice(-2,)
   }
 },500);
 </script>
