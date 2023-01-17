@@ -18,7 +18,7 @@ background_url = configuration_helpers.get_value('bg_img')
 %>
 
 <%
-certificate_config = configuration_helpers.get_value('CERTIFICATE_LAYOUT').get("all")
+certificate_config = configuration_helpers.get_value('CERTIFICATE_LAYOUT').get(course_id)
 certificate_width = certificate_config['certificate_width']
 certificate_height = certificate_config['certificate_height']
 name_position_x = certificate_config['name_position_x']
@@ -99,9 +99,11 @@ date_position_x = certificate_config['date_position_x']
         % elif request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' :
     background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
         % elif request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
-    background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+    background-image: url(/media/microsite/gen/certificate/attestation_evaluez_efficacement.png)
         % elif request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
     background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+        % elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/attestation_evaluez_efficacement.png)
         % else :
             % if int(grades['grade']*100) < 70 :
     background-image: url(/media/microsite/gen/certificate/attestation_gen.png);
@@ -127,11 +129,16 @@ date_position_x = certificate_config['date_position_x']
   }
   #nameDatas{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or  request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render'  or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
     top: 130px;
     left: 300px;
     color: #000147 !important;
     font-family: "Open Sans";
+% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or  request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+    top: 243px;
+    left: 300px;
+    font-family: "Open Sans";
+    font-weight: 700;
 % else :
     top: 234px;
     left: 274px;
@@ -140,10 +147,15 @@ date_position_x = certificate_config['date_position_x']
   }
   #dateContainer{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render':
     top: 362px;
     left: 318px;
     font-family: "Open Sans";
+% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render'  :
+    top: 380px;
+    left: 313px;
+    font-family: "Open Sans";
+    font-size: 14px;
 % else :
     top: 381px;
     left: 310px;
@@ -161,7 +173,7 @@ date_position_x = certificate_config['date_position_x']
     <div id="certificate-wrapper">
       <div id="pdf-btn-wrapper">
         
-        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
         <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
         % else :
         <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
@@ -177,7 +189,7 @@ date_position_x = certificate_config['date_position_x']
     <div id="certificate-wrapper">
       <div id="pdf-btn-wrapper">
 
-        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
         <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
         % else :
         <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
