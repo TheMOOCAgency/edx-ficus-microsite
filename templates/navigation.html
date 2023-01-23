@@ -198,7 +198,7 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
                 % else:
                 <!-- <a class="btn-neutral" href="/register">${_("Register")}</a> -->
-                <a class="btn-neutral" href="/register?course-v1:gen+02+2020_T4&enrollment_action=enroll">${_("Register")}</a>
+                <a class="btn-neutral" href="/register?course_id=course-v1:gen+2023+01&enrollment_action=enroll">${_("Register")}</a>
                 % endif
               </li>
             % endif
@@ -216,7 +216,7 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
                 % else:
                 <!-- <a class="btn btn-login" href="/login">${_("Sign in")}</a> -->
-                <a class="btn btn-login" href="/login?course-v1:gen+02+2020_T4&enrollment_action=enroll">Déjà inscirt ? Se connecter</a>
+                <a class="btn btn-login" href="/login?course_id=course-v1:gen+2023+01&enrollment_action=enroll">Déjà inscrit ? Se connecter</a>
                 % endif
               % endif
             % endif
