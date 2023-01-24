@@ -21,6 +21,8 @@ if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.i
   is_tma_team=True
 else :
   is_tma_team=False
+
+special_style_paths = ['/tma_apps/course-v1:afpa+inclusion_sociale+2020/certificate/render']
 %>
 
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
@@ -144,7 +146,33 @@ h4 {
     right: 35px;
     bottom: 16px;
 }
+
 </style>
+
+% if request.path in special_style_paths :
+  <style>
+    #main{
+      background-color: none;
+      border: none;
+      margin-top:0;
+      margin-left: -5rem;
+      padding: 4rem;
+      height:45rem;
+      width: 70% !important;
+      padding-left: 0rem;
+    }
+    .container{
+      display: block;
+      flex-direction: unset;
+      justify-content: unset;
+      padding: 0;
+      width: unset;
+      height: 100%;
+      max-width: none;
+    }
+  </style>
+% endif
+
 <!-- IMPORT FONT -->
 <link href="https://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet">
 
@@ -468,8 +496,8 @@ h4 {
 <!--CERT INCLUSION SOCIALE -->
 <div id="main" class="inclusion_sociale" style="display:none;margin-bottom: 2rem;">
   <div class="container" style="background: url('/media/microsite/afpa/images/attestation_handicap_inclusion.jpg');background-size: contain;background-repeat: no-repeat;background-position: center;">
-    <h3 class="main-color" style="position: absolute;font-size: 0.8rem;left: 22rem;top: 18rem;">${first_name} ${last_name}</h3>
-    <h3 class="main-color" style="position: absolute;font-size: 0.75rem;left: 16.5rem;top: 21.9rem;">${datetime.now().strftime('%d-%m-%Y')}</h3>
+    <h3 class="main-color" style="position: absolute;font-size: 1rem;left: 23.4rem;top: 24.8rem;">${first_name} ${last_name}</h3>
+    <h3 class="main-color" style="position: absolute;font-size: 0.9rem;left: 16.5rem;top: 29.6rem;">${datetime.now().strftime('%d-%m-%Y')}</h3>
   </div>
 </div>
 
@@ -512,10 +540,15 @@ $(document).ready(function(){
 function CertificateToPdf(){
    html2canvas(document.querySelector("."+part_to_print), {
     onrendered : function (canvas){
-     var img=canvas.toDataURL("image/png");
-     var doc = new jsPDF({orientation: 'landscape'});
-     doc.addImage(img, "PNG", 25 , 22);
-     doc.save("certificat.pdf");
+      var img=canvas.toDataURL("image/png");
+      var doc = new jsPDF({orientation: 'landscape'});
+      if (document.URL.includes('tma_apps/course-v1:afpa+inclusion_sociale+2020/certificate/render')) {
+        doc.addImage(img, "PNG", 0, 0);
+      }
+      else {
+        doc.addImage(img, "PNG", 25, 22);
+      }
+      doc.save("certificat.pdf");
     }
   })
 }
