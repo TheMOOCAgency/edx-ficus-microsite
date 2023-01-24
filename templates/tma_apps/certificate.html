@@ -30,7 +30,11 @@ english_path = ['/tma_apps/course-v1:mooc-conservation+protected-areas+2021_T1_E
 '/tma_apps/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/certificate/render',
 '/tma_apps/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/certificate/render',
 '/tma_apps/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/certificate/render',
-'/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render']
+'/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render',
+'/tma_apps/course-v1:mooc-conservation+01+2022/certificate/render']
+
+minimal_text_en = ['/tma_apps/course-v1:mooc-conservation+01+2022/certificate/render']
+minimal_text_fr = ['']
 %>
 
 <head>
@@ -69,6 +73,13 @@ margin-top: 4em;
 margin-right: 24%;
 font-weight: 300;
 }
+.minimal_name_style{
+  margin-top: -2rem;
+}
+.minimal_date_style{
+  margin-right: -60%;
+  margin-top: 12rem;
+}
 
 #certificate-container-text{
   margin-top: 20%;
@@ -97,6 +108,7 @@ font-weight: 300;
     margin: 0 auto;
     padding: 20px;
     background-size: contain;
+    margin-bottom: 5rem;
   }
   #pdf-btn-wrapper{
     padding: 15px;
@@ -174,6 +186,10 @@ font-weight: 300;
   .essentiel_en{
     background-image: url('/media/microsite/mooc-conservation/extra/certificat/essentiel_en.png');
   }
+  
+  .eco_area{
+    background-image: url('/media/microsite/mooc-conservation/extra/certificat/eco_tourism_area.jpg');
+  }
 
   .container-text-essentials{
     margin-top: 23% !important;
@@ -250,6 +266,8 @@ font-weight: 300;
     <div id="certificate-container" class="essentiel_fr">
   % elif request.path == '/tma_apps/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render' :
     <div id="certificate-container" class="essentiel_en">
+  % elif request.path == '/tma_apps/course-v1:mooc-conservation+01+2022/certificate/render' :
+    <div id="certificate-container" class="eco_area">
   % endif  
   %if request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-ranger+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-loi+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-manager-recherche+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essentiel-leader+2021_T1/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-ranger+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-law+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-manager-research+2021_T1_EN/certificate/render' or request.path == '/tma_apps/course-v1:mooc-conservation+essential-leader+2021_T1_EN/certificate/render' : 
       <div id="certificate-container-text" class="container-text-essentials">
@@ -264,6 +282,9 @@ font-weight: 300;
         <p class="text">a suivi l'intégralité du <span class="text-bold"> MOOC « ${course_name} »</span></p>
         <p>et a passé avec succès les examens en ligne.</p>
         <p class="text-date">Le <span class="text-date" id="dateDeCertificat"></p>
+  % elif request.path in minimal_text_en :
+        <p class="name minimal_name_style">${first_name} ${last_name}</p>
+        <p class="text-date minimal_date_style">On the ${date.today().strftime("%d %B %Y") }</p>
   % else :
         <p class="text">Geoffroy Mauvais, coordinator of the Program on</p>
         <p><span class="text-bold">African Protected Areas & Conservation (PAPACO) of the International Union</span></p>
