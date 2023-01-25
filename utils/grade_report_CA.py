@@ -108,29 +108,12 @@ HEADERS_USER.extend(NICE_HEADER)
 
 HEADER = HEADERS_USER
 
-# print TECHNICAL_HEADER
 
 
 course_ids=[
-    "course-v1:e-formation-artisanat+Pack_Micro+e-formation-2020",
-    "course-v1:e-formation-artisanat+commercial+2020_T1",
-    "course-v1:e-formation-artisanat+essentiels+2020_T1",
-    "course-v1:e-formation-artisanat+gestion+2020_T1",
-    "course-v1:e-formation-artisanat+premium+2020_T1",
-    "course-v1:e-formation-artisanat+Module_01+SP_01",
-    "course-v1:e-formation-artisanat+Module_02+SP_02",
-    "course-v1:e-formation-artisanat+Module_03+SP_03",
-    "course-v1:e-formation-artisanat+Module_04+SP_04",
-    "course-v1:e-formation-artisanat+Module_05+SP_05",
-    "course-v1:e-formation-artisanat+Module_06+SP_06",
-    "course-v1:e-formation-artisanat+Module_07+SP_07",
-    "course-v1:e-formation-artisanat+Module_08+SP_08",
-    "course-v1:e-formation-artisanat+Module_09+SP_09",
-    "course-v1:e-formation-artisanat+Module_09-+SP_09-",
-    "course-v1:e-formation-artisanat+Module_10+SP_10",
-    "course-v1:e-formation-artisanat+Module_11+SP_11",
-    "course-v1:e-formation-artisanat+Module_12+SP_12"
-    ]
+    "course-v1:academie-digitale+FC_20+2022",
+    "course-v1:academie-digitale+FC_B20+2022"
+]
 
 
 def get_user_info(user):
@@ -223,15 +206,16 @@ for j in range(len(course_ids)):
     HEADER.append('1ere connexion "{}"'.format(course.display_name_with_default))
 
 # First get all users even if not enrolled in any course
-potentially_non_enrolled_user_ids = []
-user_profiles = UserProfile.objects.all()
-for user_profile in user_profiles:
-    try:
-        custom_field = json.loads(user_profile.custom_field)
-    except:
-        custom_field = {}
-    if custom_field.get("microsite") == "e-formation-artisanat":
-        potentially_non_enrolled_user_ids.append(user_profile.user_id)
+# potentially_non_enrolled_user_ids = []
+# user_profiles = UserProfile.objects.all()
+# for user_profile in user_profiles:
+#     try:
+#         custom_field = json.loads(user_profile.custom_field)
+#     except:
+#         custom_field = {}
+
+#     if custom_field.get("microsite") == "e-formation-artisanat":
+#         potentially_non_enrolled_user_ids.append(user_profile.user_id)
 
 users_data = {}
 
@@ -244,26 +228,26 @@ for j in range(len(course_ids)):
     course_key = CourseKey.from_string(course_id)
     course = get_course_by_id(course_key)
     try:
-      enrollments = CourseEnrollment.objects.filter(course_id=course_key)
-    # Write headers for course grades
-      log.info(enrollments)
-      first_enrollment = enrollments[0]
+        enrollments = CourseEnrollment.objects.filter(course_id=course_key)
+        # Write headers for course grades
+        log.info(enrollments)
+        first_enrollment = enrollments[0]
     except:
-      log.info("continue")
-      continue
-       
+        log.info("continue")
+        continue
+
     user_summary = first_enrollment.user
     
     i = 0
     for i in range(len(enrollments)):
         # FOR DEBUG PURPOSES
-        #if i > 10:
-        #    break
+        if i > 10:
+           break
 
         user = enrollments[i].user
         #As the user is enrolled in something remove it from potentially non enrolled users
-        if user.id in potentially_non_enrolled_user_ids:
-            potentially_non_enrolled_user_ids.remove(user.id)
+        # if user.id in potentially_non_enrolled_user_ids:
+        #     potentially_non_enrolled_user_ids.remove(user.id)
         
         # If the user has never been seen before get its basic info
         if user.id not in users_data.keys():
@@ -295,8 +279,8 @@ for j in range(len(course_ids)):
             
 
 ## Now we get all non enrolled users
-for user_id in potentially_non_enrolled_user_ids:
-    users_data[user_id] = get_user_info(User.objects.get(id=user_id))
+# for user_id in potentially_non_enrolled_user_ids:
+#     users_data[user_id] = get_user_info(User.objects.get(id=user_id))
 
 for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
@@ -388,7 +372,8 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr","alexandre.berteau@weuplearning.com"]
+    # toaddr = [recipient,"technical@themoocagency.com","benissan-wicart@cma-france.fr","alexandre.berteau@weuplearning.com"]
+    toaddr = ['cyril.adolf@weuplearning.com']
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
@@ -418,3 +403,6 @@ for recipient in recipients_geography:
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
     log.info('Email sent to '+str(toaddr))
+
+
+#  sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/e-formation-artisanat/utils/grade_report_CA.py

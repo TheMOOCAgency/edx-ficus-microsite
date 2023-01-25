@@ -25,7 +25,7 @@ log = logging.getLogger()
 
 from opaque_keys.edx.keys import CourseKey
 
-from student.models import *
+from student.models import CourseEnrollment
 
 course_ids=[
     "course-v1:e-formation-artisanat+Pack_Micro+e-formation-2020",
@@ -78,9 +78,7 @@ for j in range(len(course_ids)):
             if user.email not in admin_list:
                 admin_list.append(user.email)
 
-# log.info(admin_list)
-
-filename = "//edx/var/edxapp/secret/microsite/cma/admin_mail.txt"
+filename = "/edx/var/edxapp/secret/microsite/cma/admin_mail.txt"
 if not os.path.exists(os.path.dirname(filename)):
     try:
         os.makedirs(os.path.dirname(filename))

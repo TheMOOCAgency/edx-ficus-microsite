@@ -49,26 +49,21 @@ from pprint import pformat
 
 
 recipients_geography = {
-    "parcours-createur@artisanat-nouvelle-aquitaine.fr" : u"Nouvelle-Aquitaine",
-    "secretariat.sdae@cma-martinique.com" : u"Martinique",
-    "parcrea@crma-centre.fr" : u"Centre-Val de Loire",
-    "j.senellart@cma-hautsdefrance.fr" : u"Hauts-de-France",
-    "eartisanat@crma-idf.fr" : u"\u00cele-de-France",
-    "parcours-createur@crma-grandest.fr" : u"Grand-Est",
-    "parcours.createur@crma-occitanie.fr" : u"Occitanie",
-    "parcours.createur@cma-bretagne.fr" : u"Bretagne",
-    "parcours.createur@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
-    "parcours.createur@artisanatpaysdelaloire.fr":u"Pays de la Loire",
-    "ParcoursCrea@artisanat-bfc.fr":u"Bourgogne-Franche-Comt\u00e9",
-    "parcours-creation@crma-auvergnerhonealpes.fr":u"Auvergne-Rh\u00f4ne-Alpes",
-    "tom.douce@weuplearning.com":u"Tout",
-    "service-eco@cma.corsica":u"Corse",
+    # "parcours-createur@artisanat-nouvelle-aquitaine.fr" : u"Nouvelle-Aquitaine",
+    # "secretariat.sdae@cma-martinique.com" : u"Martinique",
+    # "parcrea@crma-centre.fr" : u"Centre-Val de Loire",
+    # "j.senellart@cma-hautsdefrance.fr" : u"Hauts-de-France",
+    # "eartisanat@crma-idf.fr" : u"\u00cele-de-France",
+    # "parcours-createur@crma-grandest.fr" : u"Grand-Est",
+    # "parcours.createur@crma-occitanie.fr" : u"Occitanie",
+    # "parcours.createur@crm-bretagne.fr" : u"Bretagne",
+    # "parcours.createur@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
+    # "parcours.createur@artisanatpaysdelaloire.fr":u"Pays de la Loire",
+    # "ParcoursCrea@artisanat-bfc.fr":u"Bourgogne-Franche-Comt\u00e9",
+    # "parcours-creation@crma-auvergnerhonealpes.fr":u"Auvergne-Rh\u00f4ne-Alpes",
+    # "tom.douce@weuplearning.com":u"Tout",
+    "dimitri.hoareau@weuplearning.com": u"Occitanie"
 }
-
-#Quentin en faisant ça tu écrase le dict précédent
-# recipients_geography = {
-#     "quentin.artaud@weuplearning.com":u"Corse",
-# }
 
 # Auxiliary functions
 def is_course_open(course):
@@ -108,7 +103,7 @@ HEADERS_USER.extend(NICE_HEADER)
 
 HEADER = HEADERS_USER
 
-# print TECHNICAL_HEADER
+print TECHNICAL_HEADER
 
 
 course_ids=[
@@ -240,18 +235,11 @@ j=0
 for j in range(len(course_ids)):
     # Course info from argument
     course_id = course_ids[j]
-    log.info(course_id)
     course_key = CourseKey.from_string(course_id)
-    course = get_course_by_id(course_key)
-    try:
-      enrollments = CourseEnrollment.objects.filter(course_id=course_key)
+    course = get_course_by_id(course_key) 
+    enrollments = CourseEnrollment.objects.filter(course_id=course_key)
     # Write headers for course grades
-      log.info(enrollments)
-      first_enrollment = enrollments[0]
-    except:
-      log.info("continue")
-      continue
-       
+    first_enrollment = enrollments[0]
     user_summary = first_enrollment.user
     
     i = 0
