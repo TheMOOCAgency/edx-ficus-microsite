@@ -375,6 +375,28 @@ import datetime
   })
 </script>
 
+
+<!-- 17079 - quentin - script to toggle show/hide the field "prise_connaissance_reseaux_sociaux" -->
+
+<script>
+  window.addEventListener('load', ()=>{
+      const fieldToHide = document.querySelector('#field-prise_connaissance_reseaux_sociaux')
+      const fieldToCheck = document.querySelector('#prise_de_connaissance')
+
+      fieldToHide.style.display='none'
+      fieldToCheck.addEventListener('change', (e)=>{
+          // console.log(e.target.value)
+          let value = e.target.value
+          if (value == 'Réseaux sociaux') {
+              fieldToHide.style.display='block'
+          }
+          else{
+              fieldToHide.style.display='none'
+          }
+      })
+  })
+</script>
+
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
   <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Already have an account?")}</a>
