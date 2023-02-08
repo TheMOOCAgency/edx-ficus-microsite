@@ -51,12 +51,12 @@ from pprint import pformat
 
 
 recipients_geography = {
-    "formation@cma-auvergnerhonealpes.fr" : u"Auvergne-Rh\u00f4ne-Alpes",
+    "e-formation@cma-auvergnerhonealpes.fr" : u"Auvergne-Rh\u00f4ne-Alpes",
     "formation@artisanat-bfc.fr": u"Bourgogne-Franche-Comt\u00e9",
     "contact-cfar@cma-bretagne.fr": u"Bretagne",
     "contact-formation.continue@cma-cvl.fr": u"Centre-Vale-de-Loire",
-    "guimbert@cma-france.fr": u"Corse",
-    "guimbert@cma-france.fr": u"Guadeloupe",
+    "pdesire@cfm-ajaccio.org": u"Corse",
+    "jpierrot@cmguadeloupe.org": u"Guadeloupe",
     "secretariat.fpc@cma-martinique.com": u"Martinique",
     "mbuisson@cmamayotte.com": u"Mayotte",
     "contact@cma-grandest.fr": u"Grand-Est",
@@ -65,10 +65,10 @@ recipients_geography = {
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
     "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
-    "guimbert@cma-france.fr": u"Occitanie",
+    "e-formation@crma-occitanie.fr": u"Occitanie",
     "e-formationcontinuepaca@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
     "vincent.bayol@cma-reunion.fr": u"La-Reunion",
-    "guimbert@cma-france.fr": u"Guyanne",
+    "l.lucenay@cfa-guyane.fr": u"Guyanne",
     "guimbert@cma-france.fr": u"Saint-Pierre-et-Miquelon",
     "guimbert@cma-france.fr": u"Saint-Barthelemy",
     "guimbert@cma-france.fr": u"Saint-Martin",
@@ -431,7 +431,7 @@ for recipient in recipients_geography:
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
-    msg['Subject'] = "Rapport formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
+    msg['Subject'] = "Rapports formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
 
     attachment = file_all_values
     part = MIMEBase('application', 'octet-stream')
