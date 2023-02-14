@@ -60,7 +60,7 @@ recipients_geography = {
     "secretariat.fpc@cma-martinique.com": u"Martinique",
     "mbuisson@cmamayotte.com": u"Mayotte",
     "contact@cma-grandest.fr": u"Grand-Est",
-    "formationscma@cma-hautsdefrance.fr": u"Haut-de-France",
+    "formationscma@cma-hautsdefrance.fr": u"Hauts-de-France",
     "alexandre.chaubet-tavenot@cma-idf.fr": u"Ile-de-France",
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
@@ -111,16 +111,10 @@ if register_form is not None:
 
 NICE_HEADER = list(NICE_HEADERS_FORM)
 # NICE_HEADER.extend(["QP-Axe1","QP-Axe1p","QP-Axe3","QP-Axe4","QP-Axe5","QP-Axe7","QP-Axe8","QP-Axe9","QP-Axe9p","QP-Axe10","QP-Axe11","QP-Axe12","Note de cas pratique"])
-
 TECHNICAL_HEADER = list(HEADERS_FORM)
 # TECHNICAL_HEADER.extend(["score1","score1p","score3","score4","score5","score7","score8","score9","score9p","score10","score11","score12","cas_pratique_grade"])
-
 HEADERS_USER.extend(NICE_HEADER)
-
 HEADER = HEADERS_USER
-
-# print TECHNICAL_HEADER
-
 
 course_ids=[
     "course-v1:academie-digitale+FC_B50+2022",
@@ -128,7 +122,7 @@ course_ids=[
     "course-v1:academie-digitale+FC_B20+2022",
     "course-v1:academie-digitale+FC_B40+2022",
     "course-v1:academie-digitale+FC_B30+2022"
-    ]
+]
 
 def get_time_tracking(enrollment):
 
@@ -247,7 +241,6 @@ for user_profile in user_profiles:
         potentially_non_enrolled_user_ids.append(user_profile.user_id)
 
 users_data = {}
-
 # Now get info for all users enrolled in courses
 j=0
 for j in range(len(course_ids)):
@@ -266,10 +259,14 @@ for j in range(len(course_ids)):
     for i in range(len(enrollments)):
 
         # FOR DEBUG PURPOSES
-        # if i > 3:
+        # if i > 50:
         #    break
 
         user = enrollments[i].user
+        # Look for email and remove @weuplearning
+        if user.email.find('@weuplearning') != -1 or user.email.find('@themoocagenc') != -1 :
+            continue
+
         enrollment_user = enrollments.filter(course_id=course_key).filter(user=user.id).values('created')
         enrollment_date = enrollment_user[0]['created'].strftime("%m/%d/%Y")
         #As the user is enrolled in something remove it from potentially non enrolled users
@@ -311,7 +308,6 @@ for j in range(len(course_ids)):
         # users_data[user.id]["data"].append(first_connection)
 
         #get global time tracking
-        log.info(user)
         # global_time = get_time_tracking(enrollments[i])
 
         # users_data[user.id]["global_time"] += global_time
@@ -322,11 +318,12 @@ for user_id in potentially_non_enrolled_user_ids:
     users_data[user.id]["data"] = get_user_info(User.objects.get(id=user_id))
     # users_data[user.id]["global_time"] = 0
 
+
 for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_all_values = '/home/edxtma/csv/semaine_precedente_formulaire_complete.xls'
+    filename_all_values = '/home/edxtma/csv/echantillon_complet.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -342,28 +339,25 @@ for recipient in recipients_geography:
         # user_data[list_index] = str(timedelta(seconds=global_time))
                     
         # unidecode and avoid spaces and dashes
-        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
-        unidecoded_user_field =  ""
+        #script may fail as user_data[6] seems to be int in some cases, meaning region is incorrectly provided
         try:
-            unidecoded_user_field = unidecode(user_data[7].lower()).replace(" ","").replace("-","").replace("'","")
+            unidecoded_user_field = unidecode(user_data[6].lower()).replace(" ","").replace("-","").replace("'","")
         except:
-            pass
-        unidecoded_recipient_geo = ""
+            unidecoded_user_field = ""
+
         try:
             unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") 
         except:
-            pass
+            unidecoded_recipient_geo = ""
+
 
         if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
             for i in range(len(user_data)):
                 try:
                     sheet.write(j, i, user_data[i])
-
                 except:
                     pass
-
             j = j + 1
-
         # user_data[list_index] = 'tma_global_time'
 
     output = BytesIO()
@@ -371,43 +365,38 @@ for recipient in recipients_geography:
     file_all_values = output.getvalue()
 
 
-
-    # WRITE FILE FOR YESTERDAY ONLY
+    # WRITE FILE FOR LAST WEEK ONLY
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_yesterday = '/home/edxtma/csv/semaine_precedente_formulaire_complete.xls'
+    filename_lastweek = '/home/edxtma/csv/semaine_precedente.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
         sheet.write(0, i, HEADER[i],style_title)
 
     j = 1
+    now =  datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     for user in users_data:
         user_data = users_data[user]["data"]
 
-
-        # We make sure that only new users are in the report
-        date_joined = user_data[0]
-        date_joined = datetime.strptime(user_data[0], '%d %b %y')
-        now =  datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-
-        if not(date_joined >=  now - timedelta(days=1) and date_joined < now):
-            continue
-
         # unidecode and avoid spaces and dashes
-        #script may fail as user_data[11] seems to be int in some cases, meaning region is incorrectly provided
-        unidecoded_user_field =  ""
-        log.info(user_data)
         try:
-            unidecoded_user_field = unidecode(user_data[11].lower()).replace(" ","").replace("-","").replace("'","")
+            unidecoded_user_field = unidecode(user_data[6].lower()).replace(" ","").replace("-","").replace("'","")
         except:
-            pass
-        unidecoded_recipient_geo = ""
+            unidecoded_user_field =  ""
+
         try:
             unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","")
         except:
-            pass
+            unidecoded_recipient_geo = ""
+
         if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
+
+            # We make sure that only new users are in the report
+            date_joined = user_data[0]
+            date_joined = datetime.strptime(user_data[0], '%d %b %y')
+            if not(date_joined >=  now - timedelta(days=7) and date_joined < now):
+                continue
 
             for i in range(len(user_data)):
                 try:
@@ -416,22 +405,20 @@ for recipient in recipients_geography:
                     pass
             j = j + 1
 
-
     output = BytesIO()
     wb.save(output)
-    file_yesterday = output.getvalue()
+    file_lastweek = output.getvalue()
 
-    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits aux formations disponibles sur formation.artisanat.fr pour votre r&eacute;gion: "+recipients_geography[recipient]+".<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe formation-artisanat.fr</p></body></html>"
 
+    html = "<html><head></head><body><p>Bonjour,<br/><br/>Vous trouverez en PJ le rapport de donn&eacute;es des inscrits aux formations disponibles sur formation.artisanat.fr pour votre r&eacute;gion: "+recipients_geography[recipient]+".<br/><br/>Pour toute question sur ce rapport merci de contacter technical@themoocagency.com.<br/><br/>Bonne r&eacute;ception<br><br>L'&eacute;quipe formation.artisanat.fr</p></body></html>"
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
     toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr", "alexandre.berteau@weuplearning.com"]
-    # toaddr = ["technical@themoocagency.com"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
-    msg['Subject'] = "Rapports formation-artisanat.fr - " + time.strftime("%d.%m.%Y")
+    msg['Subject'] = "Rapports formation.artisanat.fr - " + time.strftime("%d.%m.%Y")
 
     attachment = file_all_values
     part = MIMEBase('application', 'octet-stream')
@@ -440,11 +427,11 @@ for recipient in recipients_geography:
     part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_all_values))
     msg.attach(part)
 
-    attachment = file_yesterday
+    attachment = file_lastweek
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(attachment)
     encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_yesterday))
+    part.add_header('Content-Disposition', "attachment; filename= %s" % os.path.basename(filename_lastweek))
     msg.attach(part)
 
     server = smtplib.SMTP('mail3.themoocagency.com', 25)
@@ -459,3 +446,5 @@ for recipient in recipients_geography:
     log.info('Email sent to '+str(toaddr))
 
 
+# 30 0 * * MON sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/academie-digitale/utils/grade_report.py
+# sudo -H -u edxapp /edx/bin/python.edxapp /edx/app/edxapp/edx-microsite/academie-digitale/utils/grade_report.py
