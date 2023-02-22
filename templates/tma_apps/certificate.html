@@ -14,7 +14,6 @@ import json
 from tma_apps.tma_support_functions import tma_verify_access
 
 primary_color = configuration_helpers.get_value('primary_color')
-background_image = '/media/microsite/hedis/auto/images/bg_img_cert.jpg'
 
 %>
 
@@ -153,9 +152,23 @@ users_for_validation = [
   "alexandre.berteau@themoocagency.com"
 ]
 
+custom_field_groupe = ""
+custom_field = ""
+background_image = '/media/microsite/hedis/auto/images/bg_img_cert.jpg'
+org_name = "L'équipe Hedis"
+
+try:
+  custom_field = json.loads(user.profile.custom_field)
+  custom_field_groupe = custom_field['groupe']
+
+  if custom_field_groupe == 'Groupe BSF':
+    background_image = '/media/microsite/hedis/auto/images/bg_img_cert_bsf.png'
+    org_name = "BUNZL Safety France "
+
+except:
+  pass
 
 %>
-
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 
@@ -292,10 +305,7 @@ users_for_validation = [
       <div id="internal-border" >
           <div id="certificate-title">Certificat de Réussite</div>
           <div id='frame'>
-            <p id='line01'>L'équipe <span style="text-transform: capitalize;">
-              ${configuration_helpers.get_value('course_org_filter')} 
-            </span> 
-            certifie que </p>
+            <p id='line01'><span>${org_name} </span> certifie que </p>
             <h3 id='fullname' >${first_name} ${last_name}</h3>
             <p id='line02' >A validé le cours :</p>
             <h4 id='course_name'>${course_name}</h4>
