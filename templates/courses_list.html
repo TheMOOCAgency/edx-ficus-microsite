@@ -92,8 +92,7 @@ third_list.sort(key=lambda x: x.id)
         <ul class="courses-listing">
           %for course in first_list:
             <li class="courses-listing-item">
-            <!-- CA - La cliente a demandé a masquer le cours 'Hygiene alimentaire' le 15/02/23 -->
-            ## <%include file="course.html" args="course=course" />
+            <%include file="course.html" args="course=course" />
             </li>
           %endfor 
           %for course in second_list:
