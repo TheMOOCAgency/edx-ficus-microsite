@@ -274,11 +274,35 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
           ##<li class="important-dates-item"><span class="icon fa fa-clock-o" aria-hidden="true"></span><p class="important-dates-item-title">${_('Course Length')}</p><span class="important-dates-item-text course-length">${_('{number} weeks').format(number=15)}</span></li>
 
-          %if course_price and (can_add_course_to_cart or is_cosmetic_price_enabled):
+          <style>
+          .vat-price{
+            font-style: italic;
+            font-size:0.75em;
+            padding-left: 20px;
+          }
+          </style>
+          <script>
+          $("section h2 font").each(function (){$(this).attr('color','white');});
+          $("section h2").each(function (){$(this).css('color','white');});
+          </script>
+          <%
+          def isfloat(value):
+            try:
+              float(value)
+              return True
+            except ValueError:
+              return False
+          %>
+          %if course_price:
             <li class="important-dates-item">
               <span class="icon fa fa-money" aria-hidden="true"></span>
               <p class="important-dates-item-title">${_("Price")}</p>
-              <span class="important-dates-item-text">${course_price}</span>
+            % if isfloat(course_price.replace('€','')):
+              <span class="important-dates-item-text">${course_price.replace('€','')}€HT/VAT Excluded<br/>
+              <span class="vat-price">${int(float(course_price.replace('€',''))*1.2)}€TTC/VAT Included</span></span>
+            % else:
+             <span class="important-dates-item-text">${course_price}<br/>
+            % endif
             </li>
           %endif
 

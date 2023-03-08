@@ -1,40 +1,24 @@
 <%page expression_filter="h"/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from openedx.core.djangolib.markup import HTML
-%>
+<%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
-<%namespace name='static' file='../static_content.html'/>
-<%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'about'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>About</p>"
-%>
 
 <%block name="pagetitle">${_("About")}</%block>
-<style>
-main { 
- background-color: #fff;
-}
-</style>
-<main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("About")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-<section class="static-container about">
-${_template | n}
-</section>
 
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="container about" style='font-size:1.1em;line-height:1.5em;'>
+        <h1>${_("About")}</h1>
+        <p>Depuis plus de 70 ans, <b>l’IFOCA</b>, développeur de compétences, est spécialisé dans l’enseignement des technologies du caoutchouc. Cet institut professionnel, bénéficie d’une synergie forte au sein du <b>C</b>entre <b>F</b>rançais du <b>C</b>aoutchouc et des <b>P</b>olymères, avec le <b>L</b>aboratoire de <b>R</b>echerche et de <b>C</b>ontrôle du <b>C</b>aoutchouc et des <b>P</b>olymères (LRCCP) et la fondation du Caoutchouc (FDCA). </p>
+<p>En 2015, l'IFOCA s'est associé avec <a href="//themoocagency.com">The MOOC Agency</a> pour vous proposer une offre de formation en ligne, sous forme de Small Private Online Courses (SPOCs). Cette plateforme est l'aboutissement de ce partenariat.</p>
+<p> Vous pouvez donc bénéficier à votre rythme et en toute liberté de formations dispensées par des experts de l'IFOCA et du LRCCP où que vous soyez !</p>
+<p> N'hésitez pas à nous contacter via <a href="mailto:contact@ifoca.themoocagency.com">contact@ifoca.themoocagency.com</a> pour plus d'informations sur cette offre digitale.</p>
+<p>En savoir plus sur l’IFOCA : <a href="http://www.ifoca.com/">www.ifoca.com</a></p>
+<p>
+<div style="float:right"><p style="text-align:right">Virginie Papin<br>
+Responsable Formation Continue IFOCA<br><br>
+<img src="/asset-v1:IFOCA+3SMMF+2016Q3+type@asset+block@virginie_papin2.jpg" width="20%"></img>
+</p>
+</div>
+</p>
+    </section>
 </main>
+

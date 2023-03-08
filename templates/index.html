@@ -15,41 +15,14 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
 
-          </div>
+       <header style="background-image: url('/media/microsite/ifoca/IFOCA_08_06_2016_BD-1281_3.jpg'); height: 600px;">
+        <div class="outer-wrapper" style="padding-top: 10px;">
+          <div class="title" style="margin-left: 0px; width: 500px; background-color: rgba(255, 255, 255, 0.7);">
+            <div class="heading-group"><h1 style="font-size: 36px; color: rgb(46, 59, 140);">Les SPOCs de l'IFOCA !</h1><p style="margin-top: 5px;">Apprenez en toute liberté</p><p style="margin-top: 5px;">Pour suivre un SPOC IFOCA :</p><p style="margin-top: 5px;">1) Choisissez le SPOC de votre choix dans le catalogue ci-dessous</p><p style="margin-top: 5px;">2) Inscrivez-vous au SPOC de votre choix et activez votre compte</p><p style="margin-top: 5px;">3) Remplissez le bulletin d’inscription avec votre service RH ou payer en ligne via Paypal</p><br><br><p style="margin-top: 5px;">To follow a IFOCA SPOC:</p><p style="margin-top: 5px;">1) Choose the SPOC you're interested in in the catalog below</p><p style="margin-top: 5px;">2) Register to the SPOC of your choice and activate your account</p><p style="margin-top: 5px;">3) Fill the registration form in with your HR service or pay on line by Paypal</p></div>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+          <div style="vertical-align:bottom;float:right;font-size:12px;">Institut de Formation du Caoutchouc depuis 70 ans</div></div>
+
         </div>
 
       </header>

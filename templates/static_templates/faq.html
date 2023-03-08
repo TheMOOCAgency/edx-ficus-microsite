@@ -1,38 +1,126 @@
 <%page expression_filter="h"/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from openedx.core.djangolib.markup import HTML
-%>
+<%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
-<%namespace name='static' file='../static_content.html'/>
-<%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'faq'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>Faq</p>"
-%>
+
 <%block name="pagetitle">${_("FAQ")}</%block>
-<style>
-main {
- background-color: #fff;
-}
-</style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("FAQ")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-<section class="static-container faq">
-${_template | n}
+    <section class="container about" style='line-height:1.5em'>
+
+<h1 style="margin: 0px 0px 30px; color: rgb(60, 60, 60); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 2em; line-height: 1.4em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-align: center; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">FAQ</h1>
+
+<h2 style="margin: 0px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">COMMENT PUIS-JE M'INSCRIRE ?<br> <span style="font-style: italic; font-weight: normal;">hOW cAN i REGISTER?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Il
+vous suffit de sélectionner le SPOC de votre choix et de vous créer un
+compte.Vous recevrez un email d'activation de votre compte.<span>&nbsp;</span><br style="font-family: 'Open Sans',normal,normal;"> 2 cas de figures :<span>&nbsp;</span><br style="font-family: 'Open Sans',normal,normal;"> - Vous souhaitez suivre un SPOC dans le cadre d'une formation d'entreprise : vous pourrez remplir un<span>&nbsp;</span><a href="https://spoc.ifoca.com/media/assets/Bulletin_Inscription-SPOC_IFOCA.pdf" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">bulletin d'inscription correspondant</a>, en accord avec votre service RH pour la prise en charge financière de cette formation à distance et l'adresser à<span>&nbsp;</span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">contact@ifoca.themoocagency.com</a>.<span>&nbsp;</span><br style="font-family: 'Open Sans',normal,normal;">
+- Vous souhaitez suivre un SPOC dans un cadre personnel : vous pourrez
+payer directement votre formation en ligne en suivant le lien dans
+votre mail d'activation. Votre inscription sera alors enregistrée dans
+les jours qui suivent.</p>
+
+
+<p style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; text-align: left; direction: ltr; unicode-bidi: embed;"><span style="font-family: Open Sans; color: black; font-style: italic; font-size: 16px;">You
+just have to select the SPOC you wish to follow and to create an
+account. You will then&nbsp; receive an email activation for your
+account.<br> 2 specific cases:<br> </span><span style="font-family: Open Sans; color: black; font-style: italic; font-size: 16px;">- You want to follow a SPOC as part of your company training plan : Just adress your <a href="https://spoc.ifoca.com/media/assets/Bulletin_Inscription-SPOC_IFOCA.pdf" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">registration form</a> to </span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">contact@ifoca.themoocagency.com</a>.<span> </span><span style="font-family: Open Sans; color: black; font-style: italic; font-size: 16px;">A training agreement wiil be established for your company.</span><span style="font-size: 16pt; font-family: Open Sans; color: black; font-style: italic;"></span><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><small><span><br> </span></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></small><br> <span style="font-family: Open Sans; color: black; font-style: italic; font-size: 16px;">-
+You do the training for personnal use or outside your company training
+plan : you can directly pay for your training online by following the
+link in your activation email. Your registration will be effective the
+following days&nbsp;<br></span></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">QUEL EST LE TARIF D'UNE FORMATION EN LIGNE ?<br> <span style="font-style: italic; font-weight: normal;">What is the price for an online training ?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Le
+tarif de chaque formation peut varier, référez-vous aux pages de
+présentation des formations, en cliquant sur la vignette de la
+formation depuis la page d&#8217;accueil.</p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><span style="font-style: italic;">The
+price may vary following the training. Refer to the page About by
+clicking on the thumbnail of the training on the homepage. </span></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">QUELLE EST LA DURÉE D'UNE FORMATION ?<br> <span style="font-weight: normal; font-style: italic;">hOW LONG DOES THE TRAINING LAST ?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">La
+durée de chaque formation peut varier, référez-vous aux pages de
+présentation des formations, en cliquant sur la vignette de la
+formation depuis la page d'accueil.<br> <span style="font-style: italic;">The
+duration of the training may vary . Refer to the page About by clicking
+on the thumbnail corresponding to the training on the homepage. </span></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">QUAND POURRAIS-JE SUIVRE LA FORMATION ?<br> <span style="font-weight: normal; font-style: italic;">When When I be able to follow the training?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Vous
+pouvez suivre la formation à votre rythme et en toute
+liberté&nbsp;jusqu'à la date de fermeture de session annoncée. Aucun
+report ne pourra être pris en compte.<span>&nbsp;</span><b style="font-weight: bold; font-family: 'Open Sans',normal,normal;">A
+l&#8217;identique des formations en présentiel, nos SPOCs&nbsp;(Small Private
+Online Courses)&nbsp;font l&#8217;objet d&#8217;une convention de formation par
+identifiant et nous enregistrons les temps de connexion et les
+résultats aux exercices et différents quiz des apprenants qui se
+doivent donc dans le temps imparti,&nbsp;&nbsp;de suivre la formation.</b></p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><b style="font-weight: bold; font-family: 'Open Sans',normal,normal;"><br> </b><span style="font-family: 'Open Sans',normal,normal; font-style: italic;">You can follow the training freely and at your own paced until the ending date. No postoponed will be accounted. <span style="font-weight: bold; font-style: italic;">As for "classroom" training sessions, our SPOCs are subjected to&nbsp; a training&nbsp; agreement by identifier . We record </span></span><b style="font-weight: bold; font-family: 'Open Sans',normal,normal;"><span style="font-weight: bold; font-style: italic;">the connexion time and the results to the quiz of the learners. You must follow the formation in the allocated time.</span><br> </b></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">CES FORMATIONS PEUVENT-ELLES ÊTRE PRISES EN CHARGE PAR MON EMPLOYEUR ?<br> <span style="font-style: italic; font-weight: normal;">Can my employer support my trainings ?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Toute
+inscription à une formation d&#8217;une convention de formation
+professionnelle établie en 2 exemplaires entre l&#8217;IFOCA et l&#8217;Entreprise
+ou l&#8217;Organisme la représentant. L&#8217;inscription à la session ne devient
+définitive qu&#8217;à réception par l&#8217;IFOCA de cette Convention de Formation
+Professionnelle signée par l&#8217;Entreprise.</p>
+
+<p style="margin: 20px 0px 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">La
+facture, correspondant au tarif de la session, majoré de la TVA (20%)
+est envoyée à la date de clôture de la session ou deux mois après la
+date de votre inscription. Cette somme couvre l&#8217;intégralité des frais
+engagés de l&#8217;Organisme de formation pour cette session.</p>
+
+<p style="margin: 20px 0px 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">OPCALIA
+a été retenue comme OPCA de la branche du Caoutchouc. Pour tout
+renseignement sur le financement de la formation, vous pouvez également
+vous adresser à votre conseiller formation dédié<span>&nbsp;</span><a href="https://spoc.ifoca.com/www.opcalia.com" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">www.opcalia.com</a><span>&nbsp;</span>ou au SNCP.</p>
+
+<p style="margin: 20px 0px 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Se référer à notre CGU ou pour toute autre question, contactez-nous via<span>&nbsp;</span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;">contact@ifoca.themoocagency.com</a>.<br><br></p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><em>Any
+registration to a training of a professional training agreement
+established in 2 copies between IFOCA and the Company or the Body
+representing it. Registration for the session becomes final only upon
+receipt by IFOCA of this Vocational Training Agreement signed by the
+Company.</em></p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><em>The
+invoice, corresponding to the rate of the session, plus VAT (20%) is
+sent on the closing date of the session or two months after the date of
+your registration. This sum covers the full costs incurred by the
+training body for this session.</em></p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><em>OPCALIA
+has been selected as OPCA of the Rubber branch. For more information on
+the financing of training, you can also contact your dedicated training
+consultant www.opcalia.com or the SNCP.</em></p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><em>Refer to our CGU or for any other question, contact us via <span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none;"> contact@ifoca.themoocagency.com.</a><br><br></span></em></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">QUAND PUIS-JE M&#8217;INSCRIRE ?<br> <span style="font-weight: normal; font-style: italic;">When can I register ?</span></h2>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">Vous
+pouvez vous inscrire jusqu'à une date limite de 10 jours après le
+démarrage de la session. Au-delà, nous vous préconiserons de vous
+inscrire à la prochaine session programmée.&nbsp;</p>
+
+<p style="margin: 0px; color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);"><span style="color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;"><span style="font-style: italic;">You
+can register until a 10 days deadline after the start of the session.
+Beyond that, we will recommend that you register for the next scheduled
+session.</span></span></p>
+
+<h2 style="margin: 40px 0px 15px; color: rgb(202, 38, 52); font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 1.2em; line-height: 1.2em; font-family: 'Open Sans',normal,normal; letter-spacing: 1px; text-transform: uppercase; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">J'AI UNE AUTRE QUESTION<br> <span style="font-weight: normal; font-style: italic;">I have more questions</span></h2>
+
+<p><span style="color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">Contactez-nous via<span>&nbsp;</span></span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: normal; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">contact@ifoca.themoocagency.com</a><span style="color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">.<br> <span style="font-style: italic;">Contact us via</span> </span><a href="mailto:contact@ifoca.themoocagency.com" style="color: rgb(0, 121, 188); font-style: italic; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: 'Open Sans',normal,normal; text-decoration: none; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255);">contact@ifoca.themoocagency.com</a><span style="color: rgb(34, 34, 34); font-family: 'Open Sans',normal,normal; font-size: 16px; font-style: italic; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">.</span></p>
+
 </section>
 </main>
+

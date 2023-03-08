@@ -1,35 +1,269 @@
 <%page expression_filter="h"/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
-from openedx.core.djangolib.markup import HTML
-%>
+<%! from django.utils.translation import ugettext as _ %>
 <%inherit file="../main.html" />
-<%namespace name='static' file='../static_content.html'/>
-<%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'cgu'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>Cgu</p>"
-%>
+
 <%block name="pagetitle">${_("Terms of Service")}</%block>
-<%
-static.get_value('domain_prefix')
-%>
-<style>
-main {
- background-color: #fff;
-}
-</style>
+
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
-      ${_template | n}
+        <h1>${_("Terms of Service")}</h1>
+<p style="text-align:justify;">
+    IFOCA<br>
+    60 Rue Auber<br>
+    94400 Vitry-sur-Seine<br>
+    Tel : 01 49 60 57 57<br>
+</p>
+<p style="text-align:justify;">
+    La présente Plateforme Spoc.ifoca.com (« la Plateforme ») est gérée par Variable – The MOOC Agency et l’IFOCA. Elle est hébergée par OVH.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA est l’éditeur du Contenu mis en ligne sur la Plateforme, ainsi que de toutes documentations et données et de tous droits de Propriété
+    Intellectuelle y afférents.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA vous fournit un accès à la Plateforme et aux prestations de services et produits disponibles sur la Plateforme. L’accès et l’utilisation de la
+    Plateforme et son Contenu sont régis par les présentes conditions d’utilisation et générales de ventes (définies comme étant le « Contrat »). En accédant
+    ou en utilisant la présente Plateforme et son Contenu, l’Utilisateur accepte d’être lié par le Contrat et reconnaît et accepte ses conditions.
+</p>
+<p style="text-align:justify;">
+    Par ailleurs, en utilisant la présente Plateforme et son Contenu, l’Utilisateur déclare avoir la capacité au sens légal de conclure un contrat.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 1 – Définitions</h2>
+
+    Le terme « Utilisateur » désigne l’individu qui s’inscrit pour accéder et utiliser la Plateforme et les Prestations et Produits disponibles sur cette
+    Plateforme.
+</p>
+<p style="text-align:justify;">
+    Le terme « Formateur » désigne le/les professeurs ou le/les intervenants qui apparaî(ssen)t à l’écran et/ou a/ont conçu et/ou intervien(nen)t dans les
+    Produits et les Prestations.
+</p>
+<p style="text-align:justify;">
+    Le terme « Prestation(s) » désigne les services disponibles sur la Plateforme, notamment les interactions (chat, forums, exercices interactifs, lab
+    virtuels, etc) qui permettent aux Utilisateurs d’interagir entre eux et avec le Formateur.
+</p>
+<p style="text-align:justify;">
+    Le terme « Produit » désigne l’ensemble des contenus de formation, quel que soit le support, conçus par l’IFOCA et le Formateur et délivrés sur la
+    Plateforme.
+</p>
+<p style="text-align:justify;">
+    Le terme « Formation » désigne un ensemble de Prestations et de contenus de formation.
+</p>
+<p style="text-align:justify;">
+    Le terme « Contenu » désigne l’ensemble constitué par la Plateforme, les Produits et les Prestations
+</p>
+<p style="text-align:justify;">
+    Le terme « Candidat » désigne l’individu qui s’inscrit spécifiquement pour passer l’examen en vue d’obtenir le certificat attestant du suivi et/ou de sa
+    réussite sur tout ou partie des enseignements disponibles sur la Plateforme.
+</p>
+<p style="text-align:justify;">
+    Le terme « Certificat » désigne donc un document, électronique ou papier, attestant du suivi et/ou de la réussite d’un Candidat sur tout ou une partie des
+    enseignements disponibles sur la Plateforme. Le périmètre étant précisé dans le Certificat.
+</p>
+<p style="text-align:justify;">
+    Le terme « Compte Personnel » désigne le compte en ligne de l’Utilisateur inscrit. Pour être Candidat, l’individu doit auparavant être un Utilisateur.
+</p>
+<p style="text-align:justify;">
+    Le terme « Date et Heure Limites » désigne la date et l’heure à partir de laquelle l’annulation d’une Candidature entraine des frais.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 2 – Objet du Contrat</h2>
+
+    Les présentes Conditions d’Utilisation et Générales de Vente sont un Contrat entre l’IFOCA et l’Utilisateur et, le cas échéant, le Candidat au Certificat
+    des différents enseignements de la Plateforme. Elles sont destinées à définir les conditions qui régissent l’accès et l’utilisation de la Plateforme et son
+    Contenu.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 3 – Propriété Intellectuelle</h2>
+
+    3.1. L’usage à titre personnel par l’Utilisateur de la Plateforme des Produits et Prestations n’entraîne en aucun cas transfert d’un droit quelconque à
+    l’Utilisateur au titre de la propriété littéraire et artistique, y compris toute prolongation de cette dernière. L’ensemble des droits patrimoniaux
+    attachés à la Plateforme, au Produit et Prestation, reste la propriété de son propriétaire initial. L’Utilisateur reconnaît par le présent contrat qu’il
+    n’acquiert aucun droit sur la Plateforme, les Produits et les Prestations, notamment au titre du droit de reproduction et au titre du droit de
+    représentation.
+</p>
+<p style="text-align:justify;">
+    3.2. Tous les droits sur les noms présents dans le Contenu et/ou les Prestations et la Plateforme, noms de sociétés, dénominations commerciales, les
+    marques, les graphismes, logos, boutons d’icônes, les scripts, les présentations et les modèles qu’ils apparaissent ou non en caractères majuscules ou avec
+    le symbole ©, ® ou ™, appartiennent exclusivement à leur propriétaire respectif et sont protégés contre toute reproduction, imitation, dilution ou
+    utilisation trompeuse en vertu des lois nationales et internationales en vigueur sur les marques, les droits d’auteur et les droits de propriété
+    intellectuelle. Toute utilisation autre que celle stipulée dans le présent Contrat est expressément interdite
+</p>
+<p style="text-align:justify;">
+    3.3. Tout le Contenu présent ou rendu disponible à travers la Plateforme, tels que (liste non exhaustive) les textes, les graphiques, les logos, les
+    boutons, les images, les vidéos, les codes, les morceaux de musique, les téléchargements numériques, et les compilations de données, est la propriété de
+    l’IFOCA, de ses sociétés affiliées ou de ses fournisseurs de contenu et est protégé par le droit de la propriété intellectuelle, d’auteur et de protection
+    des bases de données. L’Utilisateur s’interdit d’extraire et/ou de réutiliser de façon systématique tout ou partie du Contenu sans l’autorisation expresse
+    et écrite de l’IFOCA. En particulier, l’Utilisateur s’engage à ne pas utiliser de robot d’aspiration de données, ou tout autre outil similaire de collecte
+    ou d’extraction de données pour extraire (en une ou plusieurs fois), pour réutiliser une partie substantielle d’une quelconque partie du Contenu, sans
+    l’accord express et écrit de l’IFOCA. L’Utilisateur ne doit pas non plus créer et/ou publier ses propres contenus qui comporteraient des parties
+    substantielles du Contenu et de la Plateforme sans l’accord express et écrit de l’IFOCA.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 4 - Licence et Accès</h2>
+
+    4.1 Licence. Sous réserve du respect des présentes Conditions d’Utilisation et Générales de Vente et du paiement de toutes les sommes applicables, l’IFOCA
+    ou ses fournisseurs de contenu accorde à l’Utilisateur une licence limitée, non exclusive, non transférable, non sous licenciable à l’accès et à
+    l’utilisation personnelle et non commerciale du Contenu et de la Plateforme.
+</p>
+<p style="text-align:justify;">
+    Cette licence n’inclut aucun droit d’utilisation d’une Prestation ou du Contenu pour la vente ou tout autre utilisation commerciale ; de collecte et
+    d’utilisation de tout ou partie du Contenu; de toute utilisation dérivée du Contenu ; de tout téléchargement ou copie des informations d’un compte pour un
+    autre commerçant ; ou de toute utilisation de robot d’aspiration de données, ou autre outil similaire de collecte ou d’extraction de données.
+</p>
+<p style="text-align:justify;">
+    4.2. Nonobstant ce qui précède, en application du présent Contrat, l’IFOCA autorise l’Utilisateur à accéder et utiliser la Plateforme pour son utilisation
+    personnelle
+</p>
+<p style="text-align:justify;">
+    L’Utilisateur n’est pas autorisé, , à copier, modifier, distribuer, transmettre, publier, accorder en licence, créer des œuvres dérivées, vendre, toute
+    information, tout Produit, ou toute Prestation issu (s) de la Plateforme, sans l’accord expresse de l’IFOCA.
+</p>
+<p style="text-align:justify;">
+    Dans l’hypothèse où l’Utilisateur fait usage du Contenu autrement que conformément aux stipulations ci-dessus, l’Utilisateur est susceptible de violer la
+    législation applicable en matière de propriété intellectuelle et d’encourir des sanctions. l’IFOCA peut refuser l’accès à tout ou partie du Contenu sans
+    préavis si l’Utilisateur adopte un comportement ou mène des activités, qui, de l’avis de l’IFOCA et à son entière discrétion, enfreignent le présent
+    Contrat, les droits de l’IFOCA ou de tout tiers ou qui sont autrement inappropriés.
+</p>
+<p style="text-align:justify;">
+    4.3. Afin de bénéficier du Contenu, il faut être Utilisateur et créer un Compte Personnel à l’aide d’une adresse email et d’un mot de passe. Ce mot de
+    passe et cet identifiant sont strictement personnels et confidentiels entre l’IFOCA et l’Utilisateur. L’Utilisateur est responsable du maintien de la
+    confidentialité de son Compte Personnel, des restrictions d’accès à son ordinateur. L’Utilisateur prend les mesures nécessaires pour s’assurer que son mot
+    de passe reste confidentiel et sécurisé et doit informer l’IFOCA immédiatement s’il a des raisons de croire que son mot de passe est connu d’un quelconque
+    tiers. L’Utilisateur est par ailleurs responsable de la validité et du caractère complet des informations fournies et doit informer l’IFOCA de tout
+    changement concernant ces informations. L’accès aux informations fournies par l’Utilisateur est assuré par la Plateforme pour toute modification par
+    l’Utilisateur.
+</p>
+<p style="text-align:justify;">
+    4.4. Les Utilisateurs peuvent adresser des critiques, des commentaires ou tout autre et soumettre des suggestions, des idées, des questions ou toute autre
+    information tant que ce contenu n’est pas illégal, obscène, abusif, menaçant, diffamatoire, calomnieux, contrevenant aux droits de propriété
+    intellectuelle, ou préjudiciable à des tiers ou répréhensible et ne consiste pas ou ne contient pas de virus informatiques, de militantisme politique, de
+    contenus à caractère pornographique, de sollicitations commerciales, de chaînes de courriers électroniques, de mailing de masse ou toute autre forme de «
+    spam ». l’IFOCA se réserve le droit mais n’a pas l’obligation, de retirer ou de modifier tout contenu. Si l’Utilisateur publie du contenu ou tout autre
+    matériel, il accorde : (a) à l’IFOCA, gratuitement, le droit, transférable et sous-licenciable, d’utiliser, de reproduire, de modifier, d’adapter, de
+    publier, de traduire, de créer une œuvre dérivée, de distribuer, d’afficher ce contenu dans le monde entier et dans tout type de média ; et (b) l’IFOCA,
+    ses sous-licenciés et ses cessionnaires le droit d’utiliser le nom utilisé avec ce contenu, s’ils le veulent. Aucun droits moraux ne sont cédés au titre de
+    cette clause.
+</p>
+<p style="text-align:justify;">
+    L’Utilisateur accepte que les droits ci-dessus cédés soient irrévocables pour toute la période de protection par le droit de la propriété intellectuelle
+    associée à ce contenu ou matériel.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 5 – Droits et Obligations de l’Utilisateur et du Candidat</h2>
+
+    L’Utilisateur/Candidat s’engage sur l’exactitude des informations personnelles fournies lors de son inscription puis, le cas échéant, lors de
+    l’administration de l’examen donnant lieu à un Certificat. Ces informations seront utilisées pour l’édition de l’attestation de bonne fin et/ou du
+    certificat. l’IFOCA n’effectuera aucune modification des informations figurant sur l’attestation de bonne fin et/ou sur le certificat, si les informations
+    personnelles fournies par l’Utilisateur et/ou le Candidat lors de son inscription et/ou de l’administration des tests et de l’examen sont incorrectes. Dans
+    de telles circonstances, le Candidat devra à nouveau passer l’examen à ses frais.
+</p>
+<p style="text-align:justify;">
+    Lors de l’inscription de l’Utilisateur et lors de l’inscription du Candidat à l’examen en vue d’obtenir un Certificat, l’Utilisateur/Candidat accepte que
+    le nom indiqué durant le processus d’inscription soit celui de l’Utilisateur/Candidat passant les tests et l’examen, le cas échéant. Lors de
+    l’administration de l’Examen, le Candidat s’engage à suivre tous les processus et toutes les procédures afin de s’assurer de l’intégrité de
+    l’administration de l’Examen, notamment les processus et procédures qui font concorder le Candidat inscrit au Candidat effectivement présent. Il est de la
+    responsabilité de chaque Candidat inscrit de lire attentivement le processus d’administration de l’Examen, et notamment les prérequis techniques (webcam,
+    téléchargement d’un logiciel, maîtrise de l’anglais,…), dont il accepte expressément les conditions, avant la date de l’Examen.
+</p>
+<p style="text-align:justify;">
+    Le Candidat est informé et accepte que pour assurer l’efficacité et la sécurité de l’administration de l’Examen en vue du Certificat, une photographie du
+    visage du Candidat peut être prise et un contrôle d’identité peut être fait par webcam lors de l’examen. Le Candidat autorise expressément l’IFOCA à
+    utiliser cette photographie à des fins de communication et renonce à tout droit d’opposition d’utiliser la photographie en vertu des dispositions du
+    présent Contrat. Le Candidat renonce, par les présentes, à toute réclamation, plainte, cause d’action, tous dommages ou responsabilités sur le fondement de
+    toute protection des données ou droit au respect de la vie privée, concernant l’utilisation de la photographie, dans le cadre du présent Contrat.
+</p>
+<p style="text-align:justify;">
+    Conformément à la loi Informatique et Libertés du 6 janvier 1978 (Loi n°78-17) modifiée en 2004 (Loi n° 2004-575), l’Utilisateur bénéficie d’un droit
+    d’accès et de rectification aux informations qui le concernent. Par ailleurs, conformément aux exigences du Code de la Consommation, aux articles L.121-16
+    et suivants, l’Utilisateur s’étant inscrit pour être Candidat au Certificat dispose d’un délai de sept (7) jours pour se rétracter après la conclusion du
+    contrat sans avoir à se justifier, ni à payer de pénalités. Toutefois, le Candidat est informé de la date et heure limite d’enregistrement à l’examen en
+    vue d’obtenir le Certificat. En conséquence, si l’examen a lieu avant l’expiration du délai de rétractation de 7 jours, le Candidat reconnaît et accepte
+    expressément par l’inscription à l’examen que son droit de rétractation ne pourra être maintenu jusqu’au terme des 7 jours s’il se présente à l’examen.
+    Dans ce cas, il sera réputé avoir définitivement accepté les termes et conditions du présent Contrat.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 6 – Droits et Obligations de l’IFOCA</h2>
+
+    L’IFOCA s’engage à apporter tous les soins en usage dans la profession pour la mise en œuvre des enseignements offerts à l’Utilisateur. Néanmoins, la
+    responsabilité de l’IFOCA ne pourra être retenue en cas de retard ou de manquement à nos obligations contractuelles si le retard ou manquement est dû à une
+    cause en dehors du contrôle de l’IFOCA : cas fortuit ou cas de force majeure tel que défini par la loi applicable.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA met en œuvre tous les moyens à sa disposition pour assurer les Prestations objets des présentes Conditions de Vente. L’IFOCA est responsable de
+    tout dommage direct et prévisible au moment de l’utilisation du Contenu ou de la conclusion du contrat de vente. Dans le cadre des relations avec des
+    professionnels, l’IFOCA n’encoure aucune responsabilité pour les pertes de bénéfices, pertes commerciales, pertes de données ou manque à gagner ou tout
+    autre dommage indirect ou qui n’était pas prévisible au moment de l’utilisation du Contenu ou de la conclusion du contrat de vente.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA s’engage à garantir la confidentialité et la sécurité des informations personnelles des Utilisateurs et Candidats, sans préjudice des autorisations
+    d’utilisation des données de l’Utilisateur/Candidat prévues à l’article 5 et conformément à la loi Informatique et Libertés du 6 janvier 1978 (Loi n°78-17)
+    modifiée en 2004 (Loi n° 2004-575).
+</p>
+<p style="text-align:justify;">
+    L’IFOCA s’engage à rembourser le Candidat qui se serait rétracté au plus tard dans les 30 jours civils à compter du moment où le Candidat aura exercé son
+    droit de rétractation. L’Utilisateur reconnaît et accepte que toute annulation, en dehors du délai de rétractation applicable sur le Territoire, d’une
+    inscription à l’examen en vue d’obtenir un Certificat effectuée avant la Date Limite d’Enregistrement prévue pour cet examen, se verra appliquer des frais
+    d’annulation d’un maximum du 50% du prix payé. Il ne sera procédé à AUCUN REMBOURSEMENT, en dehors du délai de rétractation applicable sur le Territoire,
+    de toute inscription à l’examen effectuée après la Date Limite d’Enregistrement applicable sur le Territoire.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA se réserve le droit de faire des changements de Contenu, calendrier, etc, de procédures, et des termes et conditions, y compris les présentes
+    Conditions d’Utilisation et Générales de Vente à tout moment. L’Utilisateur et/ou le Candidat est soumis aux termes et conditions, procédures et Conditions
+    d’Utilisation et de Vente en vigueur au moment où il s’inscrit et les accepte. Si l’une stipulation de ces Conditions d’Utilisation et Générales de Vente
+    est réputée non valide, nulle ou inapplicable, quelle qu’en soit la raison, cette stipulation sera réputée divisible et n’affectera pas la validité et
+    l’effectivité des stipulations restantes.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 7 - Modalités d’inscription- Prix</h2>
+
+    Le tarif de chaque Formation est disponible sur la plateforme et est indiqué hors taxes. Pour s’inscrire à une Formation et acquérir un accès et une
+    licence d’utilisation tels que stipulés à l’article 4, l’Utilisateur doit faire parvenir à l’IFOCA les informations mentionnées dans le bulletin
+    d’inscription, par voie postale ou électronique.
+</p>
+<p style="text-align:justify;">
+    · Une inscription à une Formation peut faire l'objet d'une<strong> Convention de Formation Professionnelle </strong>établie en 2 exemplaires entre l'IFOCA
+    et l'entreprise ou l'organisme qui inscrivent un ou plusieurs Utilisateurs.
+</p>
+<p style="text-align:justify;">
+    · L'inscription ne devient définitive qu'à réception par l'IFOCA du paiement correspondant à cette inscription et, éventuellement, d’une Convention de
+    Formation Professionnelle afférente.
+</p>
+<p style="text-align:justify;">
+    · La facture, correspondant au prix indiqué sur la plateforme majoré de la TVA (20 %), est envoyée dès le démarrage de la formation. Cette somme couvre
+    l’intégralité des frais engagés pour la réalisation de la formation.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 8 : Conditions de paiement</h2>
+
+    <strong></strong>
+</p>
+<p style="text-align:justify;">
+    <strong>Le règlement aura lieu à réception de facture de l’IFOCA.</strong>
+</p>
+<p style="text-align:justify;">
+    Conformément aux dispositions légales, les intérêts de retards seront demandés pour tout paiement effectué au-delà de la date d’échéance. Aucun escompte ne
+    sera accordé pour paiement anticipé.
+</p>
+<p style="text-align:justify;">
+    Dans le cas d’une inscription faisant l’objet d’une Convention de Formation Professionnelle, une attestation de présence est adressée à l'Entreprise et au
+    centre payeur à la fin de la session.
+</p>
+<p style="text-align:justify;">
+    L’IFOCA se réserve le droit de modifier les prix et conditions de paiement à tout moment, en tenant compte de l’évolution du Contenu, de la Plateforme et
+    des Prestations.
+</p>
+<p style="text-align:justify;">
+    <h2>Article 9 - Droit Applicable</h2>
+
+    Le droit applicable est le droit français. Si une contestation ou un différend n’ont pu être réglés à l’amiable, le Tribunal d’Instance ou de Grande
+    Instance de Créteil sera seul compétent pour régler le litige.
+</p>
+<p style="text-align:justify;">
+    Si l’Utilisateur et/ou le Candidat enfreignent ces Conditions d’utilisation et Générales de vente et que l’IFOCA ne prend aucune action, l’IFOCA reste en
+    droit d’utiliser ses droits et voies de recours dans toutes les autres situations où l’Utilisateur/Candidat violerait ces Conditions d’utilisation et
+    Générales de vente.
+</p>
     </section>
 </main>
+
