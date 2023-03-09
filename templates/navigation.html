@@ -95,24 +95,6 @@ site_status_msg = get_site_status_msg(course_id)
             logo_size = ''
         %>
             <img class="${logo_size}" src="${logo_url}" alt="${_("{platform_name} Home Page").format(platform_name=static.get_platform_name())}"/>
-<!--
-      <div id="nav_title"><strong>MOOC</strong><br/>Experience<strong><br/>Gaz</strong></div>
-<style>
-#nav_title{
-    width: auto;
-    height: 60px;
-    line-height: 16px;
-    vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    float: left;
-    text-transform: uppercase;
-    color: #7F7F7F;
-    font-size: 16px;
-}
-</style>
--->
         </%block>
       </a>
     </h1>
@@ -133,13 +115,6 @@ site_status_msg = get_site_status_msg(course_id)
       % if user.is_authenticated():
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
-        <!--
-          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
-              <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
-          % endif
-        -->
           % if show_program_listing:
             <li class="tab-nav-item">
               <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}">
@@ -193,31 +168,8 @@ site_status_msg = get_site_status_msg(course_id)
             </li>
           % endif
         </%block>
-        <!--
-        <%block name="navigation_other_global_links">
-          % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
-                <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
-            %endif
-            % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-              <li class="item nav-global-04">
-                <a class="btn-neutral" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-              </li>
-            % else:
-              <li class="item nav-global-04">
-                % if static.get_value('course_id') is not None:
-                <a class="btn-neutral" href="/register?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Register")}</a>
-                % else:
-                <a class="btn-neutral" href="/register">${_("Register")}</a>
-                % endif
-              </li>
-            % endif
-          % endif
-        </%block>
+
       </ol>
-    -->
       <ol class="right nav-courseware list-inline">
         <%block name="navigation_sign_in">
           <li class="item nav-courseware-01">

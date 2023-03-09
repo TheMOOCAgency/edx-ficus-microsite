@@ -96,11 +96,6 @@ cours_ouv = show_courseware_link and not is_course_blocked
       </div>
     </div>
     <div class="dates">
-<!--
-% if course_overview.start is not None:
-  ${_("start")} ${course_overview.start.strftime("%d/%b/%Y")}
-% endif
--->
 % if course_overview.start is not None:
   % if int(course_overview.start.strftime("%s")) < int(datetime.datetime.now().strftime("%s")):
     Disponible depuis le ${course_overview.start.strftime("%d/%b/%Y")}

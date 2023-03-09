@@ -136,7 +136,6 @@ from django.conf import settings
 </%block>
 
 <%include file="forgot_password_modal.html" />
-
 <section class="introduction">
   <header>
     <h1 class="title">
@@ -186,7 +185,6 @@ from django.conf import settings
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <!--<span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>-->
           </li>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>

@@ -27,13 +27,6 @@ css = static.get_value('css_overrides_footer')
     <div class="colophon">
       <nav class="nav-colophon" aria-label="${_('About')}">
         <ol>
-<!--
-            % for item_num, link in enumerate(footer['navigation_links'], start=1):
-            <li class="nav-colophon-0${item_num}">
-              <a id="${link['name']}" href="${link['url']}">${link['title']}</a>
-            </li>
-            % endfor
--->
             <li class="nav-colophon-01">
               <a id="about" href="/honor">Conditions g&eacute;n&eacuterales d'utilisation</a>
             </li>
@@ -55,7 +48,6 @@ css = static.get_value('css_overrides_footer')
             ## can be included in the footer on other sites
             ## (e.g. a blog or marketing front-end) to provide a consistent
             ## user experience.  See the branding app for details.
-<!--            <img alt="organization logo" src="${footer['logo_image']}">-->
           </a>
         </p>
       </div>

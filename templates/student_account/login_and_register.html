@@ -3,6 +3,8 @@
     from django.utils.translation import ugettext as _
     from openedx.core.djangolib.js_utils import dump_js_escaped_json
     from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+    import third_party_auth
+    from third_party_auth import pipeline, provider
 %>
 <%namespace name='static' file='/static_content.html'/>
 
@@ -32,13 +34,33 @@
         </script>
 % endfor
 </%block>
-
 <div class="section-bkg-wrapper">
-    <main id="main" aria-label="Content" tabindex="-1">
-        <div id="login-and-registration-container" class="login-register" />
+    <main id="main" aria-label="Content" tabindex="-1" style="display:none !important">
+        <div id="login-and-registration-container" class="login-register"></div>
     </main>
+
+<style>
+.header-global .nav-courseware li .btn{
+  display:none !important;
+}
+</style>
+% if "/login" in request.path:
+<style>
+.login_container{
+margin-top:30vh;
+margin-left:45vw;
+width: 5vw;
+}
+.btn.btn-login.btn-middle-screen{
+color:rgba(16,6,159,1) !important;
+background:white !important;
+font-size:24px !important;
+padding: 15px 15px !important;
+border: 3px solid rgba(16,6,159,0.8) !important;
+}
+</style>
+<div class="login_container">
+<button class="btn btn-login btn-middle-screen" onclick="location.replace('/auth/login/okta-fdj/?auth_entry=register&next=%2Fdashboard')">Connexion</button>
 </div>
-<p>${configuration_helpers}</p>
-<script>
-alert('test');
-</script>
+%endif
+</div>

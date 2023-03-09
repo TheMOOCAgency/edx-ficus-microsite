@@ -12,7 +12,21 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from social.apps.django_app.default.models import UserSocialAuth
+import json
 %>
+
+<%
+logout_uri = reverse('logout')
+if user.is_authenticated():
+  if UserSocialAuth.objects.filter(user_id=user.id,provider="okta-fdj").exists():
+    logout_uri = "TEST"
+    extra_data = UserSocialAuth.objects.filter(user_id=user.id,provider="okta-fdj")[0].extra_data
+    if "id_token" in extra_data:
+      id_token = extra_data["id_token"]
+      logout_uri = "https://fdj.okta-emea.com/oauth2/0oa5coqso07PjMZLm0i7/v1/logout?id_token_hint="+id_token+"&post_logout_redirect_uri=https%3A%2F%2Ffdj.themoocagency.com%2Flogout"
+%>
+
 
 % if uses_pattern_library:
     <div class="wrapper-user-menu dropdown-menu-container logged-in js-header-user-menu">
@@ -34,7 +48,6 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
                 <%block name="navigation_dropdown_menu_links" >
                     <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
                     <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
-<!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
                 </%block>
                 <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>
             </ul>

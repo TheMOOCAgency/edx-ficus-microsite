@@ -14,6 +14,17 @@ import json
 %>
 
 
+<%
+certificate_config = configuration_helpers.get_value('CERTIFICATE_LAYOUT').get("all")
+certificate_width = certificate_config['certificate_width']
+certificate_height = certificate_config['certificate_height']
+name_position_x = certificate_config['name_position_x']
+name_position_y = certificate_config['name_position_y']
+font_size = certificate_config['font_size']
+image_url = certificate_config['certificate_url']
+%>
+
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
 <%
@@ -24,6 +35,7 @@ else :
 %>
 
 <link rel="stylesheet" href="/media/dashboard/bootstrap/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"> 
 <style>
 #global-navigation,.wrapper-footer,#tma_background_font {
   display: none !important;
@@ -31,136 +43,93 @@ else :
 body{
   text-align:center;
 }
-/*CHANGE FONT*/
-h1{
-  font-size: 35px;
-}
-h1,h2,h3,p{
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 600;
-  color:gray;
-}
-h2{
-  font-size: 1.3rem;
-}
-h3{
-  font-size: 1.4rem;
-}
 
+h1,h2,h3,h4,h5,p{
+    font-family: 'Open Sans', sans-serif !important;
+  }
+  h4{
+    font-size: 1.1rem;
+  }
+  h3{
+    font-size: 1.6rem
+  }
+  #certificate-wrapper{
+    min-height: calc(100vh - 133px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
 
-/*CHANGE IMAGE */
-#main{
-  background-size:cover;
-  border: 1px solid lightgray;
-  margin-top:80px;
-  margin-left: 70px;
-  padding: 0;
-  height:595px;
-  width:842px;
-  background-image: url('/media/microsite/fdj/Attestation_2019.png')
+  }
+
+  #certificate-container{
+    height: 100%;
+    box-sizing: border-box;
+    background: white;
+    background-image: url('/media/microsite/fdj-pprod/certificate/certif_fdj.png');
+    background-size: contain;
+    width:${certificate_width}px;
+    height:${certificate_height}px;
+    margin: auto;
+
+  }
+
+#bouton-pdf {
+    background-color: #0f0c9e;
+    color: white;
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition-duration: 1s;
 }
-.container{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none!important;
-}
-/*CHANGE COLOR */
-.transparency-color{
-  background-color: rgba(255,255,255,0.7);
-}
-.full-color{
-  background-color: #9BBE50;
-}
-.bandeau-top{
-  box-sizing: border-box;
-  padding: 15px;
-}
-.reset-bandeaux{
-  width: 100%;
-  margin: 0;
-  padding: 5px;
-}
-#logo-partenaire{
-  max-height: 60px;
-}
-.center-vertically{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-#signature, #logo-secondaire{
-  max-height: 100px;
-}
-.m-0{
-  margin: 0;
-}
-.p-0{
-  padding: 0;
-}
-.container:after, section.outside-app:after{
-  content: none;
-}
-#bouton-pdf{
-background-color: darkgray;
-color: gray;
-border-color: gray;
-background-image: none;
-box-shadow: none;
-text-shadow: none;
-border-radius: 5px;
-font-weight: 600;
-}
-.bandeau-middle{
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-}
-.border-wrap{
-  padding: 15px;
-  border: 1px solid white;
-}
-.white_bg{
-  background-color: white;
-}
-.p-20{
-  padding: 20px;
-}
-.main-color{
-  color:#41596A;
-}
-.white-text{
-  color: white;
-}
-.logo-dda{
-  max-width: 170%;
+.divText{
     position: relative;
-    right: 35px;
-    bottom: 16px;
+    top: calc(${certificate_height}px - 1em);
+    /* left: -10px; */
+  }
+  .text {
+    font-size: ${font_size}px;
+    position: relative;
+    bottom: ${name_position_x}px;
+    text-align:center;
+  }
+#bouton-pdf:hover {
+    background-color: white;
+    color: #0f0c9e;
+    transition-duration: 1s;
 }
+
+
 </style>
 <!-- IMPORT FONT -->
 <link href="https://fonts.googleapis.com/css?family=Dosis:400,600" rel="stylesheet">
 
+
+
 <% 
   authorized_users = ["rachel.lafaye@themoocagency.com", "pcompagnon@lafdp.com", "hfournel@lafdp.com", "fvezy@lafdp.com", "praphanel@lafdp.com", "azouzowsky@lafdp.com", "cbayada@lafdp.com", "fgirard@lafdp.com", "aribeiro@lafdp.com", "jblanc@lafdp.com", "pgeorgel@lafdp.com", "LBESSON@lafdp.com", "cmaignan@lafdp.com", "jfhal@lafdp.com", "spy@lafdp.com", "vvoisin@lafdp.com", "achabrol@lafdp.com", "stexier@lafdp.com", "ebacto@lafdp.com", "btavernier@lafdp.com", "lbenabed@lafdp.com", "mcamus@lafdp.com", "kmarielouise@lafdp.com", "dmottier@lafdp.com", "tcassier@lafdp.com", "lramel@lafdp.com", "mconstant@lafdp.com", "sbourderiau@lafdp.com", "tkarim@lafdp.com", "mjardin@lafdp.com", "psaunier@lafdp.com", "ldemeure@lafdp.com", "ederkmann@lafdp.com", "fwu@lfdj.com", "schauveau@lfdj.com", "magaillard@lfdj.com", "grabec@lfdj.com", "lmanca@lfdj.com", "gnanikumpovila@lfdj.com", "anowakriviere@lfdj.com", "llecanu@lfdj.com", "cedasilva@lfdj.com", "agirard@lfdj.com", "mhedjem@lfdj.com", "sgarcia@lfdj.com", "mgamberoni@lfdj.com", "snsar@lfdj.com", "piglesias@lfdj.com", "sboissac@lfdj.com", "mramdani@lfdj.com", "fruellan@lfdj.com", "hajmi@lfdj.com", "mledos@lfdj.com", "cbrassier@lfdj.com", "fandrianarisoa@lfdj.com", "slefur@lfdj.com", "pduchaille@lfdj.com", "aalves@lfdj.com", "lhequet@lfdj.com", "mguillin@lfdj.com", "cohayon@lfdj.com", "mlukawski@lfdj.com", "lccucchiara@lfdj.com", "niwandza@lfdj.com", "mdelsol@lfdj.com", "cvaucherot@lfdj.com", "gdebergues@lfdj.com", "akacem@lfdj.com", "pchatin@lfdj.com", "aclement@lfdj.com", "sbaranes@lfdj.com", "imanteaux@lfdj.com", "jjriera@lfdj.com", "cclergeot@lfdj.com", "jwojas@lfdj.com", "ldimanche@lfdj.com", "smarnetcornus@lfdj.com", "msabatier@lfdj.com", "dmeyniel@lfdj.com", "cpage@lfdj.com", "fgirino@lfdj.com", "ogiverso@lfdj.com", "kgoupil@lfdj.com", "ecapeau@lfdj.com", "mcdeprado@lfdj.com", "mrusmann@lfdj.com", "pceroux@lfdj.com", "fmichel@lfdj.com", "evaliente@lfdj.com", "ehamel@lfdj.com", "lheikams@lfdj.com"]
-
 %>
 % if grades.get('passed') or is_tma_team or (request.user.email in authorized_users):
-<div id="main">
-  <div class="container">
-    <h3 style="margin-top:335px;">${first_name} ${last_name}</h3>
-  </div>
+
+<div style='margin:15px;'>
+  <button id="bouton-pdf" onclick="generateCertificate()">TELECHARGER PDF</button>
+</div>
+
+<div id="certificate-container" class=" certificate-border">
+
+   <div class="divText">
+     <p class="text">${first_name} ${last_name}</p>
+   </div>
+
 </div>
 
 
-<div style='margin-top:200px;'>
-  <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
-</div>
+
+
 
 <script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -174,18 +143,38 @@ font-weight: 600;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 <script type="text/javascript">
 //PDF VERSION
-function printpage(){
-   html2canvas(document.body, {
-    onrendered : function (canvas){
-     var img=canvas.toDataURL("image/png");
-     var doc = new jsPDF({orientation: 'landscape'});
-     doc.addImage(img, "PNG", 20, 20);
-     doc.save("certificat.pdf");
-    }
-  })
-}
+// function printpage(){
+//    html2canvas(document.body, {
+//     onrendered : function (canvas){
+//      var img=canvas.toDataURL("image/png");
+//      var doc = new jsPDF({orientation: 'landscape'});
+//      doc.addImage(img, "PNG", 20, 20);
+//      doc.save("certificat.pdf");
+//     }
+//   })
+// }
 
+function generateCertificate(){
+    $.ajax({
+      url: "/tma_apps/${course_id}/certificate/generate_pdf",
+      type: "GET",
+      data: {
+          user_name : "${first_name} ${last_name}",
+          // course_name : "${course_name}",
+      },
+      dataType: 'html', 
+      contentType:'application/pdf',
+      success : function(data){
+           const url = "/tma_apps/${course_id}/certificate/generate_pdf?course_key=${course_id}&user_name=${first_name}+${last_name}&grade=${int(grades['grade']*100)}&course_name=${course_name}&page_size_width=${certificate_width}&page_size_height=${certificate_height}&name_position_x=${name_position_x}&name_position_y=${name_position_y}&font_size=${font_size}"
+           window.open(url);
+      },
+      
+      error : function(resultat, statut, error){
+        console.error(error)
+      }
 
+    })
+  }
 </script>
 
 % endif

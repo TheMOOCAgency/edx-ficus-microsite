@@ -4,9 +4,6 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 %>
-<!--
-<script type="text/javascript" src="${static.url('js/jquery.jcountdown.js')}"></script>
--->
 <header>
   <div class="course-about-image">
     <img src="${course_image_urls['large']}" alt="">
@@ -14,9 +11,6 @@ from django.conf import settings
   % if user.is_authenticated() and registered:
 	<div class="enroll-button">
     % if user.is_active:
-<!--           <span>Votre inscription a été prise en compte !
-           <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
-           <span id="time"></span>-->
 <script type="text/javascript">
 $(document).ready(function(){
         $("#time").countdown({
