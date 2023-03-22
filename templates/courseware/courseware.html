@@ -235,6 +235,17 @@ css = org_static+'/css/courseware.css'
             % endif
         % endif
 
+        <script>
+          const userID = parseInt("${request.user.id}", 10)
+          const userProfile = "${request.user.profile.custom_field}";
+
+          const userProfileStr = userProfile.replace(/&#34;/g, '"');
+          const userProfileObj = JSON.parse(userProfileStr);
+          let docFraissinet = userProfileObj.doc_fraissinet;
+          if (!docFraissinet) {
+            docFraissinet = "Aucun fichier n'a encore été téléchargé sur votre espace pour le moment."
+          }
+        </script>
           ${HTML(fragment.body_html())}
         </main>
     </section>
