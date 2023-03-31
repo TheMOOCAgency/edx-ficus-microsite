@@ -466,7 +466,9 @@ $('#first_name,#last_name').change(function(){
   var last_name = $('#last_name').attr('value');
   var name = first_name+' '+last_name;
   $('#name').attr('value',name);
-})
+});
+
+$('#birth_date').get(0).type = 'date';
 </script>
 
 <div class="form-actions cmaUserSection" id="login_link_up">
@@ -491,6 +493,13 @@ $('#first_name,#last_name').change(function(){
   .legalNoticeSection-text{
     font-size: 0.8rem !important;
     margin-bottom: 0.35rem !important;
+  }
+  #birth_date {
+    background: #fff;
+    border: 1px solid #c8c8c8;
+    box-shadow: 0 1px 0 0 rgba(255,255,255,0.6), inset 0 0 3px 0 rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;  
   }
 </style>
 
@@ -652,3 +661,4 @@ else{
 <script>
   document.title = 'Se préinscrire à e-formation | Reseau CMA'
 </script>
+
