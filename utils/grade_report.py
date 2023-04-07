@@ -323,7 +323,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR ALL TIMES
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_all_values = '/home/edxtma/csv/echantillon_complet.xls'
+    filename_all_values = '/home/edxtma/csv/Historique_formulaires_completes.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
@@ -368,7 +368,7 @@ for recipient in recipients_geography:
     # WRITE FILE FOR LAST WEEK ONLY
     # Prepare workbook
     wb = Workbook(encoding='utf-8')
-    filename_lastweek = '/home/edxtma/csv/semaine_precedente.xls'
+    filename_lastweek = '/home/edxtma/csv/Historique_Inscriptions_plateformes.xls'
     sheet = wb.add_sheet('Rapport')
     style_title = easyxf('font: bold 1')
     for i in range(len(HEADER)):
