@@ -61,7 +61,7 @@ recipients_geography = {
     "mbuisson@cmamayotte.com": u"Mayotte",
     "contact@cma-grandest.fr": u"Grand-Est",
     "formationscma@cma-hautsdefrance.fr": u"Hauts-de-France",
-    "alexandre.chaubet-tavenot@cma-idf.fr": u"Ile-de-France",
+    "eartisanat@cma-idf.fr": u"Ile-de-France",
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
     "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
