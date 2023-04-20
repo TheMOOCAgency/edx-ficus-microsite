@@ -53,7 +53,7 @@ from pprint import pformat
 recipients_geography = {
     "e-formation@cma-auvergnerhonealpes.fr" : u"Auvergne-Rh\u00f4ne-Alpes",
     "formation@artisanat-bfc.fr": u"Bourgogne-Franche-Comt\u00e9",
-    "contact-cfar@cma-bretagne.fr": u"Bretagne",
+    "marie.grillot@cma-bretagne.fr": u"Bretagne",
     "contact-formation.continue@cma-cvl.fr": u"Centre-Vale-de-Loire",
     "pdesire@cfm-ajaccio.org": u"Corse",
     "jpierrot@cmguadeloupe.org": u"Guadeloupe",
@@ -61,7 +61,7 @@ recipients_geography = {
     "mbuisson@cmamayotte.com": u"Mayotte",
     "contact@cma-grandest.fr": u"Grand-Est",
     "formationscma@cma-hautsdefrance.fr": u"Hauts-de-France",
-    "eartisanat@cma-idf.fr": u"Ile-de-France",
+    "direction.formation@cma-grandest.fr": u"Ile-de-France",
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
     "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
