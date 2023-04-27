@@ -28,10 +28,10 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 %>
 <style>
 .fullHeight>div>div:first-child{
-  height : calc(100% - 150px)!important;
+  height : calc(100% - 100px)!important;
 }
 .chatWrapper .fullHeight textarea{
-  height : 158px!important;
+  height : 197px!important;
   font-family: inherit!important;
 }
 .container .about{
@@ -52,8 +52,8 @@ textarea{
 }
 #warning-message{
   background-color: #ffffff;
-  width: 75%;
-  float: right;
+  /* width: 75%;
+  float: right; */
   text-align: center;
   padding: 10px;
   border-top: 1px solid #cccccc;
@@ -61,7 +61,7 @@ textarea{
   font-size : 16px;
 }
 .container.about, section.about.outside-app, .view-profile .profile-self .wrapper-profile-field-account-privacy .about.u-field-account_privacy, .view-profile .about.wrapper-profile-sections, .view-profile .about.badge-set-display{
-    padding : 0px!important;
+    padding : 35px!important;
     height: calc(100vh - 160px)!important;
 }
 .MuiAppBar-colorPrimary{
@@ -112,6 +112,17 @@ input[type="submit"]:active:not(:disabled), input[type="submit"]:focus:not(:disa
 }
 .home>header .title>.heading-group p, section.outside-app h5, h6{
   color : #fff;
+}
+@media screen and (max-width: 840px) {
+    #warning-message{
+  font-size : 12px;
+}
+}
+
+@media screen and (max-width: 640px) {
+    #warning-message{
+  font-size : 9px;
+}
 }
 </style>
 <!-- Normalize EDX style-->

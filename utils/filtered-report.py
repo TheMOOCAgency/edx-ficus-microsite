@@ -87,9 +87,9 @@ except:
     based_on_last_login = False
 
 if based_on_last_login:
-    based_on_text = "connecté"
+    based_on_text = "connectés"
 else:
-    based_on_text = "inscrit"
+    based_on_text = "inscrits"
 course_key = CourseKey.from_string(course_id)
 course=get_course_by_id(course_key)
 last_report_date = datetime.now() - timedelta(days=frequence)
@@ -215,7 +215,7 @@ for i in range(len(TO_EMAILS)):
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = "Rapport des utilisateur {} au cours {}".format(based_on_text, course.display_name)
+    msg['Subject'] = "Rapport des utilisateurs {} au cours {}".format(based_on_text, course.display_name)
     if users_number >= 1:
         attachment = _files_values
         part = MIMEBase('application', 'octet-stream')

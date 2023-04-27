@@ -11,6 +11,9 @@ from datetime import date
 import third_party_auth
 from third_party_auth import pipeline, provider
 import calendar
+import csv
+import hashlib
+import json
 %>
 
 <%block name="pagetitle">${_("Register for {platform_name}").format(platform_name=platform_name)}</%block>
@@ -135,3 +138,15 @@ import calendar
   </aside>
 -->
 </section>
+
+<%
+old_users_file = open("/edx/var/edxapp/secret/microsite/aiguilleur-du-rail/old_users.csv", "rb")
+old_users = csv.DictReader(old_users_file, delimiter=";")
+
+sha256_users = []
+for old_user in old_users:
+    sha256_users.append(hashlib.sha256(old_user['email']).hexdigest())
+%>
+<script>
+sha256_old_users = ${json.dumps(sha256_users)}
+</script>
