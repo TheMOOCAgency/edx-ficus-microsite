@@ -68,3 +68,83 @@ body footer.global {
     </div>
   </div>
 </footer>
+
+
+<script>
+
+
+// CA - 28/04/2023 - FR Translation for drag and drop problem
+var textTranslation = setInterval(function() {
+
+  var lang = "${LANGUAGE_CODE}"
+  if (lang == 'fr') {
+
+    // Drag n drop attempts infos
+    var targetedDiv = document.getElementsByClassName('submission-feedback')
+    for (let i = 0; i < targetedDiv.length; i++) {
+      const element = targetedDiv[i];
+      var targetedText = element.innerHTML 
+      if (targetedText.indexOf('essais') != -1 ) {
+        element.innerHTML = element.innerHTML.replace('essais', 'essai')      
+      }
+    }
+
+    // Drag n drop buttons
+    var dragNDropDiv = document.getElementsByClassName('xblock--drag-and-drop')  
+    for (let i = 0; i < dragNDropDiv.length; i++) {
+      const element = dragNDropDiv[i];
+
+      if (element.getElementsByClassName('submit-answer-button')) { 
+        var dragNDropSubmit = element.getElementsByClassName('submit-answer-button')
+        dragNDropSubmit[0].innerText = "Soumettre"
+      }
+
+      if (element.getElementsByClassName('attempts-used').length > 0) {
+        var dragNDropAttempt = element.getElementsByClassName('attempts-used')
+        var correctedText = dragNDropAttempt[0].innerText
+        correctedText = correctedText.replace('You have used','Vous avez utilisé')
+        correctedText = correctedText.replace('of','essai(s) sur')
+        correctedText = correctedText.replace('attempts','')
+        dragNDropAttempt[0].innerText = correctedText
+      }
+
+      if (element.getElementsByClassName('reset-button').length > 0) {
+        var dragNDropReset = element.getElementsByClassName('reset-button')
+        dragNDropReset[0].innerHTML = '<span class="btn-icon fa fa-refresh" aria-hidden="true"></span>Recommencer'
+      }
+
+      if (element.getElementsByClassName('show-answer-button').length > 0) { 
+        var dragNDropAnswer = element.getElementsByClassName('show-answer-button')
+        dragNDropAnswer[0].innerHTML = '<span class="btn-icon fa fa-info-circle" aria-hidden="true"></span>Voir la réponse'
+      }
+
+    }
+
+    // FEEDBACK
+    var feedBackContent = document.getElementsByClassName('feedback-content')
+    if (feedBackContent.length > 0) {
+
+      for (let i = 0; i < feedBackContent.length; i++) {
+
+        const element = feedBackContent[i];
+        phrases = element.querySelectorAll('.message')
+        phrases.forEach(function(phrase) {
+          phrase.innerText = phrase.innerText.replace('Misplaced item was returned to item bank.', 'Cet élément a été replacé dans la zone initiale.')          
+          phrase.innerText = phrase.innerText.replace('Misplaced items were returned to item bank.', 'Ces éléments ont été replacé dans la zone initiale.')          
+          phrase.innerText = phrase.innerText.replace('Did not place', 'Il manque')
+          phrase.innerText = phrase.innerText.replace('Final attempt was used', 'Dernier essai utilisé')
+          phrase.innerText = phrase.innerText.replace('highest score is', 'meilleur score')
+          phrase.innerText = phrase.innerText.replace('required', '')
+          phrase.innerText = phrase.innerText.replace('Correctly placed', 'Correctement placé')
+          phrase.innerText = phrase.innerText.replace('Misplaced', 'Mal placé :')
+          phrase.innerText = phrase.innerText.replace('item', 'élément')
+          phrase.innerText = phrase.innerText.replace('items', 'éléments')
+          phrase.innerText = phrase.innerText.replace('Your', 'Votre')
+        })
+      }
+    } 
+  }
+
+}, 500)
+
+</script>
