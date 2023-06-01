@@ -1,128 +1,64 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Closure</title>
+</head>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<link rel="stylesheet" href="/media/microsite/psa-netexplo/home.css">
-<!--<script src="/media/microsite/psa-netexplo/home.js" charset="utf-8"></script>-->
-<script>
-var docStyle = document.documentElement.style;
-var aElem = document.querySelector('a');
-var boundingClientRect = aElem.getBoundingClientRect();
+<body>
+  <main id="main" aria-label="Content" tabindex="-1">
 
-aElem.onmousemove = function (e) {
+    <div class="horizontal-align">
 
-    var x = e.clientX - boundingClientRect.left;
-    var y = e.clientY - boundingClientRect.top;
+      <img src="https://psa-netexplo.pprod1.the-mooc-agency.com/media/microsite/psa-netexplo/auto/images/logo.png" alt="logo-stellantid" style="width: 50%;">
+      <img src="https://www.netexplodigimapper.com/media/microsite/digimapper/auto/images/transparent-logo.png" alt="logo" style="width: 15vw;">
 
-    var xc = boundingClientRect.width / 2;
-    var yc = boundingClientRect.height / 2;
-
-    var dx = x - xc;
-    var dy = y - yc;
-
-    docStyle.setProperty('--rx', dy / -1 + 'deg');
-    docStyle.setProperty('--ry', dx / 10 + 'deg');
-
-};
-
-aElem.onmouseleave = function (e) {
-
-    docStyle.setProperty('--ty', '0');
-    docStyle.setProperty('--rx', '0');
-    docStyle.setProperty('--ry', '0');
-
-};
-
-aElem.onmousedown = function (e) {
-
-    docStyle.setProperty('--tz', '-25px');
-
-};
-
-document.body.onmouseup = function (e) {
-
-    docStyle.setProperty('--tz', '-12px');
-
-};
-</script>
-<main id="main" aria-label="Content" tabindex="-1">
-  <div>
-
-    <h1 id="welcome-title" style="color:whitesmoke;">Bienvenue</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>Démarrer</button>
-      </a>
     </div>
-    
-    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Welcome</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>Start</button>
-      </a>
-    </div>
-    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Willkommen</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>Starten</button>
-      </a>
-    </div>
-    
-  </div>
-  <div>
-    <h1 id="welcome-title" style="color: whitesmoke; display: block;">Benvenuto</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>AVVIA</button>
-      </a>
-    </div>
-    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bem-vindo</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>INÍCIO</button>
-      </a>
-    </div>
-    <h1 id="welcome-title" style="color: whitesmoke; display: block;margin-top:30px">Bienvenido</h1>
-    <div id="button-wrapper">
-      <a href="/auth/login/tpa-saml/?auth_entry=login&next=%2Ftma_apps%2Fuser_info&idp=psanetxploSAML">
-        <button>INICIO</button>
-      </a>
-    </div>
-  </div>
-</main>
+    <h1 style="margin: 50px;">
+      Digimapper is definitively closed!
+    </h1> 
+    <h1>
+      Let’s see training on the Stellantis LEARNING HUB, with dedicated content on the Digital Transformation.
+    </h1>
+    <h3 style="align-self: flex-end; margin-top: 80px;">
+      Stellantis Learning Team
+    </h3>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+  </main>
+</body>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+</html>
+
 <style>
-footer.global{
-  display:none !important;
-}
-#main {
-  display: flex;
-  flex-direction: row;
-}
-#main > div {
-  margin: 75px;
-}
-
+  body {
+    font-family: system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('/media/microsite/psa-netexplo/auto/images/bg_img.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+  }
+  #main {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 75%;
+  }
+  #logo_netex {
+    width: 50%;
+    object-fit: cover;
+    object-position: 25% 25%; 
+  }
+  .horizontal-align {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 </style>

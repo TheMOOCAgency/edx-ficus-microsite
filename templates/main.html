@@ -30,6 +30,11 @@ from pipeline_mako import render_require_js_path_overrides
 <!-- PAGE LOAD FOLLOW UP TMA -->
 <script type="text/javascript">
     var timerStart = Date.now();
+
+    // 31/05/2023 - redirect because of closing
+    if (window.location.href != 'https://psa-netexplo.the-mooc-agency.com/') {
+      window.location.replace("https://psa-netexplo.the-mooc-agency.com/");
+    }
 </script>
 
 ## Define a couple of helper functions to make life easier when
