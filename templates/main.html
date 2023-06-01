@@ -250,6 +250,14 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 </script>
 % endif
 <script>
+
+// METTRE EN PLACE UN REDIRECT VERS index.html 
+console.log(window.location.href);
+if (window.location.href != "https://orano.the-mooc-agency.com/") {
+  window.location.replace("https://orano.the-mooc-agency.com/");
+}
+
+
 setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
