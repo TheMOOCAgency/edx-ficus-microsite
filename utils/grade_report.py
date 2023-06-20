@@ -121,7 +121,8 @@ course_ids=[
     "course-v1:academie-digitale+FC_20+2022",
     "course-v1:academie-digitale+FC_B20+2022",
     "course-v1:academie-digitale+FC_B40+2022",
-    "course-v1:academie-digitale+FC_B30+2022"
+    "course-v1:academie-digitale+FC_B30+2022",
+    "course-v1:academie-digitale+FC_B25+2022"
 ]
 
 def get_time_tracking(enrollment):
