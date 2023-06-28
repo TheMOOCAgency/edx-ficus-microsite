@@ -128,7 +128,6 @@ except:
 % endif
 % endif
 
-
 <!-- END AFPA -->
 
 % for template_name in ["donation"]:
@@ -713,3 +712,10 @@ $(window).initialize(function(){
     </form>
   </div>
 </div>
+
+<script>
+if(localStorage.getItem('popState') != 'shown'){
+  alert("Attention, une mise à jour du site mooc.afpa.fr est prévue pour le 19 Juillet. Pour tous les cours commencés mais non terminés d'ici-là, vous devrez refaire les quiz si vous visez l'obtention de l'attestation de suivi !")
+  localStorage.setItem('popState','shown')
+}
+</script>

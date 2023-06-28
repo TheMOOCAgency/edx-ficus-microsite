@@ -48,12 +48,21 @@ from openedx.core.djangolib.markup import HTML, Text
   text-align: center;
   font-weight: bold;
 }
+.update-platform-message{
+  background: red;
+  color: white;
+  font-size: 1.5em;
+  line-height: 1em;
+}
 
 </style>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header id="home-banner-header">
         <img src="/media/microsite/afpa/images/bandeau_afpa.png" alt="bg" id="absolute-bg-img" onclick="window.open('https:///mooc.afpa.fr/courses/course-v1:afpa+inclusion_sociale+2020/about', '_blank');">
+        <div class="update-platform-message">
+          <p>Attention, une mise à jour du site mooc.afpa.fr est prévue pour le 19 Juillet. Pour tous les cours commencés mais non terminés d'ici-là, vous devrez refaire les quiz si vous visez l'obtention de l'attestation de suivi !</p>
+        </div>
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
