@@ -102,7 +102,11 @@ date_position_x = certificate_config['date_position_x']
     background-image: url(/media/microsite/gen/certificate/attestation_evaluez_efficacement.png)
         % elif request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
     background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
+        % elif request.path == '/tma_apps/course-v1:GEN+2023+03/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/GEN_Attestation_embarquez_vos_apprenants.png)
         % elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
+    background-image: url(/media/microsite/gen/certificate/attestation_evaluez_efficacement.png)
+        % elif request.path == '/tma_apps/course-v1:gen+2023+02/certificate/render' :
     background-image: url(/media/microsite/gen/certificate/attestation_evaluez_efficacement.png)
         % else :
             % if int(grades['grade']*100) < 70 :
@@ -129,15 +133,14 @@ date_position_x = certificate_config['date_position_x']
   }
   #nameDatas{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render'  or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' :
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render'  or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' or request.path == '/tma_apps/course-v1:GEN+2023+03/certificate/render':
     top: 130px;
     left: 300px;
     color: #000147 !important;
     font-family: "Open Sans";
-% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or  request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' :
+% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or  request.path == '/tma_apps/course-v1:gen+2023+02/certificate/render' :
     top: 243px;
-    /* left: 300px; */
-    text-align: center;
+    left: 300px;
     font-family: "Open Sans";
     font-weight: 700;
 % else :
@@ -148,11 +151,11 @@ date_position_x = certificate_config['date_position_x']
   }
   #dateContainer{
     position: relative;
-% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render':
+% if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2022+02/certificate/render' or request.path == '/tma_apps/course-v1:GEN+2023+03/certificate/render':
     top: 362px;
     left: 318px;
     font-family: "Open Sans";
-% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render'  :
+% elif request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+02/certificate/render'  :
     top: 380px;
     left: 313px;
     font-family: "Open Sans";
@@ -170,44 +173,28 @@ date_position_x = certificate_config['date_position_x']
 
 % if grades.get('passed') or tma_verify_access(request.user).is_tma_team():
 
-  % if int(grades['grade']*100) < 70 :
-    <div id="certificate-wrapper">
-      <div id="pdf-btn-wrapper">
-        
-        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
-        <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
-        % else :
-        <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
-        % endif
+  
+  <div id="certificate-wrapper">
+    <div id="pdf-btn-wrapper">
+      
+      % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+02/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
+      <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
+      % else :
+      <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
+      % endif
 
-      </div>
-      <div id="certificate-container" class=" certificate-border">
-        <h3 id="nameDatas">${first_name} ${last_name}</h3>
-        <p id="dateContainer"><span id="dateDeCertificat"></span></p>
-      </div>
     </div>
-  % else :
-    <div id="certificate-wrapper">
-      <div id="pdf-btn-wrapper">
-
-        % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+01+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
-        <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
-        % else :
-        <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
-        % endif
-
-      </div>
-      <div id="certificate-container" class=" certificate-border">
-        <h3 id="nameDatas">${first_name} ${last_name}</h3>
-        <p id="dateContainer"><span id="dateDeCertificat"></span></p>
-      </div>
+    <div id="certificate-container" class=" certificate-border">
+      <h3 id="nameDatas">${first_name} ${last_name}</h3>
+      <p id="dateContainer"><span id="dateDeCertificat"></span></p>
     </div>
-  %endif
+  </div>
+
 
 %else:
   <div id="noCertificateMessage">
-      <h3>Certificat Non Disponible</h3>
-      <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
+    <h3>Certificat Non Disponible</h3>
+    <p>Vous n'avez pas atteint le score minimal requis pour obtenir votre certificat.</p>
   </div>
 %endif
 
@@ -235,7 +222,7 @@ date_position_x = certificate_config['date_position_x']
   var certificate_date = ''
   $(document).ready(function(){
     if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+      $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
     }
 
     // GET XCERTIFICATE DATE
@@ -270,11 +257,9 @@ date_position_x = certificate_config['date_position_x']
         const url = "/tma_apps/${course_id}/certificate/generate_pdf?certificate_date="+certificate_date
         window.open(url);
       },
-      
       error : function(resultat, statut, error){
         console.error(error)
       }
-
     })
   }
 
