@@ -1,11 +1,11 @@
 <%! from django.utils.translation import ugettext as _ %>
 
 
-% if course_key == "course-v1:mooc-forem-sfc+Forem07+2022-T1" :
+% if course_key == "course-v1:mooc-forem-sfc+Forem10+2023-T2" :
 
 Bonjour,
 
-Vous avez bien été inscrit à la saison 4 du MOOC SFC. Voici vos identifiants de connexion :
+Vous avez bien été inscrit à la saison 10 du MOOC SFC. Voici vos identifiants de connexion :
 
 Mail : ${email_address}
 Mot de passe : ${password}

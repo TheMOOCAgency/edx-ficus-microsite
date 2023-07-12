@@ -7,6 +7,6 @@ Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
 
-<b>Rendez-vous le 14 septembre pour l’ouverture de la quatrième session du MOOC SFC.</b>
+<b>Rendez-vous le 3 septembre pour l’ouverture de la dixième session du MOOC SFC.</b>
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
