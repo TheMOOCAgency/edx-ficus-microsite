@@ -177,7 +177,7 @@ date_position_x = certificate_config['date_position_x']
   <div id="certificate-wrapper">
     <div id="pdf-btn-wrapper">
       
-      % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+04/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+01/certificate/render' :
+      % if request.path == '/tma_apps/course-v1:gen+2020+01/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+04/certificate/render' or request.path == '/tma_apps/course-v1:gen+2023+0/certificate/render' :
       <button id="custom-btn" onclick="generateCertificate()">TELECHARGER PDF</button>
       % else :
       <button id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
