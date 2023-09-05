@@ -61,10 +61,11 @@ recipients_geography = {
     "mbuisson@cmamayotte.com": u"Mayotte",
     "contact@cma-grandest.fr": u"Grand-Est",
     "formationscma@cma-hautsdefrance.fr": u"Hauts-de-France",
-    "direction.formation@cma-grandest.fr": u"Ile-de-France",
+#    "direction.formation@cma-grandest.fr": u"Ile-de-France",
+#demande du 14/08/23 demande de confirmation pour un changement de destinataire. 
     "formation@cma-normandie.fr": u"Normandie",
     "cmar-formation-continue@artisanat-nouvelle-aquitaine.fr": u"Nouvelle-Aquitaine",
-    "urma@artisanatpaysdelaloire.fr": u"Pays de la Loire",
+    "formationdigitale@artisanatpaysdelaloire.fr": u"Pays de la Loire",
     "e-formation@crma-occitanie.fr": u"Occitanie",
     "e-formationcontinuepaca@cmar-paca.fr" : u"Provence-Alpes-C\u00f4te d'Azur",
     "vincent.bayol@cma-reunion.fr": u"La-Reunion",
