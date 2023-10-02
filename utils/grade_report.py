@@ -79,6 +79,10 @@ recipients_geography = {
     "dimitri.hoareau@weuplearning.com": "tout"
 }
 
+# recipients_geography = {
+#     "cyril.adolf@weuplearning.com": u"Martinique",
+# }
+
 
 # Auxiliary functions
 def is_course_open(course):
@@ -261,7 +265,7 @@ for j in range(len(course_ids)):
     for i in range(len(enrollments)):
 
         # FOR DEBUG PURPOSES
-        # if i > 50:
+        # if i > 25:
         #    break
 
         user = enrollments[i].user
@@ -334,6 +338,10 @@ for recipient in recipients_geography:
     j = 1
     for user in users_data:
         user_data = users_data[user]["data"]
+
+        # log.info('data region ? ')
+        # log.info(user_data)
+
         # global_time = users_data[user]["global_time"]
         # dans le cas d'un utilisateur ou tma_global_time a été remplacé par la valeur choisie, il n'y aura donc plus de 'tma_globaml_time' dans le tableau mais une date 
 
@@ -343,7 +351,7 @@ for recipient in recipients_geography:
         # unidecode and avoid spaces and dashes
         #script may fail as user_data[6] seems to be int in some cases, meaning region is incorrectly provided
         try:
-            unidecoded_user_field = unidecode(user_data[6].lower()).replace(" ","").replace("-","").replace("'","")
+            unidecoded_user_field = unidecode(user_data[7].lower()).replace(" ","").replace("-","").replace("'","")
         except:
             unidecoded_user_field = ""
 
@@ -351,7 +359,6 @@ for recipient in recipients_geography:
             unidecoded_recipient_geo = unidecode(recipients_geography[recipient].lower()).replace(" ","").replace("-","").replace("'","") 
         except:
             unidecoded_recipient_geo = ""
-
 
         if unidecoded_user_field == unidecoded_recipient_geo or unidecoded_recipient_geo == "tout":
             for i in range(len(user_data)):
@@ -383,7 +390,7 @@ for recipient in recipients_geography:
 
         # unidecode and avoid spaces and dashes
         try:
-            unidecoded_user_field = unidecode(user_data[6].lower()).replace(" ","").replace("-","").replace("'","")
+            unidecoded_user_field = unidecode(user_data[7].lower()).replace(" ","").replace("-","").replace("'","")
         except:
             unidecoded_user_field =  ""
 
@@ -416,7 +423,8 @@ for recipient in recipients_geography:
     part2 = MIMEText(html.encode('utf-8'), 'html', 'utf-8')
 
     fromaddr = "ne-pas-repondre@themoocagency.com"
-    toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr", "alexandre.berteau@weuplearning.com"]
+    # toaddr = [recipient]
+    toaddr = [recipient,"technical@themoocagency.com", "guimbert@cma-france.fr"]
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = ", ".join(toaddr)
