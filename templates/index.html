@@ -1774,7 +1774,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var email = $("#exampleModalCenterEN input[name=email2]").val();
       var message = $("#exampleModalCenterEN textarea[name=message]").val();
 
-      if (name.length > 0  && email.length > 0 && message.length > 0) {
+      if (name.length > 0  && email.length > 0 && message.trim().length > 0) {
         var data = {
           name: name,
           email: email,
@@ -1799,7 +1799,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var message = $("#exampleModalCenterJP textarea[name=message]").val();
 
 
-      if (name.length > 0  && email.length > 0 && message.length > 0) {
+      if (name.length > 0  && email.length > 0 && message.trim().length > 0) {
         var data = {
           name: name,
           email: email,
