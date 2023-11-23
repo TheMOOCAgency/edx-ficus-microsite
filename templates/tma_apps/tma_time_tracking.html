@@ -1,0 +1,118 @@
+<script src="/media/interface_stat/jquery.idle.js"></script>
+<script type="text/javascript">
+
+  let can_reset_timer = false;
+  var startTime, endTime;
+
+
+  //Start timer on page ready
+  $(document).ready(function(){
+    start_timer();
+  });
+
+  $(document).idle({
+    onIdle: function(){
+      time = end_timer();
+      send_time(time);
+    },
+    onActive: function(){
+      if(can_reset_timer){
+        start_timer();
+      }
+    },
+    onHide: function(){
+      time = end_timer();  
+      send_time(time);
+    },
+    onShow: function(){
+      if(can_reset_timer){
+        start_timer();
+      }
+    },
+    idle: 900000
+  });
+
+  //Send timer when user leaves the page
+  window.addEventListener('beforeunload', function (e) {
+    time = end_timer();
+    send_time(time);
+  });
+
+  function start_timer() {
+
+    console.log('in start_timer()');
+    startTime = new Date();
+    can_reset_timer = false;
+
+    $('#time-message').html("Votre temps de formation est décompté.");
+    $('.recording-dot').addClass('recording-time').removeClass('not-recording-time');
+  };
+
+  function end_timer() {
+    console.log('in end_timer()');
+    endTime = new Date();
+
+    console.log('endTime');
+    console.log(endTime);
+
+    var timeDiff = endTime - startTime; //in ms
+    var timeDiffsec = timeDiff * 0.001;
+    var seconds = Math.round(timeDiffsec); // get seconds
+
+    $('#time-message').html("Votre temps de formation n'est plus décompté.");
+    $('.recording-dot').removeClass('recording-time').addClass('not-recording-time');
+
+    console.log('time sent');
+    console.log(seconds);
+
+    return seconds;
+  }
+
+  function get_section(){
+    if( window.location.href.indexOf('discussion') > 0 ){
+      section = "forum";
+    } else if ( window.location.href.indexOf('/courseware/') > 0 ){
+      section = window.location.href.split('/courseware/')[1].split('/')[0];
+    } else {
+      section = ''
+    }
+    return section;
+  }
+
+  function get_sub_section(){
+    if ( window.location.href.indexOf('discussion') < 0 ) {
+      sub_section = window.location.href.split('/courseware/')[1].split('/')[1].replace('/','');
+    } else {
+      sub_section = "forum";
+    }
+    return sub_section;
+  }
+
+  function send_time(time){
+    section = get_section();
+    subsection = get_sub_section();
+
+    console.log('section');
+    console.log(section);
+    console.log('subsection');
+    console.log(subsection);
+    console.log('time');
+    console.log(time);
+
+    $.ajax({
+      url : '/tma_apps/${str(course.id)}/tma_stats/time_tracker',
+      type : 'POST',
+      data : {
+        'course_section' : section,
+        'course_sub_section':subsection,
+        'time':time,
+      },
+      dataType:'json',
+      success : function(data) {
+        if ('success' in data) {
+          can_reset_timer = true;
+        }
+      }
+    });
+  }
+</script>
