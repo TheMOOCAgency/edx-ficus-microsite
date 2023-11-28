@@ -13,58 +13,105 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/index.css'.format(org)
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<style>
+@font-face {
+  font-family: 'OpenSans';
+  src: url('/media/microsite/formationenligne-thconseil/css/base.css');
+}
+#rs-icones, #contact{
+  float: left;
+  color:white;
+}
+#contact{
+  width: 40%;
+  text-align: center;;
+  font-size: 20px;
+}
+#rs-icones{
+  width: 30%;
+  display: flex;
+  margin-left: 35%;
+}
+#rs-icones i{
+  font-size: 25px;
+  padding: 2px !important;
+}
+.icones-footer{
+  color:white;
+  /*font-size:25px;*/
+}
+#reseaux-sociaux a:hover{
+  text-decoration: none;
+}
+</style>
+<!-- Bootstrap -->
+<link href="/media/microsite/formationenligne-thconseil/css/bootstrap.css" rel="stylesheet">
+<!-- Fonts and CSS -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="/media/microsite/formationenligne-thconseil/css/base.css" rel="stylesheet">
+<link href="/media/microsite/formationenligne-thconseil/css/style-home-thconseil.css" rel="stylesheet">
+
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+  <div id="voile"></div>
+  <img id="video" src="/media/microsite/formationenligne-thconseil/auto/images/bg_img.jpg" alt="" style="width: 100%;">
 
-          </div>
+  <section id="up_page">
+    <div id="menu_up_page">
+      <img src="/media/microsite/formationenligne-thconseil/auto/images/logo.png" style="width:200px"/>
+      <div class="mt-50 mb-50">
+        <h1 class="texte-grisc uppercase mb-0" id="main-title">Formations en ligne TH Conseil</h1>
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        <p class="texte-gray" id="sub-title"> Devenez acteur du bien-être au travail ! </p>
+      </div>
+      <div id="menu_bouton_up_page">
+        <a class="bouton-style bouton-gris" href="/login" data-ajax="false">${_("Sign in")}</a>
+        <a class="bouton-style bouton-vert" href="/register" data-ajax="false">${_("Register")}</a>
+      </div>
+    </div>
+    <div id="scroll_wrap">
+      <img id="srcoll_button" src="/media/microsite/formationenligne-thconseil/images/pictos/scroll.png" data-location="video_text"/>
     </div>
   </section>
-% endif
+
+  <main>
+    <section id="main" class="bg-white pt-50 pb-50">
+      <div id="video_text_content">
+        <h2 class="texte-grisc" id="open-courses">&nbsp;Formations ouvertes&nbsp;</h2>
+        <span class="trait-title"></span>
+        <div>
+          <%include file="${courses_list}" />
+        </div>
+      </div>
+    </section>
+
+  <section id="reseaux-sociaux" class="bg-white bg-vertc pad-10">
+    <div id="rs-icones">
+      <a href="https://www.facebook.com/pages/TH-Conseil/175285192512144" data-ajax="false"><i class="fa fa-facebook icones-footer"></i></a>
+      <a href="https://twitter.com/thconseil" data-ajax="false"><i class="fa fa-twitter icones-footer"></i></a>
+      <a href="https://www.linkedin.com/company/th-conseil" data-ajax="false"><i class="fa fa-linkedin icones-footer"></i></a>
+      <a href="http://www.viadeo.com/fr/company/th-conseil" data-ajax="false"><i class="fa fa-viadeo icones-footer"></i></a>
+      <a href="https://plus.google.com/+thconseil" data-ajax="false"><i class="fa fa-google-plus icones-footer"></i></a>
+      <a href="https://www.youtube.com/c/thconseil" data-ajax="false"><i class="fa fa-youtube-play icones-footer"></i></a>
+    </div>
+    <div style="clear:both;"></div>
+  </section>
+
+  <section id="cookies">
+    <p class="texte-gray">
+      En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies pour réaliser des statistiques de visites et le dépôt de cookies tiers destinés à vous proposer des vidéos.
+    </p>
+    <p class="texte-gray">
+      <a href="/tos">En savoir plus</a>
+      <button id="cookie_ok">OK</button>
+    </p>
+  </section>
+
+
+
+
+
+
 
 <%block name="js_extra">
    <script type="text/javascript">
@@ -95,3 +142,4 @@ $(".btn-login").each(function(){
 
 </script>
 % endif
+<script src="/media/microsite/formationenligne-thconseil/custom.js" charset="utf-8"></script>

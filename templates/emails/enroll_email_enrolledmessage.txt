@@ -1,4 +1,5 @@
 <%! from django.utils.translation import ugettext as _ %>
+<%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
 ${_("Dear {full_name}").format(full_name=full_name)}
 
@@ -8,13 +9,18 @@ ${_("You have been enrolled in {course_name} at {site_name} by a member "
 		course_name=display_name or course.display_name_with_default_escaped,
 		site_name=site_name
 	)}
+	
+Pour terminer votre inscription, rendez-vous sur ${registration_url} et complétez le formulaire d'inscription. Soyez vigilant d'utiliser ${email_address} dans le champ E-mail.
 
 ${_("To start accessing course materials, please visit {course_url}").format(
 		course_url=course_url
 	)}
+
+La formation ${course_name} vous est proposée par TH Conseil. Pour toute information complémentaire, merci de contacter formationenligne@thconseil.fr
 
 ----
 ${_("This email was automatically sent from {site_name} to "
 	"{full_name}").format(
 		site_name=site_name, full_name=full_name
 	)}
+

@@ -201,7 +201,7 @@ endfor
        %if n.get('weight')==0:
           optionnel
        %else:
-          poids: ${int(n.get('weight') * 100)}%
+        ${_('Weight')}: ${int(n.get('weight') * 100)}%
        %endif
       )</span></span><span id="assignment_grade_${mark}">0%</span>
     </div>
@@ -239,7 +239,7 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
 $("#score_tma").html(grade_summary['percent']*100+" %");
 </script>
 % elif len(course_enrollments) > 1:
-  <div class="dashboard_profile" id="profile_bottom_multi">
+  <div class="dashboard_profile" id="profile_bottom_multi" style="display:none">
     % if course_end < 2:
       <h3>${course_end} cours<br>terminé</h3>
     % else:

@@ -13,17 +13,66 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
 
 <link rel="stylesheet" type="text/css" href="${css}" />
-<footer class="global">
+<link rel="stylesheet" href="/media/microsite/formationenligne-thconseil/css/fix-thconseil.css">
+
+<!-- Fix traduction -->
+% if LANGUAGE_CODE == 'fr':
+<script src="/media/traductions/fix-trad-fr.js" charset="utf-8"></script>
+% endif
+
+<script>
+/*Fix trad EN*/
+setInterval(function(){
+  if((window.location.href.indexOf("register") > -1) && ($('#settings-language-value > option[value="en"]').prop('selected'))){
+    $('label[for="username"]').html($('label[for="username"]').html().replace('(ne doit pas contenir d\'espaces)','(cannot contain spaces)'))
+  }
+  if((window.location.href.indexOf("courseware") > -1) && ($('#settings-language-value > option[value="en"]').prop('selected'))){
+    $('#course-search-input').attr('placeholder', 'Search')
+  }
+}, 250);
+
+  /* Fix majuscule register.html */
+if(window.location.href.indexOf("register") > -1) {
+  $("#login_link_up #login_link").html($("#login_link_up #login_link").html().replace('connectez vous','Connectez-vous'));
+}
+  /* Fix traduction Account activated */
+if(window.location.href.indexOf("activate") > -1) {
+  $('.container.activation h1').html($('.container.activation h1').html().replace('Account Activated','Compte Activé'));
+  $('.container.activation h1').html($('.container.activation h1').html().replace('Account already active','Compte déjà activé'));
+}
+
+// Fix coquille message d'activation
+if (window.location.href.indexOf('dashboard') > -1) {
+  $('.activation-message').html($('.activation-message').html().replace('ativer', 'activer'));
+}
+
+setInterval(function(){
+  if(window.location.href.indexOf('/courseware')>-1){
+    $(".notification-message > ol > li > strong").each(function() {
+      $(this).html($(this).html().replace(':', ': '));
+    });
+  }
+}, 250);
+
+</script>
+
+<footer class="global" role="contentinfo">
   <div class="footer-container">
-    <ul class="links">
+    <ul class="links text-center">
       <li>
         <a href="${marketing_link('HONOR')}">Conditions générales</a>
       </li>
       <li>
         <a href="${marketing_link('FAQ')}">FAQ</a>
       </li>
-	  <li>
+	  <!--li>
         <a href="/about">Cr&eacute;dits</a>
+      </li-->
+       <li>
+         <a href="mailto:formationenligne.thconseil.fr?subject=Contact%20depuis%20la%20plateforme%20de%20formation%20en%20ligne%20TH%20Conseil" class="fa fa-envelope icones-footer"><span style="margin-left:4px; font-family:'Open Sans',Verdana,Geneva,sans-serif,sans-serif;">Contact</span></a>
+      </li>
+       <li>
+         <a href="https://www.thconseil.fr" class="fa fa-home icones-footer"><span style="margin-left:2px; font-family:'Open Sans',Verdana,Geneva,sans-serif,sans-serif;">TH Conseil</span></a>
       </li>
     </ul>
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
@@ -36,4 +85,5 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
       -->
     </div>
   </div>
+
 </footer>

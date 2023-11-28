@@ -17,11 +17,11 @@ import datetime
 
 <!-- status messages -->
 <div role="alert" class="status message">
-  <h3 class="message-title">${_("We're sorry, but this version of your browser is not supported. Try again using a different browser or a newer version of your browser.")}</h3>
+  <p class="message-title">${_("We're sorry, but this version of your browser is not supported. Try again using a different browser or a newer version of your browser.")}</p>
 </div>
 
 <div role="alert" class="status message submission-error" tabindex="-1">
-  <h3 class="message-title">${_("The following errors occurred while processing your registration:")} </h3>
+  <h2 class="message-title">${_("The following errors occurred while processing your registration:")} </h2>
   <ul class="message-copy"> </ul>
 </div>
 <style>
@@ -85,7 +85,8 @@ import datetime
 
   % if has_extauth_info is UNDEFINED:
 
-  <ol class="list-input">
+  <div class="list-input">
+    <!--
     <li class="field required text" id="field-last_name">
       <label for="last_name">${_('Last Name')}</label>
       <input class="" id="last_name" type="text" name="last_name" value="${email}" placeholder="${_('example: Durand')}" required aria-required="true" />
@@ -93,41 +94,41 @@ import datetime
     <li class="field required text" id="field-first_name">
       <label for="first_name">${_('First Name')}</label>
       <input class="" id="first_name" type="text" name="first_name" value="${email}" placeholder="${_('example: Kevin')}" required aria-required="true" />
-    </li>
-    <li class="field required text" id="field-email">
+    </li>-->
+    <div class="field required text" id="field-email">
       <label for="email">${_('E-mail')}</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
-    </li>
+    </div>
 
 
-    <li class="field required text" id="field-name" style="display:none;">
+    <div class="field required text" id="field-name" style="display:none;">
       <label for="name">${_('Full Name')}</label>
       <input id="name" type="text" name="name" value="${name}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
       <span class="tip tip-input" id="name-tip">${_("Your legal name, used for any certificates you earn.")}</span>
-    </li>
+    </div>
 
-    <li class="field required text" id="field-username">
-      <label for="username">${_('Public Username')}</label>
+    <div class="field required text" id="field-username">
+      <label for="username">${_('Public Username')} (ne doit pas contenir d'espaces)</label>
       <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
       <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
-    </li>
+    </div>
 
     % if third_party_auth.is_enabled() and running_pipeline:
 
-    <li class="is-disabled field optional password" id="field-password" hidden>
+    <div class="is-disabled field optional password" id="field-password" hidden>
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
-    </li>
+    </div>
 
     % else:
 
-    <li class="field required password" id="field-password">
+    <div class="field required password" id="field-password">
       <label for="password">${_('Password')}</label>
       <input id="password" type="password" name="password" value="" required aria-required="true" />
-    </li>
+    </div>
 
     % endif
-  </ol>
+  </div>
   % else:
 
   <div class="message">
@@ -135,42 +136,42 @@ import datetime
     <p class="message-copy">${_("Enter a Public Display Name:")}</p>
   </div>
 
-  <ol class="list-input">
+  <div class="list-input">
 
     % if ask_for_email:
 
-    <li class="field required text" id="field-email">
+    <div class="field required text" id="field-email">
       <label for="email">${_("E-mail")}</label>
       <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" />
-    </li>
+    </div>
 
     % endif
 
-    <li class="field required text" id="field-username">
+    <div class="field required text" id="field-username">
       <label for="username">${_('Public Display Name')}</label>
       <input id="username" type="text" name="username" value="${extauth_username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip" />
       <span class="tip tip-input" id="id="username-tip>${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
-    </li>
+    </div>
 
     % if ask_for_fullname:
 
-    <li class="field required text" id="field-name">
+    <div class="field required text" id="field-name">
       <label for="name">${_('Full Name')}</label>
       <input id="name" type="text" name="name" value="" placeholder="$_('example: Jane Doe')}" aria-describedby="name-tip" />
       <span class="tip tip-input" id="name-tip">${_("Your legal name, used for any certificates you earn.")}</span>
-    </li>
+    </div>
 
     % endif
 
-  </ol>
+  </div>
 
   % endif
 </div>
 <!-- EXTRA_FORM GENERATION -->
 <div class="group group-form group-form-requiredinformation">
-<ol class="list-input">
+<div class="list-input">
 % for n in extra_form:
-  <li class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
+  <div class="field ${n.get('type')} ${'required' if n.get('required') else ''}">
   <div class="field ${n.get('type')}" id="field-${n.get('name')}">
   % if n.get('type') == 'email':
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
@@ -210,23 +211,23 @@ import datetime
   <label for="${n.get('name')}">${_(n.get('label'))}</label>
   % endif
   </div>
-  </li>
+</div>
 % endfor
-</ol>
+</div>
 </div>
 <!-- end extraform generation -->
 <div class="group group-form group-form-secondary group-form-personalinformation">
   <h2 class="sr">${_("Additional Personal Information")}</h2>
 
-  <ol class="list-input">
+  <div class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['city'] != 'hidden':
-    <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['city']} text" id="field-city">
+    <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['city']} text" id="field-city">
       <label for="city">${_('City')}</label>
       <input id="city" type="text" name="city" value="" placeholder="${_('example: New York')}" aria-describedby="city-tip" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['city'] == 'required' else ''} />
-    </li>
+    </div>
     % endif
     % if settings.REGISTRATION_EXTRA_FIELDS['country'] != 'hidden':
-    <li class="field-group">
+    <div class="field-group">
     <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['country']} select" id="field-country">
         <label for="country">${_("Country")}</label>
         <select id="country" name="country" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['country'] == 'required' else ''}>
@@ -236,10 +237,10 @@ import datetime
           %endfor
         </select>
       </div>
-    </li>
+    </div>
     % endif
     % if settings.REGISTRATION_EXTRA_FIELDS['level_of_education'] != 'hidden':
-    <li class="field-group field-education-level">
+    <div class="field-group field-education-level">
     <div class="field ${settings.REGISTRATION_EXTRA_FIELDS['level_of_education']} select" id="field-education-level">
         <label for="education-level">${_("Highest Level of Education Completed")}</label>
         <select id="education-level" name="level_of_education" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['level_of_education'] == 'required' else ''}>
@@ -249,7 +250,7 @@ import datetime
           %endfor
         </select>
       </div>
-    </li>
+    </div>
     % endif
     % if settings.REGISTRATION_EXTRA_FIELDS['gender'] != 'hidden':
     <li class="field-group field-gender">
@@ -277,12 +278,12 @@ import datetime
       </div>
       % endif
     </li>
-  </ol>
+  </div>
 
 </div>
 
 <div class="group group-form group-form-personalinformation2">
-  <ol class="list-input">
+  <div class="list-input">
     % if settings.REGISTRATION_EXTRA_FIELDS['mailing_address'] != 'hidden':
     <li class="field ${settings.REGISTRATION_EXTRA_FIELDS['mailing_address']} text" id="field-address-mailing">
       <label for="address-mailing">${_("Mailing Address")}</label>
@@ -296,20 +297,22 @@ import datetime
       <textarea id="goals" name="goals" value="" ${'required aria-required="true"' if settings.REGISTRATION_EXTRA_FIELDS['goals'] == 'required' else ''}></textarea>
     </li>
     % endif
-  </ol>
+  </div>
 </div>
 
 <div class="group group-form group-form-accountacknowledgements">
   <h2 class="sr">${_("Account Acknowledgements")}</h2>
 
-  <ol class="list-input">
+  <div class="list-input">
     <li class="field-group">
 
       % if has_extauth_info is UNDEFINED or ask_for_tos :
       <div class="field required checkbox" id="field-tos">
+        <style>#registerhonorlink:hover{color:rgba(195,207,0,1) !important;}</style>
+        <p>${_("By submitting this form, you agree to TH Conseil Terms of Use. We ensure that the data collected in this form will not be used for any other purpose than the online training for which you are registered, in accordance with the data protection legislation. For more information, please refer to our")} <a href="/honor" id="registerhonorlink" target="_blank">${_("Terms and Conditions")}</a> ${_("in French")}.</p>
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
-          link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
+          link_start='<a href="{url}" class="new-vp" aria-label="conditions d\'utilisation du service nouvelle fenetre">'.format(url=marketing_link('HONOR')),
           link_end='</a>')}</label>
       </div>
       % endif
@@ -329,7 +332,7 @@ import datetime
       % endif
       % endif
     </li>
-  </ol>
+  </div>
 
 </div>
 
@@ -364,8 +367,8 @@ $('#first_name,#last_name').change(function(){
 </script>
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
-  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"> ${_("Already have an account? login")}</a>
 % else:
-  <a id="login_link" href="/login"> Deja un compte ? connectez vous</a>
+  <a id="login_link" href="/login"> ${_("Already have an account? login")}</a>
 % endif
 </div>
