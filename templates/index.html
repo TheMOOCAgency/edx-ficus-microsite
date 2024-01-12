@@ -20,7 +20,9 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
           <div class="title">
             <div class="heading-group">
               % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
+                <!--${homepage_overlay_html | n, decode.utf8}-->
+                                <h1>Bienvenue sur la plateforme MOOC d'Enedis !</h1>
+              <h2>Cette plateforme accueille actuellement le MOOC Marchés de l'électricité.</h2>
               % else:
                   ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
                   <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
@@ -29,7 +31,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
               % endif
             </div>
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
+<!--              <div class="course-search">
                 <form method="get" action="/courses">
                   <label><span class="sr">${_("Search for a course")}</span>
                     <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
@@ -39,6 +41,7 @@ css = '/media/microsite/{}/auto/css/index.css'.format(org)
                   </button>
                 </form>
               </div>
+-->
             % endif
 
           </div>

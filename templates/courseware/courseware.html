@@ -107,6 +107,16 @@ ${static.get_page_title_breadcrumbs(course_name())}
         $(function() {$("#course-content").css("visibility","visible")});
       },1000);
     }
+setInterval(function(){
+  if(window.location.href.indexOf('/courseware/')>-1){
+    $(".problem-progress").each(function() {
+      $(this).html($(this).html().replace("(graded)","(noté)"));
+    });
+    $(".show-answer-button").each(function() {
+      $(this).html($(this).html().replace("Show Answer","Voir la réponse"));
+    });
+  }
+},200);
   </script>
 
 ${HTML(fragment.foot_html())}
@@ -114,7 +124,7 @@ ${HTML(fragment.foot_html())}
 </%block>
 <%
 org_static = static.get_value('domain_prefix')
-css = '/media/microsite/{}/css/courseware.css'.format(org_static)
+css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
 <div class="message-banner" aria-live="polite"></div>
