@@ -333,11 +333,11 @@ $('.unit-title').initialize(function(){
 })
 */
 $('#main').children().css('box-shadow','0 3px 12px 3px rgba(0,0,0,0.15)');
+/*
 var course_id_tma_nav = "${course.id}";
 $('#return_dashboard').find('a').initialize(function(){
   $(this).attr('href','/dashboard/${course.id}/');
 })
-/*
 $('.tab').find('a').initialize(function(){
   var text = $(this).attr('href');
   if(text.indexOf('/dashboard') != -1) {
@@ -351,4 +351,13 @@ $(".bookmarks-empty-header").initialize(function(){
 $(".bookmarks-empty-detail-title").initialize(function(){
  $(this).html($(this).html().replace("Use bookmarks to help you easily return to courseware pages. To bookmark a page, select Bookmark in the upper right corner of that page. To see a list of all your bookmarks, select Bookmarks in the upper left corner of any courseware page.","Utilisez les favoris pour vous aider à revenir facilement aux pages du cours. Pour marquer une page, sélectionnez Favori dans l'angle supérieur droit de cette page. Pour afficher la liste de tous vos favoris, sélectionnez Favoris dans le coin supérieur gauche de la page d'un cours."));
 })
+$(".bookmark-text").initialize(function(){
+ $(this).css("color","rgba(30,188,191,1)");
+ $(this).hover(function() { 
+    $(this).css("color","white");
+ });
+ $(this).mouseout(function() {
+    $(this).css("color","rgba(30,188,191,1)");
+ });
+});
 </script>

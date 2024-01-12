@@ -44,6 +44,8 @@ import calendar
       toggleSubmitButton(true);
 
       $('#register-form').on('submit', function() {
+        domain_name=$('#email').val().split('@')[1];
+        console.log(domain_name);
         toggleSubmitButton(false);
       });
       /*
@@ -83,15 +85,11 @@ import calendar
 
       if(enable) {
         $submitButton.
-          removeClass('is-disabled').
-          attr('aria-disabled', false).
           removeProp('disabled').
           html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
       }
       else {
         $submitButton.
-          addClass('is-disabled').
-          prop('disabled', true).
           text("${_('Processing your account information')}");
       }
     }
