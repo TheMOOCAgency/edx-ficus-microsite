@@ -44,9 +44,10 @@ for course_id in courses:
     course_key = CourseKey.from_string(course_id)
     course_enrollments = CourseEnrollment.objects.filter(course_id=course_key)
     print(len(course_enrollments))
-
-    if any(getattr(enrollment.user, "email", None) in users_to_unenroll for enrollment in course_enrollments):
-        print("ok")
+    
+    for enrollment in course_enrollments:
+        if getattr(enrollment.user, "email", None) in users_to_unenroll:
+            print("ok")
     # for enrollment in course_enrollments:
     #     try:
     #         print(dir(enrollment.user))

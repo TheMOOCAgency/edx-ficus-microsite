@@ -100,7 +100,7 @@ from third_party_auth import provider, pipeline
           removeClass('is-disabled').
           attr('aria-disabled', false).
           removeProp('disabled').
-          html("${_('Log into My {platform_name} Account').format(platform_name=platform_name)} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
+          html("${_('Log into My {platform_name} Account').format(platform_name='HandiMOOC')} <span class='orn-plus'>+</span> ${_('Access My Courses')}");
       }
       else {
         $submitButton.
@@ -129,7 +129,22 @@ from third_party_auth import provider, pipeline
 </%block>
 
 <%include file="forgot_password_modal.html" />
+<style>
+  /* RESPONSIVE */
+  @media screen and (max-width: 992px)
+{
+  .login.container {
+    width: 740px !important;
+  }
+}
+  @media screen and (max-width: 576px)
+{
+  #login-form {
+    width: 325px !important;
+  }
+}
 
+</style>
 <section class="introduction">
   <header>
     <h1 class="title">
@@ -145,7 +160,7 @@ from third_party_auth import provider, pipeline
 
       <!-- status messages -->
       <div role="alert" class="status message">
-        <h3 class="message-title">${_("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name=platform_name)}</h3>
+        <p class="message-title">${_("We're Sorry, {platform_name} accounts are unavailable currently").format(platform_name=platform_name)}</p>
       </div>
 
       <div role="alert" class="status message submission-error" tabindex="-1">
@@ -179,7 +194,7 @@ from third_party_auth import provider, pipeline
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="" placeholder="${_('example: username@domain.com')}" required aria-required="true" aria-described-by="email-tip" />
-            <span class="tip tip-input" id="email-tip">${_("This is the e-mail address you used to register with {platform}").format(platform=platform_name)}</span>
+            <span class="tip tip-input" id="email-tip">Renseignez l’adresse e-mail utilisée lors de votre inscription sur HandiMOOC</span>
           </li>
           <li class="field required password" id="field-password">
             <label for="password">${_('Password')}</label>

@@ -56,7 +56,7 @@ cours_ouv = show_courseware_link and not is_course_blocked
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>Partenaires</span></a>
   % endif
   % if multi_course_platform:
     <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
@@ -74,9 +74,9 @@ $.ajax({
             async: false,
             contentType: "application/json; charset=utf-8",
             success: function (chapter_list) {
-                for (var i = 0; i < chapter_list.length; i++) {
-                    $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2>"+chapter_list[i].display_name+"</h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>${_("Start")}</a></div></div>");
-                }
+              for (var i = 0; i < chapter_list.length; i++) {
+                $('#courses_cells').append("<div class='course_cell' style=''><div class='course_cells_title'><h2><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+"'>"+chapter_list[i].display_name+"</a></h2></div><div class='course_cells_action'><a href='/courses/${enrollment.course_id}/courseware/"+chapter_list[i].url_name+">${_('Start')}</a></div></div>");
+              }
              }
 });
 </script>

@@ -25,15 +25,15 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
             <img class="menu-image" src="${profile_image_url}" alt="">
             ${username}
         </a>
-        <div role="group" aria-label="User menu" class="user-menu">
+        <div class="user-menu">
             <button type="button" class="menu-button button-more has-dropdown js-dropdown-button" aria-expanded="false" aria-controls="${_("Usermenu")}">
                   <span class="icon fa fa-caret-down" aria-hidden="true"></span>
-                  <span class="sr-only">${_("Usermenu dropdown")}</span>
+                  <span class="sr-only">Mon profil</span>
             </button>
             <ul class="dropdown-menu list-divided is-hidden" id="${_("Usermenu")}" tabindex="-1">
                 <%block name="navigation_dropdown_menu_links" >
-                    <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" role="menuitem" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
-                    <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" role="menuitem" class="action dropdown-menuitem">${_("Profile")}</a></li>
+                    <li class="dropdown-item item has-block-link"><a href="${reverse('dashboard')}" class="action dropdown-menuitem">${_("Dashboard")}</a></li>
+                    <li class="dropdown-item item has-block-link"><a href="${reverse('learner_profile', kwargs={'username': self.real_user.username})}" class="action dropdown-menuitem">${_("Profile")}</a></li>
 <!--                    <li class="dropdown-item item has-block-link"><a href="${reverse('account_settings')}" role="menuitem" class="action dropdown-menuitem">${_("Account")}</a></li>-->
                 </%block>
                 <li class="dropdown-item item has-block-link"><a href="${reverse('logout')}" role="menuitem" class="action dropdown-menuitem">${_("Sign Out")}</a></li>

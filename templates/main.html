@@ -26,7 +26,9 @@ from pipeline_mako import render_require_js_path_overrides
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="description" content="Le 1<sup>er</sup> outil gratuit en ligne, dédié à la recherche d’emploi pour les personnes handicapées.">
+<meta name="author" content="TH Conseil">
+<meta name="keywords" content="handicap, personne handicapée, formation, travail, emploi, compensation, recherche, emploi, postuler, stage">
 ## Define a couple of helper functions to make life easier when
 ## embedding theme conditionals into templates. All inheriting
 ## templates have access to these functions, and we can import these
@@ -135,18 +137,26 @@ css = '/media/microsite/{}/auto/css/customizer.css'.format(org)
   /*Font*/
   @font-face {
     font-family: 'custom_font';
-    src: url("${static.url(org+'/fonts/337D1D_2_0.eot')}");
-    src: url("${static.url(org+'/fonts/337D1D_2_0.eot')}?#iefix")
-        format('embedded-opentype'),url("${static.url(org+'/fonts/337D1D_2_0.woff2')}")
-        format('woff2'),url("${static.url(org+'/fonts/337D1D_2_0.woff')}")
-        format('woff'),url("${static.url(org+'/fonts/337D1D_2_0.ttf')}") format('truetype');
+    src: url("/media/microsite/handimooc/fonts/dosisR/Dosis-Regular.eot");
+    src: url("/media/microsite/handimooc/fonts/dosisR/Dosis-Regular.eot")
+        format('embedded-opentype'),url("/media/microsite/handimooc/fonts//dosisR/dosis-regular-webfont.woff2")
+        format('woff2'),url("/media/microsite/handimooc/fonts/dosisR/dosis-regular-webfont.woff")
+        format('woff'),url("/media/microsite/handimooc/fonts/dosisR/Dosis-Regular.ttf") format('truetype');
     font-weight: normal;
   }
   /*Font*/
   @font-face {
-    font-family: 'Socicon';
-    src: url("${static.url(org+'/fonts/Socicon.eot')}");
-    src: url("${static.url(org+'/fonts/Socicon.eot#iefix')}")format('embedded-opentype'), url("{static.url(org+'/fonts/Socicon.woff2')}") format('woff2'), url("{static.url(org+'/fonts/Socicon.ttf')}") format('truetype'), url("{static.url(org+'/fonts/Socicon.woff')}") format('woff'), url("{static.url(org+'/fonts/Socicon.svg#Socicon')}") format('svg');
+    font-family: 'Exobold';
+    src: url("/media/microsite/handimooc/fonts/exoB/Exo-Bold.eot");
+    src: url("/media/microsite/handimooc/fonts/exoB/Exo-Bold.eot")format('embedded-opentype'), url("/media/microsite/handimooc/fonts/exoB/exo-bold-webfont.woff2") format('woff2'), url("/media/microsite/handimooc/fonts/exoB/Exo-Bold.ttf") format('truetype'), url("/media/microsite/handimooc/fonts/exoB/exo-bold-webfont.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Exoboldit';
+    src: url("/media/microsite/handimooc/fonts/exoBi/Exo-BoldItalic.eot");
+    src: url("/media/microsite/handimooc/fonts/exoBi/Exo-BoldItalic.eot")format('embedded-opentype'), url("/media/microsite/handimooc/fonts/exoBi/exo-bolditalic-webfont.woff2") format('woff2'), url("/media/microsite/handimooc/fonts/exoBi/Exo-BoldItalic.ttf") format('truetype'), url("/media/microsite/handimooc/fonts/exoBi/exo-bolditalic-webfont.woff") format('woff');
     font-weight: normal;
     font-style: normal;
   }

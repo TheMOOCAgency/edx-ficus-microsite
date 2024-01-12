@@ -25,10 +25,13 @@ def url_class(is_active):
   <a href="${tab.link_func(course, reverse)}" class="${tab_class}">
   %endif
 
-
-  ${_(tab.name)}
+  % if tab.name=="Discussion":
+    Forum
+  % else:
+    ${_(tab.name)}
+  % endif
   % if tab_is_active:
-      <span class="sr">, current location</span>
+      <span class="sr">(rubrique courante)</span>
   %endif
   % if tab_image:
       ## Translators: 'needs attention' is an alternative string for the

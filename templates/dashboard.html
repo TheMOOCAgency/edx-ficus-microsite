@@ -164,9 +164,9 @@ endfor
         % if False:
           <img src="${static.url('images/like_couleur.svg')}" class="svg svg_passed"/><span style="margin-left:50px;">{_("Training not validated")}</span>
         % elif cours_ouv:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">${_("Training not validated")}</a></span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/progress">Suivez votre progression</a></span>
         % else:
-          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Poursuivez votre progression</span>
+          <img src="${static.url('images/like_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">Suivez votre progression</span>
         % endif
       </div>
       <!-- border middle -->
@@ -456,7 +456,6 @@ function alignH2(){
   }
 }
 /* unenroll */
-
 function multi_unenroll() {
   $('.unenroll_multi').click(function(e){
     e.preventDefault();
@@ -478,7 +477,11 @@ $(window).initialize(function(){
   alignH2();
 })
 
+//redirection partners
+$('#course_nav>.course_nav:last-of-type').prop('href', '/courses/course-v1:handimooc+cours01+2018/9e642aef212145699fb6abf578f13ef1/');
+
 </script>
+<script src="/media/microsite/handimooc/js/fix-handimooc.js" type="text/javascript"></script>
 <div id="email-settings-modal" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="email-settings-title">
     <button class="close-modal">
@@ -497,7 +500,7 @@ $(window).initialize(function(){
           ${_("window open")}
         </span>
       </h2>
-      <hr/>
+      <hr role="presentation"/>
     </header>
 
     <form id="email_settings_form" method="post">
@@ -529,7 +532,7 @@ $(window).initialize(function(){
           ${_("window open")}
         </span>
       </h2>
-      <hr/>
+      <hr role="presentation"/>
     </header>
     <div id="unenroll_error" class="modal-form-error"></div>
     <form id="unenroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
