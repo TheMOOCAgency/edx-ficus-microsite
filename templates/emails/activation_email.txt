@@ -1,10 +1,12 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bienvenue dans la formation "Environnement et enjeux du digital learning" !
 
-Vous devez maintenant activer votre compte, avec le lien suivant :
+Pour accéder au cours, vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
 
-Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+A bientôt,
+
+L'équipe pédagogique

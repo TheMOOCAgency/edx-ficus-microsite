@@ -11,17 +11,17 @@ from openedx.core.djangolib.markup import HTML, Text
 
   <section class="message">
     %if not already_active:
-      <h1 class="valid">${_("Account Activated")}</h1>
+      <h1 class="valid">Compte activé</h1>
     %else:
-      <h1>${_("Account already active")}</h1>
+      <h1>Compte déjà activé</h1>
     %endif
     <hr class="horizontal-divider">
 
     <p>
       %if not already_active:
-        ${_("Thanks for activating your account.")}
+        Merci d'avoir activé votre compte.
       %else:
-        ${_("This account has already been activated.")}
+        Compte déjà activé
       %endif
 
       %if user_logged_in:

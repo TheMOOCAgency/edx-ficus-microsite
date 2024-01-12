@@ -1,97 +1,178 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html>
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-register_course_id = static.get_value('course_id')
-org = static.get_value('domain_prefix')
-css = '/media/microsite/{}/auto/css/index.css'.format(org)
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fpspp-formation-digital-learning</title>
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/bootstrap/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/4-Columns-Info-Icons.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/PUSH---Bootstrap-Button-Pack1.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/PUSH---Bootstrap-Button-Pack3.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/PUSH---Bootstrap-Button-Pack2.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/user.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/dh-highlight-icon-heading.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Full-Page-Background.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Full-Page-Background1.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Full-Page-Background2.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/html5-video.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/PUSH---Bootstrap-Button-Pack.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Testimonials-1.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/Testimonials.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/thumbnails1-1.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/thumbnails1.css">
+    <link rel="stylesheet" href="/media/microsite/fpspp-formation-digital-learning/assets/css/home.css">
+</head>
+<style>
+* {
+    font-family: 'Dosis', 'Open Sans', 'sans-serif' !important;
+}
+</style>
+<body>
+    <nav class="navbar navbar-default" id="nav_header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" style="/*position:absolute;*/padding-top:10px;"> <img src="/media/microsite/fpspp-formation-digital-learning/assets/img/logo-fpspp.jpg" height="60px" style="height:59px;"></a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
             </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--<li role="presentation" class="register-btn"><a href="/register">INSCRIPTION</a></li>-->
+                    <li role="presentation" class="login-btn"><a href="/login?course_id=course-v1%3Afpspp-formation-digital-learning%2BFPSPP1%2B2018&enrollment_action=enroll">CONNEXION</a></li>
+                </ul>
+            </div>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+    </nav>
+    <div class="container" id="section1">
+        <video  autoplay="true" loop="loop" preload="metadata" muted="muted">
+        <source src="/media/microsite/fpspp-formation-digital-learning/assets/video_bg.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+        </video>
+        <!--<div style="background-image:url('/media/microsite/fpspp-formation-digital-learning/assets/img/ordinateur.png');width:100%;height:100%;background-size:cover;"></div>-->
+        <div class="col-md-5 title-frame">
+            <h1>ENVIRONNEMENT ET ENJEUX DU DIGITAL LEARNING</h1>
+            <img src="/media/microsite/fpspp-formation-digital-learning/assets/img/link.png" style="height:60px;transform: rotate(45deg);">
+            <!--<p style="font-size:2em;font-family:'Open Sans', sans-serif;/*font-style:italic;*/font-weight:normal;margin-bottom:10px;"><strong>ENVIRONNEMENT ET ENJEUX DU DIGITAL LEARNING</strong></p>-->
+            <p style="font-size:24px;font-family:'Open Sans', sans-serif;color:white;margin-top:10px;"><!--Ouverture le 6 décembre--></p>
+            <div id="buttons"style="margin:0 auto;text-align:center;">    
+                <!--<div class="btn-home register-btn" style="padding:20px;"><a href="/register">INSCRIPTION</a></div>-->
+                <div class="btn-home login-btn" style="padding:20px;"><a href="/login?course_id=course-v1%3Afpspp-formation-digital-learning%2BFPSPP1%2B2018&enrollment_action=enroll">CONNEXION</a></div>
+            </div>
+        </div>
     </div>
-  </section>
-% endif
+    <div style="background-color:white;margin-top:80px;height:auto;z-index:1;position:relative;">
+        <div class="container">
+            <div class="row" style="/*text-align:center;*/background-color:rgba(255,255,255,0);">
+                <div class="col-md-12">
+                    <h2 class="text-center">Apprenez à maîtrisez les enjeux du digital learning à travers 8 modules !</h2></div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/elearning.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-green">Qu’est-ce que le digital learning ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/vocabulaire.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-blue">Connaître le vocabulaire et les différentes modalités pédagogiques</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/modalité.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-green">Proposer la bonne modalité de formation en fonction des besoins</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/cout.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-blue">Comprendre les coûts et la prise en charge du digital learning</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/acteur.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-green">Connaître les acteurs du digital learning</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center;/*float:none;*/background-color:rgba(0,67,104,0);">
+                    <div class="thumbnail"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/pratique.jpg" style="height:233px;">
+                        <div class="caption">
+                            <p class="caption-blue">Cas pratiques et mise en situation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dh-highlight-text" style="background-color:white;padding:0px;height:auto;position:relative;z-index:1;">
+        <div class="container" style="background-color:white;width:200px;height:5px;background-color:rgb(0,74,115);margin-left:45%;margin:auto">
+        </div>
+        <h2 class="text-center" style="padding-top:20px;color:rgb(0,74,115);margin-top:35px;font-family:'Open Sans', sans-serif;">Découvrez la formation</h2>
+        <!--<video preload="metadata" muted="muted" allow="encrypted-media" style="position:inherit !important;min-width:60%;width:60%" controls>
+            <source src="https://vimeo.com/296432839/3171f8af19" type="video/mp4">
+        </video>-->
+        <iframe src="https://player.vimeo.com/video/296432839" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:inherit !important;min-width:60%;width:60%;height:355px;"></iframe>
+    </div>
+    <div class="team-boxed" style="background-color:white;height:auto;z-index:1;position:relative;padding-top:30px">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom:10px;color:rgb(0,74,115);font-family:'Open Sans', sans-serif;padding-top:0px;">ET AU FAIT... QU'EST-CE QU'UN SPOC ?</h2>
+            <p class="text-center" style="font-family:'Open Sans', sans-serif;">Une formation gratuite, ouverte à tous, disponible et accessible où que vous soyez !</p>
+        </div>
+        <div class="row people" style="margin-top:40px;padding-bottom:0px;padding-top:0px;display:flex;flex-wrap:wrap;">
+            <div class="col-md-3 col-sm-6 item col-xs-12">
+                <div class="box"><img class="img-rounded" src="/media/microsite/fpspp-formation-digital-learning/assets/img/networking.png" style="width:80px;height:80px;">
+                    <h3 class="name" style="font-family:'Open Sans', sans-serif;">SMALL</h3>
+                    <p class="description" style="font-family:'Open Sans', sans-serif;">Un contenu disponible gratuitement et autour duquel vous pouvez échanger, directement sur cette plateforme.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 item col-xs-12">
+                <div class="box"><img class="img-rounded" src="/media/microsite/fpspp-formation-digital-learning/assets/img/cadenas.png" style="width:auto;height:80px;">
+                    <h3 class="name" style="font-family:'Open Sans', sans-serif;">PRIVATE</h3>
+                    <p class="description" style="font-family:'Open Sans', sans-serif;">Un accès libre à toutes les ressources. </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 item col-xs-12">
+                <div class="box"><img class="img-rounded" src="/media/microsite/fpspp-formation-digital-learning/assets/img/search.png" style="width:80px;height:80px;">
+                    <h3 class="name" style="font-family:'Open Sans', sans-serif;">ONLINE </h3>
+                    <p class="description" style="font-family:'Open Sans', sans-serif;">Disponible en ligne, tout le temps et où que vous soyez.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 item col-xs-12">
+                <div class="box"><img class="img-rounded" src="/media/microsite/fpspp-formation-digital-learning/assets/img/ebook.png" style="width:80px;height:80px;">
+                    <h3 class="name" style="font-family:'Open Sans', sans-serif;">COURSE </h3>
+                    <p class="description" style="font-family:'Open Sans', sans-serif;">Un vrai parcours pédagogique, pour vous permettre d'acquérir des compétences.</p>
+                </div>
+            </div>
+        </div>
+        <!--<div style="margin-top:20px;"><a class="btn btn-primary btn-lg i-register" role="button" href="/register" data-toggle="modal">Je m'inscris !</a>
+        </div>-->
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-sm-6 col-xs-12 col-sm-6" style="margin-top:20px;">
+                    <a href="#"><h5 style="margin:0px;"><img src="/media/microsite/fpspp-formation-digital-learning/assets/img/logo-fpspp.jpg" style="margin:0px;height:60px;padding:0px;margin-top:-10px;"></a></h5></div>
+                <div class="col-md-6 col-xs-12 col-sm-6"><a href="https://themoocagency.com"><img class="img-responsive logo_tma" src="/media/microsite/fpspp-formation-digital-learning/assets/img/Logo_256x256.png"></a></div>-->
+            </div>
+        </div>
+    </footer>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/js/Full-Page-Background1.js"></script>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/js/Full-Page-Background2.js"></script>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/js/Full-Page-Background3.js"></script>
+    <script src="/media/microsite/fpspp-formation-digital-learning/assets/js/Full-Page-Background.js"></script>
+</body>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-% if register_course_id is not None:
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=${register_course_id}&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3F${register_course_id}%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
-% endif
+</html>
