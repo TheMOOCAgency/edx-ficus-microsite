@@ -117,6 +117,20 @@ org_static = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
 %>
 <link rel="stylesheet" type="text/css" href="${css}" />
+
+<!--ajout css couleur selon cours-->
+% if 'vert' in str(course.id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_green.css"/>
+% endif
+
+% if 'bleu' in str(course.id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_blue.css"/>
+% endif
+
+% if 'rouge' in str(course.id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_red.css"/>
+% endif
+
 <div class="message-banner" aria-live="polite"></div>
 
 % if default_tab:

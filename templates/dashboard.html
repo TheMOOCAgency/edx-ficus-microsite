@@ -94,7 +94,8 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 <!--
 <link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
 -->
-<link rel="stylesheet" type="text/css" href="${css}" />
+<link rel="stylesheet" type="text/css" href="${css}"/>
+
 
 <!-- DASHBOARD MONO -->
 <!-- DASHBOARD MONO -->
@@ -103,6 +104,25 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 
 <div id="voile"></div>
 <div class="content_tma">
+<!--ajout css couleur selon cours-->
+<%
+course = ''
+course_mono_id = ''
+for dashboard_index, enrollment in enumerate(course_enrollments):
+  course = get_course_by_id(enrollment.course_id)
+  if len(course_enrollments) == 1:
+    course_mono_id = enrollment.course_id
+%>
+% if 'vert' in str(course_mono_id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/dashboard_green.css"/>
+% elif 'bleu' in str(course_mono_id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/dashboard_blue.css"/>
+% endif
+
+% if 'rouge' in str(course_mono_id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/dashboard_red.css"/>
+% endif
+
   <!-- profil -->
   <div id="dashboard_profile">
   <div id="profile_button">p r o f i l </div>

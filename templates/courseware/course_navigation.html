@@ -15,8 +15,15 @@ from student.models import CourseEnrollment
 org_static = static.get_value('domain_prefix')
 css = org_static+'/css/course_navigation.css'
 %>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-
+<link rel="stylesheet" type="text/css" href="${static.url(css)}"  />
+<!--ajout css couleur selon cours-->
+% if 'vert' in str(course.id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_green.css"/>
+% elif 'bleu' in str(course.id):
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_blue.css"/>
+% else
+    <link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/courseware_red.css"/>
+% endif
 
 <style>
 body.view-in-course .wrapper-course-material .course-material .course-tabs {

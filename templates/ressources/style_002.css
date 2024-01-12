@@ -1,0 +1,13 @@
+#bbpress-forum-select{
+	display: block;
+}
+#bbpress-forum-select select,
+#bbpress-forum-select input[type="text"]{
+	vertical-align: top;
+}
+#bbpress_forum_create_new{
+	min-width: 300px;
+}
+#restrict-access-form-message{
+	clear: both;
+}

@@ -52,11 +52,11 @@ cours_ouv = show_courseware_link and not is_course_blocked
 <div id="course_nav">
   <a href="/courses/${enrollment.course_id}/courseware/" id="course_start"><img class="svg" src="${static.url('images/play_blanc.svg')}"/><span>${_('Start')}</span><span style="display:block;clear:left;width:0;height: 0;padding:0;margin:0;"></span></a>
   <a href="/courses/${enrollment.course_id}/discussion/forum/" class="course_nav"><img class="svg" src="${static.url('images/forum_blanc.svg')}"/><span>${_('forum')}</span></a>
-  <a href="/courses/${enrollment.course_id}/about" class="course_nav"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
+  <a href="/courses/${enrollment.course_id}/about" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/info_blanc.svg')}"/><span>${_('info')}</span></a>
   % if return_social is not None:
   <a href="${return_social['url']}" class="course_nav" target="_blank"><img class="svg" src="${static.url('images/'+return_social['type']+'.svg')}"/><span>${return_social['type']}</span></a>
   % else:
-  <a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>
+  <!--<a href="/courses/${enrollment.course_id}/courseware/19ff273099ab49bb8636860fdf8bb36f/?tma_display_favorites=yes" class="course_nav"><img class="svg" src="${static.url('images/favori_blanc.svg')}"/><span>${_('Favoris')}</span></a>-->
   % endif
   % if multi_course_platform:
     <a href="/dashboard" class="course_nav"><img class="svg" src="${static.url('images/left-arrow.svg')}"/><span>${_('Retour')}</span></a>
@@ -99,7 +99,18 @@ $.ajax({
                }
            });
 </script>
-
+<script>
+    //redirecting info button
+    $(document).ready(function() {
+            var courseid = '${enrollment.course_id}';
+        courseid = courseid.substr(21, 2);
+        console.log(courseid);
+        if (courseid.indexOf('+') > -1) {
+            courseid = courseid.substr(0, 1);
+        }
+        $('#course_nav a:nth-child(3)').attr('href', 'https://lektio.fr/media/microsite/lektio/ressources/pages/formation2.html?form='+courseid);
+    })
+</script>
 <%static:require_module_async module_name="js/dateutil_factory" class_name="DateUtilFactory">
     DateUtilFactory.transform(iterationKey=".localized-datetime");
 </%static:require_module_async>

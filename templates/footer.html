@@ -12,7 +12,13 @@ org = static.get_value('domain_prefix')
 css = '/media/microsite/{}/auto/css/footer.css'.format(org)
 %>
 
+<
 <link rel="stylesheet" type="text/css" href="${css}" />
+<!-- Fix traduction -->
+% if LANGUAGE_CODE == 'fr':
+<script src="/media/traductions/fix-trad-fr.js" charset="utf-8"></script>
+% endif
+
 <footer class="global">
   <div class="footer-container">
     <ul class="links">
@@ -37,3 +43,17 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
     </div>
   </div>
 </footer>
+<script>
+    var path = window.location.pathname;
+    if (path.indexOf('bleu') > -1) {
+        $('.window-wrap').append('<link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/footer_blue.css"/>');
+    } else {
+        if (path.indexOf('vert') > -1) {
+            $('.window-wrap').append('<link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/footer_green.css"/>');
+        } else {
+            if (path.indexOf('rouge') > -1) {
+                $('.window-wrap').append('<link rel="stylesheet" type="text/css" href="/media/microsite/lektio/css/footer_red.css"/>');
+            }
+        }
+    }
+</script>
