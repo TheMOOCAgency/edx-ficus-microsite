@@ -216,9 +216,9 @@ site_status_msg = get_site_status_msg(course_id)
                 <a class="btn btn-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
               % else:
                 % if static.get_value('course_id') is not None:
-                <a class="btn btn-login" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
                 % else:
-                <a class="btn btn-login" href="/login?course_id=course-v1%3Aactia%2BV2%2BSession1&enrollment_action=enroll">${_("Sign in")}</a>
+                <a class="btn btn-login" href="/login">${_("Sign in")}</a>
                 % endif
               % endif
             % endif
