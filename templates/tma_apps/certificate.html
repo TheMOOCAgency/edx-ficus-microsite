@@ -15,13 +15,11 @@ import json
 %>
 
 <%
-if request.user.email.find("themoocagency.com")>-1 and user.is_active and user.is_staff :
-  is_tma_team=True
+if request.user.email.find("weuplearning.com") != -1 :
+  is_tma_team = True
 else :
-  is_tma_team=False
-%>
+  is_tma_team = False
 
-<%
 org = static.get_value('domain_prefix')
 %>
 
@@ -61,8 +59,6 @@ body{
 }
 
 /* Premier bandeau */
-.bandeau-top{
-}
 .bandeau-top p{
   font-weight: 600;
   color: white;
@@ -134,52 +130,53 @@ body{
 /* new certificate */
 
 #certificate-container{
-    height: 100%;
+  height: 100%;
   padding: 40px;
-    box-sizing: border-box;
-    background: white;
-    background-image: url('/media/microsite/${org}/certificate/certificate.png');
-    background-size: contain;
-    width: 881px;
-    height: 510px;
-    margin: auto;
-  }
+  box-sizing: border-box;
+  background: white;
+  background-image: url('/media/microsite/${org}/certificate/certificate.png');
+  background-size: contain;
+  width: 881px;
+  height: 510px;
+  margin: auto;
+}
 
-  .certificate-border{
-    border:0.5px solid rgba(0,131,169,1);
-  }
-  .name {
-color: #7872b0;
-margin-bottom: 10px;
-font-size: 1.8em;
-font-weight: 600;
-  }
+.certificate-border{
+  border:0.5px solid rgba(0,131,169,1);
+}
+.name {
+  color: #7872b0;
+  margin-bottom: 10px;
+  font-size: 1.8em;
+  font-weight: 600;
+}
 
-  .course {
-color: #003d58;
-margin-bottom: 10px;
-font-size: 1.4em;
-font-weight: 600;
-  }
+.course {
+  color: #003d58;
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  font-weight: 600;
+}
 
-  .details {
-color: #003d58;
-margin-bottom: 10px;
-text-transform: uppercase;
-font-size: 1em;
-margin-top: 12px;
-  }
-
-
+.details {
+  color: #003d58;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin-top: 12px;
+}
 
 </style>
+
+
 % if grades.get('passed') or is_tma_team:
-  % if request.path == '/tma_apps/course-v1:actia+SPOC+2020/certificate/render' : 
+  % if (request.path == '/tma_apps/course-v1:actia+SPOC+2020/certificate/render') or (request.path == '/tma_apps/course-v1:actia+SPOC+2024/certificate/render') : 
+
   <div id="pdf-btn-wrapper" style="margin-bottom: 30px;">
     <button style="background: #0083a9;" id="custom-btn" onclick="CertificateToPdf()">TELECHARGER PDF</button>
   </div>
   <div class="container" id="main">
-  <div id="certificate-wrapper" >
+    <div id="certificate-wrapper" >
       <div id="certificate-container" class=" certificate-border">
         <h2 class="name">${first_name} ${last_name}</h2>
         <h2 class="course">a suivi et réussi la formation en ligne SPOC ACTIA</h2>
@@ -189,8 +186,7 @@ margin-top: 12px;
       </div>
     </div>
   </div>
-</div>
-</div>
+
   % else :
 
     <div class="container" id="main">
@@ -203,7 +199,6 @@ margin-top: 12px;
         </div>
         <div style="clear:both;"></div>
       </div>
-
       <div class="bandeau-middle second-color">
         <p>ACTIA atteste que</p>
         <p id="nom-user">${first_name} ${last_name}</p>
@@ -211,66 +206,50 @@ margin-top: 12px;
         <p class="texte-gras" id="course-title">${course_name} 2020</p>
         <p id="score">avec un score de ${grades.get('grade')*100}%</p>
       </div>
-
-      <div class="footer">
-          <!-- <div class="footer-left">
-              <p>Code de vérification : <span id="security_hash">${hash}</span> – À vérifier sur <a id="check_link" target="_blank" href="https://services.themoocagency.com/check?MOOC=${course_name}">https://services.themoocagency.com/check</a></p>
-          </div> -->
-          <div class="footer-right">
-              <img src="${signature}"/>
-          </div>
-          <div style="clear:both;"></div>
-      </div>
     </div>
     <div style='margin-top:20px;'>
       <button id="bouton-pdf" onclick="printpage()">VERSION PDF</button>
     </div>
-% endif
+
+  % endif
 
 
 
 <script src="/media/dashboard/bootstrap/bootstrap.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-</script>
-
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+<script type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
 <script type="text/javascript">
 //PDF VERSION
 function printpage(){
-   html2canvas(document.getElementById('main'), {
+  html2canvas(document.getElementById('main'), {
     onrendered : function (canvas){
-     var img=canvas.toDataURL("image/png");
-     var doc = new jsPDF({orientation: 'landscape'});
-     doc.addImage(img, "PNG", 20, 20);
-     doc.save("certificat.pdf");
+      var img=canvas.toDataURL("image/png");
+      var doc = new jsPDF({orientation: 'landscape'});
+      doc.addImage(img, "PNG", 20, 20);
+      doc.save("certificat.pdf");
     }
   })
 }
 
 function CertificateToPdf(){
-     html2canvas(document.getElementById("certificate-container"), {
-      onrendered : function (canvas){
-       var img=canvas.toDataURL("image/png");
-       var doc = new jsPDF({orientation: 'landscape'});
-      //  doc.addImage(img, "PNG", 30, 35);
-       doc.addImage(img, "PNG", 35, 35);
-       doc.save("certificat.pdf");
-      }
-    })
-  }
-
-  $(document).ready(function(){
-    if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
-    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+  html2canvas(document.getElementById("certificate-container"), {
+    onrendered : function (canvas){
+      var img=canvas.toDataURL("image/png");
+      var doc = new jsPDF({orientation: 'landscape'});
+      doc.addImage(img, "PNG", 35, 35);
+      doc.save("certificat.pdf");
     }
   })
+}
 
+$(document).ready(function(){
+  if(navigator.userAgent.indexOf("Firefox")<0 && navigator.userAgent.indexOf("Chrome")<0 && navigator.userAgent.indexOf("Safari")<0){
+    $('#pdf-btn-wrapper').html("${_('Download PDF : This feature is not available on Internet Explorer. Please use Chrome Mozilla or Safari to get your pdf')}")
+  }
+})
 
 </script>
-
 % endif
