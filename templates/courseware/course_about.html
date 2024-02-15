@@ -239,7 +239,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
               %>
             <li class="important-dates-item">
               <span class="icon fa fa-calendar" aria-hidden="true"></span>
-              % if path == '/courses/course-v1:actia+SPOC+2020/about' :
+              % if (path == '/courses/course-v1:actia+SPOC+2020/about') or (path == '/courses/course-v1:actia+SPOC+2024/about') :
                 <p class="important-dates-item-title">Début du SPOC</p>
               % else :
                 <p class="important-dates-item-title">Début du MOOC</p>
@@ -273,7 +273,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
 
             <li class="important-dates-item">
                 <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                % if path == '/courses/course-v1:actia+SPOC+2020/about' :
+                % if (path == '/courses/course-v1:actia+SPOC+2020/about') or (path == '/courses/course-v1:actia+SPOC+2024/about') :
                   <p class="important-dates-item-title">Fin du SPOC</p>
                 % else :
                   <p class="important-dates-item-title">Fin du MOOC</p>
