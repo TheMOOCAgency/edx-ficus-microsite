@@ -17,32 +17,22 @@ path = request.path
   % if user.is_authenticated() and registered:
 	<div class="enroll-button" style="height:16px !important">
     % if user.is_active:
-<!--           <span>Votre inscription a été prise en compte !
-           <br/>&nbsp;<br/>	Le MOOC débute dans...<br/>&nbsp;<br/></span>
-           <span id="time"></span>-->
-<script type="text/javascript">
-$(document).ready(function(){
-        $("#time").countdown({
-            "date" : "2017/09/07 14:30:00",
-            "template": "%d j  %h h  %i min  %s s",
-        });
-});
-</script>
-           <span style="cursor:pointer" onclick="window.location.href='/register'">
-           M'inscrire<br/>&nbsp;<br/></span>
+          <span style="cursor:pointer" onclick="window.location.href='https:\/\/docs.google.com/forms/d/e/1FAIpQLSdwku7swDx9u1pbTa1oDI_ailmkrrYrT6MN5W5Vi_FZKr_GFA/viewform'">
+            M'inscrire<br/>&nbsp;<br/>
+          </span>
     % else:
-           Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
+          Activez votre compte !<span style="font-size:12px"><br/>Vous avez reçu un lien d'activation.<br/>Vérifiez votre boîte mail et vos SPAMs.</span>
     % endif
-        </div>
+  </div>
   % else:
     % if path == '/courses/course-v1:actia+SPOC+2020/about' :
           <div class="enroll-button" onclick="window.location.href='https:\/\/docs.google.com/forms/d/e/1FAIpQLSdwku7swDx9u1pbTa1oDI_ailmkrrYrT6MN5W5Vi_FZKr_GFA/viewform?usp=sf_link'">
             M'inscrire
-         </div>
+          </div>
     % elif path == '/courses/course-v1:actia+SPOC+2024/about' :
           <div class="enroll-button" onclick="window.location.href='https:\/\/docs.google.com/forms/d/e/1FAIpQLSdwku7swDx9u1pbTa1oDI_ailmkrrYrT6MN5W5Vi_FZKr_GFA/viewform'">
             M'inscrire
-         </div>
+          </div>
 
     % else :
           <div class="enroll-button" onclick="window.location.href='/register?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
@@ -50,7 +40,7 @@ $(document).ready(function(){
           </div>
           <div style="border-top:1px solid white" class="enroll-button" onclick="window.location.href='/login?course_id=${course.id.to_deprecated_string() | u}&enrollment_action=enroll'">
             Me Connecter
-         </div>
+          </div>
     % endif
   % endif
 
@@ -110,6 +100,3 @@ $(document).ready(function(){
 </header>
 
 
-<script>
-  console.log('test')
-</script>

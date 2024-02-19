@@ -97,7 +97,8 @@ import datetime
     </li>
 -->
     <li class="field required text" id="field-email">
-      <label for="email">${_('E-mail')}</label>
+      <!-- <label for="email">${_('E-mail')}</label> -->
+      <label for="email">Courriel</label>
       <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
     </li>
 
@@ -111,7 +112,7 @@ import datetime
     <li class="field required text" id="field-username">
       <label for="username">${_('Public Username')}</label>
       <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
-      <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
+      <span class="tip tip-input" id="username-tip">Sera visible dans toute discussion ou forum auquel vous participerez <strong>(ne pourra pas être modifié ultérieurement)</strong></span>
     </li>
 
     % if third_party_auth.is_enabled() and running_pipeline:
@@ -343,41 +344,52 @@ import datetime
   <button name="submit" type="submit" id="submit" class="action action-primary action-update register-button"><!--${_('Create My Account')}--></button>
 </div>
 <style>
-    .nav_title{
-    font-weight: 600;
-    margin-right: 29%;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-left: -5%;
-  }
+.nav_title{
+  font-weight: 600;
+  margin-right: 29%;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-left: -5%;
+}
 .left.list-inline.nav-global {
-    margin-top: 5px;
-    display: none;
+  margin-top: 5px;
+  display: none;
 }
 #login_link_up {
- margin-top: 10px;
+  margin-top: 10px;
 }
 #login_link {
- width: 100%;
- height: 43px;
- margin-top: 10px;
- margin-bottom: 10px;
- color: rgba(98,181,207,1);
- font-weight: bold;
- border: none;
+  width: 100%;
+  height: 43px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgba(98,181,207,1);
+  font-weight: bold;
+  border: none;
 }
 #login_link:hover,#login_link:focus,#login_link:visited {
- color: rgba(98,181,207,0.8);
- border: none;
+  color: rgba(98,181,207,0.8);
+  border: none;
 }
 
 .header-global .nav-global li, .header-global .nav-global div {
-    display: inline-block;
-    margin: 0px -100px 0 0;
-    font-size: 0.875em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0 !important;
+  display: inline-block;
+  margin: 0px -100px 0 0;
+  font-size: 0.875em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0 !important;
+}
+#field-company > label {
+  font-weight: 600 !important;
+}
+#field-newsletter > label {
+  visibility: hidden;
+}
+#field-newsletter > label:after {
+  content: "J’accepte de recevoir les actualités de l’Actia.";
+  visibility: visible;
+  display: block;
 }
 </style>
 <script>
