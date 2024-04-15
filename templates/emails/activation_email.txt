@@ -1,10 +1,17 @@
 <%! from django.utils.translation import ugettext as _ %>
 <%! from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers %>
 
-Bienvenue
+Bonjour,
+
+Votre demande d'inscription au MOOC du CNIEL "Antibiotiques : quelle utilisation ? Quel contrôle dans la filière laitière ?" a bien été prise en compte. 
+A noter :cette formation est réservée aux professionnels de la filière laitière. Le CNIEL se réserve donc le droit de contrôler et limiter l'accès des personnes à la plateforme.
 
 Vous devez maintenant activer votre compte, avec le lien suivant :
 
 https://${ site }/activate/${ key }
 
 Si vous n'avez pas demandé de création de compte, vous n'avez rien à faire, nous ne vous recontacterons plus.
+
+Merci de votre compréhension,
+
+L'équipe pédagogique

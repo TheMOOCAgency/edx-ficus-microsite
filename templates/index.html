@@ -1,95 +1,201 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html style="font-family:'Open Sans', sans-serif;">
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<%
-org = static.get_value('domain_prefix')
-css = org+'/css/index.css'
-%>
-<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOOC CNIEL</title>
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/css/user.css">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/css/Highlight-Blue.css">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/css/Team-Boxed.css">
+    <link rel="stylesheet" href="/media/microsite/cniel/hp/assets/css/Testimonials.css">
+</head>
 
-          </div>
-
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
+<body style="font-family:'Open Sans', sans-serif;">
+    <nav class="navbar navbar-default" style="height:80px;font-family:'Open Sans', sans-serif;background-color:#ffffff;">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand" href="http://www.cniel-infos.com/"> <img src="/media/microsite/cniel/hp/assets/img/cniel-logo.jpg" style="height:75px;margin-top: -12px;"></a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active" role="presentation"><a href="http://www.cniel-infos.com/Record.htm?idlist=1283&amp;record=19036488124918546609">Qui sommes-nous ?</a></li>
+                    <li role="presentation"><a href="/register?course_id=course-v1%3Acniel%2BCNIEL01%2B2018Q1&amp;enrollment_action=enroll">Inscription </a></li>
+                    <li role="presentation"><a href="/login?course_id=course-v1%3Acniel%2BCNIEL01%2B2018Q1&amp;enrollment_action=enroll">Connexion </a></li>
+                </ul>
         </div>
-
-      </header>
-      <%include file="${courses_list}" />
-
-    </section>
-</main>
-
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </nav>
+    <div class="jumbotron" style="padding:20px;padding-left:48px;padding-right:48px;background-image:url(&quot;/media/microsite/cniel/hp/assets/img/fond_MOOC_cniel.jpeg&quot;);background-size:cover;height:calc(100vh - 140px);padding-top:calc(50vh - 70px - 167px);background-position:bottom;margin-bottom:0px;border:none;">
+        <div class="container">
+            <div class="col-md-5" style="color:white;background-color:rgba(13,13,13,0.38);padding-bottom:15px;padding-top:15px;height:315px;">
+              <center>
+                <h1 style="font-size:22px;margin-top:5px;">Le MOOC du Cniel </h1>
+              <center>
+              <p style="font-size:16px;">Vous êtes un professionnel laitier et vous souhaitez vous former sur les antibiotiques ? </p>
+              <p style="font-size:16px;margin-bottom:15px;">Inscrivez-vous au premier MOOC du Cniel « Antibiotiques : quelle utilisation ? Quel contrôle dans la filière laitière ? » </p>
+              <center>
+                <p style="font-size:22px;margin-bottom:0px;">Ouverture le 10 avril 2018</p>
+              </center>
+              <div style="margin:0 auto;text-align:center;">
+                <a class="btn btn-primary btn-lg" role="button" href="/register?course_id=course-v1%3Acniel%2BCNIEL01%2B2018Q1&amp;enrollment_action=enroll" style="/*margin-left:80px;*//*margin-right:5px;*/margin-top:10px;background-color:#0053b7;font-size:16px;/*text-align:center;*//*margin:0 auto;*/padding: 15px 16px 13px; border-width: 0 1px 4px 1px;">
+                  JE M'INSCRIS
+                </a>
+              </div>
+              <div>
+                <p style="font-size:16px;margin-top:10px;">Démarche reconnue par Ecoantibio</p>
+              </div>
+            </div>
+            <div class="col-md-7 hidden-xs hidden-sm" style="/*float:right;*/">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XaekFyK2scs?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
-  </section>
-% endif
+    <div class="highlight-blue" style="background-color:#0053b7;">
+        <h2 class="text-center">Ouverture le 10 avril 2018 </h2>
+        <div class="container">
+            <div class="col-md-6">
+                <div class="intro">
+                    <p class="text-left"><i class="glyphicon glyphicon-ok"></i> Profitez de contenus de formation disponibles 24h/24 et 7j/7 et accessibles depuis n'importe quel endroit !</p>
+                    <p class="text-left"><i class="glyphicon glyphicon-ok"></i> Echangez avec nos experts et avec la communauté</p>
+                    <p class="text-left"><i class="glyphicon glyphicon-ok"></i> Obtenez une attestation de réussite en fin de parcours</p>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin:0 auto;font-size:40px;">
+                <div style="margin:0 auto;text-align:center;"><button class="btn btn-default" type="button" style="font-size:16px;margin-bottom:14px;" onclick="window.location.replace('/courses/course-v1:cniel+CNIEL01+2018Q1/about');">Dites m'en plus !</button></div>
+                <div style="margin:0 auto;text-align:center;"><a href="https://twitter.com/cniel "><i class="fa fa-twitter" style="color:#eef4f7;margin-right:20px;margin-left:20px;"></i></a><a href="http://www.cniel-infos.com/"><i class="fa fa-home" style="color:#eef4f7;margin-right:20px;margin-left:20px;"></i></a>
+                    <a
+                        href="https://fr.linkedin.com/company/cniel"><i class="fa fa-linkedin" style="color:#eef4f7;margin-right:20px;margin-left:20px;"></i></a><a href="https://www.youtube.com/user/cnielinfos "><i class="fa fa-youtube" style="color:#eef4f7;margin-right:20px;margin-left:20px;"></i></a></div>
+            </div>
+        </div>
+    </div>
+    <div class="team-boxed"></div>
+    <div class="team-boxed"></div>
+    <div class="projects-horizontal" style="background-color:white;">
+        <div class="container">
+            <div class="intro">
+<center>                <p style="color:#0053b7;    font-size: 30px;font-weight:600">Notre programme</p></center>
+                <h2 class="text-center" style="color:#0053b7;margin-bottom:0px;margin-top:0px;height:auto;padding-top:0px;">Antibiotiques : quelle utilisation ? </h2>
+                <h2 class="text-center" style="color:#0053b7;margin-bottom:0px;margin-top:0px;height:auto;padding-top:0px;">Quel contrôle dans la filière laitière&nbsp;?</h2>
+            </div>
+            <div class="row projects">
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5" style="padding-right:16px;"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module1.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">Contexte et enjeux pour la filière laitière</h3>
+<!--                            <p class="description">Contexte et enjeux pour la filière laitière</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module2.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">Le médicament vétérinaire</h3>
+    <!--                        <p class="description">Le médicament vétérinaire</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module3.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">La prescription vétérinaire</h3>
+<!--                            <p class="description">La prescription vétérinaire</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module4_sens_inverse.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">Le dispositif de contrôle du lait</h3>
+<!--                            <p class="description">Le dispositif de contrôle du lait</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module5.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">La gestion des accidents</h3>
+    <!--                        <p class="description">La gestion des accidents</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module6.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">Les investigations et les facteurs de risques - 5 études de cas</h3>
+<!--                            <p class="description">Les investigations et les facteurs de risques - 5 études de cas</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-5"><a href="/courses/course-v1:cniel+CNIEL01+2018Q1/about"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Module7.png"></a></div>
+                        <div class="col-md-7">
+                            <h3 class="name" style="color:#0053b7;">Les bonnes pratiques et la prévention</h3>
+<!--                            <p class="description">Les bonnes pratiques et la prévention</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="testimonials-clean"></div>
+    <section class="features" style="background-color:white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="color:#0053b7;">
+                    <h2 style="color:#0053b7;">Nos partenaires</h2>
+                    <p style="color:rgb(125,130,133);">Nous avons construit ce parcours avec nos partenaires.</p>
+                </div>
+                <div class="col-md-5 col-md-push-1">
+                    <div class="row icon-features">
+                        <div class="col-xs-3 icon-feature"><a href="http://www.simv.org/" target="_blank"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/simv_logo.jpg" style="/*height:90px;*/"></a></div>
+                        <div class="col-xs-3 icon-feature" style="margin-top:16px;"><a href="https://www.sngtv.org/" target="_blank"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/SNGTV_logo.jpg" style="/*height:90px;*/"></a></div>
+                        <div class="col-xs-3 icon-feature" style="/*vertical-align:middle;*//*height:auto;*/"><a href="https://www.anses.fr/fr" target="_blank"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/anses_logo.jpg" style="/*height:90px;*/margin-top:19px;"></a></div>
+                        <div class="col-xs-3 icon-feature"><a href="http://www.simv.org/" target="_blank"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-6">
+                    <div class="row icon-features">
+                        <div class="col-md-6 col-md-push-1" style="margin-top:12px;">
+                            <p class="lead text-center" style="color:rgb(125,130,133);font-size:16px;">Démarche reconnue par</p>
+                        </div>
+                        <div class="col-xs-3 icon-feature"><a href="https://www.sngtv.org/" target="_blank"></a></div>
+                        <div class="col-xs-3 icon-feature" style="/*vertical-align:middle;*//*height:auto;*/"><a href="#"></a></div>
+                        <div class="col-md-push-1 col-xs-3 icon-feature"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/ecoantibio_logo.jpg" style="/*height:90px;*/"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="site-footer" style="height:120px;background-color:#0053b7;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4" style="margin-top:20px;">
+                    <h5 style="color:white;">CNIEL © 2017</h5>
+                </div>
+                <div class="col-sm-4 social-icons" style="height:40px;margin-top:20px;"><a href="http://www.cniel-infos.com/" target="_blank"><i class="fa fa-home"></i></a><a href="https://www.youtube.com/user/cnielinfos" target="_blank"><i class="fa fa-youtube-play"></i></a><a href="https://twitter.com/cniel"
+                        target="_blank"><i class="fa fa-twitter"></i></a><a href="https://fr.linkedin.com/company/cniel" target="_blank"><i class="fa fa-linkedin"></i></a></div>
+                <div class="col-md-4"><a href="https://themoocagency.com"><img class="img-responsive" src="/media/microsite/cniel/hp/assets/img/Logo_256x256.png" style="height:80px;float:right;margin-left:0px;"></a></div>
+            </div>
+        </div>
+    </footer>
+    <script src="/media/microsite/cniel/hp/assets/js/jquery.min.js"></script>
+    <script src="/media/microsite/cniel/hp/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
-
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
-
-
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=course-v1%3Aafpa%2BLes101techniquesdebase%2BMOOCCUISINEAFPA_S3&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Aafpa%252BLes101techniquesdebase%252BMOOCCUISINEAFPA_S3%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
+</html>

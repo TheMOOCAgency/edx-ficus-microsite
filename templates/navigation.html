@@ -55,6 +55,13 @@ site_status_msg = get_site_status_msg(course_id)
 </div>
 % endif
 </%block>
+
+% if user.is_authenticated():
+<script type="text/javascript">
+var get_current_username = "${user.username}";
+</script>
+% endif
+
   <header id="global-navigation" class="header-global ${"slim" if course else ""}" >
     <nav class="wrapper-header" aria-label="${_('Global')}">
     <h1 class="logo">
@@ -85,11 +92,20 @@ site_status_msg = get_site_status_msg(course_id)
     color: #7F7F7F;
     font-size: 16px;
 }
+
 </style>
 -->
         </%block>
       </a>
     </h1>
+
+<style>
+.header-global h1.logo img.ec-logo-size {
+    width: auto !important;
+    height: 75px !important;
+    margin-top: -14px;
+}
+</style>
 
     % if course:
       <h2 class="course-header" style="display:none"><span class="provider">${course.display_org_with_default}:</span>
@@ -108,9 +124,9 @@ site_status_msg = get_site_status_msg(course_id)
         <ol class="left nav-global list-inline authenticated">
         <%block name="navigation_global_links_authenticated">
           % if settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing:
-            <li class="item nav-global-01">
+<!--            <li class="item nav-global-01">
               <a href="${marketing_link('COURSES')}">${_('Explore courses')}</a>
-            </li>
+            </li>-->
           % endif
           % if show_program_listing:
             <li class="tab-nav-item">
@@ -169,9 +185,9 @@ site_status_msg = get_site_status_msg(course_id)
         <%block name="navigation_other_global_links">
           % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <li class="item nav-global-05">
+<!--              <li class="item nav-global-05">
                 <a class="btn" href="/courses" style="display:none">${_("Explore Courses")}</a>
-              </li>
+              </li>-->
             %endif
             % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
               <li class="item nav-global-04">
@@ -246,6 +262,13 @@ css = org_static+'/css/course_navigation.css'
 js = org_static+'/js/translate.js'
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
+<link rel="stylesheet" href="/media/microsite/cniel/css/fix-cniel-bg.css">
+<style>
+.header-global.slim .wrapper-header .logo img{
+   margin-top: -14px !important;
+}
+</style>
+
 <script src="${static.url(js)}"></script>
 <!-- superglobale js username and course_enrollment -->
 % if user.is_authenticated():

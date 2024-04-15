@@ -150,12 +150,12 @@ this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
   (function() {
     var u="//piwik.themoocagency.com/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 15]);
+    _paq.push(['setSiteId', 80]);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
-<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=15" style="border:0;" alt="" /></p></noscript>
+<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=80" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
 
 
@@ -182,9 +182,26 @@ this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
     font-style: normal;
   }
 </style>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQ3LJMX');</script>
+<!-- End Google Tag Manager -->
+
 </head>
 
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
+<!-- Google Tag Manager (noscript) -->
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQ3LJMX"
+
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- End Google Tag Manager (noscript) -->
+
 <span id="tma_background_font"></span>
 <%static:optional_include_mako file="body-initial.html" is_theming_enabled="True" />
 <div id="page-prompt"></div>
