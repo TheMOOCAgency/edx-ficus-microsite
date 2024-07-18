@@ -12,57 +12,7 @@ org = static.get_value('domain_prefix')
 css = org+'/css/footer.css'
 %>
 
-<style>
-body footer.global {
-  background-color: #67B134;
-  font-size: .9em;
-  color: #f7f7f7;
-  padding: 20px 0;
-  overflow: hidden;
-}
-body footer.global .footer-container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1170px;
-}
-footer.global ul.links {
-    padding-left: 0;
-    list-style: none;
-    margin: 0;
-}
-body footer.global ul.links {
-    padding-left: 0;
-    list-style: none;
-    margin: 0;
-}
-body footer.global ul.links li {
-    display: inline-block;
-    margin: 0 5px 0 0;
-}
-body footer.global ul.links li a, body footer.global ul.links li a:hover {
-  color: #f7f7f7;
-}
-body footer.global .by-ionisx img {
-    margin-top: -20px;
-    height: 76px;
-}
-body footer.global .by-ionisx {
-    position: absolute;
-    top: -8px;
-    right: 0;
-}
-body footer.global .copyright {
-  margin: 0;
-}
-body footer.global .footer-container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <footer class="global">
   <div class="footer-container">
     <ul class="links">
@@ -79,9 +29,13 @@ body footer.global .footer-container {
     <p class="copyright">Une r&eacute;alisation <a href="http://themoocagency.com">The MOOC Agency</a></p>
     <div class="by-ionisx">
 	<!--modif on text and image-->
+      <!--
       <a href="/">
         <img src="/media/microsite/afpa/images/logotma.png" alt="Bonshommes AFPA">
       </a>
+      -->
     </div>
   </div>
 </footer>
+
+
