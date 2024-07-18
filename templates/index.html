@@ -1,117 +1,495 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+		<link rel="stylesheet" href="/media/microsite/jassure-en-mooc/hp/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/media/microsite/jassure-en-mooc/hp/assets/css/gmf_mooc.css">
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
-<style>
-.btn-login ,.btn-login:hover,.btn-login:focus,.btn-login:visited{
-  color: #fff !important;
-}
-.home {
-  background-color: #fff;
-}
-.home>header {
-    background: #67B134 none repeat scroll 0 center;
-    background-image: url('/media/microsite/afpa/images/index.jpg');
-    background-position: center;
-    height: 361px;
-}
-#tma_background_font {
-  background-image: none;
-}
-.home>header .outer-wrapper {
-  display: none !important;
-}
-.courses-container .courses .course .course-image .cover-image .learn-more {
-  border-color: rgba(103,177,52,1) !important;
-  background: rgba(103,177,52,1) !important;
-}
-.courses-container .courses .course {
-  border-bottom: 3px solid rgba(103,177,52,1) !important;
-}
-</style>
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+		<!-- OLD GOOGLE CONSOLE ID -->
+		<!-- <meta name="google-site-verification" content="_mipQ4AtZQDNmbtOkwehQDOgCxUUV2fb_C0b6wbiRHY" /> -->
 
-          </div>
+		<!-- NEW GOOGLE CONSOLE ID -->
+		<meta name="google-site-verification" content="Q7zo-O0bn_a_RJwii0A0yhhLw2FeUviTTHW_AXhPiaU" />
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+		<meta property="og:image" content="http://les-moocs-gmf.fr/c4x/GMF/gmf01/asset/photo_GMF.jpg"/>
+		<title>J'assure en MOOC</title>
+		<meta name="Description" content="Des cours en ligne ouverts à tous pour mieux comprendre l'assurance.">
+		<!-- Global Site Tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107594341-1"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-      </header>
-      <%include file="${courses_list}" />
+		gtag('config', 'UA-107594341-1');
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-toggleable-md ">
+			<div class="container">
+				<button class="navbar-toggler navbar-inverse navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Ouvrir le menu">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand" href="/">J'assure en MOOC !</a>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="/">Accueil <span class="sr-only">(page courante)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/courses" id="scrollToMoocs">Les cours</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/faq">F.A.Q</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="nav-item">
+							<a href="/login" class="nav-link"><i></i> Mon compte</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--/.container-->
+		</nav>
+		<div id="hero_carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+			<ol class="carousel-indicators">
+				<li data-target="#hero_carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#hero_carousel" data-slide-to="1"></li>
+				<li data-target="#hero_carousel" data-slide-to="2"></li>
+				<li data-target="#hero_carousel" data-slide-to="3"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="carousel-item active item_1">
+					<div class="container">
+						<div class="carousel-caption  caption-center col-lg-12">
+							<h1>Des cours en ligne, gratuits et ouverts à tous, <br/><span>pour mieux comprendre l’assurance.</span></h1>
+							<p>Immobillier, épargne, assurance vie, assurance décès : découvrez les formations disponibles.</p>
+							<p><a onclick="gtag('event', 'ClickCarousel', { 'event_category': 'engagement'}, {'event_action': 'ClickCarousel'},{'event_label': 'intro_slide_1'},{'value': 1} ); " class="btn btn-md btn-orange" href="/register" role="button">S'inscrire / Se connecter</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item item_2">
+					<div class="container">
+						<div class="carousel-caption caption-right col-lg-12">
+							<h1><span>Réussir son</span> projet immobilier</h1>
+							<p>De la recherche du bien à la signature de l'offre d'achat chez le notaire, nous avons décrypté pour vous le parcours d'un projet immobilier.</p>
+							<p><a onclick="gtag('event', 'ClickCarousel', { 'event_category': 'engagement'}, {'event_action': 'ClickCarousel'},{'event_label': 'intro_slide_2'},{'value': 1} ); " class="btn btn-md btn-orange" href="/register" role="button">S'inscrire / Se connecter</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item item_3">
+					<!-- 					<img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide"> -->
+					<div class="container">
+						<div class="carousel-caption caption-left col-lg-12">
+							<h1><span>Comment</span> dynamiser son épargne <span>et ses</span> placements ?</h1>
+							<p>Découvrez les bonnes questions à vous poser avant d’épargner et choisir un placement.</p>
+							<p><a onclick="gtag('event', 'ClickCarousel', { 'event_category': 'engagement'}, {'event_action': 'ClickCarousel'},{'event_label': 'intro_slide_3'},{'value': 1} ); " class="btn btn-md btn-orange" href="/register" role="button">S'inscrire / Se connecter</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item item_4">
+					<div class="container">
+						<div class="carousel-caption d-none d-md-block caption-right col-lg-12">
+							<h1>Assurance décès : <br/><span>y a-t-il un âge pour être prévoyant ?</span></h1>
+							<p>En suivant le programme de ce MOOC, vous deviendrez plus averti pour protéger vos proches en cas de décès.</p>
+							<p><a onclick="gtag('event', 'ClickCarousel', { 'event_category': 'engagement'}, {'event_action': 'ClickCarousel'},{'event_label': 'intro_slide_4'},{'value': 1} ); " class="btn btn-md btn-bleu showAlertModal" href="#" role="button">Recevoir une alerte</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#hero_carousel" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Suivant</span>
+			</a>
+			<a class="carousel-control-next" href="#hero_carousel" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Précédent</span>
+			</a>
+		</div>
+		<section id="benefices">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-1">
+						<i id="icon_benef_1" class="icon_benef"></i>
+					</div>
+					<div class="col-lg-3">
+						<h2>Suivez les cours <br/>à votre rythme</h2>
+						<p>Chez vous ou ailleurs, tout ce dont vous avez besoin pour accéder aux MOOCS est une connexion internet !</p>
+					</div>
+					<div class="col-lg-1">
+						<i id="icon_benef_2" class="icon_benef"></i>
+					</div>
+					<div class="col-lg-3">
+						<h2>Rejoignez une communauté</h2>
+						<p>Via la plateforme, échangez avec un grand nombre personnes aux mêmes centres d’intérêt.</p>
+					</div>
+					<div class="col-lg-1">
+						<i id="icon_benef_3" class="icon_benef"></i>
+					</div>
+					<div class="col-lg-3">
+						<h2>Améliorez vos connaissances</h2>
+						<p>Posez vos questions à des experts et validez vos connaissances à travers des tests.</p>
+					</div>
+					<!-- /.col-lg-4 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!--/.container-->
+		</section>
+		<!--/#benefices-->
+		<a id="les_cours"></a>
+		<section id="programmes">
 
-    </section>
-</main>
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-6 col-lg-6 col-md-12">
+						<h1><i></i> Découvrez <span>les <br/><em>&nbsp;</em>programmes MOOC</span></h1>
+					</div>
+					<div class="col-lg-1 hidden-md-down">
+						&nbsp;
+					</div>
+					<div class="col-lg-5 hidden-md-down">
+						<div class="row">
+							<div class="col-2 chiffre">
+								2
+							</div>
+							<div class="col-4 text-left texte online">
+								MOOCS <br/><strong>DISPONIBLES</strong>
+							</div>
+							<div class="col-2 chiffre">
+								1
+							</div>
+							<div class="col-4 text-left texte coming">
+								MOOC <br/><strong>À VENIR</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/.row-->
+			</div>
+			<!--/.container-->
+			<div class="container">
+				<div class="row equal">
+					<div class="col-lg-4 bloc_mooc mooc_1 ">
+						<div class="inner">
+							<figure>
+								<h2>Réussir son <br/>projet immobilier</h2>
+							</figure>
+							<div class="infos">
+								<span class="date"><i></i> Ouvert</span>
+							</div>
+							<div class="description">
+								<p>De la recherche du bien à la signature de l'offre d'achat chez le notaire, nous avons décrypté pour vous le parcours d'un projet immobilier. </p>
+								<p>Quatre séquences vous sont proposées contenant chacune quatre vidéos de cinq minutes environ. </p>
+								<p>Avec nos experts, ne laissez aucune question de côté afin que votre projet soit un succès… </p>
+							</div>
+							<div class="zone_cta">
+								<a onclick="gtag('event', 'ClickOnMooc', { 'event_category': 'engagement'}, {'event_action': 'ClickOnMooc'},{'event_label': 'mooc_immobilier'},{'value': 1} ); " class="btn btn-md btn-orange" href="/courses/GMF/GMF03/Session1/about" role="button">S'inscrire / Se connecter</a>
+							</div>
+							<!--/.zone_cta-->
+						</div>
+					</div>
+					<div class="col-lg-4 bloc_mooc mooc_2">
+						<div class="inner">
+							<figure>
+								<h2>Comment dynamiser son épargne et ses placements ?</h2>
+							</figure>
+							<div class="infos">
+								<span class="date"><i></i> Ouvert</span>
+							</div>
+							<div class="description">
+								<p>Découvrez les bonnes questions à vous poser avant d’épargner et de choisir un placement.</p>
+								<p>Vous trouverez notamment des éclairages sur les supports en Unités de compte (UC) des contrats d'assurance vie.</p>
+								<p>Trois séquences d’une vingtaine de minutes sont à votre disposition pour tout comprendre sur les solutions qu’offrent l’assurance vie.</p>
+							</div>
+							<div class="zone_cta">
+								<a onclick="gtag('event', 'ClickOnMooc', { 'event_category': 'engagement'}, {'event_action': 'ClickOnMooc'},{'event_label': 'mooc_epargne'},{'value': 1} ); " class="btn btn-md btn-orange" href="/courses/GMF/gmf2/Session1/about" role="button">S'inscrire / Se connecter</a>
+							</div>
+							<!--/.zone_cta-->
+						</div>
+					</div>
+					<div class="col-lg-4 bloc_mooc mooc_3 comingsoon">
+						<div class="inner">
+							<figure>
+								<h2>Assurance décès : <br/>y a-t-il un âge pour être prévoyant ?</h2>
+							</figure>
+							<div class="infos">
+								<span class="date"><i></i> Fermé</span>
+							</div>
+							<div class="description">
+								<p>A chaque âge, son système de protection !</p>
+								<p>Dans ce nouveau cours, des témoignages, sont analysés par des experts.</p>
+								<p>Ils vous expliqueront les garanties des différents contrats d’assurance-décès et les points à retenir pour bien choisir son contrat. En suivant le programme de ce MOOC, vous deviendrez plus averti pour protéger vos proches en cas de décès.</p>
+							</div>
+							<div class="zone_cta">
+								<a onclick="gtag('event', 'ClickOnMooc', { 'event_category': 'engagement'}, {'event_action': 'ClickOnMooc'},{'event_label': 'mooc_assurancedeces'},{'value': 1} ); " class="btn btn-md btn-bleu showAlertModal" href="/courses/GMF/GMF03/Session1/about" role="button">Recevoir une alerte</a>
+							</div>
+							<!--/.zone_cta-->
+						</div>
+					</div>
+				</div>
+				<!--/.row-->
+			</div>
+			<!--/.container-->
+		</section>
+		<!--/#programmes-->
+		<section id="faq">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+						<h1><i></i> Les MOOCs, <br/><em>&nbsp;</em><span>ça marche comment ?</span></h1>
+					</div>
+					<div class="col-xl-4 col-lg-4 hidden-lg-down text-right">
+						<a href="/faq" class="simplelink" onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_page_cta'},{'value': 1} ); ">&rsaquo; <span>Consulter la foire aux questions</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="container" id="container_faq">
+				<div class="row">
+					<div class="col-lg-4" id="faq_nav">
+						<ul>
+							<li class="active">
+								<a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_tab_1'},{'value': 1} ); " href="#" data-show="1">Qu’est-ce qu’un MOOC ?</a>
+							</li>
+							<li class="">
+								<a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_tab_2'},{'value': 1} ); " href="#" data-show="2">A qui s’adressent ces MOOCs ?</a>
+							</li>
+							<li class="">
+								<a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_tab_3'},{'value': 1} ); " href="#" data-show="3">Combien de temps pour compléter un parcours MOOC ?</a>
+							</li>
+							<li class="">
+								<a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_tab_4'},{'value': 1} ); " href="#" data-show="4">Puis-je échanger avec les experts ?</a>
+							</li>
+							<li class="">
+								<a href="#" data-show="5">Le MOOC qui m’intéresse est actuellement fermé, que faire ?</a>
+							</li>
+							<li class="last">
+								<a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_tab_5'},{'value': 1} ); " href="#" data-show="6">Des nouveaux thèmes sont-ils prévus ?</a>
+							</li>
+						</ul>
+					</div>
+					<!--/#faq_nav-->
+					<div class="col-lg-8" id="faq_content">
+						<div class="content content_1">
+							<h3>Qu’est-ce qu’un <span class="nowrap">MOOC ?</span></h3>
+							<p>Le MOOC une plateforme en ligne, gratuite, ouverte à tous, où l'utilisateur gère son planning d'apprentissage en toute autonomie.</p>
+							<p>Celui-ci se compose de vidéos, de quiz et de ressources complémentaires qui forment un parcours d'apprentissage interactif varié. </p>
+							<p>Il s'agit également d'un outil social, au sein duquel l'aspect communautaire est important. Ainsi vous deviendrez membre de la communauté au sein de laquelle vous pourrez échanger, poser vos questions et partager vos connaissances.</p>
+							<p><a  onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_page_link'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="/faq">Consulter la Foire Aux Questions</a></p>
+						</div>
+						<!--/.content_1-->
+						<div class="content content_2">
+							<h3>A qui s’adressent ces <span class="nowrap">MOOCs ?</span></h3>
+							<p>Cette plateforme entièrement gratuite est ouverte à tous, il suffit de disposer d’une adresse e-mail valide pour s’inscrire et participer.</p>
+							<p>Tous niveaux : vous n’avez pas nécessairement besoin d’une base de connaissances pour suivre les formations, puisque celles-ci se veulent complètes et pédagogiques.</p>
+							<p><a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_login_register'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="#">S’inscrire et participer</a></p>
+						</div>
+						<!--/.content_2-->
+						<div class="content content_3">
+							<h3>Combien de temps pour compléter un parcours <span class="nowrap">MOOC ?</span></h3>
+							<p>Chaque formation possède son propre parcours, et par conséquent le temps requis pour compléter la session diffère selon chaque MOOC. </p>
+							<p>Le nombre d'heures de travail requises pour réussir la formation sélectionnée est affiché sur la page de présentation spécifique à chaque MOOC.</p>
+							<p><a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_list_moocs'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="#">Consulter la liste des MOOCs disponibles</a></p>
+						</div>
+						<!--/.content_3-->
+						<div class="content content_4">
+							<h3>Puis-je échanger avec les <span class="nowrap">experts ?</span></h3>
+							<p>Oui ! La plateforme dispose de forums de discussion, vous permettant de joindre l'équipe pédagogique « J’assure en MOOC ».</p>
+							<p>Vous n'avez pas à attendre en ligne ou à réorganiser votre emploi du temps pour l’adapter à celui des membres de l’équipe pédagogique : posez simplement vos questions, vous retrouverez votre réponse dans le forum.</p>
+							<p>Une question urgente ? Utilisez l’un des moyens de contact GMF proposés ci-dessous dans la section « contact », un conseiller vous renseignera sans attendre.</p>
+							<p><a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_page_link'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="#">Consulter la Foire Aux Questions</a></p>
+						</div>
+						<!--/.content_4-->
+						<div class="content content_5">
+							<h3>Le MOOC qui m’intéresse est actuellement fermé, que <span class="nowrap">faire ?</span></h3>
+							<p>Puisqu’elles impliquent la présence de formateurs qualifiés et reconnus dans leurs domaines respectifs afin de venir en aide aux utilisateurs, les sessions de formation peuvent être soumis à des fermetures provisoires et ne sont pas disponibles toute l’année. </p>
+							<p>Néanmoins, si vous êtes passé(e) à côté de la session de formation qui vous intéressait, pas de panique ! Inscrivez-vous aux alertes pour ce MOOC depuis la page d’accueil où en cliquant ici, vous serez prévenu(e) par e-mail quelques jours avant la réouverture de cette formation.</p>
+							<p><a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_modal_alert'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="#">S’abonner aux alertes MOOC</a></p>
+						</div>
+						<!--/.content_5-->
+						<div class="content content_6">
+							<h3>De nouveaux thèmes sont-ils <span class="nowrap">prévus ?</span></h3>
+							<p>Des nouveaux MOOCs sont prévus chaque année, avec différentes dates de publication. liées aux problématiques soulevées par ces thèmes de formations. Vous pouvez nous faire des suggestions sur les sujets à aborder, en utilisant notre formulaire de contact.</p>
+							<p><a onclick="gtag('event', 'ClickFaq', { 'event_category': 'engagement'}, {'event_action': 'ClickFaq'},{'event_label': 'faq_contact_link'},{'value': 1} ); " class="btn btn-sm btn-bleu" href="#">Contact</a></p>
+						</div>
+						<!--/.content_6-->
+					</div>
+					<!--/#faq_content-->
+				</div>
+				<!--/.row-->
+			</div>
+			<!--/.container-->
+		</section>
+		<!--/#faq-->
+		<section id="solutions">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1><i></i> <span>Pour</span> vous aider <span>à aller plus loin</span></h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 solution solution_1">
+						<div class="inner">
+							<figure></figure>
+							<p>&rsaquo; <strong>Découvrez nos solutions.</strong><br/>La GMF met à votre disposition tout son savoir-faire.</p>
+						</div>
+						<div class="innercta">
+							<a onclick="gtag('event', 'ClickSolutions', { 'event_category': 'engagement'}, {'event_action': 'ClickSolutions'},{'event_label': 'external_link_GMF'},{'value': 1} ); " class="btn btn-md btn-bleu" target="_blank" href="https://gmf.fr/" role="button">Découvrir la GMF</a>
+						</div>
+					</div>
+					<div class="col-lg-4 solution solution_2">
+						<div class="inner">
+							<figure></figure>
+							<p>&rsaquo;  <strong>Accédez à nos outils en ligne</strong>.<br/>Obtenez un tarif, un taux ...<br/> en quelques clics ! </p>
+						</div>
+						<div class="innercta">
+							<a onclick="gtag('event', 'ClickSolutions', { 'event_category': 'engagement'}, {'event_action': 'ClickSolutions'},{'event_label': 'external_link_simulation'},{'value': 1} ); " class="btn btn-md btn-bleu" target="_blank" href="https://www.gmf.fr/devis-simulations-en-ligne" role="button">Simuler</a>
+						</div>
+					</div>
+					<div class="col-lg-4 solution solution_3">
+						<div class="inner">
+							<figure></figure>
+							<p>&rsaquo; <strong>Faites-vous accompagner</strong>.<br/>La GMF met à votre disposition différents moyens de contact.</p>
+						</div>
+						<div class="innercta">
+							<a onclick="gtag('event', 'ClickSolutions', { 'event_category': 'engagement'}, {'event_action': 'ClickSolutions'},{'event_label': 'external_link_callback'},{'value': 1} ); " class="btn btn-md btn-bleu" target="_blank" href="https://services.gmf.fr/se-faire-rappeler" role="button">Contacter</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/#solutions-->
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
+		<section id="presse">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1><i></i> La presse <span>en parle</span></h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<ul>
+							<li class="presse_1">
+								<figure></figure>
+							</li>
+							<li class="presse_2">
+								<figure></figure>
+							</li>
+							<li class="presse_3">
+								<figure></figure>
+							</li>
+							<li class="presse_4">
+								<figure></figure>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
+		<section id="partenaires">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1><i></i> <span>Nos</span> partenaires</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<ul>
+							<li class="partenaire_1">
+								<figure></figure>
+							</li>
+							<li class="partenaire_2">
+								<figure></figure>
+							</li>
+							<li class="partenaire_3">
+								<figure></figure>
+							</li>
+							<li class="partenaire_4">
+								<figure></figure>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
-<script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
-</script>
-% endif
+		<!-- FOOTER -->
+		<footer id="main_footer">
+			<div class="container">
+				<a href="/contact">Contact</a>
+				<a href="/faq">F.A.Q</a>
+				<a href="http://jassure-en-mooc.fr/tos">Conditions générales d’utilisation</a>
+				<a href="/privacy">Mentions légales</a>
+				<a class="last" href="https://www.gmf.fr/gmf/histoire-gmf" target="_blank">Qui est la GMF ?</a>
+				<div class="small">
+					J’assure en MOOC © GMF 2015-2017 Tous droits réservés <a id="footerLogo" href="https://gmf.fr" target="_blank"></a>
+				</div>
+			</div>
+		</footer>
+		</div>
+		<!-- /.container -->
+		<div class="modal fade" id="modal_alerte">
+			<div class="modal-dialog" role="document">
+				<form id="form_alerte" name="form_alerte" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">S'abonner aux alertes MOOC</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12">
+										<p>Pour être informé(e) de la disponibilité d’un nouveau MOOC où de la réouverture d’un MOOC passé, inscrivez-vous aux alertes. Nous vous enverrons un e-mail de rappel avant chaque future session.</p>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="example-email-input" class="col-4 col-form-label">Adresse E-mail</label>
+									<div class="col-8">
+										<input class="form-control" name="field_email" type="email" value="" id="alerte_email_input">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="example-email-input" class="col-4 col-form-label">Intérêts</label>
+									<div class="col-8">
+										<label class="form-check-label">
+										<input name="field_interet[]" value="epargne" class="form-check-input" type="checkbox"> Épargne
+										</label>
+										<label class="form-check-label">
+										<input name="field_interet[]" value="immobilier" class="form-check-input" type="checkbox"> Immobilier
+										</label>
+										<label class="form-check-label">
+										<input name="field_interet[]" value="autres" class="form-check-input" type="checkbox"> Autres MOOCs
+										</label>
+									</div>
+								</div>
+							</div>
+							<!--/.container-fluid-->
+						</div>
+						<div class="modal-footer">
+							<button onclick="gtag('event', 'ClickInModal', { 'event_category': 'loss'}, {'event_action': 'CloseModal'},{'event_label': 'modal_alert'},{'value': 1} ); " type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+							<input onclick="gtag('event', 'ClickInModal', { 'event_category': 'engagement'}, {'event_action': 'SubmitForm'},{'event_label': 'form_alert'},{'value': 1} ); " type="submit" class="btn btn-orange" id="sendAlertForm" value="S'inscrire aux alertes">
+						</div>
+					</div>
+				</form>
+				<!--/#form_alerte-->
+			</div>
+		</div>
+		<!-- jQuery first, then Tether, then Bootstrap JS. -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="/media/microsite/jassure-en-mooc/hp/assets/js/plugins.js"></script>
+		<script src="/media/microsite/jassure-en-mooc/hp/assets/js/main.js"></script>
+	</body>
+</html>
 
-
-<script>
-$(".btn-neutral").each(function(){
- $(this).attr('href','/register?course_id=course-v1%3Aafpa%2BLes101techniquesdebase%2BMOOCCUISINEAFPA_S3&enrollment_action=enroll');
-});
-$(".btn-login").each(function(){
- $(this).attr('href','login?next=%2Faccount%2Ffinish_auth%3Fcourse_id%3Dcourse-v1%253Aafpa%252BLes101techniquesdebase%252BMOOCCUISINEAFPA_S3%26enrollment_action%3Denroll%26next%3D%252Fdashboard');
-});
-
-</script>
