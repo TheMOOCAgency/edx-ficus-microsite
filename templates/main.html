@@ -128,24 +128,6 @@ css = org+'/css/dashboard.css'
 <link rel="stylesheet" type="text/css" href="${static.url(org+'/css/customizer.css')}">
 <script type="text/javascript" src="${static.url(org+'/js/customize.js')}"></script>
 <script type="text/javascript" src="${static.url(org+'/js/initialize.js')}"></script>
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setCookieDomain", "*.mooc-experiencegaz.fr"]);
-  _paq.push(["setDoNotTrack", true]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//piwik.themoocagency.com/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '25']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="//piwik.themoocagency.com/piwik.php?idsite=25&rec=1" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
 <!-- fonts call -->
 
 
@@ -170,7 +152,42 @@ css = org+'/css/dashboard.css'
   }
 </style>
 </head>
+<style>
+#message_mtn {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000000000000000;
+  display: block;
+  background-image: url("/static/ergalis/images/font_ergalis.c02c0a1c1ffb.jpg") !important;
+  background-size: cover;
+  background-position: center;
+}
+#message_mtn h1 {
+  margin-top: -110px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: calc(-12.5% + 10px);
+  width: 25%;
+  text-align: center;
+  background-color: rgba(255,255,255,0.4);
+}
 
+</style>
+<!-- MAINTENANCE -->
+<!--
+<div id="message_mtn">
+<h1>
+  Bonjour à tous.
+  <br>
+  La plateforme est actuellement en maintenance.
+  <br>
+  Elle sera de nouveau active dans quelques heures.
+<h1>
+</div>
+-->
+<!-- FIN MAINTENANCE -->
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
 <span id="tma_background_font"></span>
 <%static:optional_include_mako file="body-initial.html" is_theming_enabled="True" />

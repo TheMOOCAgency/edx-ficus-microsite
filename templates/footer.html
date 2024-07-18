@@ -13,68 +13,13 @@ css = org+'/css/footer.css'
 %>
 <link rel="stylesheet" type="text/css" href="${static.url(css)}" />
 <div class="wrapper wrapper-footer">
-  <footer id="footer-openedx" class="grid-container"
-    ## When rendering the footer through the branding API,
-    ## the direction may not be set on the parent element,
-    ## so we set it here.
-    % if bidi:
-      dir=${bidi}
-    % endif
-  >
-    <div class="colophon">
-      <nav class="nav-colophon" aria-label="${_('About')}">
-        <ol>
-            % for item_num, link in enumerate(footer['navigation_links'], start=1):
-            <li class="nav-colophon-0${item_num}">
-              <a id="${link['name']}" href="${link['url']}">${link['title']}</a>
-            </li>
-            % endfor
-        </ol>
-      </nav>
-
-      <div class="wrapper-logo">
-        <p>
-          <a href="/">
-            ## The default logo is a placeholder.
-            ## You can either replace this link entirely or update
-            ## the FOOTER_ORGANIZATION_IMAGE in Django settings.
-            ## If you customize FOOTER_ORGANIZATION_IMAGE, then the image
-            ## can be included in the footer on other sites
-            ## (e.g. a blog or marketing front-end) to provide a consistent
-            ## user experience.  See the branding app for details.
-<!--            <img alt="organization logo" src="${footer['logo_image']}">-->
-          </a>
-        </p>
-      </div>
-
-      ## Site operators: Please do not remove this paragraph! This attributes back to edX and makes your acknowledgement of edX's trademarks clear.
-      <p class="copyright">${footer['copyright']}</p>
-
-      <nav class="nav-legal" aria-label="${_('Legal')}">
-        <ul>
-          % for item_num, link in enumerate(footer['legal_links'], start=1):
-            <li class="nav-legal-0${item_num}">
-              <a href="${link['url']}">${link['title']}</a>
-            </li>
-          % endfor
-        </ul>
-      </nav>
-    </div>
-
-    ## Please leave this link and use one of the logos provided
-    ## The OpenEdX link may be hidden when this view is served
-    ## through an API to partner sites (such as marketing sites or blogs),
-    ## which are not technically powered by OpenEdX.
-    % if not hide_openedx_link:
-    <div class="footer-about-openedx">
-      <p>
-        <a href="http://themoocagency.com/">
-          <img src="${static.url(org+'/images/logo_tma.png')}" alt="" width="140" />
-        </a>
-      </p>
-    </div>
-    % endif
-  </footer>
+<footer>
+  <a href="/media/microsite/ergalis/hp/conditionsgenerales.html">Conditions générales</a>
+  <a href="https://themoocagency.com/"><img src="/media/microsite/ergalis/hp/images/logotma.png"></a>
+  <a href="https://www.emploi-store.fr/"><img src="/media/microsite/ergalis/hp/images/emploi_store.png"></a>
+  <a href="https://www.ergalis.fr/"><img src="/media/microsite/ergalis/hp/images/logoergalis.png"></a>
+  <span style="display:block;clear:both"></span>
+</footer>
 </div>
 % if include_dependencies:
   <%static:js group='base_vendor'/>
@@ -87,3 +32,33 @@ css = org+'/css/footer.css'
     <link rel="stylesheet" type="text/css" href="${url}"></link>
   % endfor
 % endif
+<style>
+.wrapper-footer {
+ padding-top: 0;
+ padding-bottom: 0;
+}
+footer {
+ background-color: #fff;
+ min-height: 90px;
+ height: auto;
+}
+footer img {
+    width: auto;
+    height: 50px;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    float: right;
+}
+footer a, footer a:hover, footer a:focus, footer a:visited {
+    display: inline-block;
+    margin-left: 20px;
+    float: left;
+    color: #000;
+    height: 90px;
+    line-height: 90px;
+    vertical-align: middle;
+}
+</style>

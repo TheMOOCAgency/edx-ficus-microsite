@@ -1,80 +1,415 @@
-<%page expression_filter="h"/>
-<%inherit file="main.html" />
-<%namespace name='static' file='static_content.html'/>
-<%!
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="https://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<title>ergalis</title>
+	<meta name="description" content="Visia. Responsive One Page Portfolio.">
+	<meta name="keywords" content="visia, responsive, one page, portfolio, parallax, template, html5">
+	<meta name="author" content="Aether Themes">
 
-from openedx.core.djangolib.markup import HTML, Text
-%>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <h1>${Text(_(u"Welcome to the Open edX{registered_trademark} platform!")).format(registered_trademark=HTML("<sup style='font-size: 65%'>&reg;</sup>"))}</h1>
-                  ## Translators: 'Open edX' is a registered trademark, please keep this untranslated. See http://open.edx.org for more information.
-                  <p>${_("It works! This is the default homepage for this Open edX instance.")}</p>
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
+	<link rel="shortcut icon" href="/media/microsite/ergalis/hp/images/favicon.png">
+	<link rel="apple-touch-icon" href="/media/microsite/ergalis/hp/images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/media/microsite/ergalis/hp/images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/media/microsite/ergalis/hp/images/apple-touch-icon-114x114.png">
 
-          </div>
+	<!--[if lt IE 9]>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-          % if show_homepage_promo_video:
-            <a href="#video-modal" class="media" rel="leanModal">
-              <div class="hero">
-                <div class="play-intro"></div>
-              </div>
-            </a>
-          % endif
-        </div>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script type="text/javascript">
 
-      </header>
-      <%include file="${courses_list}" />
+	</script>
+	<!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    </section>
-</main>
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/loader.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/reset.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/grid.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/ruby-red.css">
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/style.css">
+    <link rel="stylesheet" href="/media/microsite/ergalis/hp/stylesheets/jqvl-page.css">
+    <link rel="stylesheet" href="/media/microsite/ergalis/hp/stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-% if show_homepage_promo_video:
-  <section id="video-modal" class="modal home-page-video-modal video-modal">
-    <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-% endif
 
-<%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
-</%block>
 
-% if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/aqua-blue.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/mint-green.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/rose-pink.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/sunflower-yellow.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/jeans.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/grape.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/grass.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/lavander.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/colors/gray.css"> -->
+
+	<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/animations.css">
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="/media/microsite/ergalis/hp/stylesheets/ie.css" />
+	<![endif]-->
+<style>
+
+
+/*
+.up_head {
+	display: none;
+}
+*/
+
+</style>
+<!-- Piwik -->
 <script type="text/javascript">
-  $(window).load(function() {$('#signup_action').trigger("click");});
+  var _paq = _paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.themoocagency.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '21']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
 </script>
-% endif
+<!-- End Piwik Code -->
+</head>
+
+<body class="royal_loader">
+	<!-- Begin Hero -->
+	<section>
+		<div class="up_head">
+			<div class="logo">
+				<a href="https://www.ergalis.fr" target="_blank"><img src="/media/microsite/ergalis/hp/images/logo.png"></a>
+			</div>
+			<div class="head_liens">
+				<a href="/register?course_id=course-v1:ERGALIS+MOOC01+2016_S2&enrollment_action=enroll">Inscription</a>
+				<a href="/login?course_id=course-v1:ERGALIS+MOOC01+2016_S2&enrollment_action=enroll">Connexion</a>
+			</div>
+		</div>
+	</section>
+			<section id="video-in">
+				<div class="menu">
+					<div class=premier>
+						<span><p id="premier">1er MOOC</p><p>des métiers du recrutement</p></span>
+					</div>
+					<div class="titre_menu">
+						<p id="titre_menu">consultant en agence d'emploi</p>
+						<p>Entrez dans l'agence et prouvez vos compétences</p>
+					</div>
+					<div class="lien_menu">
+						<a href="/register?course_id=course-v1:ERGALIS+MOOC01+2016_S2&enrollment_action=enroll" class="marge-bas">Inscrivez<span class="tirer">-</span><span class="espace"> </span>vous !</a>
+							<div class="video-link marge-bas" data-video-id="yhTI0xnniY4">
+								Bande<span class="tirer">-</span><span class="espace"> </span>annonce
+							</div>
+					</div>
+				</div>
+				<video autoplay loop muted>
+					<source src="/media/microsite/ergalis/hp/src/videoteaserfont.mp4" type="video/mp4">
+				</video>
+				<div class="font">
+					<img src="">
+				</div>
+			</section>
+	<!-- End Hero -->
+	<!-- Begin About -->
+	<div class="color6">
+			<div class="prochainement" id="scroll2">
+				<a href="#scroll2"><img src="/media/microsite/ergalis/hp/images/Scrollez.png"/></a>
+				<span>
+					<p>OUVERTURE</p>
+					<p>LE 03 AVRIL</p>
+				</span>
+			</div>
+		</div>
+<div id="blanc">
+	<section id="section7">
+			<div class="mooc-ask">
+				<h1>qu'est-ce qu'un <span class="mooc-mooc">mooc</span> <span class="mooc-mooc mooc-asking">?</span></h1>
+				<h3>Une formation en ligne ouverte à tous !</h3>
+				<img src="/media/microsite/ergalis/hp/images/massive.png" id="image-mooc-1">
+				<div class="traits"></div>
+				<img src="/media/microsite/ergalis/hp/images/open.png" id="image-mooc-2">
+				<span id="clear-left"></span>
+				<div class="traits" id="trait_disparition"></div>
+				<img src="/media/microsite/ergalis/hp/images/online.png" id="image-mooc-3">
+				<div class="traits"></div>
+				<img src="/media/microsite/ergalis/hp/images/course.png" id="image-mooc-4">
+			</div>
+	</section>
+	<section id="section6">
+		<a href="/register?course_id=course-v1:ERGALIS+MOOC01+2016_S2&enrollment_action=enroll">
+				Inscription
+		</a>
+	</section>
+	<section id="section9" class="content">
+			<div class="baniere1">
+				<img src="/media/microsite/ergalis/hp/images/image4.png">
+			<!--	<h2>5 SEMAINES</h2>
+				<p>PENDANT LESQUELLES VOUS POURREZ :</p>  -->
+			</div>
+	</section>
+	<section id="section8">
+		<div class="quiestergalis">
+			<img src="/media/microsite/ergalis/hp/images/erga.png">
+				<h2>qui est <span class="mooc-mooc">ergalis</span> <span class="mooc-ask" style="color: #fff;">?</span></h2>
+				<p>Le groupe Ergalis, avec près de 80 bureaux et plus de 300 Consultants est un acteur majeur des services en Ressources Humaines en France.</p>
+				<p>Nos solutions, déployées sous les marques Ergalis, Talentpeople et Action Assistance, permettent d’accompagner nos clients sur l’ensemble de leurs projets RH (Recrutement, Intérim, Externalisation des processus recrutement (RPO), Gestion des Talents, Formation, Externalisation commerciale).</p>
+				<p>Nos agences d’emploi, toutes spécialisées, développent depuis près de 45 ans une expertise du recrutement et de l'intérim sur une palette de métiers qualifiés et de secteurs porteurs (banque finance assurance, immobilier,  informatique et télécom , technologie industrielle, bâtiment qualifié, luxe et beauté , médical , tertiaire qualifié , … )</p>
+				<p>Pour accompagner sa forte croissance et l’ouverture de nouvelles agences, Ergalis recrute, en 3 ans, plus de 200 Consultants et Responsables d’agences sur l’ensemble du territoire national.</p>
+				<p><center><a href="https://www.ergalis.fr/">www.ergalis.fr</a></center></p>
+				<a href="/register?course_id=course-v1:ERGALIS+MOOC01+2016_S2&enrollment_action=enroll">
+						Inscription
+				</a>
+		</div>
+	</section>
+	<div class="green">
+		<section id="section8">
+			<footer>
+				<a href="//media/microsite/ergalis/hp/conditionsgenerales.html">Conditions générales</a>
+				<a href="https://themoocagency.com/"><img src="/media/microsite/ergalis/hp/images/logotma.png"></a>
+				<a href="https://www.emploi-store.fr/"><img src="/media/microsite/ergalis/hp/images/emploi_store.png"></a>
+				<a href="https://www.ergalis.fr/"><img src="/media/microsite/ergalis/hp/images/logoergalis.png"></a>
+			</footer>
+		</section>
+	</div>
+	<!-- End Team -->
+	<!-- Begin Footer -->
+
+	<!-- End Footer -->
+
+	<!-- Javascript -->
+	<script src="/media/microsite/ergalis/hp/javascript/royal-preloader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/media/microsite/ergalis/hp/src/videoLightning.js"></script>
+	<script src="/media/microsite/ergalis/hp/javascripts/scale.fix.js"></script>
+	<script src="/media/microsite/ergalis/hp/javascripts/jquery.min.js"></script>
+	<script src="/media/microsite/ergalis/hp/javascripts/videoLightning.js"></script>
+	<script src="/media/microsite/ergalis/hp/javascripts/jqvl-page.js"></script>
+	<script type="text/javascript">
+
+		//Replace with your own image's paths
+	   var images = {
+	        'parallax1':    'https://www.aetherthemes.com/demo/visia/images/hero.jpg',
+	        'parallax2':    'https://www.aetherthemes.com/demo/visia/images/services-red.jpg',
+	        'parallax3':    'https://www.aetherthemes.com/demo/visia/images/clients.jpg',
+	        'About Us': 	'https://www.aetherthemes.com/demo/visia/images/about.jpg',
+	        'Team':     	'https://www.aetherthemes.com/demo/visia/images/team.jpg',
+	        'Thumb1':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project1.jpg',
+	        'Thumb2':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project2.jpg',
+	        'Thumb3':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project3.jpg',
+	        'Thumb4':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project4.jpg',
+	        'Thumb5':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project5.jpg',
+	        'Thumb6':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project6.jpg',
+	        'Thumb7':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project7.jpg',
+	        'Thumb8':   	'https://www.aetherthemes.com/demo/visia/images/thumbnails/project8.jpg'
+	    };
+
+	    // config
+	    Royal_Preloader.config({
+	        mode:       'number',
+	        images:     images,
+	        timeout:    10,
+	        showInfo:   false,
+	        background: ['#ffffff']
+	    });
+
+  videoLightning({
+    elements: [
+      {
+        ".video-link": {
+          autoplay: 1,
+          easeOut: 1000,
+          bdColor: "#ddd",
+          bdOpacity: 0.6,
+          glow: 20,
+          glowColor: "#000"
+        }
+      },
+      {
+        ".video-link2": {
+          autoplay: 1,
+          bdColor: "#7FFF00",
+          bdOpacity: 0.7,
+          glow: 150,
+          glowColor: "#fff",
+          xColor: "#7FFF00",
+          color: "#fff"
+        }
+      },
+      {
+        "#bare-iframe-link": {
+          id: 'f-images/JqueryVideoLightningIconPurple144.png',
+          frameColor: '#555',
+          frameBorder: '3px solid #3A0372',
+          bdOpacity: 0.9,
+          glow: 0,
+          xBgColor: '#3A0372',
+          xColor: '#f5f5f5',
+          xBorder: '3px solid #555'
+        }
+      }
+    ]
+  });
+ 		$(function() {
+				$('a[href*=#]:not([href=#])').click(function() {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+							scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
+			});
+
+
+		var popup = (function()
+		{
+
+			function init() {
+
+				var overlay = $('.overlay');
+
+				$('.popup-button').each(function(i, el)
+				{
+					var modal = $('#' + $(el).attr('data-modal'));
+					var close = $('.close');
+
+					// fonction qui enleve la class .show de la popup et la fait disparaitre
+					function removeModal() {
+						modal.removeClass('show');
+					}
+
+					// evenement qui appelle la fonction removeModal()
+					function removeModalHandler() {
+						removeModal();
+					}
+
+					// au clic sur le bouton on ajoute la class .show a la div de la popup qui permet au CSS3 de prendre le relai
+					$(el).click(function()
+					{
+						modal.addClass('show');
+						overlay.unbind("click");
+						// on ajoute sur l'overlay la fonction qui permet de fermer la popup
+						overlay.bind("click", removeModalHandler);
+					});
+
+					// en cliquant sur le bouton close on ferme tout et on arrête les fonctions
+					close.click(function(event)
+					{
+						event.stopPropagation();
+						removeModalHandler();
+					});
+
+				});
+			}
+
+			init();
+
+		})();
+/* apparition connexion/inscription au scroll en up_head */
+/*
+$(function () {
+		$(document).scroll(function(){
+			if($(window).width() <= 680)
+			{
+				if ($(this).scrollTop() > $(window).height()){
+					$('.logo').hide();
+					$('.head_liens3').show();
+					$('.up_head').css('background-color', 'rgba(199,203 ,208 , 0.8)');
+				}else{
+					$('.logo').show();
+					$('.head_liens3').hide();
+					$('.up_head').css('background-color', 'rgba(199,203 ,208 , 0.2)');
+				}
+			}
+		});
+
+});
+*/
+/* centrer les boutons teaser/connexion automatiquement en petite resolution */
+ function redimensionnement(){
+	if($(window).width() <= 800)
+	{
+		$('.bouton1_menu').css('margin-left', (((parseInt($(window).width()) - parseInt(299))/parseInt(2))+'px'));
+		$('.bouton2_menu').css('margin-left', (((parseInt($(window).width()) - parseInt(299))/parseInt(2))+'px'));
+		$('.bouton1_menu').css('margin-right', (((parseInt($(window).width()) - parseInt(299))/parseInt(2))+'px'));
+		$('.bouton2_menu').css('margin-right', (((parseInt($(window).width()) - parseInt(299))/parseInt(2))+'px'));
+	}else{
+		$('.bouton1_menu').css('margin-left', '55.5px');
+		$('.bouton2_menu').css('margin-left', '55.5px');
+		$('.bouton1_menu').css('margin-right', '55.5px');
+		$('.bouton2_menu').css('margin-right', '55.5px');
+	}
+ };
+
+function margeBoutons() {
+	var largeurEcran = $(document).width();
+	var This = $('.marge-bas');
+	if(largeurEcran <= 529){
+	 var css = (largeurEcran - 200);
+	 css = parseInt(css) / 4;
+	 console.log(largeurEcran);
+	 console.log(css);
+	 This.css('margin-left',css+'px');
+	 This.css('margin-right',css+'px');
+ }else{
+	 var css = 5;
+	 This.css('margin-left',css+'px');
+	 This.css('margin-right',css+'px');
+ }
+}
+
+$(window).resize(function() {
+	redimensionnement();
+	margeBoutons();
+});
+function hauteurSectionVideo() {
+ var videoHeight = $('.font').css('height');
+}
+$(document).ready(function(){
+ hauteurSectionVideo();
+ margeBoutons();
+})
+	</script>
+	<script src="/media/microsite/ergalis/hp/javascript/retina.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/smoothscroll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/waypoints.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/parallax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/navigation.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.mixitup.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.easing.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.fittext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.localscroll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.scrollto.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.appear.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.waitforimages.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.bxslider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/jquery.fitvids.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/main.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/media/microsite/ergalis/hp/javascript/shortcodes.js" type="text/javascript" charset="utf-8"></script>
+
+</div>
+</body>
+
+</html>
+
+
+					<!--	<div class="video-link" data-video-id="3xJWxPE8G2c">
+								<span>VOIR LE TEASER</span>
+						</div>  -->
+
