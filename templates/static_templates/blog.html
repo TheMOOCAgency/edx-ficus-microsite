@@ -15,16 +15,7 @@ from courseware.courses import get_course_by_id
 
 log = logging.getLogger()
 
-alumni_courses_list = ['course-v1:champagne-mooc+003+003','course-v1:champagne-mooc+004+004']
-course_enrollments, first_name, last_name, email, username, city, country, tell_us_more, profile_image_url, mention, linkedin = [], [], [], [], [], [], [], [], [], [], []
-json_alumni_users = ''
-user_is_alumni_registered = False
-country_codes = {}
-test_list = []
-hidden_list = ['yoann.mroz@themoocagency.com']
-
 if request.user.is_authenticated():
-
     if request.LANGUAGE_CODE == 'fr':
         countries_codes_files = '/edx/var/edxapp/media/microsite-utils/countries_code_fr.json'
     else:
@@ -46,56 +37,17 @@ if request.user.is_authenticated():
                 return custom_field[value]
         else:
             return 'n/a'
-    
+
     connected_user_custom_field = json.loads(UserProfile.objects.get(user=request.user).custom_field)
     user_is_alumni_registered = get_custom_field_value(connected_user_custom_field, 'alumni_registered')
 
-    for course_id in alumni_courses_list :
-        course_key=CourseKey.from_string(course_id)
-        course = get_course_by_id(course_key)
-        current_course_enrollments = CourseEnrollment.objects.filter(course_id=course_key)
-        for _ce in current_course_enrollments:
-            is_new = True
-            for course in course_enrollments:
-                if course.user.email == _ce.user.email:
-                    is_new = False
-            if is_new:
-                course_enrollments.append(_ce)
+    alumni_users_url = "/edx/var/edxapp/media/microsite/champagne-mooc/json/alumni_list_daily.json"
+    
+    with open(alumni_users_url) as json_file:
+        alumni_users = json.load(json_file)
 
-    for _ce in course_enrollments:
-        user = _ce.user
+    json_alumni_users = json.dumps(alumni_users)
 
-        if user.email not in hidden_list:
-            try:
-                custom_field = json.loads(UserProfile.objects.get(user=user).custom_field)
-                if 'alumni_registered' in custom_field and (custom_field['alumni_registered'] == 'true' or custom_field['alumni_registered'] == 'True' or custom_field['alumni_registered'] == True):
-                    test_list.append(get_custom_field_value(custom_field, 'first_name').replace("'","’"))
-                    email.append(user.email)
-                    username.append(user.username.replace("'","’"))
-                    first_name.append(get_custom_field_value(custom_field, 'first_name').replace("'","’"))
-                    last_name.append(get_custom_field_value(custom_field, 'last_name').replace("'","’"))
-                    city.append(get_custom_field_value(custom_field, 'city').replace("'","’"))
-                    country.append(get_custom_field_value(custom_field, 'country').replace("'","’"))
-                    tell_us_more.append(get_custom_field_value(custom_field, 'tell_us_more').replace("'","’"))
-                    profile_image_url.append(get_profile_image_urls_for_user(user)['large'])
-                    if get_custom_field_value(custom_field, 'linkedin') != 'n/a':
-                        linkedin.append(get_custom_field_value(custom_field, 'linkedin').replace("\\","/"))
-                    else:
-                        linkedin.append('')                    
-            except:
-                pass
-            
-            percent = 0
-            try:
-                course_grade = CourseGradeFactory().create(user, course)
-                percent = course_grade.percent
-            except:
-                pass
-            mention.append(percent)
-
-    if len(email) > 0:
-        alumni_users = [{'first_name': f, 'last_name': la, 'email': e, 'username': u, 'city': ci, 'country': co, 'tell_us_more': t, 'profile_image_url' : p, 'mention' : m, 'linkedin': li} for f, la, e, u, ci, co, t, p, m, li in zip(first_name, last_name, email, username, city, country, tell_us_more, profile_image_url, mention, linkedin)]
-        json_alumni_users = json.dumps(alumni_users)
 %>
 <head><link href="/media/microsite/champagne-mooc/alumni/static/css/main.1b601e14.chunk.css" rel="stylesheet"></head>
 <main id="main" aria-label="Content" tabindex="-1">
@@ -111,6 +63,7 @@ if request.user.is_authenticated():
         <script>
             window.props = {}
             window.props.users_list = []
+
             var json_alumni_texts = $.getJSON("/media/microsite/champagne-mooc/json/alumni_texts.json", function(json) {
                 if ('${request.LANGUAGE_CODE}' == "fr") {
                     window.props.texts = json.fr
@@ -124,6 +77,7 @@ if request.user.is_authenticated():
         </script>
 
         <noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></script><script>!function(e){function r(r){for(var n,l,a=r[0],i=r[1],p=r[2],c=0,s=[];c<a.length;c++)l=a[c],Object.prototype.hasOwnProperty.call(o,l)&&o[l]&&s.push(o[l][0]),o[l]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,a=1;a<t.length;a++){var i=t[a];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=l(l.s=t[0]))}return e}var n={},o={1:0},u=[];function l(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,l),t.l=!0,t.exports}l.m=e,l.c=n,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,r){if(1&r&&(e=l(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)l.d(t,n,function(r){return e[r]}.bind(null,n));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="/";var a=this.webpackJsonpesapce_alumni=this.webpackJsonpesapce_alumni||[],i=a.push.bind(a);a.push=r,a=a.slice();for(var p=0;p<a.length;p++)r(a[p]);var f=i;t()}([])</script><script src="/media/microsite/champagne-mooc/alumni/static/js/2.4049591d.chunk.js"></script><script src="/media/microsite/champagne-mooc/alumni/static/js/main.23bd58cf.chunk.js"></script>
+        
         % else :
             % if request.LANGUAGE_CODE == "fr":
             <p>Vous n'êtes pas inscrit à l'espace alumni, accès interdit</p>
