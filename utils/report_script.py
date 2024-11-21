@@ -185,10 +185,17 @@ for course_id in course_id_list :
             # -> quiz ptincipal + quiz alternatif mais une seule note, on regarde donc percent qui est la note globale
             course_grade = CourseGradeFactory().create(user, course)
 
-            # Bug with percent over 100%
+
             percent = str(course_grade.percent * 100) + '%'
-            if course_grade.percent > 1 :
+
+            # Bug pour percent > 100%
+            if course_grade.percent > 2 :
+                # Cours noté sur 1000
                 percent = str(course_grade.percent * 10) + '%'
+
+            if course_grade.percent > 1 :
+                # Cours noté sur 200
+                percent = str(course_grade.percent * 50) + '%'
 
             sheet.cell(j, l, percent.replace('.',','))
             l=l+1
