@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import HTML, Text
 #maj TMA
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from student.views import get_course_enrollments
+import hashlib
 
 # App that handles subdomain specific branding
 from branding import api as branding_api
@@ -268,8 +269,15 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
     course_length = len(list(get_course_enrollments(request.user, course_org_filter, org_filter_out_set)))
     course_id = current_path.split('/')[2]
   %>
+  <%
+  # MYBB token
+  token = hashlib.sha512(user.email).hexdigest()
+  %>
   <script>
+    // MyBB token
+    var token = "${token}";
     var username_pid = "${user.username}";
+    var user_email = "${user.email}";
     var course_id_nav = '${course_id}';
     var course_length_nav = '${course_length}';
 
@@ -287,7 +295,7 @@ css = '/media/microsite/{}/auto/css/course_navigation.css'.format(org_static)
   </script>
 % endif
 <%include file="help_modal.html"/>
-% if static.get_value('piwik_id') is not None:
+% if False:
   <!-- PIWIK -->
   <script type="text/javascript">
     var _paq = _paq || [];

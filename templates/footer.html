@@ -37,3 +37,16 @@ css = '/media/microsite/{}/auto/css/footer.css'.format(org)
     </div>
   </div>
 </footer>
+<script>
+  setInterval(function(){
+    if (window.location.href.indexOf('courseware') > -1) {
+      $('#return_dashboard a').hide();
+      $('button.sequence-nav-button[disabled="disabled"]').css('background-color','#f0fd76 !important');
+      $('button.sequence-nav-button:not([disabled="disabled"])').css('background-color','#cdde2b !important');
+      $('button.sequence-nav-button span').css('color','#0b1d4e');
+    };
+  }, 250);
+  setInterval(function(){
+    $('.tab > a[href="/courses/course-v1:cem+cem50hz01+cem50hz01/discussion/forum/"]').parent().hide();
+  }, 250);
+</script>

@@ -95,6 +95,30 @@ css_bis = '/media/microsite/{}/auto/css/dashboard_multi.css'.format(org_static)
 <link rel="stylesheet" type="text/css" href="/media/css/dashboard.css">
 -->
 <link rel="stylesheet" type="text/css" href="${css}" />
+<style>
+#dashboard_profile_middle_avis {
+  text-align: center;
+  line-height: 63px;
+  vertical-align: middle;
+  position: relative;
+  width: calc(100% - 20px);
+  height: auto;
+  min-height: 63px;
+  color: #636363;
+  font-weight: 600;
+}
+#dashboard_profile_middle_avis a, #dashboard_profile_middle_avis a:hover {
+  margin-left: -15px;
+  text-decoration: none !important;
+  color: #636363 !important;
+}
+#dashboard_profile_middle_avis img {
+  margin-left: -25px;
+}
+#dashboard_profile_middle {
+  height: 200px;
+}
+</style>
 
 <!-- DASHBOARD MONO -->
 <!-- DASHBOARD MONO -->
@@ -172,12 +196,17 @@ endfor
       <!-- border middle -->
       <div id="dashboard_profile_middle_middle">
       </div>
+      <div id="dashboard_profile_middle_avis">
+        <img src="/media/microsite/cem/assets/img/avis.png" width="40" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/course-v1:cem+cem50hz01+cem50hz01/ff69e002616b4495b599ad9d7833deff/" target="_blank">Donnez-nous votre avis</a></span>
+      </div>
+      <div id="dashboard_profile_middle_middle">
+        </div>
       <!-- actif forum -->
       <div id="dashboard_profile_middle_bottom">
         % if forum_tma:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg svg_passed"/><span style="margin-left: 50px;">${_("You are active on the forum")}</span>
         % elif cours_ouv:
-          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="/courses/${course_mono_id}/discussion/forum/">${_("Post your first message ! ")}</a></span>
+          <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;"><a href="" target="_blank">${_("Post your first message ! ")}</a></span>
         % else:
           <img src="${static.url('images/chat_couleur.svg')}" class="svg not_svg_passed"/><span style="margin-left:50px;">${_("Post your first message ! ")}</span>
         % endif
@@ -187,7 +216,7 @@ endfor
     <div class="dashboard_profile" id="dashboard_profile_bottom">
       <!-- note totale -->
       <div id="dashboard_profile_bottom_up">
-        <span>${_("Your final grade")}</span><span id="score_tma">${score}%</span>
+        <span>Score aux quiz</span><span id="score_tma">${score}%</span>
       </div>
   <%
   course_details_len = len(course_details)
@@ -237,6 +266,18 @@ for (var i = 0; i < grade_summary['section_breakdown'].length; i++){
  }
 }
 $("#score_tma").html(grade_summary['percent']*100+" %");
+
+
+$(document).ready(function(){
+  // TMA MyBB LINK
+  var url = "https://forum.mooc.cem-50hz.info/mybb?username="
+  var tokenParam = "&token="
+  var emailParam = "&email="
+  var compose = url+username_pid+tokenParam+token+emailParam+user_email
+  var oki = $('.course_nav')[0]
+  $(oki).attr('href', 'https://mooc.cem-50hz.info/courses/course-v1:cem+cem50hz01+cem50hz01/82ab2718ec644167b230eddbc6f0b6f1/');
+  $('#dashboard_profile_middle_bottom > span > a').attr('href', 'https://mooc.cem-50hz.info/courses/course-v1:cem+cem50hz01+cem50hz01/82ab2718ec644167b230eddbc6f0b6f1/');
+});
 </script>
 % elif len(course_enrollments) > 1:
   <div class="dashboard_profile" id="profile_bottom_multi">

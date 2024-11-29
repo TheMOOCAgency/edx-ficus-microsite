@@ -174,10 +174,11 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 .fa {
  font: normal normal normal 14px/1 FontAwesome !important;
 }
+
 </style>   
 </head>
-
 <body class="${static.dir_rtl()} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
+
 <span id="tma_background_font"></span>
 <%static:optional_include_mako file="body-initial.html" is_theming_enabled="True" />
 <div id="page-prompt"></div>
@@ -246,6 +247,8 @@ font: normal 1.2rem/1.6rem "Open Sans",Verdana,Geneva,sans-serif,sans-serif !imp
 </script>
 % endif
 <script>
+
+
 setInterval(function(){
   $(".problem-progress").each(function() {
     $(this).html($(this).html().replace("(ungraded)",""));
