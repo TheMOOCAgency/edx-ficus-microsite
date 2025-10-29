@@ -14,6 +14,15 @@ import json
 
 %>
 
+<%
+if request.user.email.find("weuplearning.com") != -1 :
+  is_tma_team = True
+else :
+  is_tma_team = False
+
+org = static.get_value('domain_prefix')
+%>
+
 
 
 <%block name="pagetitle">${_("Certificat de reussite")}</%block>
@@ -67,6 +76,10 @@ body{
   float: left;
   text-align: right;
 }
+
+
+
+
 .logo-attestation img{
   max-height: 40px;
 }
@@ -112,10 +125,36 @@ body{
   text-align: left;
   background-color: white;
 }
+</style>
+
+% if (request.path == '/tma_apps/course-v1:richardson+QCM1+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM2+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM3+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM4+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM5+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM6+2025/certificate/render') or (request.path == '/tma_apps/course-v1:richardson+QCM7+2025/certificate/render') :
+<style>
+  .title-attestation {
+    width: 100%;
+  }
+  .logo-attestation{
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .bandeau-top {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .bandeau-middle {
+    margin-top: 60px;
+  }
+  .footer-right {
+    display: none;
+  }
 
 
 </style>
-% if grades.get('passed'):
+% endif
+
+
+% if grades.get('passed') or is_tma_team:
+
 <div class="container" id="main">
   <div class="bandeau-top main-color">
     <div class="title-attestation">
@@ -145,10 +184,8 @@ body{
   </div>
 </div>
 
-<script type="text/javascript">
-</script>
-  %if pdf:
-  <script
+
+<script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
@@ -168,6 +205,7 @@ body{
   document.addEventListener('DOMContentLoaded', function() {
      printpage();
   });
-  </script>
-  %endif
-% endif
+</script>
+
+
+%endif

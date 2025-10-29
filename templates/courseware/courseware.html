@@ -125,6 +125,16 @@ css = '/media/microsite/{}/auto/css/courseware.css'.format(org_static)
   <%include file="/courseware/course_navigation.html" args="active_page='courseware'" />
 % endif
 
+<style>
+.xmodule_display.xmodule_CapaModule div.problem div.correct input, .xmodule_display.xmodule_CapaModule div.problem div.ui-icon-check input, .xmodule_display.xmodule_CapaModule div.problem .choicegroup label.choicegroup_incorrect, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup label.choicegroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicegroup label.choicegroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup label.choicegroup_incorrect, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup label.choicetextgroup_incorrect, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup section.choicetextgroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .choicetextgroup .xmodule_display.xmodule_CapaModule .choicegroup label.choicetextgroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup label.choicetextgroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .choicetextgroup .xmodule_display.xmodule_CapaModule .choicegroup section.choicetextgroup_incorrect, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup section.choicetextgroup_incorrect, .xmodule_display.xmodule_CapaModule .problem .capa_inputtype.textline>.correct input, .xmodule_display.xmodule_CapaModule .problem .inputtype.formulaequationinput>.correct input, .xmodule_display.xmodule_CapaModule .problem .capa_inputtype.textline>.incorrect input, .xmodule_display.xmodule_CapaModule .problem .inputtype.formulaequationinput>.incorrect input, .xmodule_display.xmodule_CapaModule div.problem .choicegroup label.choicegroup_correct, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup label.choicegroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicegroup label.choicegroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup label.choicegroup_correct, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup label.choicetextgroup_correct, .xmodule_display.xmodule_CapaModule div.problem .choicetextgroup section.choicetextgroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .choicetextgroup .xmodule_display.xmodule_CapaModule .choicegroup label.choicetextgroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup label.choicetextgroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .choicetextgroup .xmodule_display.xmodule_CapaModule .choicegroup section.choicetextgroup_correct, .xmodule_display.xmodule_ConditionalModule div.problem .xmodule_display.xmodule_CapaModule .choicetextgroup section.choicetextgroup_correct {
+  border: none
+}
+.notification-submit, .xmodule_display.xmodule_CapaModule .problem .capa_inputtype.textline .status, .xmodule_display.xmodule_CapaModule .problem .inputtype.formulaequationinput .status, .status.incorrect , .status.correct, .message, .problem-progress, .problem-action-button-wrapper {
+  display: none !important;
+}
+</style>
+
+
 <div class="container">
   <div class="course-wrapper" role="presentation">
 
@@ -357,3 +367,18 @@ $(".bookmarks-empty-detail-title").initialize(function(){
 %if settings.FEATURES.get('TMA_ENABLE_TIME_TRACKING', False):
 <%include file="/tma_apps/tma_time_tracking.html" />
 %endif
+
+
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('a[href*="/tma/course-v1:richardson"]').forEach(a => {
+      if (a.textContent.includes('TMA DASHBOARD')) {
+        a.href = '/tma_apps/new_tma_dashboard/';
+        console.log('Lien TMA mis à jour ✅');
+      }
+    });
+  }, 1000);
+});
+</script>
