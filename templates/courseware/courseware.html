@@ -373,9 +373,11 @@ window.addEventListener('load', () => {
     document.querySelectorAll('a[href*="/tma/course-v1:richardson"]').forEach(a => {
       if (a.textContent.includes('TMA DASHBOARD')) {
         a.href = '/tma_apps/new_tma_dashboard/';
+        a.innerText = 'Dashboard Admin'
+
         console.log('Lien TMA mis à jour ✅');
       }
     });
-  }, 1000);
+  }, 100);
 });
 </script>
