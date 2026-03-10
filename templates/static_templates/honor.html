@@ -6,35 +6,111 @@ from openedx.core.djangolib.markup import HTML
 %>
 <%inherit file="../main.html" />
 <%namespace name='static' file='../static_content.html'/>
-<%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'honor'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>Honor</p>"
-%>
+
 <%block name="pagetitle">${_("Honor Code")}</%block>
 
 <style>
-main {
- background-color: #fff;
-}
+  main {
+    background-color: #fff;
+    font-family: 'Oswald Regular', sans-serif;
+  }
+  section.container {
+    width: 70%;
+    margin: 0 auto;
+  }
+  h1 {
+    margin-top: 2em;
+    color: #c3cf00;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  h3 {
+    font-weight: bold;
+    margin-top: 2em;
+    color: #c3cf00;
+  }
+  p {
+    margin-top: 1em;
+    line-height: 1.4em;
+    text-align: justify;
+  }
 </style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("Honor Code")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-  <section class="static-container honor">
-  ${_template | n}
+
+  <section class="container about">
+    <h1>Conditions générales du service</h1>
+
+    <p>La présente plateforme <strong>formationenligne.thconseil.fr</strong> (« la plateforme ») est gérée par WeUpLearning et Sémaphores. Elle est hébergée par OVH.</p>
+    <p>Sémaphores est l’éditeur du contenu mis en ligne sur la plateforme, ainsi que de toutes documentations et données et de tous droits de propriété intellectuelle y afférents.</p>
+    <p>Sémaphores vous fournit un accès à la plateforme et aux prestations de services et produits disponibles sur la plateforme. L’accès et l’utilisation de la plateforme et son contenu sont régis par les présentes conditions d’utilisation et générales de ventes (définies comme étant le « contrat »). En accédant ou en utilisant la présente plateforme et son contenu, l’utilisateur accepte d’être lié par le contrat et reconnaît et accepte ses conditions.</p>
+    <p>Par ailleurs, en utilisant la présente plateforme et son contenu, l’utilisateur déclare avoir la capacité au sens légal de conclure un contrat.</p>
+
+    <h3>ARTICLE 1 – DÉFINITIONS</h3>
+    
+    <p>Le terme « utilisateur » désigne l’individu qui utilise la plateforme et les prestations et produits disponibles sur cette plateforme.</p>
+    <p>Le terme « client » désigne la personne physique ou morale qui souscrit à des accès e-learning payants.</p>
+    <p>Le terme « prestation(s) » désigne les services disponibles sur la plateforme, notamment les interactions (chat, forums, exercices interactifs, labs virtuels, etc.) qui permettent aux utilisateurs d’interagir entre eux et avec le formateur.</p>
+    <p>Le terme « produit » désigne l’ensemble des contenus de formation, quel que soit le support, conçus par Sémaphores et le formateur et délivrés sur la plateforme.</p>
+    <p>Le terme « formation » désigne un ensemble de prestations et de contenus de formation.</p>
+    <p>Le terme « contenu » désigne l’ensemble constitué par la plateforme, les produits et les prestations.</p>
+    <p>Le terme « certificat » désigne donc un document, électronique ou papier, attestant du suivi et/ou de la réussite d’un utilisateur sur tout ou partie des enseignements disponibles sur la plateforme. Le périmètre étant précisé dans le certificat.</p>
+    <p>Le terme « compte personnel » désigne le compte en ligne de l’utilisateur inscrit. </p>
+    <p>Le terme « date et heure limites » désigne la date et l’heure à partir de laquelle l’annulation d’une accès utilisateur entraine des frais.</p>
+
+
+    <h3>ARTICLE 2 – OBJET DU CONTRAT</h3>
+
+    <p>Les présentes conditions d’utilisation et générales de vente sont un contrat entre Sémaphores et le client. Elles sont destinées à définir les conditions qui régissent l’accès et l’utilisation de la plateforme et son contenu.</p>
+
+    <h3>ARTICLE 3 – PROPRIÉTÉ INTELLECTUELLE</h3>
+
+
+    <p>3.1. L’usage à titre personnel par l’utilisateur de la plateforme des produits et prestations n’entraîne en aucun cas le transfert d’un droit quelconque à l’utilisateur au titre de la propriété littéraire et artistique, y compris toute prolongation de cette dernière. L’ensemble des droits patrimoniaux attachés à la plateforme, au produit et prestation, reste la propriété de son propriétaire initial. L’utilisateur reconnaît par le présent contrat qu’il n’acquiert aucun droit sur la plateforme, les produits et les prestations, notamment au titre du droit de reproduction et au titre du droit de représentation.</p>
+    <p>3.2. Tous les droits sur les noms présents dans le contenu et/ou les prestations et la plateforme, noms de sociétés, dénominations commerciales, les marques, les éléments visuels, logos, boutons d’icônes, les scripts, les présentations et les modèles qu’ils apparaissent ou non en caractères majuscules ou avec le symbole ©, ® ou ™, appartiennent exclusivement à leur propriétaire respectif et sont protégés contre toute reproduction, imitation, dilution ou utilisation trompeuse en vertu des lois nationales et internationales en vigueur sur les marques, les droits d’auteur et les droits de propriété intellectuelle. Toute utilisation autre que celle stipulée dans le présent contrat est expressément interdite</p>
+    <p>3.3. Tout le contenu présent ou rendu disponible à travers la plateforme, tels que (liste non exhaustive) les textes, les graphiques, les logos, les boutons, les images, les vidéos, les codes, les morceaux de musique, les téléchargements numériques, et les compilations de données, est la propriété de Sémaphores, de ses sociétés affiliées ou de ses fournisseurs de contenu et est protégé par le droit de la propriété intellectuelle, d’auteur et de protection des bases de données. L’utilisateur s’interdit d’extraire et/ou de réutiliser de façon systématique tout ou partie du contenu sans l’autorisation expresse et écrite de Sémaphores. En particulier, l’utilisateur s’engage à ne pas utiliser de robot d’aspiration de données, ou tout autre outil similaire de collecte ou d’extraction de données pour extraire (en une ou plusieurs fois), pour réutiliser une partie substantielle d’une quelconque partie du contenu, sans l’accord exprès et écrit de Sémaphores. L’utilisateur ne doit pas non plus créer et/ou publier ses propres contenus qui comporteraient des parties substantielles du contenu et de la plateforme sans l’accord exprès et écrit de Sémaphores.</p>
+
+    <h3>ARTICLE 4 - LICENCE ET ACCÈS</h3>
+    <p>4.1 Licence. Sous réserve du respect des présentes conditions d’utilisation et générales de vente et du paiement de toutes les sommes applicables, Sémaphores ou ses fournisseurs de contenu accorde à l’utilisateur une licence limitée, non exclusive, non transférable, non sous-licenciable à l’accès et à l’utilisation personnelle et non commerciale du contenu et de la plateforme.</p>
+    <p>Cette licence n’inclut aucun droit d’utilisation d’une prestation ou du contenu pour la vente ou tout autre utilisation commerciale ; de collecte et d’utilisation de tout ou partie du contenu ; de toute utilisation dérivée du contenu ; de tout téléchargement ou copie des informations d’un compte pour un autre commerçant ; ou de toute utilisation de robot d’aspiration de données, ou autre outil similaire de collecte ou d’extraction de données.</p>
+    <p>4.2. Nonobstant ce qui précède, en application du présent contrat, Sémaphores autorise l’utilisateur à accéder et utiliser la plateforme pour son utilisation personnelle.</p>
+    <p>L’utilisateur n’est pas autorisé, à copier, modifier, distribuer, transmettre, publier, accorder en licence, créer des œuvres dérivées, vendre, toute information, tout produit, ou toute prestation issu(s) de la plateforme, sans l’accord exprès de Sémaphores.</p>
+    <p>Dans l’hypothèse où l’utilisateur ferait usage du contenu autrement que conformément aux stipulations ci-dessus, l’utilisateur serait susceptible de violer la législation applicable en matière de propriété intellectuelle et d’encourir des sanctions. Sémaphores peut refuser l’accès à tout ou partie du contenu sans préavis si l’utilisateur adopte un comportement ou mène des activités, qui, de l’avis de Sémaphores et à son entière discrétion, enfreignent le présent contrat, les droits de Sémaphores ou de tout tiers ou qui sont autrement inappropriés.</p>
+    <p>4.3. Afin de bénéficier du contenu, il faut être utilisateur et créer un compte personnel à l’aide d’une adresse email et d’un mot de passe. Ce mot de passe et cet identifiant sont strictement personnels et confidentiels entre Sémaphores et l’utilisateur. L’utilisateur est responsable du maintien de la confidentialité de son compte personnel, des restrictions d’accès à son ordinateur. L’utilisateur prend les mesures nécessaires pour s’assurer que son mot de passe reste confidentiel et sécurisé et doit informer Sémaphores immédiatement s’il a des raisons de croire que son mot de passe est connu d’un quelconque tiers. L’utilisateur est par ailleurs responsable de la validité et du caractère complet des informations fournies et doit informer Sémaphores de tout changement concernant ces informations. L’accès aux informations fournies par l’utilisateur est assuré par la plateforme pour toute modification par l’utilisateur.</p>
+    <p>4.4. Les utilisateurs peuvent adresser des critiques, des commentaires ou tout autre et soumettre des suggestions, des idées, des questions ou toute autre information tant que ce contenu n’est pas illégal, obscène, abusif, menaçant, diffamatoire, calomnieux, contrevenant aux droits de propriété intellectuelle, ou préjudiciable à des tiers ou répréhensible et ne consiste pas ou ne contient pas de virus informatiques, de militantisme politique, de contenus à caractère pornographique, de sollicitations commerciales, de chaînes de courriers électroniques, de mailing de masse ou toute autre forme de « spam ». Sémaphores se réserve le droit mais n’a pas l’obligation, de retirer ou de modifier tout contenu. Si l’utilisateur publie du contenu ou tout autre matériel, il accorde : (a) à Sémaphores, gratuitement, le droit, transférable et sous-licenciable, d’utiliser, de reproduire, de modifier, d’adapter, de publier, de traduire, de créer une œuvre dérivée, de distribuer, d’afficher ce contenu dans le monde entier et dans tout type de média ; et (b) Sémaphores, ses sous-licenciés et ses cessionnaires le droit d’utiliser le nom utilisé avec ce contenu, s’ils le veulent. Aucuns droits moraux ne sont cédés au titre de cette clause.</p>
+    <p>L’utilisateur accepte que les droits ci-dessus cédés soient irrévocables pour toute la période de protection par le droit de la propriété intellectuelle associée à ce contenu ou matériel.</p>
+
+
+    <h3>ARTICLE 5 – DROITS ET OBLIGATIONS DE L’UTILISATEUR </h3>
+
+    <p>L’utilisateur s’engage sur l’exactitude des informations personnelles fournies lors de son inscription puis, le cas échéant, lors de l’administration de l’examen donnant lieu à un certificat. Ces informations seront utilisées pour l’édition de l’attestation de bonne fin et/ou du certificat. Sémaphores n’effectuera aucune modification des informations figurant sur l’attestation de bonne fin et/ou sur le certificat, si les informations personnelles fournies par l’utilisateur lors de son inscription et/ou de l’administration des tests et de l’examen sont incorrectes. </p>
+    <p>Conformément à la loi Informatique et Libertés du 6 janvier 1978 (Loi n°78-17) modifiée en 2004 (Loi n° 2004-575), l’utilisateur bénéficie d’un droit d’accès et de rectification aux informations qui le concernent. Par ailleurs, conformément aux exigences du Code de la Consommation, aux articles L.121-16 et suivants, l’utilisateur s’étant inscrit dispose d’un délai de sept (7) jours pour se rétracter après la conclusion du contrat sans avoir à se justifier, ni à payer de pénalités, s’il ne s’est pas connecté à la plateforme ou n’a utilisé aucun des contenus de celle-ci. Toutefois, l’utilisateur est informé de la date et heure limite d’enregistrement à l’examen en vue d’obtenir le certificat. En conséquence, si l’examen a lieu avant l’expiration du délai de rétractation de 7 jours, l’utilisateur reconnaît et accepte expressément par l’inscription à l’examen que son droit de rétractation ne pourra être maintenu jusqu’au terme des 7 jours s’il se présente à l’examen. Dans ce cas, il sera réputé avoir définitivement accepté les termes et conditions du présent contrat.</p>
+
+    <h3>ARTICLE 6 – DROITS ET OBLIGATIONS DE SEMAPHORES</h3>
+    <p>Sémaphores s’engage à apporter tous les soins en usage dans la profession pour la mise en œuvre des enseignements offerts à l’utilisateur. Néanmoins, la responsabilité de Sémaphores ne pourra être retenue en cas de retard ou de manquement à nos obligations contractuelles si le retard ou manquement est dû à une cause en dehors du contrôle de Sémaphores : cas fortuit ou cas de force majeure tel que défini par la loi applicable.</p>
+    <p>Sémaphores met en œuvre tous les moyens à sa disposition pour assurer les prestations objets des présentes Conditions de Vente. Sémaphores est responsable de tout dommage direct et prévisible au moment de l’utilisation du contenu ou de la conclusion du contrat de vente. Dans le cadre des relations avec des professionnels, Sémaphores n’encoure aucune responsabilité pour les pertes de bénéfices, pertes commerciales, pertes de données ou manque à gagner ou tout autre dommage indirect ou qui n’était pas prévisible au moment de l’utilisation du contenu ou de la conclusion du contrat de vente.</p>
+    <p>Sémaphores s’engage à garantir la confidentialité et la sécurité des informations personnelles des utilisateurs, sans préjudice des autorisations d’utilisation des données de l’utilisateur prévues à l’article 5 et conformément à la loi Informatique et Libertés du 6 janvier 1978 (Loi n°78-17) modifiée en 2004 (Loi n° 2004-575).</p>
+    <p>Sémaphores s’engage à rembourser le client qui se serait rétracté au plus tard dans les 60 jours civils à compter du moment où il aura exercé son droit de rétractation. L’utilisateur reconnaît et accepte que toute annulation, en dehors du délai de rétractation applicable sur le territoire, d’une inscription à l’examen en vue d’obtenir un certificat effectué avant la date limite d’enregistrement prévue pour cet examen, se verra appliquer des frais d’annulation d’un maximum du 50% du prix payé. Il ne sera procédé à AUCUN REMBOURSEMENT, en dehors du délai de rétractation applicable sur le territoire, de toute inscription à l’examen effectuée après la date limite d’enregistrement applicable sur le territoire.</p>
+    <p>Sémaphores se réserve le droit de faire des changements de contenu, calendrier, etc., de procédures, et des termes et conditions, y compris les présentes conditions d’utilisation et générales de vente à tout moment. L’utilisateur est soumis aux termes et conditions, procédures et conditions d’utilisation et de vente en vigueur au moment où il s’inscrit et les accepte. Si l’une stipulation de ces conditions d’utilisation et générales de vente est réputée non valide, nulle ou inapplicable, quelle qu’en soit la raison, cette stipulation sera réputée divisible et n’affectera pas la validité et l’effectivité des stipulations restantes.</p>
+
+    <h3>ARTICLE 7 - MODALITÉS D’INSCRIPTION- PRIX</h3>
+
+    <p>Le tarif de chaque formation est disponible sur la plateforme. Pour s’inscrire à une formation et acquérir un accès et une licence d’utilisation tels que stipulés à l’article 4, l’utilisateur doit faire parvenir à Sémaphores les informations mentionnées dans le bulletin d’inscription, par voie postale ou électronique.</p>
+    <p>Une inscription à une formation peut faire l'objet d'une <strong>convention de formation professionnelle</strong> établie en 2 exemplaires entre Sémaphores et l'entreprise ou l'organisme qui inscrivent un ou plusieurs utilisateurs (à partir de 20 accès, sinon, nous consulter).</p>
+    <p>L'inscription ne devient définitive qu'à réception par Sémaphores du paiement correspondant à cette inscription.</p>
+    <p>La facture, correspondant au prix indiqué et incluant la TVA (20 %), est envoyée dès le démarrage de la formation. Cette somme couvre l'intégralité des frais engagés pour la réalisation de la formation.</p>
+
+    <h3>ARTICLE 8 : CONDITIONS DE PAIEMENT</h3>
+
+    <p><strong>Le règlement aura lieu à réception de facture de Sémaphores.</strong></p>
+    <p>Conformément aux dispositions légales, les intérêts de retards seront demandés pour tout paiement effectué au-delà de la date d’échéance. Aucun escompte ne sera accordé pour paiement anticipé.</p>
+    <p>Sémaphores se réserve le droit de modifier les prix et conditions de paiement à tout moment, en tenant compte de l’évolution du contenu, de la plateforme et des prestations.</p>
+
+    <h3>ARTICLE 9 - DROIT APPLICABLE</h3>
+    <p>Le droit applicable est le droit français. Si l’utilisateur enfreint ces conditions d’utilisation et générales de vente et que Sémaphores ne prend aucune action, Sémaphores reste en droit d’utiliser ses droits et voies de recours dans toutes les autres situations où l’utilisateur violerait ces conditions d’utilisation et générales de vente.</p>
+
+
   </section>
 
 </main>

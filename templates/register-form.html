@@ -309,7 +309,8 @@ import datetime
       % if has_extauth_info is UNDEFINED or ask_for_tos :
       <div class="field required checkbox" id="field-tos">
         <style>#registerhonorlink:hover{color:rgba(195,207,0,1) !important;}</style>
-        <p>${_("By submitting this form, you agree to TH Conseil Terms of Use. We ensure that the data collected in this form will not be used for any other purpose than the online training for which you are registered, in accordance with the data protection legislation. For more information, please refer to our")} <a href="/honor" id="registerhonorlink" target="_blank">${_("Terms and Conditions")}</a> ${_("in French")}.</p>
+        <p>En soumettant ce formulaire, j’accepte que les informations saisies soient utilisées par Sémaphores (TH Conseil) dans le cadre des modules e-learning. Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l’utilisation des données collectées par ce formulaire, veuillez consulter les <a href="/honor" id="registerhonorlink" target="_blank">Conditions générales d\'utilisation</a>.</p>
+        <!-- <p>${_("By submitting this form, you agree to TH Conseil Terms of Use. We ensure that the data collected in this form will not be used for any other purpose than the online training for which you are registered, in accordance with the data protection legislation. For more information, please refer to our")} <a href="/honor" id="registerhonorlink" target="_blank">${_("Terms and Conditions")}</a> ${_("in French")}.</p> -->
         <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
         <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
           link_start='<a href="{url}" class="new-vp" aria-label="conditions d\'utilisation du service nouvelle fenetre">'.format(url=marketing_link('HONOR')),
@@ -365,6 +366,25 @@ $('#first_name,#last_name').change(function(){
   $('#name').attr('value',name);
 })
 </script>
+
+
+<script>
+  var intervalId = setInterval(() => {
+    var select = document.getElementById('settings-language-value');
+    var textCgu = document.getElementById('field-tos').getElementsByTagName('p')[0];
+
+    if (select.value === 'fr') {
+      textCgu.innerHTML = '<p>En soumettant ce formulaire, j’accepte que les informations saisies soient utilisées par Sémaphores (TH Conseil) dans le cadre des modules e-learning. Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l’utilisation des données collectées par ce formulaire, veuillez consulter les <a href="/honor" id="registerhonorlink" target="_blank">Conditions générales d\'utilisation</a>.</p>'
+
+    } else {
+      textCgu.innerHTML = '<p>By submitting this form, you agree to TH Conseil Terms of Use. We ensure that the data collected in this form will not be used for any other purpose than the online training for which you are registered, in accordance with the data protection legislation. For more information, please refer to our <a href="/honor" id="registerhonorlink" target="_blank">Terms and Conditions</a> in French.</p>'
+    }
+    
+    clearInterval(intervalId);
+  }, 200);
+
+</script>
+
 <div class="form-actions" id="login_link_up">
 % if static.get_value('course_id') is not None:
   <a id="login_link" href="/login?course_id=${static.get_value('course_id')}&enrollment_action=enroll"> ${_("Already have an account? login")}</a>

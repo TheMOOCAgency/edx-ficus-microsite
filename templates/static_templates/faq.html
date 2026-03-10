@@ -6,33 +6,70 @@ from openedx.core.djangolib.markup import HTML
 %>
 <%inherit file="../main.html" />
 <%namespace name='static' file='../static_content.html'/>
-<%
-from cms.djangoapps.microsite_manager.mongo_model import staticFiles
-from cms.djangoapps.microsite_manager.models import Microsite
-_key = static.get_value('domain_prefix')
-_microsite_id = Microsite.objects.get(key=_key).id
-_collection = 'faq'
-_values = {
-  "microsite_id":_microsite_id
-}
-_template = staticFiles().return_template(_values,_collection).get('template')
-if _template is None:
-  _template = "<p>Faq</p>"
-%>
 <%block name="pagetitle">${_("FAQ")}</%block>
+
+
+
 <style>
-main {
- background-color: #fff;
-}
+  main {
+    background-color: #fff;
+    font-family: 'Oswald Regular', sans-serif;
+  }
+  section.container {
+    width: 70%;
+    margin: 0 auto;
+  }
+  h1 {
+    margin-top: 2em;
+    color: #c3cf00;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  h3 {
+    font-weight: bold;
+    margin-top: 2em;
+    color: #c3cf00;
+  }
+  p {
+    margin-top: 1em;
+    line-height: 1.4em;
+    text-align: justify;
+  }
 </style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("FAQ")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
-    </section>
--->
-<section class="static-container faq">
-${_template | n}
-</section>
+  <section class="container about">
+    <h1>FAQ</h1>
+
+
+
+    <h3>Que faire si j’ai oublié mon mot de passe ?</h3>
+    
+    <p>Si vous avez oublié votre mot de passe, vous pouvez demander une réactualisation de celui-ci. Cliquez sur « Mot de passe oublié ? » depuis la page de connexion et suivez les instructions. Vous recevrez alors un e-mail avec un lien qui vous permettra de changer votre mot de passe.</p>
+
+    <h3>Je n'ai pas reçu de mail d'activation</h3>
+
+    <p>Si vous n'avez pas reçu de mail d'activation, cela peut être parce que : </p>
+    <ul>
+      <li> Il y avait une faute de frappe dans votre adresse e-mail. Avez-vous bien renseigné celle-ci ?</li>
+      <li>Votre filtre anti-spam a peut-être considéré l’email d’activation comme un spam. Merci de vérifier votre dossier spam.</li>
+      <li>Vous utilisez peut-être un ancien navigateur. Nous vous recommandons de télécharger la version courante de votre navigateur.</li>
+    </ul>
+    <p>Si vous avez des problèmes avec l'activation de votre compte, nous recommandons de créer un nouveau compte. Il n'y a rien à faire avec l'ancien. S'il n'est pas activé via le lien du mail, il disparaîtra plus tard.</p>
+
+
+    <h3>Quel navigateur utiliser ?</h3>
+
+    <p>Cette plateforme est optimisée pour fonctionner avec les versions actuelles de Chrome, Firefox, Safari, Opéra sur PC et MAC.  Nous vous conseillons de suivre la formation sur ordinateur ou tablette et d’éviter les écrans de petites tailles (ex. : téléphone portable).</p>
+
+    <h3>J'ai des problèmes d'affichage. Par exemple, il manque des fonctionnalités ou je ne peux pas voir les vidéos.</h3>
+
+    <p>Nous vous recommandons de télécharger la dernière version de votre navigateur si ce n’est pas le cas. Essayez également de rafraîchir la page (F5) : il peut s’agir notamment d’un problème de connexion.</p>
+
+
+    <h3>J’ai d’autres questions, d’ordre pédagogique par exemple</h3>
+    <p>Pour toute autre question, contactez-nous sur formationenligne@thconseil.fr</p>
+
+  </section>
 </main>
