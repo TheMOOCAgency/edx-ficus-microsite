@@ -238,7 +238,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
       <div class="inner-wrapper">
         ${get_course_about_section(request, course, "overview")}
       </div>
-  </div>
+    </div>
 
     <div class="course-sidebar">
       <div class="course-summary">
@@ -319,7 +319,7 @@ css = '/media/microsite/{}/auto/css/course_about.css'.format(org_static)
             <li class="important-dates-item"><span class="icon fa fa-book" aria-hidden="true"></span><p class="important-dates-item-title">${_("Requirements")}</p><span class="important-dates-item-text prerequisites">${get_course_about_section(request, course, "prerequisites")}</span></li>
           % endif
         </ol>
-    </div>
+      </div>
 
       ## CourseTalk widget
       % if show_coursetalk_widget:
