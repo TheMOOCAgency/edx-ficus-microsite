@@ -1,3 +1,4 @@
+
 <%page expression_filter="h"/>
 <%!
 from django.utils.translation import ugettext as _
@@ -26,15 +27,45 @@ main {
  background-color: #fff;
 }
 </style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-<!--
-    <section class="container about">
-        <h1>${_("Honor Code")}</h1>
-        <p>${_("This page left intentionally blank. Feel free to add your own content.")}</p>
+    <section class="static-container honor">
+        <h1 style="text-align: center;">CONDITIONS GÉNÉRALES D'UTILISATION<br>&nbsp;</h1>
+        <p>Le site mooc-innover-recherche-publique.fr a pour finalité de proposer un service de formation en ligne aux problématiques de l’innovation à toute personne rattachée à l'un des Établissements membres de la ComUE UBL ou du Réseau C.U.R.I.E., et en particulier aux doctorants, chercheurs, enseignants chercheurs, ingénieurs ou membre du personnel des organismes de recherche et de valorisation.&nbsp;</p>
+        <p>Les formations de type MOOC proposées sur la plateforme ont un caractère collaboratif, avec des possibilités d’échanges entre apprenants et l’équipe pédagogique, via le forum entre autres.</p>
+        <p>Il a été réalisé conjointement par Ouest Valorisation et le Réseau C.U.R.I.E., avec le soutien financier de l’Université Bretagne Loire, de la Région Bretagne, du Ministère de l’Enseignement Supérieur et de la Recherche, et du Programme d’Investissement d’Avenir.</p>
+        <h2>ÉDITEUR DU SITE</h2>
+        <p>Nom de l’éditeur&nbsp;: Ouest Valorisation</p>
+        <p>Siège : 14C Rue du Pâtis Tatelin, Métropolis 2, 35700 Rennes, France</p>
+        <p>Siret&nbsp;: 753 000 611 000 32</p>
+        <p>Directeur de la publication&nbsp;: Franck TESTON</p>
+        <p>Adresse électronique : <a href="mailto:info@ouest-valorisation.fr">info@ouest-valorisation.fr</a></p>
+        <h2>HÉBERGEMENT</h2>
+        <p>The MOOC Agency</p>
+        <h2>RÉDACTION</h2>
+        <p>Ouest Valorisation &amp; The MOOC Agency</p>
+        <h2>RÉALISATION</h2>
+        <p>Ouest Valorisation &amp; The MOOC Agency</p>
+        <h2>AVERTISSEMENT</h2>
+        <p>L’accès au contenu du site mooc-innover-recherche-publique.fr implique votre adhésion préalable aux conditions ci-après.</p>
+        <p>1 - L'accès au site vous confère un droit d'usage privé incessible et non exclusif aux informations de ce site aux seules fins de votre usage interne et personnel ; tout usage commercial ou publicitaire du site étant prohibé.</p>
+        <p>Ouest Valorisation est en droit, à son entière discrétion, d'ajouter, supprimer ou modifier à tout moment tout ou partie des informations incluses dans le site.</p>
+        <p>Rien de ce qui est contenu dans les présentes ne pourra être réputé concéder au visiteur ou à l'utilisateur du site une quelconque licence ou droit en vue de l'utilisation d'un des éléments édités sur le site.</p>
+        <p>L’utilisation du site s’effectue entièrement aux propres risques de l’utilisateur. Les informations figurant sur le site sont données en l’état, à titre uniquement informatif, sans garantie d’exactitude, d’exhaustivité de résultat ou autre, ni responsabilité d’aucune sorte, expresse ou implicite, y compris et sans limitation, pour ce qui concerne la valeur marchande ou l’adéquation à des buts particuliers ou autres.</p>
+        <p>2 - L'ensemble des éléments édités sur ce site, incluant notamment les textes, photographies, infographies, logotypes, marques appellations commerciales et autres indications d'origine, constitue des œuvres au sens du code de la Propriété Intellectuelle.</p>
+        <p>Toute représentation ou reproduction, intégrale ou partielle, qui pourrait être faite sans le consentement de leurs auteurs ou de leurs ayants droit et/ou sans l’autorisation préalable écrite de Ouest Valorisation est illicite; étant rappelé que l'utilisateur n'acquiert aucun droit de propriété en imprimant ou en téléchargeant quelque partie que ce soit des informations ou en faisant usage des fonctionnalités du site. La copie ou la reproduction d’un des éléments édités peut donc constituer une contrefaçon, une atteinte aux droits d’auteur, un acte de parasitisme ou de diffamation ; de même, la mise en place de liens hypertextes vers des pages ou des documents du site sans l’autorisation préalable et écrite de Ouest Valorisation.</p>
+        <p>3 - Pour les données à caractère personnel apparaissant sur le site, il appartient à l’internaute d’en faire un usage conforme à la réglementation en vigueur et aux recommandations de la Commission nationale de l’informatique et des libertés (Cnil). Il est rappelé en particulier que la capture des écrans pour reconstitution et enrichissement d’une base de données nominative est interdite.</p>
+        <p>Tout manquement du visiteur ou de l’utilisateur à l’une des prescriptions ci-dessus engage sa responsabilité civile et/ou pénale.</p>
+        <h2>DONNÉES PERSONNELLES</h2>
+        <p>Conformément à la loi relative à l’informatique, aux fichiers et aux libertés (loi n° 78-17 du 6 janvier 1978 modifiée par la loi 2004-801 du 6 août 2004) les utilisateurs bénéficient d’un droit d’accès, de modification, de rectification et de suppression des données personnelles qui les concernent.</p>
+        <p>Pour exercer ce droit, il suffit d’en faire la demande en nous écrivant par :</p>
+        <p>- courriel : <a href="mailto:dpo@ouest-valorisation.fr">dpo@ouest-valorisation.fr</a></p>
+        <p>- courrier postal : Ouest Valorisation 14C Rue du Pâtis Tatelin, Métropolis 2, 35700 Rennes, France</p>
+        <p>Merci d’indiquer votre nom ou raison sociale, vos coordonnées physiques et/ou électroniques. La modification interviendra dans des délais raisonnables à compter de la réception de votre demande.</p>
+        <h2>COOKIES</h2>
+        <p>L’éditeur informe l’internaute qu’il utilise des procédés non visibles de collecte de données, du type « cookies ». Lorsque l’internaute se connecte sur le site, il est averti que le site du https://mooc-innover-recherche-publique.fr/ utilise cette technologie.</p>
+        <p>&nbsp;</p>
     </section>
--->
-  <section class="static-container honor">
-  ${_template | n}
-  </section>
 
 </main>
+
